@@ -1,0 +1,14 @@
+<html>
+<head>
+</head>
+<body>
+<p id="bigtime" style="font-size: 1500%"></p>
+<script>
+function getTime() {
+document.getElementById("bigtime").innerHTML = `${new Date().getHours()} : ${new Date().getMinutes()}`;
+}
+getTime();
+setTimeout('getTime()', 60000);
+</script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>
+            π计算器
+        </title>
+        <link rel="stylesheet" href="pi.css">
+        <script src="pi.js"></script>
+    </head>
+    <body>
+        <h1>π计算器</h1>
+        <h2>π的小数点后位数：</h2>
+        <div id="input">
+            <input type="number" id="weishu">
+            <br>
+            <button type="submit" onclick="start();" onsubmit="start();">开始计算</button>
+        </div>
+        <h2>选项</h2>
+        <input type="checkbox" id="isUseAlertShow" />用提示框显示结果
+        <button onclick="setconfig();">设置</button>
+        <div id="out" onload="
+            if (isuas == true) {
+                this.style.display = 'none';
+            } else if (isuas == false) {
+                this.style.display = '';
+            }">
+            <h2>结果</h2>
+            <p id="outendwm">π是：<span id="outend"></span></p>
+        </div>
+    </body>
+</html>
