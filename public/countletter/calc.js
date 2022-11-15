@@ -1,5 +1,0 @@
-function main() {
-  var letter = prompt("请输入字母：","");
-  var letter = letter.replace("A","1").replace("B","2").replace("C","3").replace("D","4").replace("E","5").replace("F","6").replace("G","7").replace("H","8").replace("I","9").replace("J","10").replace("K","11").replace("L","12").replace("M","13").replace("N","14").replace("O","15").replace("P","16").replace("Q","17").replace("R","18").replace("S","19").replace("T","20").replace("U","21").replace("V","22").replace("W","23").replace("X","24").replace("Y","25").replace("Z","26").replace("a","1").replace("b","2").replace("c","3").replace("d","4").replace("e","5").replace("f","6").replace("g","7").replace("h","8").replace("i","9").replace("j","10").replace("k","11").replace("l","12").replace("m","13").replace("n","14").replace("o","15").replace("p","16").replace("q","17").replace("r","18").replace("s","19").replace("t","20").replace("u","21").replace("v","22").replace("w","23").replace("x","24").replace("y","25").replace("z","26");
-  alert(letter);
-}

@@ -23,7 +23,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "components/center.js/center.js, components/center.tsx/center.jsx"  ],
   "exclude": [
     "node_modules"
   ]
