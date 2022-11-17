@@ -40,15 +40,6 @@ function PI(): JSX.Element {
         }
         console.log(retinfo);
     };
-    useEffect(() => {
-        console.log(`[React监听] 当前out的值为"${out}"`);
-        window.pi = pi;
-        window.weishu = weishu;
-        window.proc = proc;
-        window.calc = calc;
-        window.out = out;
-        proc();
-    }, [out, weishu, proc, calc]);
     return (
         <>
             <Head>
@@ -58,6 +49,11 @@ function PI(): JSX.Element {
                         border: 1px solid;
                         height: {{ window.screen.availHeight }}px;
                     }*/
+                    #outendwm {
+                        word-wrap: break-word;
+                        word-break: "break-all;
+                        overflow: hidden;
+                    }
                     h3 {
                         text-align: center;
                         font-family: Cambria;
@@ -119,11 +115,7 @@ function PI(): JSX.Element {
                         alert("糟糕！出错了");
                     }
                 }}>复制</Button>
-                <Typography variant="body1" id="outendwm" style={{
-                    "word-wrap": "break-word",
-                    "word-break": "break-all",
-                    overflow: "hidden",
-                }} gutterBottom>π是：{out}</Typography>
+                <Typography variant="body1" id="outendwm" gutterBottom>π是：{out}</Typography>
             </div>
         </>
     );
