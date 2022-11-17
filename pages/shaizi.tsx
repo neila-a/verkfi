@@ -1,6 +1,11 @@
 import Center from "../components/center";
 import Head from "next/head";
-import { useEffect } from "react";
+import React, {
+    useEffect
+} from "react";
+import {
+    Button
+} from "@mui/material";
 function ShaiZi(): JSX.Element {
     var leftX: number = 150;
     var topY: number = 100;
@@ -16,7 +21,8 @@ function ShaiZi(): JSX.Element {
             return false;
         }
         flag = true;
-        var ctx = document.getElementById("canvas").getContext('2d');
+        var ct = document.getElementById("canvas") as HTMLCanvasElement;
+        var ctx = ct.getContext("2d");
         ctx.beginPath();
         //ctx.arc(100,100,50,0,Math.PI,false);
         ctx.strokeRect(leftX, topY, diceX, diceY);
@@ -75,14 +81,16 @@ function ShaiZi(): JSX.Element {
         ctx.fill();
     }
     function draw1() {
-        var ctx = document.getElementById("canvas").getContext('2d');
+        var ct = document.getElementById("canvas") as HTMLCanvasElement;
+        var ctx = ct.getContext("2d");
         ctx.fillStyle = "#0000ff";
         var dotX = leftX + diceX / 2;
         var dotY = topY + diceY / 2;
         commonDraw(ctx, dotX, dotY);
     }
     function draw2() {
-        var ctx = document.getElementById("canvas").getContext('2d');
+        var ct = document.getElementById("canvas") as HTMLCanvasElement;
+        var ctx = ct.getContext("2d");
         ctx.fillStyle = "#99FF66";
         var dotX = leftX + 4 * dotR;
         var dotY = topY + 4 * dotR;
@@ -97,7 +105,8 @@ function ShaiZi(): JSX.Element {
     }
     function draw4() {
         draw2();
-        var ctx = document.getElementById("canvas").getContext('2d');
+        var ct = document.getElementById("canvas") as HTMLCanvasElement;
+        var ctx = ct.getContext("2d");
         ctx.fillStyle = "#99CC00";
         var dotX = leftX + diceX - 4 * dotR;
         var dotY = topY + 4 * dotR;
@@ -112,7 +121,8 @@ function ShaiZi(): JSX.Element {
     }
     //http://www.cnblogs.com/sosoft/
     function draw6() {
-        var ctx = document.getElementById("canvas").getContext('2d');
+        var ct = document.getElementById("canvas") as HTMLCanvasElement;
+        var ctx = ct.getContext("2d");
         ctx.fillStyle = "#996633";
         var dotX = leftX + 4 * dotR;
         var dotY = topY + diceY / 2
@@ -122,7 +132,8 @@ function ShaiZi(): JSX.Element {
         draw4();
     }
     function init() {
-        var ctx = document.getElementById("canvas").getContext('2d');
+        var ct = document.getElementById("canvas") as HTMLCanvasElement;
+        var ctx = ct.getContext("2d");
         ctx.beginPath();
         ctx.strokeRect(leftX, topY, diceX, diceY);
         ctx.stroke();
@@ -143,15 +154,7 @@ function ShaiZi(): JSX.Element {
                     your brower is not support html5
                 </canvas>
                 <br></br>
-                <button type="button" style={{
-                    backgroundColor: '#ffffff',
-                    color: '#3399ff',
-                    borderColor: '#3399ff',
-                    borderRadius: "100px",
-                    height: "50px",
-                    width: "100px",
-                    fontSize: "20px"
-                }} onClick={clickMe}>掷骰子</button>
+                <Button type="button" variant="contained" onClick={clickMe}>掷骰子</Button>
             </Center>
         </div>
     );

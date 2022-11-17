@@ -1,18 +1,24 @@
 import Head from "next/head";
+import Script from "next/script";
 import {
-    Button
+    Button,
+    Paper,
+    Typography
 } from "@mui/material";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import Recorder from "../lib/recorder";
 function AudioTools(): JSX.Element {
+    var [startDisabled, setStartDisabled] = useState(false);
+    var [stopDisabled, setStopDisabled] = useState(true);
     useEffect(function () {
         var start = document.querySelector('#start');
         var stop = document.querySelector('#stop');
         var container = document.querySelector('#audio-container');
-        var recorder = new Recorder({
+        var recorder = Recorder({
             sampleRate: 44100, //采样频率，默认为44100Hz(标准MP3采样率)
             bitRate: 128, //比特率，默认为128kbps(标准MP3质量)
             success: function () { //成功回调函数
-                start.disabled = false;
+                setStartDisabled(false);
             },
             error: function (msg) { //失败回调函数
                 alert(msg);
@@ -22,8 +28,9 @@ function AudioTools(): JSX.Element {
             }
         });
         start.addEventListener('click', function () {
-            this.disabled = true;
-            stop.disabled = false;
+            setStopDisabled(false);
+            setStartDisabled(true);
+            container.innerHTML = "";
             var audio = document.querySelectorAll('audio');
             for (var i = 0; i < audio.length; i++) {
                 if (!audio[i].paused) {
@@ -33,16 +40,21 @@ function AudioTools(): JSX.Element {
             recorder.start();
         });
         stop.addEventListener('click', function () {
-            this.disabled = true;
-            start.disabled = false;
+            setStopDisabled(true);
+            setStartDisabled(false);
             recorder.stop();
             recorder.getBlob(function (blob) {
                 var audio = document.createElement('audio');
                 audio.src = URL.createObjectURL(blob);
+                console.log(`成功加载音频：${audio.src}`);
                 audio.controls = true;
                 audio.loop = true;
                 container.appendChild(audio);
             });
+            var AudioElements = document.querySelectorAll("audio");
+            for (let i = 0; i < AudioElements.length; i++) {
+
+            };
         });
     });
     function onChange(event) {
@@ -57,7 +69,7 @@ function AudioTools(): JSX.Element {
     }
     function tts() {
         var text = prompt('请输入需要转换的文字：', '你好像没输入任何文字。');
-        var speed = prompt("请输入语速（0～15）：", "0");
+        var speed: any = prompt("请输入语速（0～15）：", "0");
         if (speed < 1) {
             alert("你输入的语速比1还小,太小了！");
             return;
@@ -71,53 +83,42 @@ function AudioTools(): JSX.Element {
         document.getElementById("audioplay-tts").innerHTML = `<iframe src='${url}'</iframe>`;
     }
     return (
-        <>
+        <div>
             <Head>
                 <title>AudioTools</title>
                 <style>{`
-			            audio { display: block; margin-bottom: 10px; }
-            		    #audio-container { padding: 20px 0; }
-            		    .ui-btn { display: inline-block; padding: 5px 20px; font-size: 14px; line-height: 1.428571429; box-sizing:content-box; text-align: center; border: 1px solid #e8e8e8; border-radius: 3px; color: #555; background-color: #fff; border-color: #e8e8e8; white-space: nowrap; cursor: pointer; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
-            		    .ui-btn:hover, .ui-btn.hover { color: #333; text-decoration: none; background-color: #f8f8f8; border:1px solid #ddd; }
-            		    .ui-btn:focus, .ui-btn:active { color: #333; outline: 0; }
-            		    .ui-btn.disabled, .ui-btn.disabled:hover, .ui-btn.disabled:active, .ui-btn[disabled], .ui-btn[disabled]:hover, .ui-state-disabled .ui-btn { cursor: not-allowed; background-color: #eee; border-color: #eee; color: #aaa; }
-            		    .ui-btn-primary { color: #fff;  background-color: #39b54a;  border-color: #39b54a; }
-            		    .ui-btn-primary:hover, .ui-btn-primary.hover { color: #fff; background-color: #16a329; border-color: #16a329; }
-            		    .ui-btn-primary:focus, .ui-btn-primary:active { color: #fff; }
-            		    .ui-btn-primary.disabled:focus{ color: #aaa; }
-                    `}</style>
+                    #audioreplay > div, #audioinput > div, #text2audio > div {
+                        margin: 10px
+                    }
+                `}</style>
             </Head>
-            <script src='https://wangpengfei15974.github.io/recorder.js/js/recorder.js'></script>
-            <div id='audioreplay' style={{
-                border: "2px solid black"
-            }}>
-                <h2>音频循环播放</h2>
-                <div id="audioplay-loop"></div>
-                <input type='file'
-                    onChange={onChange}
-                    id='inputfile' />
-            </div>
+            <Paper elevation={24} id="audioreplay">
+                <div>
+                    <Typography variant="h3" gutterBottom>音频循环播放</Typography>
+                    <div id="audioplay-loop"></div>
+                    <input type='file' onChange={onChange} id='inputfile' />
+                </div>
+            </Paper>
             <br />
-            <div id='audioinput' style={{
-                border: '2px solid black'
-            }}>
-                <h2>音频录制并循环</h2>
-                <button id="start" className="ui-btn ui-btn-primary">录音</button>
-                <button id="stop" className="ui-btn ui-btn-primary" disabled={true}>停止</button>
-                <div id="audio-container"></div>
-            </div>
-            <br />
-            <div id="text-to-audio" style={{
-                border: '2px solid black'
-            }}>
-                <h2>文字转音频</h2>
-                <button onClick={tts} style={{
-                    display: 'inline-block'
-                }}>点我</button>
-                <div id='audioplay-tts'></div>
-                <p style={{}}>Powered by Sogou TTS.</p>
-            </div>
-        </>
+            <Paper elevation={24} id="audioinput">
+                <div>
+                    <Typography variant="h3" gutterBottom>音频录制并循环</Typography>
+                    <Button id="start" variant="contained" disabled={startDisabled}>录音</Button>
+                    <Button id="stop" variant="contained" disabled={stopDisabled}>停止</Button>
+                    <div id="audio-container"></div>
+                </div>
+            </Paper>
+            <Paper elevation={24} id='text2audio'>
+                <div>
+                    <Typography variant="h3" gutterBottom>文字转音频</Typography>
+                    <Button color="primary" variant="contained" onClick={tts} style={{
+                        display: 'inline-block'
+                    }}>点我</Button>
+                    <div id='audioplay-tts'></div>
+                    <p style={{}}>Powered by Sogou TTS.</p>
+                </div>
+            </Paper>
+        </div>
     );
 };
 export default AudioTools;

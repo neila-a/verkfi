@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-function bigTime(): JSX.Element {
+function BigTime(): JSX.Element {
     useEffect(() => {
         const getTime = function () {
             document.getElementById("bigtime").innerHTML = `${new Date().getHours()} : ${new Date().getMinutes()}`;
@@ -13,4 +13,4 @@ function bigTime(): JSX.Element {
         }}></p>
     </>);
 };
-export default bigTime;
+export default BigTime;
