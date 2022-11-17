@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import HeadBar from "../components/HeadBar";
 function BigTime(): JSX.Element {
     useEffect(() => {
         const getTime = function () {
@@ -7,10 +8,13 @@ function BigTime(): JSX.Element {
         getTime();
         setTimeout(getTime, 60000);
     });
-    return (<>
-        <p id="bigtime" style={{
-            fontSize: "1500%"
-        }}></p>
-    </>);
+    return (
+        <>
+            <HeadBar isIndex={false} pageName="BigTime" />
+            <p id="bigtime" style={{
+                fontSize: "1500%"
+            }}></p>
+        </>
+    );
 };
 export default BigTime;

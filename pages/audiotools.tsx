@@ -6,6 +6,7 @@ import {
     Typography
 } from "@mui/material";
 import { useEffect, useState } from "react";
+import HeadBar from "../components/HeadBar";
 import Recorder from "../lib/recorder";
 function AudioTools(): JSX.Element {
     var [startDisabled, setStartDisabled] = useState(false);
@@ -92,6 +93,7 @@ function AudioTools(): JSX.Element {
                     }
                 `}</style>
             </Head>
+            <HeadBar isIndex={false} pageName="AudioTools" />
             <Paper elevation={24} id="audioreplay">
                 <div>
                     <Typography variant="h3" gutterBottom>音频循环播放</Typography>

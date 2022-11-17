@@ -1,8 +1,0 @@
-{
-    "routes": [
-        {
-            "src": "/index",
-            "dest": "/portal"
-        }
-    ]
-}

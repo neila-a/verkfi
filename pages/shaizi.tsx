@@ -6,6 +6,7 @@ import React, {
 import {
     Button
 } from "@mui/material";
+import HeadBar from "../components/HeadBar";
 function ShaiZi(): JSX.Element {
     var leftX: number = 150;
     var topY: number = 100;
@@ -147,6 +148,7 @@ function ShaiZi(): JSX.Element {
             <Head>
                 <title>掷骰子</title>
             </Head>
+            <HeadBar isIndex={false} pageName="掷骰子" />
             <Center>
                 <canvas onLoad={init} id="canvas" width="400" height="300" style={{
                     backgroundColor: "#3399ff"
