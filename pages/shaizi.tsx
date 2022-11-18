@@ -1,4 +1,4 @@
-import Center from "../components/center";
+import Center from "../components/Center";
 import Head from "next/head";
 import React, {
     useEffect

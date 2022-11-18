@@ -1,5 +1,7 @@
 import Head from "next/head";
+import Link from "next/link";
 import HeadBar from "../components/HeadBar";
+import Center from "../components/Center";
 import * as React from 'react';
 import {
     Box,
@@ -9,7 +11,11 @@ import {
     ListItemText
 } from "@mui/material";
 function Index(): JSX.Element {
-    const pages = [
+    interface page {
+        name: string,
+        to: string
+    }
+    const pages: page[] = [
         {
             name: "AudioTools",
             to: "audiotools"
@@ -38,25 +44,29 @@ function Index(): JSX.Element {
     return (
         <>
             <Head>
-                <title>NeilaNotes</title>
+                <title>NeilaTools</title>
             </Head>
-            <HeadBar isIndex={true} pageName="NeilaNotes" />
-            <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-                <nav aria-label="main mailbox folders">
-                    <List>
-                        <ListItem disablePadding>
-                            <ListItemButton>
-                                <ListItemText primary="Inbox" />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemButton>
-                                <ListItemText primary="Drafts" />
-                            </ListItemButton>
-                        </ListItem>
-                    </List>
-                </nav>
-            </Box>
+            <HeadBar isIndex={true} pageName="NeilaTools" />
+            <Center>
+                <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+                    <nav aria-label="main linkbox folders">
+                        <List>
+                            {pages.map((page) => {
+                                return (
+                                    <ListItem key={page.to} disablePadding>
+                                        <ListItemButton>
+                                            <Link href={page.to}>
+                                                <ListItemText primary={page.name} />
+                                            </Link>
+                                        </ListItemButton>
+                                    </ListItem>
+                                );
+                            })}
+                        </List>
+                    </nav>
+
+                </Box>
+            </Center>
         </>
     );
 }
