@@ -49,22 +49,23 @@ function Index(): JSX.Element {
             <HeadBar isIndex={true} pageName="NeilaTools" />
             <Center>
                 <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-                    <nav aria-label="main linkbox folders">
-                        <List>
-                            {pages.map((page) => {
-                                return (
-                                    <ListItem key={page.to} disablePadding>
-                                        <ListItemButton>
-                                            <Link href={page.to}>
-                                                <ListItemText primary={page.name} />
-                                            </Link>
-                                        </ListItemButton>
-                                    </ListItem>
-                                );
-                            })}
-                        </List>
-                    </nav>
-
+                    <Center>
+                        <nav aria-label="main linkbox folders">
+                            <List>
+                                {pages.map((page) => {
+                                    return (
+                                        <ListItem key={page.to} disablePadding>
+                                            <ListItemButton>
+                                                <Link href={page.to}>
+                                                    <ListItemText primary={page.name} />
+                                                </Link>
+                                            </ListItemButton>
+                                        </ListItem>
+                                    );
+                                })}
+                            </List>
+                        </nav>
+                    </Center>
                 </Box>
             </Center>
         </>

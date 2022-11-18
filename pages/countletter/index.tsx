@@ -3,6 +3,7 @@ import {
     Button
 } from "@mui/material";
 import { useEffect } from "react";
+import HeadBar from "../../components/HeadBar";
 function CountLetter(): JSX.Element {
     function main() {
         alert(prompt("请输入字母：", "A")
@@ -73,6 +74,7 @@ function CountLetter(): JSX.Element {
                 display:inline-block;
             }
         `}</style>
+        <HeadBar isIndex={false} pageName="CountLetter" />
         <Link href="help/">
             <Button className="help-btn">去往FAQ页面</Button>
         </Link>
