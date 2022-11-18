@@ -81,6 +81,9 @@ function Index(): JSX.Element {
     function reset(): void {
         setWordList([]);
     };
+    function everyWord(): void {
+        setWordList(words.split(prompt("请输入拆分的符号，不输入则是逐字拆分")));
+    };
     return (
         <div>
             <Head>
@@ -104,6 +107,7 @@ function Index(): JSX.Element {
             <Stack direction="row" spacing={1}>
                 <Button variant="contained" onClick={proc}>处理</Button>
                 <Button variant="outlined" onClick={reset}>重来</Button>
+                <Button variant="outlined" onClick={everyWord}>拆分</Button>
             </Stack>
             <Typography variant="body1">结果：{output}</Typography>
         </div>
