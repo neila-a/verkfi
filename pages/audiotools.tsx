@@ -81,6 +81,14 @@ function AudioTools(): JSX.Element {
         }
         setTTSURL(`https://fanyi.sogou.com/reventondc/synthesis?text=${text}&speed=${speed}&lang=${prompt('请输入语言（"zh"表示中文，"en"表示英文）：', "zh").replace('zh', 'zh-CHS')}&from=translateweb&speaker=6`);
     }
+    function procFromClipboard(): void {
+        navigator.clipboard.readText().then((value) => {
+            setTTSURL(`https://fanyi.sogou.com/reventondc/synthesis?text=${value}&speed=1&lang=zh&from=translateweb&speaker=6`);
+            console.log("获取剪贴板成功：", value);
+        }).catch((value) => {
+            console.log("获取剪贴板失败: ", value);
+        });
+    };
     return (
         <div>
             <Head>
@@ -111,6 +119,7 @@ function AudioTools(): JSX.Element {
                 <div>
                     <Typography variant="h3" gutterBottom>文字转音频</Typography>
                     <Button color="primary" variant="contained" onClick={TTS}>点我</Button>
+                    <Button color="primary" variant="outlined" onClick={procFromClipboard}>从剪贴板读取</Button>
                     <br />
                     <iframe src={TTSURL} title="TTS content"></iframe>
                     <Typography variant="body1" gutterBottom>Powered by Sogou TTS</Typography>
