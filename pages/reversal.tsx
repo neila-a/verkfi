@@ -54,10 +54,12 @@ function destroyer(...arg: any[]): any[] {
 
     return newArray.filter(isFalse);// newArray中删除1,2
 }
-function Index(): JSX.Element {
+function Reversal(): JSX.Element {
     var [wordList, setWordList] = React.useState<string[]>([]);
     var [words, setWords] = React.useState<string>("");
     var [output, setOutput] = React.useState<string>("");
+    var [TTSURL, setTTSURL] = React.useState<string>("");
+    var [show, setShow] = React.useState<boolean>(false);
     function procNewWord(event): void {
         setWords(event.target.value);
     };
@@ -77,11 +79,12 @@ function Index(): JSX.Element {
             return Math.random() - 0.5;
         });
         setOutput(stageOutput.join(""));
+        setShow(false);
     };
     function reset(): void {
         setWordList([]);
     };
-    function everyWord(): void {
+    function split(): void {
         setWordList(words.split(prompt("请输入拆分的符号，不输入则是逐字拆分")));
     };
     function copy(): void {
@@ -92,6 +95,10 @@ function Index(): JSX.Element {
         } catch {
             alert("糟糕！出错了");
         }
+    };
+    function read(): void {
+        setShow(true);
+        setTTSURL(`https://fanyi.sogou.com/reventondc/synthesis?text=${output}&speed=1&lang=zh&from=translateweb&speaker=6`);
     };
     return (
         <div>
@@ -116,11 +123,16 @@ function Index(): JSX.Element {
             <Stack direction="row" spacing={1}>
                 <Button variant="contained" onClick={proc}>处理</Button>
                 <Button variant="outlined" onClick={reset}>重来</Button>
-                <Button variant="outlined" onClick={everyWord}>拆分</Button>
+                <Button variant="outlined" onClick={split}>拆分</Button>
                 <Button variant="outlined" onClick={copy}>复制</Button>
+                <Button variant="outlined" onClick={read}>读取</Button>
             </Stack>
             <Typography variant="body1">结果：{output}</Typography>
+            {show ? <>
+                <br />
+                <iframe src={TTSURL} title="TTS content"></iframe>
+            </> : <></>}
         </div>
     );
 };
-export default Index;
+export default Reversal;
