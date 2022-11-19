@@ -8,8 +8,22 @@ import {
     List,
     ListItem,
     ListItemButton,
-    ListItemText
+    ListItemText,
+    Stack,
+    Paper
 } from "@mui/material";
+import { styled } from '@mui/material/styles';
+/**
+ * 被包装的`Paper`
+ * @param children {React.ReactNode} 子节点
+ */
+const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+}));
 function Index(): JSX.Element {
     interface page {
         name: string,
@@ -47,26 +61,18 @@ function Index(): JSX.Element {
                 <title>NeilaTools</title>
             </Head>
             <HeadBar isIndex={true} pageName="NeilaTools" />
+            <br />
             <Center>
-                <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-                    <Center>
-                        <nav aria-label="main linkbox folders">
-                            <List>
-                                {pages.map((page) => {
-                                    return (
-                                        <ListItem key={page.to} disablePadding>
-                                            <ListItemButton>
-                                                <Link href={page.to}>
-                                                    <ListItemText primary={page.name} />
-                                                </Link>
-                                            </ListItemButton>
-                                        </ListItem>
-                                    );
-                                })}
-                            </List>
-                        </nav>
-                    </Center>
-                </Box>
+                <Stack spacing={5}>
+                    {pages.map((page) => (
+                        <Item key={page.to}>
+                            <Link href={page.to} style={{
+                                textDecoration: "none",
+                                color: "#1976d2"
+                            }}>{page.name}</Link>
+                        </Item>
+                    ))}
+                </Stack>
             </Center>
         </>
     );

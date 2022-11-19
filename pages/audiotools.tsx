@@ -9,8 +9,9 @@ import { useEffect, useState } from "react";
 import HeadBar from "../components/HeadBar";
 import Recorder from "../lib/recorder";
 function AudioTools(): JSX.Element {
-    var [startDisabled, setStartDisabled] = useState(false);
-    var [stopDisabled, setStopDisabled] = useState(true);
+    var [startDisabled, setStartDisabled] = useState<boolean>(false);
+    var [stopDisabled, setStopDisabled] = useState<boolean>(true);
+    var [TTSURL, setTTSURL] = useState<string>("");
     useEffect(function () {
         var start = document.querySelector('#start');
         var stop = document.querySelector('#stop');
@@ -68,8 +69,8 @@ function AudioTools(): JSX.Element {
         };
         return reader.readAsDataURL(file);
     }
-    function tts() {
-        var text = prompt('请输入需要转换的文字：', '你好像没输入任何文字。');
+    function TTS(): void {
+        var text: string = prompt('请输入需要转换的文字：', '你好像没输入任何文字。');
         var speed: any = prompt("请输入语速（0～15）：", "0");
         if (speed < 1) {
             alert("你输入的语速比1还小,太小了！");
@@ -78,10 +79,7 @@ function AudioTools(): JSX.Element {
             alert("你输入的语速比15还大，太大了！");
             return;
         }
-        var lang = prompt('请输入语言（"zh"表示中文，"en"表示英文）：', "zh");
-        var lang = lang.replace('zh', 'zh-CHS');
-        var url = `https://fanyi.sogou.com/reventondc/synthesis?text=${text}&speed=${speed}&lang=${lang}&from=translateweb&speaker=6`;
-        document.getElementById("audioplay-tts").innerHTML = `<iframe src='${url}'</iframe>`;
+        setTTSURL(`https://fanyi.sogou.com/reventondc/synthesis?text=${text}&speed=${speed}&lang=${prompt('请输入语言（"zh"表示中文，"en"表示英文）：', "zh").replace('zh', 'zh-CHS')}&from=translateweb&speaker=6`);
     }
     return (
         <div>
@@ -101,7 +99,6 @@ function AudioTools(): JSX.Element {
                     <input type='file' onChange={onChange} id='inputfile' />
                 </div>
             </Paper>
-            <br />
             <Paper elevation={24} id="audioinput">
                 <div>
                     <Typography variant="h3" gutterBottom>音频录制并循环</Typography>
@@ -113,11 +110,10 @@ function AudioTools(): JSX.Element {
             <Paper elevation={24} id='text2audio'>
                 <div>
                     <Typography variant="h3" gutterBottom>文字转音频</Typography>
-                    <Button color="primary" variant="contained" onClick={tts} style={{
-                        display: 'inline-block'
-                    }}>点我</Button>
-                    <div id='audioplay-tts'></div>
-                    <p style={{}}>Powered by Sogou TTS.</p>
+                    <Button color="primary" variant="contained" onClick={TTS}>点我</Button>
+                    <br />
+                    <iframe src={TTSURL} title="TTS content"></iframe>
+                    <Typography variant="body1" gutterBottom>Powered by Sogou TTS</Typography>
                 </div>
             </Paper>
         </div>

@@ -20,13 +20,13 @@ declare global {  //设置全局属性
         //加入对象
     }
 }
-function destroyer(...arg) {
+function destroyer(...arg: any[]): any[] {
     // 获取目标数组
-    var newArray = arg[0]; // [1, 2, 1, 3, 2, 1, 3, 4, 2, 6]
+    var newArray: any[] = arg[0]; // [1, 2, 1, 3, 2, 1, 3, 4, 2, 6]
     // 声明一个空数组，用来存储需要从`newArray`中删除的元素
-    var removeArgs = [];
+    var removeArgs: any[] = [];
 
-    for (var i = 1, len = arg.length; i < len; i++) {
+    for (let i: number = 1, len = arg.length; i < len; i++) {
         removeArgs.push(arg[i]);
         /*
          *  遍历次数  i  len   i < len  i++  arguments[i]  removeArgs
@@ -40,7 +40,7 @@ function destroyer(...arg) {
 
     // 声明filter()方法的callback函数
 
-    function isFalse(value) {
+    function isFalse(value): boolean {
         return removeArgs.indexOf(value) === -1;
 
         /*
@@ -84,6 +84,15 @@ function Index(): JSX.Element {
     function everyWord(): void {
         setWordList(words.split(prompt("请输入拆分的符号，不输入则是逐字拆分")));
     };
+    function copy(): void {
+        try {
+            navigator.clipboard.writeText(output).then(() => {
+                alert("已把结果复制到剪贴板。");
+            });
+        } catch {
+            alert("糟糕！出错了");
+        }
+    };
     return (
         <div>
             <Head>
@@ -108,6 +117,7 @@ function Index(): JSX.Element {
                 <Button variant="contained" onClick={proc}>处理</Button>
                 <Button variant="outlined" onClick={reset}>重来</Button>
                 <Button variant="outlined" onClick={everyWord}>拆分</Button>
+                <Button variant="outlined" onClick={copy}>复制</Button>
             </Stack>
             <Typography variant="body1">结果：{output}</Typography>
         </div>
