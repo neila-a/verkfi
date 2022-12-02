@@ -6,10 +6,9 @@ function BigTime(): JSX.Element {
     var [minutes, setMinutes] = useState<number>();
     var [seconds, setSeconds] = useState<number>();
     const getTime = function () {
-        const { hour, minute, second} = moment();
-        setHours(hour());
-        setMinutes(minute());
-        setSeconds(second());
+        setHours(moment().hour());
+        setMinutes(moment().minute());
+        setSeconds(moment().second());
     };
     getTime();
     setTimeout(getTime, 1000);
