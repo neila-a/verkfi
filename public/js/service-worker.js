@@ -9,7 +9,7 @@ const
         '/reversal',
         '/shaizi',
         '/manifest.json',
-        '/favicon.svg',
+        '/favicon.png',
     ];
 // install static assets
 function installStaticFiles() {

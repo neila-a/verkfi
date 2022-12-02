@@ -21,7 +21,7 @@ class MyDocument extends Document {
                         name="viewport"
                         content="width=device-width, initial-scale=1, shrink-to-fit=no"
                     />
-                    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+                    <link rel="icon" href="/favicon.png" type="image/svg+xml" />
                 </Head>
                 <body>
                     <Main />
