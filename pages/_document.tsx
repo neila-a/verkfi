@@ -9,7 +9,19 @@ class MyDocument extends Document {
             <Html>
                 <Head>
                     <link rel="manifest" href="/manifest.json" />
-                    <link rel="icon" href="/favicon.svg" type ="image/svg+xml" />
+                    <meta name="mobile-web-app-capable" content="yes" />
+                    <meta name="apple-mobile-web-app-capable" content="yes" />
+                    <meta name="application-name" content="NeilaTools" />
+                    <meta name="apple-mobile-web-app-title" content="NeilaTools" />
+                    <meta name="msapplication-tooltip" content="NeilaTools" />
+                    <meta name="theme-color" content="#27ae60" />
+                    <meta name="msapplication-navbutton-color" content="#27ae60" />
+                    <meta name="msapplication-starturl" content="/" />
+                    <meta
+                        name="viewport"
+                        content="width=device-width, initial-scale=1, shrink-to-fit=no"
+                    />
+                    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
                 </Head>
                 <body>
                     <Main />
