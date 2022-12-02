@@ -82,6 +82,7 @@ function Reversal(): JSX.Element {
     };
     function reset(): void {
         setWordList([]);
+        setWords("");
     };
     function split(): void {
         setWordList(words.split(prompt("请输入拆分的符号，不输入则是逐字拆分")));
