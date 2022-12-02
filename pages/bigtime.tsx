@@ -1,19 +1,23 @@
-import { useEffect } from "react";
+import { useState } from "react";
 import HeadBar from "../components/HeadBar";
 function BigTime(): JSX.Element {
-    useEffect(() => {
-        const getTime = function () {
-            document.getElementById("bigtime").innerHTML = `${new Date().getHours()} : ${new Date().getMinutes()}`;
-        }
-        getTime();
-        setTimeout(getTime, 60000);
-    });
+    var [hours, setHours] = useState<number>();
+    var [minutes, setMinutes] = useState<number>();
+    var [seconds, setSeconds] = useState<number>();
+    const getTime = function () {
+        const { getHours, getMinutes, getSeconds} = new Date();
+        setHours(getHours());
+        setMinutes(getMinutes());
+        setSeconds(getSeconds());
+    };
+    getTime();
+    setTimeout(getTime, 1000);
     return (
         <>
             <HeadBar isIndex={false} pageName="BigTime" />
             <p id="bigtime" style={{
                 fontSize: "1500%"
-            }}></p>
+            }}>{hours} : {minutes} : {seconds}</p>
         </>
     );
 };
