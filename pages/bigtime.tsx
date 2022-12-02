@@ -1,14 +1,15 @@
 import { useState } from "react";
 import HeadBar from "../components/HeadBar";
+import moment from "moment";
 function BigTime(): JSX.Element {
     var [hours, setHours] = useState<number>();
     var [minutes, setMinutes] = useState<number>();
     var [seconds, setSeconds] = useState<number>();
     const getTime = function () {
-        const { getHours, getMinutes, getSeconds} = new Date();
-        setHours(getHours());
-        setMinutes(getMinutes());
-        setSeconds(getSeconds());
+        const { hour, minute, second} = moment();
+        setHours(hour());
+        setMinutes(minute());
+        setSeconds(second());
     };
     getTime();
     setTimeout(getTime, 1000);
