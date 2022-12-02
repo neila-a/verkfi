@@ -9,29 +9,28 @@
     "theme_color": "#1e9fff",
     "icons": [
         {
-            "src": "/favicon.png",
-            "sizes": "72x72",
-            "type": "image/png"
-        },
-        {
-            "src": "/favicon.png",
-            "sizes": "152x152",
-            "type": "image/png"
-        },
-        {
-            "src": "/favicon.png",
+            "src": "manifest-icon-192.maskable.png",
             "sizes": "192x192",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "any"
         },
         {
-            "src": "/favicon.png",
-            "sizes": "256x256",
-            "type": "image/png"
+            "src": "manifest-icon-192.maskable.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable"
         },
         {
-            "src": "/favicon.png",
+            "src": "manifest-icon-512.maskable.png",
             "sizes": "512x512",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "manifest-icon-512.maskable.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
         }
     ]
 }
