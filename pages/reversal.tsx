@@ -79,7 +79,6 @@ function Reversal(): JSX.Element {
             return Math.random() - 0.5;
         });
         setOutput(stageOutput.join(""));
-        setShow(false);
     };
     function reset(): void {
         setWordList([]);
@@ -98,7 +97,6 @@ function Reversal(): JSX.Element {
     };
     function read(): void {
         setShow(true);
-        setTTSURL(`https://fanyi.sogou.com/reventondc/synthesis?text=${output}&speed=1&lang=zh&from=translateweb&speaker=6`);
     };
     return (
         <div>
@@ -128,10 +126,12 @@ function Reversal(): JSX.Element {
                 <Button variant="outlined" onClick={read}>读取</Button>
             </Stack>
             <Typography variant="body1">结果：{output}</Typography>
-            {show ? <>
+            <div style={{
+                display: show ? "block" : "none"
+            }}>
                 <br />
-                <iframe src={TTSURL} title="TTS content"></iframe>
-            </> : <></>}
+                <iframe src={`https://fanyi.sogou.com/reventondc/synthesis?text=${output}&speed=1&lang=zh&from=translateweb&speaker=6`} title="TTS content"></iframe>
+            </div>
         </div>
     );
 };

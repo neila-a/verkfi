@@ -5,6 +5,7 @@
   "hints": {
     "typescript-config/strict": "off",
     "no-inline-styles": "off",
-    "axe/forms": "off"
+    "axe/forms": "off",
+    "apple-touch-icons": "off"
   }
 }

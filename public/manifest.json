@@ -1,0 +1,37 @@
+{
+    "name": "NeilaTools",
+    "short_name": "NeilaTools",
+    "description": "Neila 的一些没用小工具。",
+    "start_url": "/",
+    "display": "standalone",
+    "orientation": "any",
+    "background_color": "#1e9fff",
+    "theme_color": "#1e9fff",
+    "icons": [
+        {
+            "src": "/favicon.svg",
+            "sizes": "72x72",
+            "type": "image/svg+xml"
+        },
+        {
+            "src": "/favicon.svg",
+            "sizes": "152x152",
+            "type": "image/svg+xml"
+        },
+        {
+            "src": "/favicon.svg",
+            "sizes": "192x192",
+            "type": "image/svg+xml"
+        },
+        {
+            "src": "/favicon.svg",
+            "sizes": "256x256",
+            "type": "image/svg+xml"
+        },
+        {
+            "src": "/favicon.svg",
+            "sizes": "512x512",
+            "type": "image/svg+xml"
+        }
+    ]
+}
