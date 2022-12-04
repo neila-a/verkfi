@@ -12,9 +12,10 @@ function MyApp({ Component, pageProps }: AppProps) {
             // register service worker
             window.UWAWorker = navigator.serviceWorker.register("/service-worker.js")
             window.UWAWorker.then(function (registration) {
-                console.log(`Service worker for UWA register success: ${registration}`);
+                console.log(`Service worker for UWA register success:`);
+                console.log(registration);
             }).catch(function (reason) {
-                console.log(`Service worker for UWA register fail: ${reason}`);
+                console.error(`Service worker for UWA register fail: ${reason}`);
             });
         }
     }, []);
