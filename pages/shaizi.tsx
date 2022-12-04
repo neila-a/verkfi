@@ -1,5 +1,4 @@
 import Center from "../components/Center";
-import Head from "next/head";
 import React, {
     useEffect
 } from "react";
@@ -145,9 +144,6 @@ function ShaiZi(): JSX.Element {
         <div style={{
             width: "100%"
         }}>
-            <Head>
-                <title>掷骰子</title>
-            </Head>
             <HeadBar isIndex={false} pageName="掷骰子" />
             <Center>
                 <canvas onLoad={init} id="canvas" width="400" height="300" style={{

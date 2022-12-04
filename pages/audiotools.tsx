@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Script from "next/script";
 import {
     Button,
     Paper,
@@ -92,7 +91,6 @@ function AudioTools(): JSX.Element {
     return (
         <div>
             <Head>
-                <title>AudioTools</title>
                 <style>{`
                     #audioreplay > div, #audioinput > div, #text2audio > div {
                         margin: 10px

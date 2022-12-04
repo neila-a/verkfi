@@ -1,5 +1,4 @@
 import * as React from "react";
-import Head from "next/head";
 import {
     Typography,
     TextField,
@@ -101,10 +100,6 @@ function Reversal(): JSX.Element {
     };
     return (
         <div>
-            <Head>
-                <link rel="shortcut icon" href="/favicon.ico" />
-                <title>翻转</title>
-            </Head>
             <HeadBar isIndex={false} pageName="翻转" />
             <br />
             <Alert severity="info">以空格分隔，按回车添加。</Alert>

@@ -2,7 +2,7 @@ import HeadBar from "../../components/HeadBar";
 function CountLetterHelp(): JSX.Element {
     return (
         <>
-            <HeadBar isIndex={false} pageName="CountLetter帮助" />
+            <HeadBar isIndex={false} pageName="帮助 - CountLetter" />
             <div id="faq1">
                 <p>F：这是什么东东？</p>
                 <p>Q：CountLetter，一个帮你数字母的程序。</p>

@@ -1,6 +1,5 @@
 import Head from "next/head";
 import React, {
-    useEffect,
     useState,
     useRef
 } from "react";
@@ -79,7 +78,6 @@ function PI(): JSX.Element {
                         margin-bottom: 50px;
                     }
                 `}</style>
-                <title>π计算器</title>
             </Head>
             <HeadBar isIndex={false} pageName="π计算器" />
             <Typography variant="h3" gutterBottom>π计算器</Typography>

@@ -6,9 +6,11 @@ class MyDocument extends Document {
     }
     render() {
         return (
-            <Html>
+            <Html lang="zh-cmn-Hans-CN">
                 <Head>
-                    <link rel="manifest" href="/manifest.json" />
+                    <meta charSet="utf-8" />
+                    <link rel="manifest" href="/index.webmanifest" />
+                    <meta name="description" content="Neila的一些没用工具。"/>
                     <meta name="mobile-web-app-capable" content="yes" />
                     <meta name="apple-mobile-web-app-capable" content="yes" />
                     <meta name="application-name" content="NeilaTools" />

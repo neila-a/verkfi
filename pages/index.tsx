@@ -1,21 +1,15 @@
-import Head from "next/head";
 import Link from "next/link";
 import HeadBar from "../components/HeadBar";
 import Center from "../components/Center";
 import * as React from 'react';
 import {
-    Box,
-    List,
-    ListItem,
-    ListItemButton,
-    ListItemText,
     Stack,
     Paper
 } from "@mui/material";
 import { styled } from '@mui/material/styles';
 /**
  * 被包装的`Paper`
- * @param children {React.ReactNode} 子节点
+ * @param {React.ReactNode} children 子节点
  */
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -57,9 +51,6 @@ function Index(): JSX.Element {
     ];
     return (
         <>
-            <Head>
-                <title>NeilaTools</title>
-            </Head>
             <HeadBar isIndex={true} pageName="NeilaTools" />
             <br />
             <Center>

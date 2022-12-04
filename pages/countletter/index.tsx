@@ -1,8 +1,7 @@
 import Link from "next/link";
 import {
-    Button
+    Button, Divider, Stack
 } from "@mui/material";
-import { useEffect } from "react";
 import HeadBar from "../../components/HeadBar";
 function CountLetter(): JSX.Element {
     function main() {
@@ -60,25 +59,33 @@ function CountLetter(): JSX.Element {
             .replace("y", "25")
             .replace("z", "26"));
     }
-    return (<>
-        <style>{`
-            .help-btn {
-                width:50%;
-                height:100%;
-                display:inline-block;
-                float:left;
-            }
-            .restart-btn {
-                width:50%;
-                height:100%;
-                display:inline-block;
-            }
-        `}</style>
-        <HeadBar isIndex={false} pageName="CountLetter" />
-        <Link href="help/">
-            <Button className="help-btn">去往FAQ页面</Button>
-        </Link>
-        <Button className='restart-btn' onClick={main}>输入</Button>
-    </>);
+    return (
+        <>
+            <style>{`
+                .help-btn {
+                    width:50%;
+                    height:100%;
+                    display:inline-block;
+                    float:left;
+                }
+                .restart-btn {
+                    width:50%;
+                    height:100%;
+                    display:inline-block;
+                }
+            `}</style>
+            <HeadBar isIndex={false} pageName="CountLetter" />
+            <Stack
+                direction="row"
+                divider={<Divider orientation="vertical" flexItem />}
+                spacing={2}
+            >
+                <Link href="/countletter/help">
+                    <Button className="help-btn">去往FAQ页面</Button>
+                </Link>
+                <Button className='restart-btn' onClick={main}>输入</Button>
+            </Stack>
+        </>
+    );
 };
 export default CountLetter;
