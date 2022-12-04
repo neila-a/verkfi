@@ -1,5 +1,5 @@
 const
-    version = '0.1.1',
+    version = '1.0.1',
     CACHE = version + '::NeilaTools',
     installFilesEssential = [
         '/',
@@ -13,10 +13,9 @@ const
     ];
 // install static assets
 function installStaticFiles() {
-    return caches.open(CACHE)
-        .then(cache => {
-            return cache.addAll(installFilesEssential);
-        });
+    return caches.open(CACHE).then(cache => {
+        return cache.addAll(installFilesEssential);
+    });
 }
 function clearOldCaches() {
     return caches.keys().then(keylist => {
@@ -27,18 +26,8 @@ function clearOldCaches() {
         );
     });
 }
-self.addEventListener('install', event => {
-    event.waitUntil(
-        installStaticFiles()
-            .then(() => self.skipWaiting())
-    );
-});
-self.addEventListener('activate', event => {
-    event.waitUntil(
-        clearOldCaches()
-            .then(() => self.clients.claim())
-    );
-});
+self.addEventListener('install', event => event.waitUntil(installStaticFiles().then(() => self.skipWaiting())));
+self.addEventListener('activate', event => event.waitUntil(clearOldCaches().then(() => self.clients.claim())));
 self.addEventListener('fetch', event => {
     if (event.request.method !== 'GET') return;
     let url = event.request.url;
@@ -48,14 +37,11 @@ self.addEventListener('fetch', event => {
                 if (response) {
                     return response;
                 }
-                return fetch(event.request)
-                    .then(newreq => {
-                        console.log('network fetch: ' + url);
-                        if (newreq.ok) cache.put(event.request, newreq.clone());
-                        return newreq;
-
-                    })
-                    .catch(() => null);
+                return fetch(event.request).then(newreq => {
+                    console.log('network fetch: ' + url);
+                    if (newreq.ok) cache.put(event.request, newreq.clone());
+                    return newreq;
+                }).catch(() => null);
             });
         })
     );
