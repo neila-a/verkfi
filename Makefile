@@ -10,4 +10,4 @@ lint:
 push: 
 	git add .
 	git commit -a -m "来自Makefile的一次自动提交"
-	git push origin main
+	git push origin main --tags

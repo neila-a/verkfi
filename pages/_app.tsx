@@ -6,7 +6,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     useEffect(() => {
         if ('serviceWorker' in navigator) {
             // register service worker
-            navigator.serviceWorker.register('../js/service-worker.js');
+            navigator.serviceWorker.register('/js/service-worker.js');
         }
     }, [])
     return <Component {...pageProps} />
