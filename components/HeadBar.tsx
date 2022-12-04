@@ -22,7 +22,7 @@ function HeadBar(props: {
 		<>
 			<Head>
 				<link rel="shortcut icon" href="/favicon.ico" />
-				<title>{props.pageName}</title>
+				<title>{props.pageName} - {props.isIndex ? "" : "NeilaTools"}</title>
 			</Head>
 			<AppBar position="static">
 				<Toolbar>{props.isIndex ? <></> :

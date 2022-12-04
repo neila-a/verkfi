@@ -15,14 +15,13 @@ function ShaiZi(): JSX.Element {
     var count: number = 0;
     var lastNum: number = 0;
     var flag: boolean = false;
-    function clickMe() {
+    function clickMe(): boolean | void {
         count = 0;
         if (flag) {
             return false;
         }
         flag = true;
-        var ct = document.getElementById("canvas") as HTMLCanvasElement;
-        var ctx = ct.getContext("2d");
+        var ctx = (document.getElementById("canvas") as HTMLCanvasElement).getContext("2d");
         ctx.beginPath();
         //ctx.arc(100,100,50,0,Math.PI,false);
         ctx.strokeRect(leftX, topY, diceX, diceY);
@@ -30,9 +29,8 @@ function ShaiZi(): JSX.Element {
         setTimeout(function () {
             random(ctx);
         }, 200);
-
     }
-    function drawDice(ctx, randomNum) {
+    function drawDice(ctx: CanvasRenderingContext2D, randomNum) {
         ctx.clearRect(leftX, topY, diceX, diceY);
         switch (randomNum) {
             case 1:
@@ -64,7 +62,7 @@ function ShaiZi(): JSX.Element {
             }, 200 - count);
         }
     }
-    function random(ctx) {
+    function random(ctx: CanvasRenderingContext2D) {
         var randomNum = Math.floor(Math.random() * 6) + 1;
         if (randomNum == lastNum) {
             random(ctx)
@@ -74,7 +72,7 @@ function ShaiZi(): JSX.Element {
         }
 
     }
-    function commonDraw(ctx, dotX, dotY) {
+    function commonDraw(ctx: CanvasRenderingContext2D, dotX, dotY) {
         ctx.beginPath();
         ctx.arc(dotX, dotY, dotR, 0, 2 * Math.PI, false);
         ctx.stroke();
