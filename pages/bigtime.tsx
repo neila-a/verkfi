@@ -7,7 +7,7 @@ function BigTime(): JSX.Element {
         const getTime = () => setTime(moment().format("HH : mm : ss"));
         getTime();
         setInterval(getTime, 1000);
-    }, [moment, setTime]);
+    }, [setTime]);
     return (
         <>
             <HeadBar isIndex={false} pageName="BigTime" />

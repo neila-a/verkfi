@@ -3,17 +3,21 @@ import type { AppProps /*, AppContext */ } from 'next/app'
 import React, { useEffect } from 'react';
 declare global {  //设置全局属性
     interface Window {  //window对象属性
-        UWAWorker: Promise<ServiceWorkerRegistration>;
+        UWAWorker: Promise<void>;
     }
 }
 function MyApp({ Component, pageProps }: AppProps) {
     useEffect(() => {
         if ('serviceWorker' in navigator) {
             // register service worker
-            window.UWAWorker = navigator.serviceWorker.register("/js/service-worker.js");
+            window.UWAWorker = navigator.serviceWorker.register("/js/service-worker.js").then(function (registration) {
+                console.log(`Service worker for UWA register success: ${registration}`);
+            }).catch(function (reason) {
+                console.log(`Service worker for UWA register fail: ${reason}`);
+            });
         }
-    }, [])
-    return <Component {...pageProps} />
+    }, []);
+    return <Component {...pageProps} />;
 }
 // Only uncomment this method if you have blocking data requirements for
 // every single page in your application. This disables the ability to
