@@ -1,12 +1,16 @@
 // import App from "next/app";
 import type { AppProps /*, AppContext */ } from 'next/app'
 import React, { useEffect } from 'react';
-
+declare global {  //设置全局属性
+    interface Window {  //window对象属性
+        UWAWorker: Promise<ServiceWorkerRegistration>;
+    }
+}
 function MyApp({ Component, pageProps }: AppProps) {
     useEffect(() => {
         if ('serviceWorker' in navigator) {
             // register service worker
-            navigator.serviceWorker.register('/js/service-worker.js');
+            window.UWAWorker = navigator.serviceWorker.register("/js/service-worker.js");
         }
     }, [])
     return <Component {...pageProps} />
