@@ -38,7 +38,7 @@ self.addEventListener('fetch', event => {
                     return response;
                 }
                 return fetch(event.request).then(newreq => {
-                    console.log('network fetch: ' + url);
+                    console.log(`network fetch: ${url}`);
                     if (newreq.ok) cache.put(event.request, newreq.clone());
                     return newreq;
                 }).catch(() => null);
