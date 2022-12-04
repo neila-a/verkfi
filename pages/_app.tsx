@@ -10,7 +10,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     useEffect(() => {
         if ('serviceWorker' in navigator) {
             // register service worker
-            window.UWAWorker = navigator.serviceWorker.register("/js/service-worker.js")
+            window.UWAWorker = navigator.serviceWorker.register("/service-worker.js")
             window.UWAWorker.then(function (registration) {
                 console.log(`Service worker for UWA register success: ${registration}`);
             }).catch(function (reason) {
