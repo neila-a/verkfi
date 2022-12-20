@@ -8,6 +8,7 @@ const
         '/audiotools',
         '/bigtime',
         '/pi',
+        "filter",
         '/reversal',
         '/shaizi',
         '/manifest.json',
