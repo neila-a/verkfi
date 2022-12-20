@@ -14,6 +14,7 @@
     "@fontsource/roboto": "^4.5.8",
     "@mui/icons-material": "^5.10.9",
     "@mui/material": "^5.10.13",
+    "dropzone": "6.0.0-beta.2",
     "mathjs": "^11.3.3",
     "moment": "^2.29.4",
     "next": "13.0.3",
@@ -22,6 +23,7 @@
     "react-dom": "18.2.0"
   },
   "devDependencies": {
+    "@types/dropzone": "^5.7.4",
     "@types/node": "18.11.9",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.8",

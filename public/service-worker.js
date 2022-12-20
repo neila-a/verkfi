@@ -1,6 +1,8 @@
 const
-    version = '1.0.1',
-    CACHE = version + '::NeilaTools',
+    version = '1.1.0',
+    dev = true,
+    devVersion = 1
+    CACHE = `NeilaTools-${version}-${dev ? `dev-${devVersion}` : "prod"}`,
     installFilesEssential = [
         '/',
         '/audiotools',

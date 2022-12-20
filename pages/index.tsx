@@ -18,37 +18,41 @@ const Item = styled(Paper)(({ theme }) => ({
     textAlign: 'center',
     color: theme.palette.text.secondary,
 }));
-function Index(): JSX.Element {
-    interface page {
-        name: string,
-        to: string
+interface page {
+    name: string,
+    to: string
+}
+export const pages: page[] = [
+    {
+        name: "AudioTools",
+        to: "audiotools"
+    },
+    {
+        name: "CountLetter",
+        to: "countletter"
+    },
+    {
+        name: "BigTime",
+        to: "bigtime"
+    },
+    {
+        name: "π计算器",
+        to: "pi"
+    },
+    {
+        name: "翻转",
+        to: "reversal"
+    },
+    {
+        name: "掷骰子",
+        to: "shaizi"
+    },
+    {
+        name: "滤镜",
+        to :"filter"
     }
-    const pages: page[] = [
-        {
-            name: "AudioTools",
-            to: "audiotools"
-        },
-        {
-            name: "CountLetter",
-            to: "countletter"
-        },
-        {
-            name: "BigTime",
-            to: "bigtime"
-        },
-        {
-            name: "π计算器",
-            to: "pi"
-        },
-        {
-            name: "翻转",
-            to: "reversal"
-        },
-        {
-            name: "掷骰子",
-            to: "shaizi"
-        },
-    ];
+];
+export default function Index(): JSX.Element {
     return (
         <>
             <HeadBar isIndex={true} pageName="NeilaTools" />
@@ -67,5 +71,4 @@ function Index(): JSX.Element {
             </Center>
         </>
     );
-}
-export default Index;
+};
