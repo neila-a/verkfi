@@ -20,7 +20,8 @@
     "next": "13.0.3",
     "pi": "^2.0.4",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "sass": "^1.57.1"
   },
   "devDependencies": {
     "@types/dropzone": "^5.7.4",
