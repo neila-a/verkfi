@@ -17,7 +17,7 @@ import {
     FlipCameraAndroid as FlipCameraAndroidIcon,
     Filter as FilterIcon
 } from "@mui/icons-material";
-import Style from "../styles/Index.module.scss";
+// Deleted Code import Style from "../styles/Index.module.scss";
 import ShaiziIcon from "../public/shaizi.24x24.svg";
 import PiIcon from "../public/pi.466x393.png";
 export interface page {
@@ -76,7 +76,7 @@ export default function Index(): JSX.Element {
             <HeadBar isIndex={true} pageName="NeilaTools" />
             <br />
             <Center>
-                <Stack spacing={5} className={Style["items"]}>
+                <Stack spacing={5}>
                     {pages.map((page, index) => {
                         const Icon = page.icon;
                         return (
@@ -94,7 +94,7 @@ export default function Index(): JSX.Element {
                                         </CardContent>
                                     </Card>
                                 </Link>
-                                {(index % 2 == 1) ? <br /> : <></>}
+                                {/* Deleted Code {(index % 2 == 1) ? <br /> : <></>} */}
                             </>
                         );
                     })}
