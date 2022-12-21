@@ -4,3 +4,6 @@
 .items > *:nth-child(odd){ // 双行
     display: block;
 }
+.items * {
+    text-decoration: none;
+}
