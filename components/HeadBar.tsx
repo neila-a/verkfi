@@ -11,7 +11,6 @@ import {
 import Router from "next/router";
 import Head from "next/head";
 export interface HeadBarOption {
-	aboutTo: string;
 	pageName: string;
 	isIndex: boolean;
 };
@@ -41,11 +40,6 @@ function HeadBar(props: HeadBarOption): JSX.Element {
 					}}>
 						{props.isIndex ? "NeilaTools" : props.pageName}
 					</Typography>
-					<IconButton size="large" edge="end" color="inherit" aria-label="menu" sx={{ mr: 2 }} onClick={() => {
-						Router.push(`/about/${props.aboutTo}`);
-					}}>
-						<Info />
-					</IconButton>
 				</Toolbar>
 			</AppBar>
 		</>

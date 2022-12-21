@@ -100,7 +100,7 @@ function Reversal(): JSX.Element {
     };
     return (
         <div>
-            <HeadBar isIndex={false} pageName="翻转" aboutTo="reversal" />
+            <HeadBar isIndex={false} pageName="翻转" />
             <br />
             <Alert severity="info">以空格分隔，按回车添加。</Alert>
             <br />

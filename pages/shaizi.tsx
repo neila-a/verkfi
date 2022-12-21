@@ -142,7 +142,7 @@ function ShaiZi(): JSX.Element {
         <div style={{
             width: "100%"
         }}>
-            <HeadBar isIndex={false} pageName="掷骰子" aboutTo="shaizi"/>
+            <HeadBar isIndex={false} pageName="掷骰子" />
             <br />
             <Center>
                 <canvas onLoad={init} id="canvas" width="400" height="300" style={{

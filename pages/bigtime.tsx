@@ -10,7 +10,7 @@ function BigTime(): JSX.Element {
     }, [setTime]);
     return (
         <>
-            <HeadBar isIndex={false} pageName="BigTime" aboutTo="bigtime" />
+            <HeadBar isIndex={false} pageName="BigTime" />
             <p id="bigtime" style={{
                 fontSize: "1500%"
             }}>{time}</p>

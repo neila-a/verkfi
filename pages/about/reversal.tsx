@@ -16,7 +16,7 @@ export default function About(): JSX.Element {
     return (
         <>
             <HeadBar {...options} />
-            <AboutContent />
+            <AboutContent icon={() => } />
         </>
     );
 };

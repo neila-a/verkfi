@@ -37,7 +37,7 @@ export default function Filter(): JSX.Element {
     });
     return (
         <>
-            <HeadBar isIndex={false} pageName={pages[6].name} aboutTo="filter" />
+            <HeadBar isIndex={false} pageName={pages[6].name} />
             <div id="images">
                 {ImageTypes.map(function (type) {
                     return (

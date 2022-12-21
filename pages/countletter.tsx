@@ -74,7 +74,7 @@ function CountLetter(): JSX.Element {
                     display:inline-block;
                 }
             `}</style>
-            <HeadBar isIndex={false} pageName="CountLetter" aboutTo="countletter" />
+            <HeadBar isIndex={false} pageName="CountLetter" />
             <Stack
                 direction="row"
                 divider={<Divider orientation="vertical" flexItem />}

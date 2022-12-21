@@ -73,7 +73,7 @@ export const pages: page[] = [
 export default function Index(): JSX.Element {
     return (
         <>
-            <HeadBar isIndex={true} pageName="NeilaTools" aboutTo="" />
+            <HeadBar isIndex={true} pageName="NeilaTools" />
             <br />
             <Center>
                 <Stack spacing={5}>

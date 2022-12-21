@@ -79,7 +79,7 @@ function PI(): JSX.Element {
                     }
                 `}</style>
             </Head>
-            <HeadBar isIndex={false} pageName="π计算器" aboutTo="pi" />
+            <HeadBar isIndex={false} pageName="π计算器" />
             <Typography variant="h3" gutterBottom>π计算器</Typography>
             <div id="input">
                 <TextField id="weishu" label="π的小数点后位数" variant="outlined" value={weishu} type="number" onChange={(event) => {
