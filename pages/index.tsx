@@ -82,7 +82,7 @@ export default function Index(): JSX.Element {
                             <Link href={page.to} key={page.name} style={{
                                 textDecoration: "none"
                             }}>
-                                <Card sx={{ minWidth: 275 }}>
+                                <Card sx={{ minWidth: 275 }} elevation={10}>
                                     <CardContent>
                                         <Typography variant="h5" component="div">
                                             <Icon />
