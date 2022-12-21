@@ -3,7 +3,8 @@ import {
     useState,
     useEffect
 } from "react";
-import Dropzone from "dropzone";
+import { FilePond, registerPlugin } from 'react-filepond'; // Import React FilePond
+import 'filepond/dist/filepond.min.css'; // Import FilePond styles
 import HeadBar from "../components/HeadBar";
 import {
     pages
@@ -31,12 +32,8 @@ export function Image(props: {
     );
 };
 export default function Filter(): JSX.Element {
-    var [image, setImage] = useState<string>();
+    var [image, setImage] = useState<any[]>([]);
     useEffect(function () {
-        let dropzone = new Dropzone("#UploadContainer");
-        dropzone.on("addedfile", file => {
-            console.log(`File added: ${JSON.stringify(file)}`);
-        });
     });
     return (
         <>
@@ -45,12 +42,20 @@ export default function Filter(): JSX.Element {
                 {ImageTypes.map(function (type) {
                     return (
                         <div key={type}>
-                            <Image type={type} src={image} />
+                            <Image type={type} src={image[0]} />
                         </div>
                     );
                 })}
             </div>
-            <div id="UploadContainer"></div>
+            <FilePond
+                files={image}
+                onupdatefiles={setImage}
+                allowMultiple={true}
+                maxFiles={1}
+                server="/api"
+                name="files" /* sets the file input name, it's filepond by default */
+                labelIdle='拖拽文件到这里、粘贴或<span class="filepond--label-action">浏览</span>'
+            />
         </>
     );
 };
