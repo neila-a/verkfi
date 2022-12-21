@@ -29,8 +29,8 @@ function AudioTools(): JSX.Element {
             }
         });
         start.addEventListener('click', function () {
-            setStopDisabled(false);
             setStartDisabled(true);
+            setStopDisabled(false);
             container.innerHTML = "";
             var audio = document.querySelectorAll('audio');
             for (var i = 0; i < audio.length; i++) {
