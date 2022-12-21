@@ -7,8 +7,7 @@ import {
     Stack,
     Card,
     CardContent,
-    Typography,
-    SvgIcon
+    Typography
 } from "@mui/material";
 import {
     Audiotrack as AudiotrackIcon,
@@ -17,7 +16,7 @@ import {
     FlipCameraAndroid as FlipCameraAndroidIcon,
     Filter as FilterIcon
 } from "@mui/icons-material";
-// Deleted Code import Style from "../styles/Index.module.scss";
+import Style from "../styles/Index.module.scss";
 import ShaiziIcon from "../public/shaizi.24x24.svg";
 import PiIcon from "../public/pi.466x393.png";
 export interface page {
@@ -76,16 +75,16 @@ export default function Index(): JSX.Element {
             <HeadBar isIndex={true} pageName="NeilaTools" />
             <br />
             <Center>
-                <Stack spacing={5}>
+                <Stack spacing={5} className={Style["items"]}>
                     {pages.map((page, index) => {
-                        const Icon = page.icon;
+                        const PageIcon = page.icon;
                         return (
                             <>
                                 <Link href={page.to} key={page.name}>
                                     <Card sx={{ minWidth: 275 }} elevation={10}>
                                         <CardContent>
                                             <Typography variant="h5" component="div">
-                                                <Icon />
+                                                <PageIcon />
                                                 {page.name}
                                             </Typography>
                                             <Typography variant="body2">
