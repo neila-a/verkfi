@@ -79,7 +79,7 @@ export default function Index(): JSX.Element {
                     {pages.map((page) => {
                         const Icon = page.icon;
                         return (
-                            <Link href={page.to}>
+                            <Link href={page.to} key={page.name}>
                                 <Card sx={{ minWidth: 275 }}>
                                     <CardContent>
                                         <Typography variant="h5" component="div">
