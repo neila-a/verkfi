@@ -1,55 +1,72 @@
 import Link from "next/link";
+import Image from "next/image";
 import HeadBar from "../components/HeadBar";
 import Center from "../components/Center";
 import * as React from 'react';
 import {
     Stack,
-    Paper
+    Card,
+    CardContent,
+    Typography,
+    SvgIcon
 } from "@mui/material";
-import { styled } from '@mui/material/styles';
-/**
- * 被包装的`Paper`
- * @param {React.ReactNode} children 子节点
- */
-const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-}));
-interface page {
-    name: string,
-    to: string
+import {
+    Audiotrack as AudiotrackIcon,
+    Abc as ABCIcon,
+    AccessTime as AccessTimeIcon,
+    FlipCameraAndroid as FlipCameraAndroidIcon,
+    Filter as FilterIcon
+} from "@mui/icons-material";
+import ShaiziIcon from "../public/shaizi.24x24.svg";
+import PiIcon from "../public/pi.466x393.png";
+export interface page {
+    name: string;
+    to: string;
+    desc: string;
+    icon: () => JSX.Element
 }
 export const pages: page[] = [
     {
         name: "AudioTools",
-        to: "audiotools"
+        to: "audiotools",
+        desc: "复读、文本转音频",
+        icon: () => <AudiotrackIcon />
     },
     {
         name: "CountLetter",
-        to: "countletter"
+        to: "countletter",
+        desc: "找出字母在26字母表中的顺序",
+        icon: () => <ABCIcon />
     },
     {
         name: "BigTime",
-        to: "bigtime"
+        to: "bigtime",
+        desc: "很大的时间",
+        icon: () => <AccessTimeIcon />
     },
     {
         name: "π计算器",
-        to: "pi"
+        to: "pi",
+        desc: "计算π的小数点后任意位",
+        icon: () => <Image src={PiIcon} alt="圆周率图标" height={24} width={24} />
     },
     {
         name: "翻转",
-        to: "reversal"
+        to: "reversal",
+        desc: "随机翻转字符串",
+        icon: () => <FlipCameraAndroidIcon />
     },
     {
         name: "掷骰子",
-        to: "shaizi"
+        to: "shaizi",
+        desc: "随机掷筛子",
+        icon: () => <Image src={ShaiziIcon} alt="筛子图标" />
     },
     {
         name: "滤镜",
-        to :"filter"
+        to: "filter",
+        desc: "将一张图片处理成不同的（开发中）",
+        icon: () => <FilterIcon />
     }
 ];
 export default function Index(): JSX.Element {
@@ -59,14 +76,24 @@ export default function Index(): JSX.Element {
             <br />
             <Center>
                 <Stack spacing={5}>
-                    {pages.map((page) => (
-                        <Item key={page.to}>
-                            <Link href={page.to} style={{
-                                textDecoration: "none",
-                                color: "#1976d2"
-                            }}>{page.name}</Link>
-                        </Item>
-                    ))}
+                    {pages.map((page) => {
+                        const Icon = page.icon;
+                        return (
+                            <Link href={page.to}>
+                                <Card sx={{ minWidth: 275 }}>
+                                    <CardContent>
+                                        <Typography variant="h5" component="div">
+                                            <Icon />
+                                            {page.name}
+                                        </Typography>
+                                        <Typography variant="body2">
+                                            {page.desc}
+                                        </Typography>
+                                    </CardContent>
+                                </Card>
+                            </Link>
+                        );
+                    })}
                 </Stack>
             </Center>
         </>
