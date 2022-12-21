@@ -94,7 +94,7 @@ export default function Index(): JSX.Element {
                                         </CardContent>
                                     </Card>
                                 </Link>
-                                {(index % 2 == 0) ? <br /> : <></>}
+                                {(index % 2 == 1) ? <br /> : <></>}
                             </>
                         );
                     })}
