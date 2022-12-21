@@ -77,22 +77,25 @@ export default function Index(): JSX.Element {
             <br />
             <Center>
                 <Stack spacing={5} className={Style["items"]}>
-                    {pages.map((page) => {
+                    {pages.map((page, index) => {
                         const Icon = page.icon;
                         return (
-                            <Link href={page.to} key={page.name}>
-                                <Card sx={{ minWidth: 275 }} elevation={10}>
-                                    <CardContent>
-                                        <Typography variant="h5" component="div">
-                                            <Icon />
-                                            {page.name}
-                                        </Typography>
-                                        <Typography variant="body2">
-                                            {page.desc}
-                                        </Typography>
-                                    </CardContent>
-                                </Card>
-                            </Link>
+                            <>
+                                <Link href={page.to} key={page.name}>
+                                    <Card sx={{ minWidth: 275 }} elevation={10}>
+                                        <CardContent>
+                                            <Typography variant="h5" component="div">
+                                                <Icon />
+                                                {page.name}
+                                            </Typography>
+                                            <Typography variant="body2">
+                                                {page.desc}
+                                            </Typography>
+                                        </CardContent>
+                                    </Card>
+                                </Link>
+                                {(index % 2 == 0) ? <br /> : <></>}
+                            </>
                         );
                     })}
                 </Stack>
