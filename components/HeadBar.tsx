@@ -22,7 +22,7 @@ function HeadBar(props: {
 		<>
 			<Head>
 				<link rel="shortcut icon" href="/favicon.ico" />
-				<title>{props.pageName} - {props.isIndex ? "" : "NeilaTools"}</title>
+				<title>{props.pageName}</title>
 			</Head>
 			<AppBar position="static">
 				<Toolbar>{props.isIndex ? <></> :
@@ -31,7 +31,9 @@ function HeadBar(props: {
 					}}>
 						<ArrowBack />
 					</IconButton>}
-					<Typography variant="h6" component="div" sx={{ flexGrow: 1 }} style={{
+					<Typography variant="h6" component="div" sx={{
+						flexGrow: 1
+					}} style={{
 						textAlign: "center"
 					}}>
 						{props.isIndex ? "NeilaTools" : props.pageName}
