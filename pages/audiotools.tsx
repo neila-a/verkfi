@@ -97,7 +97,7 @@ function AudioTools(): JSX.Element {
                     }
                 `}</style>
             </Head>
-            <HeadBar isIndex={false} pageName="AudioTools" />
+            <HeadBar isIndex={false} pageName="AudioTools" aboutTo="audiotools"/>
             <Paper elevation={24} id="audioreplay">
                 <div>
                     <Typography variant="h3" gutterBottom>音频循环播放</Typography>

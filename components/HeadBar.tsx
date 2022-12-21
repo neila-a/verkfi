@@ -5,19 +5,22 @@ import {
 	Typography
 } from "@mui/material";
 import {
-	ArrowBack
+	ArrowBack,
+	Info
 } from "@mui/icons-material"
 import Router from "next/router";
 import Head from "next/head";
+export interface HeadBarOption {
+	aboutTo: string;
+	pageName: string;
+	isIndex: boolean;
+};
 /**
  * AppBar 的自定义封装。
  * @param {boolean} isIndex 是否是索引页面
  * @param {string} pageName 页面的名称
  */
-function HeadBar(props: {
-	pageName: string;
-	isIndex: boolean;
-}): JSX.Element {
+function HeadBar(props: HeadBarOption): JSX.Element {
 	return (
 		<>
 			<Head>
@@ -38,6 +41,11 @@ function HeadBar(props: {
 					}}>
 						{props.isIndex ? "NeilaTools" : props.pageName}
 					</Typography>
+					<IconButton size="large" edge="end" color="inherit" aria-label="menu" sx={{ mr: 2 }} onClick={() => {
+						Router.push(`/about/${props.aboutTo}`);
+					}}>
+						<Info />
+					</IconButton>
 				</Toolbar>
 			</AppBar>
 		</>
