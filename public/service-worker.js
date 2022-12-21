@@ -1,7 +1,7 @@
 const
     version = '1.1.0',
     dev = true,
-    devVersion = 6
+    devVersion = 7
     CACHE = `NeilaTools-${version}-${dev ? `dev-${devVersion}` : "prod"}`,
     installFilesEssential = [
         '/',
