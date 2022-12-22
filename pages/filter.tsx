@@ -13,7 +13,7 @@ import imageStyle from "../styles/Filter.module.scss";
 declare global {
     interface Window {
         image: any[];
-        setImage: React.Dispatch<React.SetStateAction<any[]>>
+        setImage: React.Dispatch<React.SetStateAction<any[]>>;
     }
 };
 export const ImageTypes: ImageType[] = [
@@ -52,7 +52,6 @@ export default function Filter(): JSX.Element {
                 onupdatefiles={setImage}
                 allowMultiple={true}
                 maxFiles={1}
-                server="/api"
                 name="files"
                 labelIdle='拖拽文件到这里、粘贴或<span class="filepond--label-action">浏览</span>'
             />
