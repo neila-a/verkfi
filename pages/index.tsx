@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import HeadBar from "../components/HeadBar";
-import Center from "../components/Center";
 import * as React from 'react';
 import {
     Stack,
@@ -74,33 +73,31 @@ export default function Index(): JSX.Element {
         <>
             <HeadBar isIndex={true} pageName="NeilaTools" />
             <br />
-            <Center>
-                <Stack spacing={5} className={Style["items"]}>
-                    {pages.map((page, index) => {
-                        const PageIcon = page.icon;
-                        return (
-                            <>
-                                <Link href={page.to} key={page.name}>
-                                    <Card sx={{
-                                        minWidth: 275
-                                    }} elevation={10}>
-                                        <CardContent>
-                                            <Typography variant="h5" component="div">
-                                                <PageIcon />
-                                                {page.name}
-                                            </Typography>
-                                            <Typography variant="body2">
-                                                {page.desc}
-                                            </Typography>
-                                        </CardContent>
-                                    </Card>
-                                </Link>
-                                {/* Deleted Code {(index % 2 == 1) ? <br /> : <></>} */}
-                            </>
-                        );
-                    })}
-                </Stack>
-            </Center>
+            <Stack spacing={5} className={Style["items"]}>
+                {pages.map((page, index) => {
+                    const PageIcon = page.icon;
+                    return (
+                        <>
+                            <Link href={page.to} key={page.name}>
+                                <Card sx={{
+                                    minWidth: 275
+                                }} elevation={10}>
+                                    <CardContent>
+                                        <Typography variant="h5" component="div">
+                                            <PageIcon />
+                                            {page.name}
+                                        </Typography>
+                                        <Typography variant="body2">
+                                            {page.desc}
+                                        </Typography>
+                                    </CardContent>
+                                </Card>
+                            </Link>
+                            {/* Deleted Code {(index % 2 == 1) ? <br /> : <></>} */}
+                        </>
+                    );
+                })}
+            </Stack>
         </>
     );
 };
