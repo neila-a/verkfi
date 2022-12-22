@@ -1,9 +1,11 @@
 .items * {
     text-decoration: none;
 }
-/* Deleted Code .items > a {
-    display: inline-block;
+.items {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-evenly;
+    align-items: flex-end;
+    display: flex;
 }
-.items > a div {
-    display: inline-block;
-} */

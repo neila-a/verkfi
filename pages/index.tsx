@@ -81,7 +81,9 @@ export default function Index(): JSX.Element {
                         return (
                             <>
                                 <Link href={page.to} key={page.name}>
-                                    <Card sx={{ minWidth: 275 }} elevation={10}>
+                                    <Card sx={{
+                                        minWidth: 275
+                                    }} elevation={10}>
                                         <CardContent>
                                             <Typography variant="h5" component="div">
                                                 <PageIcon />
