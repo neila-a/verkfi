@@ -28,7 +28,7 @@ export function Image(props: {
     src: string;
 }): JSX.Element {
     return (
-        <img title={props.type} key={props.type} className={imageStyle[props.type]} src={props.src} alt={props.type}></img>
+        <img title={props.type} key={props.type} className={imageStyle[props.type]} src={/* Test Delete props.src */"/libear-only.png"} alt={props.type}></img>
     );
 };
 export default function Filter(): JSX.Element {
