@@ -56,13 +56,11 @@ export default function Filter(): JSX.Element {
                 files={imageArray}
                 onupdatefiles={(images: FilePondFile[]) => {
                     setImageArray(images);
-                    useEffect(function () {
-                        var reader = new FileReader();
-                        reader.onload = function () {
-                            setImageBase64(String(reader.result));
-                        };
-                        reader.readAsDataURL(images[0].file);
-                    }, [setImageBase64]);
+                    var reader = new FileReader();
+                    reader.onload = function () {
+                        setImageBase64(String(reader.result));
+                    };
+                    reader.readAsDataURL(images[0].file);
                 }}
                 allowMultiple={true}
                 maxFiles={1}
