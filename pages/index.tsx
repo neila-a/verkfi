@@ -73,7 +73,9 @@ export default function Index(): JSX.Element {
         <>
             <HeadBar isIndex={true} pageName="NeilaTools" />
             <br />
-            <Stack spacing={5} className={Style["items"]}>
+            <Stack spacing={5} className={Style["items"]} sx={{
+                flexDirection: "row"
+            }}>
                 {pages.map((page, index) => {
                     const PageIcon = page.icon;
                     return (
