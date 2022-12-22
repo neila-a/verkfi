@@ -3,7 +3,13 @@ import {
     useState,
     useEffect
 } from "react";
-import { FilePond, registerPlugin } from 'react-filepond'; // Import React FilePond
+import {
+    FilePond,
+    registerPlugin
+} from 'react-filepond'; // Import React FilePond
+import {
+    FilePondFile
+} from "filepond";
 import 'filepond/dist/filepond.min.css'; // Import FilePond styles
 import HeadBar from "../components/HeadBar";
 import {
@@ -38,18 +44,26 @@ export function Image(props: {
     );
 };
 export default function Filter(): JSX.Element {
-    var [image, setImage] = useState<any[]>([]);
-    
+    var [imageArray, setImageArray] = useState<any[]>([]);
+    var [imageBase64, setImageBase64] = useState<string>("/libear-only.png");
     useEffect(function () {
-        window.image = image;
-        window.setImage = setImage;
-    }, [image, setImage]);
+        window.image = imageArray;
+    }, [imageArray]);
     return (
         <>
             <HeadBar isIndex={false} pageName={pages[6].name} />
             <FilePond
-                files={image}
-                onupdatefiles={setImage}
+                files={imageArray}
+                onupdatefiles={(images: FilePondFile[]) => {
+                    setImageArray(images);
+                    useEffect(function () {
+                        var reader = new FileReader();
+                        reader.onload = function () {
+                            setImageBase64(String(reader.result));
+                        };
+                        reader.readAsDataURL(images[0].file);
+                    }, [setImageBase64]);
+                }}
                 allowMultiple={true}
                 maxFiles={1}
                 name="files"
@@ -58,7 +72,7 @@ export default function Filter(): JSX.Element {
             <div id="images">
                 {ImageTypes.map((type) => (
                     <div key={type}>
-                        <Image type={type} src={/* Test Deleted image[0] */"/libear-only.png"} />
+                        <Image type={type} src={imageBase64} />
                     </div>
                 ))}
             </div>
