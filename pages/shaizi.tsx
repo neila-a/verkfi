@@ -117,7 +117,6 @@ function ShaiZi(): JSX.Element {
         draw1();
         draw4();
     }
-    //http://www.cnblogs.com/sosoft/
     function draw6() {
         var ct = document.getElementById("canvas") as HTMLCanvasElement;
         var ctx = ct.getContext("2d");

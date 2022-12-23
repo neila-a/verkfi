@@ -7,6 +7,13 @@ import {
     FilePond,
     registerPlugin
 } from 'react-filepond'; // Import React FilePond
+import FilePondPluginFileRename from 'filepond-plugin-file-rename'; // Import the plugin code
+import FilePondPluginImagePreview from 'filepond-plugin-image-preview'; // Import the plugin code
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css'; // Import the plugin styles
+import FilePondPluginImageResize from 'filepond-plugin-image-resize'; // Import the plugin code
+import FilePondPluginImageEdit from 'filepond-plugin-image-edit'; // Import the plugin code
+import 'filepond-plugin-image-edit/dist/filepond-plugin-image-edit.css'; // Import the plugin styles
+import FilePondPluginImageCrop from 'filepond-plugin-image-crop'; // Import the plugin code
 import {
     FilePondFile
 } from "filepond";
@@ -56,6 +63,7 @@ export default function Filter(): JSX.Element {
     var [imageFileExtension, setImageFileExtension] = useState<string>("");
     var [imageBase64, setImageBase64] = useState<string>("/libear-only.png");
     var [imageTypes, setImageTypes] = useState<ImageType[]>(ImageTypesGen);
+    registerPlugin(FilePondPluginFileRename, FilePondPluginImagePreview, FilePondPluginImageResize, FilePondPluginImageEdit, FilePondPluginImageCrop); // Register the plugin
     useEffect(function () {
         window.imageArray = imageArray;
     }, [imageArray]);
@@ -98,7 +106,7 @@ export default function Filter(): JSX.Element {
                                     removeItem();
                                     break;
                             };
-                        }}/>} key={item} label={item} />
+                        }} />} key={item} label={item} />
                     );
                 })}
             </FormGroup>
