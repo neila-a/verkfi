@@ -19,7 +19,7 @@ declare global {  //设置全局属性
         //加入对象
     }
 }
-function destroyer(...arg: any[]): any[] {
+export function destroyer(...arg: any[]): any[] {
     // 获取目标数组
     var newArray: any[] = arg[0]; // [1, 2, 1, 3, 2, 1, 3, 4, 2, 6]
     // 声明一个空数组，用来存储需要从`newArray`中删除的元素
