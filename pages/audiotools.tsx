@@ -7,10 +7,26 @@ import {
 import { useEffect, useState } from "react";
 import HeadBar from "../components/HeadBar";
 import Recorder from "../lib/recorder";
-function AudioTools(): JSX.Element {
+import {
+    FilePond,
+    registerPlugin
+} from 'react-filepond'; // Import React FilePond
+import FilePondPluginFileRename from 'filepond-plugin-file-rename'; // Import the plugin code
+import FilePondPluginImagePreview from 'filepond-plugin-image-preview'; // Import the plugin code
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css'; // Import the plugin styles
+import FilePondPluginImageResize from 'filepond-plugin-image-resize'; // Import the plugin code
+import FilePondPluginImageEdit from 'filepond-plugin-image-edit'; // Import the plugin code
+import 'filepond-plugin-image-edit/dist/filepond-plugin-image-edit.css'; // Import the plugin styles
+import FilePondPluginImageCrop from 'filepond-plugin-image-crop'; // Import the plugin code
+import {
+    FilePondFile
+} from "filepond";
+import 'filepond/dist/filepond.min.css'; // Import FilePond styles
+export default function AudioTools(): JSX.Element {
     var [startDisabled, setStartDisabled] = useState<boolean>(false);
     var [stopDisabled, setStopDisabled] = useState<boolean>(true);
     var [TTSURL, setTTSURL] = useState<string>("");
+    registerPlugin(FilePondPluginFileRename, FilePondPluginImagePreview, FilePondPluginImageResize, FilePondPluginImageEdit, FilePondPluginImageCrop); // Register the plugin
     useEffect(function () {
         var start = document.querySelector('#start');
         var stop = document.querySelector('#stop');
@@ -57,16 +73,6 @@ function AudioTools(): JSX.Element {
             };
         });
     });
-    function onChange(event) {
-        const file = event.target.files[0];
-        var outputtext = `[FileReader] 已读取'${file.name}'，最后修改时间是${file.lastModifiedDate}，类别是${file.type}，大小是${file.size}字节。`;
-        console.log(outputtext);
-        const reader = new FileReader();
-        reader.onloadend = (arg) => {
-            document.getElementById("audioplay-loop").innerHTML = `<audio controls loop style=''><source src='${reader.result}' type='${file.type}'/>您的浏览器不支持 audio 元素。</audio>`;
-        };
-        return reader.readAsDataURL(file);
-    }
     function TTS(): void {
         var text: string = prompt('请输入需要转换的文字：', '你好像没输入任何文字。');
         var speed: any = prompt("请输入语速（0～15）：", "0");
@@ -87,21 +93,38 @@ function AudioTools(): JSX.Element {
             console.log("获取剪贴板失败: ", value);
         });
     };
+    var [loopAudioType, setLoopAudioType] = useState<string>("");
+    var [loopAudioSrc, setLoopAudioSrc] = useState<string>("");
     return (
-        <div>
-            <Head>
-                <style>{`
-                    #audioreplay > div, #audioinput > div, #text2audio > div {
-                        margin: 10px
-                    }
-                `}</style>
-            </Head>
+        <>
+            <style>{`
+                #audioreplay > div, #audioinput > div, #text2audio > div {
+                    margin: 10px
+                }
+            `}</style>
             <HeadBar isIndex={false} pageName="AudioTools" />
             <Paper elevation={24} id="audioreplay">
                 <div>
                     <Typography variant="h3" gutterBottom>音频循环播放</Typography>
-                    <div id="audioplay-loop"></div>
-                    <input type='file' onChange={onChange} id='inputfile' />
+                    <audio controls loop>
+                        <source src={loopAudioSrc} type={loopAudioType} />
+                        您的浏览器不支持 audio 元素。
+                    </audio>
+                    <FilePond
+                        files={[]}
+                        onupdatefiles={(audios: FilePondFile[]) => {
+                            setLoopAudioType(audios[0].fileType);
+                            var reader = new FileReader();
+                            reader.onload = function () {
+                                setLoopAudioSrc(String(reader.result));
+                            };
+                            reader.readAsDataURL(audios[0].file);
+                        }}
+                        allowMultiple={true}
+                        maxFiles={1}
+                        name="files"
+                        labelIdle='拖拽音频到这里、粘贴或<span class="filepond--label-action">浏览</span>'
+                    />
                 </div>
             </Paper>
             <Paper elevation={24} id="audioinput">
@@ -122,7 +145,6 @@ function AudioTools(): JSX.Element {
                     <Typography variant="body1" gutterBottom>Powered by Sogou TTS</Typography>
                 </div>
             </Paper>
-        </div>
+        </>
     );
 };
-export default AudioTools;

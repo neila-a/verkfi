@@ -22,9 +22,8 @@
 	"include": [
 		"next-env.d.ts",
 		"**/*.ts",
-		"**/*.tsx",
-		"components/Center.tsx/center.js, components/center.tsx/center.jsxx"
-, "lib/recorder.js", "lib/recorder.js"	],
+		"**/*.tsx"
+	],
 	"exclude": [
 		"node_modules"
 	]
