@@ -49,14 +49,6 @@ export const ImageTypesGen: ImageType[] = [
     "shadow"
 ];
 export type ImageType = "blur" | "brightness" | "contrast" | "grayscale" | "huerotate" | "invert" | "opacity" | "saturate" | "sepia" | "shadow";
-export function Image(props: {
-    type: ImageType;
-    src: string;
-}): JSX.Element {
-    return (
-        <img title={props.type} key={props.type} className={imageStyle[props.type]} src={props.src} alt={props.type}></img>
-    );
-};
 export default function Filter(): JSX.Element {
     var [imageArray, setImageArray] = useState<any[]>([]);
     var [imageFileName, setImageFileName] = useState<string>("");
@@ -111,11 +103,7 @@ export default function Filter(): JSX.Element {
                 })}
             </FormGroup>
             <div id="images">
-                {imageTypes.map((type) => (
-                    <div key={type}>
-                        <Image type={type} src={imageBase64} />
-                    </div>
-                ))}
+                {imageTypes.map((type) => <img title={type} key={type} className={imageStyle[type]} src={imageBase64} alt={type} />)}
             </div>
         </>
     );
