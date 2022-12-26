@@ -114,11 +114,7 @@ export default function AudioTools(): JSX.Element {
                         files={[]}
                         onupdatefiles={(audios: FilePondFile[]) => {
                             setLoopAudioType(audios[0].fileType);
-                            var reader = new FileReader();
-                            reader.onload = function () {
-                                setLoopAudioSrc(String(reader.result));
-                            };
-                            reader.readAsDataURL(audios[0].file);
+                            setLoopAudioSrc(window.URL.createObjectURL(audios[0].file));
                         }}
                         allowMultiple={true}
                         maxFiles={1}
