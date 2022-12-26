@@ -1,13 +1,15 @@
-.PHONY: dev build start lint push
+.PHONY: dev build start lint push commit
 dev:
-	npx next dev
+	next dev
 build:
-	npx next build
+	next build
 start:
-	npx next start
+	next start
 lint:
-	npx next lint
-push: 
+	next lint
+push:
+	make commit
+	git push --force
+commit:
 	git add .
 	git commit -a -m "来自Makefile的一次自动提交"
-	git push origin main --tags
