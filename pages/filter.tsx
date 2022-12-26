@@ -63,14 +63,14 @@ export default function Filter(): JSX.Element {
     var [imageFileExtension, setImageFileExtension] = useState<string>("");
     var [imageBase64, setImageBase64] = useState<string>("/libear-only.png");
     var [imageTypes, setImageTypes] = useState<ImageType[]>(ImageTypesGen);
-    const [value, setValue] = React.useState<number | string | Array<number | string>>(100);
-    const handleSliderChange = (event: Event, newValue: number | number[]) => setValue(newValue);
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => setValue(event.target.value === '' ? '' : Number(event.target.value));
+    const [scale, setScale] = React.useState<number | string | Array<number | string>>(100);
+    const handleSliderChange = (event: Event, newValue: number | number[]) => setScale(newValue);
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => setScale(event.target.value === '' ? '' : Number(event.target.value));
     const handleBlur = () => {
-        if (value < 0) {
-            setValue(0);
-        } else if (value > 200) {
-            setValue(200);
+        if (scale < 0) {
+            setScale(0);
+        } else if (scale > 200) {
+            setScale(200);
         }
     };
     registerPlugin(FilePondPluginFileRename, FilePondPluginImagePreview, FilePondPluginImageResize, FilePondPluginImageEdit, FilePondPluginImageCrop); // Register the plugin
@@ -125,14 +125,14 @@ export default function Filter(): JSX.Element {
                 <Grid container spacing={1} alignItems="center">
                     <Grid item xs>
                         <Slider
-                            value={typeof value === 'number' ? value : 0}
+                            value={typeof scale === 'number' ? scale : 0}
                             onChange={handleSliderChange}
                             aria-labelledby="input-slider"
                         />
                     </Grid>
                     <Grid item>
                         <Input
-                            value={value}
+                            value={scale}
                             size="small"
                             onChange={handleInputChange}
                             onBlur={handleBlur}
@@ -152,7 +152,7 @@ export default function Filter(): JSX.Element {
             </>
             <div id="images">
                 {imageTypes.map((type) => <img title={type} key={type} className={imageStyle[type]} src={imageBase64} alt={type} style={{
-                    transform: `scale(${value})`
+                    transform: `scale(${(Number(scale) / 100).toString()})`
                 }} />)}
             </div>
         </>
