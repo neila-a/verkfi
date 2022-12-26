@@ -25,7 +25,6 @@ function ShaiZi(): JSX.Element {
         ctx.beginPath();
         //ctx.arc(100,100,50,0,Math.PI,false);
         ctx.strokeRect(leftX, topY, diceX, diceY);
-
         setTimeout(function () {
             random(ctx);
         }, 200);
@@ -70,7 +69,6 @@ function ShaiZi(): JSX.Element {
             lastNum = randomNum;
             drawDice(ctx, randomNum);
         }
-
     }
     function commonDraw(ctx: CanvasRenderingContext2D, dotX, dotY) {
         ctx.beginPath();

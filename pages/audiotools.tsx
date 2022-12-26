@@ -54,7 +54,6 @@ function AudioTools(): JSX.Element {
             });
             var AudioElements = document.querySelectorAll("audio");
             for (let i = 0; i < AudioElements.length; i++) {
-
             };
         });
     });

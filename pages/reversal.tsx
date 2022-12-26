@@ -24,7 +24,6 @@ export function destroyer(...arg: any[]): any[] {
     var newArray: any[] = arg[0]; // [1, 2, 1, 3, 2, 1, 3, 4, 2, 6]
     // 声明一个空数组，用来存储需要从`newArray`中删除的元素
     var removeArgs: any[] = [];
-
     for (let i: number = 1, len = arg.length; i < len; i++) {
         removeArgs.push(arg[i]);
         /*
@@ -36,12 +35,9 @@ export function destroyer(...arg: any[]): any[] {
          *  
          */
     }
-
     // 声明filter()方法的callback函数
-
     function isFalse(value): boolean {
         return removeArgs.indexOf(value) === -1;
-
         /*
          *  removeArgs = [1,2]
          *  removeArgs.indexOf(value) = ?  removeArgs.indexOf(value) === -1
@@ -50,7 +46,6 @@ export function destroyer(...arg: any[]): any[] {
          *
          */
     }
-
     return newArray.filter(isFalse);// newArray中删除1,2
 }
 function Reversal(): JSX.Element {

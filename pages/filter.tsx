@@ -24,17 +24,16 @@ import {
 } from "./index";
 import style from "../styles/Filter.module.scss";
 import {
-    FormGroup,
-    FormControlLabel,
-    Checkbox,
     Grid,
     Input as MuiInput,
     Slider,
-    Typography
+    Typography,
+    Button,
+    List,
+    ListItem,
+    ListItemText,
+    Paper
 } from "@mui/material";
-import {
-    destroyer
-} from "./reversal";
 import { styled } from '@mui/material/styles';
 declare global {
     interface Window {
@@ -44,6 +43,7 @@ declare global {
 export const Input = styled(MuiInput)`
   width: 42px;
 `;
+export type ImageType = "blur" | "brightness" | "contrast" | "grayscale" | "huerotate" | "invert" | "opacity" | "saturate" | "sepia" | "shadow";
 export const ImageTypesGen: ImageType[] = [
     "blur",
     "brightness",
@@ -56,14 +56,15 @@ export const ImageTypesGen: ImageType[] = [
     "sepia",
     "shadow"
 ];
-export type ImageType = "blur" | "brightness" | "contrast" | "grayscale" | "huerotate" | "invert" | "opacity" | "saturate" | "sepia" | "shadow";
+export const not = (a: ImageType[], b: ImageType[]) => a.filter((value) => b.indexOf(value) === -1);
+export const intersection = (a: ImageType[], b: ImageType[]) => a.filter((value) => b.indexOf(value) !== -1);
 export default function Filter(): JSX.Element {
     var [imageArray, setImageArray] = useState<any[]>([]);
     var [imageFileName, setImageFileName] = useState<string>("");
     var [imageFileExtension, setImageFileExtension] = useState<string>("");
     var [imageBase64, setImageBase64] = useState<string>("/libear-only.png");
     var [imageTypes, setImageTypes] = useState<ImageType[]>(ImageTypesGen);
-    const [scale, setScale] = React.useState<number | string | Array<number | string>>(100);
+    var [scale, setScale] = React.useState<number | string | Array<number | string>>(100);
     const handleSliderChange = (event: Event, newValue: number | number[]) => setScale(newValue);
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => setScale(event.target.value === '' ? '' : Number(event.target.value));
     const handleBlur = () => {
@@ -73,6 +74,53 @@ export default function Filter(): JSX.Element {
             setScale(200);
         }
     };
+    var [checked, setChecked] = React.useState<ImageType[]>([]);
+    var [right, setRight] = React.useState<ImageType[]>([]);
+    const leftChecked = intersection(checked, imageTypes);
+    const rightChecked = intersection(checked, right);
+    const handleToggle = (value: ImageType) => () => {
+        const currentIndex = checked.indexOf(value);
+        const newChecked = [...checked];
+        if (currentIndex === -1) {
+            newChecked.push(value);
+        } else {
+            newChecked.splice(currentIndex, 1);
+        }
+        setChecked(newChecked);
+    };
+    const handleCheckedRight = () => {
+        setRight(right.concat(leftChecked));
+        setImageTypes(not(imageTypes, leftChecked));
+        setChecked(not(checked, leftChecked));
+    };
+    function handleCheckedLeft() {
+        setImageTypes(imageTypes.concat(rightChecked));
+        setRight(not(right, rightChecked));
+        setChecked(not(checked, rightChecked));
+    }
+    const customList = (items: ImageType[]) => (
+        <Paper sx={{ overflow: "auto" }}>
+            <List dense component="div" role="list">
+                {items.map((value) => {
+                    const labelId = `transfer-list-item-${value}-label`;
+                    return (
+                        <ListItem
+                            key={value}
+                            role="listitem"
+                            button
+                            onClick={handleToggle(value)}
+                            style={{
+                                backgroundColor: (checked.find(() => value) === value) ? "#1e9fff" : "#fff"
+                            }}
+                        >
+                            <ListItemText id={labelId} primary={value} />
+                        </ListItem>
+                    );
+                })}
+                <ListItem />
+            </List>
+        </Paper>
+    );
     registerPlugin(FilePondPluginFileRename, FilePondPluginImagePreview, FilePondPluginImageResize, FilePondPluginImageEdit, FilePondPluginImageCrop); // Register the plugin
     useEffect(function () {
         window.imageArray = imageArray;
@@ -98,26 +146,39 @@ export default function Filter(): JSX.Element {
                 name="files"
                 labelIdle='拖拽图片到这里、粘贴或<span class="filepond--label-action">浏览</span>'
             />
-            <FormGroup>
-                {ImageTypesGen.map((item, index) => (
-                    <FormControlLabel control={<Checkbox defaultChecked onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                        const removeItem = () => {
-                            setImageTypes(destroyer(imageTypes, item));
-                        };
-                        const addItem = () => {
-                            setImageTypes([item, ...imageTypes]);
-                        };
-                        switch (event.target.checked) {
-                            case true:
-                                addItem();
-                                break;
-                            case false:
-                                removeItem();
-                                break;
-                        };
-                    }} />} key={item} label={item} />
-                ))}
-            </FormGroup>
+            <>
+                <Typography gutterBottom>
+                    滤镜类型
+                </Typography>
+                <Grid container spacing={2} justifyContent="center" alignItems="center">
+                    <Grid item>{customList(imageTypes)}</Grid>
+                    <Grid item>
+                        <Grid container direction="column" alignItems="center">
+                            <Button
+                                sx={{ my: 0.5 }}
+                                variant="outlined"
+                                size="small"
+                                onClick={handleCheckedRight}
+                                disabled={leftChecked.length === 0}
+                                aria-label="move selected right"
+                            >
+                                &gt;
+                            </Button>
+                            <Button
+                                sx={{ my: 0.5 }}
+                                variant="outlined"
+                                size="small"
+                                onClick={handleCheckedLeft}
+                                disabled={rightChecked.length === 0}
+                                aria-label="move selected left"
+                            >
+                                &lt;
+                            </Button>
+                        </Grid>
+                    </Grid>
+                    <Grid item>{customList(right)}</Grid>
+                </Grid>
+            </>
             <>
                 <Typography id="input-slider" gutterBottom>
                     图片大小
