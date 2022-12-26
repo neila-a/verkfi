@@ -95,6 +95,7 @@ export default function AudioTools(): JSX.Element {
     };
     var [loopAudioType, setLoopAudioType] = useState<string>("");
     var [loopAudioSrc, setLoopAudioSrc] = useState<string>("");
+    var [haveLoopAudio, setHaveLoopAudio] = useState<boolean>(false);
     return (
         <>
             <style>{`
@@ -106,13 +107,14 @@ export default function AudioTools(): JSX.Element {
             <Paper elevation={24} id="audioreplay">
                 <div>
                     <Typography variant="h3" gutterBottom>音频循环播放</Typography>
-                    <audio controls loop>
+                    { haveLoopAudio ? <audio controls loop>
                         <source src={loopAudioSrc} type={loopAudioType} />
                         您的浏览器不支持 audio 元素。
-                    </audio>
+                    </audio> : <></> }
                     <FilePond
                         files={[]}
                         onupdatefiles={(audios: FilePondFile[]) => {
+                            setHaveLoopAudio(true);
                             setLoopAudioType(audios[0].fileType);
                             setLoopAudioSrc(window.URL.createObjectURL(audios[0].file));
                         }}
