@@ -22,7 +22,7 @@ import HeadBar from "../components/HeadBar";
 import {
     pages
 } from "./index";
-import imageStyle from "../styles/Filter.module.scss";
+import style from "../styles/Filter.module.scss";
 import {
     FormGroup,
     FormControlLabel,
@@ -150,8 +150,8 @@ export default function Filter(): JSX.Element {
                     </Grid>
                 </Grid>
             </>
-            <div id="images">
-                {imageTypes.map((type) => <img title={type} key={type} className={imageStyle[type]} src={imageBase64} alt={type} style={{
+            <div id="images" className={style["container"]}>
+                {imageTypes.map((type) => <img title={type} key={type} className={style[type]} src={imageBase64} alt={type} style={{
                     transform: `scale(${(Number(scale) / 100).toString()})`
                 }} />)}
             </div>

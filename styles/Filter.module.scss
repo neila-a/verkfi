@@ -1,3 +1,11 @@
+.container > * {
+    max-width: 100%;
+}
+
+.container {
+    width: 100%;
+};
+
 .blur {
     filter: blur(4px);
 }
