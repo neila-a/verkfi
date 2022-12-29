@@ -10,7 +10,7 @@ import {
 } from "react";
 export default function Settings(): JSX.Element {
     var [forkMeOnGitHub, setForkMeOnGitHub] = useState<boolean>(true);
-	useEffect(() => {
+	useEffect(function () {
 		switch (window.localStorage.getItem("fork-me-on-github")) {
 			case "true":
 				setForkMeOnGitHub(true);

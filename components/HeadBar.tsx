@@ -23,7 +23,7 @@ export interface HeadBarOption {
  */
 export default function HeadBar(props: HeadBarOption): JSX.Element {
 	var [forkMeOnGitHub, setForkMeOnGitHub] = useState<boolean>(true);
-	useEffect(() => {
+	useEffect(function () {
 		switch (window.localStorage.getItem("fork-me-on-github")) {
 			case "true":
 				setForkMeOnGitHub(true);
