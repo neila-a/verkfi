@@ -1,11 +1,11 @@
-import Center from "../components/Center";
+import Center from "../../components/Center";
 import React, {
     useEffect
 } from "react";
 import {
     Button
 } from "@mui/material";
-import HeadBar from "../components/HeadBar";
+import HeadBar from "../../components/HeadBar";
 function ShaiZi(): JSX.Element {
     var leftX: number = 150;
     var topY: number = 100;

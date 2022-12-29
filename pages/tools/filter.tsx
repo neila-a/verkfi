@@ -18,10 +18,10 @@ import {
     FilePondFile
 } from "filepond";
 import 'filepond/dist/filepond.min.css'; // Import FilePond styles
-import HeadBar from "../components/HeadBar";
+import HeadBar from "../../components/HeadBar";
 import {
-    pages
-} from "./index";
+    tools
+} from "..";
 import style from "../styles/Filter.module.scss";
 import {
     Grid,
@@ -127,7 +127,7 @@ export default function Filter(): JSX.Element {
     }, [imageArray]);
     return (
         <>
-            <HeadBar isIndex={false} pageName={pages[6].name} />
+            <HeadBar isIndex={false} pageName={tools[6].name} />
             <br />
             <FilePond
                 files={imageArray}

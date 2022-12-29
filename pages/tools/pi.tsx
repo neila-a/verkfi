@@ -11,7 +11,7 @@ import {
     TextField,
     Button
 } from "@mui/material";
-import HeadBar from "../components/HeadBar";
+import HeadBar from "../../components/HeadBar";
 const pi = require("pi");
 function PI(): JSX.Element {
     interface confFace {

@@ -18,13 +18,13 @@ import {
 import Style from "../styles/Index.module.scss";
 import ShaiziIcon from "../public/shaizi.24x24.svg";
 import PiIcon from "../public/pi.466x393.png";
-export interface page {
+export interface tool {
     name: string;
     to: string;
     desc: string;
     icon: () => JSX.Element
 }
-export const pages: page[] = [
+export const tools: tool[] = [
     {
         name: "AudioTools",
         to: "audiotools",
@@ -76,27 +76,24 @@ export default function Index(): JSX.Element {
             <Stack spacing={5} className={Style["items"]} sx={{
                 flexDirection: "row"
             }}>
-                {pages.map((page, index) => {
-                    const PageIcon = page.icon;
+                {tools.map((tool, index) => {
+                    const ToolIcon = tool.icon;
                     return (
-                        <>
-                            <Link href={page.to} key={page.name}>
+                            <Link href={`/tools/${tool.to}`} key={tool.name}>
                                 <Card sx={{
                                     minWidth: 275
                                 }} elevation={10}>
                                     <CardContent>
                                         <Typography variant="h5" component="div">
-                                            <PageIcon />
-                                            {page.name}
+                                            <ToolIcon />
+                                            {tool.name}
                                         </Typography>
                                         <Typography variant="body2">
-                                            {page.desc}
+                                            {tool.desc}
                                         </Typography>
                                     </CardContent>
                                 </Card>
                             </Link>
-                            {/* Deleted Code {(index % 2 == 1) ? <br /> : <></>} */}
-                        </>
                     );
                 })}
             </Stack>

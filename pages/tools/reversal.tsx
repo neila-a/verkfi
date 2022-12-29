@@ -10,7 +10,7 @@ import {
 import {
     Close
 } from "@mui/icons-material";
-import HeadBar from "../components/HeadBar";
+import HeadBar from "../../components/HeadBar";
 "use strict";
 declare global {  //设置全局属性
     interface Window {  //window对象属性

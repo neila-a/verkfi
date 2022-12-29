@@ -5,8 +5,8 @@ import {
     Typography
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import HeadBar from "../components/HeadBar";
-import Recorder from "../lib/recorder";
+import HeadBar from "../../components/HeadBar";
+import Recorder from "../../lib/recorder";
 import {
     FilePond,
     registerPlugin

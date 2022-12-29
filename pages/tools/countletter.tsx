@@ -2,7 +2,7 @@ import Link from "next/link";
 import {
     Button, Divider, Stack
 } from "@mui/material";
-import HeadBar from "../components/HeadBar";
+import HeadBar from "../../components/HeadBar";
 function CountLetter(): JSX.Element {
     function main() {
         alert(prompt("请输入字母：", "A")

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import HeadBar from "../components/HeadBar";
+import HeadBar from "../../components/HeadBar";
 import moment from "moment";
 function BigTime(): JSX.Element {
     var [time, setTime] = useState<string>();
