@@ -70,7 +70,13 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 			} : {
 				right: "0px"
 			}}>
-				<a href="https://github.com/neila-a/NeilaTools.git">Fork me on GitHub</a>
+				<a href="https://github.com/neila-a/NeilaTools.git" style={props.isIndex ? {
+					transform: "rotate(-45deg)",
+					left: "-40px"
+				} : {
+					transform: "rotate(45deg)",
+					right: "-40px"
+				}}>Fork me on GitHub</a>
 			</div> : <></>}
 		</>
 	);
