@@ -6,10 +6,12 @@ import {
 } from "@mui/material";
 import {
 	ArrowBack,
-	Info
+	Settings as SettingsIcon
 } from "@mui/icons-material"
 import Router from "next/router";
 import Head from "next/head";
+import ForkMeOnGitHub from "fork-me-on-github";
+import { useEffect, useState } from "react";
 export interface HeadBarOption {
 	pageName: string;
 	isIndex: boolean;
@@ -19,7 +21,20 @@ export interface HeadBarOption {
  * @param {boolean} isIndex 是否是索引页面
  * @param {string} pageName 页面的名称
  */
-function HeadBar(props: HeadBarOption): JSX.Element {
+export default function HeadBar(props: HeadBarOption): JSX.Element {
+	var [forkMeOnGitHub, setForkMeOnGitHub] = useState<boolean>(true);
+	useEffect(() => {
+		switch (window.localStorage.getItem("fork-me-on-github")) {
+			case "true":
+				setForkMeOnGitHub(true);
+				break;
+			case "false":
+				setForkMeOnGitHub(false);
+				break;
+			default:
+				window.localStorage.setItem("fork-me-on-github", "true");
+		}
+	});
 	return (
 		<>
 			<Head>
@@ -40,9 +55,14 @@ function HeadBar(props: HeadBarOption): JSX.Element {
 					}}>
 						{props.isIndex ? "NeilaTools" : props.pageName}
 					</Typography>
+					{props.isIndex ? <IconButton size="large" edge="end" color="inherit" aria-label="menu" sx={{ mr: 2 }} onClick={() => {
+						Router.push("/settings");
+					}}>
+						<SettingsIcon />
+					</IconButton> : <></>}
 				</Toolbar>
 			</AppBar>
+			{forkMeOnGitHub ? <ForkMeOnGitHub repo="https://github.com/neila-a/NeilaTools" /> : <></>}
 		</>
 	);
-}
-export default HeadBar;
+};

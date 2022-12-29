@@ -64,7 +64,7 @@ export const pages: page[] = [
     {
         name: "滤镜",
         to: "filter",
-        desc: "将一张图片处理成不同的（开发中）",
+        desc: "将一张图片处理成不同的",
         icon: () => <FilterIcon />
     }
 ];

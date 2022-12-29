@@ -133,16 +133,6 @@ export default function AudioTools(): JSX.Element {
                     <div id="audio-container"></div>
                 </div>
             </Paper>
-            <Paper elevation={24} id='text2audio'>
-                <div>
-                    <Typography variant="h3" gutterBottom>文字转音频</Typography>
-                    <Button color="primary" variant="contained" onClick={TTS}>点我</Button>
-                    <Button color="primary" variant="outlined" onClick={procFromClipboard}>从剪贴板读取</Button>
-                    <br />
-                    <iframe src={TTSURL} title="TTS content"></iframe>
-                    <Typography variant="body1" gutterBottom>Powered by Sogou TTS</Typography>
-                </div>
-            </Paper>
         </>
     );
 };
