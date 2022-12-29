@@ -11,7 +11,11 @@ import {
 import Router from "next/router";
 import Head from "next/head";
 import ForkMeOnGitHub from "fork-me-on-github";
-import { useEffect, useState } from "react";
+import {
+	useEffect,
+	useState
+} from "react";
+import style from "../styles/HeadBar.module.scss";
 export interface HeadBarOption {
 	pageName: string;
 	isIndex: boolean;
@@ -62,7 +66,9 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 					</IconButton> : <></>}
 				</Toolbar>
 			</AppBar>
-			{forkMeOnGitHub ? <ForkMeOnGitHub repo="https://github.com/neila-a/NeilaTools" /> : <></>}
+			{forkMeOnGitHub ? <div className={style["github-ribbon"]}>
+				<a target="_blank" href="https://github.com/neila-a/NeilaTools.git">Fork me on GitHub</a>
+			</div> : <></>}
 		</>
 	);
 };
