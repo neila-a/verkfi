@@ -21,7 +21,7 @@ export default function Settings(): JSX.Element {
 			default:
 				window.localStorage.setItem("fork-me-on-github", "true");
 		}
-	});
+	}, [setForkMeOnGitHub]);
     return (
         <>
             <HeadBar isIndex={false} pageName="设置" />

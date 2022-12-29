@@ -34,7 +34,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 			default:
 				window.localStorage.setItem("fork-me-on-github", "true");
 		}
-	});
+	}, [setForkMeOnGitHub]);
 	return (
 		<>
 			<Head>
