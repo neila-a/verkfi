@@ -10,7 +10,6 @@ import {
 } from "@mui/icons-material"
 import Router from "next/router";
 import Head from "next/head";
-import ForkMeOnGitHub from "fork-me-on-github";
 import {
 	useEffect,
 	useState
