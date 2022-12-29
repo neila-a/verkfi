@@ -66,7 +66,11 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 					</IconButton> : <></>}
 				</Toolbar>
 			</AppBar>
-			{forkMeOnGitHub ? <div className={style["github-ribbon"]}>
+			{forkMeOnGitHub ? <div className={style["github-ribbon"]} style={props.isIndex ? {
+				left: "0px"
+			} : {
+				right: "0px"
+			}}>
 				<a href="https://github.com/neila-a/NeilaTools.git">Fork me on GitHub</a>
 			</div> : <></>}
 		</>

@@ -17,7 +17,6 @@ specifiers:
   filepond-plugin-image-edit: ^1.6.3
   filepond-plugin-image-preview: ^4.6.11
   filepond-plugin-image-resize: ^2.0.10
-  fork-me-on-github: ^1.0.6
   mathjs: ^11.3.3
   moment: ^2.29.4
   next: 13.0.3
@@ -40,7 +39,6 @@ dependencies:
   filepond-plugin-image-edit: 1.6.3_filepond@4.30.4
   filepond-plugin-image-preview: 4.6.11_filepond@4.30.4
   filepond-plugin-image-resize: 2.0.10_filepond@4.30.4
-  fork-me-on-github: 1.0.6_biqbaboplfbrettd7655fr4n2y
   mathjs: 11.3.3
   moment: 2.29.4
   next: 13.0.3_3duxcpitbtplz62feflag7fwby
@@ -1536,16 +1534,6 @@ packages:
   /flatted/3.2.7:
     resolution: {integrity: sha512-5nqDSxl8nn5BSNxyR3n4I6eDmbolI6WT+QqR547RwxQapgjQBmtktdP+HTBb/a/zLsbzERTONyUB5pefh5TtjQ==}
     dev: true
-
-  /fork-me-on-github/1.0.6_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-5R9pXa2JvyBsewGPn8woZGNz5oOb9vi8j1mjMzleHSwBojj/D8O33OEeItIe9/wtRtD4bSU0Egs6Qzp5FU/adA==}
-    peerDependencies:
-      react: ^16.8.6
-      react-dom: ^16.8.6
-    dependencies:
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-    dev: false
 
   /fraction.js/4.2.0:
     resolution: {integrity: sha512-MhLuK+2gUcnZe8ZHlaaINnQLl0xRIGRfcGk2yl8xoQAfHrSsL3rYu6FCmBdkdbhc9EPlwyGHewaRsvwRMJtAlA==}
