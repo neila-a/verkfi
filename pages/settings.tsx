@@ -30,6 +30,7 @@ export default function Settings(): JSX.Element {
                 <FormControlLabel control={<Switch checked={forkMeOnGitHub} onChange={(event) => {
                     setForkMeOnGitHub(event.target.checked);
                     window.localStorage.setItem("fork-me-on-github", String(event.target.checked));
+                    window.location.reload();
                 }}/>} label="Fork Me On GitHub" />
             </FormGroup>
         </>
