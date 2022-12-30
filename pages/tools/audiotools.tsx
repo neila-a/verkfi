@@ -33,7 +33,6 @@ export default function AudioTools(): JSX.Element {
     useEffect(function () {
         var start = document.querySelector('#start');
         var stop = document.querySelector('#stop');
-        var container = document.querySelector('#audio-container');
         var recorder = Recorder({
             sampleRate: 44100, //采样频率，默认为44100Hz(标准MP3采样率)
             bitRate: 128, //比特率，默认为128kbps(标准MP3质量)
@@ -50,7 +49,6 @@ export default function AudioTools(): JSX.Element {
         start.addEventListener('click', function () {
             setStartDisabled(true);
             setStopDisabled(false);
-            container.innerHTML = "";
             var audio = document.querySelectorAll('audio');
             for (var i = 0; i < audio.length; i++) {
                 if (!audio[i].paused) {
