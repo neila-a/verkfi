@@ -6,7 +6,6 @@ import {
     Button
 } from "@mui/material";
 import HeadBar from "../../components/HeadBar";
-import { logger } from "./reversal";
 function ShaiZi(): JSX.Element {
     var leftX: number = 150;
     var topY: number = 100;

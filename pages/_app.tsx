@@ -1,8 +1,6 @@
 // import App from "next/app";
 import type { AppProps /*, AppContext */ } from 'next/app'
 import React, { useEffect } from 'react';
-import log4js from "log4js";
-export var logger = log4js.getLogger("NeilaTools");
 declare global {  //设置全局属性
     interface Window {  //window对象属性
         UWAWorker: Promise<ServiceWorkerRegistration>;
