@@ -26,9 +26,7 @@ export default function AudioTools(): JSX.Element {
     var [startDisabled, setStartDisabled] = useState<boolean>(false);
     var [stopDisabled, setStopDisabled] = useState<boolean>(true);
     var [loopAudioSrc, setLoopAudioSrc] = useState<string>("");
-    var [haveLoopAudio, setHaveLoopAudio] = useState<boolean>(false);
     var [loopSpeakAudioSrc, setLoopSpeakAudioSrc] = useState<string>("");
-    var [haveSpeakLoopAudio, setHaveSpeakLoopAudio] = useState<boolean>(false);
     registerPlugin(FilePondPluginFileRename, FilePondPluginImagePreview, FilePondPluginImageResize, FilePondPluginImageEdit, FilePondPluginImageCrop); // Register the plugin
     useEffect(function () {
         var start = document.querySelector('#start');
@@ -62,7 +60,6 @@ export default function AudioTools(): JSX.Element {
             setStartDisabled(false);
             recorder.stop();
             recorder.getBlob(function (blob: Blob) {
-                setHaveSpeakLoopAudio(true);
                 setLoopSpeakAudioSrc(URL.createObjectURL(blob));
             });
         });
@@ -73,13 +70,12 @@ export default function AudioTools(): JSX.Element {
             <Paper elevation={24} id="audioreplay" className={style["audioreplay"]}>
                 <div>
                     <Typography variant="h3" gutterBottom>音频循环播放</Typography>
-                    { haveLoopAudio ? <audio controls loop src={loopAudioSrc}>
+                    <audio controls loop src={loopAudioSrc}>
                         您的浏览器不支持 audio 元素。
-                    </audio> : <></> }
+                    </audio>
                     <FilePond
                         files={[]}
                         onupdatefiles={(audios: FilePondFile[]) => {
-                            setHaveLoopAudio(true);
                             setLoopAudioSrc(window.URL.createObjectURL(audios[0].file));
                         }}
                         allowMultiple={true}
@@ -94,9 +90,9 @@ export default function AudioTools(): JSX.Element {
                     <Typography variant="h3" gutterBottom>音频录制并循环</Typography>
                     <Button id="start" variant="contained" disabled={startDisabled}>录音</Button>
                     <Button id="stop" variant="contained" disabled={stopDisabled}>停止</Button>
-                    { haveSpeakLoopAudio ? <audio controls loop src={loopSpeakAudioSrc}>
+                    <audio controls loop src={loopSpeakAudioSrc}>
                         您的浏览器不支持 audio 元素。
-                    </audio> : <></> }
+                    </audio>
                 </div>
             </Paper>
         </>
