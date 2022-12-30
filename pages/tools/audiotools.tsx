@@ -21,7 +21,7 @@ import {
     FilePondFile
 } from "filepond";
 import 'filepond/dist/filepond.min.css'; // Import FilePond styles
-import style from "../styles/AudioTools.module.scss";
+import style from "../../styles/AudioTools.module.scss";
 export default function AudioTools(): JSX.Element {
     var [startDisabled, setStartDisabled] = useState<boolean>(false);
     var [stopDisabled, setStopDisabled] = useState<boolean>(true);
