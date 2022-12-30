@@ -35,7 +35,6 @@ import {
     Paper
 } from "@mui/material";
 import { styled } from '@mui/material/styles';
-import log4js from "log4js";
 export var logger = log4js.getLogger("Filter");
 declare global {
     interface Window {

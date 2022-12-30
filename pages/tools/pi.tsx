@@ -12,7 +12,6 @@ import {
     Button
 } from "@mui/material";
 import HeadBar from "../../components/HeadBar";
-import log4js from "log4js";
 export var logger = log4js.getLogger("PI");
 const pi = require("pi");
 function PI(): JSX.Element {

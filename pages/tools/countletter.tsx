@@ -3,7 +3,6 @@ import {
     Button, Divider, Stack
 } from "@mui/material";
 import HeadBar from "../../components/HeadBar";
-import log4js from "log4js";
 export var logger = log4js.getLogger("CountLetter");
 function CountLetter(): JSX.Element {
     function main() {

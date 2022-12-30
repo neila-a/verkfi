@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import HeadBar from "../../components/HeadBar";
 import moment from "moment";
-import log4js from "log4js";
 export var logger = log4js.getLogger("BigTime");
 function BigTime(): JSX.Element {
     var [time, setTime] = useState<string>();

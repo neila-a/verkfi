@@ -11,7 +11,6 @@ import {
     Close
 } from "@mui/icons-material";
 import HeadBar from "../../components/HeadBar";
-import log4js from "log4js";
 export var logger = log4js.getLogger("Reversal");
 declare global {  //设置全局属性
     interface Window {  //window对象属性

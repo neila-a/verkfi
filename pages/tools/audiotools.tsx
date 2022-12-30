@@ -3,7 +3,6 @@ import {
     Paper,
     Typography
 } from "@mui/material";
-import log4js from "log4js";
 import { useEffect, useState } from "react";
 import HeadBar from "../../components/HeadBar";
 import {
