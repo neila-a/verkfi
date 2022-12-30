@@ -1,4 +1,3 @@
-import Head from "next/head";
 import {
     Button,
     Paper,
@@ -22,10 +21,14 @@ import {
     FilePondFile
 } from "filepond";
 import 'filepond/dist/filepond.min.css'; // Import FilePond styles
+import style from "../styles/AudioTools.module.scss";
 export default function AudioTools(): JSX.Element {
     var [startDisabled, setStartDisabled] = useState<boolean>(false);
     var [stopDisabled, setStopDisabled] = useState<boolean>(true);
-    var [TTSURL, setTTSURL] = useState<string>("");
+    var [loopAudioSrc, setLoopAudioSrc] = useState<string>("");
+    var [haveLoopAudio, setHaveLoopAudio] = useState<boolean>(false);
+    var [loopSpeakAudioSrc, setLoopSpeakAudioSrc] = useState<string>("");
+    var [haveSpeakLoopAudio, setHaveSpeakLoopAudio] = useState<boolean>(false);
     registerPlugin(FilePondPluginFileRename, FilePondPluginImagePreview, FilePondPluginImageResize, FilePondPluginImageEdit, FilePondPluginImageCrop); // Register the plugin
     useEffect(function () {
         var start = document.querySelector('#start');
@@ -37,10 +40,10 @@ export default function AudioTools(): JSX.Element {
             success: function () { //成功回调函数
                 setStartDisabled(false);
             },
-            error: function (msg) { //失败回调函数
+            error: function (msg: string) { //失败回调函数
                 alert(msg);
             },
-            fix: function (msg) { //不支持H5录音回调函数
+            fix: function (msg: string) { //不支持H5录音回调函数
                 alert(msg);
             }
         });
@@ -60,62 +63,25 @@ export default function AudioTools(): JSX.Element {
             setStopDisabled(true);
             setStartDisabled(false);
             recorder.stop();
-            recorder.getBlob(function (blob) {
-                var audio = document.createElement('audio');
-                audio.src = URL.createObjectURL(blob);
-                console.log(`成功加载音频：${audio.src}`);
-                audio.controls = true;
-                audio.loop = true;
-                container.appendChild(audio);
+            recorder.getBlob(function (blob: Blob) {
+                setHaveSpeakLoopAudio(true);
+                setLoopSpeakAudioSrc(URL.createObjectURL(blob));
             });
-            var AudioElements = document.querySelectorAll("audio");
-            for (let i = 0; i < AudioElements.length; i++) {
-            };
         });
     });
-    function TTS(): void {
-        var text: string = prompt('请输入需要转换的文字：', '你好像没输入任何文字。');
-        var speed: any = prompt("请输入语速（0～15）：", "0");
-        if (speed < 1) {
-            alert("你输入的语速比1还小,太小了！");
-            return;
-        } else if (speed > 15) {
-            alert("你输入的语速比15还大，太大了！");
-            return;
-        }
-        setTTSURL(`https://fanyi.sogou.com/reventondc/synthesis?text=${text}&speed=${speed}&lang=${prompt('请输入语言（"zh"表示中文，"en"表示英文）：', "zh").replace('zh', 'zh-CHS')}&from=translateweb&speaker=6`);
-    }
-    function procFromClipboard(): void {
-        navigator.clipboard.readText().then((value) => {
-            setTTSURL(`https://fanyi.sogou.com/reventondc/synthesis?text=${value}&speed=1&lang=zh&from=translateweb&speaker=6`);
-            console.log("获取剪贴板成功：", value);
-        }).catch((value) => {
-            console.log("获取剪贴板失败: ", value);
-        });
-    };
-    var [loopAudioType, setLoopAudioType] = useState<string>("");
-    var [loopAudioSrc, setLoopAudioSrc] = useState<string>("");
-    var [haveLoopAudio, setHaveLoopAudio] = useState<boolean>(false);
     return (
         <>
-            <style>{`
-                #audioreplay > div, #audioinput > div, #text2audio > div {
-                    margin: 10px
-                }
-            `}</style>
             <HeadBar isIndex={false} pageName="AudioTools" />
-            <Paper elevation={24} id="audioreplay">
+            <Paper elevation={24} id="audioreplay" className={style["audioreplay"]}>
                 <div>
                     <Typography variant="h3" gutterBottom>音频循环播放</Typography>
-                    { haveLoopAudio ? <audio controls loop>
-                        <source src={loopAudioSrc} type={loopAudioType} />
+                    { haveLoopAudio ? <audio controls loop src={loopAudioSrc}>
                         您的浏览器不支持 audio 元素。
                     </audio> : <></> }
                     <FilePond
                         files={[]}
                         onupdatefiles={(audios: FilePondFile[]) => {
                             setHaveLoopAudio(true);
-                            setLoopAudioType(audios[0].fileType);
                             setLoopAudioSrc(window.URL.createObjectURL(audios[0].file));
                         }}
                         allowMultiple={true}
@@ -125,12 +91,14 @@ export default function AudioTools(): JSX.Element {
                     />
                 </div>
             </Paper>
-            <Paper elevation={24} id="audioinput">
+            <Paper elevation={24} id="audioinput" className={style["audioinput"]}>
                 <div>
                     <Typography variant="h3" gutterBottom>音频录制并循环</Typography>
                     <Button id="start" variant="contained" disabled={startDisabled}>录音</Button>
                     <Button id="stop" variant="contained" disabled={stopDisabled}>停止</Button>
-                    <div id="audio-container"></div>
+                    { haveSpeakLoopAudio ? <audio controls loop src={loopSpeakAudioSrc}>
+                        您的浏览器不支持 audio 元素。
+                    </audio> : <></> }
                 </div>
             </Paper>
         </>
