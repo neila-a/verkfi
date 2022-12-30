@@ -117,7 +117,7 @@ function PI(): JSX.Element {
                     try {
                         navigator.clipboard.writeText(out).then(() => {
                             alert("已把结果复制到剪贴板。");
-                            logger.info("已把结果复制到剪贴板。");
+                            logger.log("已把结果复制到剪贴板。");
                         });
                     } catch (error) {
                         alert("糟糕！出错了");
