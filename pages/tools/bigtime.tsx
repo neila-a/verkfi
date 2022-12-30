@@ -5,7 +5,7 @@ import LpLogger from "lp-logger";
 export var logger = new LpLogger({
     name: "BigTime",
     level: "log", // 空字符串时，不显示任何信息
-    search: "logger_level", // 配置 URL 控制参数
+    
 });
 function BigTime(): JSX.Element {
     var [time, setTime] = useState<string>();
