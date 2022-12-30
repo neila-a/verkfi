@@ -58,8 +58,8 @@ export const tools: tool[] = [
     {
         name: "掷骰子",
         to: "shaizi",
-        desc: "随机掷筛子",
-        icon: () => <Image src={ShaiziIcon} alt="筛子图标" />
+        desc: "随机掷骰子",
+        icon: () => <Image src={ShaiziIcon} alt="骰子图标" />
     },
     {
         name: "滤镜",

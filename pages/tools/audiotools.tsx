@@ -3,6 +3,7 @@ import {
     Paper,
     Typography
 } from "@mui/material";
+import log4js from "log4js";
 import { useEffect, useState } from "react";
 import HeadBar from "../../components/HeadBar";
 import {
@@ -21,6 +22,7 @@ import {
 } from "filepond";
 import 'filepond/dist/filepond.min.css'; // Import FilePond styles
 import style from "../../styles/AudioTools.module.scss";
+export var logger = log4js.getLogger("AudioTools");
 export default function AudioTools(): JSX.Element {
     var [startDisabled, setStartDisabled] = useState<boolean>(false);
     var [stopDisabled, setStopDisabled] = useState<boolean>(true);
@@ -35,12 +37,13 @@ export default function AudioTools(): JSX.Element {
             navigator.mediaDevices.getUserMedia(constraints).then(
                 stream => {
                     var audio: Blob;
-                    console.log("授权成功！");
+                    logger.info("授权成功。");
                     const mediaRecorder = new MediaRecorder(stream);
                     mediaRecorder.ondataavailable = event => audio = event.data;
                     mediaRecorder.onstop = event => setLoopSpeakAudioSrc(URL.createObjectURL(audio));
                     start.addEventListener('click', function () {
                         setStartDisabled(true);
+                        logger.info("已关闭开始按钮。");
                         var audio = document.querySelectorAll('audio');
                         for (var i = 0; i < audio.length; i++) {
                             if (!audio[i].paused) {
@@ -48,20 +51,25 @@ export default function AudioTools(): JSX.Element {
                             }
                         }
                         mediaRecorder.start();
+                        logger.info("已开始录音。");
                         setStopDisabled(false);
+                        logger.info("已开启停止按钮。");
                     });
                     stop.addEventListener('click', function () {
                         setStopDisabled(true);
+                        logger.info("已关闭停止按钮。");
                         mediaRecorder.stop();
+                        logger.info("已停止录音。");
                         setStartDisabled(false);
+                        logger.info("已开启开始按钮。");
                     });
                 },
                 () => {
-                    console.error("授权失败！");
+                    logger.error("授权失败。");
                 }
             );
         } else {
-            console.error("浏览器不支持 getUserMedia");
+            logger.error("浏览器不支持 getUserMedia。");
         }
     });
     return (

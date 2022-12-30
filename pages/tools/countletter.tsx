@@ -3,8 +3,11 @@ import {
     Button, Divider, Stack
 } from "@mui/material";
 import HeadBar from "../../components/HeadBar";
+import log4js from "log4js";
+export var logger = log4js.getLogger("CountLetter");
 function CountLetter(): JSX.Element {
     function main() {
+        logger.info("已弹出输入框。");
         alert(prompt("请输入字母：", "A")
             .replace("A", "1")
             .replace("B", "2")
@@ -58,6 +61,7 @@ function CountLetter(): JSX.Element {
             .replace("x", "24")
             .replace("y", "25")
             .replace("z", "26"));
+        logger.info("已处理完毕。");
     }
     return (
         <>
@@ -80,9 +84,6 @@ function CountLetter(): JSX.Element {
                 divider={<Divider orientation="vertical" flexItem />}
                 spacing={2}
             >
-                <Link href="/countletter/help">
-                    <Button className="help-btn">去往FAQ页面</Button>
-                </Link>
                 <Button className='restart-btn' onClick={main}>输入</Button>
             </Stack>
         </>

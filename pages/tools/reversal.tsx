@@ -11,7 +11,8 @@ import {
     Close
 } from "@mui/icons-material";
 import HeadBar from "../../components/HeadBar";
-"use strict";
+import log4js from "log4js";
+export var logger = log4js.getLogger("Reversal");
 declare global {  //设置全局属性
     interface Window {  //window对象属性
         words: any,
@@ -61,6 +62,7 @@ function Reversal(): JSX.Element {
         if (event.key == "Enter") {
             setWordList(current => [...current, words]);
             setWords("");
+            logger.info("已保存至列表。");
         }
     };
     React.useEffect(() => {
@@ -73,25 +75,31 @@ function Reversal(): JSX.Element {
             return Math.random() - 0.5;
         });
         setOutput(stageOutput.join(""));
+        logger.info("已处理。");
     };
     function reset(): void {
         setWordList([]);
         setWords("");
+        logger.info("已重置。");
     };
     function split(): void {
         setWordList(words.split(prompt("请输入拆分的符号，不输入则是逐字拆分")));
+        logger.info("已拆分。");
     };
     function copy(): void {
         try {
             navigator.clipboard.writeText(output).then(() => {
                 alert("已把结果复制到剪贴板。");
+                logger.info("已把结果复制到剪贴板。");
             });
-        } catch {
+        } catch (error) {
             alert("糟糕！出错了");
+            logger.error(`糟糕！出错了：${error}`);
         }
     };
     function read(): void {
         setShow(true);
+        logger.info("已读取。");
     };
     return (
         <div>

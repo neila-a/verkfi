@@ -12,6 +12,8 @@ import {
     Button
 } from "@mui/material";
 import HeadBar from "../../components/HeadBar";
+import log4js from "log4js";
+export var logger = log4js.getLogger("PI");
 const pi = require("pi");
 function PI(): JSX.Element {
     interface confFace {
@@ -26,19 +28,20 @@ function PI(): JSX.Element {
     var outRef = useRef();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     function calc(): string {
-        console.log(`位数是：${weishu}`);
+        logger.info(`位数是：${weishu}`);
         const ret: string = String(pi(weishu));
         return (ret);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     function proc(): void {
         const retinfo: string = calc();
-        if (useAlertShow == true) {
-            alert(retinfo);
-        } else if (useAlertShow == false) {
-            setOut(retinfo);
-        }
-        console.log(retinfo);
+        switch (useAlertShow) {
+            case true:
+                alert(retinfo);
+                break;
+            case false:
+                setOut(retinfo);
+                break;
+        };
     };
     return (
         <>
@@ -110,9 +113,11 @@ function PI(): JSX.Element {
                     try {
                         navigator.clipboard.writeText(out).then(() => {
                             alert("已把结果复制到剪贴板。");
+                            logger.info("已把结果复制到剪贴板。");
                         });
-                    } catch {
+                    } catch (error) {
                         alert("糟糕！出错了");
+                        logger.error(`糟糕！出错了：${error}`);
                     }
                 }}>复制</Button>
                 <Typography variant="body1" id="outendwm" gutterBottom>π是：{out}</Typography>

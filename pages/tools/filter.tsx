@@ -35,6 +35,8 @@ import {
     Paper
 } from "@mui/material";
 import { styled } from '@mui/material/styles';
+import log4js from "log4js";
+export var logger = log4js.getLogger("Filter");
 declare global {
     interface Window {
         imageArray: any[];
@@ -138,6 +140,7 @@ export default function Filter(): JSX.Element {
                     var reader = new FileReader();
                     reader.onload = function () {
                         setImageBase64(String(reader.result));
+                        logger.info("已加载图片。");
                     };
                     reader.readAsDataURL(images[0].file);
                 }}

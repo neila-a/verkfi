@@ -1,6 +1,8 @@
 // import App from "next/app";
 import type { AppProps /*, AppContext */ } from 'next/app'
 import React, { useEffect } from 'react';
+import log4js from "log4js";
+export var logger = log4js.getLogger("NeilaTools");
 declare global {  //设置全局属性
     interface Window {  //window对象属性
         UWAWorker: Promise<ServiceWorkerRegistration>;
@@ -10,12 +12,12 @@ function MyApp({ Component, pageProps }: AppProps) {
     useEffect(() => {
         if ('serviceWorker' in navigator) {
             // register service worker
-            window.UWAWorker = navigator.serviceWorker.register("/service-worker.js")
+            window.UWAWorker = navigator.serviceWorker.register("/service-worker.js");
             window.UWAWorker.then(function (registration) {
-                console.log(`Service worker for UWA register success:`);
+                logger.info(`Service worker for UWA register success:`);
                 console.log(registration);
             }).catch(function (reason) {
-                console.error(`Service worker for UWA register fail: ${reason}`);
+                logger.error(`Service worker for UWA register fail: ${reason}`);
             });
         }
     }, []);
