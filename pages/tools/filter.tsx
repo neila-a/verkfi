@@ -35,7 +35,12 @@ import {
     Paper
 } from "@mui/material";
 import { styled } from '@mui/material/styles';
-export var logger = log4js.getLogger("Filter");
+import LpLogger from "lp-logger";
+export var logger = new LpLogger({
+    name: "滤镜",
+    level: "log", // 空字符串时，不显示任何信息
+    search: "logger_level", // 配置 URL 控制参数
+});
 declare global {
     interface Window {
         imageArray: any[];
@@ -139,7 +144,7 @@ export default function Filter(): JSX.Element {
                     var reader = new FileReader();
                     reader.onload = function () {
                         setImageBase64(String(reader.result));
-                        logger.info("已加载图片。");
+                        logger.log("已加载图片。");
                     };
                     reader.readAsDataURL(images[0].file);
                 }}

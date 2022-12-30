@@ -21,7 +21,12 @@ import {
 } from "filepond";
 import 'filepond/dist/filepond.min.css'; // Import FilePond styles
 import style from "../../styles/AudioTools.module.scss";
-export var logger = log4js.getLogger("AudioTools");
+import LpLogger from "lp-logger";
+export var logger = new LpLogger({
+    name: "AudioTools",
+    level: "log", // 空字符串时，不显示任何信息
+    search: "logger_level", // 配置 URL 控制参数
+});
 export default function AudioTools(): JSX.Element {
     var [startDisabled, setStartDisabled] = useState<boolean>(false);
     var [stopDisabled, setStopDisabled] = useState<boolean>(true);
@@ -36,13 +41,13 @@ export default function AudioTools(): JSX.Element {
             navigator.mediaDevices.getUserMedia(constraints).then(
                 stream => {
                     var audio: Blob;
-                    logger.info("授权成功。");
+                    logger.log("授权成功。");
                     const mediaRecorder = new MediaRecorder(stream);
                     mediaRecorder.ondataavailable = event => audio = event.data;
                     mediaRecorder.onstop = event => setLoopSpeakAudioSrc(URL.createObjectURL(audio));
                     start.addEventListener('click', function () {
                         setStartDisabled(true);
-                        logger.info("已关闭开始按钮。");
+                        logger.log("已关闭开始按钮。");
                         var audio = document.querySelectorAll('audio');
                         for (var i = 0; i < audio.length; i++) {
                             if (!audio[i].paused) {
@@ -50,17 +55,17 @@ export default function AudioTools(): JSX.Element {
                             }
                         }
                         mediaRecorder.start();
-                        logger.info("已开始录音。");
+                        logger.log("已开始录音。");
                         setStopDisabled(false);
-                        logger.info("已开启停止按钮。");
+                        logger.log("已开启停止按钮。");
                     });
                     stop.addEventListener('click', function () {
                         setStopDisabled(true);
-                        logger.info("已关闭停止按钮。");
+                        logger.log("已关闭停止按钮。");
                         mediaRecorder.stop();
-                        logger.info("已停止录音。");
+                        logger.log("已停止录音。");
                         setStartDisabled(false);
-                        logger.info("已开启开始按钮。");
+                        logger.log("已开启开始按钮。");
                     });
                 },
                 () => {

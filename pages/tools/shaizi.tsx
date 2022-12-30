@@ -6,7 +6,12 @@ import {
     Button
 } from "@mui/material";
 import HeadBar from "../../components/HeadBar";
-export var logger = log4js.getLogger();
+import LpLogger from "lp-logger";
+export var logger = new LpLogger({
+    name: "掷骰子",
+    level: "log", // 空字符串时，不显示任何信息
+    search: "logger_level", // 配置 URL 控制参数
+});
 function ShaiZi(): JSX.Element {
     var leftX: number = 150;
     var topY: number = 100;
@@ -17,7 +22,7 @@ function ShaiZi(): JSX.Element {
     var lastNum: number = 0;
     var flag: boolean = false;
     function clickMe(): boolean | void {
-        logger.info("已开始掷骰子。");
+        logger.log("已开始掷骰子。");
         count = 0;
         if (flag) {
             return false;
@@ -85,7 +90,7 @@ function ShaiZi(): JSX.Element {
         var dotX = leftX + diceX / 2;
         var dotY = topY + diceY / 2;
         commonDraw(ctx, dotX, dotY);
-        logger.info("已画出1个点。");
+        logger.log("已画出1个点。");
     }
     function draw2() {
         var ct = document.getElementById("canvas") as HTMLCanvasElement;
@@ -97,12 +102,12 @@ function ShaiZi(): JSX.Element {
         var dotX = leftX + diceX - 4 * dotR;
         var dotY = topY + diceY - 4 * dotR;
         commonDraw(ctx, dotX, dotY);
-        logger.info("已画出2个点。");
+        logger.log("已画出2个点。");
     }
     function draw3() {
         draw1();
         draw2();
-        logger.info("已画出3个点。");
+        logger.log("已画出3个点。");
     }
     function draw4() {
         draw2();
@@ -115,12 +120,12 @@ function ShaiZi(): JSX.Element {
         var dotX = leftX + 4 * dotR;
         var dotY = topY + diceY - 4 * dotR;
         commonDraw(ctx, dotX, dotY);
-        logger.info("已画出4个点。");
+        logger.log("已画出4个点。");
     }
     function draw5() {
         draw1();
         draw4();
-        logger.info("已画出5个点。");
+        logger.log("已画出5个点。");
     }
     function draw6() {
         var ct = document.getElementById("canvas") as HTMLCanvasElement;
@@ -132,7 +137,7 @@ function ShaiZi(): JSX.Element {
         var dotX = leftX + diceY - 4 * dotR;
         commonDraw(ctx, dotX, dotY);
         draw4();
-        logger.info("已画出6个点。");
+        logger.log("已画出6个点。");
     }
     function init() {
         var ct = document.getElementById("canvas") as HTMLCanvasElement;
@@ -141,7 +146,7 @@ function ShaiZi(): JSX.Element {
         ctx.strokeRect(leftX, topY, diceX, diceY);
         ctx.stroke();
         draw6();
-        logger.info("已初始化。");
+        logger.log("已初始化。");
     }
     useEffect(init);
     return (

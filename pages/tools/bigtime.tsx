@@ -1,14 +1,19 @@
 import { useState, useEffect } from "react";
 import HeadBar from "../../components/HeadBar";
 import moment from "moment";
-export var logger = log4js.getLogger("BigTime");
+import LpLogger from "lp-logger";
+export var logger = new LpLogger({
+    name: "BigTime",
+    level: "log", // 空字符串时，不显示任何信息
+    search: "logger_level", // 配置 URL 控制参数
+});
 function BigTime(): JSX.Element {
     var [time, setTime] = useState<string>();
     useEffect(function () {
         const getTime = () => {
             const calcTime = moment().format("HH : mm : ss");
             setTime(calcTime);
-            logger.info(`已设置时间为${calcTime}。`);
+            logger.log(`已设置时间为${calcTime}。`);
         };
         getTime();
         setInterval(getTime, 1000);

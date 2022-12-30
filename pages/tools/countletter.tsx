@@ -3,10 +3,15 @@ import {
     Button, Divider, Stack
 } from "@mui/material";
 import HeadBar from "../../components/HeadBar";
-export var logger = log4js.getLogger("CountLetter");
+import LpLogger from "lp-logger";
+export var logger = new LpLogger({
+    name: "CountLetter",
+    level: "log", // 空字符串时，不显示任何信息
+    search: "logger_level", // 配置 URL 控制参数
+});
 function CountLetter(): JSX.Element {
     function main() {
-        logger.info("已弹出输入框。");
+        logger.log("已弹出输入框。");
         alert(prompt("请输入字母：", "A")
             .replace("A", "1")
             .replace("B", "2")
@@ -60,7 +65,7 @@ function CountLetter(): JSX.Element {
             .replace("x", "24")
             .replace("y", "25")
             .replace("z", "26"));
-        logger.info("已处理完毕。");
+        logger.log("已处理完毕。");
     }
     return (
         <>

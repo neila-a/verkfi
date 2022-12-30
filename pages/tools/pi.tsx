@@ -12,8 +12,13 @@ import {
     Button
 } from "@mui/material";
 import HeadBar from "../../components/HeadBar";
-export var logger = log4js.getLogger("PI");
-const pi = require("pi");
+import LpLogger from "lp-logger";
+export var logger = new LpLogger({
+    name: "π计算器",
+    level: "log", // 空字符串时，不显示任何信息
+    search: "logger_level", // 配置 URL 控制参数
+});
+export const pi = require("pi");
 function PI(): JSX.Element {
     interface confFace {
         isuas: boolean
@@ -27,7 +32,7 @@ function PI(): JSX.Element {
     var outRef = useRef();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     function calc(): string {
-        logger.info(`位数是：${weishu}`);
+        logger.log(`位数是：${weishu}`);
         const ret: string = String(pi(weishu));
         return (ret);
     }
