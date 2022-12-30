@@ -5,7 +5,6 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import HeadBar from "../../components/HeadBar";
-import Recorder from "../../lib/recorder";
 import {
     FilePond,
     registerPlugin
@@ -31,38 +30,39 @@ export default function AudioTools(): JSX.Element {
     useEffect(function () {
         var start = document.querySelector('#start');
         var stop = document.querySelector('#stop');
-        var recorder = Recorder({
-            sampleRate: 44100, //采样频率，默认为44100Hz(标准MP3采样率)
-            bitRate: 128, //比特率，默认为128kbps(标准MP3质量)
-            success: function () { //成功回调函数
-                setStartDisabled(false);
-            },
-            error: function (msg: string) { //失败回调函数
-                alert(msg);
-            },
-            fix: function (msg: string) { //不支持H5录音回调函数
-                alert(msg);
-            }
-        });
-        start.addEventListener('click', function () {
-            setStartDisabled(true);
-            setStopDisabled(false);
-            var audio = document.querySelectorAll('audio');
-            for (var i = 0; i < audio.length; i++) {
-                if (!audio[i].paused) {
-                    audio[i].pause();
+        if (navigator.mediaDevices.getUserMedia) {
+            var constraints = { audio: true };
+            navigator.mediaDevices.getUserMedia(constraints).then(
+                stream => {
+                    var audio: Blob;
+                    console.log("授权成功！");
+                    const mediaRecorder = new MediaRecorder(stream);
+                    mediaRecorder.ondataavailable = event => audio = event.data;
+                    mediaRecorder.onstop = event => setLoopSpeakAudioSrc(URL.createObjectURL(audio));
+                    start.addEventListener('click', function () {
+                        setStartDisabled(true);
+                        var audio = document.querySelectorAll('audio');
+                        for (var i = 0; i < audio.length; i++) {
+                            if (!audio[i].paused) {
+                                audio[i].pause();
+                            }
+                        }
+                        mediaRecorder.start();
+                        setStopDisabled(false);
+                    });
+                    stop.addEventListener('click', function () {
+                        setStopDisabled(true);
+                        mediaRecorder.stop();
+                        setStartDisabled(false);
+                    });
+                },
+                () => {
+                    console.error("授权失败！");
                 }
-            }
-            recorder.start();
-        });
-        stop.addEventListener('click', function () {
-            setStopDisabled(true);
-            setStartDisabled(false);
-            recorder.stop();
-            recorder.getBlob(function (blob: Blob) {
-                setLoopSpeakAudioSrc(URL.createObjectURL(blob));
-            });
-        });
+            );
+        } else {
+            console.error("浏览器不支持 getUserMedia");
+        }
     });
     return (
         <>
