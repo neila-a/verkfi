@@ -40,7 +40,7 @@ dependencies:
   filepond-plugin-image-edit: 1.6.3_filepond@4.30.4
   filepond-plugin-image-preview: 4.6.11_filepond@4.30.4
   filepond-plugin-image-resize: 2.0.10_filepond@4.30.4
-  lp-logger: github.com/neila-a/lp-logger-no-window/e481f151b2a830058d1ee807097c4d46e613c3a1
+  lp-logger: github.com/neila-a/lp-logger-no-window/3e3ea762659fd21d7b6925b65ade476e5cca5449
   mathjs: 11.3.3
   moment: 2.29.4
   next: 13.0.3_3duxcpitbtplz62feflag7fwby
@@ -2631,8 +2631,10 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  github.com/neila-a/lp-logger-no-window/e481f151b2a830058d1ee807097c4d46e613c3a1:
-    resolution: {tarball: https://codeload.github.com/neila-a/lp-logger-no-window/tar.gz/e481f151b2a830058d1ee807097c4d46e613c3a1}
+  github.com/neila-a/lp-logger-no-window/3e3ea762659fd21d7b6925b65ade476e5cca5449:
+    resolution: {tarball: https://codeload.github.com/neila-a/lp-logger-no-window/tar.gz/3e3ea762659fd21d7b6925b65ade476e5cca5449}
     name: lp-logger
-    version: 1.0.10
+    version: 1.0.11
+    dependencies:
+      moment: 2.29.4
     dev: false
