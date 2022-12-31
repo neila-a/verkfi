@@ -67,12 +67,14 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 				<link rel="shortcut icon" href="/favicon.ico" />
 				<title>{props.pageName}</title>
 			</Head>
-			{erudaEnabled ? <Script src="//cdn.jsdelivr.net/npm/eruda" /> : <></>}
-			<Script id="eruda-init" strategy="lazyOnload">
-				{erudaEnabled ? `
-					eruda.init();
-				` : ``}
-			</Script>
+			{erudaEnabled ? <>
+				<Script src="//cdn.jsdelivr.net/npm/eruda" />
+				<Script id="eruda-init" strategy="lazyOnload">
+					{`
+						eruda.init();
+					`}
+				</Script>
+			</> : <></>}
 			<AppBar position="static">
 				<Toolbar>{props.isIndex ? <></> :
 					<IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }} onClick={() => {
