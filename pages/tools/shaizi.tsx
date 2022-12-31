@@ -140,16 +140,17 @@ function ShaiZi(): JSX.Element {
         draw4();
         logger.log("已画出6个点。");
     }
+    useEffect(function () {
+        var ct = document.getElementById("canvas") as HTMLCanvasElement;
+        var ctx = ct.getContext("2d");
+        ctx.beginPath();
+        ctx.strokeRect(leftX, topY, diceX, diceY);
+        ctx.stroke();
+        draw6();
+        logger.log("已初始化。");
+    }, []);
     return (
-        <div className={style["allWidth"]} onLoad={function () {
-            var ct = document.getElementById("canvas") as HTMLCanvasElement;
-            var ctx = ct.getContext("2d");
-            ctx.beginPath();
-            ctx.strokeRect(leftX, topY, diceX, diceY);
-            ctx.stroke();
-            draw6();
-            logger.log("已初始化。");
-        }}>
+        <div className={style["allWidth"]}>
             <HeadBar isIndex={false} pageName="掷骰子" />
             <br />
             <Center>
