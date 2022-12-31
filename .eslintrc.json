@@ -1,6 +1,6 @@
 {
   "extends": "next",
   "rules": {
-    "": "off"
+    "next/no-img-element": "off"
   }
 }
