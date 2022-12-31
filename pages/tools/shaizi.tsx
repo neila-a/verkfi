@@ -75,7 +75,7 @@ function ShaiZi(): JSX.Element {
         } else {
             setLastNum(randomNum);
             drawDice(ctx, randomNum);
-            logger.log(`骰子的点数为${lastNum}`);
+            logger.log(`骰子的点数为${randomNum}`);
         }
     }
     function commonDraw(ctx: CanvasRenderingContext2D, dotX: number, dotY: number) {
