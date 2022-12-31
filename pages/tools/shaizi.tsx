@@ -36,7 +36,7 @@ function ShaiZi(): JSX.Element {
             random(ctx);
         }, 200);
     }
-    function drawDice(ctx: CanvasRenderingContext2D, randomNum) {
+    function drawDice(ctx: CanvasRenderingContext2D, randomNum: number) {
         ctx.clearRect(leftX, topY, diceX, diceY);
         switch (randomNum) {
             case 1:
@@ -71,13 +71,14 @@ function ShaiZi(): JSX.Element {
     function random(ctx: CanvasRenderingContext2D) {
         var randomNum = Math.floor(Math.random() * 6) + 1;
         if (randomNum == lastNum) {
-            random(ctx)
+            random(ctx);
         } else {
             lastNum = randomNum;
             drawDice(ctx, randomNum);
+            logger.log(`骰子的点数为${lastNum}`);
         }
     }
-    function commonDraw(ctx: CanvasRenderingContext2D, dotX, dotY) {
+    function commonDraw(ctx: CanvasRenderingContext2D, dotX: number, dotY: number) {
         ctx.beginPath();
         ctx.arc(dotX, dotY, dotR, 0, 2 * Math.PI, false);
         ctx.stroke();
