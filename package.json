@@ -14,7 +14,6 @@
     "@fontsource/roboto": "^4.5.8",
     "@mui/icons-material": "^5.10.9",
     "@mui/material": "^5.10.13",
-    "eruda": "^2.10.0",
     "filepond": "^4.30.4",
     "filepond-plugin-file-rename": "^1.1.8",
     "filepond-plugin-image-crop": "^2.0.6",

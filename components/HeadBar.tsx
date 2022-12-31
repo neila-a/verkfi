@@ -10,13 +10,13 @@ import {
 } from "@mui/icons-material"
 import Router from "next/router";
 import Head from "next/head";
+import Script from "next/script";
 import {
 	useEffect,
 	useState
 } from "react";
 import style from "../styles/HeadBar.module.scss";
 import LpLogger from "lp-logger";
-import eruda from "eruda";
 export var logger = new LpLogger({
 	name: "HeadBar",
 	level: "log", // 空字符串时，不显示任何信息
@@ -50,14 +50,6 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 		switch (window.localStorage.getItem("eruda-enabled")) {
 			case "true":
 				setErudaEnabled(true);
-				self.addEventListener("load", function () {
-					try {
-						eruda.init();
-						logger.log("已初始化Eruda。");
-					} catch (error) {
-						logger.error(`无法初始化Eruda，报错：${error}`);
-					}
-				});
 				logger.log("检测到Eruda为启用状态。");
 				break;
 			case "false":
@@ -75,6 +67,12 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 				<link rel="shortcut icon" href="/favicon.ico" />
 				<title>{props.pageName}</title>
 			</Head>
+			{erudaEnabled ? <Script src="//cdn.jsdelivr.net/npm/eruda" /> : <></>}
+			<Script>
+				{erudaEnabled ? `
+					eruda.init();
+				` : ``}
+			</Script>
 			<AppBar position="static">
 				<Toolbar>{props.isIndex ? <></> :
 					<IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }} onClick={() => {
