@@ -50,7 +50,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 		switch (window.localStorage.getItem("eruda-enabled")) {
 			case "true":
 				setErudaEnabled(true);
-				eruda.init();
+				window.addEventListener("load", () => eruda.init());
 				logger.log("检测到Eruda为启用状态，已初始化。");
 				break;
 			case "false":
