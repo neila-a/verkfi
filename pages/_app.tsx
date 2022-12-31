@@ -3,9 +3,8 @@ import type { AppProps /*, AppContext */ } from 'next/app'
 import React, { useEffect } from 'react';
 import LpLogger from "lp-logger";
 export var logger = new LpLogger({
-    name: "NeilaTools",
+    name: "ServiceWorker",
     level: "log", // 空字符串时，不显示任何信息
-    
 });
 declare global {  //设置全局属性
     interface Window {  //window对象属性

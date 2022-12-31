@@ -33,6 +33,7 @@ function PI(): JSX.Element {
     function calc(): string {
         logger.log(`位数是：${weishu}`);
         const ret: string = String(pi(weishu));
+        logger.log(`结果是：${ret}`);
         return (ret);
     }
     function proc(): void {

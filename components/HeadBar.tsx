@@ -15,6 +15,11 @@ import {
 	useState
 } from "react";
 import style from "../styles/HeadBar.module.scss";
+import LpLogger from "lp-logger";
+export var logger = new LpLogger({
+    name: "HeadBar",
+    level: "log", // 空字符串时，不显示任何信息
+});
 export interface HeadBarOption {
 	pageName: string;
 	isIndex: boolean;
@@ -48,6 +53,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 				<Toolbar>{props.isIndex ? <></> :
 					<IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }} onClick={() => {
 						Router.push("/");
+						logger.log("已去往首页。");
 					}}>
 						<ArrowBack />
 					</IconButton>}
@@ -60,6 +66,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 					</Typography>
 					{props.isIndex ? <IconButton size="large" edge="end" color="inherit" aria-label="menu" sx={{ mr: 2 }} onClick={() => {
 						Router.push("/settings");
+						logger.log("已去往设置。");
 					}}>
 						<SettingsIcon />
 					</IconButton> : <></>}

@@ -1,14 +1,11 @@
+import style from "../styles/Center.module.scss";
 /**
  * 居中
- * @returns JSX.Element
+ * @returns {JSX.Element}  
  */
-function Center(props) {
-    return (
-        <div style={{
-            textAlign: "center"
-        }}>
-            {props.children}
-        </div>
-    );
-};
+export const Center = props => (
+    <div className={style["center"]}>
+        {props.children}
+    </div>
+);
 export default Center;

@@ -1,5 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document';
-class MyDocument extends Document {
+export default class ModifyDocument extends Document {
     static async getInitialProps(ctx) {
         const initialProps = await Document.getInitialProps(ctx);
         return { ...initialProps };
@@ -51,10 +51,6 @@ class MyDocument extends Document {
                     <link rel="apple-touch-startup-image" href="apple-splash-1334-750.jpg" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)" />
                     <link rel="apple-touch-startup-image" href="apple-splash-640-1136.jpg" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" />
                     <link rel="apple-touch-startup-image" href="apple-splash-1136-640.jpg" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)" />
-                    <meta
-                        name="viewport"
-                        content="width=device-width, initial-scale=1, shrink-to-fit=no"
-                    />
                     <link rel="icon" href="/favicon.png" type="image/png" />
                 </Head>
                 <body>
@@ -65,4 +61,3 @@ class MyDocument extends Document {
         )
     }
 };
-export default MyDocument;

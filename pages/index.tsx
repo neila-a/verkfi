@@ -18,6 +18,11 @@ import {
 import Style from "../styles/Index.module.scss";
 import ShaiziIcon from "../public/shaizi.24x24.svg";
 import PiIcon from "../public/pi.466x393.png";
+import LpLogger from "lp-logger";
+export var logger = new LpLogger({
+    name: "Index",
+    level: "log", // 空字符串时，不显示任何信息
+});
 export interface tool {
     name: string;
     to: string;

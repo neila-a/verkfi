@@ -144,7 +144,7 @@ export default function Filter(): JSX.Element {
                     var reader = new FileReader();
                     reader.onload = function () {
                         setImageBase64(String(reader.result));
-                        logger.log("已加载图片。");
+                        logger.log(`已加载图片${images[0].filename}。`);
                     };
                     reader.readAsDataURL(images[0].file);
                 }}
