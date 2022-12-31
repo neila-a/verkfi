@@ -6,11 +6,11 @@ import {
     Button
 } from "@mui/material";
 import HeadBar from "../../components/HeadBar";
+import style from "../../styles/ShaiZi.module.scss";
 import LpLogger from "lp-logger";
 export var logger = new LpLogger({
     name: "掷骰子",
     level: "log", // 空字符串时，不显示任何信息
-    
 });
 function ShaiZi(): JSX.Element {
     var leftX: number = 150;
@@ -150,19 +150,14 @@ function ShaiZi(): JSX.Element {
     }
     useEffect(init);
     return (
-        <div style={{
-            width: "100%"
-        }}>
+        <div className={style["allWidth"]}>
             <HeadBar isIndex={false} pageName="掷骰子" />
             <br />
             <Center>
-                <canvas onLoad={init} id="canvas" height="300" style={{
-                    backgroundColor: "#3399ff",
-                    width: "100%"
-                }}>
-                    your browser is not support html5
+                <canvas onLoad={init} id="canvas" className={style["canvas"]}>
+                    你的浏览器不支持这个工具。
                 </canvas>
-                <br></br>
+                <br />
                 <Button type="button" variant="contained" onClick={clickMe}>掷骰子</Button>
             </Center>
         </div>
