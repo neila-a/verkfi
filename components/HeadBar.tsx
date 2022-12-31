@@ -68,7 +68,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 				<title>{props.pageName}</title>
 			</Head>
 			{erudaEnabled ? <Script src="//cdn.jsdelivr.net/npm/eruda" /> : <></>}
-			<Script>
+			<Script id="eruda-init">
 				{erudaEnabled ? `
 					eruda.init();
 				` : ``}
