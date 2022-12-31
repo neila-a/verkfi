@@ -156,8 +156,9 @@ function ShaiZi(): JSX.Element {
             <HeadBar isIndex={false} pageName="掷骰子" />
             <br />
             <Center>
-                <canvas onLoad={init} id="canvas" width="400" height="300" style={{
-                    backgroundColor: "#3399ff"
+                <canvas onLoad={init} id="canvas" height="300" style={{
+                    backgroundColor: "#3399ff",
+                    width: "100%"
                 }}>
                     your browser is not support html5
                 </canvas>
