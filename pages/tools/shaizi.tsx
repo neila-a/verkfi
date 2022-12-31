@@ -1,6 +1,6 @@
 import Center from "../../components/Center";
 import React, {
-    useEffect
+    useEffect, useState
 } from "react";
 import {
     Button
@@ -19,7 +19,7 @@ function ShaiZi(): JSX.Element {
     var diceY: number = 80;
     var dotR: number = 4;
     var count: number = 0;
-    var lastNum: number = 0;
+    var [lastNum, setLastNum] = useState<number>(0);
     var flag: boolean = false;
     function clickMe(): boolean | void {
         logger.log("已开始掷骰子。");
@@ -73,7 +73,7 @@ function ShaiZi(): JSX.Element {
         if (randomNum == lastNum) {
             random(ctx);
         } else {
-            lastNum = randomNum;
+            setLastNum(randomNum);
             drawDice(ctx, randomNum);
             logger.log(`骰子的点数为${lastNum}`);
         }
