@@ -7,6 +7,7 @@
     "no-inline-styles": "off",
     "axe/forms": "off",
     "apple-touch-icons": "off",
-    "disown-opener": "off"
+    "disown-opener": "off",
+    "compat-api/css": "off"
   }
 }

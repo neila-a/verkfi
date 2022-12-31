@@ -1,7 +1,6 @@
 .canvas {
     background-color: #1e9fff;
-    width: 400px;
-    height: 300px;
+    aspect-ratio: auto 400 / 300;
     max-width: 100%;
 }
 .allWidth {
