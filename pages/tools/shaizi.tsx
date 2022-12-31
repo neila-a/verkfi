@@ -140,7 +140,7 @@ function ShaiZi(): JSX.Element {
         draw4();
         logger.log("已画出6个点。");
     }
-    function init() {
+    useEffect(function () {
         var ct = document.getElementById("canvas") as HTMLCanvasElement;
         var ctx = ct.getContext("2d");
         ctx.beginPath();
@@ -148,8 +148,7 @@ function ShaiZi(): JSX.Element {
         ctx.stroke();
         draw6();
         logger.log("已初始化。");
-    }
-    useEffect(init);
+    });
     return (
         <div className={style["allWidth"]}>
             <HeadBar isIndex={false} pageName="掷骰子" />
