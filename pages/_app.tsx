@@ -16,7 +16,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         if ('serviceWorker' in navigator) {
             // register service worker
             window.UWAWorker = navigator.serviceWorker.register("/service-worker.js");
-            window.UWAWorker.then((registration) => logger.log(`Service worker for UWA register success: %o`, registration)).catch((reason) => logger.error(`Service worker for UWA register fail: ${reason}`));
+            window.UWAWorker.then((registration) => logger.log(`Service worker for UWA register success:`, registration)).catch((reason) => logger.error(`Service worker for UWA register fail: ${reason}`));
         }
     }, []);
     return <Component {...pageProps} />;
