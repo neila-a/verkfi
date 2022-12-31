@@ -20,7 +20,7 @@
     "filepond-plugin-image-edit": "^1.6.3",
     "filepond-plugin-image-preview": "^4.6.11",
     "filepond-plugin-image-resize": "^2.0.10",
-    "lp-logger": "^1.0.7",
+    "lp-logger": "github:neila-a/lp-logger-no-window",
     "mathjs": "^11.3.3",
     "moment": "^2.29.4",
     "next": "13.0.3",

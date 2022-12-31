@@ -17,7 +17,7 @@ specifiers:
   filepond-plugin-image-edit: ^1.6.3
   filepond-plugin-image-preview: ^4.6.11
   filepond-plugin-image-resize: ^2.0.10
-  lp-logger: ^1.0.7
+  lp-logger: github:neila-a/lp-logger-no-window
   mathjs: ^11.3.3
   moment: ^2.29.4
   next: 13.0.3
@@ -40,7 +40,7 @@ dependencies:
   filepond-plugin-image-edit: 1.6.3_filepond@4.30.4
   filepond-plugin-image-preview: 4.6.11_filepond@4.30.4
   filepond-plugin-image-resize: 2.0.10_filepond@4.30.4
-  lp-logger: 1.0.7
+  lp-logger: github.com/neila-a/lp-logger-no-window/034df8c66d5035737e8c469c9d914129ee447a33
   mathjs: 11.3.3
   moment: 2.29.4
   next: 13.0.3_3duxcpitbtplz62feflag7fwby
@@ -1924,10 +1924,6 @@ packages:
     dependencies:
       js-tokens: 4.0.0
 
-  /lp-logger/1.0.7:
-    resolution: {integrity: sha512-Q+83mB2aPl6bMwVDpoOTKIqSXfLQBTDKwjrN+zCW8UDf7TtgChORkV9DKu3FzNC0dijRhEC0bgQt9UU5R1R8HQ==}
-    dev: false
-
   /lru-cache/6.0.0:
     resolution: {integrity: sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==}
     engines: {node: '>=10'}
@@ -2634,3 +2630,9 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
     dev: true
+
+  github.com/neila-a/lp-logger-no-window/034df8c66d5035737e8c469c9d914129ee447a33:
+    resolution: {tarball: https://codeload.github.com/neila-a/lp-logger-no-window/tar.gz/034df8c66d5035737e8c469c9d914129ee447a33}
+    name: lp-logger
+    version: 1.0.8
+    dev: false
