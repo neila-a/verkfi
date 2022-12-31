@@ -18,8 +18,8 @@ import style from "../styles/HeadBar.module.scss";
 import LpLogger from "lp-logger";
 import eruda from "eruda";
 export var logger = new LpLogger({
-    name: "HeadBar",
-    level: "log", // 空字符串时，不显示任何信息
+	name: "HeadBar",
+	level: "log", // 空字符串时，不显示任何信息
 });
 export interface HeadBarOption {
 	pageName: string;
@@ -50,8 +50,15 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 		switch (window.localStorage.getItem("eruda-enabled")) {
 			case "true":
 				setErudaEnabled(true);
-				window.addEventListener("load", () => eruda.init());
-				logger.log("检测到Eruda为启用状态，已初始化。");
+				self.addEventListener("load", function () {
+					try {
+						eruda.init();
+						logger.log("已初始化Eruda。");
+					} catch (error) {
+						logger.error(`无法初始化Eruda，报错：${error}`);
+					}
+				});
+				logger.log("检测到Eruda为启用状态。");
 				break;
 			case "false":
 				logger.log("检测到Eruda为关闭状态。");
