@@ -155,7 +155,7 @@ function ShaiZi(): JSX.Element {
             <HeadBar isIndex={false} pageName="掷骰子" />
             <br />
             <Center>
-                <canvas onLoad={init} id="canvas" height="300" width="400" className={style["canvas"]}>
+                <canvas id="canvas" height="300" width="400" className={style["canvas"]}>
                     你的浏览器不支持这个工具。
                 </canvas>
                 <br />
