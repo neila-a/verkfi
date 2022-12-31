@@ -18,12 +18,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             window.UWAWorker = navigator.serviceWorker.register("/js/service-worker.js", {
                 scope: "https://tools.neila.ga/"
             });
-            window.UWAWorker.then(function (registration) {
-                logger.log(`Service worker for UWA register success:`);
-                console.log(registration);
-            }).catch(function (reason) {
-                logger.error(`Service worker for UWA register fail: ${reason}`);
-            });
+            window.UWAWorker.then((registration) => logger.log(`Service worker for UWA register success: %o`, registration)).catch((reason) => logger.error(`Service worker for UWA register fail: ${reason}`));
         }
     }, []);
     return <Component {...pageProps} />;
