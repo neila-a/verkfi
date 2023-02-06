@@ -1,8 +1,4 @@
-%tdn {
-    text-decoration: none;
-}
-
-.items-grid {
+.items {
     // in <Stack sx /> flex-direction: row;
     flex-wrap: wrap;
     align-content: center;
@@ -10,22 +6,4 @@
     align-items: flex-end;
     display: flex;
     text-align: center;
-
-    * {
-        @extend %tdn;
-    }
-}
-
-.items-list {
-    // in <Stack sx /> flex-direction: row;
-    flex-wrap: wrap;
-    align-content: center;
-    justify-content: space-evenly;
-    align-items: flex-end;
-    display: flex;
-    text-align: center;
-
-    * {
-        @extend %tdn;
-    }
 }

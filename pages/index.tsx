@@ -56,7 +56,7 @@ export default function Index(): JSX.Element {
                     flex: 1
                 }} placeholder="搜索工具" inputProps={{
                     'aria-label': 'searchtools',
-                    onChange: event => {
+                    onKeyDown: event => {
                         setSearchText(event.currentTarget.value);
                         searchTools();
                     }
@@ -81,7 +81,7 @@ export default function Index(): JSX.Element {
                 </IconButton>
             </Paper>
             <br />
-            <Stack spacing={5} className={viewMode == "grid" ? Style["items-grid"] : ""} sx={{
+            <Stack spacing={5} className={Style["items"]} sx={{
                 flexDirection: viewMode == "grid" ? "row" : "",
                 display: viewMode == "grid" ? "flex" : "block"
             }}> {/* 工具总览 */}
@@ -89,7 +89,9 @@ export default function Index(): JSX.Element {
                     const ToolIcon = tool.icon;
                     return (
                         <> {/* 单个工具 */}
-                            <Link href={`/tools/${tool.to}`} key={tool.name}>
+                            <Link href={`/tools/${tool.to}`} key={tool.name} style={{
+                                textDecoration: "none"
+                            }}>
                                 <Card sx={viewMode == "grid" ? {
                                     minWidth: 275
                                 } : {
