@@ -39,10 +39,10 @@ self.addEventListener('fetch', event => {
                     return response;
                 }
                 return fetch(event.request).then(newreq => {
-                    logger.log(`Network fetch: ${url}`);
+                    console.log(`%cServiceWorker`, `background: #52c41a;border-radius: 0.5em;color: white;font-weight: bold;padding: 2px 0.5em`,`Network fetch: ${url}`);
                     if (newreq.ok) cache.put(event.request, newreq.clone());
                     return newreq;
-                }).catch(logger.error);
+                }).catch(console.error);
             });
         })
     );
