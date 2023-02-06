@@ -23,7 +23,7 @@
 		"next-env.d.ts",
 		"**/*.ts",
 		"**/*.tsx"
-	],
+, "public/service-worker.js"	],
 	"exclude": [
 		"node_modules"
 	]
