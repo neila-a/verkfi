@@ -15,7 +15,7 @@ const
     Cache = `NeilaTools-${version}-${devVersion != 0 ? `dev${devVersion}` : "prod"}`, // C
     installFilesEssential = [
         '/',
-        ...toolsTo,
+        ...toolsTo.map(addr => `/pages/${addr}`),
         '/index.webmanifest',
         '/favicon.png'
     ];
