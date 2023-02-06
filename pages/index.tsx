@@ -98,6 +98,13 @@ export default function Index(): JSX.Element {
     var [tools, setTools] = React.useState<tool[]>(realTools);
     var [searchText, setSearchText] = React.useState<string>("");
     var [viewMode, setViewMode] = React.useState<"list" | "grid">("grid");
+    function searchTools() {
+        var calcTools: tool[] = [];
+        realTools.forEach(tool => {
+            if (tool.desc.includes(searchText) || tool.to.includes(searchText) || tool.name.includes(searchText)) calcTools.push(tool);
+        });
+        setTools(calcTools);
+    };
     return (
         <>
             <HeadBar isIndex={true} pageName="NeilaTools" />
@@ -109,23 +116,21 @@ export default function Index(): JSX.Element {
             }}>
                 <IconButton type="button" sx={{
                     p: '10px'
-                }} aria-label="search">
+                }} aria-label="search" onClick={searchTools}>
                     <SearchIcon />
                 </IconButton>
                 <InputBase sx={{
                     ml: 1,
                     flex: 1
                 }} placeholder="搜索工具" inputProps={{
-                    'aria-label': 'searchtools'
-                }} onKeyDown={event => {
-                    if (event.key == "Enter") {
-                        var calcTools: tool[] = [];
-                        realTools.forEach(tool => {
-                            if (tool.desc.includes(searchText) || tool.to.includes(searchText) || tool.name.includes(searchText)) calcTools.push(tool);
-                        });
-                        setTools(calcTools);
+                    'aria-label': 'searchtools',
+                    onChange: event => setSearchText(event.target.value),
+                    onKeyDown: event => {
+                        if (event.key == "Enter") {
+                            searchTools();
+                        }
                     }
-                }} value={searchText} />
+                }} />
                 <Divider sx={{
                     height: 28,
                     m: 0.5
@@ -142,39 +147,43 @@ export default function Index(): JSX.Element {
                             break;
                     };
                 }}>
-                    {viewMode == "grid" ? <ViewModuleIcon /> : <ViewListIcon />}
+                    {viewMode == "grid" ? <ViewListIcon /> : <ViewModuleIcon />}
                 </IconButton>
             </Paper>
             <br />
-            <Stack spacing={5} className={viewMode == "grid" ? Style["items-grid"] : Style["items-list"]} sx={{
-                flexDirection: "row"
+            <Stack spacing={5} className={viewMode == "grid" ? Style["items-grid"] : ""} sx={{
+                flexDirection: viewMode == "grid" ? "" : "row",
+                display: viewMode == "grid" ? "flex" : "block"
             }}> {/* 工具总览 */}
                 {tools.map((tool, _index, _array) => { // 遍历tools
                     const ToolIcon = tool.icon;
                     return (
-                        <Link href={`/tools/${tool.to}`} key={tool.name}> {/* 单个工具 */}
-                            <Card sx={viewMode == "grid" ? {
-                                minWidth: 275
-                            } : {
-                                minWidth: "100%"
-                            }} elevation={10}>
-                                <CardContent>
-                                    {viewMode == "grid" ? <>
-                                        <Typography variant="h5" component="div">
-                                            <ToolIcon />
-                                            {tool.name}
-                                        </Typography>
-                                        <Typography variant="body2">
-                                            {tool.desc}
-                                        </Typography>
-                                    </> : <>
-                                        <Typography variant="body2">
-                                            <ToolIcon />{tool.name} - {tool.desc}
-                                        </Typography>
-                                    </>}
-                                </CardContent>
-                            </Card>
-                        </Link>
+                        <> {/* 单个工具 */}
+                            <Link href={`/tools/${tool.to}`} key={tool.name}>
+                                <Card sx={viewMode == "grid" ? {
+                                    minWidth: 275
+                                } : {
+                                    minWidth: "100%"
+                                }} elevation={10}>
+                                    <CardContent>
+                                        {viewMode == "grid" ? <>
+                                            <Typography variant="h5" component="div">
+                                                <ToolIcon />
+                                                {tool.name}
+                                            </Typography>
+                                            <Typography variant="body2">
+                                                {tool.desc}
+                                            </Typography>
+                                        </> : <>
+                                            <Typography variant="body2">
+                                                <ToolIcon />{tool.name} - {tool.desc}
+                                            </Typography>
+                                        </>}
+                                    </CardContent>
+                                </Card>
+                            </Link>
+                            {viewMode == "grid" ? <></> : <br />}
+                        </>
                     );
                 })}
             </Stack>
