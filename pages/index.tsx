@@ -124,7 +124,7 @@ export default function Index(): JSX.Element {
                     flex: 1
                 }} placeholder="搜索工具" inputProps={{
                     'aria-label': 'searchtools',
-                    onChange: event => setSearchText(event.target.value),
+                    onChange: event => setSearchText(event.currentTarget.value),
                     onKeyDown: event => {
                         if (event.key == "Enter") {
                             searchTools();
