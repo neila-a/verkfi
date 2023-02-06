@@ -5,22 +5,38 @@
     overflow: hidden;
     z-index: 99999;
     top: 0px;
-}
-.github-ribbon a {
-    display: inline-block;
-    width: 200px;
-    overflow: hidden;
-    padding: 6px 0px;
-    text-align: center;
-    text-decoration: none;
-    color: rgb(255, 255, 255);
-    position: inherit;
-    border-width: 1px 0px;
-    border-style: dotted;
-    border-color: rgba(255, 255, 255, 0.7);
-    font: 700 13px "Helvetica Neue", Helvetica, Arial, sans-serif;
-    box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 3px 0px;
-    background-color: rgb(170, 0, 0);
-    background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
-    top: 45px;
+
+    a {
+        display: inline-block;
+        width: 200px;
+        overflow: hidden;
+        padding: 6px 0px;
+
+        text: {
+            align: center;
+            decoration: none;
+        }
+
+        color: rgb(255, 255, 255);
+        position: inherit;
+
+        border: {
+            width: 1px 0px;
+            style: dotted;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        font: 700 13px "Helvetica Neue",
+        Helvetica,
+        Arial,
+        sans-serif;
+        box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 3px 0px;
+
+        background: {
+            color: rgb(170, 0, 0);
+            image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
+        }
+
+        top: 45px;
+    }
 }

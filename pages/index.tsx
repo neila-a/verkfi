@@ -150,7 +150,7 @@ export default function Index(): JSX.Element {
             </Paper>
             <br />
             <Stack spacing={5} className={viewMode == "grid" ? Style["items-grid"] : ""} sx={{
-                flexDirection: viewMode == "grid" ? "" : "row",
+                flexDirection: viewMode == "grid" ? "row" : "",
                 display: viewMode == "grid" ? "flex" : "block"
             }}> {/* 工具总览 */}
                 {tools.map((tool, _index, _array) => { // 遍历tools

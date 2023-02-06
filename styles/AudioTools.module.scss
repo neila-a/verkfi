@@ -1,3 +1,6 @@
-.audioreplay > div, .audioinput > div {
+$sdiv: " > div";
+
+.audioreplay#{$sdiv},
+.audioinput#{$sdiv} {
     margin: 10px
 }
