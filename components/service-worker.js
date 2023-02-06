@@ -1,5 +1,5 @@
 import pack from "../package.json";
-window.toolsTo = [
+const toolsTo = [
     "audiotools",
     "countletter",
     "clock",
