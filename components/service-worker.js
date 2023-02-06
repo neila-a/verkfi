@@ -1,10 +1,5 @@
 var window = self;
 import pack from "../package.json";
-import lpLogger from "https://cdn.skypack.dev/lp-logger";
-var logger = new lpLogger({
-    name: "ServiceWorker",
-    level: "log", // 空字符串时，不显示任何信息
-});
 window.toolsTo = [
     "audiotools",
     "countletter",
