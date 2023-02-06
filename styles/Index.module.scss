@@ -1,7 +1,4 @@
-.items * {
-    text-decoration: none;
-}
-.items {
+.items-grid, .items-list {
     // in <Stack sx /> flex-direction: row;
     flex-wrap: wrap;
     align-content: center;
@@ -9,4 +6,7 @@
     align-items: flex-end;
     display: flex;
     text-align: center;
-}
+    * {
+        text-decoration: none;
+    }
+};

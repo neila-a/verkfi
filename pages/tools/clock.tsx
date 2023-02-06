@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
-import HeadBar from "../../components/HeadBar";
 import moment from "moment";
+import React from "react";
+import HeadBar from "../../components/HeadBar";
 import LpLogger from "lp-logger";
 export var logger = new LpLogger({
-    name: "BigTime",
+    name: "Clock",
     level: "log", // 空字符串时，不显示任何信息
-    
 });
-function BigTime(): JSX.Element {
+export default function Clock(): JSX.Element {
     var [time, setTime] = useState<string>();
     useEffect(function () {
         const getTime = () => {
@@ -27,4 +27,3 @@ function BigTime(): JSX.Element {
         </>
     );
 };
-export default BigTime;

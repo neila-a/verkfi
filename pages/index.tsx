@@ -6,14 +6,23 @@ import {
     Stack,
     Card,
     CardContent,
-    Typography
+    Typography,
+    Divider,
+    IconButton,
+    InputBase,
+    Paper
 } from "@mui/material";
 import {
     Audiotrack as AudiotrackIcon,
     Abc as ABCIcon,
     AccessTime as AccessTimeIcon,
     FlipCameraAndroid as FlipCameraAndroidIcon,
-    Filter as FilterIcon
+    Filter as FilterIcon,
+    Numbers as NumbersIcon,
+    Keyboard as KeyboardIcon,
+    Search as SearchIcon,
+    ViewModule as ViewModuleIcon,
+    ViewList as ViewListIcon
 } from "@mui/icons-material";
 import Style from "../styles/Index.module.scss";
 import ShaiziIcon from "../public/shaizi.24x24.svg";
@@ -27,9 +36,9 @@ export interface tool {
     name: string;
     to: string;
     desc: string;
-    icon: () => JSX.Element
+    icon: () => JSX.Element;
 }
-export const tools: tool[] = [
+export const realTools: tool[] = [
     {
         name: "AudioTools",
         to: "audiotools",
@@ -43,9 +52,9 @@ export const tools: tool[] = [
         icon: () => <ABCIcon />
     },
     {
-        name: "BigTime",
-        to: "bigtime",
-        desc: "很大的时间",
+        name: "时钟",
+        to: "clock",
+        desc: "显示自定义化的时间",
         icon: () => <AccessTimeIcon />
     },
     {
@@ -71,24 +80,86 @@ export const tools: tool[] = [
         to: "filter",
         desc: "将一张图片处理成不同的",
         icon: () => <FilterIcon />
+    },
+    {
+        name: "按键编码",
+        to: "keycode",
+        desc: "查询一个按键的编码",
+        icon: () => <KeyboardIcon />
+    },
+    {
+        name: "读数字",
+        to: "readnumber",
+        desc: "将数字转换成汉字字符串",
+        icon: () => <NumbersIcon />
     }
 ];
 export default function Index(): JSX.Element {
+    var [tools, setTools] = React.useState<tool[]>(realTools);
+    var [searchText, setSearchText] = React.useState<string>("");
+    var [viewMode, setViewMode] = React.useState<"list" | "grid">("grid");
     return (
         <>
             <HeadBar isIndex={true} pageName="NeilaTools" />
             <br />
-            <Stack spacing={5} className={Style["items"]} sx={{
-                flexDirection: "row"
+            <Paper component="form" sx={{ // 搜索栏
+                p: '2px 4px',
+                display: 'flex',
+                alignItems: 'center'
             }}>
-                {tools.map((tool, index) => {
+                <IconButton type="button" sx={{
+                    p: '10px'
+                }} aria-label="search">
+                    <SearchIcon />
+                </IconButton>
+                <InputBase sx={{
+                    ml: 1,
+                    flex: 1
+                }} placeholder="搜索工具" inputProps={{
+                    'aria-label': 'searchtools'
+                }} onKeyDown={event => {
+                    if (event.key == "Enter") {
+                        var calcTools: tool[] = [];
+                        realTools.forEach(tool => {
+                            if (tool.desc.includes(searchText) || tool.to.includes(searchText) || tool.name.includes(searchText)) calcTools.push(tool);
+                        });
+                        setTools(calcTools);
+                    }
+                }} value={searchText} />
+                <Divider sx={{
+                    height: 28,
+                    m: 0.5
+                }} orientation="vertical" />
+                <IconButton color="primary" sx={{
+                    p: '10px'
+                }} aria-label="directions" onClick={_event => {
+                    switch (viewMode) {
+                        case "grid":
+                            setViewMode("list");
+                            break;
+                        case "list":
+                            setViewMode("grid");
+                            break;
+                    };
+                }}>
+                    {viewMode == "grid" ? <ViewModuleIcon /> : <ViewListIcon />}
+                </IconButton>
+            </Paper>
+            <br />
+            <Stack spacing={5} className={viewMode == "grid" ? Style["items-grid"] : Style["items-list"]} sx={{
+                flexDirection: "row"
+            }}> {/* 工具总览 */}
+                {tools.map((tool, _index, _array) => { // 遍历tools
                     const ToolIcon = tool.icon;
                     return (
-                            <Link href={`/tools/${tool.to}`} key={tool.name}>
-                                <Card sx={{
-                                    minWidth: 275
-                                }} elevation={10}>
-                                    <CardContent>
+                        <Link href={`/tools/${tool.to}`} key={tool.name}> {/* 单个工具 */}
+                            <Card sx={viewMode == "grid" ? {
+                                minWidth: 275
+                            } : {
+                                minWidth: "100%"
+                            }} elevation={10}>
+                                <CardContent>
+                                    {viewMode == "grid" ? <>
                                         <Typography variant="h5" component="div">
                                             <ToolIcon />
                                             {tool.name}
@@ -96,9 +167,14 @@ export default function Index(): JSX.Element {
                                         <Typography variant="body2">
                                             {tool.desc}
                                         </Typography>
-                                    </CardContent>
-                                </Card>
-                            </Link>
+                                    </> : <>
+                                        <Typography variant="body2">
+                                            <ToolIcon />{tool.name} - {tool.desc}
+                                        </Typography>
+                                    </>}
+                                </CardContent>
+                            </Card>
+                        </Link>
                     );
                 })}
             </Stack>
