@@ -1,4 +1,3 @@
-var window = self;
 import pack from "../package.json";
 window.toolsTo = [
     "audiotools",
@@ -16,7 +15,7 @@ const
     Cache = `NeilaTools-${version}-${devVersion != 0 ? `dev${devVersion}` : "prod"}`, // C
     installFilesEssential = [
         '/',
-        ...toolsTo.map(to => `/tools/${tool.to}`),
+        ...toolsTo,
         '/index.webmanifest',
         '/favicon.png'
     ];
