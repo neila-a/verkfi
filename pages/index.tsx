@@ -21,6 +21,7 @@ import LpLogger from "lp-logger";
 import realTools, {
     tool
 } from "../components/tools";
+export { realTools };
 export var logger = new LpLogger({
     name: "Index",
     level: "log", // 空字符串时，不显示任何信息
@@ -55,8 +56,8 @@ export default function Index(): JSX.Element {
                     flex: 1
                 }} placeholder="搜索工具" inputProps={{
                     'aria-label': 'searchtools',
-                    onChange: event => { 
-                        setSearchText(event.currentTarget.value); 
+                    onChange: event => {
+                        setSearchText(event.currentTarget.value);
                         searchTools();
                     }
                 }} />
