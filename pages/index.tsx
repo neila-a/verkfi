@@ -124,9 +124,8 @@ export default function Index(): JSX.Element {
                     flex: 1
                 }} placeholder="搜索工具" inputProps={{
                     'aria-label': 'searchtools',
-                    onChange: event => setSearchText(event.currentTarget.value),
-                    onKeyDown: _event => searchTools()
-                }} />
+                    onChange: event => setSearchText(event.currentTarget.value)
+                }} onInput={searchTools} />
                 <Divider sx={{
                     height: 28,
                     m: 0.5
