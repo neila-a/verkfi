@@ -20,7 +20,7 @@ import {
 import 'filepond/dist/filepond.min.css'; // Import FilePond styles
 import HeadBar from "../../components/HeadBar";
 import {
-    tools
+    realTools as tools
 } from "..";
 import style from "../../styles/Filter.module.scss";
 import {
