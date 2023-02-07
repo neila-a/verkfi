@@ -38,7 +38,11 @@ export default function Index(): JSX.Element {
         setTools(calcTools);
     };
     React.useEffect(function () {
-        logger.info(`tools为%o，searchText为%o，viewMode为%o。`, tools, searchText, viewMode);
+        console.group("值信息");
+        logger.info(`tools为%O，。`, tools);
+        logger.info(`searchText为%O`, searchText);
+        logger.info(`viewMode为%O`, viewMode);
+        console.groupEnd();
     }, [
         tools,
         searchText,
