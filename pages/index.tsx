@@ -37,6 +37,13 @@ export default function Index(): JSX.Element {
         });
         setTools(calcTools);
     };
+    React.useEffect(function () {
+        logger.info(`tools为%o，searchText为%o，viewMode为%o。`, tools, searchText, viewMode);
+    }, [
+        tools,
+        searchText,
+        viewMode
+    ]);
     return (
         <>
             <HeadBar isIndex={true} pageName="NeilaTools" />
