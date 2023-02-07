@@ -41,7 +41,7 @@ export default function Index(): JSX.Element {
         <>
             <HeadBar isIndex={true} pageName="NeilaTools" />
             <br />
-            <Paper component="form" sx={{ // 搜索栏
+            <Paper sx={{ // 搜索栏
                 p: '2px 4px',
                 display: 'flex',
                 alignItems: 'center'
@@ -56,7 +56,7 @@ export default function Index(): JSX.Element {
                     flex: 1
                 }} placeholder="搜索工具" inputProps={{
                     'aria-label': 'searchtools',
-                    onKeyDown: event => {
+                    onInput: event => {
                         setSearchText(event.currentTarget.value);
                         searchTools();
                     }
