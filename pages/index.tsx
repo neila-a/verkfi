@@ -40,8 +40,8 @@ export default function Index(): JSX.Element {
     React.useEffect(function () {
         console.group("值信息");
         logger.info(`tools为%O，。`, tools);
-        logger.info(`searchText为%O`, searchText);
-        logger.info(`viewMode为%O`, viewMode);
+        logger.info(`searchText为%s`, searchText);
+        logger.info(`viewMode为%s`, viewMode);
         console.groupEnd();
     }, [
         tools,
