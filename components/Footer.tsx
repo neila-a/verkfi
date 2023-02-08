@@ -1,3 +1,5 @@
+// 重要：已废弃
+
 import {
     Divider,
     Typography
@@ -23,7 +25,7 @@ export default function Footer(): JSX.Element {
         <footer className={style["cont"]}>
             <Divider light />
             <div className={style["top"]}>
-                <Link href="/" className={style["link"]}>
+                <Link href="/" className={style["logo"]}>
                     <a className={style["flex"]}>
                         <HandymanIcon />
                         <Typography variant="h6" gutterBottom>
@@ -32,10 +34,10 @@ export default function Footer(): JSX.Element {
                     </a>
                 </Link>
                 <Typography variant="subtitle2" className={style["copyright"]} sx={{
-                    lineHeight: 0.5
+                    lineHeight: 1
                 }} gutterBottom>
-                    Copyleft ! 2023， Neila。版权部分所有，
-                    <br />
+                    Copyleft ! 2023，Neila。
+                    版权部分所有，
                     遵循第三版GNU通用公共许可证授权使用。
                 </Typography>
             </div>

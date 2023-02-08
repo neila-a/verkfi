@@ -33,11 +33,13 @@
     @extend .linkColor;
 }
 
-.link {
+.logo {
     text: {
         decoration: none;
     }
-
+}
+.link {
+    @extend .logo;
     @extend .linkColor;
 }
 
@@ -55,6 +57,12 @@
     display: flex;
 }
 
-.app {
+.cout {
     margin: 24px;
+    padding: {
+        top: 36px;
+        bottom: 48px;
+        left: 24px;
+        right: 24px;
+    }
 }

@@ -27,7 +27,6 @@ export default function ModifiedApp({ Component, pageProps }: AppProps) {
             <div className={style["fullHeight"]}>
                 <Component {...pageProps} />
             </div>
-            <Footer />
         </>
     );
 }
