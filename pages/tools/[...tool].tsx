@@ -29,8 +29,8 @@ export const tools = {
 export type tJSXE = () => JSX.Element;
 export default function ToolFinder(): JSX.Element {
     var router = useRouter();
-    var toolID = router.query.tool[0];
-    if (toolID) {
+    if (router.query.tool) {
+        var toolID = router.query.tool[0];
         var Tool: tJSXE;
         toolsInfo.forEach(si => {
             if (tools[si.to] != undefined) {
