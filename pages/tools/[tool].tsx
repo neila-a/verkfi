@@ -16,21 +16,22 @@ import {
     realTools as toolsInfo
 } from "..";
 export const tools = {
-    audiotools,
-    clock,
-    countletter,
-    filter,
-    keycode,
-    pi,
-    readnumber,
-    reversal,
-    shaizi
+    Audiotools: audiotools,
+    Clock: clock,
+    CountLetter: countletter,
+    Filter: filter,
+    Keycode: keycode,
+    Pi: pi,
+    Readnumber: readnumber,
+    Reversal: reversal,
+    Shaizi: shaizi
 };
 export type tJSXE = () => JSX.Element;
 export default function ToolFinder(): JSX.Element {
     var router = useRouter();
     const tool = router.query.tool as unknown as string;
-    const Tool: tJSXE = tools[tool];
+    const toolComName = tool[0].toUpperCase() + tool.slice(1);
+    const Tool = tools[toolComName] as tJSXE;
     return (
         <>
             <HeadBar isIndex={false} pageName={(() => {
