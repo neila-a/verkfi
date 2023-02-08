@@ -5,7 +5,7 @@ import React, {
 import {
     Button
 } from "@mui/material";
-import style from "../../styles/ShaiZi.module.scss";
+import style from "../styles/iZi.module.scss";
 import LpLogger from "lp-logger";
 export var logger = new LpLogger({
     name: "掷骰子",

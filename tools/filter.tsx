@@ -18,7 +18,7 @@ import 'filepond/dist/filepond.min.css'; // Import FilePond styles
 import {
     realTools as tools
 } from "../pages";
-import style from "../../styles/Filter.module.scss";
+import style from "../styles/Filter.module.scss";
 import {
     Grid,
     Input as MuiInput,
