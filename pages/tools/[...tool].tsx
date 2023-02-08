@@ -47,7 +47,7 @@ export default function ToolFinder(): JSX.Element {
                 });
                 return name;
             })()} />
-            <Tool />
+            {router.query.tool == undefined ? <></> : <Tool />}
         </>
     );
 }
