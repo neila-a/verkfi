@@ -30,7 +30,7 @@ export type tJSXE = () => JSX.Element;
 export default function ToolFinder(): JSX.Element {
     var router = useRouter();
     const tool = router.query.tool as unknown as string;
-    const toolComName = tool[0].toUpperCase() + tool.slice(1);
+    const toolComName = tool.charAt(0).toUpperCase() + tool.slice(1);
     const Tool = tools[toolComName] as tJSXE;
     return (
         <>
