@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import moment from "moment";
 import React from "react";
-import HeadBar from "../../components/HeadBar";
 import LpLogger from "lp-logger";
 export var logger = new LpLogger({
     name: "Clock",
@@ -20,7 +19,6 @@ export default function Clock(): JSX.Element {
     }, [setTime]);
     return (
         <>
-            <HeadBar isIndex={false} pageName="BigTime" />
             <p id="bigtime" style={{
                 fontSize: "1500%"
             }}>{time}</p>

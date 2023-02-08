@@ -47,7 +47,6 @@ export default function Settings(): JSX.Element {
 	}, [setForkMeOnGitHub, setErudaEnabled]);
     return (
         <>
-            <HeadBar isIndex={false} pageName="设置" />
             <FormGroup>
                 <FormControlLabel control={<Switch checked={forkMeOnGitHub} onChange={event => {
                     setForkMeOnGitHub(event.target.checked);

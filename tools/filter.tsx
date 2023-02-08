@@ -15,10 +15,9 @@ import FilePondPluginImageEdit from 'filepond-plugin-image-edit'; // Import the 
 import 'filepond-plugin-image-edit/dist/filepond-plugin-image-edit.css'; // Import the plugin styles
 import FilePondPluginImageCrop from 'filepond-plugin-image-crop'; // Import the plugin code
 import 'filepond/dist/filepond.min.css'; // Import FilePond styles
-import HeadBar from "../../components/HeadBar";
 import {
     realTools as tools
-} from "..";
+} from "../pages";
 import style from "../../styles/Filter.module.scss";
 import {
     Grid,
@@ -85,7 +84,6 @@ export default function Filter(): JSX.Element {
     }, [imageArray]);
     return (
         <>
-            <HeadBar isIndex={false} pageName={tools[6].name} />
             <br />
             <FilePond
                 files={imageArray}

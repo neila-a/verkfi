@@ -4,7 +4,7 @@ import {
     Typography
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import HeadBar from "../../components/HeadBar";
+import HeadBar from "../components/HeadBar";
 import {
     FilePond,
     registerPlugin
@@ -78,7 +78,6 @@ export default function AudioTools(): JSX.Element {
     });
     return (
         <>
-            <HeadBar isIndex={false} pageName="AudioTools" />
             <Paper elevation={24} id="audioreplay" className={style["audioreplay"]}>
                 <div>
                     <Typography variant="h3" gutterBottom>音频循环播放</Typography>

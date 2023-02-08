@@ -10,12 +10,10 @@ import {
 import {
     Close
 } from "@mui/icons-material";
-import HeadBar from "../../components/HeadBar";
 import LpLogger from "lp-logger";
 export var logger = new LpLogger({
     name: "翻转",
     level: "log", // 空字符串时，不显示任何信息
-    
 });
 declare global {  //设置全局属性
     interface Window {  //window对象属性
@@ -107,7 +105,6 @@ function Reversal(): JSX.Element {
     };
     return (
         <div>
-            <HeadBar isIndex={false} pageName="翻转" />
             <br />
             <Alert severity="info">以空格分隔，按回车添加。</Alert>
             <br />

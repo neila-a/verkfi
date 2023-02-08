@@ -1,11 +1,10 @@
-import Center from "../../components/Center";
+import Center from "../components/Center";
 import React, {
     useEffect, useState
 } from "react";
 import {
     Button
 } from "@mui/material";
-import HeadBar from "../../components/HeadBar";
 import style from "../../styles/ShaiZi.module.scss";
 import LpLogger from "lp-logger";
 export var logger = new LpLogger({
@@ -151,7 +150,6 @@ function ShaiZi(): JSX.Element {
     }, []);
     return (
         <div className={style["allWidth"]}>
-            <HeadBar isIndex={false} pageName="掷骰子" />
             <br />
             <Center>
                 <canvas id="canvas" height="300" width="400" className={style["canvas"]}>

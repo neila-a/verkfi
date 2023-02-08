@@ -74,7 +74,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 			<AppBar position="static">
 				<Toolbar>{props.isIndex ? <></> :
 					<IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }} onClick={() => {
-						Router.push("/");
+						Router.back();
 						logger.log("已去往首页。");
 					}}>
 						<ArrowBack />

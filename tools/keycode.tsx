@@ -1,4 +1,3 @@
-import HeadBar from "../../components/HeadBar";
 import LpLogger from "lp-logger";
 export var logger = new LpLogger({
     name: "KeyCode",
@@ -7,7 +6,6 @@ export var logger = new LpLogger({
 export default function KeyCode(): JSX.Element {
     return (
         <>
-            <HeadBar isIndex={false} pageName="按键编码" />
         </>
     );
 };

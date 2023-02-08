@@ -2,7 +2,6 @@ import Link from "next/link";
 import {
     Button, Divider, Stack
 } from "@mui/material";
-import HeadBar from "../../components/HeadBar";
 import LpLogger from "lp-logger";
 export var logger = new LpLogger({
     name: "CountLetter",
@@ -82,7 +81,6 @@ function CountLetter(): JSX.Element {
                     display:inline-block;
                 }
             `}</style>
-            <HeadBar isIndex={false} pageName="CountLetter" />
             <Stack
                 direction="row"
                 divider={<Divider orientation="vertical" flexItem />}
