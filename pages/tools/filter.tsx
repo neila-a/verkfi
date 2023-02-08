@@ -14,9 +14,6 @@ import FilePondPluginImageResize from 'filepond-plugin-image-resize'; // Import 
 import FilePondPluginImageEdit from 'filepond-plugin-image-edit'; // Import the plugin code
 import 'filepond-plugin-image-edit/dist/filepond-plugin-image-edit.css'; // Import the plugin styles
 import FilePondPluginImageCrop from 'filepond-plugin-image-crop'; // Import the plugin code
-import {
-    FilePondFile
-} from "filepond";
 import 'filepond/dist/filepond.min.css'; // Import FilePond styles
 import HeadBar from "../../components/HeadBar";
 import {
@@ -28,18 +25,21 @@ import {
     Input as MuiInput,
     Slider,
     Typography,
-    Button,
-    List,
-    ListItem,
-    ListItemText,
-    Paper
+    Checkbox,
+    FormControlLabel,
+    FormGroup
 } from "@mui/material";
-import { styled } from '@mui/material/styles';
+import {
+    styled
+} from '@mui/material/styles';
 import LpLogger from "lp-logger";
+import {
+    destroyer
+} from "./reversal";
 export var logger = new LpLogger({
     name: "滤镜",
     level: "log", // 空字符串时，不显示任何信息
-    
+
 });
 declare global {
     interface Window {
@@ -62,8 +62,7 @@ export const ImageTypesGen: ImageType[] = [
     "sepia",
     "shadow"
 ];
-export const not = (a: ImageType[], b: ImageType[]) => a.filter((value) => b.indexOf(value) === -1);
-export const intersection = (a: ImageType[], b: ImageType[]) => a.filter((value) => b.indexOf(value) !== -1);
+export const emptyArray = [];
 export default function Filter(): JSX.Element {
     var [imageArray, setImageArray] = useState<any[]>([]);
     var [imageFileName, setImageFileName] = useState<string>("");
@@ -80,53 +79,6 @@ export default function Filter(): JSX.Element {
             setScale(200);
         }
     };
-    var [checked, setChecked] = React.useState<ImageType[]>([]);
-    var [right, setRight] = React.useState<ImageType[]>([]);
-    const leftChecked = intersection(checked, imageTypes);
-    const rightChecked = intersection(checked, right);
-    const handleToggle = (value: ImageType) => () => {
-        const currentIndex = checked.indexOf(value);
-        const newChecked = [...checked];
-        if (currentIndex === -1) {
-            newChecked.push(value);
-        } else {
-            newChecked.splice(currentIndex, 1);
-        }
-        setChecked(newChecked);
-    };
-    const handleCheckedRight = () => {
-        setRight(right.concat(leftChecked));
-        setImageTypes(not(imageTypes, leftChecked));
-        setChecked(not(checked, leftChecked));
-    };
-    function handleCheckedLeft() {
-        setImageTypes(imageTypes.concat(rightChecked));
-        setRight(not(right, rightChecked));
-        setChecked(not(checked, rightChecked));
-    }
-    const customList = (items: ImageType[]) => (
-        <Paper sx={{ overflow: "auto" }}>
-            <List dense component="div" role="list">
-                {items.map((value) => {
-                    const labelId = `transfer-list-item-${value}-label`;
-                    return (
-                        <ListItem
-                            key={value}
-                            role="listitem"
-                            button
-                            onClick={handleToggle(value)}
-                            style={{
-                                backgroundColor: (checked.find(() => value) === value) ? "#1e9fff" : "#fff"
-                            }}
-                        >
-                            <ListItemText id={labelId} primary={value} />
-                        </ListItem>
-                    );
-                })}
-                <ListItem />
-            </List>
-        </Paper>
-    );
     registerPlugin(FilePondPluginFileRename, FilePondPluginImagePreview, FilePondPluginImageResize, FilePondPluginImageEdit, FilePondPluginImageCrop); // Register the plugin
     useEffect(function () {
         window.imageArray = imageArray;
@@ -137,7 +89,7 @@ export default function Filter(): JSX.Element {
             <br />
             <FilePond
                 files={imageArray}
-                onupdatefiles={(images: FilePondFile[]) => {
+                onupdatefiles={images => {
                     setImageArray(images);
                     setImageFileName(images[0].filenameWithoutExtension);
                     setImageFileExtension(images[0].fileExtension);
@@ -157,34 +109,36 @@ export default function Filter(): JSX.Element {
                 <Typography gutterBottom>
                     滤镜类型
                 </Typography>
-                <Grid container spacing={2} justifyContent="center" alignItems="center">
-                    <Grid item>{customList(imageTypes)}</Grid>
-                    <Grid item>
-                        <Grid container direction="column" alignItems="center">
-                            <Button
-                                sx={{ my: 0.5 }}
-                                variant="outlined"
-                                size="small"
-                                onClick={handleCheckedRight}
-                                disabled={leftChecked.length === 0}
-                                aria-label="move selected right"
-                            >
-                                &gt;
-                            </Button>
-                            <Button
-                                sx={{ my: 0.5 }}
-                                variant="outlined"
-                                size="small"
-                                onClick={handleCheckedLeft}
-                                disabled={rightChecked.length === 0}
-                                aria-label="move selected left"
-                            >
-                                &lt;
-                            </Button>
-                        </Grid>
-                    </Grid>
-                    <Grid item>{customList(right)}</Grid>
-                </Grid>
+                <FormGroup>
+                    <FormControlLabel label="全部" control={
+                        <Checkbox
+                            checked={imageTypes == ImageTypesGen}
+                            indeterminate={(imageTypes != ImageTypesGen) && (imageTypes != emptyArray)}
+                            onChange={event => {
+                                switch (event.target.checked) {
+                                    case true:
+                                        setImageTypes(ImageTypesGen);
+                                        break;
+                                    case false:
+                                        setImageTypes([]);
+                                        break;
+                                }
+                            }}
+                        />
+                    } />
+                    {ImageTypesGen.map(type => <FormControlLabel control={
+                        <Checkbox defaultChecked checked={imageTypes.includes(type)} onChange={event => {
+                            switch (event.target.checked) {
+                                case true:
+                                    setImageTypes([...imageTypes, type]);
+                                    break;
+                                case false:
+                                    setImageTypes(destroyer(imageTypes, type));
+                                    break;
+                            }
+                        }} />
+                    } label={type} key={type} />)}
+                </FormGroup>
             </>
             <>
                 <Typography id="input-slider" gutterBottom>

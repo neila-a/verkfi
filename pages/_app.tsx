@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 import LpLogger from "lp-logger";
 import Footer from "../components/Footer";
 import style from "../styles/ModifiedApp.module.scss";
+import "../styles/App.scss";
 export var logger = new LpLogger({
     name: "NeilaTools",
     level: "log", // 空字符串时，不显示任何信息

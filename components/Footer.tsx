@@ -20,18 +20,24 @@ export const links: link[] = [
 ];
 export default function Footer(): JSX.Element {
     return (
-        <footer>
-            <Divider />
+        <footer className={style["cont"]}>
+            <Divider light />
             <div className={style["top"]}>
                 <Link href="/" className={style["link"]}>
-                    <a>
+                    <a className={style["flex"]}>
                         <HandymanIcon />
                         <Typography variant="h6" gutterBottom>
                             NeilaTools
                         </Typography>
                     </a>
                 </Link>
-                <Typography variant="subtitle1"  className={style["copyright"]} gutterBottom>Copyleft ! 2023， Neila。版权部分所有，遵循第三版GNU通用公共许可证授权使用。</Typography>
+                <Typography variant="subtitle2" className={style["copyright"]} sx={{
+                    lineHeight: 0.5
+                }} gutterBottom>
+                    Copyleft ! 2023， Neila。版权部分所有，
+                    <br />
+                    遵循第三版GNU通用公共许可证授权使用。
+                </Typography>
             </div>
             <div className={style["sec"]}>
                 <ul className={style["links"]}>
@@ -43,7 +49,7 @@ export default function Footer(): JSX.Element {
                         </li>
                     ))}
                     <div className={style["social"]}>
-                        <a href="https://github.com/neila-a/NeilaTools" title="GitHub">
+                        <a href="https://github.com/neila-a/NeilaTools" title="GitHub" className={style["linkColor"]}>
                             <GitHubIcon />
                         </a>
                     </div>

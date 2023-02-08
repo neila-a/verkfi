@@ -9,7 +9,7 @@
 
 .sec {
     margin: {
-        top: 24px;
+        top: 10px;
     }
 }
 
@@ -23,9 +23,14 @@
     padding: 0;
 }
 
+.linkColor {
+    color: #666;
+}
+
 .social {
     display: flex;
     justify-content: flex-end;
+    @extend .linkColor;
 }
 
 .link {
@@ -33,12 +38,23 @@
         decoration: none;
     }
 
-    color: inherit;
+    @extend .linkColor;
 }
+
 .copyright {
     text-align: left;
+    color: #666;
+
     margin: {
         right: auto;
         top: -1px;
     }
+}
+
+.flex {
+    display: flex;
+}
+
+.app {
+    margin: 24px;
 }
