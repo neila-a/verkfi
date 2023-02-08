@@ -1,8 +1,3 @@
-import {
-    useRouter
-} from "next/router";
-import React from "react";
-import HeadBar from "../../components/HeadBar";
 import audiotools from "../../tools/audiotools";
 import clock from "../../tools/clock";
 import countletter from "../../tools/countletter";
@@ -12,6 +7,22 @@ import pi from "../../tools/pi";
 import readnumber from "../../tools/readnumber";
 import reversal from "../../tools/reversal";
 import shaizi from "../../tools/shaizi";
+export const tools = {
+    audiotools,
+    clock,
+    countletter,
+    filter,
+    keycode,
+    pi,
+    readnumber,
+    reversal,
+    shaizi
+}; // Load tools end
+import {
+    useRouter
+} from "next/router";
+import React from "react";
+import HeadBar from "../../components/HeadBar";
 import {
     realTools as toolsInfo
 } from "..";
@@ -23,17 +34,6 @@ export var logger = new lpLogger({
     name: "ToolFinder",
     level: "log"
 });
-export const tools = {
-    audiotools,
-    clock,
-    countletter,
-    filter,
-    keycode,
-    pi,
-    readnumber,
-    reversal,
-    shaizi
-};
 export type tJSXE = () => JSX.Element;
 export default function ToolFinder(): JSX.Element {
     var router = useRouter();
