@@ -1,0 +1,44 @@
+.top {
+    gap: 20px;
+    display: flex;
+
+    align: {
+        items: center;
+    }
+}
+
+.sec {
+    margin: {
+        top: 24px;
+    }
+}
+
+.links {
+    list: {
+        style-type: none;
+    }
+
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+}
+
+.social {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.link {
+    text: {
+        decoration: none;
+    }
+
+    color: inherit;
+}
+.copyright {
+    text-align: left;
+    margin: {
+        right: auto;
+        top: -1px;
+    }
+}

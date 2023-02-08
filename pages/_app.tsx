@@ -2,6 +2,8 @@
 import type { AppProps /*, AppContext */ } from 'next/app'
 import React, { useEffect } from 'react';
 import LpLogger from "lp-logger";
+import Footer from "../components/Footer";
+import style from "../styles/ModifiedApp.module.scss";
 export var logger = new LpLogger({
     name: "NeilaTools",
     level: "log", // 空字符串时，不显示任何信息
@@ -11,7 +13,7 @@ declare global {  //设置全局属性
         UWAWorker: Promise<ServiceWorkerRegistration>;
     }
 }
-function MyApp({ Component, pageProps }: AppProps) {
+export default function ModifiedApp({ Component, pageProps }: AppProps) {
     useEffect(() => {
         if ('serviceWorker' in navigator) {
             // register service worker
@@ -19,7 +21,14 @@ function MyApp({ Component, pageProps }: AppProps) {
             window.UWAWorker.then((registration) => logger.log(`Service worker for UWA register success:`, registration)).catch((reason) => logger.error(`Service worker for UWA register fail: ${reason}`));
         }
     }, []);
-    return <Component {...pageProps} />;
+    return (
+        <>
+            <div className={style["fullHeight"]}>
+                <Component {...pageProps} />
+            </div>
+            <Footer />
+        </>
+    );
 }
 // Only uncomment this method if you have blocking data requirements for
 // every single page in your application. This disables the ability to
@@ -31,4 +40,3 @@ function MyApp({ Component, pageProps }: AppProps) {
 //   const appProps = await App.getInitialProps(appContext);
 //   return { ...appProps }
 // }
-export default MyApp;

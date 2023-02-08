@@ -21,6 +21,26 @@ export var logger = new LpLogger({
 	name: "HeadBar",
 	level: "log", // 空字符串时，不显示任何信息
 });
+export function checkOption(id: string, name: string, empty: string) {
+	var _ret: string;
+	const value = localStorage.getItem(id);
+	switch (value) {
+		case null:
+			localStorage.setItem(id, "true");
+			logger.log(`检测到“${name}”为空，已设置为${empty}。`);
+			_ret = empty;
+			break;
+		default:
+			logger.log(`检测到“${name}”为${value}。`);
+			_ret = value;
+			break;
+	}
+	return _ret;
+};
+export function stringToBoolean(string: string) {
+	if (string == "false") string = "";
+	return Boolean(string);
+};
 export interface HeadBarOption {
 	pageName: string;
 	isIndex: boolean;
@@ -34,35 +54,11 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 	var [forkMeOnGitHub, setForkMeOnGitHub] = useState<boolean>(true);
 	var [erudaEnabled, setErudaEnabled] = useState<boolean>(false);
 	useEffect(function () {
-		switch (window.localStorage.getItem("fork-me-on-github")) {
-			case "true":
-				logger.log("检测到\"Fork me on GitHub\"为开启状态。");
-				break;
-			case "false":
-				setForkMeOnGitHub(false);
-				logger.log("检测到\"Fork me on GitHub\"为关闭状态。");
-				break;
-			default:
-				window.localStorage.setItem("fork-me-on-github", "true");
-				logger.log("检测到\"Fork me on GitHub\"为空，已设置为开启状态。");
-				break;
-		}
-		switch (window.localStorage.getItem("eruda-enabled")) {
-			case "true":
-				setErudaEnabled(true);
-				logger.log("检测到Eruda为启用状态。");
-				break;
-			case "false":
-				logger.log("检测到Eruda为关闭状态。");
-				break;
-			default:
-				window.localStorage.setItem("eruda-enabled", "false");
-				logger.log("检测到Eruda为空，已设置为关闭状态。");
-				break;
-		};
+		setForkMeOnGitHub(stringToBoolean(checkOption("fork-me-on-github", "Fork me on GitHub", "false")));
+		setErudaEnabled(stringToBoolean(checkOption("eruda-enabled", "Eruda", "false")));
 	}, [setForkMeOnGitHub, setErudaEnabled]);
 	return (
-		<>
+		<header>
 			<Head>
 				<link rel="shortcut icon" href="/favicon.ico" />
 				<title>{props.pageName}</title>
@@ -111,6 +107,6 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 					right: "-40px"
 				}}>Fork me on GitHub</a>
 			</div> : <></>}
-		</>
+		</header>
 	);
 };

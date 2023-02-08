@@ -38,11 +38,13 @@ export default function Index(): JSX.Element {
         setTools(calcTools);
     };
     React.useEffect(function () {
-        console.group("值信息");
-        logger.info(`tools为%O，。`, tools);
-        logger.info(`searchText为%s`, searchText);
-        logger.info(`viewMode为%s`, viewMode);
-        console.groupEnd();
+        { // 打印信息用于调试
+            console.group("值信息");
+            logger.info(`tools为`, tools);
+            logger.info(`searchText为`, searchText);
+            logger.info(`viewMode为`, viewMode);
+            console.groupEnd();
+        }
     }, [
         tools,
         searchText,
@@ -67,10 +69,9 @@ export default function Index(): JSX.Element {
                     flex: 1
                 }} placeholder="搜索工具" inputProps={{
                     'aria-label': 'searchtools',
-                    onInput: event => {
-                        setSearchText(event.currentTarget.value);
-                        searchTools();
-                    }
+                }} onChange={event => {
+                    setSearchText(event.currentTarget.value);
+                    searchTools();
                 }} />
                 <Divider sx={{
                     height: 28,
