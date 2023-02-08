@@ -12,7 +12,6 @@ export default function Clock(): JSX.Element {
         const getTime = () => {
             const calcTime = moment().format("HH : mm : ss");
             setTime(calcTime);
-            logger.log(`已设置时间为${calcTime}。`);
         };
         getTime();
         setInterval(getTime, 1000);
