@@ -2,7 +2,6 @@
 import type { AppProps /*, AppContext */ } from 'next/app'
 import React, { useEffect } from 'react';
 import LpLogger from "lp-logger";
-import Footer from "../components/Footer";
 import style from "../styles/ModifiedApp.module.scss";
 import "../styles/App.scss";
 export var logger = new LpLogger({
