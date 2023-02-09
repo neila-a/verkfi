@@ -23,22 +23,23 @@ export interface WindowOptions {
 export default function Window(props: WindowOptions): JSX.Element {
     const router = useRouter();
     var [closed, setClose] = useState<boolean>(false);
-    var [move, setMove] = useState<boolean>(false);
     var [posX, setPosX] = useState<number>(0);
     var [posY, setPosY] = useState<number>(0);
     return (
         <>
-            {closed ? <></> : <div className={style["outer"]} style={{
-                    top: posX,
-                    right: posY
-                }}>
+            {closed ? <></> : <div style={{
+                top: posX,
+                right: posY
+            }} className={style["outer"]}>
                 <div className={style["top"]}>
-                    <div className={style["title"]} onMouseDown={_event => setMove(true)} onMouseMove={event => {
-                        if (move) {
-                            setPosX(event.clientX);
-                            setPosY(event.clientY);
-                        }
-                    }} onMouseUp={_event => setMove(false)}>
+                    <div className={style["title"]} draggable={true} onDragStart={event => {
+                        event.currentTarget.style.opacity = "0.5";
+                    }} onDrag={event => {
+                        setPosX(event.clientX);
+                        setPosY(event.clientY);
+                    }} onDragEnd={event => {
+                        event.currentTarget.style.removeProperty("opacity");
+                    }}>
                         <Typography variant="subtitle1">
                             {props.name}
                         </Typography>
