@@ -107,7 +107,9 @@ export default function Filter(): JSX.Element {
                 <Typography gutterBottom>
                     滤镜类型
                 </Typography>
-                <FormGroup>
+                <FormGroup sx={{
+                    display: "block"
+                }}>
                     <FormControlLabel label="全部" control={
                         <Checkbox
                             checked={imageTypes == ImageTypesGen}

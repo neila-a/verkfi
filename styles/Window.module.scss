@@ -2,11 +2,22 @@
     border: {
         color: black;
         width: 1px;
+        style: soild;
     }
+
+    z-index: 38601;
+    position: fixed;
+    background-color: white; // Will rewrite
+    overflow: auto;
 }
 
 .top {
+    z-index: 38602;
+    background-color: white; // Will rewrite
     display: flex;
+    position: sticky;
+    top: 0px;
+    cursor: move;
 
     justify: {
         content: center;
@@ -15,4 +26,9 @@
     align: {
         items: center;
     }
+}
+
+.title {
+    flex: 1;
+    text-align: center;
 }

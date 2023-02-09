@@ -1,4 +1,5 @@
 import {
+    Divider,
     IconButton,
     Typography
 } from "@mui/material";
@@ -22,13 +23,22 @@ export interface WindowOptions {
 export default function Window(props: WindowOptions): JSX.Element {
     const router = useRouter();
     var [closed, setClose] = useState<boolean>(false);
+    var [move, setMove] = useState<boolean>(false);
+    var [pos, setPos] = useState<number[]>([0, 0]); // [x,y]
     return (
         <>
             {closed ? <></> : <div className={style["outer"]}>
-                <div className={style["top"]}>
-                    <Typography variant="subtitle1">
-                        {props.name}
-                    </Typography>
+                <div className={style["top"]} style={{
+                    top: pos[0],
+                    right: pos[1]
+                }}>
+                    <div className={style["title"]} onMouseDown={_event => setMove(true)} onMouseMove={event => {
+                        setPos([event.clientX, event.clientY]);
+                    }} onMouseUp={_event => setMove(false)}>
+                        <Typography variant="subtitle1">
+                            {props.name}
+                        </Typography>
+                    </div>
                     <IconButton aria-label="maxmize" edge="end" onClick={_e => router.push(props.to)}>
                         <CropDinIcon />
                     </IconButton>
@@ -36,6 +46,7 @@ export default function Window(props: WindowOptions): JSX.Element {
                         <CloseIcon />
                     </IconButton>
                 </div>
+                <Divider />
                 <props.Component />
             </div>}
         </>
