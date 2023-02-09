@@ -147,7 +147,9 @@ export default function Index(): JSX.Element {
                     );
                 })}
             </Stack>
-            {windows.map(window => <Window {...window} key={window.to} />)}
+            {windows.map(window => (
+                <Window {...window} key={window.to} />
+            ))}
         </>
     );
 };
