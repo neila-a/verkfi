@@ -35,12 +35,16 @@ export default function Settings(): JSX.Element {
 		<>
 			<HeadBar isIndex={false} pageName="设置" />
 			<FormGroup>
-				<FormControlLabel control={<Switch checked={forkMeOnGitHub} onChange={event => {
-					setForkMeOnGitHub(setOption("fork-me-on-github", "Fork Me On GitHub", event.target.checked));
-				}} />} label="Fork Me On GitHub" />
-				<FormControlLabel control={<Switch checked={erudaEnabled} onChange={event => {
-					setErudaEnabled(setOption("eruda-enabled", "Eruda", event.target.checked));
-				}} />} label="开发控制台" />
+				<FormControlLabel control={
+					<Switch checked={forkMeOnGitHub} onChange={event => {
+						setForkMeOnGitHub(setOption("fork-me-on-github", "Fork Me On GitHub", event.target.checked));
+					}} />
+				} label="Fork Me On GitHub" />
+				<FormControlLabel control={
+					<Switch checked={erudaEnabled} onChange={event => {
+						setErudaEnabled(setOption("eruda-enabled", "Eruda", event.target.checked));
+					}} />
+				} label="开发控制台" />
 			</FormGroup>
 		</>
 	);
