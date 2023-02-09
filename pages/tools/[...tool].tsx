@@ -1,23 +1,3 @@
-import audiotools from "../../tools/audiotools";
-import clock from "../../tools/clock";
-import countletter from "../../tools/countletter";
-import filter from "../../tools/filter";
-import keycode from "../../tools/keycode";
-import pi from "../../tools/pi";
-import readnumber from "../../tools/readnumber";
-import reversal from "../../tools/reversal";
-import shaizi from "../../tools/shaizi";
-export const tools = {
-    audiotools,
-    clock,
-    countletter,
-    filter,
-    keycode,
-    pi,
-    readnumber,
-    reversal,
-    shaizi
-}; // Load tools end
 import {
     useRouter
 } from "next/router";
@@ -29,11 +9,14 @@ import {
 import {
     Typography
 } from "@mui/material";
+import {
+    components as tools
+} from "../../components/tools";
 import lpLogger from "lp-logger";
 export var logger = new lpLogger({
     name: "ToolFinder",
     level: "log"
-});
+}); 
 export type tJSXE = () => JSX.Element;
 export default function ToolFinder(): JSX.Element {
     var router = useRouter();

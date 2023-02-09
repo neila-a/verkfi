@@ -1,0 +1,18 @@
+.outer {
+    border: {
+        color: black;
+        width: 1px;
+    }
+}
+
+.top {
+    display: flex;
+
+    justify: {
+        content: center;
+    }
+
+    align: {
+        items: center;
+    }
+}

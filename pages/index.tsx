@@ -16,11 +16,15 @@ import {
     ViewModule as ViewModuleIcon,
     ViewList as ViewListIcon
 } from "@mui/icons-material";
+import {
+    components as ToolComponents
+} from "../components/tools";
 import Style from "../styles/Index.module.scss";
 import LpLogger from "lp-logger";
 import realTools, {
     tool
 } from "../components/tools";
+import Window from "../components/Window";
 export { realTools };
 export var logger = new LpLogger({
     name: "Index",
@@ -30,6 +34,7 @@ export default function Index(): JSX.Element {
     var [tools, setTools] = React.useState<tool[]>(realTools);
     var [searchText, setSearchText] = React.useState<string>("");
     var [viewMode, setViewMode] = React.useState<"list" | "grid">("grid");
+    var [windows, setWindows] = React.useState<JSX.Element[]>([]);
     function searchTools() {
         var calcTools: tool[] = [];
         realTools.forEach(tool => {
@@ -103,34 +108,44 @@ export default function Index(): JSX.Element {
                         <> {/* 单个工具 */}
                             <Link href={`/tools/${tool.to}`} key={tool.name} style={{
                                 textDecoration: "none"
+                            }} onContextMenu={event => {
+                                event.preventDefault();
+                                setWindows([...windows, <Window key={tool.to} Component={ToolComponents[tool.to]} page={{
+                                    name: tool.name,
+                                    desc: tool.desc,
+                                    to: `/tools/${tool.to}`
+                                }} />]);
                             }}>
-                                <Card sx={viewMode == "grid" ? {
-                                    minWidth: 275
-                                } : {
-                                    minWidth: "100%"
-                                }} elevation={10}>
-                                    <CardContent>
-                                        {viewMode == "grid" ? <>
-                                            <Typography variant="h5" component="div">
-                                                <ToolIcon />
-                                                {tool.name}
-                                            </Typography>
-                                            <Typography variant="body2">
-                                                {tool.desc}
-                                            </Typography>
-                                        </> : <>
-                                            <Typography variant="body2">
-                                                <ToolIcon />{tool.name} - {tool.desc}
-                                            </Typography>
-                                        </>}
-                                    </CardContent>
-                                </Card>
+                                <a>
+                                    <Card sx={viewMode == "grid" ? {
+                                        minWidth: 275
+                                    } : {
+                                        minWidth: "100%"
+                                    }} elevation={10}>
+                                        <CardContent>
+                                            {viewMode == "grid" ? <>
+                                                <Typography variant="h5" component="div">
+                                                    <ToolIcon />
+                                                    {tool.name}
+                                                </Typography>
+                                                <Typography variant="body2">
+                                                    {tool.desc}
+                                                </Typography>
+                                            </> : <>
+                                                <Typography variant="body2">
+                                                    <ToolIcon />{tool.name} - {tool.desc}
+                                                </Typography>
+                                            </>}
+                                        </CardContent>
+                                    </Card>
+                                </a>
                             </Link>
                             {viewMode == "grid" ? <></> : <br />}
                         </>
                     );
                 })}
             </Stack>
+            {windows.map(window => window)}
         </>
     );
 };
