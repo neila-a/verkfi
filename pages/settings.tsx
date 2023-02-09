@@ -34,11 +34,6 @@ export function checkOption(id: string, name: string, empty: boolean) {
 			_ret = false;
 			logger.log(`检测到“${name}”为关闭状态。`);
 			break;
-		default:
-			_ret = empty;
-			localStorage.setItem(id, String(empty));
-			logger.log(`检测到“${name}”为空，已设置为${empty}。`);
-			break;
 	}
 	return _ret;
 }

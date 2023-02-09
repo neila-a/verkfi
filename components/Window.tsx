@@ -1,7 +1,4 @@
 import {
-    tool as page
-} from "./tools";
-import {
     IconButton,
     Typography
 } from "@mui/material";
@@ -17,10 +14,12 @@ import {
 import {
     useRouter
 } from "next/router";
-export default function Window(props: {
-    page: page;
+export interface WindowOptions {
+    to: string;
+    name: string;
     Component(): JSX.Element;
-}): JSX.Element {
+}
+export default function Window(props: WindowOptions): JSX.Element {
     const router = useRouter();
     var [closed, setClose] = useState<boolean>(false);
     return (
@@ -28,9 +27,9 @@ export default function Window(props: {
             {closed ? <></> : <div className={style["outer"]}>
                 <div className={style["top"]}>
                     <Typography variant="subtitle1">
-                        {props.page.name}
+                        {props.name}
                     </Typography>
-                    <IconButton aria-label="maxmize" edge="end" onClick={_e => router.push(props.page.to)}>
+                    <IconButton aria-label="maxmize" edge="end" onClick={_e => router.push(props.to)}>
                         <CropDinIcon />
                     </IconButton>
                     <IconButton aria-label="close" edge="end" onClick={_e => setClose(true)}>

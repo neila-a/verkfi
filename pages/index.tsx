@@ -24,7 +24,9 @@ import LpLogger from "lp-logger";
 import realTools, {
     tool
 } from "../components/tools";
-import Window from "../components/Window";
+import Window, {
+    WindowOptions
+} from "../components/Window";
 export { realTools };
 export var logger = new LpLogger({
     name: "Index",
@@ -34,7 +36,7 @@ export default function Index(): JSX.Element {
     var [tools, setTools] = React.useState<tool[]>(realTools);
     var [searchText, setSearchText] = React.useState<string>("");
     var [viewMode, setViewMode] = React.useState<"list" | "grid">("grid");
-    var [windows, setWindows] = React.useState<JSX.Element[]>([]);
+    var [windows, setWindows] = React.useState<WindowOptions[]>([]);
     function searchTools() {
         var calcTools: tool[] = [];
         realTools.forEach(tool => {
@@ -110,11 +112,11 @@ export default function Index(): JSX.Element {
                                 textDecoration: "none"
                             }} onContextMenu={event => {
                                 event.preventDefault();
-                                setWindows([...windows, <Window key={tool.to} Component={ToolComponents[tool.to]} page={{
-                                    name: tool.name,
-                                    desc: tool.desc,
-                                    to: `/tools/${tool.to}`
-                                }} />]);
+                                setWindows([...windows, {
+                                    Component: ToolComponents[tool.to],
+                                    to: `/tools/${tool.to}`,
+                                    name: tool.name
+                                }]);
                             }}>
                                 <a>
                                     <Card sx={viewMode == "grid" ? {
@@ -145,7 +147,7 @@ export default function Index(): JSX.Element {
                     );
                 })}
             </Stack>
-            {windows.map(window => window)}
+            {windows.map(window => <Window {...window} key={window.to} />)}
         </>
     );
 };
