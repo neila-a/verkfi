@@ -24,16 +24,20 @@ export default function Window(props: WindowOptions): JSX.Element {
     const router = useRouter();
     var [closed, setClose] = useState<boolean>(false);
     var [move, setMove] = useState<boolean>(false);
-    var [pos, setPos] = useState<number[]>([0, 0]); // [x,y]
+    var [posX, setPosX] = useState<number>(0);
+    var [posY, setPosY] = useState<number>(0);
     return (
         <>
             {closed ? <></> : <div className={style["outer"]}>
                 <div className={style["top"]} style={{
-                    top: pos[0],
-                    right: pos[1]
+                    top: posX,
+                    right: posY
                 }}>
                     <div className={style["title"]} onMouseDown={_event => setMove(true)} onMouseMove={event => {
-                        setPos([event.clientX, event.clientY]);
+                        if (move) {
+                            setPosX(event.clientX);
+                            setPosY(event.clientY);
+                        }
                     }} onMouseUp={_event => setMove(false)}>
                         <Typography variant="subtitle1">
                             {props.name}
