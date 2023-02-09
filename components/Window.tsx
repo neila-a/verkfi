@@ -28,11 +28,11 @@ export default function Window(props: WindowOptions): JSX.Element {
     var [posY, setPosY] = useState<number>(0);
     return (
         <>
-            {closed ? <></> : <div className={style["outer"]}>
-                <div className={style["top"]} style={{
+            {closed ? <></> : <div className={style["outer"]} style={{
                     top: posX,
                     right: posY
                 }}>
+                <div className={style["top"]}>
                     <div className={style["title"]} onMouseDown={_event => setMove(true)} onMouseMove={event => {
                         if (move) {
                             setPosX(event.clientX);
