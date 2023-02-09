@@ -27,6 +27,7 @@ import realTools, {
 import Window, {
     WindowOptions
 } from "../components/Window";
+import ErrorBoundary from "../components/ErrorBoundary";
 export { realTools };
 export var logger = new LpLogger({
     name: "Index",
@@ -147,9 +148,11 @@ export default function Index(): JSX.Element {
                     );
                 })}
             </Stack>
-            {windows.map(window => (
-                <Window {...window} key={window.to} />
-            ))}
+            <ErrorBoundary>
+                {windows.map(window => (
+                    <Window {...window} key={window.to} />
+                ))}
+            </ErrorBoundary>
         </>
     );
 };
