@@ -28,8 +28,8 @@ export default function Window(props: WindowOptions): JSX.Element {
     return (
         <>
             {closed ? <></> : <div style={{
-                top: posX,
-                right: posY
+                top: posY,
+                left: posX
             }} className={style["outer"]}>
                 <div className={style["top"]}>
                     <div className={style["title"]} draggable={true} onDragStart={event => {
@@ -38,6 +38,8 @@ export default function Window(props: WindowOptions): JSX.Element {
                         setPosX(event.clientX);
                         setPosY(event.clientY);
                     }} onDragEnd={event => {
+                        setPosX(event.clientX);
+                        setPosY(event.clientY);
                         event.currentTarget.style.removeProperty("opacity");
                     }}>
                         <Typography variant="subtitle1">
