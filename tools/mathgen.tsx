@@ -51,6 +51,7 @@ export default function MathGen(): JSX.Element {
                 var two: number;
                 switch (mode) {
                     case "-":
+                    case "÷":
                         while (two <= one) {
                             two = Math.floor(Math.random() * (max - min) + min);
                         }
@@ -77,19 +78,19 @@ export default function MathGen(): JSX.Element {
                     shrink: true,
                 }} onChange={event => {
                     setMax(Number(event.currentTarget.value));
-                }} />
+                }} defaultValue={max} />
                 <br />
                 <TextField label="下限" type="number" InputLabelProps={{
                     shrink: true,
                 }} onChange={event => {
                     setMin(Number(event.currentTarget.value));
-                }} />
+                }} defaultValue={min} />
                 <br />
                 <TextField label="个数" type="number" InputLabelProps={{
                     shrink: true,
                 }} onChange={event => {
                     setItemCount(Number(event.currentTarget.value));
-                }} />
+                }} defaultValue={itemCount} />
                 <Fragment>
                     <FormControlLabel label="全选" control={
                         <Checkbox checked={calcs != emptyArray} indeterminate={calcs != defaultCalcs} onChange={event => {
@@ -129,12 +130,14 @@ export default function MathGen(): JSX.Element {
                     return (
                         <div key={math} className={style["single"]}>
                             <Typography>{math.replace(/=.*/g, "")}</Typography>
-                            <TextField label="个数" type="number" InputLabelProps={{
-                                shrink: true,
-                            }} error={isError} onChange={event => {
-                                setError((event.currentTarget.value == math.replace(/.*=/g, "")) ? false : true);
-                            }} />
-                            {showOut ? <Typography>答案：{math.replace(/.*=/g, "")}</Typography> : <Fragment />}
+                            <div className={style["out"]}>
+                                <TextField label="结果" type="number" InputLabelProps={{
+                                    shrink: true,
+                                }} error={isError} onChange={event => {
+                                    setError((event.currentTarget.value == math.replace(/.*=/g, "")) ? false : true);
+                                }} />
+                                {showOut ? <Typography>答案：{math.replace(/.*=/g, "")}</Typography> : <Fragment />}
+                            </div>
                         </div>
                     );
                 }
