@@ -4,9 +4,24 @@ import {
     FormGroup,
     TextField
 } from "@mui/material";
-import { useState } from "react";
+import {
+    useState
+} from "react";
+import {
+    emptyArray
+} from "./filter";
+import {
+    destroyer
+} from "./reversal";
+export type calc = "+" | "-" | "×" | "÷";
+export const defaultCalcs: calc[] = [
+    "+",
+    "-",
+    "×",
+    "÷"
+];
 export default function MathGen(): JSX.Element {
-    var [calcs,setCalcs] = useState();
+    var [calcs, setCalcs] = useState<calc[]>(defaultCalcs);
     return (
         <div>
             <FormGroup>
@@ -21,17 +36,30 @@ export default function MathGen(): JSX.Element {
                 }} />
                 <>
                     <FormControlLabel label="全选" control={
-                        <Checkbox
-                            checked={checked[0] && checked[1]}
-                            indeterminate={checked[0] !== checked[1]}
-                            onChange={handleChange1}
-                        />
+                        <Checkbox checked={calcs != emptyArray} indeterminate={calcs != defaultCalcs} onChange={event => {
+                            switch (event.currentTarget.checked) {
+                                case true:
+                                    setCalcs([]);
+                                    break;
+                                case false:
+                                    setCalcs(defaultCalcs);
+                                    break;
+                            }
+                        }} />
                     } />
                     <>
-                    {}
-                        <FormControlLabel label="Child 2" control={
-                            <Checkbox checked={checked[1]} onChange={handleChange3} />
-                        } />
+                        {defaultCalcs.map(calc => <FormControlLabel label={calc} key={calc} control={
+                            <Checkbox checked={calcs.includes(calc)} onChange={event => {
+                                switch (event.currentTarget.checked) {
+                                    case true:
+                                        setCalcs(destroyer(calcs, calc));
+                                        break;
+                                    case false:
+                                        setCalcs([...calcs, calc]);
+                                        break;
+                                }
+                            }} />
+                        } />)}
                     </>
                 </>
             </FormGroup>

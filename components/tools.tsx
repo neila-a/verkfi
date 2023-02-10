@@ -1,3 +1,25 @@
+import audiotools from "../tools/audiotools";
+import clock from "../tools/clock";
+import countletter from "../tools/countletter";
+import filter from "../tools/filter";
+import keycode from "../tools/keycode";
+import pi from "../tools/pi";
+import readnumber from "../tools/readnumber";
+import reversal from "../tools/reversal";
+import shaizi from "../tools/shaizi";
+import mathgen from "../tools/mathgen"
+export const components = {
+    audiotools,
+    clock,
+    countletter,
+    filter,
+    keycode,
+    pi,
+    readnumber,
+    reversal,
+    shaizi,
+    mathgen
+}; // Load tools end
 import {
     Audiotrack as AudiotrackIcon,
     Abc as ABCIcon,
@@ -10,27 +32,6 @@ import {
 import Image from "next/image";
 import ShaiziIcon from "../public/shaizi.24x24.svg";
 import PiIcon from "../public/pi.466x393.png";
-import audiotools from "../tools/audiotools";
-import clock from "../tools/clock";
-import countletter from "../tools/countletter";
-import filter from "../tools/filter";
-import keycode from "../tools/keycode";
-import pi from "../tools/pi";
-import readnumber from "../tools/readnumber";
-import reversal from "../tools/reversal";
-import shaizi from "../tools/shaizi";
-export const components = {
-    audiotools,
-    clock,
-    countletter,
-    filter,
-    keycode,
-    pi,
-    readnumber,
-    reversal,
-    shaizi
-}; // Load tools end
-
 export interface tool {
     name: string;
     to: string;
