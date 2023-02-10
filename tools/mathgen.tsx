@@ -46,9 +46,9 @@ export default function MathGen(): JSX.Element {
     function calcMath() {
         var calcMaths: string[] = [];
         calcs.forEach(mode => {
-            for (var up = "", step = 1; step < (itemCount / (calcs.length)); step++) {
-                var one = Math.floor(Math.random() * (max - min) + min);
-                var two: number;
+            for (let up = "", step = 1; step < (itemCount / (calcs.length)); step++) {
+                let one = Math.floor(Math.random() * (max - min) + min);
+                let two: number;
                 switch (mode) {
                     case "-":
                     case "÷":
