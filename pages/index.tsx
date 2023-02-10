@@ -28,7 +28,12 @@ import Window, {
     WindowOptions
 } from "../components/Window";
 import ErrorBoundary from "../components/ErrorBoundary";
-export { realTools };
+import {
+    emptyArray
+} from "../tools/filter";
+export {
+    realTools
+};
 export var logger = new LpLogger({
     name: "Index",
     level: "log", // 空字符串时，不显示任何信息
@@ -149,7 +154,7 @@ export default function Index(): JSX.Element {
                 })}
             </Stack>
             <ErrorBoundary>
-                {windows.map(window => (
+                {windows == emptyArray ? <></> : windows.map(window => (
                     <Window {...window} key={window.to} />
                 ))}
             </ErrorBoundary>
