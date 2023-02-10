@@ -5,6 +5,7 @@ import {
     TextField
 } from "@mui/material";
 import {
+    useEffect,
     useState
 } from "react";
 import {
@@ -13,6 +14,11 @@ import {
 import {
     destroyer
 } from "./reversal";
+import LpLogger from "lp-logger";
+export var logger = new LpLogger({
+    name: "MathGen",
+    level: "log", // 空字符串时，不显示任何信息
+});
 export type calc = "+" | "-" | "×" | "÷";
 export const defaultCalcs: calc[] = [
     "+",
@@ -22,15 +28,21 @@ export const defaultCalcs: calc[] = [
 ];
 export default function MathGen(): JSX.Element {
     var [calcs, setCalcs] = useState<calc[]>(defaultCalcs);
+    useEffect(function () {
+        logger.log("calcs为", calcs);
+    }, [calcs])
     return (
         <div>
+            <br />
             <FormGroup>
                 <TextField label="上限" type="number" InputLabelProps={{
                     shrink: true,
                 }} />
+                <br />
                 <TextField label="下限" type="number" InputLabelProps={{
                     shrink: true,
                 }} />
+                <br />
                 <TextField label="个数" type="number" InputLabelProps={{
                     shrink: true,
                 }} />
