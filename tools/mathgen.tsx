@@ -52,7 +52,7 @@ export default function MathGen(): JSX.Element {
                 switch (mode) {
                     case "-":
                     case "÷":
-                        while (two <= one) {
+                        while (two > one) {
                             two = Math.floor(Math.random() * (max - min) + min);
                         }
                         break;
