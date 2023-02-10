@@ -114,12 +114,7 @@ export default function Index(): JSX.Element {
                     const ToolIcon = tool.icon;
                     return (
                         <> {/* 单个工具 */}
-                            <Link href={{
-                                href: "/tool",
-                                query: {
-                                    tool: tool.to
-                                }
-                            }} key={tool.name} style={{
+                            <Link href={`/tool?tool=${tool.to}`} key={tool.name} style={{
                                 textDecoration: "none"
                             }} onContextMenu={event => {
                                 event.preventDefault();

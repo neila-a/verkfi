@@ -16,7 +16,7 @@ const
     installFilesEssential = [
         '/',
         '/tool',
-        '/settings'
+        '/settings',
         '/index.webmanifest',
         '/favicon.png'
     ];
