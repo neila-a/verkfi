@@ -43,21 +43,22 @@ export default function MathGen(): JSX.Element {
     useEffect(function () {
         logger.log("calcs为", calcs);
     }, [calcs]);
+    const genNumber = () => Math.floor(Math.random() * (max - min) + min);
     function calcMath() {
         var calcMaths: string[] = [];
-        calcs.forEach(mode => {
-            for (let up = "", step = 1; step < (itemCount / (calcs.length)); step++) {
-                let one = Math.floor(Math.random() * (max - min) + min);
-                let two: number;
+        calcs.forEach(function (mode) {
+            for (var step = 1; step < (itemCount / (calcs.length)); step++) {
+                var one: number = genNumber(),
+                    two: number;
                 switch (mode) {
                     case "-":
                     case "÷":
                         while (two > one) {
-                            two = Math.floor(Math.random() * (max - min) + min);
+                            two = genNumber();
                         }
                         break;
                     default:
-                        two = Math.floor(Math.random() * (max - min) + min);
+                        two = genNumber();
                         break;
                 }
                 calcMaths.push(`${one}${mode}${two}=${eval(`${one}${mode.replace("×", "*").replace("÷", "/")}${two}`)}`);
@@ -65,6 +66,25 @@ export default function MathGen(): JSX.Element {
         });
         setMath(calcMaths);
     };
+    function SingleMath(props: {
+        math: string;
+    }): JSX.Element {
+        var [isError, setError] = useState<boolean>(false),
+            { math } = props;
+        return (
+            <div className={style["single"]}>
+                <Typography>{math.replace(/=.*/g, "")}</Typography>
+                <div className={style["out"]}>
+                    <TextField label="结果" type="number" InputLabelProps={{
+                        shrink: true,
+                    }} error={isError} onChange={event => {
+                        setError((event.currentTarget.value == math.replace(/.*=/g, "")) ? false : true);
+                    }} />
+                    {showOut ? <Typography>答案：{math.replace(/.*=/g, "")}</Typography> : <Fragment />}
+                </div>
+            </div>
+        );
+    }
     useEffect(calcMath, [
         min,
         max,
@@ -119,30 +139,17 @@ export default function MathGen(): JSX.Element {
                         } />)}
                     </Fragment>
                 </Fragment>
-                <Button variant="contained" onClick={calcMath}>计算</Button>
+                <Button variant="contained" onClick={calcMath}>
+                    计算
+                </Button>
                 <Button variant="outlined" onClick={event => {
                     showOut ? setShowOut(false) : setShowOut(true);
-                }}>{showOut ? "隐藏" : "显示"}答案</Button>
+                }}>
+                    {showOut ? "隐藏" : "显示"}答案
+                </Button>
+                <br />
             </FormGroup>
-            {maths == emptyArray ? <Fragment /> : maths.map(math => {
-                function ThisComponent(): JSX.Element {
-                    var [isError, setError] = useState<boolean>(false);
-                    return (
-                        <div key={math} className={style["single"]}>
-                            <Typography>{math.replace(/=.*/g, "")}</Typography>
-                            <div className={style["out"]}>
-                                <TextField label="结果" type="number" InputLabelProps={{
-                                    shrink: true,
-                                }} error={isError} onChange={event => {
-                                    setError((event.currentTarget.value == math.replace(/.*=/g, "")) ? false : true);
-                                }} />
-                                {showOut ? <Typography>答案：{math.replace(/.*=/g, "")}</Typography> : <Fragment />}
-                            </div>
-                        </div>
-                    );
-                }
-                return <ThisComponent key={math} />;
-            })}
+            {maths == emptyArray ? <Fragment /> : maths.map(math => <SingleMath math={math} key={math} />)}
         </div>
     );
 }

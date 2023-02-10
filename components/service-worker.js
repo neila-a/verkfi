@@ -13,6 +13,18 @@ import pack from "../package.json";
 const
     { version, devVersion } = pack,
     Cache = `NeilaTools-${version}-${devVersion != 0 ? `dev${devVersion}` : "prod"}`, // C
+    log = text => console.log(`%cServiceWorker`, `background: #52c41a;border-radius: 0.5em;color: white;font-weight: bold;padding: 2px 0.5em`, text),
+    installStaticFiles = () => caches.open(Cache).then(cache => cache.addAll(installFilesEssential).catch(console.error)), // install static assets
+    clearOldCaches = () => {
+        return caches.keys().then(keylist => {
+            return Promise.all(keylist.filter(key => {
+                return key !== Cache;
+            }).map(key => {
+                log(`已删除缓存“${key}”`);
+                return caches.delete(key);
+            }));
+        });
+    },
     installFilesEssential = [
         '/',
         '/tool',
@@ -20,24 +32,17 @@ const
         '/index.webmanifest',
         '/favicon.png'
     ];
-const log = text => console.log(`%cServiceWorker`, `background: #52c41a;border-radius: 0.5em;color: white;font-weight: bold;padding: 2px 0.5em`, text);
-const installStaticFiles = () => caches.open(Cache).then(cache => cache.addAll(installFilesEssential).catch(console.error)); // install static assets
-const clearOldCaches = () => {
-    return caches.keys().then(keylist => {
-        return Promise.all(keylist.filter(key => {
-            return key !== Cache;
-        }).map(key => {
-            log(`已删除缓存“${key}”`);
-            return caches.delete(key);
-        }));
-    });
-};
+log(`版本为${Cache}`);
 self.addEventListener('install', event => {
     event.waitUntil(installStaticFiles().then(() => {
         return self.skipWaiting();
     }));
 });
-self.addEventListener('activate', event => event.waitUntil(clearOldCaches().then(() => self.clients.claim())));
+self.addEventListener('activate', event => {
+    return event.waitUntil(clearOldCaches().then(() => {
+        return self.clients.claim();
+    }));
+});
 self.addEventListener('fetch', event => {
     if (event.request.method !== 'GET') return;
     let { url } = event.request;
