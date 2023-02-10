@@ -91,6 +91,12 @@ export const tools: tool[] = [
         to: "readnumber",
         desc: "将数字转换成汉字字符串",
         icon: () => <NumbersIcon />
+    },
+    {
+        name: "算式生成器",
+        to: "mathgen",
+        desc: "生成一些算式",
+        icon: () => <NumbersIcon />
     }
 ];
 export default tools;

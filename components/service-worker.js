@@ -1,5 +1,5 @@
 import pack from "../package.json";
-const toolsTo = [
+/* const toolsTo = [
     "audiotools",
     "countletter",
     "clock",
@@ -9,13 +9,14 @@ const toolsTo = [
     "filter",
     "keycode",
     "readnumber",
-];
+]; */
 const
     { version, devVersion } = pack,
     Cache = `NeilaTools-${version}-${devVersion != 0 ? `dev${devVersion}` : "prod"}`, // C
     installFilesEssential = [
         '/',
-        ...toolsTo.map(addr => `/tools/${addr}`),
+        '/tool',
+        '/settings'
         '/index.webmanifest',
         '/favicon.png'
     ];

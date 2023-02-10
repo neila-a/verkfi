@@ -2,16 +2,16 @@ import {
     useRouter
 } from "next/router";
 import React from "react";
-import HeadBar from "../../components/HeadBar";
+import HeadBar from "../components/HeadBar";
 import {
     realTools as toolsInfo
-} from "..";
+} from ".";
 import {
     Typography
 } from "@mui/material";
 import {
     components as tools
-} from "../../components/tools";
+} from "../components/tools";
 import lpLogger from "lp-logger";
 export var logger = new lpLogger({
     name: "ToolFinder",
@@ -22,7 +22,7 @@ export default function ToolFinder(): JSX.Element {
     var router = useRouter();
     if (router.query.tool) {
         logger.info("query的内容为", router.query);
-        var toolID = router.query.tool[0];
+        var toolID = router.query.tool;
         var Tool: tJSXE;
         toolsInfo.forEach(si => {
             if (((tools[si.to] as tJSXE) != undefined) && (si.to == toolID)) {
