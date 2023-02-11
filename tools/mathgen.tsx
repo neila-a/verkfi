@@ -17,7 +17,7 @@ import {
 import {
     destroyer
 } from "./reversal";
-import style from "../styles/MathGen.module.scss";
+import style from "../styles/SingleMath.module.scss";
 import LpLogger from "lp-logger";
 export var logger = new LpLogger({
     name: "MathGen",
@@ -30,6 +30,26 @@ export const defaultCalcs: calc[] = [
     "×",
     "÷"
 ];
+export function SingleMath(props: {
+    math: string;
+    showOut: boolean;
+}): JSX.Element {
+    var [isError, setError] = useState<boolean>(false),
+        { math, showOut } = props;
+    return (
+        <div className={style["single"]}>
+            <Typography>{math.replace(/=.*/g, "")}</Typography>
+            <div className={style["out"]}>
+                <TextField label="结果" type="number" InputLabelProps={{
+                    shrink: true,
+                }} error={isError} onChange={event => {
+                    setError((event.currentTarget.value == math.replace(/.*=/g, "")) ? false : true);
+                }} />
+                {showOut == true ? <Typography>答案：{math.replace(/.*=/g, "")}</Typography> : <Fragment />}
+            </div>
+        </div>
+    );
+}
 export default function MathGen(): JSX.Element {
     var [calcs, setCalcs] = useState<calc[]>([
         "+",
@@ -53,8 +73,7 @@ export default function MathGen(): JSX.Element {
                 switch (mode) {
                     case "-":
                     case "÷":
-                        while (two > one) {
-                            two = genNumber();
+                        for (; (two > one) && (two != undefined); two = genNumber()) {
                         }
                         break;
                     default:
@@ -64,27 +83,9 @@ export default function MathGen(): JSX.Element {
                 calcMaths.push(`${one}${mode}${two}=${eval(`${one}${mode.replace("×", "*").replace("÷", "/")}${two}`)}`);
             }
         });
-        setMath(calcMaths);
+        logger.log("maths为", calcMath);
+        return setMath(calcMaths);
     };
-    function SingleMath(props: {
-        math: string;
-    }): JSX.Element {
-        var [isError, setError] = useState<boolean>(false),
-            { math } = props;
-        return (
-            <div className={style["single"]}>
-                <Typography>{math.replace(/=.*/g, "")}</Typography>
-                <div className={style["out"]}>
-                    <TextField label="结果" type="number" InputLabelProps={{
-                        shrink: true,
-                    }} error={isError} onChange={event => {
-                        setError((event.currentTarget.value == math.replace(/.*=/g, "")) ? false : true);
-                    }} />
-                    {showOut ? <Typography>答案：{math.replace(/.*=/g, "")}</Typography> : <Fragment />}
-                </div>
-            </div>
-        );
-    }
     useEffect(calcMath, [
         min,
         max,
@@ -149,7 +150,7 @@ export default function MathGen(): JSX.Element {
                 </Button>
                 <br />
             </FormGroup>
-            {maths == emptyArray ? <Fragment /> : maths.map(math => <SingleMath math={math} key={math} />)}
+            {maths == emptyArray ? <Fragment /> : maths.map(math => <SingleMath math={math} showOut={showOut} key={math} />)}
         </div>
     );
 }
