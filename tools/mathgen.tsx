@@ -69,8 +69,8 @@ export default function MathGen(): JSX.Element {
         calcs.forEach(function (mode) {
             for (var step = 1; step < (itemCount / (calcs.length)); step++) {
                 var one: number = genNumber(),
-                    two: number;
-                switch (mode) {
+                    two: number = genNumber();
+                /* Deleted Code { switch (mode) {
                     case "-":
                     case "÷":
                         for (; (two > one) && (two != undefined); two = genNumber()) {
@@ -79,7 +79,7 @@ export default function MathGen(): JSX.Element {
                     default:
                         two = genNumber();
                         break;
-                }
+                } } */
                 calcMaths.push(`${one}${mode}${two}=${eval(`${one}${mode.replace("×", "*").replace("÷", "/")}${two}`)}`);
             }
         });
@@ -125,20 +125,18 @@ export default function MathGen(): JSX.Element {
                             }
                         }} />
                     } />
-                    <Fragment>
-                        {defaultCalcs.map(calc => <FormControlLabel label={calc} key={calc} control={
-                            <Checkbox checked={calcs.includes(calc)} onChange={event => {
-                                switch (event.currentTarget.checked) {
-                                    case false:
-                                        setCalcs(destroyer(calcs, calc));
-                                        break;
-                                    case true:
-                                        setCalcs([...calcs, calc]);
-                                        break;
-                                }
-                            }} />
-                        } />)}
-                    </Fragment>
+                    {defaultCalcs.map(calc => <FormControlLabel label={calc} key={calc} control={
+                        <Checkbox checked={calcs.includes(calc)} onChange={event => {
+                            switch (event.currentTarget.checked) {
+                                case false:
+                                    setCalcs(destroyer(calcs, calc));
+                                    break;
+                                case true:
+                                    setCalcs([...calcs, calc]);
+                                    break;
+                            }
+                        }} />
+                    } />)}
                 </Fragment>
                 <Button variant="contained" onClick={calcMath}>
                     计算
@@ -150,7 +148,7 @@ export default function MathGen(): JSX.Element {
                 </Button>
                 <br />
             </FormGroup>
-            {maths == emptyArray ? <Fragment /> : maths.map(math => <SingleMath math={math} showOut={showOut} key={math} />)}
+            {maths == emptyArray ? <Typography>没有任何已生成的算式</Typography> : maths.map(math => <SingleMath math={math} showOut={showOut} key={math} />)}
         </div>
     );
 }

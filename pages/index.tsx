@@ -110,7 +110,7 @@ export default function Index(): JSX.Element {
                 flexDirection: viewMode == "grid" ? "row" : "",
                 display: viewMode == "grid" ? "flex" : "block"
             }}> {/* 工具总览 */}
-                {tools.map((tool, _index, _array) => { // 遍历tools
+                {tools == emptyArray ? <Typography>未找到任何工具</Typography> :  tools.map((tool, _index, _array) => { // 遍历tools
                     const ToolIcon = tool.icon;
                     return (
                         <> {/* 单个工具 */}
@@ -154,9 +154,7 @@ export default function Index(): JSX.Element {
                 })}
             </Stack>
             <ErrorBoundary>
-                {windows == emptyArray ? <></> : windows.map(window => (
-                    <Window {...window} key={window.to} />
-                ))}
+                {windows == emptyArray ? <React.Fragment /> : windows.map(window => <Window {...window} key={window.to} />)}
             </ErrorBoundary>
         </>
     );
