@@ -70,16 +70,6 @@ export default function MathGen(): JSX.Element {
             for (var step = 1; step < (itemCount / (calcs.length)); step++) {
                 var one: number = genNumber(),
                     two: number = genNumber();
-                /* Deleted Code { switch (mode) {
-                    case "-":
-                    case "÷":
-                        for (; (two > one) && (two != undefined); two = genNumber()) {
-                        }
-                        break;
-                    default:
-                        two = genNumber();
-                        break;
-                } } */
                 calcMaths.push(`${one}${mode}${two}=${eval(`${one}${mode.replace("×", "*").replace("÷", "/")}${two}`)}`);
             }
         });
