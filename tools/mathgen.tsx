@@ -59,6 +59,7 @@ export default function MathGen(): JSX.Element {
         [max, setMax] = useState<number>(10),
         [itemCount, setItemCount] = useState<number>(20),
         [maths, setMath] = useState<string[]>([]),
+        [unCheck, setUnCheck] = useState<boolean>(true),
         [showOut, setShowOut] = useState<boolean>(false);
     useEffect(function () {
         logger.log("calcs为", calcs);
@@ -70,6 +71,17 @@ export default function MathGen(): JSX.Element {
             for (var step = 1; step < (itemCount / (calcs.length)); step++) {
                 var one: number = genNumber(),
                     two: number = genNumber();
+                if (unCheck == true) {
+                    switch (mode) {
+                        case "-":
+                            while (two > one) {
+                                two = genNumber();
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
                 calcMaths.push(`${one}${mode}${two}=${eval(`${one}${mode.replace("×", "*").replace("÷", "/")}${two}`)}`);
             }
         });
@@ -102,6 +114,11 @@ export default function MathGen(): JSX.Element {
                 }} onChange={event => {
                     setItemCount(Number(event.currentTarget.value));
                 }} defaultValue={itemCount} />
+                <FormControlLabel label="减数检查" control={
+                    <Checkbox checked={unCheck} onChange={event => {
+                        setUnCheck(event.currentTarget.checked);
+                    }} />
+                } />
                 <Fragment>
                     <FormControlLabel label="全选" control={
                         <Checkbox checked={calcs != emptyArray} indeterminate={calcs != defaultCalcs} onChange={event => {
