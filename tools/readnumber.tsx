@@ -36,7 +36,9 @@ export default function ReadNumber(): JSX.Element {
     }
     return (
         <>
-            <TextField label="数字" value={number} onChange={event => {
+            <TextField label="数字" value={number} type="number" InputLabelProps={{
+                shrink: true,
+            }} onChange={event => {
                 setBlur("number");
                 setNumber(Number(event.currentTarget.value));
                 proc();
