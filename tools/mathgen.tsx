@@ -87,7 +87,7 @@ export default function MathGen(): JSX.Element {
             }
             for (var step = 1; step < (itemCount / (calcs.length)); step++) {
                 var [one, two, out] = genMath(),
-                    math = `${one + two}=${out}`;
+                    math = `${one}${two}=${out}`;
                 while (calcMaths.includes(math) || (out > (max + 1))) {
                     [one, two, out] = genMath();
                     math = `${one}${two}=${out}`;
