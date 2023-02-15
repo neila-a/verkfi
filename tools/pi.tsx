@@ -85,7 +85,6 @@ function PI(): JSX.Element {
                     }
                 `}</style>
             </Head>
-            <Typography variant="h3" gutterBottom>π计算器</Typography>
             <div id="input">
                 <TextField id="weishu" label="π的小数点后位数" variant="outlined" value={weishu} type="number" onChange={(event) => {
                     setWeishu(Number(event.target.value));
