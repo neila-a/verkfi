@@ -86,12 +86,14 @@ export default function MathGen(): JSX.Element {
                 return [one, two, (eval(one + modeS + two) as number)]
             }
             for (var step = 1; step < (itemCount / (calcs.length)); step++) {
-                var [one, two, out] = genMath();
-                while ((maths.includes(out.toString()) == true) || out >= 11) {
+                var [one, two, out] = genMath(),
+                    math = `${one + two}=${out}`;
+                while (calcMaths.includes(math) || (out > (max + 1))) {
                     [one, two, out] = genMath();
+                    math = `${one + two}=${out}`;
                 }
             }
-            calcMaths.push(`${one + two}=${out}`);
+            calcMaths.push(math);
         });
         logger.log("maths为", calcMaths);
         return setMath(calcMaths);
