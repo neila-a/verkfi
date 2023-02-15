@@ -84,7 +84,7 @@ export default function MathGen(): JSX.Element {
                             break;
                     }
                 }
-                return [one, two, (eval(one + modeS + two) as number)];
+                return [one, two, eval(one + modeS + two) as number];
             }
             for (var step = 1; step < (itemCount / (calcs.length)); step++) {
                 var [one, two, out] = genMathS(),
