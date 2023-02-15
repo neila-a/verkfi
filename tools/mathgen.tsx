@@ -93,9 +93,6 @@ export default function MathGen(): JSX.Element {
                     [one, two, out] = genMathS();
                     math = `${one}${two}=${out}`;
                 }
-                while (calcMaths.includes(math)) {
-                    reGenMath();
-                }
                 while (out > (max + 1)) {
                     reGenMath();
                 }
