@@ -69,7 +69,7 @@ export default function MathGen(): JSX.Element {
         var calcMaths: string[] = [];
         calcs.forEach(function (mode) {
             const modeS = mode.replace("×", "*").replace("÷", "/")
-            function genMath() {
+            function genMathS() {
                 var one: number = genNumber(),
                     two: number = genNumber();
                 if (unCheck == true) {
@@ -86,11 +86,17 @@ export default function MathGen(): JSX.Element {
                 return [one, two, (eval(one + modeS + two) as number)];
             }
             for (var step = 1; step < (itemCount / (calcs.length)); step++) {
-                var [one, two, out] = genMath(),
+                var [one, two, out] = genMathS(),
                     math = `${one}${two}=${out}`;
-                while (calcMaths.includes(math) || (out > (max + 1))) {
-                    [one, two, out] = genMath();
+                function reGenMath() {
+                    [one, two, out] = genMathS();
                     math = `${one}${two}=${out}`;
+                }
+                while (calcMaths.includes(math)) {
+                    reGenMath();
+                }
+                while (out > (max + 1)) {
+                    reGenMath();
                 }
             }
             calcMaths.push(math);
