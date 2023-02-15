@@ -34,6 +34,7 @@ export function SingleMath(props: {
     math: string;
     showOut: boolean;
 }): JSX.Element {
+    logger.log(`要显示的算式为${math}`);
     var [isError, setError] = useState<boolean>(false),
         { math, showOut } = props;
     return (
