@@ -21,30 +21,31 @@ export const nzh = new Nzh({
     m_z: "正"
 });
 export default function ReadNumber(): JSX.Element {
-    var [blur, setBlur] = useState<"number" | "string">("number");
-    var [text, setText] = useState<string>("");
+    var [blur, setBlur] = useState<"number" | "string">("number"),
+        [string, setString] = useState<string>(""),
+        [number, setNumber] = useState<number>(0);
     function proc() {
         switch (blur) {
             case "number":
-                setText(nzh.encode(text));
+                setString(nzh.encode(number));
                 break;
             case "string":
-                setText(nzh.decode(text));
+                setNumber(Number(nzh.decode(string)));
                 break;
         }
     }
     return (
         <>
-            <TextField label="数字" value={nzh.decode(text)} onChange={event => {
+            <TextField label="数字" value={number} onChange={event => {
                 setBlur("number");
-                setText(event.currentTarget.value);
+                setNumber(Number(event.currentTarget.value));
                 proc();
             }} />
-            <TextField label="汉字" value={nzh.encode(text)} onChange={event => {
+            <TextField label="汉字" value={string} onChange={event => {
                 setBlur("string");
-                setText(event.currentTarget.value);
+                setString(event.currentTarget.value);
                 proc();
-            }}/>
+            }} />
             <Button variant="contained" onClick={proc}>
                 转换
             </Button>
