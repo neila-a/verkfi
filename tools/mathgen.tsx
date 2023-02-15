@@ -51,16 +51,16 @@ export function SingleMath(props: {
     );
 }
 export default function MathGen(): JSX.Element {
-    var [calcs, setCalcs] = useState<calc[]>([
-        "+",
-        "-"
-    ]),
-        [min, setMin] = useState<number>(0),
+    var [min, setMin] = useState<number>(0),
         [max, setMax] = useState<number>(10),
         [itemCount, setItemCount] = useState<number>(20),
         [maths, setMath] = useState<string[]>([]),
         [unCheck, setUnCheck] = useState<boolean>(true),
-        [showOut, setShowOut] = useState<boolean>(false);
+        [showOut, setShowOut] = useState<boolean>(false),
+        [calcs, setCalcs] = useState<calc[]>([
+            "+",
+            "-"
+        ]);
     useEffect(function () {
         logger.log("calcs为", calcs);
     }, [calcs]);
@@ -68,7 +68,8 @@ export default function MathGen(): JSX.Element {
     function calcMath() {
         var calcMaths: string[] = [];
         calcs.forEach(function (mode) {
-            for (var step = 1; step < (itemCount / (calcs.length)); step++) {
+            const modeS = mode.replace("×", "*").replace("÷", "/")
+            function genMath() {
                 var one: number = genNumber(),
                     two: number = genNumber();
                 if (unCheck == true) {
@@ -82,10 +83,17 @@ export default function MathGen(): JSX.Element {
                             break;
                     }
                 }
-                calcMaths.push(`${one}${mode}${two}=${eval(`${one}${mode.replace("×", "*").replace("÷", "/")}${two}`)}`);
+                return [one, two, (eval(one + modeS + two) as number)]
             }
+            for (var step = 1; step < (itemCount / (calcs.length)); step++) {
+                var [one, two, out] = genMath();
+                while ((maths.includes(out.toString()) == true) || out >= 11) {
+                    [one, two, out] = genMath();
+                }
+            }
+            calcMaths.push(`${one + two}=${out}`);
         });
-        logger.log("maths为", calcMath);
+        logger.log("maths为", calcMaths);
         return setMath(calcMaths);
     };
     useEffect(calcMath, [
