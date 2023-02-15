@@ -41,12 +41,10 @@ export default function ReadNumber(): JSX.Element {
             }} onChange={event => {
                 setBlur("number");
                 setNumber(Number(event.currentTarget.value));
-                proc();
             }} />
             <TextField label="汉字" value={string} onChange={event => {
                 setBlur("string");
                 setString(event.currentTarget.value);
-                proc();
             }} />
             <Button variant="contained" onClick={proc}>
                 转换
