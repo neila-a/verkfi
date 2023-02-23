@@ -9,6 +9,7 @@ specifiers:
   '@types/node': 18.11.9
   '@types/react': 18.0.25
   '@types/react-dom': 18.0.8
+  eruda: ^2.11.2
   eslint: 8.27.0
   eslint-config-next: 13.0.3
   filepond: ^4.30.4
@@ -35,6 +36,7 @@ dependencies:
   '@fontsource/roboto': 4.5.8
   '@mui/icons-material': 5.11.0_cbkzezjqfgn4jylcyvt7bp7q4u
   '@mui/material': 5.11.7_thp4wrxo45nyllusrnt46mid4u
+  eruda: 2.11.2
   filepond: 4.30.4
   filepond-plugin-file-rename: 1.1.8_filepond@4.30.4
   filepond-plugin-image-crop: 2.0.6_filepond@4.30.4
@@ -1102,6 +1104,10 @@ packages:
     resolution: {integrity: sha512-7dFHNmqeFSEt2ZBsCriorKnn3Z2pj+fd9kmI6QoWw4//DL+icEBfc0U7qJCisqrTsKTjw4fNFy2pW9OqStD84g==}
     dependencies:
       is-arrayish: 0.2.1
+    dev: false
+
+  /eruda/2.11.2:
+    resolution: {integrity: sha512-WN/o7sKlkOwGUDju0hCwfqvCmGiZFzWAbxT0LF+TA/kuJmcBPoNr0OMrnoEoKJWQqrVzVlZpLON4vegpsoSaPQ==}
     dev: false
 
   /es-abstract/1.21.1:

@@ -9,7 +9,8 @@ import {
     Divider,
     IconButton,
     InputBase,
-    Paper
+    Paper,
+    Input
 } from "@mui/material";
 import {
     Search as SearchIcon,
@@ -47,7 +48,8 @@ export default function Index(): JSX.Element {
     function searchTools() {
         var calcTools: tool[] = [];
         realTools.forEach(tool => {
-            if (tool.desc.includes(searchText) || tool.to.includes(searchText) || tool.name.includes(searchText)) calcTools.push(tool);
+            var to = String(tool.to);
+            if (tool.desc.includes(searchText) || to.includes(searchText) || tool.name.includes(searchText)) calcTools.push(tool);
         });
         setTools(calcTools);
     };
@@ -78,13 +80,13 @@ export default function Index(): JSX.Element {
                 }} aria-label="search" onClick={searchTools}>
                     <SearchIcon />
                 </IconButton>
-                <InputBase sx={{
+                <Input sx={{
                     ml: 1,
                     flex: 1
                 }} placeholder="搜索工具" inputProps={{
                     'aria-label': 'searchtools',
                 }} onChange={event => {
-                    setSearchText(event.currentTarget.value);
+                    setSearchText(event.target.value);
                     searchTools();
                 }} />
                 <Divider sx={{
