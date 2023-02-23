@@ -10,7 +10,6 @@ import {
 } from "@mui/icons-material"
 import Router from "next/router";
 import Head from "next/head";
-import eruda from "eruda";
 import {
 	useEffect,
 	useState
@@ -55,10 +54,6 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 	var [erudaEnabled, setErudaEnabled] = useState<boolean>(false);
 	useEffect(function () {
 		setForkMeOnGitHub(stringToBoolean(checkOption("fork-me-on-github", "Fork me on GitHub", "false")));
-		setErudaEnabled(stringToBoolean(checkOption("eruda-enabled", "Eruda", "false")));
-		if (erudaEnabled == true) {
-			eruda.init();
-		}
 	}, []);
 	return (
 		<header>

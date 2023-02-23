@@ -26,11 +26,9 @@ export function setOption(id: string, name: string, value: boolean) {
 }
 export default function Settings(): JSX.Element {
 	var [forkMeOnGitHub, setForkMeOnGitHub] = useState<boolean>(true);
-	var [erudaEnabled, setErudaEnabled] = useState<boolean>(false);
 	useEffect(function () {
 		setForkMeOnGitHub(stringToBoolean(checkOption("fork-me-on-github", "Fork me on GitHub", String(false))));
-		setForkMeOnGitHub(stringToBoolean(checkOption("eruda-enabled", "Eruda", String(false))));
-	}, [setForkMeOnGitHub, setErudaEnabled]);
+	}, [setForkMeOnGitHub]);
 	return (
 		<>
 			<HeadBar isIndex={false} pageName="设置" />
@@ -40,11 +38,6 @@ export default function Settings(): JSX.Element {
 						setForkMeOnGitHub(setOption("fork-me-on-github", "Fork Me On GitHub", event.target.checked));
 					}} />
 				} label="Fork Me On GitHub" />
-				<FormControlLabel control={
-					<Switch checked={erudaEnabled} onChange={event => {
-						setErudaEnabled(setOption("eruda-enabled", "Eruda", event.target.checked));
-					}} />
-				} label="开发控制台" />
 			</FormGroup>
 		</>
 	);
