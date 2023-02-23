@@ -14,7 +14,8 @@ import {
 import {
     Search as SearchIcon,
     ViewModule as ViewModuleIcon,
-    ViewList as ViewListIcon
+    ViewList as ViewListIcon,
+    ExitToApp as ExitToAppIcon
 } from "@mui/icons-material";
 import {
     components as ToolComponents
@@ -114,7 +115,7 @@ export default function Index(): JSX.Element {
                     const ToolIcon = tool.icon;
                     return (
                         <> {/* 单个工具 */}
-                            <Link href={`/tool?tool=${tool.to}`} key={tool.name} style={{
+                            <Link href={tool.to ? `/tool?tool=${tool.to}` : tool.goto} key={tool.name} style={{
                                 textDecoration: "none"
                             }} onContextMenu={event => {
                                 event.preventDefault();
@@ -135,6 +136,7 @@ export default function Index(): JSX.Element {
                                                 <Typography variant="h5" component="div">
                                                     <ToolIcon />
                                                     {tool.name}
+                                                    {tool.goto ? <ExitToAppIcon />: <></>}
                                                 </Typography>
                                                 <Typography variant="body2">
                                                     {tool.desc}

@@ -25,7 +25,7 @@ export default function ToolFinder(): JSX.Element {
         var toolID = router.query.tool;
         var Tool: tJSXE;
         toolsInfo.forEach(si => {
-            if (((tools[si.to] as tJSXE) != undefined) && (si.to == toolID)) {
+            if (((tools[si.to] as tJSXE) != undefined) && (si.to == toolID) && si.goto == undefined) {
                 Tool = tools[si.to];
                 logger.info("<Tool />为", Tool);
             }

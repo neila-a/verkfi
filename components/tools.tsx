@@ -28,13 +28,15 @@ import {
     Filter as FilterIcon,
     Numbers as NumbersIcon,
     Keyboard as KeyboardIcon,
+    Star as StarIcon
 } from "@mui/icons-material";
 import Image from "next/image";
 import ShaiziIcon from "../public/shaizi.24x24.svg";
 import PiIcon from "../public/pi.466x393.png";
 export interface tool {
     name: string;
-    to: string;
+    to?: string;
+    goto?: string;
     desc: string;
     icon?: () => JSX.Element;
 }
@@ -98,6 +100,18 @@ export const tools: tool[] = [
         to: "mathgen",
         desc: "生成一些算式",
         icon: () => <NumbersIcon />
+    },
+    {
+        name: "人生倒计时",
+        goto: "https://github.neila.ga/countdown.js/",
+        desc: "显示时间过去了多少",
+        icon: () => <AccessTimeIcon />
+    },
+    {
+        name: "评分",
+        goto: "https://rateds.neila.ga/",
+        desc: "评分、统计",
+        icon: () => <StarIcon />
     }
 ];
 export default tools;
