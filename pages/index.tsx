@@ -83,7 +83,7 @@ export default function Index(): JSX.Element {
                 }}>
                     <SearchIcon />
                 </IconButton>
-                <Input sx={{
+                <InputBase sx={{
                     ml: 1,
                     flex: 1
                 }} placeholder="搜索工具" inputProps={{

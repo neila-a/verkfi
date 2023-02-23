@@ -48,6 +48,7 @@ function PI(): JSX.Element {
     };
     return (
         <>
+            <br />
             <Head>
                 <style jsx>{`/*
                     body {
