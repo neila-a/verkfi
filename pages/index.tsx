@@ -111,7 +111,7 @@ export default function Index(): JSX.Element {
                 flexDirection: viewMode == "grid" ? "row" : "",
                 display: viewMode == "grid" ? "flex" : "block"
             }}> {/* 工具总览 */}
-                {tools == emptyArray ? <Typography>未找到任何工具</Typography> :  tools.map((tool, _index, _array) => { // 遍历tools
+                {tools == emptyArray ? <Typography>未找到任何工具</Typography> : tools.map((tool, _index, _array) => { // 遍历tools
                     const ToolIcon = tool.icon;
                     return (
                         <> {/* 单个工具 */}
@@ -125,30 +125,28 @@ export default function Index(): JSX.Element {
                                     name: tool.name
                                 }]);
                             }}>
-                                <a>
-                                    <Card sx={viewMode == "grid" ? {
-                                        minWidth: 275
-                                    } : {
-                                        minWidth: "100%"
-                                    }} elevation={10}>
-                                        <CardContent>
-                                            {viewMode == "grid" ? <>
-                                                <Typography variant="h5" component="div">
-                                                    <ToolIcon />
-                                                    {tool.name}
-                                                    {tool.goto ? <ExitToAppIcon />: <></>}
-                                                </Typography>
-                                                <Typography variant="body2">
-                                                    {tool.desc}
-                                                </Typography>
-                                            </> : <>
-                                                <Typography variant="body2">
-                                                    <ToolIcon />{tool.name} - {tool.desc}
-                                                </Typography>
-                                            </>}
-                                        </CardContent>
-                                    </Card>
-                                </a>
+                                <Card sx={viewMode == "grid" ? {
+                                    minWidth: 275
+                                } : {
+                                    minWidth: "100%"
+                                }} elevation={10}>
+                                    <CardContent>
+                                        {viewMode == "grid" ? <>
+                                            <Typography variant="h5" component="div">
+                                                <ToolIcon />
+                                                {tool.name}
+                                                {tool.goto ? <ExitToAppIcon /> : <></>}
+                                            </Typography>
+                                            <Typography variant="body2">
+                                                {tool.desc}
+                                            </Typography>
+                                        </> : <>
+                                            <Typography variant="body2">
+                                                <ToolIcon />{tool.name} - {tool.desc}
+                                            </Typography>
+                                        </>}
+                                    </CardContent>
+                                </Card>
                             </Link>
                             {viewMode == "grid" ? <></> : <br />}
                         </>
