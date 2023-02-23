@@ -29,14 +29,14 @@ function PI(): JSX.Element {
     var [out, setOut] = useState("");
     var outRef = useRef();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    function calc(): string {
-        logger.log(`位数是：${weishu}`);
-        const ret: string = String(pi(weishu));
+    function calc(ws: number): string {
+        logger.log(`位数是：${ws}`);
+        const ret: string = String(pi(ws));
         logger.log(`结果是：${ret}`);
         return (ret);
     }
-    function proc(): void {
-        const retinfo: string = calc();
+    function proc(ws: number) {
+        const retinfo: string = calc(ws);
         switch (useAlertShow) {
             case true:
                 alert(retinfo);
@@ -49,7 +49,7 @@ function PI(): JSX.Element {
     return (
         <>
             <Head>
-                <style>{`/*
+                <style jsx>{`/*
                     body {
                         border-radius: 100px;
                         border: 1px solid;
@@ -86,9 +86,10 @@ function PI(): JSX.Element {
                 `}</style>
             </Head>
             <div id="input">
-                <TextField id="weishu" label="π的小数点后位数" variant="outlined" value={weishu} type="number" onChange={(event) => {
-                    setWeishu(Number(event.target.value));
-                    proc();
+                <TextField id="weishu" label="π的小数点后位数" variant="outlined" value={weishu} type="number" onChange={event => {
+                    var ws = Number(event.target.value);
+                    setWeishu(ws);
+                    proc(ws);
                 }} />
             </div>
             <FormGroup>

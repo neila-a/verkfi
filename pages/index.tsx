@@ -48,8 +48,9 @@ export default function Index(): JSX.Element {
     function searchTools(search: string) {
         var calcTools: tool[] = [];
         realTools.forEach(tool => {
-            var to = String(tool.to);
-            if (tool.desc.includes(search) || to.includes(search) || tool.name.includes(search)) calcTools.push(tool);
+            var to = String(tool.to),
+                goto = String(tool.goto);
+            if (tool.desc.includes(search) || to.includes(search) || tool.name.includes(search) || goto.includes(search)) calcTools.push(tool);
         });
         setTools(calcTools);
     };
