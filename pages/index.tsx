@@ -45,11 +45,11 @@ export default function Index(): JSX.Element {
     var [searchText, setSearchText] = React.useState<string>("");
     var [viewMode, setViewMode] = React.useState<"list" | "grid">("grid");
     var [windows, setWindows] = React.useState<WindowOptions[]>([]);
-    function searchTools() {
+    function searchTools(search: string) {
         var calcTools: tool[] = [];
         realTools.forEach(tool => {
             var to = String(tool.to);
-            if (tool.desc.includes(searchText) || to.includes(searchText) || tool.name.includes(searchText)) calcTools.push(tool);
+            if (tool.desc.includes(search) || to.includes(search) || tool.name.includes(search)) calcTools.push(tool);
         });
         setTools(calcTools);
     };
@@ -77,7 +77,9 @@ export default function Index(): JSX.Element {
             }}>
                 <IconButton type="button" sx={{
                     p: '10px'
-                }} aria-label="search" onClick={searchTools}>
+                }} aria-label="search" onClick={() => {
+                    searchTools(searchText);
+                }}>
                     <SearchIcon />
                 </IconButton>
                 <Input sx={{
@@ -87,7 +89,7 @@ export default function Index(): JSX.Element {
                     'aria-label': 'searchtools',
                 }} onChange={event => {
                     setSearchText(event.target.value);
-                    searchTools();
+                    searchTools(event.target.value);
                 }} />
                 <Divider sx={{
                     height: 28,
