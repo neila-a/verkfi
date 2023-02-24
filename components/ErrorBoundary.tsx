@@ -22,7 +22,10 @@ export default class ErrorBoundary extends React.Component {
     render() {
         if ((this.state as prop).hasError == true) {
             // 你可以自定义降级后的 UI 并渲染
-            return <h1>Something went wrong.</h1>;
+            return (
+                <>
+                </>
+            );
         }
 
         return (this.props as prop).children;

@@ -1,8 +1,6 @@
 import audiotools from "../tools/audiotools";
-import clock from "../tools/clock";
 import countletter from "../tools/countletter";
 import filter from "../tools/filter";
-import keycode from "../tools/keycode";
 import pi from "../tools/pi";
 import readnumber from "../tools/readnumber";
 import reversal from "../tools/reversal";
@@ -10,10 +8,8 @@ import shaizi from "../tools/shaizi";
 import mathgen from "../tools/mathgen"
 export const components = {
     audiotools,
-    clock,
     countletter,
     filter,
-    keycode,
     pi,
     readnumber,
     reversal,
@@ -27,7 +23,6 @@ import {
     FlipCameraAndroid as FlipCameraAndroidIcon,
     Filter as FilterIcon,
     Numbers as NumbersIcon,
-    Keyboard as KeyboardIcon,
     Star as StarIcon
 } from "@mui/icons-material";
 import Image from "next/image";
@@ -54,12 +49,6 @@ export const tools: tool[] = [
         icon: () => <ABCIcon />
     },
     {
-        name: "时钟",
-        to: "clock",
-        desc: "显示自定义化的时间",
-        icon: () => <AccessTimeIcon />
-    },
-    {
         name: "π计算器",
         to: "pi",
         desc: "计算π的小数点后任意位",
@@ -82,12 +71,6 @@ export const tools: tool[] = [
         to: "filter",
         desc: "将一张图片处理成不同的",
         icon: () => <FilterIcon />
-    },
-    {
-        name: "按键编码",
-        to: "keycode",
-        desc: "查询一个按键的编码",
-        icon: () => <KeyboardIcon />
     },
     {
         name: "读数字",

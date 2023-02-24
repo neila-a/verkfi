@@ -19,6 +19,7 @@ import {
 } from "./reversal";
 import style from "../styles/SingleMath.module.scss";
 import LpLogger from "lp-logger";
+import mathjs from "mathjs";
 export var logger = new LpLogger({
     name: "MathGen",
     level: "log", // 空字符串时，不显示任何信息
@@ -70,7 +71,7 @@ export default function MathGen(): JSX.Element {
         var calcMaths: string[] = [];
         calcs.forEach(function (mode) {
             const modeS = mode.replace("×", "*").replace("÷", "/")
-            function genMathS() {
+            function genMathS(): [number, number, number] {
                 var one: number = genNumber(),
                     two: number = genNumber();
                 if (unCheck == true) {
@@ -84,7 +85,7 @@ export default function MathGen(): JSX.Element {
                             break;
                     }
                 }
-                return [one, two, eval(one + modeS + two) as number];
+                return [one, two, Number(one + modeS + two)];
             }
             for (var step = 1; step < (itemCount / (calcs.length)); step++) {
                 var [one, two, out] = genMathS(),

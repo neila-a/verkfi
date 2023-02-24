@@ -1,37 +1,85 @@
 import {
 	FormGroup,
 	FormControlLabel,
-	Switch
+	Switch,
+	Typography,
+	Box,
+	Drawer,
+	List,
+	ListItem,
+	ListItemButton,
+	ListItemIcon,
+	ListItemText,
+	Toolbar
 } from "@mui/material";
+import Link from "next/link";
+import pack from "../package.json";
 import HeadBar from "../components/HeadBar";
 import {
 	useState,
-	useEffect
+	useEffect,
+	Fragment
 } from "react";
 import LpLogger from "lp-logger";
 export var logger = new LpLogger({
 	name: "Settings",
 	level: "log", // 空字符串时，不显示任何信息
 });
-import * as React from "react";
+import React from "react";
+import style from "../styles/Settings.module.scss";
 import {
 	checkOption,
 	stringToBoolean
 } from "../components/HeadBar";
+import Center from "../components/Center";
+import {
+	Handyman as HandyManIcon,
+	Settings as SettingsIcon,
+	Info as InfoIcon
+} from "@mui/icons-material";
+import ErrorBoundary from "../components/ErrorBoundary";
 export function setOption(id: string, name: string, value: boolean) {
 	localStorage.setItem(id, String(value));
 	logger.log(`已设置选项“${name}” 为 ${value}。`);
 	location.reload();
 	return value;
 }
+export const drawerWidth = 240;
+export interface set {
+	name: string;
+	Component: () => JSX.Element;
+	Icon: typeof HandyManIcon;
+}
+interface ThemeHaveZIndex {
+	zIndex: {
+		drawer: number;
+	}
+}
 export default function Settings(): JSX.Element {
+	function About() {
+		return (
+			<div className={style["about"]}>
+				<div className={style["title"]}>
+					<HandyManIcon className={style["icon"]} />
+					<Typography variant="h2">NeilaTools</Typography>
+				</div>
+				<Typography>
+					发行版本：{pack.version}
+					<br />
+					内部版本：{pack.devVersion}
+					<br />
+					©Copyleft ! 2022-2023， Neila。
+					<br />
+					本程序从未提供品质担保。
+					<br />
+					版权部分所有，遵循<Link href="http://gnu.org/licenses/gpl.html">GNU GPL 许可证第三版或者更新版本</Link>授权使用，欢迎你在满足一定条件后对其再发布。
+				</Typography>
+			</div>
+		);
+	}
 	var [forkMeOnGitHub, setForkMeOnGitHub] = useState<boolean>(true);
-	useEffect(function () {
-		setForkMeOnGitHub(stringToBoolean(checkOption("fork-me-on-github", "Fork me on GitHub", String(false))));
-	}, [setForkMeOnGitHub]);
-	return (
-		<>
-			<HeadBar isIndex={false} pageName="设置" />
+	const Options = () => {
+		return (
 			<FormGroup>
 				<FormControlLabel control={
 					<Switch checked={forkMeOnGitHub} onChange={event => {
@@ -39,6 +87,69 @@ export default function Settings(): JSX.Element {
 					}} />
 				} label="Fork Me On GitHub" />
 			</FormGroup>
-		</>
+		);
+	}
+	var [context, setContext] = useState<string>("选项");
+	const sets: set[] = [
+		{
+			name: "选项",
+			Component: Options,
+			Icon: SettingsIcon
+		},
+		{
+			name: "关于",
+			Component: About,
+			Icon: InfoIcon
+		}
+	];
+	useEffect(function () {
+		setForkMeOnGitHub(stringToBoolean(checkOption("fork-me-on-github", "Fork me on GitHub", String(false))));
+	}, [setForkMeOnGitHub]);
+	return (
+		<Box>
+			<HeadBar isIndex={false} pageName="设置" sx={{
+				zIndex: theme => (theme as ThemeHaveZIndex).zIndex.drawer + 1
+			}} />
+			<Drawer
+				variant="permanent"
+				sx={{
+					width: drawerWidth,
+					flexShrink: 0,
+					[`& .MuiDrawer-paper`]: {
+						boxSizing: 'border-box'
+					},
+				}}
+			>
+				<Toolbar />
+				<Box sx={{
+					overflow: 'auto'
+				}}>
+					<List>
+						{sets.map((Set, index) => (
+							<ListItem key={Set.name} onClick={event => {
+								setContext(Set.name);
+							}} disablePadding>
+								<ListItemButton>
+									<ListItemIcon>
+										<Set.Icon />
+									</ListItemIcon>
+									<ListItemText primary={Set.name} />
+								</ListItemButton>
+							</ListItem>
+						))}
+					</List>
+				</Box>
+			</Drawer>
+			<Box component="main" sx={{
+				flexGrow: 1,
+				p: 3,
+				marginLeft: `${drawerWidth}px`
+			}}>
+				{sets.map(set => {
+					if (set.name == context) return <set.Component key={set.name} />;
+					return <Fragment key={set.name} />;
+				})}
+			</Box>
+		</Box>
 	);
 };

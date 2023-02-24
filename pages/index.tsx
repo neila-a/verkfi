@@ -1,6 +1,8 @@
 import Link from "next/link";
 import HeadBar from "../components/HeadBar";
-import * as React from 'react';
+import React, {
+    Fragment, useEffect, useState
+} from 'react';
 import {
     Stack,
     Card,
@@ -33,6 +35,13 @@ import ErrorBoundary from "../components/ErrorBoundary";
 import {
     emptyArray
 } from "../tools/filter";
+import {
+    CheckDialog
+} from "../components/Dialog";
+import Router from "next/router";
+import {
+    useRouter
+} from "next/router";
 export {
     realTools
 };
@@ -41,10 +50,15 @@ export var logger = new LpLogger({
     level: "log", // 空字符串时，不显示任何信息
 });
 export default function Index(): JSX.Element {
-    var [tools, setTools] = React.useState<tool[]>(realTools);
-    var [searchText, setSearchText] = React.useState<string>("");
-    var [viewMode, setViewMode] = React.useState<"list" | "grid">("grid");
-    var [windows, setWindows] = React.useState<WindowOptions[]>([]);
+    var [tools, setTools] = useState<tool[]>(realTools),
+        [searchText, setSearchText] = useState<string>(""),
+        [viewMode, setViewMode] = useState<"list" | "grid">("grid"),
+        [windows, setWindows] = useState<WindowOptions[]>([]),
+        [jumpto, setJumpTo] = useState<string>(realTools[9].goto),
+        [jumpName, setJumpName] = useState<string>(realTools[9].name),
+        [jumpDialogOpen, setJumpDialogOpen] = useState<boolean>(false),
+        router = useRouter();
+    const { query } = router;
     function searchTools(search: string) {
         var calcTools: tool[] = [];
         realTools.forEach(tool => {
@@ -54,7 +68,7 @@ export default function Index(): JSX.Element {
         });
         setTools(calcTools);
     };
-    React.useEffect(function () {
+    useEffect(function () {
         { // 打印信息用于调试
             console.group("值信息");
             logger.info(`tools为`, tools);
@@ -67,9 +81,16 @@ export default function Index(): JSX.Element {
         searchText,
         viewMode
     ]);
+    useEffect(function () {
+        if (query.searchText) {
+            logger.info("query的内容为", query);
+            setSearchText(query.searchText as string);
+            searchTools(query.searchText as string);
+        }
+    }, [query]);
     return (
         <>
-            <HeadBar isIndex={true} pageName="NeilaTools" />
+            <HeadBar isIndex pageName="NeilaTools" />
             <br />
             <Paper sx={{ // 搜索栏
                 p: '2px 4px',
@@ -83,7 +104,7 @@ export default function Index(): JSX.Element {
                 }}>
                     <SearchIcon />
                 </IconButton>
-                <InputBase sx={{
+                <InputBase value={searchText} sx={{
                     ml: 1,
                     flex: 1
                 }} placeholder="搜索工具" inputProps={{
@@ -119,16 +140,29 @@ export default function Index(): JSX.Element {
                 {tools == emptyArray ? <Typography>未找到任何工具</Typography> : tools.map((tool, _index, _array) => { // 遍历tools
                     const ToolIcon = tool.icon;
                     return (
-                        <> {/* 单个工具 */}
-                            <Link href={tool.to ? `/tool?tool=${tool.to}` : tool.goto} key={tool.name} style={{
-                                textDecoration: "none"
+                        <Fragment key={tool.name}> {/* 单个工具 */}
+                            <div className={Style["item"]} onClick={() => {
+                                logger.info(`点击了${tool.name}`);
+                                if (typeof tool.goto == "undefined") {
+                                    Router.push(`/tool?tool=${tool.to}`);
+                                } else {
+                                    setJumpDialogOpen(true);
+                                    setJumpTo(tool.goto);
+                                    setJumpName(tool.name);
+                                }
                             }} onContextMenu={event => {
                                 event.preventDefault();
-                                setWindows([...windows, {
-                                    Component: ToolComponents[tool.to],
-                                    to: `/tool?tool=${tool.to}`,
-                                    name: tool.name
-                                }]);
+                                if (tool.goto == undefined) {
+                                    setWindows([...windows, {
+                                        Component: ToolComponents[tool.to],
+                                        to: `/tool?tool=${tool.to}`,
+                                        name: tool.name
+                                    }]);
+                                } else {
+                                    setJumpDialogOpen(true);
+                                    setJumpTo(tool.goto);
+                                    setJumpName(tool.name);
+                                }
                             }}>
                                 <Card sx={viewMode == "grid" ? {
                                     minWidth: 275
@@ -152,15 +186,20 @@ export default function Index(): JSX.Element {
                                         </>}
                                     </CardContent>
                                 </Card>
-                            </Link>
-                            {viewMode == "grid" ? <></> : <br />}
-                        </>
+                            </div>
+                            {viewMode == "grid" ? <Fragment /> : <br />}
+                        </Fragment>
                     );
                 })}
             </Stack>
             <ErrorBoundary>
-                {windows == emptyArray ? <React.Fragment /> : windows.map(window => <Window {...window} key={window.to} />)}
-            </ErrorBoundary>
+                {windows == emptyArray ? <Fragment /> : windows.map(window => <Window {...window} key={window.to} />)}
+            </ErrorBoundary> {/* 窗口容器 */}
+            {jumpDialogOpen ? <CheckDialog description={`确定离开NeilaTools并跳转至${jumpName}吗？`} title="离开NeilaTools" onTrue={() => {
+                Router.push(jumpto);
+            }} open={true} onFalse={() => {
+                setJumpDialogOpen(false);
+            }} /> : <Fragment /> /* 跳转对话框容器 */}
         </>
     );
 };

@@ -45,7 +45,8 @@ self.addEventListener('activate', event => {
 });
 self.addEventListener('fetch', event => {
     if (event.request.method !== 'GET') return;
-    let { url } = event.request;
+    let { requrl } = event.request;
+    let url = String(requrl);
     event.respondWith(
         caches.open(Cache).then(cache => {
             return cache.match(event.request).then(response => {
@@ -53,6 +54,7 @@ self.addEventListener('fetch', event => {
                     return response;
                 }
                 return fetch(event.request).then(newreq => {
+                    if ((url.replace(/\/\?searchText=.*/g, "") == "") || (url.replace(/chrome-extension.*/g, "") == "") == "") return newreq;
                     log(`Network fetch: ${url}`);
                     if (newreq.ok) cache.put(event.request, newreq.clone());
                     return newreq;

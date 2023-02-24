@@ -26,7 +26,9 @@ import {
     Typography,
     Checkbox,
     FormControlLabel,
-    FormGroup
+    FormGroup,
+    ImageList,
+    ImageListItem
 } from "@mui/material";
 import {
     styled
@@ -172,11 +174,15 @@ export default function Filter(): JSX.Element {
                     </Grid>
                 </Grid>
             </>
-            <div id="images" className={style["container"]}>
-                {imageTypes.map((type) => <img title={type} key={type} className={style[type]} src={imageBase64} alt={type} style={{
-                    transform: `scale(${(Number(scale) / 100).toString()})`
-                }} />)}
-            </div>
+            <ImageList>
+                {imageTypes.map((type) => (
+                    <ImageListItem key={type}>
+                        <img title={type} key={type} className={style[type]} src={imageBase64} alt={type} style={{
+                            transform: `scale(${(Number(scale) / 100).toString()})`
+                        }} />
+                    </ImageListItem>
+                ))}
+            </ImageList>
         </>
     );
 };
