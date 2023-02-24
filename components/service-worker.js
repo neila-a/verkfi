@@ -11,8 +11,8 @@ import pack from "../package.json";
     "readnumber",
 ]; */
 const
-    { version, devVersion } = pack,
-    Cache = `NeilaTools-${version}-${devVersion != 0 ? `dev${devVersion}` : "prod"}`, // C
+    { version, devVersion, dev } = pack,
+    Cache = `NeilaTools-${version}-${dev == true ? `dev${devVersion}` : "prod"}`, // C
     log = text => console.log(`%cServiceWorker`, `background: #52c41a;border-radius: 0.5em;color: white;font-weight: bold;padding: 2px 0.5em`, text),
     installStaticFiles = () => caches.open(Cache).then(cache => cache.addAll(installFilesEssential).catch(console.error)), // install static assets
     clearOldCaches = () => {
