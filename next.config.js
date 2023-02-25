@@ -3,7 +3,6 @@ const nextConfig = {
 	reactStrictMode: true,
 	swcMinify: true,
 	webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-		console.log(config.entry);
 		// Important: return the modified config
 		return config
 	},

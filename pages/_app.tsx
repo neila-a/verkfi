@@ -11,10 +11,6 @@ import {
 import LpLogger from "lp-logger";
 import style from "../styles/ModifiedApp.module.scss";
 import "../styles/App.scss";
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
 export var logger = new LpLogger({
     name: "NeilaTools",
     level: "log", // 空字符串时，不显示任何信息
