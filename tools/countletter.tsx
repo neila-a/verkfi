@@ -1,92 +1,98 @@
 import {
-    Button, Divider, Stack
+    Button
 } from "@mui/material";
 import LpLogger from "lp-logger";
+import {
+    useState,
+    Fragment
+} from "react";
+import {
+    InputDialog,
+    AlertDialog
+} from "../components/Dialog";
+import style from "../styles/CountLetter.module.scss"
 export var logger = new LpLogger({
     name: "CountLetter",
     level: "log", // 空字符串时，不显示任何信息
-    
+
 });
+export const table: [string, string][] = [
+    ["A", "1"],
+    ["B", "2"],
+    ["C", "3"],
+    ["D", "4"],
+    ["E", "5"],
+    ["F", "6"],
+    ["G", "7"],
+    ["H", "8"],
+    ["I", "9"],
+    ["J", "10"],
+    ["K", "11"],
+    ["L", "12"],
+    ["M", "13"],
+    ["N", "14"],
+    ["O", "15"],
+    ["P", "16"],
+    ["Q", "17"],
+    ["R", "18"],
+    ["S", "19"],
+    ["T", "20"],
+    ["U", "21"],
+    ["V", "22"],
+    ["W", "23"],
+    ["X", "24"],
+    ["Y", "25"],
+    ["Z", "26"],
+    ["a", "1"],
+    ["b", "2"],
+    ["c", "3"],
+    ["d", "4"],
+    ["e", "5"],
+    ["f", "6"],
+    ["g", "7"],
+    ["h", "8"],
+    ["i", "9"],
+    ["j", "10"],
+    ["k", "11"],
+    ["l", "12"],
+    ["m", "13"],
+    ["n", "14"],
+    ["o", "15"],
+    ["p", "16"],
+    ["q", "17"],
+    ["r", "18"],
+    ["s", "19"],
+    ["t", "20"],
+    ["u", "21"],
+    ["v", "22"],
+    ["w", "23"],
+    ["x", "24"],
+    ["y", "25"],
+    ["z", "26"]
+];
 function CountLetter(): JSX.Element {
-    function main() {
-        logger.log("已弹出输入框。");
-        alert(prompt("请输入字母：", "A")
-            .replace("A", "1")
-            .replace("B", "2")
-            .replace("C", "3")
-            .replace("D", "4")
-            .replace("E", "5")
-            .replace("F", "6")
-            .replace("G", "7")
-            .replace("H", "8")
-            .replace("I", "9")
-            .replace("J", "10")
-            .replace("K", "11")
-            .replace("L", "12")
-            .replace("M", "13")
-            .replace("N", "14")
-            .replace("O", "15")
-            .replace("P", "16")
-            .replace("Q", "17")
-            .replace("R", "18")
-            .replace("S", "19")
-            .replace("T", "20")
-            .replace("U", "21")
-            .replace("V", "22")
-            .replace("W", "23")
-            .replace("X", "24")
-            .replace("Y", "25")
-            .replace("Z", "26")
-            .replace("a", "1")
-            .replace("b", "2")
-            .replace("c", "3")
-            .replace("d", "4")
-            .replace("e", "5")
-            .replace("f", "6")
-            .replace("g", "7")
-            .replace("h", "8")
-            .replace("i", "9")
-            .replace("j", "10")
-            .replace("k", "11")
-            .replace("l", "12")
-            .replace("m", "13")
-            .replace("n", "14")
-            .replace("o", "15")
-            .replace("p", "16")
-            .replace("q", "17")
-            .replace("r", "18")
-            .replace("s", "19")
-            .replace("t", "20")
-            .replace("u", "21")
-            .replace("v", "22")
-            .replace("w", "23")
-            .replace("x", "24")
-            .replace("y", "25")
-            .replace("z", "26"));
-        logger.log("已处理完毕。");
-    }
+    var [enterDialogOpen, setEnterDialogOpen] = useState<boolean>(false),
+        [alertDialogOpen, setAlertDialogOpen] = useState<boolean>(false),
+        [out, setOut] = useState<string>("");
     return (
         <>
-            <style>{`
-                .help-btn {
-                    width:50%;
-                    height:100%;
-                    display:inline-block;
-                    float:left;
-                }
-                .restart-btn {
-                    width:50%;
-                    height:100%;
-                    display:inline-block;
-                }
-            `}</style>
-            <Stack
-                direction="row"
-                divider={<Divider orientation="vertical" flexItem />}
-                spacing={2}
-            >
-                <Button className='restart-btn' onClick={main}>输入</Button>
-            </Stack>
+            <br />
+            <Button onClick={() => {
+                logger.log("已弹出输入框。");
+                setEnterDialogOpen(true);
+            }} variant="contained" className={style["button"]}>输入</Button>
+            {enterDialogOpen ? <InputDialog context="输入你要转换的字符（串）" onDone={context => {
+                table.forEach(single => {
+                    context = context.replace(single[0], single[1]);
+                })
+                setEnterDialogOpen(false);
+                setOut(context);
+                setAlertDialogOpen(true);
+                logger.log(`已处理完毕，结果为${context}。`);
+            }} title="输入字符" label="在这里输入" /> : <Fragment /> /* 输入对话框容器 */}
+            {alertDialogOpen ? <AlertDialog title="输出" description={out} onDone={() => {
+                setAlertDialogOpen(false);
+            }} /> : <Fragment /> /* 输出对话框容器 */}
         </>
     );
 };
