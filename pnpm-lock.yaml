@@ -25,7 +25,6 @@ specifiers:
   nzh: ^1.0.8
   pi: ^2.0.4
   react: 18.2.0
-  react-audio-analyser: ^1.0.0
   react-dom: 18.2.0
   react-draggable: ^4.4.5
   react-filepond: ^7.1.2
@@ -53,7 +52,6 @@ dependencies:
   nzh: 1.0.8
   pi: 2.0.4
   react: 18.2.0
-  react-audio-analyser: 1.0.0
   react-dom: 18.2.0_react@18.2.0
   react-draggable: 4.4.5_biqbaboplfbrettd7655fr4n2y
   react-filepond: 7.1.2_mnl76jm3ryge2poziybvdyye2a
@@ -2510,10 +2508,6 @@ packages:
       strip-json-comments: 2.0.1
     dev: false
 
-  /react-audio-analyser/1.0.0:
-    resolution: {integrity: sha512-wFxqgIhrjkohNWxdzN3uD0s7tCZRiGWIUmE4hzR0goWnY0NRmPvJkKZuXTU48WIvewVYe4ZksmPGyaFLAuO86Q==}
-    dev: false
-
   /react-dom/18.2.0_react@18.2.0:
     resolution: {integrity: sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==}
     peerDependencies:
@@ -3046,7 +3040,7 @@ packages:
     dev: true
 
   github.com/neila-a/lp-logger-no-window/17b3ab1b07e49d6ab4f45af34ed4c59f53f7fdb4:
-    resolution: {tarball: https://codeload.github.com/neila-a/lp-logger-no-window/tar.gz/17b3ab1b07e49d6ab4f45af34ed4c59f53f7fdb4}
+    resolution: {commit: 17b3ab1b07e49d6ab4f45af34ed4c59f53f7fdb4, repo: git+ssh://git@github.com/neila-a/lp-logger-no-window.git, type: git}
     name: lp-logger
     version: 1.0.11
     dependencies:
