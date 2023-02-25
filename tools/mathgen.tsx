@@ -19,7 +19,6 @@ import {
 } from "./reversal";
 import style from "../styles/SingleMath.module.scss";
 import LpLogger from "lp-logger";
-import mathjs from "mathjs";
 export var logger = new LpLogger({
     name: "MathGen",
     level: "log", // 空字符串时，不显示任何信息
@@ -35,7 +34,6 @@ export function SingleMath(props: {
     math: string;
     showOut: boolean;
 }): JSX.Element {
-    logger.log(`要显示的算式为${math}`);
     var [isError, setError] = useState<boolean>(false),
         { math, showOut } = props;
     return (
@@ -85,20 +83,20 @@ export default function MathGen(): JSX.Element {
                             break;
                     }
                 }
-                return [one, two, Number(one + modeS + two)];
+                return [one, two, eval(`${one} ${modeS} ${two}`)];
             }
             for (var step = 1; step < (itemCount / (calcs.length)); step++) {
                 var [one, two, out] = genMathS(),
-                    math = `${one}${two}=${out}`;
+                    math = `${one}${mode}${two}=${out}`;
                 function reGenMath() {
                     [one, two, out] = genMathS();
-                    math = `${one}${two}=${out}`;
+                    math = `${one}${mode}${two}=${out}`;
                 }
-                while (out > (max + 1)) {
+                while (out > max || calcMaths.includes(math)) {
                     reGenMath();
                 }
+                calcMaths.push(math);
             }
-            calcMaths.push(math);
         });
         logger.log("maths为", calcMaths);
         return setMath(calcMaths);

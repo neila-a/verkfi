@@ -58,7 +58,7 @@ interface ThemeHaveZIndex {
 export default function Settings(): JSX.Element {
 	function About() {
 		return (
-			<div className={style["about"]}>
+			<div>
 				<div className={style["title"]}>
 					<HandyManIcon className={style["icon"]} />
 					<Typography variant="h2">NeilaTools</Typography>
