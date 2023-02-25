@@ -28,22 +28,11 @@ export var logger = new LpLogger({
 import React from "react";
 import style from "../styles/Settings.module.scss";
 import {
-	checkOption,
-	stringToBoolean
-} from "../components/HeadBar";
-import Center from "../components/Center";
-import {
 	Handyman as HandyManIcon,
 	Settings as SettingsIcon,
 	Info as InfoIcon
 } from "@mui/icons-material";
-import ErrorBoundary from "../components/ErrorBoundary";
-export function setOption(id: string, name: string, value: boolean) {
-	localStorage.setItem(id, String(value));
-	logger.log(`已设置选项“${name}” 为 ${value}。`);
-	location.reload();
-	return value;
-}
+import { setOption, stringToBoolean, useReadSetting } from "../components/useSetting";
 export const drawerWidth = 240;
 export interface set {
 	name: string;
@@ -60,7 +49,9 @@ export default function Settings(): JSX.Element {
 		return (
 			<div>
 				<div className={style["title"]}>
-					<HandyManIcon className={style["icon"]} />
+					<HandyManIcon sx={{
+						fontSize: "3.75rem"
+					}} />
 					<Typography variant="h2">NeilaTools</Typography>
 				</div>
 				<Typography>
@@ -77,13 +68,13 @@ export default function Settings(): JSX.Element {
 			</div>
 		);
 	}
-	var [forkMeOnGitHub, setForkMeOnGitHub] = useState<boolean>(true);
+	var forkMeOnGitHub = useReadSetting("fork-me-on-github", "Fork me on GitHub", String(false));
 	const Options = () => {
 		return (
 			<FormGroup>
 				<FormControlLabel control={
-					<Switch checked={forkMeOnGitHub} onChange={event => {
-						setForkMeOnGitHub(setOption("fork-me-on-github", "Fork Me On GitHub", event.target.checked));
+					<Switch checked={stringToBoolean(forkMeOnGitHub)} onChange={event => {
+						setOption("fork-me-on-github", "Fork me on GitHub", event.target.checked)
 					}} />
 				} label="Fork Me On GitHub" />
 			</FormGroup>
@@ -102,9 +93,6 @@ export default function Settings(): JSX.Element {
 			Icon: InfoIcon
 		}
 	];
-	useEffect(function () {
-		setForkMeOnGitHub(stringToBoolean(checkOption("fork-me-on-github", "Fork me on GitHub", String(false))));
-	}, [setForkMeOnGitHub]);
 	return (
 		<Box>
 			<HeadBar isIndex={false} pageName="设置" sx={{

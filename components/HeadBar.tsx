@@ -28,30 +28,11 @@ import style from "../styles/HeadBar.module.scss";
 import LpLogger from "lp-logger";
 import MouseOverPopover from "./Popover";
 import { Theme } from "@emotion/react";
+import { stringToBoolean, useReadSetting } from "./useSetting";
 export var logger = new LpLogger({
 	name: "HeadBar",
 	level: "log", // 空字符串时，不显示任何信息
 });
-export function checkOption(id: string, name: string, empty: string) {
-	var _ret: string;
-	const value = localStorage.getItem(id);
-	switch (value) {
-		case null:
-			localStorage.setItem(id, "true");
-			logger.log(`检测到“${name}”为空，已设置为${empty}。`);
-			_ret = empty;
-			break;
-		default:
-			logger.log(`检测到“${name}”为${value}。`);
-			_ret = value;
-			break;
-	}
-	return _ret;
-};
-export function stringToBoolean(string: string) {
-	if (string == "false") string = "";
-	return Boolean(string);
-};
 export const Search = styled('div')(({ theme }) => ({
 	position: 'relative',
 	borderRadius: theme.shape.borderRadius,
@@ -102,15 +83,12 @@ export interface HeadBarOption {
  * @param {string} pageName 页面的名称
  */
 export default function HeadBar(props: HeadBarOption): JSX.Element {
-	var [forkMeOnGitHub, setForkMeOnGitHub] = useState<boolean>(false);
-	useEffect(function () {
-		setForkMeOnGitHub(stringToBoolean(checkOption("fork-me-on-github", "Fork me on GitHub", "false")));
-	}, []);
+	var forkMeOnGitHub = useReadSetting("fork-me-on-github", "Fork me on GitHub", String(false));
 	return (
 		<header>
 			<Head>
 				<link rel="shortcut icon" href="/favicon.ico" />
-				<title>{props.pageName}</title>
+				<title>{props.isIndex ? props.pageName : `${props.pageName} - NeilaTools`}</title>
 			</Head>
 			<AppBar position="sticky" sx={props.sx}>
 				<Toolbar>
@@ -156,7 +134,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 					</form>}
 				</Toolbar>
 			</AppBar>
-			{forkMeOnGitHub ? <div className={style["github-ribbon"]} style={props.isIndex ? {
+			{stringToBoolean(forkMeOnGitHub) ? <div className={style["github-ribbon"]} style={props.isIndex ? {
 				left: "0px"
 			} : {
 				right: "0px"

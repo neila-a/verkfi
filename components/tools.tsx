@@ -61,10 +61,10 @@ export const tools: tool[] = [
         icon: () => <FlipCameraAndroidIcon />
     },
     {
-        name: "掷骰子",
+        name: "掷色子",
         to: "shaizi",
-        desc: "随机掷骰子",
-        icon: () => <Image src={ShaiziIcon} alt="骰子图标" />
+        desc: "随机掷色子",
+        icon: () => <Image src={ShaiziIcon} alt="色子图标" />
     },
     {
         name: "滤镜",

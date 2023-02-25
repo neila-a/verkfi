@@ -1,9 +1,12 @@
 import Center from "../components/Center";
 import React, {
-    useEffect, useState
+    useEffect, 
+    useRef, 
+    useState
 } from "react";
 import {
-    Button
+    Button,
+    TextField
 } from "@mui/material";
 import style from "../styles/ShaiZi.module.scss";
 import LpLogger from "lp-logger";
@@ -12,14 +15,16 @@ export var logger = new LpLogger({
     level: "log", // 空字符串时，不显示任何信息
 });
 function ShaiZi(): JSX.Element {
-    var leftX: number = 150;
-    var topY: number = 100;
-    var diceX: number = 80;
-    var diceY: number = 80;
-    var dotR: number = 4;
-    var count: number = 0;
-    var [lastNum, setLastNum] = useState<number>(0);
-    var flag: boolean = false;
+    var leftX: number = 150,
+        topY: number = 100,
+        diceX: number = 80,
+        diceY: number = 80,
+        dotR: number = 4,
+        count: number = 0,
+        [lastNum, setLastNum] = useState<number>(0),
+        flag: boolean = false,
+        [cishu,setCishu] = useState<number>(1),
+        canvas = useRef();
     function clickMe(): boolean | void {
         logger.log("已开始掷骰子。");
         count = 0;
@@ -27,7 +32,7 @@ function ShaiZi(): JSX.Element {
             return false;
         }
         flag = true;
-        var ctx = (document.getElementById("canvas") as HTMLCanvasElement).getContext("2d");
+        var ctx = (canvas.current as HTMLCanvasElement).getContext("2d");
         ctx.beginPath();
         //ctx.arc(100,100,50,0,Math.PI,false);
         ctx.strokeRect(leftX, topY, diceX, diceY);
@@ -58,7 +63,7 @@ function ShaiZi(): JSX.Element {
                 break;
         }
         count++;
-        if (count >= 20) {
+        if (count >= cishu) {
             flag = false;
             return false;
         } else {
@@ -68,7 +73,10 @@ function ShaiZi(): JSX.Element {
         }
     }
     function random(ctx: CanvasRenderingContext2D) {
-        var randomNum = Math.floor(Math.random() * 6) + 1;
+        var randomNum: number = 7;
+        while (randomNum > 6 || randomNum < 1) {
+            randomNum = Math.floor(Math.random() * 10);
+        }
         if (randomNum == lastNum) {
             random(ctx);
         } else {
@@ -84,7 +92,7 @@ function ShaiZi(): JSX.Element {
         ctx.fill();
     }
     function draw1() {
-        var ct = document.getElementById("canvas") as HTMLCanvasElement;
+        var ct = canvas.current as HTMLCanvasElement;
         var ctx = ct.getContext("2d");
         ctx.fillStyle = "#0000ff";
         var dotX = leftX + diceX / 2;
@@ -93,7 +101,7 @@ function ShaiZi(): JSX.Element {
         logger.log("已画出1个点。");
     }
     function draw2() {
-        var ct = document.getElementById("canvas") as HTMLCanvasElement;
+        var ct = canvas.current as HTMLCanvasElement;
         var ctx = ct.getContext("2d");
         ctx.fillStyle = "#99FF66";
         var dotX = leftX + 4 * dotR;
@@ -111,7 +119,7 @@ function ShaiZi(): JSX.Element {
     }
     function draw4() {
         draw2();
-        var ct = document.getElementById("canvas") as HTMLCanvasElement;
+        var ct = canvas.current as HTMLCanvasElement;
         var ctx = ct.getContext("2d");
         ctx.fillStyle = "#99CC00";
         var dotX = leftX + diceX - 4 * dotR;
@@ -128,7 +136,7 @@ function ShaiZi(): JSX.Element {
         logger.log("已画出5个点。");
     }
     function draw6() {
-        var ct = document.getElementById("canvas") as HTMLCanvasElement;
+        var ct = canvas.current as HTMLCanvasElement;
         var ctx = ct.getContext("2d");
         ctx.fillStyle = "#996633";
         var dotX = leftX + 4 * dotR;
@@ -140,7 +148,7 @@ function ShaiZi(): JSX.Element {
         logger.log("已画出6个点。");
     }
     useEffect(function () {
-        var ct = document.getElementById("canvas") as HTMLCanvasElement;
+        var ct = canvas.current as HTMLCanvasElement;
         var ctx = ct.getContext("2d");
         ctx.beginPath();
         ctx.strokeRect(leftX, topY, diceX, diceY);
@@ -152,11 +160,17 @@ function ShaiZi(): JSX.Element {
         <div className={style["allWidth"]}>
             <br />
             <Center>
-                <canvas id="canvas" height="300" width="400" className={style["canvas"]}>
+                <canvas id="canvas" height="300" width="400" className={style["canvas"]} ref={canvas}>
                     你的浏览器不支持这个工具。
                 </canvas>
                 <br />
-                <Button type="button" variant="contained" onClick={clickMe}>掷骰子</Button>
+                <br />
+                <Button type="button" variant="contained" onClick={clickMe}>掷色子</Button>
+                <br />
+                <br />
+                <TextField id="weishu" label="掷色子的次数" variant="outlined" value={cishu} type="number" onChange={event => {
+                    setCishu(Number(event.target.value))
+                }} />
             </Center>
         </div>
     );

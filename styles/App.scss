@@ -4,6 +4,10 @@ body {
     -ms-overflow-style: none; // IE 10+
 }
 
+* {
+    font-family: Ubuntu !important;
+}
+
 ::-webkit-scrollbar {
     display: none;
     /* Chrome Safari */

@@ -22,6 +22,12 @@ declare global {  //设置全局属性
         //加入对象
     }
 }
+/**
+ * 从数组里删除项目
+ * @param 用来删除的数组
+ * @param 要删除的项目值
+ * @returns 删除完毕的数组
+ */
 export function destroyer(...arg: any[]): any[] {
     // 获取目标数组
     var newArray: any[] = arg[0]; // [1, 2, 1, 3, 2, 1, 3, 4, 2, 6]

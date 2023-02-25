@@ -1,7 +1,7 @@
 import {
     useRouter
 } from "next/router";
-import React from "react";
+import React, { Fragment } from "react";
 import HeadBar from "../components/HeadBar";
 import {
     realTools as toolsInfo
@@ -38,9 +38,10 @@ export default function ToolFinder(): JSX.Element {
                 toolsInfo.forEach(si => {
                     if (si.to == toolID) name = si.name;
                 });
+                if (name == "") return "未找到工具"
                 return name;
             })()} />
-            {router.query.tool == undefined ? <Typography variant="body1" gutterBottom>未找到工具</Typography> : <Tool />}
+            {router.query.tool != undefined && <Tool />}
         </>
     );
 }

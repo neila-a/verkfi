@@ -1,7 +1,9 @@
 import Link from "next/link";
 import HeadBar from "../components/HeadBar";
 import React, {
-    Fragment, useEffect, useState
+    Fragment,
+    useEffect,
+    useState
 } from 'react';
 import {
     Stack,
@@ -11,8 +13,7 @@ import {
     Divider,
     IconButton,
     InputBase,
-    Paper,
-    Input
+    Paper
 } from "@mui/material";
 import {
     Search as SearchIcon,

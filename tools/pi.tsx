@@ -18,16 +18,9 @@ export var logger = new LpLogger({
 });
 export const pi = require("pi");
 function PI(): JSX.Element {
-    interface confFace {
-        isuas: boolean
-    };
-    var conf: confFace = {
-        isuas: false
-    };
     var [weishu, setWeishu] = useState(1);
     var [useAlertShow, setUseAlertShow] = useState(false);
     var [out, setOut] = useState("");
-    var outRef = useRef();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     function calc(ws: number): string {
         logger.log(`位数是：${ws}`);

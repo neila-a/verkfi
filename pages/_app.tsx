@@ -1,9 +1,20 @@
 // import App from "next/app";
-import type { AppProps /*, AppContext */ } from 'next/app'
-import React, { useEffect } from 'react';
+import type {
+    AppProps /*, AppContext */
+} from 'next/app';
+import React, {
+    useEffect
+} from 'react';
+import {
+    CssBaseline, StyledEngineProvider
+} from "@mui/material";
 import LpLogger from "lp-logger";
 import style from "../styles/ModifiedApp.module.scss";
 import "../styles/App.scss";
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
 export var logger = new LpLogger({
     name: "NeilaTools",
     level: "log", // 空字符串时，不显示任何信息
@@ -23,9 +34,12 @@ export default function ModifiedApp({ Component, pageProps }: AppProps) {
     }, []);
     return (
         <>
-            <div className={style["fullHeight"]}>
-                <Component {...pageProps} />
-            </div>
+            <CssBaseline />
+            <StyledEngineProvider injectFirst>
+                <div className={style["fullHeight"]}>
+                    <Component {...pageProps} />
+                </div>
+            </StyledEngineProvider>
         </>
     );
 }

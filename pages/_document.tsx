@@ -1,4 +1,10 @@
-import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/document';
+import Document, {
+    Html,
+    Head,
+    Main,
+    NextScript,
+    DocumentContext
+} from 'next/document';
 export default class ModifyDocument extends Document {
     static async getInitialProps(ctx: DocumentContext) {
         const initialProps = await Document.getInitialProps(ctx);
@@ -10,7 +16,7 @@ export default class ModifyDocument extends Document {
                 <Head>
                     <meta charSet="utf-8" />
                     <link rel="manifest" href="/index.webmanifest" />
-                    <meta name="description" content="Neila的一些没用工具。"/>
+                    <meta name="description" content="Neila的一些没用工具。" />
                     <meta name="mobile-web-app-capable" content="yes" />
                     <meta name="apple-mobile-web-app-capable" content="yes" />
                     <meta name="application-name" content="NeilaTools" />
