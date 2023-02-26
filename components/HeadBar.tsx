@@ -15,8 +15,6 @@ import {
 import Router from "next/router";
 import Head from "next/head";
 import {
-	useEffect,
-	useState,
 	Fragment
 } from "react";
 import {
@@ -27,8 +25,13 @@ import {
 import style from "../styles/HeadBar.module.scss";
 import LpLogger from "lp-logger";
 import MouseOverPopover from "./Popover";
-import { Theme } from "@emotion/react";
-import { stringToBoolean, useReadSetting } from "./useSetting";
+import {
+	Theme
+} from "@emotion/react";
+import {
+	stringToBoolean,
+	useReadSetting
+} from "./useSetting";
 export var logger = new LpLogger({
 	name: "HeadBar",
 	level: "log", // 空字符串时，不显示任何信息
@@ -85,7 +88,7 @@ export interface HeadBarOption {
 export default function HeadBar(props: HeadBarOption): JSX.Element {
 	var forkMeOnGitHub = useReadSetting("fork-me-on-github", "Fork me on GitHub", String(false));
 	return (
-		<header>
+		<>
 			<Head>
 				<link rel="shortcut icon" href="/favicon.ico" />
 				<title>{props.isIndex ? props.pageName : `${props.pageName} - NeilaTools`}</title>
@@ -147,6 +150,6 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 					right: "-40px"
 				}}>Fork me on GitHub</a>
 			</div> : <Fragment />}
-		</header>
+		</>
 	);
 };

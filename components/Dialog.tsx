@@ -89,9 +89,8 @@ export function CheckDialog(props: {
     onFalse(): any;
     onTrue(): any;
     description: string;
-    open: boolean;
 }) {
-    const [open, setOpen] = useState(props.open);
+    const [open, setOpen] = useState(true);
     const handleClose = () => {
         setOpen(false);
     };

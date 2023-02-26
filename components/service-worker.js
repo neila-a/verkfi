@@ -63,3 +63,4 @@ self.addEventListener('fetch', event => {
         })
     );
 });
+export default Cache;

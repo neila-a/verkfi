@@ -39,7 +39,7 @@ export const tools: tool[] = [
     {
         name: "AudioTools",
         to: "audiotools",
-        desc: "复读、文本转音频",
+        desc: "录音、复读",
         icon: () => <AudiotrackIcon />
     },
     {

@@ -43,6 +43,7 @@ import Router from "next/router";
 import {
     useRouter
 } from "next/router";
+import MouseOverPopover from "../components/Popover";
 export {
     realTools
 };
@@ -98,13 +99,15 @@ export default function Index(): JSX.Element {
                 display: 'flex',
                 alignItems: 'center'
             }}>
-                <IconButton type="button" sx={{
-                    p: '10px'
-                }} aria-label="search" onClick={() => {
-                    searchTools(searchText);
-                }}>
-                    <SearchIcon />
-                </IconButton>
+                <MouseOverPopover text="搜索">
+                    <IconButton type="button" sx={{
+                        p: '10px'
+                    }} aria-label="search" onClick={() => {
+                        searchTools(searchText);
+                    }}>
+                        <SearchIcon />
+                    </IconButton>
+                </MouseOverPopover>
                 <InputBase value={searchText} sx={{
                     ml: 1,
                     flex: 1
@@ -118,20 +121,22 @@ export default function Index(): JSX.Element {
                     height: 28,
                     m: 0.5
                 }} orientation="vertical" />
-                <IconButton color="primary" sx={{
-                    p: '10px'
-                }} aria-label="directions" onClick={_event => {
-                    switch (viewMode) {
-                        case "grid":
-                            setViewMode("list");
-                            break;
-                        case "list":
-                            setViewMode("grid");
-                            break;
-                    };
-                }}>
-                    {viewMode == "grid" ? <ViewListIcon /> : <ViewModuleIcon />}
-                </IconButton>
+                <MouseOverPopover text={viewMode == "grid" ? "切换为列表模式" : "切换为网格模式"}>
+                    <IconButton color="primary" sx={{
+                        p: '10px'
+                    }} aria-label="directions" onClick={_event => {
+                        switch (viewMode) {
+                            case "grid":
+                                setViewMode("list");
+                                break;
+                            case "list":
+                                setViewMode("grid");
+                                break;
+                        };
+                    }}>
+                        {viewMode == "grid" ? <ViewListIcon /> : <ViewModuleIcon />}
+                    </IconButton>
+                </MouseOverPopover>
             </Paper>
             <br />
             <Stack spacing={5} className={Style["items"]} sx={{
@@ -198,7 +203,7 @@ export default function Index(): JSX.Element {
             </ErrorBoundary> {/* 窗口容器 */}
             {jumpDialogOpen ? <CheckDialog description={`确定离开NeilaTools并跳转至${jumpName}吗？`} title="离开NeilaTools" onTrue={() => {
                 Router.push(jumpto);
-            }} open={true} onFalse={() => {
+            }} onFalse={() => {
                 setJumpDialogOpen(false);
             }} /> : <Fragment /> /* 跳转对话框容器 */}
         </>
