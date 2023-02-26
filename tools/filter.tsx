@@ -15,9 +15,6 @@ import FilePondPluginImageEdit from 'filepond-plugin-image-edit'; // Import the 
 import 'filepond-plugin-image-edit/dist/filepond-plugin-image-edit.css'; // Import the plugin styles
 import FilePondPluginImageCrop from 'filepond-plugin-image-crop'; // Import the plugin code
 import 'filepond/dist/filepond.min.css'; // Import FilePond styles
-import {
-    realTools as tools
-} from "../pages";
 import style from "../styles/Filter.module.scss";
 import {
     Grid,
@@ -68,7 +65,7 @@ export default function Filter(): JSX.Element {
     var [imageArray, setImageArray] = useState<any[]>([]);
     var [imageFileName, setImageFileName] = useState<string>("");
     var [imageFileExtension, setImageFileExtension] = useState<string>("");
-    var [imageBase64, setImageBase64] = useState<string>("/libear-only.png");
+    var [imageBase64, setImageBase64] = useState<string>("/image/libear-only.png");
     var [imageTypes, setImageTypes] = useState<ImageType[]>(ImageTypesGen);
     var [scale, setScale] = React.useState<number | string | Array<number | string>>(100);
     const handleSliderChange = (event: Event, newValue: number | number[]) => setScale(newValue);

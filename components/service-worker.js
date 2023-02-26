@@ -30,7 +30,7 @@ const
         '/tool',
         '/settings',
         '/index.webmanifest',
-        '/favicon.png'
+        '/image/favicon.png'
     ];
 log(`版本为${Cache}`);
 self.addEventListener('install', event => {

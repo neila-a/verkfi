@@ -3,31 +3,31 @@
     "short_name": "NeilaTools",
     "description": "Neila 的一些没用小工具。",
     "start_url": "/",
-    "display": "standalone",
+    "display": "fullscreen",
     "orientation": "any",
-    "background_color": "#1e9fff",
-    "theme_color": "#1e9fff",
+    "background_color": "#1976d2",
+    "theme_color": "#1976d2",
     "icons": [
         {
-            "src": "/UPAimg/manifest-icon-192.maskable.png",
+            "src": "/image/favicon_192x192.png",
             "sizes": "192x192",
             "type": "image/png",
             "purpose": "any"
         },
         {
-            "src": "/UPAimg/manifest-icon-192.maskable.png",
+            "src": "/image/favicon_192x192.png",
             "sizes": "192x192",
             "type": "image/png",
             "purpose": "maskable"
         },
         {
-            "src": "/UPAimg/manifest-icon-512.maskable.png",
+            "src": "/image/favicon_512x512.png",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "any"
         },
         {
-            "src": "/UPAimg/manifest-icon-512.maskable.png",
+            "src": "/image/favicon_512x512.png",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "maskable"
