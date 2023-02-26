@@ -91,7 +91,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 		<>
 			<Head>
 				<link rel="shortcut icon" href="/image/favicon.ico" />
-				<title>{props.isIndex ? props.pageName : `${props.pageName} - NeilaTools`}</title>
+				<title>{props.pageName}</title>
 			</Head>
 			<AppBar position="sticky" sx={props.sx}>
 				<Toolbar>
