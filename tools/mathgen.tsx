@@ -23,12 +23,13 @@ export var logger = new LpLogger({
     name: "MathGen",
     level: "log", // 空字符串时，不显示任何信息
 });
-export type calc = "+" | "-" | "×" | "÷";
+export type calc = "+" | "-" | "×" | "÷" | "%";
 export const defaultCalcs: calc[] = [
     "+",
     "-",
     "×",
-    "÷"
+    "÷",
+    "%"
 ];
 export function SingleMath(props: {
     math: string;
@@ -145,7 +146,7 @@ export default function MathGen(): JSX.Element {
                             }
                         }} />
                     } />
-                    {defaultCalcs.map(calc => <FormControlLabel label={calc} key={calc} control={
+                    {defaultCalcs.map(calc => <FormControlLabel label={calc == "%" ? "%（求余）" : calc} key={calc} control={
                         <Checkbox checked={calcs.includes(calc)} onChange={event => {
                             switch (event.currentTarget.checked) {
                                 case false:
