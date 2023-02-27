@@ -56,7 +56,8 @@ export default function MathGen(): JSX.Element {
         [max, setMax] = useState<number>(10),
         [itemCount, setItemCount] = useState<number>(20),
         [maths, setMath] = useState<string[]>([]),
-        [unCheck, setUnCheck] = useState<boolean>(true),
+        [subtractionCheck, setSubtractionCheck] = useState<boolean>(true),
+        [divisionCheck,setDivisionCheck]=useState<boolean>(true),
         [showOut, setShowOut] = useState<boolean>(false),
         [calcs, setCalcs] = useState<calc[]>([
             "+",
@@ -73,9 +74,10 @@ export default function MathGen(): JSX.Element {
             function genMathS(): [number, number, number] {
                 var one: number = genNumber(),
                     two: number = genNumber();
-                if (unCheck == true) {
+                if (subtractionCheck || divisionCheck) {
                     switch (mode) {
                         case "-":
+                        case "÷":
                             while (two > one) {
                                 two = genNumber();
                             }
@@ -129,8 +131,13 @@ export default function MathGen(): JSX.Element {
                     setItemCount(Number(event.currentTarget.value));
                 }} defaultValue={itemCount} />
                 <FormControlLabel label="减数检查" control={
-                    <Checkbox checked={unCheck} onChange={event => {
-                        setUnCheck(event.currentTarget.checked);
+                    <Checkbox checked={subtractionCheck} onChange={event => {
+                        setSubtractionCheck(event.currentTarget.checked);
+                    }} />
+                } />
+                <FormControlLabel label="除数检查" control={
+                    <Checkbox checked={divisionCheck} onChange={event => {
+                        setDivisionCheck(event.currentTarget.checked);
                     }} />
                 } />
                 <Fragment>
