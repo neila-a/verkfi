@@ -1,7 +1,7 @@
 {
   "name": "neilatools",
   "version": "1.3.0",
-  "devVersion": "255",
+  "devVersion": "256",
   "dev": true,
   "private": true,
   "description": "Something useless tools",
