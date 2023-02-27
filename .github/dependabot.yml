@@ -5,7 +5,12 @@
 
 version: 2
 updates:
-  - package-ecosystem: "npm" # See documentation for possible values
-    directory: "/" # Location of package manifests
-    schedule:
-      interval: "weekly"
+    - package-ecosystem: "npm" # See documentation for possible values
+      directory: "/" # Location of package manifests
+      schedule:
+        timezone: "Asia/Shanghai" # Use China Standard Time (UTC +08:00)
+        interval: "daily"
+        time: "08:00"
+      open-pull-requests-limit: 1000 # Allow up to 10 open pull requests for pip dependencies
+      assignees: # Add assignees
+        - "neila-a"
