@@ -94,7 +94,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 				<link rel="shortcut icon" href="/image/favicon.ico" />
 				<title>{props.pageName}</title>
 			</Head>
-			{props.only ? <>
+			{props.only ? <Fragment /> :  <>
 				<AppBar position="sticky" sx={props.sx}>
 					<Toolbar>
 						{props.isIndex ? <Fragment /> : <MouseOverPopover text="首页">
@@ -139,8 +139,6 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 						</form>}
 					</Toolbar>
 				</AppBar>
-
-
 				{stringToBoolean(forkMeOnGitHub) ? <div className={style["github-ribbon"]} style={props.isIndex ? {
 					left: "0px"
 				} : {
@@ -154,7 +152,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 						right: "-40px"
 					}}>Fork me on GitHub</a>
 				</div> : <Fragment />}
-			</> : <Fragment />}
+			</>}
 		</>
 	);
 };
