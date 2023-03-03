@@ -37,14 +37,14 @@ export default function ToolFinder(): JSX.Element {
     }
     return (
         <>
-            {only ? <Fragment /> : <HeadBar isIndex={false} pageName={(() => {
+            <HeadBar isIndex={false} pageName={(() => {
                 var name: string;
                 toolsInfo.forEach(si => {
                     if (si.to == toolID) name = si.name;
                 });
                 if (name == "") return "未找到工具"
                 return name;
-            })()} />}
+            })()} only={only} />
             {router.query.tool != undefined && <Tool />}
         </>
     );
