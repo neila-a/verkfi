@@ -181,9 +181,7 @@ export default function MathGen(): JSX.Element {
                     </Paper>
                     <br />
                     <ButtonGroup variant="contained">
-                        <Button variant="contained" onClick={calcMath} sx={{
-                            width: 
-                        }}>
+                        <Button variant="contained" onClick={calcMath}>
                             计算
                         </Button>
                         <Button variant="outlined" onClick={event => {
