@@ -20,6 +20,7 @@ export var logger = new lpLogger({
 export type tJSXE = () => JSX.Element;
 export default function ToolFinder(): JSX.Element {
     var router = useRouter();
+    var only = false;
     if (router.query.tool) {
         logger.info("query的内容为", router.query);
         var toolID = router.query.tool;
@@ -31,16 +32,19 @@ export default function ToolFinder(): JSX.Element {
             }
         });
     }
+    if (router.query.only == "true") {
+        only = true;
+    }
     return (
         <>
-            <HeadBar isIndex={false} pageName={(() => {
+            {only ? <Fragment /> : <HeadBar isIndex={false} pageName={(() => {
                 var name: string;
                 toolsInfo.forEach(si => {
                     if (si.to == toolID) name = si.name;
                 });
                 if (name == "") return "未找到工具"
                 return name;
-            })()} />
+            })()} />}
             {router.query.tool != undefined && <Tool />}
         </>
     );
