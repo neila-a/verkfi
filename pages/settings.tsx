@@ -118,7 +118,7 @@ export function About() {
 				<br />
 				本程序从未提供品质担保。
 				<br />
-				版权部分所有，遵循<Link href="http://gnu.org/licenses/gpl.html">GNU GPL 许可证第三版或者更新版本</Link>授权使用，欢迎你在满足一定条件后对其再发布。
+				版权部分所有，遵循<Link href="http://gnu.org/licenses/agpl.html">GNU Affero通用公共许可证</Link>授权使用，欢迎你在满足一定条件后对其再发布。
 			</Typography>
 		</div>
 	);
