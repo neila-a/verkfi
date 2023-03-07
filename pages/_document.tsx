@@ -27,6 +27,7 @@ export default class ModifyDocument extends Document {
                     <meta name="msapplication-starturl" content="/" />
                     <meta name="apple-mobile-web-app-capable" content="yes" />
                     <link rel="icon" href="/image/favicon.png" type="image/png" />
+                    <meta name="msvalidate.01" content="0A1E0FDDD1B9F3CA2F987AD495E821F7" />
                 </Head>
                 <body>
                     <NextScript />
