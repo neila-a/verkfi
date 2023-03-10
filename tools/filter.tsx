@@ -3,6 +3,10 @@ import {
     useState,
     useEffect
 } from "react";
+import domtoimage from 'dom-to-image';
+import {
+    saveAs
+} from 'file-saver';
 import {
     FilePond,
     registerPlugin
@@ -60,14 +64,13 @@ export const ImageTypesGen: ImageType[] = [
     "sepia",
     "shadow"
 ];
-export const emptyArray = [];
+export const emptyArray: [] = [];
 export default function Filter(): JSX.Element {
     var [imageArray, setImageArray] = useState<any[]>([]);
-    var [imageFileName, setImageFileName] = useState<string>("");
-    var [imageFileExtension, setImageFileExtension] = useState<string>("");
+    var [imageFileName, setImageFileName] = useState<string>("libear-only");
     var [imageBase64, setImageBase64] = useState<string>("/image/libear-only.png");
     var [imageTypes, setImageTypes] = useState<ImageType[]>(ImageTypesGen);
-    var [scale, setScale] = React.useState<number | string | Array<number | string>>(100);
+    var [scale, setScale] = useState<number | string | Array<number | string>>(100);
     const handleSliderChange = (event: Event, newValue: number | number[]) => setScale(newValue);
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => setScale(event.target.value === '' ? '' : Number(event.target.value));
     const handleBlur = () => {
@@ -80,7 +83,7 @@ export default function Filter(): JSX.Element {
     registerPlugin(FilePondPluginFileRename, FilePondPluginImagePreview, FilePondPluginImageResize, FilePondPluginImageEdit, FilePondPluginImageCrop); // Register the plugin
     useEffect(function () {
         window.imageArray = imageArray;
-    }, [imageArray]);
+    }, [imageArray, imageFileName]);
     return (
         <>
             <br />
@@ -89,7 +92,6 @@ export default function Filter(): JSX.Element {
                 onupdatefiles={images => {
                     setImageArray(images);
                     setImageFileName(images[0].filenameWithoutExtension);
-                    setImageFileExtension(images[0].fileExtension);
                     var reader = new FileReader();
                     reader.onload = function () {
                         setImageBase64(String(reader.result));
@@ -174,8 +176,13 @@ export default function Filter(): JSX.Element {
             <ImageList>
                 {imageTypes.map((type) => (
                     <ImageListItem key={type}>
-                        <img title={type} key={type} className={style[type]} src={imageBase64} alt={type} style={{
+                        <img title={type} key={type} className={style[type]} src={imageBase64} id={type} alt={type} style={{
                             transform: `scale(${(Number(scale) / 100).toString()})`
+                        }} onClick={event => {
+                            domtoimage.toBlob(document.getElementById(type)).then((blob: Blob) => {
+                                // 调用file-save方法 直接保存图片
+                                saveAs(blob, `${imageFileName}.${type}.png`)
+                            })
                         }} />
                     </ImageListItem>
                 ))}

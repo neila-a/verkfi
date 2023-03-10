@@ -12,15 +12,18 @@ import {
     Button
 } from "@mui/material";
 import LpLogger from "lp-logger";
+import { AlertDialog } from "../components/Dialog";
 export var logger = new LpLogger({
     name: "π计算器",
     level: "log", // 空字符串时，不显示任何信息
 });
 export const pi = require("pi");
 function PI(): JSX.Element {
-    var [weishu, setWeishu] = useState(1);
-    var [useAlertShow, setUseAlertShow] = useState(false);
-    var [out, setOut] = useState("");
+    var [weishu, setWeishu] = useState<number>(1),
+        [useAlertShow, setUseAlertShow] = useState<boolean>(false),
+        [showInfoDialog, setShowInfoDialog] = useState<boolean>(false),
+        [dialogInfo, setDialogInfo] = useState<string>(""),
+        [out, setOut] = useState("");
     // eslint-disable-next-line react-hooks/exhaustive-deps
     function calc(ws: number): string {
         logger.log(`位数是：${ws}`);
@@ -32,7 +35,8 @@ function PI(): JSX.Element {
         const retinfo: string = calc(ws);
         switch (useAlertShow) {
             case true:
-                alert(retinfo);
+                setDialogInfo(retinfo);
+                setShowInfoDialog(true);
                 break;
             case false:
                 setOut(retinfo);
@@ -106,18 +110,20 @@ function PI(): JSX.Element {
                 <Button variant="contained" style={{
                     display: "inline-block"
                 }} onClick={() => {
-                    try {
-                        navigator.clipboard.writeText(out).then(() => {
-                            alert("已把结果复制到剪贴板。");
-                            logger.log("已把结果复制到剪贴板。");
-                        });
-                    } catch (error) {
-                        alert("糟糕！出错了");
+                    navigator.clipboard.writeText(out).then(() => {
+                        setDialogInfo("已把结果复制到剪贴板。");
+                        setShowInfoDialog(true);
+                        logger.log("已把结果复制到剪贴板。");
+                    }).catch(error => {
+                        setDialogInfo(`复制结果时出现问题，报错：${error}`);
                         logger.error(`糟糕！出错了：${error}`);
-                    }
+                    });
                 }}>复制</Button>
                 <Typography variant="body1" id="outendwm" gutterBottom>π是：{out}</Typography>
             </div>
+            {showInfoDialog && <AlertDialog title="提示" description={dialogInfo} onDone={() => {
+                setShowInfoDialog(false);
+            }} />}
         </>
     );
 };

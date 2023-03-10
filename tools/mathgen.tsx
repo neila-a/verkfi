@@ -11,7 +11,9 @@ import {
     ButtonGroup
 } from "@mui/material";
 import {
+    Dispatch,
     Fragment,
+    SetStateAction,
     useEffect,
     useState
 } from "react";
@@ -55,7 +57,47 @@ export function SingleMath(props: {
         </div>
     );
 }
-export default function MathGen(): JSX.Element {
+export function genNumber(max: number, min: number): number {
+    return Math.floor(Math.random() * (max - min) + min);
+}
+export function calcMath(calcs: calc[], subtractionCheck: boolean, divisionCheck: boolean, max: number, min: number, itemCount: number, setMath: Dispatch<SetStateAction<string[]>>) {
+    var calcMaths: string[] = [];
+    calcs.forEach(function (mode) {
+        const modeS = mode.replace("×", "*").replace("÷", "/")
+        function genMathS(): [number, number, number] {
+            var one: number = genNumber(max, min),
+                two: number = genNumber(max, min);
+            if (subtractionCheck || divisionCheck) {
+                switch (mode) {
+                    case "-":
+                    case "÷":
+                        while (two > one) {
+                            two = genNumber(max, min);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+            return [one, two, eval(`${one} ${modeS} ${two}`)];
+        }
+        for (var step = 1; step < (itemCount / (calcs.length)); step++) {
+            var [one, two, out] = genMathS(),
+                math = `${one}${mode}${two}=${out}`;
+            function reGenMath() {
+                [one, two, out] = genMathS();
+                math = `${one}${mode}${two}=${out}`;
+            }
+            while (out > max || calcMaths.includes(math) || (mode == "%" && two == 0)) {
+                reGenMath();
+            }
+            calcMaths.push(math);
+        }
+    });
+    logger.log("maths为", calcMaths);
+    return setMath(calcMaths);
+};
+export function MathGen(): JSX.Element {
     var [min, setMin] = useState<number>(0),
         [max, setMax] = useState<number>(10),
         [itemCount, setItemCount] = useState<number>(20),
@@ -67,48 +109,11 @@ export default function MathGen(): JSX.Element {
             "+",
             "-"
         ]);
+    const packagedCalcMath = () => calcMath(calcs, subtractionCheck, divisionCheck, max, min, itemCount, setMath);
     useEffect(function () {
         logger.log("calcs为", calcs);
     }, [calcs]);
-    const genNumber = () => Math.floor(Math.random() * (max - min) + min);
-    function calcMath() {
-        var calcMaths: string[] = [];
-        calcs.forEach(function (mode) {
-            const modeS = mode.replace("×", "*").replace("÷", "/")
-            function genMathS(): [number, number, number] {
-                var one: number = genNumber(),
-                    two: number = genNumber();
-                if (subtractionCheck || divisionCheck) {
-                    switch (mode) {
-                        case "-":
-                        case "÷":
-                            while (two > one) {
-                                two = genNumber();
-                            }
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                return [one, two, eval(`${one} ${modeS} ${two}`)];
-            }
-            for (var step = 1; step < (itemCount / (calcs.length)); step++) {
-                var [one, two, out] = genMathS(),
-                    math = `${one}${mode}${two}=${out}`;
-                function reGenMath() {
-                    [one, two, out] = genMathS();
-                    math = `${one}${mode}${two}=${out}`;
-                }
-                while (out > max || calcMaths.includes(math) || (mode == "%" && two == 0)) {
-                    reGenMath();
-                }
-                calcMaths.push(math);
-            }
-        });
-        logger.log("maths为", calcMaths);
-        return setMath(calcMaths);
-    };
-    useEffect(calcMath, [
+    useEffect(packagedCalcMath, [
         min,
         max,
         itemCount
@@ -181,7 +186,7 @@ export default function MathGen(): JSX.Element {
                     </Paper>
                     <br />
                     <ButtonGroup variant="contained">
-                        <Button variant="contained" onClick={calcMath}>
+                        <Button variant="contained" onClick={packagedCalcMath}>
                             计算
                         </Button>
                         <Button variant="outlined" onClick={event => {
@@ -197,3 +202,4 @@ export default function MathGen(): JSX.Element {
         </>
     );
 }
+export default MathGen;

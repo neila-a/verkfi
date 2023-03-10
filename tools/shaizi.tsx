@@ -1,7 +1,9 @@
 import Center from "../components/Center";
 import React, {
-    useEffect, 
-    useRef, 
+    Dispatch,
+    SetStateAction,
+    useEffect,
+    useRef,
     useState
 } from "react";
 import {
@@ -10,11 +12,15 @@ import {
 } from "@mui/material";
 import style from "../styles/ShaiZi.module.scss";
 import LpLogger from "lp-logger";
+import { FullScreenDialog } from "../components/Dialog";
 export var logger = new LpLogger({
     name: "掷骰子",
     level: "log", // 空字符串时，不显示任何信息
 });
-function ShaiZi(): JSX.Element {
+export function ShaiZiCanvas(props: {
+    cishu: number;
+    setCishu: Dispatch<SetStateAction<number>>
+}): JSX.Element {
     var leftX: number = 150,
         topY: number = 100,
         diceX: number = 80,
@@ -23,7 +29,6 @@ function ShaiZi(): JSX.Element {
         count: number = 0,
         [lastNum, setLastNum] = useState<number>(0),
         flag: boolean = false,
-        [cishu,setCishu] = useState<number>(1),
         canvas = useRef();
     function clickMe(): boolean | void {
         logger.log("已开始掷骰子。");
@@ -63,7 +68,7 @@ function ShaiZi(): JSX.Element {
                 break;
         }
         count++;
-        if (count >= cishu) {
+        if (count >= props.cishu) {
             flag = false;
             return false;
         } else {
@@ -157,21 +162,32 @@ function ShaiZi(): JSX.Element {
         logger.log("已初始化。");
     }, []);
     return (
+        <canvas id="canvas" height="300" width="400" className={style["canvas"]} ref={canvas} onClick={clickMe}>
+            你的浏览器不支持这个工具。
+        </canvas>
+    );
+}
+export function ShaiZi(): JSX.Element {
+    var [useDialogShow, setUseDialogShow] = useState<boolean>(false),
+        [cishu, setCishu] = useState<number>(1);
+    return (
         <div className={style["allWidth"]}>
-            <br />
             <Center>
-                <canvas id="canvas" height="300" width="400" className={style["canvas"]} ref={canvas}>
-                    你的浏览器不支持这个工具。
-                </canvas>
-                <br />
-                <br />
-                <Button type="button" variant="contained" onClick={clickMe}>掷色子</Button>
+                <ShaiZiCanvas cishu={cishu} setCishu={setCishu} />
                 <br />
                 <br />
                 <TextField id="weishu" label="掷色子的次数" variant="outlined" value={cishu} type="number" onChange={event => {
-                    setCishu(Number(event.target.value))
+                    setCishu(Number(event.target.value));
                 }} />
+                <br />
+                <br />
+                <Button variant="contained" onClick={event => {
+                    setUseDialogShow(true);
+                }}>全屏</Button>
             </Center>
+            {useDialogShow && <FullScreenDialog title="掷色子（全屏模式）" onDone={() => {
+                setUseDialogShow(false);
+            }} context={<ShaiZiCanvas cishu={cishu} setCishu={setCishu} />} />}
         </div>
     );
 };

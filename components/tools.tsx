@@ -22,12 +22,9 @@ import {
     AccessTime as AccessTimeIcon,
     FlipCameraAndroid as FlipCameraAndroidIcon,
     Filter as FilterIcon,
-    Numbers as NumbersIcon,
-    Star as StarIcon
+    Numbers as NumbersIcon
 } from "@mui/icons-material";
 import Image from "next/image";
-import ShaiziIcon from "./shaizi.24x24.svg";
-import PiIcon from "./pi.466x393.png";
 export interface tool {
     name: string;
     to?: string;
@@ -52,7 +49,7 @@ export const tools: tool[] = [
         name: "π计算器",
         to: "pi",
         desc: "计算π的小数点后任意位",
-        icon: () => <Image src={PiIcon} alt="圆周率图标" height={24} width={24} />
+        icon: () => <Image src="/image/pi.466x393.png" alt="圆周率图标" height={24} width={24} />
     },
     {
         name: "翻转",
@@ -64,7 +61,7 @@ export const tools: tool[] = [
         name: "掷色子",
         to: "shaizi",
         desc: "随机掷色子",
-        icon: () => <Image src={ShaiziIcon} alt="色子图标" />
+        icon: () => <Image src="/image/shaizi.24x24.svg" alt="色子图标" height={24} width={24} />
     },
     {
         name: "滤镜",
@@ -89,12 +86,6 @@ export const tools: tool[] = [
         goto: "https://github.neila.ga/countdown.js/",
         desc: "显示时间过去了多少",
         icon: () => <AccessTimeIcon />
-    },
-    {
-        name: "评分",
-        goto: "https://rateds.neila.ga/",
-        desc: "评分、统计",
-        icon: () => <StarIcon />
     }
 ];
 export default tools;

@@ -32,5 +32,19 @@
             "type": "image/png",
             "purpose": "maskable"
         }
+    ],
+    "shortcuts": [
+        {
+            "name": "设置",
+            "short_name": "设置",
+            "description": "设置",
+            "url": "/settings",
+            "icons": [
+                {
+                    "src": "/image/settings.png",
+                    "sizes": "75x75"
+                }
+            ]
+        }
     ]
 }

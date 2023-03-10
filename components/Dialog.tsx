@@ -1,4 +1,5 @@
 import React, {
+    ReactNode,
     useState
 } from 'react';
 import {
@@ -9,11 +10,21 @@ import {
     DialogContentText,
     DialogTitle,
     Slide,
-    TextField
+    TextField,
+    IconButton,
+    AppBar,
+    Toolbar,
+    Typography
 } from "@mui/material";
 import {
     TransitionProps
 } from '@mui/material/transitions';
+import {
+    styled
+} from '@mui/material/styles';
+import {
+    Close as CloseIcon
+} from "@mui/icons-material";
 export const Transition = React.forwardRef(function Transition(
     props: TransitionProps & {
         children: React.ReactElement<any, any>;
@@ -22,6 +33,67 @@ export const Transition = React.forwardRef(function Transition(
 ) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
+export function BootstrapDialogTitle(props: {
+    children: ReactNode;
+    onClose: () => void;
+}) {
+    const { children, onClose } = props;
+    return (
+        <DialogTitle sx={{ m: 0, p: 2 }}>
+            {children}
+            {onClose ? (
+                <IconButton
+                    aria-label="close"
+                    onClick={onClose}
+                    sx={{
+                        position: 'absolute',
+                        right: 8,
+                        top: 8,
+                        color: (theme) => theme.palette.grey[500],
+                    }}
+                >
+                    <CloseIcon />
+                </IconButton>
+            ) : null}
+        </DialogTitle>
+    );
+}
+export const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+    '& .MuiDialogContent-root': {
+        padding: theme.spacing(2),
+    },
+    '& .MuiDialogActions-root': {
+        padding: theme.spacing(1),
+    },
+}));
+export default function PureDialog(props: {
+    /**
+     * 标题
+     */
+    title: string;
+    /**
+     * 内容
+     */
+    context: JSX.Element;
+    /**
+     * 关闭后的回调
+     */
+    onClose: () => any;
+}) {
+    const [open, setOpen] = React.useState(true);
+    const handleClose = () => {
+        setOpen(false);
+        props.onClose();
+    };
+    return (
+        <BootstrapDialog onClose={handleClose} open={open}>
+            <BootstrapDialogTitle onClose={handleClose}>{props.title}</BootstrapDialogTitle>
+            <DialogContent dividers>
+                {props.context}
+            </DialogContent>
+        </BootstrapDialog>
+    );
+}
 export function AlertDialog(props: {
     title: string;
     description: string;
@@ -33,12 +105,7 @@ export function AlertDialog(props: {
         props.onDone();
     };
     return (
-        <Dialog
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-        >
+        <Dialog open={open} onClose={handleClose} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description" TransitionComponent={Transition}>
             <DialogTitle id="alert-dialog-title">
                 {props.title}
             </DialogTitle>
@@ -113,5 +180,38 @@ export function CheckDialog(props: {
                 }}>确定</Button>
             </DialogActions>
         </Dialog>
+    );
+}
+export function FullScreenDialog(props: {
+    title: string;
+    context: ReactNode;
+    onDone(): any;
+}) {
+    const [open, setOpen] = useState(true);
+    const handleClose = () => {
+        props.onDone();
+        setOpen(false);
+    };
+    return (
+        <>
+            <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
+                <AppBar sx={{
+                    position: 'relative'
+                }}>
+                    <Toolbar>
+                        <Typography sx={{
+                            ml: 2,
+                            flex: 1
+                        }} variant="h6" component="div">
+                            {props.title}
+                        </Typography>
+                        <IconButton edge="end" color="inherit" onClick={handleClose} aria-label="close">
+                            <CloseIcon />
+                        </IconButton>
+                    </Toolbar>
+                </AppBar>
+                {props.context}
+            </Dialog>
+        </>
     );
 }

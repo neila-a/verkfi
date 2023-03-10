@@ -15,7 +15,7 @@ import {
 import Router from "next/router";
 import Head from "next/head";
 import {
-	Fragment
+	Fragment, useState
 } from "react";
 import {
 	styled,
@@ -29,9 +29,13 @@ import {
 	Theme
 } from "@emotion/react";
 import {
+	Index as SearchTool
+} from "../pages";
+import {
 	stringToBoolean,
 	useReadSetting
 } from "./useSetting";
+import PureDialog from "./Dialog";
 export var logger = new LpLogger({
 	name: "HeadBar",
 	level: "log", // 空字符串时，不显示任何信息
@@ -87,14 +91,16 @@ export interface HeadBarOption {
  * @param {string} pageName 页面的名称
  */
 export default function HeadBar(props: HeadBarOption): JSX.Element {
-	var forkMeOnGitHub = useReadSetting("fork-me-on-github", "Fork me on GitHub", String(false));
+	var forkMeOnGitHub = useReadSetting("fork-me-on-github", "Fork me on GitHub", String(false)),
+		[searchText, setSearchText] = useState(""),
+		[showSearchTool, setShowSearchTool] = useState<boolean>(false);
 	return (
 		<>
 			<Head>
 				<link rel="shortcut icon" href="/image/favicon.ico" />
 				<title>{props.pageName}</title>
 			</Head>
-			{props.only ? <Fragment /> :  <>
+			{props.only ? <Fragment /> : <>
 				<AppBar position="sticky" sx={props.sx}>
 					<Toolbar>
 						{props.isIndex ? <Fragment /> : <MouseOverPopover text="首页">
@@ -112,31 +118,33 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 						}}>
 							{props.isIndex ? "NeilaTools" : props.pageName}
 						</Typography>
-						{props.isIndex ? <MouseOverPopover text="设置">
-							<IconButton size="large" edge="end" color="inherit" aria-label="menu" sx={{ mr: 2 }} onClick={() => {
-								Router.push("/settings");
-								logger.log("已去往设置。");
-							}}>
-								<SettingsIcon />
-							</IconButton>
-						</MouseOverPopover> : <form action="/">
+						{props.isIndex != true && <form onSubmit={event => {
+							event.preventDefault();
+							setShowSearchTool(true);
+						}}>
 							<FormGroup>
 								<FormControl>
 									<Search>
 										<SearchIconWrapper>
 											<SearchIcon />
 										</SearchIconWrapper>
-										<StyledInputBase
-											name="searchText"
-											placeholder="搜索工具……"
-											inputProps={{
-												'aria-label': 'search'
-											}}
-										/>
+										<StyledInputBase name="searchText" placeholder="搜索工具……" onChange={event => {
+											setSearchText(event.target.value);
+										}} inputProps={{
+											'aria-label': 'search'
+										}} value={searchText} />
 									</Search>
 								</FormControl>
 							</FormGroup>
 						</form>}
+						<MouseOverPopover text="设置">
+							<IconButton size="large" edge="end" color="inherit" aria-label="menu" sx={{ mr: 2 }} onClick={() => {
+								Router.push("/settings");
+								logger.log("已去往设置。");
+							}}>
+								<SettingsIcon />
+							</IconButton>
+						</MouseOverPopover>
 					</Toolbar>
 				</AppBar>
 				{stringToBoolean(forkMeOnGitHub) ? <div className={style["github-ribbon"]} style={props.isIndex ? {
@@ -153,6 +161,10 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 					}}>Fork me on GitHub</a>
 				</div> : <Fragment />}
 			</>}
+			{showSearchTool && <PureDialog title="搜索工具" onClose={() => {
+				setSearchText("");
+				setShowSearchTool(false);
+			}} context={<SearchTool isImplant searchText={searchText} />} />}
 		</>
 	);
 };

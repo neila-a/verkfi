@@ -10,7 +10,7 @@ import pack from "../package.json";
     "keycode",
     "readnumber",
 ]; */
-const
+export const
     { version, devVersion, dev } = pack,
     Cache = `NeilaTools-${version}-${dev == true ? `dev${devVersion}` : "prod"}`, // C
     log = text => console.log(`%cServiceWorker`, `background: #52c41a;border-radius: 0.5em;color: white;font-weight: bold;padding: 2px 0.5em`, text),

@@ -1,5 +1,4 @@
 import HeadBar from "../components/HeadBar";
-
 export default function NotFound(): JSX.Element {
     return (
         <>
@@ -7,4 +6,3 @@ export default function NotFound(): JSX.Element {
         </>
     );
 }
-

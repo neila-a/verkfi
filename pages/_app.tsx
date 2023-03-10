@@ -22,7 +22,9 @@ declare global {  //设置全局属性
 }
 export default function ModifiedApp({ Component, pageProps }: AppProps) {
     useEffect(() => {
+        var url = `${location.origin}/tool?handle=%s`;
         if ('serviceWorker' in navigator) {
+            navigator.registerProtocolHandler("web+neilatools", url);
             // register service worker
             window.UWAWorker = navigator.serviceWorker.register("/service-worker.js");
             window.UWAWorker.then((registration) => logger.log(`Service worker for UWA register success:`, registration)).catch((reason) => logger.error(`Service worker for UWA register fail: ${reason}`));

@@ -1,7 +1,10 @@
 {
-  "extends": ["next"],
+  "extends": [
+    "next"
+  ],
   "rules": {
     "@next/next/no-img-element": "off",
+    "react-hooks/rules-of-hooks": "error", // 检查 Hook 的规则
     "react-hooks/exhaustive-deps": "off"
   }
 }

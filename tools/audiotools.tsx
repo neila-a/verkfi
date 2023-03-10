@@ -30,14 +30,18 @@ export type status = "recording" | "paused" | "inactive";
 export default function AudioTools(): JSX.Element {
     var [loopAudioSrc, setLoopAudioSrc] = useState<string>(""),
         [loopSpeakAudioSrc, setLoopSpeakAudioSrc] = useState<string>(""),
-        [mediaRecorder, setMediaRecorder] = useState<any>(),
+        [mediaRecorder, setMediaRecorder] = useState<any>("awaqwq"),
         [status, setStatus] = useState<status>("inactive");
     registerPlugin(FilePondPluginFileRename, FilePondPluginImagePreview, FilePondPluginImageResize, FilePondPluginImageEdit, FilePondPluginImageCrop); // Register the plugin
     useEffect(function () {
-        if (navigator.mediaDevices.getUserMedia) {
+        if (navigator.mediaDevices.getUserMedia && mediaRecorder == "awaqwq") {
             var constraints = { audio: true };
             navigator.mediaDevices.getUserMedia(constraints).then(
                 stream => {
+                    if (mediaRecorder != "awaqwq") {
+                        stream.getTracks()[0].stop();
+                        logger.log("录音已停止");
+                    }
                     var audio: Blob;
                     logger.log("授权成功。");
                     const _mediaRecorder = new MediaRecorder(stream);
@@ -79,40 +83,40 @@ export default function AudioTools(): JSX.Element {
                 break;
         }
     }
-        return (
-            <>
-                <Paper elevation={24} id="audioreplay" className={style["audioreplay"]}>
-                    <div>
-                        <Typography variant="h3" gutterBottom>音频循环播放</Typography>
-                        <audio controls loop src={loopAudioSrc}>
-                            您的浏览器不支持 audio 元素。
-                        </audio>
-                        <FilePond
-                            files={[]}
-                            onupdatefiles={(audios: FilePondFile[]) => {
-                                setLoopAudioSrc(window.URL.createObjectURL(audios[0].file));
-                            }}
-                            allowMultiple={true}
-                            maxFiles={1}
-                            name="files"
-                            labelIdle='拖拽音频到这里、粘贴或<span class="filepond--label-action">浏览</span>'
-                        />
-                    </div>
-                </Paper>
-                <Paper elevation={24} id="audioinput" className={style["audioinput"]}>
-                    <div>
-                        <Typography variant="h3" gutterBottom>音频录制并循环</Typography>
-                        <Button variant="contained" onClick={() => {
-                            return controlAudio("recording");
-                        }} disabled={status == "recording"}>开始</Button>
-                        <Button variant="contained" onClick={() => {
-                            return controlAudio("inactive");
-                        }} disabled={status == "inactive"}>停止</Button>
-                        <audio controls loop src={loopSpeakAudioSrc}>
-                            您的浏览器不支持 audio 元素。
-                        </audio>
-                    </div>
-                </Paper >
-            </>
-        );
+    return (
+        <>
+            <Paper elevation={24} id="audioreplay" className={style["audioreplay"]}>
+                <div>
+                    <Typography variant="h3" gutterBottom>音频循环播放</Typography>
+                    <audio controls loop src={loopAudioSrc}>
+                        您的浏览器不支持 audio 元素。
+                    </audio>
+                    <FilePond
+                        files={[]}
+                        onupdatefiles={(audios: FilePondFile[]) => {
+                            setLoopAudioSrc(window.URL.createObjectURL(audios[0].file));
+                        }}
+                        allowMultiple={true}
+                        maxFiles={1}
+                        name="files"
+                        labelIdle='拖拽音频到这里、粘贴或<span class="filepond--label-action">浏览</span>'
+                    />
+                </div>
+            </Paper>
+            <Paper elevation={24} id="audioinput" className={style["audioinput"]}>
+                <div>
+                    <Typography variant="h3" gutterBottom>音频录制并循环</Typography>
+                    <Button variant="contained" onClick={() => {
+                        return controlAudio("recording");
+                    }} disabled={status == "recording"}>开始</Button>
+                    <Button variant="contained" onClick={() => {
+                        return controlAudio("inactive");
+                    }} disabled={status == "inactive"}>停止</Button>
+                    <audio controls loop src={loopSpeakAudioSrc}>
+                        您的浏览器不支持 audio 元素。
+                    </audio>
+                </div>
+            </Paper >
+        </>
+    );
 };

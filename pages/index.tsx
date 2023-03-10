@@ -13,7 +13,8 @@ import {
     Divider,
     IconButton,
     InputBase,
-    Paper
+    Paper,
+    Box
 } from "@mui/material";
 import {
     Search as SearchIcon,
@@ -51,13 +52,22 @@ export var logger = new LpLogger({
     name: "Index",
     level: "log", // 空字符串时，不显示任何信息
 });
-export default function Index(): JSX.Element {
+export function Index(props: {
+    /**
+     * 是否为嵌入
+     */
+    isImplant?: boolean;
+    /**
+     * 搜索内容
+     */
+    searchText?: string;
+}): JSX.Element {
     var [tools, setTools] = useState<tool[]>(realTools),
         [searchText, setSearchText] = useState<string>(""),
         [viewMode, setViewMode] = useState<"list" | "grid">("grid"),
         [windows, setWindows] = useState<WindowOptions[]>([]),
-        [jumpto, setJumpTo] = useState<string>(realTools[9].goto),
-        [jumpName, setJumpName] = useState<string>(realTools[9].name),
+        [jumpto, setJumpTo] = useState<string>(realTools[8].goto),
+        [jumpName, setJumpName] = useState<string>(realTools[8].name),
         [jumpDialogOpen, setJumpDialogOpen] = useState<boolean>(false),
         router = useRouter();
     const { query } = router;
@@ -84,7 +94,10 @@ export default function Index(): JSX.Element {
         viewMode
     ]);
     useEffect(function () {
-        if (query.searchText) {
+        if (props.isImplant) {
+            setSearchText(props.searchText);
+            searchTools(props.searchText);
+        } else if (query.searchText) {
             logger.info("query的内容为", query);
             setSearchText(query.searchText as string);
             searchTools(query.searchText as string);
@@ -92,120 +105,124 @@ export default function Index(): JSX.Element {
     }, [query]);
     return (
         <>
-            <HeadBar isIndex pageName="NeilaTools" />
-            <br />
-            <Paper sx={{ // 搜索栏
-                p: '2px 4px',
-                display: 'flex',
-                alignItems: 'center'
+            {props.isImplant != true && <HeadBar isIndex pageName="NeilaTools" />}
+            <Box sx={{
+                p: 3
             }}>
-                <MouseOverPopover text="搜索">
-                    <IconButton type="button" sx={{
-                        p: '10px'
-                    }} aria-label="search" onClick={() => {
-                        searchTools(searchText);
-                    }}>
-                        <SearchIcon />
-                    </IconButton>
-                </MouseOverPopover>
-                <InputBase value={searchText} sx={{
-                    ml: 1,
-                    flex: 1
-                }} placeholder="搜索工具" inputProps={{
-                    'aria-label': 'searchtools',
-                }} onChange={event => {
-                    setSearchText(event.target.value);
-                    searchTools(event.target.value);
-                }} />
-                <Divider sx={{
-                    height: 28,
-                    m: 0.5
-                }} orientation="vertical" />
-                <MouseOverPopover text={viewMode == "grid" ? "切换为列表模式" : "切换为网格模式"}>
-                    <IconButton color="primary" sx={{
-                        p: '10px'
-                    }} aria-label="directions" onClick={_event => {
-                        switch (viewMode) {
-                            case "grid":
-                                setViewMode("list");
-                                break;
-                            case "list":
-                                setViewMode("grid");
-                                break;
-                        };
-                    }}>
-                        {viewMode == "grid" ? <ViewListIcon /> : <ViewModuleIcon />}
-                    </IconButton>
-                </MouseOverPopover>
-            </Paper>
-            <br />
-            <Stack spacing={5} className={Style["items"]} sx={{
-                flexDirection: viewMode == "grid" ? "row" : "",
-                display: viewMode == "grid" ? "flex" : "block"
-            }}> {/* 工具总览 */}
-                {tools == emptyArray ? <Typography>未找到任何工具</Typography> : tools.map((tool, _index, _array) => { // 遍历tools
-                    const ToolIcon = tool.icon;
-                    return (
-                        <Fragment key={tool.name}> {/* 单个工具 */}
-                            <div className={Style["item"]} onClick={() => {
-                                logger.info(`点击了${tool.name}`);
-                                if (typeof tool.goto == "undefined") {
-                                    Router.push(`/tool?tool=${tool.to}`);
-                                } else {
-                                    setJumpDialogOpen(true);
-                                    setJumpTo(tool.goto);
-                                    setJumpName(tool.name);
-                                }
-                            }} onContextMenu={event => {
-                                event.preventDefault();
-                                if (tool.goto == undefined) {
-                                    setWindows([...windows, {
-                                        Component: ToolComponents[tool.to],
-                                        to: `/tool?tool=${tool.to}`,
-                                        name: tool.name
-                                    }]);
-                                } else {
-                                    setJumpDialogOpen(true);
-                                    setJumpTo(tool.goto);
-                                    setJumpName(tool.name);
-                                }
-                            }}>
-                                <Card sx={viewMode == "grid" ? {
-                                    minWidth: 275
-                                } : {
-                                    minWidth: "100%"
-                                }} elevation={10}>
-                                    <CardContent>
-                                        {viewMode == "grid" ? <>
-                                            <Typography variant="h5" component="div">
-                                                <ToolIcon />
-                                                {tool.name}
-                                                {tool.goto ? <ExitToAppIcon /> : <></>}
-                                            </Typography>
-                                            <Typography variant="body2">
-                                                {tool.desc}
-                                            </Typography>
-                                        </> : <>
-                                            <Typography variant="body2">
-                                                <ToolIcon />{tool.name} - {tool.desc}
-                                            </Typography>
-                                        </>}
-                                    </CardContent>
-                                </Card>
-                            </div>
-                            {viewMode == "grid" ? <Fragment /> : <br />}
-                        </Fragment>
-                    );
-                })}
-            </Stack>
-            <ErrorBoundary>
-                {windows == emptyArray ? <Fragment /> : windows.map(window => <Window {...window} key={window.to} />)}
-            </ErrorBoundary> {/* 窗口容器 */}
-            {jumpDialogOpen ? <CheckDialog description={`确定离开NeilaTools并跳转至${jumpName}吗？`} title="离开NeilaTools" onTrue={() => {
-                Router.push(jumpto);
-            }} onFalse={() => {
-                setJumpDialogOpen(false);
-            }} /> : <Fragment /> /* 跳转对话框容器 */}
+                <Paper sx={{ // 搜索栏
+                    p: '2px 4px',
+                    display: 'flex',
+                    alignItems: 'center'
+                }}>
+                    <MouseOverPopover text="搜索">
+                        <IconButton type="button" sx={{
+                            p: '10px'
+                        }} aria-label="search" onClick={() => {
+                            searchTools(searchText);
+                        }}>
+                            <SearchIcon />
+                        </IconButton>
+                    </MouseOverPopover>
+                    <InputBase value={searchText} sx={{
+                        ml: 1,
+                        flex: 1
+                    }} placeholder="搜索工具" inputProps={{
+                        'aria-label': 'searchtools',
+                    }} onChange={event => {
+                        setSearchText(event.target.value);
+                        searchTools(event.target.value);
+                    }} />
+                    <Divider sx={{
+                        height: 28,
+                        m: 0.5
+                    }} orientation="vertical" />
+                    <MouseOverPopover text={viewMode == "grid" ? "切换为列表模式" : "切换为网格模式"}>
+                        <IconButton color="primary" sx={{
+                            p: '10px'
+                        }} aria-label="directions" onClick={_event => {
+                            switch (viewMode) {
+                                case "grid":
+                                    setViewMode("list");
+                                    break;
+                                case "list":
+                                    setViewMode("grid");
+                                    break;
+                            };
+                        }}>
+                            {viewMode == "grid" ? <ViewListIcon /> : <ViewModuleIcon />}
+                        </IconButton>
+                    </MouseOverPopover>
+                </Paper>
+                <br />
+                <Stack spacing={5} className={Style["items"]} sx={{
+                    flexDirection: viewMode == "grid" ? "row" : "",
+                    display: viewMode == "grid" ? "flex" : "block"
+                }}> {/* 工具总览 */}
+                    {tools == emptyArray ? <Typography>未找到任何工具</Typography> : tools.map((tool, _index, _array) => { // 遍历tools
+                        const ToolIcon = tool.icon;
+                        return (
+                            <Fragment key={tool.name}> {/* 单个工具 */}
+                                <div className={Style["item"]} onClick={() => {
+                                    logger.info(`点击了${tool.name}`);
+                                    if (typeof tool.goto == "undefined") {
+                                        Router.push(`/tool?tool=${tool.to}`);
+                                    } else {
+                                        setJumpDialogOpen(true);
+                                        setJumpTo(tool.goto);
+                                        setJumpName(tool.name);
+                                    }
+                                }} onContextMenu={event => {
+                                    event.preventDefault();
+                                    if (tool.goto == undefined) {
+                                        setWindows([...windows, {
+                                            Component: ToolComponents[tool.to],
+                                            to: `/tool?tool=${tool.to}`,
+                                            name: tool.name
+                                        }]);
+                                    } else {
+                                        setJumpDialogOpen(true);
+                                        setJumpTo(tool.goto);
+                                        setJumpName(tool.name);
+                                    }
+                                }}>
+                                    <Card sx={viewMode == "grid" ? {
+                                        minWidth: 275
+                                    } : {
+                                        minWidth: "100%"
+                                    }} elevation={10}>
+                                        <CardContent>
+                                            {viewMode == "grid" ? <>
+                                                <Typography variant="h5" component="div">
+                                                    <ToolIcon />
+                                                    {tool.name}
+                                                    {tool.goto ? <ExitToAppIcon /> : <></>}
+                                                </Typography>
+                                                <Typography variant="body2">
+                                                    {tool.desc}
+                                                </Typography>
+                                            </> : <>
+                                                <Typography variant="body2">
+                                                    <ToolIcon />{tool.name} - {tool.desc}
+                                                </Typography>
+                                            </>}
+                                        </CardContent>
+                                    </Card>
+                                </div>
+                                {viewMode == "grid" ? <Fragment /> : <br />}
+                            </Fragment>
+                        );
+                    })}
+                </Stack>
+                <ErrorBoundary>
+                    {windows == emptyArray ? <Fragment /> : windows.map(window => <Window {...window} key={window.to} />)}
+                </ErrorBoundary> {/* 窗口容器 */}
+                {jumpDialogOpen ? <CheckDialog description={`确定离开NeilaTools并跳转至${jumpName}吗？`} title="离开NeilaTools" onTrue={() => {
+                    Router.push(jumpto);
+                }} onFalse={() => {
+                    setJumpDialogOpen(false);
+                }} /> : <Fragment /> /* 跳转对话框容器 */}
+            </Box>
         </>
     );
 };
+export default Index;

@@ -75,7 +75,7 @@ function CountLetter(): JSX.Element {
         [alertDialogOpen, setAlertDialogOpen] = useState<boolean>(false),
         [out, setOut] = useState<string>("");
     return (
-        <>
+        <div className={style["main"]}>
             <br />
             <Button onClick={() => {
                 logger.log("已弹出输入框。");
@@ -83,7 +83,7 @@ function CountLetter(): JSX.Element {
             }} variant="contained" className={style["button"]}>输入</Button>
             {enterDialogOpen ? <InputDialog context="输入你要转换的字符（串）" onDone={context => {
                 table.forEach(single => {
-                    context = context.replace(single[0], single[1]);
+                    context = context.replaceAll(single[0], single[1]);
                 })
                 setEnterDialogOpen(false);
                 setOut(context);
@@ -93,7 +93,7 @@ function CountLetter(): JSX.Element {
             {alertDialogOpen ? <AlertDialog title="输出" description={out} onDone={() => {
                 setAlertDialogOpen(false);
             }} /> : <Fragment /> /* 输出对话框容器 */}
-        </>
+        </div>
     );
 };
 export default CountLetter;
