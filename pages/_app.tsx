@@ -28,7 +28,7 @@ export default function ModifiedApp({ Component, pageProps }: AppProps) {
         var url = `${location.origin}/tool?handle=%s`;
         if (!isMobile) {
             logger.log("检测到此设备并非手机");
-            navigator.registerProtocolHandler("neilatools", url);
+            navigator.registerProtocolHandler("web+neilatools", url);
         } else {
             logger.log("检测到此设备为手机，停止注册协议");
         }
