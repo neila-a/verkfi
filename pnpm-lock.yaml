@@ -27,6 +27,7 @@ specifiers:
   nzh: ^1.0.8
   pi: ^2.0.4
   react: 18.2.0
+  react-device-detect: ^2.2.3
   react-dom: 18.2.0
   react-draggable: ^4.4.5
   react-filepond: ^7.1.2
@@ -57,6 +58,7 @@ dependencies:
   nzh: 1.0.8
   pi: 2.0.4
   react: 18.2.0
+  react-device-detect: 2.2.3_biqbaboplfbrettd7655fr4n2y
   react-dom: 18.2.0_react@18.2.0
   react-draggable: 4.4.5_biqbaboplfbrettd7655fr4n2y
   react-filepond: 7.1.2_mnl76jm3ryge2poziybvdyye2a
@@ -2805,6 +2807,17 @@ packages:
       strip-json-comments: 2.0.1
     dev: false
 
+  /react-device-detect/2.2.3_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-buYY3qrCnQVlIFHrC5UcUoAj7iANs/+srdkwsnNjI7anr3Tt7UY6MqNxtMLlr0tMBied0O49UZVK8XKs3ZIiPw==}
+    peerDependencies:
+      react: '>= 0.14.0'
+      react-dom: '>= 0.14.0'
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      ua-parser-js: 1.0.34
+    dev: false
+
   /react-dom/18.2.0_react@18.2.0:
     resolution: {integrity: sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==}
     peerDependencies:
@@ -3307,6 +3320,10 @@ packages:
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: true
+
+  /ua-parser-js/1.0.34:
+    resolution: {integrity: sha512-K9mwJm/DaB6mRLZfw6q8IMXipcrmuT6yfhYmwhAkuh+81sChuYstYA+znlgaflUPaYUa3odxKPKGw6Vw/lANew==}
+    dev: false
 
   /unbox-primitive/1.0.2:
     resolution: {integrity: sha512-61pPlCD9h51VoreyJ0BReideM3MDKMKnh6+V9L08331ipq6Q8OFXZYiqP6n/tbHx4s5I9uRhcye6BrbkizkBDw==}

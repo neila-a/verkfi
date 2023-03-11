@@ -1,7 +1,7 @@
 {
   "name": "neilatools",
   "version": "1.3.1",
-  "devVersion": "288",
+  "devVersion": "290",
   "dev": true,
   "description": "Something useless tools",
   "scripts": {
@@ -33,6 +33,7 @@
     "nzh": "^1.0.8",
     "pi": "^2.0.4",
     "react": "18.2.0",
+    "react-device-detect": "^2.2.3",
     "react-dom": "18.2.0",
     "react-draggable": "^4.4.5",
     "react-filepond": "^7.1.2",

@@ -16,6 +16,7 @@
           "meta[name=theme-color]"
         ]
       }
-    ]
+    ],
+    "manifest-is-valid": "off"
   }
 }
