@@ -41,7 +41,6 @@ import {
 export var logger = new LpLogger({
     name: "滤镜",
     level: "log", // 空字符串时，不显示任何信息
-
 });
 declare global {
     interface Window {

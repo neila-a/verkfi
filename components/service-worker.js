@@ -54,8 +54,7 @@ self.addEventListener('fetch', event => {
                     return response;
                 }
                 return fetch(event.request).then(newreq => {
-                    if ((url.replace(/\/\?searchText=.*/g, "") == "") || (url.replace(/chrome-extension.*/g, "") == "") == "") return newreq;
-                    log(`Network fetch: ${url}`);
+                    log(`抓取: ${url}`);
                     if (newreq.ok) cache.put(event.request, newreq.clone());
                     return newreq;
                 }).catch(console.error);

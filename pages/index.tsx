@@ -1,4 +1,3 @@
-import Link from "next/link";
 import HeadBar from "../components/HeadBar";
 import React, {
     Fragment,
@@ -20,7 +19,11 @@ import {
     Search as SearchIcon,
     ViewModule as ViewModuleIcon,
     ViewList as ViewListIcon,
-    ExitToApp as ExitToAppIcon
+    ExitToApp as ExitToAppIcon,
+    ArrowUpward as ArrowUpwardIcon,
+    ArrowDownward as ArrowDownwardIcon,
+    Edit as EditIcon,
+    EditOff as EditOffIcon
 } from "@mui/icons-material";
 import {
     components as ToolComponents
@@ -42,6 +45,9 @@ import {
 } from "../components/Dialog";
 import Router from "next/router";
 import {
+    setSetting
+} from "../components/useSetting";
+import {
     useRouter
 } from "next/router";
 import MouseOverPopover from "../components/Popover";
@@ -62,18 +68,22 @@ export function Index(props: {
      */
     searchText?: string;
 }): JSX.Element {
-    var [tools, setTools] = useState<tool[]>(realTools),
+    var [sortedTools, setSortedTools] = useState(realTools),
         [searchText, setSearchText] = useState<string>(""),
         [viewMode, setViewMode] = useState<"list" | "grid">("grid"),
+        [editMode, setEditMode] = useState<boolean>(false),
         [windows, setWindows] = useState<WindowOptions[]>([]),
-        [jumpto, setJumpTo] = useState<string>(realTools[8].goto),
-        [jumpName, setJumpName] = useState<string>(realTools[8].name),
+        [jumpto, setJumpTo] = useState<string>(realTools[10].goto),
+        [jumpName, setJumpName] = useState<string>(realTools[10].name),
         [jumpDialogOpen, setJumpDialogOpen] = useState<boolean>(false),
-        router = useRouter();
-    const { query } = router;
+        router = useRouter(),
+        [tools, setTools] = useState(sortedTools);
+    const {
+        query
+    } = router;
     function searchTools(search: string) {
         var calcTools: tool[] = [];
-        realTools.forEach(tool => {
+        sortedTools.forEach(tool => {
             var to = String(tool.to),
                 goto = String(tool.goto);
             if (tool.desc.includes(search) || to.includes(search) || tool.name.includes(search) || goto.includes(search)) calcTools.push(tool);
@@ -82,17 +92,47 @@ export function Index(props: {
     };
     useEffect(function () {
         { // 打印信息用于调试
-            console.group("值信息");
+            console.groupCollapsed("值信息");
             logger.info(`tools为`, tools);
             logger.info(`searchText为`, searchText);
             logger.info(`viewMode为`, viewMode);
+            logger.info(`editMode为`, editMode)
             console.groupEnd();
         }
     }, [
         tools,
         searchText,
-        viewMode
+        viewMode,
+        editMode
     ]);
+    useEffect(() => {
+        const
+            id = "toolslist",
+            name = "工具列表",
+            empty = realTools.map(tool => tool.name),
+            value = localStorage.getItem(id);
+        switch (value) {
+            case null:
+                localStorage.setItem(id, JSON.stringify(empty));
+                logger.log(`检测到“${name}”为空，已设置为`, empty);
+                setSortedTools(realTools);
+                break;
+            default:
+                logger.log(`检测到“${name}”为`, JSON.parse(value));
+                const stageTools = (JSON.parse(value) as string[]).map(toolName => {
+                    var realTool: tool;
+                    realTools.forEach(tool => {
+                        if (tool.name == toolName) {
+                            realTool = tool;
+                        }
+                    });
+                    return realTool;
+                });
+                setSortedTools(stageTools);
+                setTools(stageTools);
+                break;
+        }
+    }, [])
     useEffect(function () {
         if (props.isImplant) {
             setSearchText(props.searchText);
@@ -103,6 +143,11 @@ export function Index(props: {
             searchTools(query.searchText as string);
         }
     }, [query]);
+    useEffect(() => {
+        if (searchText != "") {
+            setEditMode(false);
+        }
+    }, [searchText]);
     return (
         <>
             {props.isImplant != true && <HeadBar isIndex pageName="NeilaTools" />}
@@ -152,6 +197,22 @@ export function Index(props: {
                             {viewMode == "grid" ? <ViewListIcon /> : <ViewModuleIcon />}
                         </IconButton>
                     </MouseOverPopover>
+                    {searchText == "" && <MouseOverPopover text={editMode ? "关闭编辑模式" : "切换编辑模式"}>
+                        <IconButton color="primary" sx={{
+                            p: '10px'
+                        }} aria-label="directions" onClick={event => {
+                            switch (editMode) {
+                                case true:
+                                    setEditMode(false);
+                                    break;
+                                case false:
+                                    setEditMode(true);
+                                    break;
+                            }
+                        }}>
+                            {editMode ? <EditOffIcon /> : <EditIcon />}
+                        </IconButton>
+                    </MouseOverPopover>}
                 </Paper>
                 <br />
                 <Stack spacing={5} className={Style["items"]} sx={{
@@ -160,54 +221,116 @@ export function Index(props: {
                 }}> {/* 工具总览 */}
                     {tools == emptyArray ? <Typography>未找到任何工具</Typography> : tools.map((tool, _index, _array) => { // 遍历tools
                         const ToolIcon = tool.icon;
+                        function DownButton(): JSX.Element {
+                            if (editMode) {
+                                return (
+                                    <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }} onClick={event => {
+                                        event.stopPropagation();
+                                        logger.log(`sortedTools为`, sortedTools);
+                                        var at = sortedTools.indexOf(tool),
+                                            ae = tool,
+                                            stageTools: tool[] = sortedTools,
+                                            bt = at + 1,
+                                            be = sortedTools[bt];
+                                        if (be == undefined) {
+                                            bt = 0;
+                                            be = sortedTools[0];
+                                        }
+                                        stageTools[at] = be;
+                                        stageTools[bt] = ae;
+                                        logger.log(`stageTools为`, stageTools)
+                                        setSetting("toolslist", "工具列表", JSON.stringify(stageTools.map(tool => tool.name)));
+                                        setTools(stageTools);
+                                        setSortedTools(stageTools);
+                                    }}>
+                                        <ArrowDownwardIcon />
+                                    </IconButton>
+                                );
+                            } else {
+                                return <></>;
+                            }
+                        }
+                        function UpButton(): JSX.Element {
+                            if (editMode) {
+                                return (
+                                    <IconButton size="large" edge="end" color="inherit" aria-label="menu" sx={{ mr: 2 }} onClick={event => {
+                                        event.stopPropagation();
+                                        logger.log(`sortedTools为`, sortedTools);
+                                        var at = sortedTools.indexOf(tool),
+                                            ae = tool,
+                                            stageTools: tool[] = sortedTools,
+                                            bt = at - 1,
+                                            be = sortedTools[bt];
+                                        if (be == undefined) {
+                                            bt = sortedTools.length - 1;
+                                            be = sortedTools[bt];
+                                        }
+                                        stageTools[at] = be;
+                                        stageTools[bt] = ae;
+                                        logger.log(`stageTools为`, stageTools)
+                                        setSetting("toolslist", "工具列表", JSON.stringify(stageTools.map(tool => tool.name)));
+                                        setTools(stageTools);
+                                        setSortedTools(stageTools);
+                                    }}>
+                                        <ArrowUpwardIcon />
+                                    </IconButton>
+                                );
+                            } else {
+                                return <></>;
+                            }
+                        }
                         return (
                             <Fragment key={tool.name}> {/* 单个工具 */}
-                                <div className={Style["item"]} onClick={() => {
-                                    logger.info(`点击了${tool.name}`);
-                                    if (typeof tool.goto == "undefined") {
-                                        Router.push(`/tool?tool=${tool.to}`);
-                                    } else {
-                                        setJumpDialogOpen(true);
-                                        setJumpTo(tool.goto);
-                                        setJumpName(tool.name);
-                                    }
-                                }} onContextMenu={event => {
-                                    event.preventDefault();
-                                    if (tool.goto == undefined) {
-                                        setWindows([...windows, {
-                                            Component: ToolComponents[tool.to],
-                                            to: `/tool?tool=${tool.to}`,
-                                            name: tool.name
-                                        }]);
-                                    } else {
-                                        setJumpDialogOpen(true);
-                                        setJumpTo(tool.goto);
-                                        setJumpName(tool.name);
-                                    }
-                                }}>
-                                    <Card sx={viewMode == "grid" ? {
-                                        minWidth: 275
-                                    } : {
-                                        minWidth: "100%"
-                                    }} elevation={10}>
-                                        <CardContent>
+                                <Card sx={viewMode == "grid" ? {
+                                    minWidth: 275
+                                } : {
+                                    minWidth: "100%"
+                                }} elevation={10}>
+                                    <CardContent>
+                                        <div style={{
+                                            cursor: "pointer"
+                                        }} onClick={() => {
+                                            logger.info(`点击了${tool.name}`);
+                                            if (typeof tool.goto == "undefined") {
+                                                Router.push(`/tool?tool=${tool.to}`);
+                                            } else {
+                                                setJumpDialogOpen(true);
+                                                setJumpTo(tool.goto);
+                                                setJumpName(tool.name);
+                                            }
+                                        }} onContextMenu={event => {
+                                            event.preventDefault();
+                                            if (tool.goto == undefined) {
+                                                setWindows([...windows, {
+                                                    Component: ToolComponents[tool.to],
+                                                    to: `/tool?tool=${tool.to}`,
+                                                    name: tool.name
+                                                }]);
+                                            } else {
+                                                setJumpDialogOpen(true);
+                                                setJumpTo(tool.goto);
+                                                setJumpName(tool.name);
+                                            }
+                                        }}>
                                             {viewMode == "grid" ? <>
                                                 <Typography variant="h5" component="div">
+                                                    <DownButton />
                                                     <ToolIcon />
                                                     {tool.name}
                                                     {tool.goto ? <ExitToAppIcon /> : <></>}
+                                                    <UpButton />
                                                 </Typography>
                                                 <Typography variant="body2">
                                                     {tool.desc}
                                                 </Typography>
                                             </> : <>
                                                 <Typography variant="body2">
-                                                    <ToolIcon />{tool.name} - {tool.desc}
+                                                    <DownButton /><ToolIcon />{tool.name} - {tool.desc}<UpButton />
                                                 </Typography>
                                             </>}
-                                        </CardContent>
-                                    </Card>
-                                </div>
+                                        </div>
+                                    </CardContent>
+                                </Card>
                                 {viewMode == "grid" ? <Fragment /> : <br />}
                             </Fragment>
                         );

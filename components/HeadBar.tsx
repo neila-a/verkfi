@@ -17,11 +17,6 @@ import Head from "next/head";
 import {
 	Fragment, useState
 } from "react";
-import {
-	styled,
-	alpha,
-	SxProps
-} from '@mui/material/styles';
 import style from "../styles/HeadBar.module.scss";
 import LpLogger from "lp-logger";
 import MouseOverPopover from "./Popover";
@@ -40,6 +35,11 @@ export var logger = new LpLogger({
 	name: "HeadBar",
 	level: "log", // 空字符串时，不显示任何信息
 });
+import {
+	styled,
+	alpha,
+	SxProps
+} from '@mui/material/styles';
 export const Search = styled('div')(({ theme }) => ({
 	position: 'relative',
 	borderRadius: theme.shape.borderRadius,

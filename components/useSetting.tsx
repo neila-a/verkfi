@@ -12,12 +12,12 @@ export function checkOption(id: string, name: string, empty: string) {
     const value = localStorage.getItem(id);
     switch (value) {
         case null:
-            localStorage.setItem(id, "true");
-            logger.log(`检测到“${name}”为空，已设置为${empty}。`);
+            localStorage.setItem(id, empty);
+            logger.log(`检测到“${name}”为空，已设置为`, empty);
             _ret = empty;
             break;
         default:
-            logger.log(`检测到“${name}”为${value}。`);
+            logger.log(`检测到“${name}”为`, value);
             _ret = value;
             break;
     }
@@ -31,9 +31,13 @@ export function useReadSetting(id: string, name: string, empty: string) {
     return set;
 }
 export function setOption(id: string, name: string, value: boolean) {
-    localStorage.setItem(id, String(value));
-    logger.log(`已设置选项“${name}” 为 ${value}。`);
+    setSetting(id, name, String(value));
     location.reload();
+    return value;
+}
+export function setSetting(id: string, name: string, value: string) {
+    localStorage.setItem(id, value);
+    logger.log(`已设置选项“${name}” 为`, value);
     return value;
 }
 export function stringToBoolean(string: string) {

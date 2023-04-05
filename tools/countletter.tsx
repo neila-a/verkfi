@@ -14,7 +14,6 @@ import style from "../styles/CountLetter.module.scss"
 export var logger = new LpLogger({
     name: "CountLetter",
     level: "log", // 空字符串时，不显示任何信息
-
 });
 export const table: [string, string][] = [
     ["A", "1"],
