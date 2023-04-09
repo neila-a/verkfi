@@ -15,7 +15,7 @@ import {
 } from "@mui/icons-material";
 import LpLogger from "lp-logger";
 import { AlertDialog, InputDialog } from "../components/Dialog";
-export var logger = new LpLogger({
+var logger = new LpLogger({
     name: "翻转",
     level: "log", // 空字符串时，不显示任何信息
 });

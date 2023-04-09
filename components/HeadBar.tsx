@@ -31,7 +31,7 @@ import {
 	useReadSetting
 } from "./useSetting";
 import PureDialog from "./Dialog";
-export var logger = new LpLogger({
+var logger = new LpLogger({
 	name: "HeadBar",
 	level: "log", // 空字符串时，不显示任何信息
 });

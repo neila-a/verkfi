@@ -13,7 +13,7 @@ import {
     components as tools
 } from "../components/tools";
 import lpLogger from "lp-logger";
-export var logger = new lpLogger({
+var logger = new lpLogger({
     name: "ToolFinder",
     level: "log"
 });

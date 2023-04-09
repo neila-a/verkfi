@@ -38,7 +38,7 @@ import LpLogger from "lp-logger";
 import {
     destroyer
 } from "./reversal";
-export var logger = new LpLogger({
+var logger = new LpLogger({
     name: "滤镜",
     level: "log", // 空字符串时，不显示任何信息
 });
@@ -69,9 +69,9 @@ export default function Filter(): JSX.Element {
     var [imageFileName, setImageFileName] = useState<string>("libear-only");
     var [imageBase64, setImageBase64] = useState<string>("/image/libear-only.png");
     var [imageTypes, setImageTypes] = useState<ImageType[]>(ImageTypesGen);
-    var [scale, setScale] = useState<number | string | Array<number | string>>(100);
-    const handleSliderChange = (event: Event, newValue: number | number[]) => setScale(newValue);
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => setScale(event.target.value === '' ? '' : Number(event.target.value));
+    var [scale, setScale] = useState<number>(100);
+    const handleSliderChange = (event: Event, newValue: number) => setScale(newValue);
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => setScale(Number(event.target.value));
     const handleBlur = () => {
         if (scale < 0) {
             setScale(0);
@@ -175,7 +175,7 @@ export default function Filter(): JSX.Element {
             <ImageList>
                 {imageTypes.map((type) => (
                     <ImageListItem key={type}>
-                        <img title={type} key={type} className={style[type]} src={imageBase64} id={type} alt={type} style={{
+                        <img title={type} key={type} className={`${style[type]} ${style["image"]}`} src={imageBase64} id={type} alt={type} style={{
                             transform: `scale(${(Number(scale) / 100).toString()})`
                         }} onClick={event => {
                             domtoimage.toBlob(document.getElementById(type)).then((blob: Blob) => {

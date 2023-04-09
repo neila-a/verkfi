@@ -17,6 +17,7 @@
         ]
       }
     ],
-    "manifest-is-valid": "off"
+    "manifest-is-valid": "off",
+    "detect-css-reflows/composite": "off"
   }
 }
