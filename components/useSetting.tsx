@@ -3,7 +3,7 @@ import {
     useEffect
 } from "react";
 import Lplogger from "lp-logger";
-export var logger = new Lplogger({
+var logger = new Lplogger({
     level: "log",
     name: "useSetting"
 });

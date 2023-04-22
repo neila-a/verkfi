@@ -54,7 +54,7 @@ import MouseOverPopover from "../components/Popover";
 export {
     realTools
 };
-export var logger = new LpLogger({
+var logger = new LpLogger({
     name: "Index",
     level: "log", // 空字符串时，不显示任何信息
 });
@@ -73,8 +73,8 @@ export function Index(props: {
         [viewMode, setViewMode] = useState<"list" | "grid">("grid"),
         [editMode, setEditMode] = useState<boolean>(false),
         [windows, setWindows] = useState<WindowOptions[]>([]),
-        [jumpto, setJumpTo] = useState<string>(realTools[10].goto),
-        [jumpName, setJumpName] = useState<string>(realTools[10].name),
+        [jumpto, setJumpTo] = useState<string>(realTools[11].goto),
+        [jumpName, setJumpName] = useState<string>(realTools[11].name),
         [jumpDialogOpen, setJumpDialogOpen] = useState<boolean>(false),
         router = useRouter(),
         [tools, setTools] = useState(sortedTools);
@@ -224,11 +224,12 @@ export function Index(props: {
                         function DownButton(): JSX.Element {
                             if (editMode) {
                                 return (
-                                    <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }} onClick={event => {
+                                    <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{
+                                        mr: 2
+                                    }} onClick={event => {
                                         event.stopPropagation();
                                         logger.log(`sortedTools为`, sortedTools);
                                         var at = sortedTools.indexOf(tool),
-                                            ae = tool,
                                             stageTools: tool[] = sortedTools,
                                             bt = at + 1,
                                             be = sortedTools[bt];
@@ -237,7 +238,7 @@ export function Index(props: {
                                             be = sortedTools[0];
                                         }
                                         stageTools[at] = be;
-                                        stageTools[bt] = ae;
+                                        stageTools[bt] = tool;
                                         logger.log(`stageTools为`, stageTools)
                                         setSetting("toolslist", "工具列表", JSON.stringify(stageTools.map(tool => tool.name)));
                                         setTools(stageTools);
@@ -253,11 +254,12 @@ export function Index(props: {
                         function UpButton(): JSX.Element {
                             if (editMode) {
                                 return (
-                                    <IconButton size="large" edge="end" color="inherit" aria-label="menu" sx={{ mr: 2 }} onClick={event => {
+                                    <IconButton size="large" edge="end" color="inherit" aria-label="menu" sx={{
+                                        mr: 2
+                                    }} onClick={event => {
                                         event.stopPropagation();
                                         logger.log(`sortedTools为`, sortedTools);
                                         var at = sortedTools.indexOf(tool),
-                                            ae = tool,
                                             stageTools: tool[] = sortedTools,
                                             bt = at - 1,
                                             be = sortedTools[bt];
@@ -266,7 +268,7 @@ export function Index(props: {
                                             be = sortedTools[bt];
                                         }
                                         stageTools[at] = be;
-                                        stageTools[bt] = ae;
+                                        stageTools[bt] = tool;
                                         logger.log(`stageTools为`, stageTools)
                                         setSetting("toolslist", "工具列表", JSON.stringify(stageTools.map(tool => tool.name)));
                                         setTools(stageTools);

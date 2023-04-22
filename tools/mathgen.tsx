@@ -25,7 +25,7 @@ import {
 } from "./reversal";
 import style from "../styles/SingleMath.module.scss";
 import LpLogger from "lp-logger";
-export var logger = new LpLogger({
+var logger = new LpLogger({
     name: "MathGen",
     level: "log", // 空字符串时，不显示任何信息
 });

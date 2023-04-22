@@ -11,6 +11,7 @@ import jigsaw from "../tools/jigsaw";
 const cubic = dynamic(() => import("../tools/cubic"), {
     ssr: false,
 });
+import cylinder from "../tools/cylinder";
 export const components = {
     audiotools,
     countletter,
@@ -21,7 +22,8 @@ export const components = {
     shaizi,
     mathgen,
     cubic,
-    jigsaw
+    jigsaw,
+    cylinder
 }; // Load tools end
 import {
     Audiotrack as AudiotrackIcon,
@@ -31,7 +33,8 @@ import {
     Filter as FilterIcon,
     Numbers as NumbersIcon,
     Extension as ExtensionIcon,
-    ViewInAr as ViewInArIcon
+    ViewInAr as ViewInArIcon,
+    Adjust as AdjustIcon
 } from "@mui/icons-material";
 import Image from "next/image";
 import {
@@ -109,6 +112,12 @@ export const tools: tool[] = [
         to: "cubic",
         desc: "可视化的立方体",
         icon: ViewInArIcon
+    },
+    {
+        name: "画圆",
+        to: "cylinder",
+        desc: "根据各种不同的选项画圆",
+        icon: AdjustIcon
     },
     {
         name: "人生倒计时",

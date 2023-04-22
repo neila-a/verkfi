@@ -7,13 +7,14 @@ import {
     realTools as toolsInfo
 } from ".";
 import {
-    Box
+    Box, Toolbar
 } from "@mui/material";
 import {
     components as tools
 } from "../components/tools";
 import lpLogger from "lp-logger";
-export var logger = new lpLogger({
+import zIndex from "@mui/material/styles/zIndex";
+var logger = new lpLogger({
     name: "ToolFinder",
     level: "log"
 });
@@ -57,11 +58,14 @@ export default function ToolFinder(): JSX.Element {
                 if (name == "") return "未找到工具"
                 return name;
             })()} only={only} />
+            <Toolbar />
             <Box sx={{
-                p: 3
-            }}>
+                p: 3,
+                zIndex: 38602
+            }} id="container">
                 {toolID != undefined && <Tool />}
             </Box>
+            <div id="outside" />
         </>
     );
 }

@@ -14,7 +14,7 @@ import "../styles/App.scss";
 import {
     isMobile
 } from 'react-device-detect';
-export var logger = new LpLogger({
+var logger = new LpLogger({
     name: "NeilaTools",
     level: "log", // 空字符串时，不显示任何信息
 });
