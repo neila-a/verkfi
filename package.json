@@ -41,7 +41,7 @@
     "react-draggable": "^4.4.5",
     "react-filepond": "^7.1.2",
     "sass": "^1.58.0",
-    "sharp": "^0.31.3",
+    "sharp": "^0.32.0",
     "styled-components": "^5.3.6",
     "three": "^0.151.3",
     "victory": "^36.6.8"
