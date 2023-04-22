@@ -101,7 +101,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 				<title>{props.pageName}</title>
 			</Head>
 			{props.only ? <Fragment /> : <>
-				<AppBar position="sticky" sx={props.sx}>
+				<AppBar position="fixed" sx={props.sx}>
 					<Toolbar>
 						{props.isIndex ? <Fragment /> : <MouseOverPopover text="首页">
 							<IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }} onClick={() => {

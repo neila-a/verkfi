@@ -114,16 +114,16 @@ export const tools: tool[] = [
         icon: ViewInArIcon
     },
     {
-        name: "人生倒计时",
-        goto: "https://github.neila.ga/countdown.js/",
-        desc: "显示时间过去了多少",
-        icon: AccessTimeIcon
-    },
-    {
         name: "画圆",
         to: "cylinder",
         desc: "根据各种不同的选项画圆",
         icon: AdjustIcon
+    },
+    {
+        name: "人生倒计时",
+        goto: "https://github.neila.ga/countdown.js/",
+        desc: "显示时间过去了多少",
+        icon: AccessTimeIcon
     }
 ];
 export default tools;
