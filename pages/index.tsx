@@ -73,8 +73,8 @@ export function Index(props: {
         [viewMode, setViewMode] = useState<"list" | "grid">("grid"),
         [editMode, setEditMode] = useState<boolean>(false),
         [windows, setWindows] = useState<WindowOptions[]>([]),
-        [jumpto, setJumpTo] = useState<string>(realTools[10].goto),
-        [jumpName, setJumpName] = useState<string>(realTools[10].name),
+        [jumpto, setJumpTo] = useState<string>(realTools[11].goto),
+        [jumpName, setJumpName] = useState<string>(realTools[11].name),
         [jumpDialogOpen, setJumpDialogOpen] = useState<boolean>(false),
         router = useRouter(),
         [tools, setTools] = useState(sortedTools);
