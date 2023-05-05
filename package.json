@@ -30,7 +30,7 @@
     "lp-logger": "github:neila-a/lp-logger-no-window",
     "mathjs": "^11.5.1",
     "moment": "^2.29.4",
-    "next": "13.3.1",
+    "next": "13.4.0",
     "nzh": "^1.0.8",
     "pi": "^2.0.4",
     "react": "18.2.0",
