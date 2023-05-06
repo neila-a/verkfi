@@ -19,6 +19,9 @@ dependencies:
   '@types/three':
     specifier: ^0.150.2
     version: 0.150.2
+  assemblyscript:
+    specifier: ^0.27.5
+    version: 0.27.5
   canvas:
     specifier: ^2.11.0
     version: 2.11.0
@@ -1276,6 +1279,15 @@ packages:
       get-intrinsic: 1.2.0
     dev: true
 
+  /assemblyscript@0.27.5:
+    resolution: {integrity: sha512-8CPn+SPMrvvDEa6CQylYOd+Vu5ubyrVhWw1Iy9EXyTan7+8jB5R5trspf3jsMUrh3urVRA0YR9c3U84biny1QA==}
+    engines: {node: '>=16', npm: '>=7'}
+    hasBin: true
+    dependencies:
+      binaryen: 112.0.0-nightly.20230411
+      long: 5.2.3
+    dev: false
+
   /ast-types-flow@0.0.7:
     resolution: {integrity: sha512-eBvWn1lvIApYMhzQMsu9ciLfkBY499mFZlNqG+/9WR7PVlroQw0vG30cOQQbaKz3sCEc44TAOu2ykzqXSNnwag==}
     dev: true
@@ -1332,6 +1344,11 @@ packages:
   /binary-extensions@2.2.0:
     resolution: {integrity: sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==}
     engines: {node: '>=8'}
+    dev: false
+
+  /binaryen@112.0.0-nightly.20230411:
+    resolution: {integrity: sha512-4V9r9x9fjAVFZdR2yvBFc3BEJJIBYvd2X8X8k0zAuJsao2gl9wNHDmpQ30QsLo6hgkRfRImkCbCjhXW3RDOYXQ==}
+    hasBin: true
     dev: false
 
   /bl@4.1.0:
@@ -2877,6 +2894,10 @@ packages:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
     dev: false
 
+  /long@5.2.3:
+    resolution: {integrity: sha512-lcHwpNoggQTObv5apGNCTdJrO69eHOZMi4BNC+rTLER8iHAqGrUVeLh/irVIM7zTw2bOXA8T6uNPeujwOLg/2Q==}
+    dev: false
+
   /loose-envify@1.4.0:
     resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
     hasBin: true
@@ -4395,7 +4416,7 @@ packages:
     dev: true
 
   github.com/neila-a/lp-logger-no-window/17b3ab1b07e49d6ab4f45af34ed4c59f53f7fdb4:
-    resolution: {commit: 17b3ab1b07e49d6ab4f45af34ed4c59f53f7fdb4, repo: git+ssh://git@github.com/neila-a/lp-logger-no-window.git, type: git}
+    resolution: {tarball: https://codeload.github.com/neila-a/lp-logger-no-window/tar.gz/17b3ab1b07e49d6ab4f45af34ed4c59f53f7fdb4}
     name: lp-logger
     version: 1.0.11
     dependencies:
