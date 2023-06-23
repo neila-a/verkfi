@@ -1,3 +1,5 @@
+// This file is obsolete.
+
 export function makeCylinder(
     radiusX: i16,
     radiusZ: i16,

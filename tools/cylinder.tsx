@@ -106,7 +106,9 @@ export function drawCanvasBase(edge: number, n: number, blocks: [number, number]
     var canvas = document.createElement("canvas");
     canvas.setAttribute("height", String(edge));
     canvas.setAttribute("width", String(edge));
+    console.groupCollapsed("blocks的值");
     logger.log(`blocks为`, blocks);
+    logger.groupEnd("blocks的值");
     var size = edge / n;
     var cxt = canvas.getContext('2d');
     cxt.strokeStyle = "rgb(0, 0, 0)";
@@ -114,19 +116,16 @@ export function drawCanvasBase(edge: number, n: number, blocks: [number, number]
     for (var i = 0; i < n; i++) {
         for (var j = 0; j < n; j++) {
             var have: boolean = false;
+            cxt.fillStyle = "rgb(255, 0, 0)";
             blocks.forEach(value => {
                 if (value[0] == i && value[1] == j) {
                     have = true;
                 }
             })
             if (have) {
-                logger.info(`正在渲染方块，x: ${i}，y: ${j}，为实`);
-                cxt.fillStyle = "rgb(255, 0, 0)";
-            } else {
-                logger.info(`正在渲染方块，x: ${i}，y: ${j}，为空`);
-                cxt.fillStyle = "rgb(255, 255, 255)";
+                logger.info(`正在渲染方块：x: ${i}，y: ${j}`);
+                cxt.fillRect(size * j, size * i, size, size);
             }
-            cxt.fillRect(size * j, size * i, size, size);
             cxt.strokeRect(size * j, size * i, size, size);
         }
     }
@@ -144,26 +143,18 @@ declare global {  //设置全局属性
         ): void;
     }
 }
-export class CylinderCanvasRenderer extends Component {
-    constructor(props) {
-        super(props);
-    }
-    render() {
-        return createPortal(<div id="canvascontainer">
-            <canvas id="canvas" width={1} height={1} />
-        </div>, document.getElementById("outside"), "canvas");
-    }
-}
 export function Cylinder(): JSX.Element {
     var [radiusX, setRadiusX] = useState<number>(50),
-        [radiusZ, setRadiusZ] = useState<number>(1),
+        [radiusZ, setRadiusZ] = useState<number>(50),
         [thickness, setThickness] = useState<number>(1),
-        [filled, setFilled] = useState<boolean>(true);
+        [filled, setFilled] = useState<boolean>(true),
+        [posX, setPosX] = useState<number>(0),
+        [posZ, setPosZ] = useState<number>(0);
     const drawCanvas = () => {
         var g = radiusX > radiusZ ? radiusX : radiusZ,
             b = document.body,
-            w = b.scrollWidth,
-            h = b.scrollHeight,
+            w = b.scrollWidth - 48,
+            h = b.scrollHeight - 48,
             c = document.getElementById("canvascontainer"),
             e = w > h ? h : w;
         c.innerHTML = "";
@@ -228,8 +219,31 @@ export function Cylinder(): JSX.Element {
                         <Switch value={filled} onChange={event => setFilled(event.target.checked)} />
                     </Grid>
                 </Grid>
+                <Grid container spacing={1} alignItems="center">
+                    <Grid item>
+                        <Typography id="position" gutterBottom>
+                            鼠标所在的位置
+                        </Typography>
+                    </Grid>
+                    <Grid item>
+                        <Typography gutterBottom>
+                            X：{posX} Y：{posZ}
+                        </Typography>
+                    </Grid>
+                </Grid>
             </FormGroup>
-            <CylinderCanvasRenderer />
+            <div id="canvascontainer" onMouseMove={event => {
+                    const b = document.body,
+                        w = b.scrollWidth - 48,
+                        h = b.scrollHeight - 48,
+                        e = w > h ? h : w,
+                        x = parseInt(String(event.clientX / (e / radiusX))),
+                        z = parseInt(String(event.clientY / (e / radiusZ)));
+                    setPosX(x);
+                    setPosZ(z);
+                }}>
+                <canvas id="canvas" width={1} height={1} />
+            </div>
         </>
     );
 }

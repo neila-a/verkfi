@@ -1,5 +1,8 @@
 import {
-    TextField
+    FormGroup,
+    Grid,
+    TextField,
+    Typography
 } from "@mui/material";
 import LpLogger from "lp-logger";
 import Nzh from "nzh";
@@ -35,21 +38,43 @@ export default function ReadNumber(): JSX.Element {
     }
     return (
         <>
-            <br />
-            <TextField label="数字" value={number} type="number" fullWidth InputLabelProps={{
-                shrink: true,
-            }} onChange={event => {
-                const { value } = event.target;
-                setBlur("number");
-                setNumber(value);
-                proc(value);
-            }} />
-            <TextField label="汉字" value={string} fullWidth onChange={event => {
-                const { value } = event.target;
-                setBlur("string");
-                setString(value);
-                proc(value);
-            }} />
+            <FormGroup>
+                <Grid container spacing={1} alignItems="center">
+                    <Grid item>
+                        <Typography id="number" gutterBottom>
+                            数字
+                        </Typography>
+                    </Grid>
+                    <Grid item>
+                    <TextField value={number} type="number" fullWidth InputLabelProps={{
+                        shrink: true,
+                        "aria-labelledby": "number"
+                    }} onChange={event => {
+                        const { value } = event.target;
+                        setBlur("number");
+                        setNumber(value);
+                        proc(value);
+                    }} />
+                    </Grid>
+                </Grid>
+                <Grid container spacing={1} alignItems="center">
+                    <Grid item>
+                        <Typography id="string" gutterBottom>
+                            汉字
+                        </Typography>
+                    </Grid>
+                    <Grid item>
+                    <TextField InputLabelProps={{
+                        "aria-labelledby": "string"
+                    }} value={string} fullWidth onChange={event => {
+                        const { value } = event.target;
+                        setBlur("string");
+                        setString(value);
+                        proc(value);
+                    }} />
+                    </Grid>
+                </Grid>
+            </FormGroup>
         </>
     );
 };

@@ -8,7 +8,7 @@ run-name: Create Release
 
 jobs:
   Create-Release: 
-    name: Build for ARM and Create Release
+    name: Create Release
     runs-on: ubuntu-18.04
     steps:
       - name: Create Release
