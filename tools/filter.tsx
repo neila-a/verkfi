@@ -35,9 +35,7 @@ import {
     styled
 } from '@mui/material/styles';
 import LpLogger from "lp-logger";
-import {
-    destroyer
-} from "./reversal";
+import destroyer from "../components/destroyer";
 var logger = new LpLogger({
     name: "滤镜",
     level: "log", // 空字符串时，不显示任何信息
@@ -50,19 +48,10 @@ declare global {
 export const Input = styled(MuiInput)`
   width: 42px;
 `;
-export type ImageType = "blur" | "brightness" | "contrast" | "grayscale" | "huerotate" | "invert" | "opacity" | "saturate" | "sepia" | "shadow";
-export const ImageTypesGen: ImageType[] = [
-    "blur",
-    "brightness",
-    "contrast",
-    "grayscale",
-    "huerotate",
-    "invert",
-    "opacity",
-    "saturate",
-    "sepia",
-    "shadow"
-];
+import {
+    ImageType,
+    ImageTypesGen
+} from "./filter/consts";
 export const emptyArray: [] = [];
 export default function Filter(): JSX.Element {
     var [imageArray, setImageArray] = useState<any[]>([]);

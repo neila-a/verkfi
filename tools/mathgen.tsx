@@ -20,83 +20,18 @@ import {
 import {
     emptyArray
 } from "./filter";
-import {
-    destroyer
-} from "./reversal";
-import style from "../styles/SingleMath.module.scss";
+import destroyer from "../components/destroyer";
+import SingleMath from "./mathgen/singleMath";
 import LpLogger from "lp-logger";
-var logger = new LpLogger({
+import {
+    calc,
+    defaultCalcs
+} from "./mathgen/consts";
+import calcMath from "./mathgen/calcMath";
+export var logger = new LpLogger({
     name: "MathGen",
     level: "log", // 空字符串时，不显示任何信息
 });
-export type calc = "+" | "-" | "×" | "÷" | "%";
-export const defaultCalcs: calc[] = [
-    "+",
-    "-",
-    "×",
-    "÷",
-    "%"
-];
-export function SingleMath(props: {
-    math: string;
-    showOut: boolean;
-}): JSX.Element {
-    var [isError, setError] = useState<boolean>(false),
-        { math, showOut } = props;
-    return (
-        <div className={style["single"]}>
-            <Typography>{math.replace(/=.*/g, "")}</Typography>
-            <div className={style["out"]}>
-                <TextField label="结果" type="number" InputLabelProps={{
-                    shrink: true,
-                }} error={isError} onChange={event => {
-                    setError((event.currentTarget.value == math.replace(/.*=/g, "")) ? false : true);
-                }} />
-                {showOut == true ? <Typography>答案：{math.replace(/.*=/g, "")}</Typography> : <Fragment />}
-            </div>
-        </div>
-    );
-}
-export function genNumber(max: number, min: number): number {
-    return Math.floor(Math.random() * (max - min) + min);
-}
-export function calcMath(calcs: calc[], subtractionCheck: boolean, divisionCheck: boolean, max: number, min: number, itemCount: number, setMath: Dispatch<SetStateAction<string[]>>) {
-    var calcMaths: string[] = [];
-    calcs.forEach(function (mode) {
-        const modeS = mode.replace("×", "*").replace("÷", "/")
-        function genMathS(): [number, number, number] {
-            var one: number = genNumber(max, min),
-                two: number = genNumber(max, min);
-            if (subtractionCheck || divisionCheck) {
-                switch (mode) {
-                    case "-":
-                    case "÷":
-                        while (two > one) {
-                            two = genNumber(max, min);
-                        }
-                        break;
-                    default:
-                        break;
-                }
-            }
-            return [one, two, eval(`${one} ${modeS} ${two}`)];
-        }
-        for (var step = 1; step < (itemCount / (calcs.length)); step++) {
-            var [one, two, out] = genMathS(),
-                math = `${one}${mode}${two}=${out}`;
-            function reGenMath() {
-                [one, two, out] = genMathS();
-                math = `${one}${mode}${two}=${out}`;
-            }
-            while (out > max || calcMaths.includes(math) || (mode == "%" && two == 0)) {
-                reGenMath();
-            }
-            calcMaths.push(math);
-        }
-    });
-    logger.log("maths为", calcMaths);
-    return setMath(calcMaths);
-};
 export function MathGen(): JSX.Element {
     var [min, setMin] = useState<number>(0),
         [max, setMax] = useState<number>(10),

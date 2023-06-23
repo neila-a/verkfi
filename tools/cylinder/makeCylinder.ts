@@ -1,14 +1,12 @@
-// This file is obsolete.
-
-export function makeCylinder(
-    radiusX: i16,
-    radiusZ: i16,
-    height: i8,
-    thickness: i16,
-    filled: bool
-): Array<Array<i16>> { /* 修改自IntellectualSites的FastAsyncWorldEdit */
-    var blocks: Array<Array<i16>> = [];
-    function setBlock(x: i16, y: i8, z: i16): void {
+export default function makeCylinder(
+    radiusX: number,
+    radiusZ: number,
+    height: number,
+    thickness: number,
+    filled: boolean
+): [number, number][] { /* 修改自IntellectualSites的FastAsyncWorldEdit */
+    var blocks: [number, number][] = [];
+    function setBlock(x: number, y: number, z: number) {
         blocks.push([Number((radiusX + x).toFixed(0)) - 1, Number((radiusZ + z).toFixed(0)) - 1]);
         blocks.push([Number((radiusX - x).toFixed(0)) - 1, Number((radiusZ + z).toFixed(0)) - 1]);
         blocks.push([Number((radiusX + x).toFixed(0)) - 1, Number((radiusZ - z).toFixed(0)) - 1]);
@@ -21,29 +19,29 @@ export function makeCylinder(
     } else if (height < 0) {
         height = -height;
     }
-    var invRadiusX: f32 = 1 / radiusX;
-    var invRadiusZ: f32 = 1 / radiusZ;
-    var ceilRadiusX: i16 = Math.ceil(radiusX);
-    var ceilRadiusZ: i16 = Math.ceil(radiusZ);
-    var xSqr: i16;
-    var zSqr: i16;
-    var distanceSq: i16 = 0;
-    var nextXn: i16 = 0;
+    var invRadiusX = 1 / radiusX;
+    var invRadiusZ = 1 / radiusZ;
+    var ceilRadiusX = Math.ceil(radiusX);
+    var ceilRadiusZ = Math.ceil(radiusZ);
+    var xSqr: number;
+    var zSqr: number;
+    var distanceSq: number;
+    var nextXn = 0;
     if (thickness != 0) {
-        var nextMinXn: i16 = 0;
-        var minInvRadiusX: f32 = 1 / (radiusX - thickness);
-        var minInvRadiusZ: f32 = 1 / (radiusZ - thickness);
-        forX: for (var x: i16 = 0; x <= ceilRadiusX; ++x) {
-            var xn: i16 = nextXn;
-            var dx2: i16 = nextMinXn * nextMinXn;
+        var nextMinXn = 0;
+        var minInvRadiusX = 1 / (radiusX - thickness);
+        var minInvRadiusZ = 1 / (radiusZ - thickness);
+        forX: for (var x = 0; x <= ceilRadiusX; ++x) {
+            var xn = nextXn;
+            var dx2 = nextMinXn * nextMinXn;
             nextXn = (x + 1) * invRadiusX;
             nextMinXn = (x + 1) * minInvRadiusX;
-            var nextZn: i16 = 0;
-            var nextMinZn: i16 = 0;
+            var nextZn = 0;
+            var nextMinZn = 0;
             xSqr = xn * xn;
-            forZ: for (var z: i16 = 0; z <= ceilRadiusZ; ++z) {
-                var zn: i16 = nextZn;
-                var dz2: i16 = nextMinZn * nextMinZn;
+            forZ: for (var z = 0; z <= ceilRadiusZ; ++z) {
+                var zn = nextZn;
+                var dz2 = nextMinZn * nextMinZn;
                 nextZn = (z + 1) * invRadiusZ;
                 nextMinZn = (z + 1) * minInvRadiusZ;
                 zSqr = zn * zn;
@@ -63,13 +61,13 @@ export function makeCylinder(
             }
         }
     } else {
-        forX: for (var x: i16 = 0; x <= ceilRadiusX; ++x) {
-            var xn: i16 = nextXn;
+        forX: for (var x = 0; x <= ceilRadiusX; ++x) {
+            var xn = nextXn;
             nextXn = (x + 1) * invRadiusX;
-            var nextZn: i16 = 0;
+            var nextZn = 0;
             xSqr = xn * xn;
             forZ: for (var z = 0; z <= ceilRadiusZ; ++z) {
-                var zn: i16 = nextZn;
+                var zn = nextZn;
                 nextZn = (z + 1) * invRadiusZ;
                 zSqr = zn * zn;
                 distanceSq = xSqr + zSqr;
@@ -79,12 +77,12 @@ export function makeCylinder(
                     }
                     break forZ;
                 }
-                if (!(filled == 1)) {
+                if (!filled) {
                     if ((zSqr + nextXn * nextXn <= 1) && (nextZn * nextZn + xSqr <= 1)) {
                         continue;
                     }
                 }
-                for (var y: i8 = 0; y < height; ++y) {
+                for (var y = 0; y < height; ++y) {
                     setBlock(x, y, z);
                 }
             }
