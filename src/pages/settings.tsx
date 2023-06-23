@@ -14,7 +14,7 @@ import {
 	Button
 } from "@mui/material";
 import Link from "next/link";
-import pack from "../package.json";
+import pack from "../../package.json";
 import HeadBar from "../components/HeadBar";
 import {
 	VictoryPie

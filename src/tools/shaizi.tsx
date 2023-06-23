@@ -12,7 +12,9 @@ import {
 } from "@mui/material";
 import style from "../styles/ShaiZi.module.scss";
 import LpLogger from "lp-logger";
-import { FullScreenDialog } from "../components/Dialog";
+import {
+    FullScreenDialog
+} from "../components/Dialog";
 var logger = new LpLogger({
     name: "掷骰子",
     level: "log", // 空字符串时，不显示任何信息

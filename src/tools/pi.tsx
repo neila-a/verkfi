@@ -1,7 +1,6 @@
 import Head from "next/head";
 import React, {
-    useState,
-    useRef
+    useState
 } from "react";
 import {
     Typography,

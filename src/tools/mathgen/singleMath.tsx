@@ -6,7 +6,7 @@ import {
     Typography,
     TextField
 } from "@mui/material";
-import style from "@/styles/SingleMath.module.scss";
+import style from "../../styles/SingleMath.module.scss";
 export default function SingleMath(props: {
     math: string;
     showOut: boolean;
