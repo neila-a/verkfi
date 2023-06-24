@@ -11,9 +11,8 @@ import {
 } from "@mui/material";
 import {
     components as tools
-} from "../components/tools/info";
+} from "../components/tools/components"
 import lpLogger from "lp-logger";
-import zIndex from "@mui/material/styles/zIndex";
 var logger = new lpLogger({
     name: "ToolFinder",
     level: "log"
