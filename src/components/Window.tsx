@@ -15,7 +15,7 @@ import {
 import {
     useRouter
 } from "next/router";
-import Draggable from 'react-draggable';
+import Draggable from "react-draggable";
 export interface WindowOptions {
     to: string;
     name: string;

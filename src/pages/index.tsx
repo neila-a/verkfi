@@ -27,12 +27,13 @@ import {
 } from "@mui/icons-material";
 import {
     components as ToolComponents
-} from "../components/tools";
+} from "../components/tools/components";
 import Style from "../styles/Index.module.scss";
 import LpLogger from "lp-logger";
-import realTools, {
+import {
+    tools as realTools,
     tool
-} from "../components/tools";
+} from "../components/tools/info";
 import Window, {
     WindowOptions
 } from "../components/Window";
