@@ -6,10 +6,8 @@ import {
     useState,
     Fragment
 } from "react";
-import {
-    InputDialog,
-    AlertDialog
-} from "../components/Dialog";
+import InputDialog from "../components/dialog/InputDialog";
+import AlertDialog from "../components/dialog/AlertDialog";
 import style from "../styles/CountLetter.module.scss"
 var logger = new LpLogger({
     name: "CountLetter",

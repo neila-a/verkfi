@@ -40,9 +40,7 @@ import ErrorBoundary from "../components/ErrorBoundary";
 import {
     emptyArray
 } from "../tools/filter";
-import {
-    CheckDialog
-} from "../components/Dialog";
+import CheckDialog from "../components/dialog/CheckDialog";
 import Router from "next/router";
 import {
     setSetting

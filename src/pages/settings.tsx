@@ -42,9 +42,7 @@ import {
 	stringToBoolean,
 	useReadSetting
 } from "../components/useSetting";
-import {
-	CheckDialog
-} from "../components/Dialog";
+import CheckDialog from "../components/dialog/CheckDialog";
 export const drawerWidth = 122;
 export interface set {
 	name: string;
