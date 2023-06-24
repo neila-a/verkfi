@@ -55,20 +55,8 @@ var logger = new LpLogger({
     name: "Index",
     level: "log", // 空字符串时，不显示任何信息
 });
-export function downGo(fieldData: any[], index: number) {
-    if (index != fieldData.length - 1) {
-        fieldData[index] = fieldData.splice(index + 1, 1, fieldData[index])[0];
-    } else {
-        fieldData.unshift(fieldData.splice(index, 1)[0]);
-    }
-}
-export function upGo(fieldData: any[], index: number) {
-    if (index != 0) {
-        fieldData[index] = fieldData.splice(index - 1, 1, fieldData[index])[0];
-    } else {
-        fieldData.push(fieldData.shift());
-    }
-}
+import downGo from "../components/arrayMove/downGo";
+import upGo from "../components/arrayMove/upGo";
 export function Index(props: {
     /**
      * 是否为嵌入
