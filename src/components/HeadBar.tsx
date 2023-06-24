@@ -3,7 +3,6 @@ import {
 	Toolbar,
 	IconButton,
 	Typography,
-	InputBase,
 	FormGroup,
 	FormControl
 } from "@mui/material";
@@ -26,18 +25,14 @@ import {
 import {
 	Index as SearchTool
 } from "../pages";
-import {
-	stringToBoolean,
-	useReadSetting
-} from "./useSetting";
+import stringToBoolean from "./setting/stringToBoolean";
+import useReadSetting from "./setting/useReadSetting";
 import PureDialog from "./dialog/PureDialog";
 var logger = new LpLogger({
 	name: "HeadBar",
 	level: "log", // 空字符串时，不显示任何信息
 });
 import {
-	styled,
-	alpha,
 	SxProps
 } from '@mui/material/styles';
 import Search from "./headBar/search";

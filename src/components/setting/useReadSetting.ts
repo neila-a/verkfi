@@ -1,0 +1,12 @@
+import {
+    useState,
+    useEffect
+} from "react";
+import checkOption from "./checkOption";
+export default function useReadSetting(id: string, name: string, empty: string) {
+    var [set, setSet] = useState<string>("");
+    useEffect(function () {
+        setSet(checkOption(id, name, empty));
+    });
+    return set;
+}

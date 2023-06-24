@@ -43,9 +43,7 @@ import {
 } from "../tools/filter";
 import CheckDialog from "../components/dialog/CheckDialog";
 import Router from "next/router";
-import {
-    setSetting
-} from "../components/useSetting";
+import setSetting from "../components/setting/setSetting";
 import {
     useRouter
 } from "next/router";

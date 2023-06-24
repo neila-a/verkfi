@@ -14,7 +14,10 @@ import {
 	Button
 } from "@mui/material";
 import Link from "next/link";
-import pack from "../../package.json";
+import {
+	version,
+	devVersion
+} from "../../package.json";
 import HeadBar from "../components/HeadBar";
 import {
 	VictoryPie
@@ -37,11 +40,9 @@ import {
 	Info as InfoIcon,
 	Replay as ReplayIcon
 } from "@mui/icons-material";
-import {
-	setOption,
-	stringToBoolean,
-	useReadSetting
-} from "../components/useSetting";
+import setOption from "../components/setting/setOption";
+import stringToBoolean from "../components/setting/stringToBoolean";
+import useReadSetting from "../components/setting/useReadSetting";
 import CheckDialog from "../components/dialog/CheckDialog";
 export const drawerWidth = 122;
 export interface set {
@@ -158,9 +159,9 @@ export function About() {
 				}}>NeilaTools</Typography>
 			</div>
 			<Typography>
-				发行版本：{pack.version}
+				发行版本：{version}
 				<br />
-				内部版本：{pack.devVersion}
+				内部版本：{devVersion}
 				<br />
 				©Copyleft ! 2022-2023， Neila。
 				<br />
