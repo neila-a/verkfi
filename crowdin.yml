@@ -1,0 +1,13 @@
+"project_id": "neilatools"
+"api_token": "54e01--9ae171730df016208992f36e0c135fb121b600d4291380a9e479e63c75c22df5119f42df22b7ef21--2724a"
+"base_path": "."
+"base_url": "https://api.crowdin.com"
+
+"preserve_hierarchy": true
+
+"files": [
+  {
+    "source": "/src/locales/zh-CN.json",
+    "translation": "/src/locales/%locale%.json"
+  }
+]
