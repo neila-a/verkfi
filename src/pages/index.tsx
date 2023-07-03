@@ -1,3 +1,4 @@
+import { I18N } from '@common/I18N';
 import HeadBar from "../components/HeadBar";
 import React, {
     Fragment,
@@ -158,7 +159,7 @@ export function Index(props: {
                     display: 'flex',
                     alignItems: 'center'
                 }}>
-                    <MouseOverPopover text="搜索">
+                    <MouseOverPopover text={I18N.get('搜索')}>
                         <IconButton type="button" sx={{
                             p: '10px'
                         }} aria-label="search" onClick={() => {
@@ -170,7 +171,7 @@ export function Index(props: {
                     <InputBase value={searchText} sx={{
                         ml: 1,
                         flex: 1
-                    }} placeholder="搜索工具" inputProps={{
+                    }} placeholder={I18N.get('搜索工具')} inputProps={{
                         'aria-label': 'searchtools',
                     }} onChange={event => {
                         setSearchText(event.target.value);
@@ -218,7 +219,7 @@ export function Index(props: {
                     flexDirection: viewMode == "grid" ? "row" : "",
                     display: viewMode == "grid" ? "flex" : "block"
                 }}> {/* 工具总览 */}
-                    {tools == emptyArray ? <Typography>未找到任何工具</Typography> : tools.map(tool => { // 遍历tools
+                    {tools == emptyArray ? <Typography>{I18N.get('未找到任何工具')}</Typography> : tools.map(tool => { // 遍历tools
                         const ToolIcon = tool.icon;
                         function DownButton(): JSX.Element {
                             if (editMode) {
@@ -322,7 +323,7 @@ export function Index(props: {
                 <ErrorBoundary>
                     {windows == emptyArray ? <Fragment /> : windows.map(window => <Window {...window} key={window.to} />)}
                 </ErrorBoundary> {/* 窗口容器 */}
-                {jumpDialogOpen ? <CheckDialog description={`确定离开NeilaTools并跳转至${jumpName}吗？`} title="离开NeilaTools" onTrue={() => {
+                {jumpDialogOpen ? <CheckDialog description={`确定离开NeilaTools并跳转至${jumpName}吗？`} title={I18N.get('离开NeilaTools')} onTrue={() => {
                     Router.push(jumpto);
                 }} onFalse={() => {
                     setJumpDialogOpen(false);

@@ -1,3 +1,4 @@
+import { I18N } from '@common/I18N';
 import {
 	AppBar,
 	Toolbar,
@@ -62,7 +63,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 			{props.only ? <Fragment /> : <>
 				<AppBar position="sticky" sx={props.sx}>
 					<Toolbar>
-						{props.isIndex ? <Fragment /> : <MouseOverPopover text="首页">
+						{props.isIndex ? <Fragment /> : <MouseOverPopover text={I18N.get('首页')}>
 							<IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }} onClick={() => {
 								Router.push("/");
 								logger.log("已去往首页。");
@@ -87,7 +88,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 										<SearchIconWrapper>
 											<SearchIcon />
 										</SearchIconWrapper>
-										<StyledInputBase name="searchText" placeholder="搜索工具……" onChange={event => {
+										<StyledInputBase name="searchText" placeholder={I18N.get('搜索工具……')} onChange={event => {
 											setSearchText(event.target.value);
 										}} inputProps={{
 											'aria-label': 'search'
@@ -96,7 +97,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 								</FormControl>
 							</FormGroup>
 						</form>}
-						<MouseOverPopover text="设置">
+						<MouseOverPopover text={I18N.get('设置')}>
 							<IconButton size="large" edge="end" color="inherit" aria-label="menu" sx={{ mr: 2 }} onClick={() => {
 								Router.push("/settings");
 								logger.log("已去往设置。");
@@ -120,7 +121,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 					}}>Fork me on GitHub</a>
 				</div> : <Fragment />}
 			</>}
-			{showSearchTool && <PureDialog title="搜索工具" onClose={() => {
+			{showSearchTool && <PureDialog title={I18N.get('搜索工具')} onClose={() => {
 				setSearchText("");
 				setShowSearchTool(false);
 			}} context={<SearchTool isImplant searchText={searchText} />} />}

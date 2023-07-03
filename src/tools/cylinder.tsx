@@ -1,3 +1,4 @@
+import { I18N } from '@common/I18N';
 import {
     useEffect,
     useState
@@ -14,7 +15,7 @@ import {
     Switch
 } from "@mui/material";
 export var logger = new LpLogger({
-    name: "画圆",
+    name: I18N.get('画圆'),
     level: "log"
 });
 declare global {  //设置全局属性
@@ -55,7 +56,7 @@ export function Cylinder(): JSX.Element {
                 <Grid container spacing={1} alignItems="center">
                     <Grid item>
                         <Typography id="radiusX" gutterBottom>
-                            上下半径
+                            {I18N.get('上下半径')}
                         </Typography>
                     </Grid>
                     <Grid item>
@@ -69,7 +70,7 @@ export function Cylinder(): JSX.Element {
                 <Grid container spacing={1} alignItems="center">
                     <Grid item>
                         <Typography id="radiusZ" gutterBottom>
-                            左右半径
+                            {I18N.get('左右半径')}
                         </Typography>
                     </Grid>
                     <Grid item>
@@ -83,7 +84,7 @@ export function Cylinder(): JSX.Element {
                 <Grid container spacing={1} alignItems="center">
                     <Grid item>
                         <Typography id="thickness" gutterBottom>
-                            线条厚度
+                            {I18N.get('线条厚度')}
                         </Typography>
                     </Grid>
                     <Grid item>
@@ -97,7 +98,7 @@ export function Cylinder(): JSX.Element {
                 <Grid container spacing={1} alignItems="center">
                     <Grid item>
                         <Typography id="filled" gutterBottom>
-                            填充（线条厚度为0时填满圆心）
+                            {I18N.get('填充（线条厚度为0时填满圆心）')}
                         </Typography>
                     </Grid>
                     <Grid item>
@@ -107,7 +108,7 @@ export function Cylinder(): JSX.Element {
                 <Grid container spacing={1} alignItems="center">
                     <Grid item>
                         <Typography id="position" gutterBottom>
-                            鼠标所在的位置
+                            {I18N.get('鼠标所在的位置')}
                         </Typography>
                     </Grid>
                     <Grid item>

@@ -1,3 +1,4 @@
+import { I18N } from '@common/I18N';
 import Head from "next/head";
 import React, {
     useState
@@ -13,7 +14,7 @@ import {
 import LpLogger from "lp-logger";
 import AlertDialog from "../components/dialog/AlertDialog";
 var logger = new LpLogger({
-    name: "π计算器",
+    name: I18N.get('π计算器'),
     level: "log", // 空字符串时，不显示任何信息
 });
 export const pi = require("pi");
@@ -83,7 +84,7 @@ function PI(): JSX.Element {
                 `}</style>
             </Head>
             <div id="input">
-                <TextField id="weishu" label="π的小数点后位数" variant="outlined" value={weishu} type="number" onChange={event => {
+                <TextField id="weishu" label={I18N.get('π的小数点后位数')} variant="outlined" value={weishu} type="number" onChange={event => {
                     var ws = Number(event.target.value);
                     setWeishu(ws);
                     proc(ws);
@@ -98,14 +99,14 @@ function PI(): JSX.Element {
                             setUseAlertShow(true);
                         }
                     }} />
-                } label="用提示框显示结果" />
+                } label={I18N.get('用提示框显示结果')} />
             </FormGroup>
             <div id="out" style={{
                 display: useAlertShow ? "none" : "block"
             }}>
                 <Typography variant="h4" style={{
                     display: "inline-block"
-                }} gutterBottom>结果</Typography>
+                }} gutterBottom>{I18N.get('结果')}</Typography>
                 <Button variant="contained" style={{
                     display: "inline-block"
                 }} onClick={() => {
@@ -117,10 +118,10 @@ function PI(): JSX.Element {
                         setDialogInfo(`复制结果时出现问题，报错：${error}`);
                         logger.error(`糟糕！出错了：${error}`);
                     });
-                }}>复制</Button>
-                <Typography variant="body1" id="outendwm" gutterBottom>π是：{out}</Typography>
+                }}>{I18N.get('复制')}</Button>
+                <Typography variant="body1" id="outendwm" gutterBottom>{I18N.get('π是：')}{out}</Typography>
             </div>
-            {showInfoDialog && <AlertDialog title="提示" description={dialogInfo} onDone={() => {
+            {showInfoDialog && <AlertDialog title={I18N.get('提示')} description={dialogInfo} onDone={() => {
                 setShowInfoDialog(false);
             }} />}
         </>

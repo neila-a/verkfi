@@ -1,3 +1,4 @@
+import { I18N } from '@common/I18N';
 import {
     Typography
 } from "@mui/material";
@@ -22,15 +23,15 @@ export default function About() {
                 }}>NeilaTools</Typography>
             </div>
             <Typography>
-                发行版本：{version}
+                {I18N.get('发行版本：')}{version}
                 <br />
-                内部版本：{devVersion}
+                {I18N.get('内部版本：')}{devVersion}
                 <br />
                 ©Copyleft ! 2022-2023， Neila。
                 <br />
-                本程序从未提供品质担保。
+                {I18N.get('本程序从未提供品质担保。')}
                 <br />
-                版权部分所有，遵循<Link href="http://gnu.org/licenses/agpl.html">GNU Affero通用公共许可证</Link>授权使用，欢迎你在满足一定条件后对其再发布。
+                {I18N.get('版权部分所有，遵循')}<Link href="http://gnu.org/licenses/agpl.html">{I18N.get('GNU Affero通用公共许可证')}</Link>{I18N.get('授权使用，欢迎你在满足一定条件后对其再发布。')}
             </Typography>
         </div>
     );

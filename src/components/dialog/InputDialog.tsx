@@ -1,3 +1,4 @@
+import { I18N } from '@common/I18N';
 import {
     Dialog,
     DialogTitle,
@@ -35,7 +36,7 @@ export default function InputDialog(props: {
                 }} />
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleClose}>确定</Button>
+                <Button onClick={handleClose}>{I18N.get('确定')}</Button>
             </DialogActions>
         </Dialog>
     );

@@ -1,3 +1,4 @@
+import { I18N } from '@common/I18N';
 import {
     Dialog,
     DialogTitle,
@@ -30,7 +31,7 @@ export default function AlertDialog(props: {
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleClose} autoFocus>
-                    确定
+                    {I18N.get('确定')}
                 </Button>
             </DialogActions>
         </Dialog>

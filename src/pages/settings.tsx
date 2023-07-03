@@ -1,3 +1,4 @@
+import { I18N } from '@common/I18N';
 import {
 	Typography,
 	Box,
@@ -42,24 +43,24 @@ export default function Settings(): JSX.Element {
 	var [context, setContext] = useState<string>("选项");
 	const sets: set[] = [
 		{
-			name: "选项",
+			name: I18N.get('选项'),
 			Component: Options,
 			Icon: SettingsIcon
 		},
 		{
-			name: "关于",
+			name: I18N.get('关于'),
 			Component: About,
 			Icon: InfoIcon
 		},
 		{
-			name: "重置",
+			name: I18N.get('重置'),
 			Component: Reset,
 			Icon: ReplayIcon
 		}
 	];
 	return (
 		<>
-			<HeadBar isIndex={false} pageName="设置" sx={{
+			<HeadBar isIndex={false} pageName={I18N.get('设置')} sx={{
 				zIndex: theme => (theme as ThemeHaveZIndex).zIndex.drawer + 1
 			}} />
 			<Drawer variant="permanent" sx={{

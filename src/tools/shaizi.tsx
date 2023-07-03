@@ -1,3 +1,4 @@
+import { I18N } from '@common/I18N';
 import Center from "../components/Center";
 import React, {
     Dispatch,
@@ -17,7 +18,7 @@ import {
     ShaiZiCanvas
 } from "./shaizi/shaiziCanvas";
 export var logger = new LpLogger({
-    name: "掷骰子",
+    name: I18N.get('掷骰子'),
     level: "log", // 空字符串时，不显示任何信息
 });
 export function ShaiZi(): JSX.Element {
@@ -29,16 +30,16 @@ export function ShaiZi(): JSX.Element {
                 <ShaiZiCanvas cishu={cishu} setCishu={setCishu} />
                 <br />
                 <br />
-                <TextField id="weishu" label="掷色子的次数" variant="outlined" value={cishu} type="number" onChange={event => {
+                <TextField id="weishu" label={I18N.get('掷色子的次数')} variant="outlined" value={cishu} type="number" onChange={event => {
                     setCishu(Number(event.target.value));
                 }} />
                 <br />
                 <br />
                 <Button variant="contained" onClick={event => {
                     setUseDialogShow(true);
-                }}>全屏</Button>
+                }}>{I18N.get('全屏')}</Button>
             </Center>
-            {useDialogShow && <FullScreenDialog title="掷色子（全屏模式）" onDone={() => {
+            {useDialogShow && <FullScreenDialog title={I18N.get('掷色子（全屏模式）')} onDone={() => {
                 setUseDialogShow(false);
             }} context={<ShaiZiCanvas cishu={cishu} setCishu={setCishu} />} />}
         </div>

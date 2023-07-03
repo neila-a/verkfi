@@ -1,3 +1,4 @@
+import { I18N } from '@common/I18N';
 import * as React from "react";
 import {
     useState,
@@ -37,7 +38,7 @@ import {
 import LpLogger from "lp-logger";
 import destroyer from "../components/destroyer";
 var logger = new LpLogger({
-    name: "滤镜",
+    name: I18N.get('滤镜'),
     level: "log", // 空字符串时，不显示任何信息
 });
 declare global {
@@ -90,16 +91,16 @@ export default function Filter(): JSX.Element {
                 allowMultiple={true}
                 maxFiles={1}
                 name="files"
-                labelIdle='拖拽图片到这里、粘贴或<span class="filepond--label-action">浏览</span>'
+                labelIdle={I18N.get('拖拽图片到这里、粘贴或<span class=\"filepond--label-action\">浏览</span>')}
             />
             <>
                 <Typography gutterBottom>
-                    滤镜类型
+                    {I18N.get('滤镜类型')}
                 </Typography>
                 <FormGroup sx={{
                     display: "block"
                 }}>
-                    <FormControlLabel label="全部" control={
+                    <FormControlLabel label={I18N.get('全部')} control={
                         <Checkbox
                             checked={imageTypes == ImageTypesGen}
                             indeterminate={(imageTypes != ImageTypesGen) && (imageTypes != emptyArray)}
@@ -131,7 +132,7 @@ export default function Filter(): JSX.Element {
             </>
             <>
                 <Typography id="input-slider" gutterBottom>
-                    图片大小
+                    {I18N.get('图片大小')}
                 </Typography>
                 <Grid container spacing={1} alignItems="center">
                     <Grid item xs>

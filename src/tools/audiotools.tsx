@@ -1,3 +1,4 @@
+import { I18N } from '@common/I18N';
 import {
     Button,
     Paper,
@@ -86,9 +87,9 @@ export default function AudioTools(): JSX.Element {
         <>
             <Paper elevation={24} id="audioreplay" className={style["audioreplay"]}>
                 <div>
-                    <Typography variant="h3" gutterBottom>音频循环播放</Typography>
+                    <Typography variant="h3" gutterBottom>{I18N.get('音频循环播放')}</Typography>
                     <audio controls loop src={loopAudioSrc}>
-                        您的浏览器不支持 audio 元素。
+                        {I18N.get('您的浏览器不支持 audio 元素。')}
                     </audio>
                     <FilePond
                         files={[]}
@@ -98,21 +99,21 @@ export default function AudioTools(): JSX.Element {
                         allowMultiple={true}
                         maxFiles={1}
                         name="files"
-                        labelIdle='拖拽音频到这里、粘贴或<span class="filepond--label-action">浏览</span>'
+                        labelIdle={I18N.get('拖拽音频到这里、粘贴或<span class=\"filepond--label-action\">浏览</span>')}
                     />
                 </div>
             </Paper>
             <Paper elevation={24} id="audioinput" className={style["audioinput"]}>
                 <div>
-                    <Typography variant="h3" gutterBottom>音频录制并循环</Typography>
+                    <Typography variant="h3" gutterBottom>{I18N.get('音频录制并循环')}</Typography>
                     <Button variant="contained" onClick={() => {
                         return controlAudio("recording");
-                    }} disabled={status == "recording"}>开始</Button>
+                    }} disabled={status == "recording"}>{I18N.get('开始')}</Button>
                     <Button variant="contained" onClick={() => {
                         return controlAudio("inactive");
-                    }} disabled={status == "inactive"}>停止</Button>
+                    }} disabled={status == "inactive"}>{I18N.get('停止')}</Button>
                     <audio controls loop src={loopSpeakAudioSrc}>
-                        您的浏览器不支持 audio 元素。
+                        {I18N.get('您的浏览器不支持 audio 元素。')}
                     </audio>
                 </div>
             </Paper >

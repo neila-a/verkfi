@@ -1,3 +1,4 @@
+import { I18N } from '@common/I18N';
 import {
     Button
 } from "@mui/material";
@@ -55,7 +56,7 @@ export default function Reset() {
                     logger.log(`已删除缓存“${key}”`);
                     return caches.delete(key);
                 }))));
-            }}>清空所有缓存</Button>
+            }}>{I18N.get('清空所有缓存')}</Button>
             <VictoryPie height={256} width={256} colorScale={[
                 "tomato",
                 "orange"
@@ -76,7 +77,7 @@ export default function Reset() {
                 setDialogContext("确定清空所有设置吗？此操作不可恢复。");
                 setDialogTitle("清空");
                 setDialogOnDone(() => () => localStorage.clear());
-            }}>清空所有设置</Button>
+            }}>{I18N.get('清空所有设置')}</Button>
             {dialogOpen && <CheckDialog title={dialogTitle} onFalse={() => {
                 setDialogOpen(false);
             }} onTrue={() => {

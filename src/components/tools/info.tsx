@@ -1,3 +1,4 @@
+import { I18N } from '@common/I18N';
 import {
     Audiotrack as AudiotrackIcon,
     Abc as ABCIcon,
@@ -29,73 +30,73 @@ export const tools: tool[] = [
     {
         name: "AudioTools",
         to: "audiotools",
-        desc: "录音、复读",
+        desc: I18N.get('录音、复读'),
         icon: AudiotrackIcon
     },
     {
         name: "CountLetter",
         to: "countletter",
-        desc: "找出字母在26字母表中的顺序",
+        desc: I18N.get('找出字母在26字母表中的顺序'),
         icon: ABCIcon
     },
     {
-        name: "π计算器",
+        name: I18N.get('π计算器'),
         to: "pi",
-        desc: "计算π的小数点后任意位",
-        icon: () => <Image src="/image/pi.466x393.png" alt="圆周率图标" height={24} width={24} />
+        desc: I18N.get('计算π的小数点后任意位'),
+        icon: () => <Image src="/image/pi.466x393.png" alt={I18N.get('圆周率图标')} height={24} width={24} />
     },
     {
-        name: "翻转",
+        name: I18N.get('翻转'),
         to: "reversal",
-        desc: "随机翻转字符串",
+        desc: I18N.get('随机翻转字符串'),
         icon: FlipCameraAndroidIcon
     },
     {
-        name: "掷色子",
+        name: I18N.get('掷色子'),
         to: "shaizi",
-        desc: "随机掷色子",
-        icon: () => <Image src="/image/shaizi.24x24.svg" alt="色子图标" height={24} width={24} />
+        desc: I18N.get('随机掷色子'),
+        icon: () => <Image src="/image/shaizi.24x24.svg" alt={I18N.get('色子图标')} height={24} width={24} />
     },
     {
-        name: "滤镜",
+        name: I18N.get('滤镜'),
         to: "filter",
-        desc: "将一张图片处理成不同的",
+        desc: I18N.get('将一张图片处理成不同的'),
         icon: FilterIcon
     },
     {
-        name: "读数字",
+        name: I18N.get('读数字'),
         to: "readnumber",
-        desc: "将数字转换成汉字字符串",
+        desc: I18N.get('将数字转换成汉字字符串'),
         icon: NumbersIcon
     },
     {
-        name: "算式生成器",
+        name: I18N.get('算式生成器'),
         to: "mathgen",
-        desc: "生成一些算式",
+        desc: I18N.get('生成一些算式'),
         icon: NumbersIcon
     },
     {
-        name: "拼图",
+        name: I18N.get('拼图'),
         to: "jigsaw",
-        desc: "能自定义的拼图",
+        desc: I18N.get('能自定义的拼图'),
         icon: ExtensionIcon
     },
     {
-        name: "立方体",
+        name: I18N.get('立方体'),
         to: "cubic",
-        desc: "可视化的立方体",
+        desc: I18N.get('可视化的立方体'),
         icon: ViewInArIcon
     },
     {
-        name: "画圆",
+        name: I18N.get('画圆'),
         to: "cylinder",
-        desc: "根据各种不同的选项画圆",
+        desc: I18N.get('根据各种不同的选项画圆'),
         icon: AdjustIcon
     },
     {
-        name: "人生倒计时",
+        name: I18N.get('人生倒计时'),
         goto: "https://github.neila.ga/countdown.js/",
-        desc: "显示时间过去了多少",
+        desc: I18N.get('显示时间过去了多少'),
         icon: AccessTimeIcon
     }
 ];

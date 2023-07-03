@@ -1,3 +1,4 @@
+import { I18N } from '@common/I18N';
 import {
     FormGroup,
     Grid,
@@ -33,7 +34,7 @@ export default function ReadNumber(): JSX.Element {
                 <Grid container spacing={1} alignItems="center">
                     <Grid item>
                         <Typography id="number" gutterBottom>
-                            数字
+                            {I18N.get('数字')}
                         </Typography>
                     </Grid>
                     <Grid item>
@@ -51,7 +52,7 @@ export default function ReadNumber(): JSX.Element {
                 <Grid container spacing={1} alignItems="center">
                     <Grid item>
                         <Typography id="string" gutterBottom>
-                            汉字
+                            {I18N.get('汉字')}
                         </Typography>
                     </Grid>
                     <Grid item>

@@ -1,3 +1,4 @@
+import { I18N } from '@common/I18N';
 import React, {
     useState,
     useEffect
@@ -17,7 +18,7 @@ import LpLogger from "lp-logger";
 import InputDialog from "../components/dialog/InputDialog";
 import AlertDialog from "../components/dialog/AlertDialog";
 var logger = new LpLogger({
-    name: "翻转",
+    name: I18N.get('翻转'),
     level: "log", // 空字符串时，不显示任何信息
 });
 declare global {  //设置全局属性
@@ -42,8 +43,8 @@ export function Reversal(): JSX.Element {
     }, [words, wordList]);
     return (
         <>
-            <Alert severity="info">以空格分隔，按回车添加。</Alert>
-            <TextField fullWidth label="输入框" id="input" onKeyDown={event => {
+            <Alert severity="info">{I18N.get('以空格分隔，按回车添加。')}</Alert>
+            <TextField fullWidth label={I18N.get('输入框')} id="input" onKeyDown={event => {
                 if (event.key == "Enter") {
                     setWordList(current => [...current, [
                         words,
@@ -73,17 +74,17 @@ export function Reversal(): JSX.Element {
                         return wordArray[0];
                     }).join(""));
                     logger.log("已处理。");
-                }}>处理</Button>
+                }}>{I18N.get('处理')}</Button>
                 <Button variant="outlined" onClick={() => {
                     setWordList([]);
                     setWords("");
                     setOutput("");
                     logger.log("已重置。");
-                }}>重来</Button>
+                }}>{I18N.get('重来')}</Button>
                 <Button variant="outlined" onClick={() => {
                     setShowSplitDialog(true);
                     logger.log("已打开输入对话框。");
-                }}>拆分</Button>
+                }}>{I18N.get('拆分')}</Button>
                 <Button variant="outlined" onClick={() => {
                     navigator.clipboard.writeText(output).then(() => {
                         setShowCopyDoneDialog(true);
@@ -91,13 +92,13 @@ export function Reversal(): JSX.Element {
                         setCopyError(`复制结果时出现错误，请报告给开发人员：${error}`);
                         setShowCopyErrorDialog(true);
                     });
-                }}>复制</Button>
+                }}>{I18N.get('复制')}</Button>
             </ButtonGroup>
-            <Typography variant="body1">结果：{output}</Typography>
+            <Typography variant="body1">{I18N.get('结果：')}{output}</Typography>
             {showCopyErrorDialog && <AlertDialog onDone={() => {
                 setShowCopyErrorDialog(false);
-            }} title="复制出现错误" description={copyError} />}
-            {showSplitDialog && <InputDialog label="" title="拆分" context="请输入拆分的符号，不输入则是逐字拆分" onDone={context => {
+            }} title={I18N.get('复制出现错误')} description={copyError} />}
+            {showSplitDialog && <InputDialog label="" title={I18N.get('拆分')} context={I18N.get('请输入拆分的符号，不输入则是逐字拆分')} onDone={context => {
                 setWordList(words.split(context).map(word => {
                     return [
                         word,
@@ -107,7 +108,7 @@ export function Reversal(): JSX.Element {
                 logger.log("已拆分。");
                 setShowSplitDialog(false);
             }} />}
-            {showCopyDoneDialog && <AlertDialog title="复制完毕" description="已把结果复制至剪贴板。" onDone={() => {
+            {showCopyDoneDialog && <AlertDialog title={I18N.get('复制完毕')} description={I18N.get('已把结果复制至剪贴板。')} onDone={() => {
                 setShowCopyDoneDialog(false);
             }} />}
         </>

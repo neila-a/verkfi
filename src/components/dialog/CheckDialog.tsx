@@ -1,3 +1,4 @@
+import { I18N } from '@common/I18N';
 import {
     Dialog,
     DialogTitle,
@@ -32,11 +33,11 @@ export default function CheckDialog(props: {
                 <Button onClick={() => {
                     props.onFalse();
                     handleClose();
-                }}>取消</Button>
+                }}>{I18N.get('取消')}</Button>
                 <Button onClick={() => {
                     props.onTrue();
                     handleClose();
-                }}>确定</Button>
+                }}>{I18N.get('确定')}</Button>
             </DialogActions>
         </Dialog>
     );
