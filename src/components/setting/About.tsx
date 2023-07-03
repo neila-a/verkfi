@@ -31,7 +31,7 @@ export default function About() {
                 <br />
                 {I18N.get('本程序从未提供品质担保。')}
                 <br />
-                {I18N.get('版权部分所有，遵循')}<Link href="http://gnu.org/licenses/agpl.html">{I18N.get('GNU Affero通用公共许可证')}</Link>{I18N.get('授权使用，欢迎你在满足一定条件后对其再发布。')}
+                {I18N.get('版权')}
             </Typography>
         </div>
     );
