@@ -1,4 +1,4 @@
-import { I18N } from '@common/I18N';
+import I18N from 'react-intl-universal';
 import {
     FormGroup,
     Grid,
