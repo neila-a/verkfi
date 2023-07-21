@@ -1,4 +1,4 @@
-import { I18N } from '@common/I18N';
+import I18N from 'react-intl-universal';
 import Nzh from "nzh";
 export const nzh = new Nzh({
     ch: I18N.get('零一二三四五六七八九'),
