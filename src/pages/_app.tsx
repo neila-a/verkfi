@@ -2,6 +2,17 @@
 import type {
     AppProps /*, AppContext */
 } from 'next/app';
+import enUS from "../locales/en-US.json";
+import zhCN from "../locales/zh-CN.json";
+import zhTW from "../locales/zh-TW.json";
+import rkRK from "../locales/rk-RK.json";
+const locales = {
+    enUS,
+    zhCN,
+    zhTW,
+    rkRK
+};
+import intl from 'react-intl-universal';
 import React, {
     useEffect
 } from 'react';
@@ -24,6 +35,10 @@ declare global {  //设置全局属性
     }
 }
 export default function ModifiedApp({ Component, pageProps }: AppProps) {
+    intl.init({
+        currentLocale: "zhCN",
+        locales
+    });
     useEffect(() => {
         var url = `${location.origin}/tool?handle=%s`;
         if (!isMobile) {
