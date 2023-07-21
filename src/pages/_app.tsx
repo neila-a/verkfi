@@ -14,7 +14,8 @@ const locales = {
 };
 import intl from 'react-intl-universal';
 import React, {
-    useEffect
+    useEffect,
+    useState
 } from 'react';
 import {
     CssBaseline, StyledEngineProvider
@@ -35,10 +36,14 @@ declare global {  //设置全局属性
     }
 }
 export default function ModifiedApp({ Component, pageProps }: AppProps) {
+    var [initDone, setInitDone] = useState<boolean>(false);
     intl.init({
         currentLocale: "zhCN",
         locales
-    });
+    }).then(() => {
+        setInitDone(true);
+        logger.log("语言已经加载完毕");
+    })
     useEffect(() => {
         var url = `${location.origin}/tool?handle=%s`;
         if (!isMobile) {
@@ -54,7 +59,7 @@ export default function ModifiedApp({ Component, pageProps }: AppProps) {
         }
     }, []);
     return (
-        <>
+        initDone && <>
             <CssBaseline />
             <StyledEngineProvider injectFirst>
                 <div className={style["fullHeight"]}>
