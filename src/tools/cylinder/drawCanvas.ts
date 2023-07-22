@@ -1,15 +1,9 @@
-import {
-    logger
-} from "../cylinder";
 onmessage = event => {
     const edge = event.data[0],
         n = event.data[1],
         blocks = event.data[2];
     console.time("渲染圆");
     var canvas = new OffscreenCanvas(edge, edge);
-    console.groupCollapsed("blocks的值");
-    logger.log(`blocks为`, blocks);
-    logger.groupEnd("blocks的值");
     var size = edge / n;
     var cxt = canvas.getContext('2d');
     cxt.strokeStyle = "rgb(0, 0, 0)";
