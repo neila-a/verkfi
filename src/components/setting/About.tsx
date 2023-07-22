@@ -31,7 +31,7 @@ export default function About() {
                 <br />
                 {I18N.get('本程序从未提供品质担保。')}
                 <br />
-                {I18N.get('版权')}
+                {I18N.getHTML('版权')}
             </Typography>
         </div>
     );
