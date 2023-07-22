@@ -6,10 +6,10 @@
   "description": "Something useless tools",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "pnpm run build:sw && next build",
     "start": "next start",
     "lint": "next lint",
-    "build:sw": "echo \"// autogen script\" > public/service-worker.js && esbuild src/components/service-worker.js --bundle --minify >> public/service-worker.js"
+    "build:sw": "echo \"// autogen script\" > public/service-worker.js && esbuild src/components/service-worker.ts --bundle --minify >> public/service-worker.js"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
@@ -18,7 +18,6 @@
     "@mui/material": "^5.11.10",
     "@mui/styled-engine-sc": "^5.11.9",
     "@types/three": "^0.152.1",
-    "assemblyscript": "^0.27.5",
     "dom-to-image": "^2.6.0",
     "file-saver": "^2.0.5",
     "filepond": "^4.30.4",
@@ -30,7 +29,7 @@
     "lp-logger": "github:neila-a/lp-logger-no-window",
     "mathjs": "^11.5.1",
     "moment": "^2.29.4",
-    "next": "^13.4.7",
+    "next": "^13.4.12",
     "nzh": "^1.0.8",
     "pi": "^2.0.4",
     "react": "18.2.0",
@@ -47,7 +46,7 @@
     "@types/node": "20.3.0",
     "@types/react": "18.2.11",
     "@types/react-dom": "18.2.4",
-    "esbuild": "^0.18.6",
+    "esbuild": "^0.18.15",
     "eslint": "8.42.0",
     "eslint-config-next": "13.4.5",
     "typescript": "5.1.3"
