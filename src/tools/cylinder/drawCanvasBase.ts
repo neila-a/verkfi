@@ -13,7 +13,12 @@ export default function drawCanvasBase(edge: number, n: number, blocks: [number,
     var cxt = canvas.getContext('2d');
     cxt.strokeStyle = "rgb(0, 0, 0)";
     cxt.fillStyle = "rgb(255, 0, 0)";
-    console.groupCollapsed("方块渲染进程");
+    for (var i = 0; i < n; i++) {
+        for (var j = 0; j < n; j++) {
+            cxt.rect(size * j, size * i, size, size);
+        }
+    }
+    cxt.stroke();
     for (var i = 0; i < n; i++) {
         for (var j = 0; j < n; j++) {
             var have: boolean = false;
@@ -23,14 +28,11 @@ export default function drawCanvasBase(edge: number, n: number, blocks: [number,
                 }
             })
             if (have) {
-                logger.info(`正在渲染方块：x: ${i}，y: ${j}`);
-                cxt.fillRect(size * j, size * i, size, size);
+                cxt.rect(size * j, size * i, size, size);
             }
-            cxt.rect(size * j, size * i, size, size);
         }
     }
-    cxt.stroke();
-    logger.groupEnd("方块渲染进程");
+    cxt.fill();
     console.timeEnd("渲染圆");
     return canvas;
 }
