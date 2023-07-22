@@ -1,11 +1,12 @@
 import {
     logger
 } from "../cylinder";
-export default function drawCanvasBase(edge: number, n: number, blocks: [number, number][]) {
+onmessage = event => {
+    const edge = event.data[0],
+        n = event.data[1],
+        blocks = event.data[2];
     console.time("渲染圆");
-    var canvas = document.createElement("canvas");
-    canvas.setAttribute("height", String(edge));
-    canvas.setAttribute("width", String(edge));
+    var canvas = new OffscreenCanvas(edge, edge);
     console.groupCollapsed("blocks的值");
     logger.log(`blocks为`, blocks);
     logger.groupEnd("blocks的值");
@@ -34,5 +35,5 @@ export default function drawCanvasBase(edge: number, n: number, blocks: [number,
     }
     cxt.stroke();
     console.timeEnd("渲染圆");
-    return canvas;
+    postMessage(canvas);
 }
