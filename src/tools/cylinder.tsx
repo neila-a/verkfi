@@ -23,23 +23,19 @@ export function Cylinder(): JSX.Element {
         [thickness, setThickness] = useState<number>(1),
         [filled, setFilled] = useState<boolean>(true),
         [posX, setPosX] = useState<number>(0),
-        [posZ, setPosZ] = useState<number>(0);
+        [posZ, setPosZ] = useState<number>(0),
+        [edge, setEdge] = useState<number>(1);
     const drawCanvas = () => {
         const drawer = new Worker("/cylinderDrawCanvas.js");
         var g = radiusX > radiusZ ? radiusX : radiusZ,
             b = document.body,
             w = b.scrollWidth - 48,
             h = b.scrollHeight - 48,
-            c = document.getElementById("canvascontainer"),
-            e = w > h ? h : w,
-            n = document.createElement("canvas");
-        n.width = e;
-        n.height = e;
-        c.innerHTML = "";
+            c = document.getElementById("canvas");
+        setEdge(w > h ? h : w);
         drawer.onmessage = event => {
-            c.appendChild(n);
         }
-        drawer.postMessage([e, g * 2, makeCylinder(radiusX, radiusZ, 1, thickness, filled), n.transferControlToOffscreen()]);
+        drawer.postMessage([e, g * 2, makeCylinder(radiusX, radiusZ, 1, thickness, filled), c.transferControlToOffscreen()]);
     };
     useEffect(drawCanvas, [radiusX, radiusZ, thickness, filled]);
     return (
@@ -110,18 +106,15 @@ export function Cylinder(): JSX.Element {
                     </Grid>
                 </Grid>
             </FormGroup>
-            <div id="canvascontainer" onMouseMove={event => {
+                <canvas id="canvas" width={edge} height={edge} onMouseMove={event => {
                 const b = document.body,
                     w = b.scrollWidth - 48,
                     h = b.scrollHeight - 48,
-                    e = w > h ? h : w,
-                    x = parseInt(String(event.clientX / (e / radiusX))),
-                    z = parseInt(String(event.clientY / (e / radiusZ)));
+                    x = parseInt(String(event.clientX / (edge / radiusX))),
+                    z = parseInt(String(event.clientY / (edge / radiusZ)));
                 setPosX(x);
                 setPosZ(z);
-            }}>
-                <canvas id="canvas" width={1} height={1} />
-            </div>
+                }} />
         </>
     );
 }
