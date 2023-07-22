@@ -33,12 +33,13 @@ export function Cylinder(): JSX.Element {
             c = document.getElementById("canvascontainer"),
             e = w > h ? h : w,
             n = document.createElement("canvas");
+        n.width = e;
+        n.height = e;
         c.innerHTML = "";
         drawer.onmessage = event => {
-            n.drawImage(event.data, 0, 0)
             c.appendChild(n);
         }
-        drawer.postMessage([e, g * 2, makeCylinder(radiusX, radiusZ, 1, thickness, filled)]);
+        drawer.postMessage([e, g * 2, makeCylinder(radiusX, radiusZ, 1, thickness, filled), n.transferControlToOffscreen()]);
     };
     useEffect(drawCanvas, [radiusX, radiusZ, thickness, filled]);
     return (
