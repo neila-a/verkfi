@@ -6,10 +6,11 @@
   "description": "Something useless tools",
   "scripts": {
     "dev": "next dev",
-    "build": "pnpm run build:sw && next build",
+    "build": "pnpm run build:sw && pnpm run build:cw && next build",
     "start": "next start",
     "lint": "next lint",
-    "build:sw": "echo \"// autogen script\" > public/service-worker.js && esbuild src/components/service-worker.ts --bundle --minify >> public/service-worker.js"
+    "build:sw": "echo \"// autogen script\" > public/service-worker.js && esbuild src/components/service-worker.ts --bundle --minify >> public/service-worker.js",
+    "build:cw": "echo \"// autogen script\" > public/cylinderDrawCanvas.js && esbuild src/tools/cylinder/drawCanvas.ts --bundle --minify >> public/cylinderDrawCanvas.js"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
