@@ -1,4 +1,3 @@
-import I18N from 'react-intl-universal';
 import {
     Audiotrack as AudiotrackIcon,
     Abc as ABCIcon,
@@ -26,7 +25,7 @@ export interface tool {
         muiName: string
     }) | (() => JSX.Element);
 }
-export const tools: tool[] = [
+export const getTools = I18N => [
     {
         name: "AudioTools",
         to: "audiotools",

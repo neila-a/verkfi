@@ -4,11 +4,12 @@ import {
 import React, { Fragment } from "react";
 import HeadBar from "../components/HeadBar";
 import {
-    realTools as toolsInfo
-} from ".";
+    getTools
+} from "../components/tools/info";
 import {
     Box, Toolbar
 } from "@mui/material";
+import I18N from "react-intl-universal";
 import {
     components as tools
 } from "../components/tools/components"
@@ -22,7 +23,8 @@ export default function ToolFinder(): JSX.Element {
     var router = useRouter(),
         only = false,
         toolID: string,
-        Tool: tJSXE;
+        Tool: tJSXE,
+	toolsInfo = getTools(I18N);
     const finder = (id: string) => {
         logger.info(`toolID为${id}`);
         toolsInfo.forEach(si => {

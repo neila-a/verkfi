@@ -32,7 +32,7 @@ import {
 import Style from "../styles/Index.module.scss";
 import LpLogger from "lp-logger";
 import {
-    tools as realTools,
+    getTools,
     tool
 } from "../components/tools/info";
 import Window, {
@@ -49,9 +49,6 @@ import {
     useRouter
 } from "next/router";
 import MouseOverPopover from "../components/Popover";
-export {
-    realTools
-};
 var logger = new LpLogger({
     name: "Index",
     level: "log", // 空字符串时，不显示任何信息
@@ -68,7 +65,8 @@ export function Index(props: {
      */
     searchText?: string;
 }): JSX.Element {
-    var [sortedTools, setSortedTools] = useState(realTools),
+    var realTools = getTools(I18N),
+        [sortedTools, setSortedTools] = useState(realTools),
         [searchText, setSearchText] = useState<string>(""),
         [viewMode, setViewMode] = useState<"list" | "grid">("grid"),
         [editMode, setEditMode] = useState<boolean>(false),
