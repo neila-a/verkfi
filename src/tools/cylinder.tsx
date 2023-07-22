@@ -31,14 +31,15 @@ export function Cylinder(): JSX.Element {
             w = b.scrollWidth - 48,
             h = b.scrollHeight - 48,
             c = document.getElementById("canvascontainer"),
-            e = w > h ? h : w;
+            e = w > h ? h : w,
+            n = document.createElement("canvas");
         c.innerHTML = "";
-        drawer.onmessage = event => c.appendChild(event.data);
+        drawer.onmessage = event => {
+            n.drawImage(event.data, 0, 0)
+            c.appendChild(n);
+        }
         drawer.postMessage([e, g * 2, makeCylinder(radiusX, radiusZ, 1, thickness, filled)]);
     };
-    useEffect(() => {
-        
-    }, []);
     useEffect(drawCanvas, [radiusX, radiusZ, thickness, filled]);
     return (
         <>
