@@ -2,6 +2,7 @@ import {
     logger
 } from "../cylinder";
 export default function drawCanvasBase(edge: number, n: number, blocks: [number, number][]) {
+    console.time("渲染圆");
     var canvas = document.createElement("canvas");
     canvas.setAttribute("height", String(edge));
     canvas.setAttribute("width", String(edge));
@@ -29,5 +30,6 @@ export default function drawCanvasBase(edge: number, n: number, blocks: [number,
         }
     }
     logger.groupEnd("方块渲染进程");
+    console.timeEnd("渲染圆");
     return canvas;
 }
