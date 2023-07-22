@@ -35,5 +35,5 @@ onmessage = event => {
     }
     cxt.stroke();
     console.timeEnd("渲染圆");
-    postMessage(canvas);
+    postMessage(canvas.transferToImageBitmap());
 }
