@@ -13,8 +13,8 @@ export default function drawCanvasBase(edge: number, n: number, blocks: [number,
     var cxt = canvas.getContext('2d');
     cxt.strokeStyle = "rgb(0, 0, 0)";
     cxt.fillStyle = "rgb(255, 0, 0)";
-    for (var i = 0; i < n; i++) {
-        for (var j = 0; j < n; j++) {
+    for (let i = 0; i < n; i++) {
+        for (let j = 0; j < n; j++) {
             var have: boolean = false;
             blocks.forEach(value => {
                 if (value[0] == i && value[1] == j) {
@@ -27,8 +27,8 @@ export default function drawCanvasBase(edge: number, n: number, blocks: [number,
         }
     }
     cxt.fill();
-    for (var i = 0; i < n; i++) {
-        for (var j = 0; j < n; j++) {
+    for (let i = 0; i < n; i++) {
+        for (let j = 0; j < n; j++) {
             cxt.rect(size * j, size * i, size, size);
         }
     }
