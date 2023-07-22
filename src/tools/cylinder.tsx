@@ -6,7 +6,6 @@ import {
 import style from "../styles/Cylinder.module.scss"
 import LpLogger from "lp-logger";
 import makeCylinder from "./cylinder/makeCylinder";
-import drawCanvasBase from "./cylinder/drawCanvasBase";
 import {
     Typography,
     Grid,
@@ -18,17 +17,6 @@ export var logger = new LpLogger({
     name: I18N.get('画圆'),
     level: "log"
 });
-declare global {  //设置全局属性
-    interface Window {  //window对象属性
-        drawCanvas(
-            radiusX: number,
-            radiusZ: number,
-            thickness: number,
-            filled: boolean,
-            size: number
-        ): void;
-    }
-}
 export function Cylinder(): JSX.Element {
     var [radiusX, setRadiusX] = useState<number>(50),
         [radiusZ, setRadiusZ] = useState<number>(50),
@@ -37,6 +25,7 @@ export function Cylinder(): JSX.Element {
         [posX, setPosX] = useState<number>(0),
         [posZ, setPosZ] = useState<number>(0);
     const drawCanvas = () => {
+        const drawer = new Worker("/cylinderDrawCanvas.js");
         var g = radiusX > radiusZ ? radiusX : radiusZ,
             b = document.body,
             w = b.scrollWidth - 48,
@@ -44,10 +33,11 @@ export function Cylinder(): JSX.Element {
             c = document.getElementById("canvascontainer"),
             e = w > h ? h : w;
         c.innerHTML = "";
-        c.appendChild(drawCanvasBase(e, g * 2, makeCylinder(radiusX, radiusZ, 1, thickness, filled)));
+        drawer.onmessage = event => c.appendChild(event.data);
+        drawer.postMessage([e, g * 2, makeCylinder(radiusX, radiusZ, 1, thickness, filled)]);
     };
     useEffect(() => {
-        window.drawCanvas = drawCanvas;
+        
     }, []);
     useEffect(drawCanvas, [radiusX, radiusZ, thickness, filled]);
     return (
