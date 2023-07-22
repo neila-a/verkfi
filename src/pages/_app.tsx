@@ -6,7 +6,7 @@ import enUS from "../locales/en-US.json";
 import zhCN from "../locales/zh-CN.json";
 import zhTW from "../locales/zh-TW.json";
 import rkRK from "../locales/rk-RK.json";
-const locales = {
+export const locales = {
     enUS,
     zhCN,
     zhTW,
@@ -43,7 +43,7 @@ export default function ModifiedApp({ Component, pageProps }: AppProps) {
     }).then(() => {
         setInitDone(true);
         logger.log("语言已经加载完毕");
-    })
+    });
     useEffect(() => {
         var url = `${location.origin}/tool?handle=%s`;
         if (!isMobile) {
