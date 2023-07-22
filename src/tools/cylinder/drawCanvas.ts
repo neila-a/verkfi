@@ -1,9 +1,9 @@
 onmessage = event => {
     const edge = event.data[0],
         n = event.data[1],
-        blocks = event.data[2];
+        blocks = event.data[2],
+        canvas = event.data[3];
     console.time("渲染圆");
-    var canvas = new OffscreenCanvas(edge, edge);
     var size = edge / n;
     var cxt = canvas.getContext('2d');
     cxt.strokeStyle = "rgb(0, 0, 0)";
@@ -29,5 +29,5 @@ onmessage = event => {
     }
     cxt.stroke();
     console.timeEnd("渲染圆");
-    postMessage(canvas.transferToImageBitmap());
+    postMessage("done");
 }
