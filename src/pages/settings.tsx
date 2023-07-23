@@ -8,11 +8,13 @@ import {
 	ListItemButton,
 	ListItemIcon,
 	ListItemText,
-	Toolbar} from "@mui/material";
+	Toolbar
+} from "@mui/material";
 import HeadBar from "../components/HeadBar";
 import {
 	useState,
-	Fragment} from "react";
+	Fragment
+} from "react";
 import LpLogger from "lp-logger";
 export var logger = new LpLogger({
 	name: "Settings",
@@ -40,7 +42,7 @@ import Options from "../components/setting/Options";
 import Reset from "../components/setting/Reset";
 import About from "../components/setting/About";
 export default function Settings(): JSX.Element {
-	var [context, setContext] = useState<string>("选项");
+	var [context, setContext] = useState<string>(I18N.get("选项"));
 	const sets: set[] = [
 		{
 			name: I18N.get('选项'),
