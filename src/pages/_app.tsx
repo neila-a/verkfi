@@ -23,6 +23,7 @@ import {
 import LpLogger from "lp-logger";
 import style from "../styles/ModifiedApp.module.scss";
 import "../styles/App.scss";
+import useReadSetting from "../components/setting/useReadSetting"
 import {
     isMobile
 } from 'react-device-detect';
@@ -38,7 +39,7 @@ declare global {  //设置全局属性
 export default function ModifiedApp({ Component, pageProps }: AppProps) {
     var [initDone, setInitDone] = useState<boolean>(false);
     intl.init({
-        currentLocale: "zhCN",
+        currentLocale: useReadSetting("lang", "语言", "zhCN"),
         locales
     }).then(() => {
         setInitDone(true);

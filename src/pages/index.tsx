@@ -79,6 +79,9 @@ export function Index(props: {
     const {
         query
     } = router;
+    /**
+     * 搜索工具
+     */
     function searchTools(search: string) {
         var calcTools: tool[] = [];
         sortedTools.forEach(tool => {
@@ -107,7 +110,7 @@ export function Index(props: {
         const
             id = "toolslist",
             name = "工具列表",
-            empty = realTools.map(tool => tool.name),
+            empty = realTools.map(tool => tool.to),
             value = localStorage.getItem(id);
         switch (value) {
             case null:
@@ -117,10 +120,10 @@ export function Index(props: {
                 break;
             default:
                 logger.log(`检测到“${name}”为`, JSON.parse(value));
-                const draft = (JSON.parse(value) as string[]).map(toolName => {
+                const draft = (JSON.parse(value) as string[]).map(toolTo => {
                     var realTool: tool;
                     realTools.forEach(tool => {
-                        if (tool.name == toolName) {
+                        if (tool.to == toolTo) {
                             realTool = tool;
                         }
                     });
@@ -130,7 +133,7 @@ export function Index(props: {
                 setTools(draft);
                 break;
         }
-    }, [])
+    }, []); // 工具排序
     useEffect(function () {
         if (props.isImplant) {
             setSearchText(props.searchText);
@@ -140,12 +143,12 @@ export function Index(props: {
             setSearchText(query.searchText as string);
             searchTools(query.searchText as string);
         }
-    }, [query]);
+    }, [query]); // 嵌入式检查
     useEffect(() => {
         if (searchText != "") {
             setEditMode(false);
         }
-    }, [searchText]);
+    }, [searchText]); // 自动更新searchText
     return (
         <>
             {props.isImplant != true && <HeadBar isIndex pageName="NeilaTools" />}
