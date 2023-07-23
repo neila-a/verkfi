@@ -31,12 +31,13 @@ export function Cylinder(): JSX.Element {
             b = document.body,
             w = b.scrollWidth - 48,
             h = b.scrollHeight - 48,
-            calcEdge = w > h ? h : w;
+            calcEdge = w > h ? h : w,
+            offScreen = document.getElementById("canvas").transferControlToOffscreen();
         setEdge(calcEdge);
         drawer.onmessage = event => {
         }
         try {
-            drawer.postMessage([calcEdge, g * 2, makeCylinder(radiusX, radiusZ, 1, thickness, filled), document.getElementById("canvas").transferControlToOffscreen()]);
+            drawer.postMessage([calcEdge, g * 2, makeCylinder(radiusX, radiusZ, 1, thickness, filled), offScreen], [offScreen]);
         } catch (error) {
             logger.error("无法移交canvas的控制权至离屏：", error);
         }
