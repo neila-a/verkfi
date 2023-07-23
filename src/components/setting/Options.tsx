@@ -2,7 +2,6 @@ import {
     FormGroup,
     FormControlLabel,
     Switch,
-    FromControl,
     InputLabel,
     Select,
     MenuItem
@@ -27,7 +26,6 @@ export default function Options() {
                     setOption("fork-me-on-github", "Fork me on GitHub", event.target.checked)
                 }} />
             } label="Fork Me On GitHub" />
-            <FormControl fullWidth>
                 <InputLabel id="lang">
                     {I18N.get("选择语言")}
                 </InputLabel>
@@ -38,9 +36,8 @@ export default function Options() {
                     });
                     setSetting("lang", "语言", String(event.target.value))
                 }}>
-                    {["zhCN", "zhTW", "enUS", "rkRK"].map(ilang => <MenuItem value={ilang}>{ilang}</MenuItem>)}
+                    {["zhCN", "zhTW", "enUS", "rkRK"].map(ilang => <MenuItem key={ilang} value={ilang}>{ilang}</MenuItem>)}
                 </Select>
-            </FormControl>
         </FormGroup>
     );
 }
