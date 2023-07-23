@@ -35,7 +35,7 @@ export function Cylinder(): JSX.Element {
         setEdge(w > h ? h : w);
         drawer.onmessage = event => {
         }
-        if (c.transferControlToOffscreen()) drawer.postMessage([edge, g * 2, makeCylinder(radiusX, radiusZ, 1, thickness, filled), c.transferControlToOffscreen()]);
+        if (c.transferControlToOffscreen) drawer.postMessage([edge, g * 2, makeCylinder(radiusX, radiusZ, 1, thickness, filled), c.transferControlToOffscreen()]);
     };
     useEffect(drawCanvas, [radiusX, radiusZ, thickness, filled]);
     return (
