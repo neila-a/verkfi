@@ -30,11 +30,14 @@ export default function Options() {
                     {I18N.get("选择语言")}
                 </InputLabel>
                 <Select labelId="lang" value={lang} label={I18N.get("选择语言")} onChange={event => {
+                    const plang = String(event.target.value);
                     I18N.init({
-                        currentLocale: String(event.target.value),
+                        currentLocale: plang,
                         locales
                     });
-                    setSetting("lang", "语言", String(event.target.value))
+                    setSetting("lang", "语言", plang);
+                    setLang(plang);
+                    location.reload();
                 }}>
                     {["zhCN", "zhTW", "enUS", "rkRK"].map(ilang => <MenuItem key={ilang} value={ilang}>{ilang}</MenuItem>)}
                 </Select>
