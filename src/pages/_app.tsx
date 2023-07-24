@@ -70,7 +70,7 @@ export default function ModifiedApp({ Component, pageProps }: AppProps) {
         setInitDone(true);
         logger.log("语言已经加载完毕");
     });
-    useEffect(() => {
+    useEffect(() => {alert(mode)
         logger.log("色彩模式为：", mode);
     }, [mode]);
     useEffect(() => {
