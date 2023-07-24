@@ -49,6 +49,7 @@ export default function ModifiedApp({ Component, pageProps }: AppProps) {
     const [mode, setMode] = useState<'light' | 'dark'>(useReadSetting("darkmode", "暗色模式", "false").replace("false", "light").replace("true", "dark"));
     const colorMode = useMemo(() => ({
         toggleColorMode: () => {
+            logger.log("正在切换色彩模式");
             setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
         },
     }), [],);
