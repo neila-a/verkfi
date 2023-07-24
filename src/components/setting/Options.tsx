@@ -15,7 +15,7 @@ import useReadSetting from "./useReadSetting";
 import setSetting from "./setSetting";
 import {
     ColorModeContext
-}
+} from "../../pages/_app"
 import I18N from "react-intl-universal";
 import {
     useState
@@ -29,6 +29,9 @@ export default function Options() {
                     setOption("fork-me-on-github", "Fork me on GitHub", event.target.checked)
                 }} />
             } label="Fork Me On GitHub" />
+            <FormControlLabel control={
+                <Switch checked={ColorModeContext.toggleColorMode} />
+            } label={I18N.get("暗色模式")} />
                 <InputLabel id="lang">
                     {I18N.get("选择语言")}
                 </InputLabel>
