@@ -16,7 +16,6 @@ import intl from 'react-intl-universal';
 import React, {
     useEffect,
     useState,
-    createContext,
     useMemo
 } from 'react';
 import {
@@ -42,18 +41,9 @@ declare global {  //设置全局属性
         UWAWorker: Promise<ServiceWorkerRegistration>;
     }
 }
-export const ColorModeContext = createContext({
-    toggleColorMode: () => { }
-});
 export default function ModifiedApp({ Component, pageProps }: AppProps) {
     const initialMode = useReadSetting("darkmode", "暗色模式", "false").replace("false", "light").replace("true", "dark"),
      [mode, setMode] = useState<'light' | 'dark'>(initialMode),
-     colorMode = useMemo(() => ({
-        toggleColorMode: () => {
-            logger.log("正在切换色彩模式");
-            setMode(prevMode => (prevMode === 'light' ? 'dark' : 'light'));
-        }
-    }), []),
      theme = useMemo(
         () =>
             createTheme({
@@ -90,14 +80,12 @@ export default function ModifiedApp({ Component, pageProps }: AppProps) {
         }
     }, []);
     return (
-        initDone && <ColorModeContext.Provider value={colorMode}>
-            <ThemeProvider theme={theme}>
+        initDone &&<ThemeProvider theme={theme}>
                 <CssBaseline />
                 <div className={style["fullHeight"]}>
                     <Component {...pageProps} />
                 </div>
             </ThemeProvider>
-        </ColorModeContext.Provider>
     );
 }
 // Only uncomment this method if you have blocking data requirements for
