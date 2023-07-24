@@ -46,7 +46,7 @@ export const ColorModeContext = createContext({
     toggleColorMode: () => { }
 });
 export default function ModifiedApp({ Component, pageProps }: AppProps) {
-    const [mode, setMode] = useState<'light' | 'dark'>(useReadSetting("darkmode", "暗色模式", String(false)));
+    const [mode, setMode] = useState<'light' | 'dark'>(useReadSetting("darkmode", "暗色模式", "light"));
     const colorMode = useMemo(() => ({
         toggleColorMode: () => {
             setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
