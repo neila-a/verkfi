@@ -19,7 +19,7 @@ import {
     useState
 } from "react";
 export default function Options() {
-    var [lang, setLang] = useState<string>(useReadSetting("lang", "语言", "zhCN"));
+    var [lang, setLang] = useState<string>("");
     return (
         <FormGroup>
             <FormControlLabel control={
