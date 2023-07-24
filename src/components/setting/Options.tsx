@@ -16,10 +16,12 @@ import useReadSetting from "./useReadSetting";
 import setSetting from "./setSetting";
 import I18N from "react-intl-universal";
 import {
-    useState
+    useState,
+    useContext
 } from "react";
 export default function Options() {
     var [lang, setLang] = useState<string>("");
+    const colorMode = useContext(ColorModeContext);
     return (
         <FormGroup>
             <FormControlLabel control={
@@ -28,7 +30,7 @@ export default function Options() {
                 }} />
             } label="Fork Me On GitHub" />
             <FormControlLabel control={
-                <Switch checked={stringToBoolean(useReadSetting("darkmode", "暗色模式", "false"))} onChange={ColorModeContext.toggleColorMode} />
+                <Switch checked={stringToBoolean(useReadSetting("darkmode", "暗色模式", "false"))} onChange={colorMode.toggleColorMode} />
             } label={I18N.get("暗色模式")} />
                 <InputLabel id="lang">
                     {I18N.get("选择语言")}
