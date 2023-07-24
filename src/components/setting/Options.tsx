@@ -30,7 +30,10 @@ export default function Options() {
                 }} />
             } label="Fork Me On GitHub" />
             <FormControlLabel control={
-                <Switch checked={stringToBoolean(useReadSetting("darkmode", "暗色模式", "false"))} onChange={colorMode.toggleColorMode} />
+                <Switch checked={stringToBoolean(useReadSetting("darkmode", "暗色模式", "false"))} onChange={event => {
+                    setSetting("darkmode", "暗色模式", event.target.checked)
+                    colorMode.toggleColorMode();
+                }} />
             } label={I18N.get("暗色模式")} />
                 <InputLabel id="lang">
                     {I18N.get("选择语言")}
