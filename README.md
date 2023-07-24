@@ -10,28 +10,24 @@
 
 ### Summary - 概要
 
-Neila的一些没用工具。
+Neila的一些没用工具的平台。
 
 ### Features - 特性
 
-- 全部采用响应式布局
-- 使用PWA以在桌面放置，快捷打开
-- 使用CacheStorage达到超快的访问速度
-
-## Development - 开发（关于怎样开发的文档信息。（API 等。））
-
-[<h2>Changelog - 更新日志</h2>](https://github.com/neila-a/NeilaTools/releases)
+- 全部采用响应式布局。
+- 使用PWA以在桌面放置，快捷打开。
+- 使用CacheStorage达到超快的访问速度。
 
 ## Contact - 联系
 
 - [Neila的电子邮件](mailto:neila@neila.ga)
 
-## Authors and acknowledgment - 贡献者和感谢
-
-### 贡献者
+## Authors - 贡献者
 
 - Neila
 
-### 感谢
+---
 
-[<h2>License - 版权信息</h2>](./LICENSE)
+[License - 版权信息](./LICENSE)  
+[Changelog - 更新日志](https://github.com/neila-a/NeilaTools/releases)  
+[Development - 开发](./CONTRIBUTION.md)
