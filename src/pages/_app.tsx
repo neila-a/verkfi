@@ -39,6 +39,7 @@ var logger = new LpLogger({
 declare global {  //设置全局属性
     interface Window {  //window对象属性
         UWAWorker: Promise<ServiceWorkerRegistration>;
+        installPWA(): void;
     }
 }
 export default function ModifiedApp({ Component, pageProps }: AppProps) {
@@ -78,6 +79,21 @@ export default function ModifiedApp({ Component, pageProps }: AppProps) {
             window.UWAWorker = navigator.serviceWorker.register("/service-worker.js");
             window.UWAWorker.then((registration) => logger.log(`Service worker for UWA register success:`, registration)).catch((reason) => logger.error(`Service worker for UWA register fail: ${reason}`));
         }
+        var deferredPrompt = null;
+// 监听beforeinstallprompt事件，该事件在网站满足PWA安装条件时触发，保存安装事件
+window.addEventListener("beforeinstallprompt", e => {
+    e.preventDefault();
+    deferredPrompt = e;
+});
+// 监听appinstalled事件，该事件在用户同意安装后触发，清空安装事件
+window.addEventListener("appinstalled", () => {
+    deferredPrompt = null;
+});
+// 手动触发PWA安装
+function addToDesktop() {
+    deferredPrompt.prompt();
+}
+window.installPWA = addToDesktop;
     }, []);
     return (
         initDone &&<ThemeProvider theme={theme}>
