@@ -1,7 +1,12 @@
 # Contribution
 
-## Create new tool
+## Create a new tool
 
 - Write a TSX file in `/tools/`;
-- Add to `/components/service-worker.js`;
-- Add to `/components/tools.tsx`;  
+- Add to `/components/tools/info.tsx`; 
+- Add to `/components/tools/component.tsx`. 
+
+## Add a new language
+
+- Write a JSON file in `/locales/`;
+- Add to `/pages/_app.tsx`.
