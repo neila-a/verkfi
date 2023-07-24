@@ -63,6 +63,10 @@ export default function ModifiedApp({ Component, pageProps }: AppProps) {
             }),
         [mode],
     );
+    useEffect(() => setMode(initialMode), [initialMode]);
+    useEffect(() => {alert(mode)
+        logger.log("色彩模式为：", mode);
+    }, [mode]);
     var [initDone, setInitDone] = useState<boolean>(false);
     intl.init({
         currentLocale: useReadSetting("lang", "语言", "zhCN"),
@@ -71,9 +75,6 @@ export default function ModifiedApp({ Component, pageProps }: AppProps) {
         setInitDone(true);
         logger.log("语言已经加载完毕");
     });
-    useEffect(() => {alert(mode)
-        logger.log("色彩模式为：", mode);
-    }, [mode]);
     useEffect(() => {
         var url = `${location.origin}/tool?handle=%s`;
         if (!isMobile) {
