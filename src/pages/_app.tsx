@@ -23,7 +23,6 @@ import {
     CssBaseline
 } from "@mui/material";
 import {
-    useTheme,
     ThemeProvider,
     createTheme
 } from "@mui/material/styles"
@@ -43,26 +42,25 @@ declare global {  //设置全局属性
         UWAWorker: Promise<ServiceWorkerRegistration>;
     }
 }
-export const ColorModeContext = createContext({ toggleColorMode: () => {} });
+export const ColorModeContext = createContext({
+    toggleColorMode: () => { }
+});
 export default function ModifiedApp({ Component, pageProps }: AppProps) {
-  const [mode, setMode] = useState<'light' | 'dark'>('light');
-  const colorMode = useMemo(
-    () => ({
-      toggleColorMode: () => {
-        setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
-      },
-    }),
-    [],
-  );
-  const theme = useMemo(
-    () =>
-      createTheme({
-        palette: {
-          mode,
+    const [mode, setMode] = useState<'light' | 'dark'>('light');
+    const colorMode = useMemo(() => ({
+        toggleColorMode: () => {
+            setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
         },
-      }),
-    [mode],
-  );
+    }), [],);
+    const theme = useMemo(
+        () =>
+            createTheme({
+                palette: {
+                    mode,
+                },
+            }),
+        [mode],
+    );
     var [initDone, setInitDone] = useState<boolean>(false);
     intl.init({
         currentLocale: useReadSetting("lang", "语言", "zhCN"),
