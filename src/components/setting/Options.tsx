@@ -4,8 +4,12 @@ import {
     Switch,
     InputLabel,
     Select,
-    MenuItem
+    MenuItem,
+    Button
 } from "@mui/material";
+import {
+    Download as DownloadIcon
+} from "@mui/icons-material"
 import setOption from "./setOption";
 import {
     locales
@@ -16,6 +20,11 @@ import I18N from "react-intl-universal";
 import {
     useState
 } from "react";
+declare global {  //设置全局属性
+    interface Window {  //window对象属性
+        installPWA(): void;
+    }
+}
 export default function Options() {
     var [lang, setLang] = useState<string>("");
     return (
@@ -44,6 +53,13 @@ export default function Options() {
                 }}>
                     {["zhCN", "zhTW", "enUS", "rkRK"].map(ilang => <MenuItem key={ilang} value={ilang}>{ilang}</MenuItem>)}
                 </Select>
+            <Button variant="contained" startIcon={
+            <DownloadIcon />
+            } onClick={
+                window.installPWA();
+            }>
+                {I18N.get("下载本应用")}
+            </Button>
         </FormGroup>
     );
 }
