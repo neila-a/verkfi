@@ -50,7 +50,7 @@ export default function ModifiedApp({ Component, pageProps }: AppProps) {
     const colorMode = useMemo(() => ({
         toggleColorMode: () => {
             logger.log("正在切换色彩模式");
-            setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+            setMode(prevMode => (prevMode === 'light' ? 'dark' : 'light'));
         },
     }), [],);
     const theme = useMemo(
@@ -71,6 +71,7 @@ export default function ModifiedApp({ Component, pageProps }: AppProps) {
         logger.log("语言已经加载完毕");
     });
     useEffect(() => {
+        logger.log(useReadSetting("darkmode", "暗色模式", "false").replace("false", "light").replace("true", "dark"))
         var url = `${location.origin}/tool?handle=%s`;
         if (!isMobile) {
             logger.log("检测到此设备并非手机");
