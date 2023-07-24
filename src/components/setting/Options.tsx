@@ -32,14 +32,7 @@ export default function Options() {
             <FormControlLabel control={
                 <Switch checked={stringToBoolean(useReadSetting("darkmode", "暗色模式", "false"))} onChange={event => {
                     setSetting("darkmode", "暗色模式", event.target.checked);
-                    async function toggle() {
-                        try {
-                        colorMode.toggleColorMode();
-                            } catch (error){
-                            console.error(error)
-                            }
-                    }
-                    toggle();
+                    colorMode.toggleColorMode();
                 }} />
             } label={I18N.get("暗色模式")} />
                 <InputLabel id="lang">
