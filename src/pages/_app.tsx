@@ -15,11 +15,18 @@ export const locales = {
 import intl from 'react-intl-universal';
 import React, {
     useEffect,
-    useState
+    useState,
+    createContext,
+    useMemo
 } from 'react';
 import {
-    CssBaseline, StyledEngineProvider
+    CssBaseline
 } from "@mui/material";
+import {
+    useTheme,
+    ThemeProvider,
+    createTheme
+} from "@mui/material/styles"
 import LpLogger from "lp-logger";
 import style from "../styles/ModifiedApp.module.scss";
 import "../styles/App.scss";
@@ -36,7 +43,26 @@ declare global {  //设置全局属性
         UWAWorker: Promise<ServiceWorkerRegistration>;
     }
 }
+export const ColorModeContext = createContext({ toggleColorMode: () => {} });
 export default function ModifiedApp({ Component, pageProps }: AppProps) {
+  const [mode, setMode] = useState<'light' | 'dark'>('light');
+  const colorMode = useMemo(
+    () => ({
+      toggleColorMode: () => {
+        setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+      },
+    }),
+    [],
+  );
+  const theme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode,
+        },
+      }),
+    [mode],
+  );
     var [initDone, setInitDone] = useState<boolean>(false);
     intl.init({
         currentLocale: useReadSetting("lang", "语言", "zhCN"),
@@ -60,14 +86,14 @@ export default function ModifiedApp({ Component, pageProps }: AppProps) {
         }
     }, []);
     return (
-        initDone && <>
-            <CssBaseline />
-            <StyledEngineProvider injectFirst>
+        initDone && <ColorModeContext.Provider value={colorMode}>
+            <ThemeProvider theme={theme}>
+                <CssBaseline />
                 <div className={style["fullHeight"]}>
                     <Component {...pageProps} />
                 </div>
-            </StyledEngineProvider>
-        </>
+            </ThemeProvider>
+        </ColorModeContext.Provider>
     );
 }
 // Only uncomment this method if you have blocking data requirements for
