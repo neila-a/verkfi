@@ -14,12 +14,10 @@ import stringToBoolean from "./stringToBoolean";
 import useReadSetting from "./useReadSetting";
 import I18N from "react-intl-universal";
 import {
-    useState,
-    useContext
+    useState
 } from "react";
 export default function Options() {
     var [lang, setLang] = useState<string>("");
-    const colorMode = useContext(ColorModeContext);
     return (
         <FormGroup>
             <FormControlLabel control={
