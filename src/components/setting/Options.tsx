@@ -51,9 +51,8 @@ export default function Options() {
                         currentLocale: plang,
                         locales
                     });
-                    setSetting("lang", "语言", plang);
                     setLang(plang);
-                    location.reload();
+                    setOption("lang", "语言", plang);
                 }}>
                     {["zhCN", "zhTW", "enUS", "rkRK"].map(ilang => <MenuItem key={ilang} value={ilang}>{ilang}</MenuItem>)}
                 </Select>
