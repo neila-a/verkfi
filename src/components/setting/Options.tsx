@@ -8,14 +8,12 @@ import {
 } from "@mui/material";
 import setOption from "./setOption";
 import {
-    locales
+    locales,
+    ColorModeContext
 } from "../../pages/_app";
 import stringToBoolean from "./stringToBoolean";
 import useReadSetting from "./useReadSetting";
 import setSetting from "./setSetting";
-import {
-    ColorModeContext
-} from "../../pages/_app"
 import I18N from "react-intl-universal";
 import {
     useState
@@ -30,7 +28,7 @@ export default function Options() {
                 }} />
             } label="Fork Me On GitHub" />
             <FormControlLabel control={
-                <Switch checked={useReadSetting("darkmode", "暗色模式", "light")} onChange={ColorModeContext.toggleColorMode} />
+                <Switch checked={stringToBoolean(useReadSetting("darkmode", "暗色模式", "light").replace("light, "false").replace("dark", "true"))} onChange={ColorModeContext.toggleColorMode} />
             } label={I18N.get("暗色模式")} />
                 <InputLabel id="lang">
                     {I18N.get("选择语言")}
