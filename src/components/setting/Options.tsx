@@ -53,6 +53,7 @@ export default function Options() {
                 }}>
                     {["zhCN", "zhTW", "enUS", "rkRK"].map(ilang => <MenuItem key={ilang} value={ilang}>{ilang}</MenuItem>)}
                 </Select>
+            <br>
             <Button variant="contained" startIcon={
             <DownloadIcon />
             } onClick={() => {
