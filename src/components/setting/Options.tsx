@@ -21,7 +21,7 @@ import {
     useState
 } from "react";
 export default function Options() {
-    var [lang, setLang] = useState<string>("");
+    var [lang, setLang] = useState<string>(useReadSetting("lang", "语言", "zhCN"));
     return (
         <FormGroup>
             <FormControlLabel control={
@@ -30,7 +30,7 @@ export default function Options() {
                 }} />
             } label="Fork Me On GitHub" />
             <FormControlLabel control={
-                <Switch checked={useReadSetting("darkmode", "暗色模式", String(false))} onChange={ColorModeContext.toggleColorMode} />
+                <Switch checked={useReadSetting("darkmode", "暗色模式", "light")} onChange={ColorModeContext.toggleColorMode} />
             } label={I18N.get("暗色模式")} />
                 <InputLabel id="lang">
                     {I18N.get("选择语言")}
