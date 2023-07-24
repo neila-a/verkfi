@@ -52,8 +52,8 @@ export default function ModifiedApp({ Component, pageProps }: AppProps) {
         toggleColorMode: () => {
             logger.log("正在切换色彩模式");
             setMode(prevMode => (prevMode === 'light' ? 'dark' : 'light'));
-        },
-    }), [],),
+        }
+    }), []),
      theme = useMemo(
         () =>
             createTheme({
@@ -61,10 +61,10 @@ export default function ModifiedApp({ Component, pageProps }: AppProps) {
                     mode,
                 },
             }),
-        [mode],
+        [mode]
     );
     useEffect(() => setMode(initialMode), [initialMode]);
-    useEffect(() => {alert(mode)
+    useEffect(() => {
         logger.log("色彩模式为：", mode);
     }, [mode]);
     var [initDone, setInitDone] = useState<boolean>(false);
