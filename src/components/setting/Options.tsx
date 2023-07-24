@@ -23,7 +23,7 @@ export default function Options() {
     return (
         <FormGroup>
             <FormControlLabel control={
-                <Switch checked={stringToBoolean(useReadSetting("fork-me-on-github", "Fork me on GitHub", String(false)))} onChange={event => {
+                <Switch checked={stringToBoolean(useReadSetting("fork-me-on-github", "Fork me on GitHub", "false"))} onChange={event => {
                     setOption("fork-me-on-github", "Fork me on GitHub", event.target.checked)
                 }} />
             } label="Fork Me On GitHub" />
