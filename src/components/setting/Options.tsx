@@ -55,9 +55,9 @@ export default function Options() {
                 </Select>
             <Button variant="contained" startIcon={
             <DownloadIcon />
-            } onClick={
+            } onClick={() => {
                 window.installPWA();
-            }>
+        }}>
                 {I18N.get("下载本应用")}
             </Button>
         </FormGroup>
