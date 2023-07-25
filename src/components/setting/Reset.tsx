@@ -50,8 +50,8 @@ export default function Reset() {
             ]} />
             <Button variant="contained" onClick={event => {
                 setDialogOpen(true);
-                setDialogContext("确定清空所有缓存吗？此操作不可恢复。");
-                setDialogTitle("清空");
+                setDialogContext(I18N.get("确定清空所有缓存吗？此操作不可恢复。"));
+                setDialogTitle(I18N.get("清空"));
                 setDialogOnDone(() => () => caches.keys().then(keylist => Promise.all(keylist.map(key => {
                     logger.log(`已删除缓存“${key}”`);
                     return caches.delete(key);
@@ -74,8 +74,8 @@ export default function Reset() {
             ]} />
             <Button variant="contained" onClick={event => {
                 setDialogOpen(true);
-                setDialogContext("确定清空所有设置吗？此操作不可恢复。");
-                setDialogTitle("清空");
+                setDialogContext(I18N.get("确定清空所有设置吗？此操作不可恢复。"));
+                setDialogTitle(I18N.get("清空"));
                 setDialogOnDone(() => () => localStorage.clear());
             }}>{I18N.get('清空所有设置')}</Button>
             {dialogOpen && <CheckDialog title={dialogTitle} onFalse={() => {
