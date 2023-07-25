@@ -324,7 +324,7 @@ export function Index(props: {
                 <ErrorBoundary>
                     {windows == emptyArray ? <Fragment /> : windows.map(window => <Window {...window} key={window.to} />)}
                 </ErrorBoundary> {/* 窗口容器 */}
-                {jumpDialogOpen ? <CheckDialog description={`{I18N.get("确定离开NeilaTools并跳转至")}${jumpName}？`} title={I18N.get('离开NeilaTools')} onTrue={() => {
+                {jumpDialogOpen ? <CheckDialog description={`${I18N.get("确定离开NeilaTools并跳转至")}${jumpName}？`} title={I18N.get('离开NeilaTools')} onTrue={() => {
                     Router.push(jumpto);
                 }} onFalse={() => {
                     setJumpDialogOpen(false);
