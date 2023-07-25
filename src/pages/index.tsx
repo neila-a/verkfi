@@ -45,6 +45,7 @@ import {
 import CheckDialog from "../components/dialog/CheckDialog";
 import Router from "next/router";
 import setSetting from "../components/setting/setSetting";
+import useReadSetting from "../components/setting/useReadSetting";
 import {
     useRouter
 } from "next/router";
@@ -65,6 +66,7 @@ export function Index(props: {
      */
     searchText?: string;
 }): JSX.Element {
+    const initialViewMode = useReadSetting("viewmode", "列表模式", "grid");
     var realTools = getTools(I18N),
         [sortedTools, setSortedTools] = useState(realTools),
         [searchText, setSearchText] = useState<string>(""),
@@ -76,6 +78,12 @@ export function Index(props: {
         [jumpDialogOpen, setJumpDialogOpen] = useState<boolean>(false),
         router = useRouter(),
         [tools, setTools] = useState(sortedTools);
+    useEffect(() => {
+        setViewMode(initialViewMode);
+    }, [initialViewMode]); // 检测lS的viewMode
+    useEffect(() => {
+        setSetting("viewmode", "列表模式", viewMode);
+    }, [viewMode]); // 实时保存viewMode至lS
     const {
         query
     } = router;
