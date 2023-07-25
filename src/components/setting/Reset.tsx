@@ -40,11 +40,11 @@ export default function Reset() {
                 duration: 2000
             }} data={[
                 {
-                    x: `缓存空间已使用容量：${cacheUsed.toFixed(5)}MB`,
+                    x: `${I18N.get("缓存空间已使用容量")}：${cacheUsed.toFixed(5)}MB`,
                     y: Number((cacheUsed / cacheAll * 100).toFixed(5))
                 },
                 {
-                    x: `缓存空间剩余容量：${(cacheAll - cacheUsed).toFixed(5)}MB`,
+                    x: `${I18N.get("缓存空间剩余容量")}：${(cacheAll - cacheUsed).toFixed(5)}MB`,
                     y: Number(((cacheAll - cacheUsed) / cacheAll * 100).toFixed(5))
                 }
             ]} />
@@ -64,11 +64,11 @@ export default function Reset() {
                 duration: 2000
             }} data={[
                 {
-                    x: `设置空间已使用容量：${getSettingsUsed()}KB`,
+                    x: `${I18N.get("设置空间已使用容量")}：${getSettingsUsed()}KB`,
                     y: getSettingsUsed() / 5120 * 100
                 },
                 {
-                    x: `设置空间剩余容量：${getSettingsSur()}KB`,
+                    x: `${I18N.get("设置空间剩余容量")}：${getSettingsSur()}KB`,
                     y: getSettingsSur() / 5120 * 100
                 }
             ]} />
