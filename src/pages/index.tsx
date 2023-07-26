@@ -316,9 +316,12 @@ export function Index(props: {
                                                 <Typography variant="body2">
                                                     {tool.desc}
                                                 </Typography>
-                                            </> : <>
+                                            </> : <>         
+                                                <Typography variant="h5" component="div">
+                                                    <ToolIcon />{tool.name}
+                                                </Typography>
                                                 <Typography variant="body2">
-                                                    <DownButton /><ToolIcon />{tool.name} - {tool.desc}<UpButton />
+                                                    <DownButton />{tool.desc}<UpButton />
                                                 </Typography>
                                             </>}
                                         </div>
