@@ -283,6 +283,7 @@ export function Index(props: {
                                 }} elevation={10}>
                                     <CardContent>
                                         <div style={{
+                                            position: "relative",
                                             cursor: "pointer"
                                         }} onClick={() => {
                                             logger.info(`点击了${tool.name}`);
