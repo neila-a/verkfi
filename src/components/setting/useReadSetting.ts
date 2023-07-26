@@ -7,6 +7,6 @@ export default function useReadSetting(id: string, name: string, empty: string) 
     var [set, setSet] = useState<string>(empty);
     useEffect(function () {
         setSet(checkOption(id, name, empty));
-    });
+    }, []);
     return set;
 }
