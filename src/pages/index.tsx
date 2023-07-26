@@ -282,7 +282,7 @@ export function Index(props: {
                                     minWidth: "100%"
                                 }} elevation={10}>
                                     <CardContent>
-                                        <div className={Style["single"]} onClick={() => {
+                                        <div className={viewMode == "list" ? Style["singleList"] : ""} onClick={() => {
                                             logger.info(`点击了${tool.name}`);
                                             if (typeof tool.goto == "undefined") {
                                                 Router.push(`/tool?tool=${tool.to}`);
