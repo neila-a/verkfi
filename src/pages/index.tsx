@@ -311,25 +311,30 @@ export function Index(props: {
                                                 <div className={Style["singleGridIcon"]}>
                                                     <ToolIcon />
                                                 </div>
+                                                <div>
                                                 <Typography variant="h5" component="div">
                                                     <DownButton />
-                                                    {tool.name}
                                                     {tool.goto ? <ExitToAppIcon /> : <></>}
+                                                    {tool.name}
                                                     <UpButton />
                                                 </Typography>
                                                 <Typography variant="body2">
                                                     {tool.desc}
                                                 </Typography>
+                                                    </div>
                                             </> : <>     
                                                 <div className={Style["singleListIcon"]}>
                                                     <ToolIcon />
-                                                </div>    
+                                                </div>
+                                                <div>
                                                 <Typography variant="h5" component="div">
+                                                    {tool.goto ? <ExitToAppIcon /> : <></>}
                                                     {tool.name}
                                                 </Typography>
                                                 <Typography variant="body2">
                                                     <DownButton />{tool.desc}<UpButton />
                                                 </Typography>
+                                                    </div>
                                             </>}
                                         </div>
                                     </CardContent>
