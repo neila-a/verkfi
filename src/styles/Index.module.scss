@@ -9,6 +9,9 @@
 }
 
 .single {
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-evenly;
     position: relative;
     cursor: pointer;
     display: flex;
