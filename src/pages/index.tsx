@@ -80,10 +80,8 @@ export function Index(props: {
         router = useRouter(),
         [tools, setTools] = useState(sortedTools);
     useEffect(() => {
-        if (!setted) {
             setViewMode(initialViewMode);
             setSetted(true);
-        }
     }, [initialViewMode]); // 检测lS的viewMode
     useEffect(() => {
         if (setted) setSetting("viewmode", "列表模式", viewMode);
