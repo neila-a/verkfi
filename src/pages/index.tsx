@@ -86,7 +86,7 @@ export function Index(props: {
         }
     }, [initialViewMode]); // 检测lS的viewMode
     useEffect(() => {
-        setSetting("viewmode", "列表模式", viewMode);
+        if (setted) setSetting("viewmode", "列表模式", viewMode);
     }, [viewMode]); // 实时保存viewMode至lS
     const {
         query
