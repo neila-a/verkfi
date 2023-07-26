@@ -69,6 +69,7 @@ export function Index(props: {
     const initialViewMode = useReadSetting("viewmode", "列表模式", "grid");
     var realTools = getTools(I18N),
         [sortedTools, setSortedTools] = useState(realTools),
+        [setted, setSetted] = useState<boolean>(false),
         [searchText, setSearchText] = useState<string>(""),
         [viewMode, setViewMode] = useState<"list" | "grid">("grid"),
         [editMode, setEditMode] = useState<boolean>(false),
@@ -79,7 +80,10 @@ export function Index(props: {
         router = useRouter(),
         [tools, setTools] = useState(sortedTools);
     useEffect(() => {
-        setViewMode(initialViewMode);
+        if (!setted) {
+            setViewMode(initialViewMode);
+            setSetted(true);
+        }
     }, [initialViewMode]); // 检测lS的viewMode
     useEffect(() => {
         setSetting("viewmode", "列表模式", viewMode);
