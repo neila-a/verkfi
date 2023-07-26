@@ -306,9 +306,11 @@ export function Index(props: {
                                             }
                                         }}>
                                             {viewMode == "grid" ? <>
+                                                <div className={Style["singleGridIcon"]}>
+                                                    <ToolIcon />
+                                                </div>
                                                 <Typography variant="h5" component="div">
                                                     <DownButton />
-                                                    <ToolIcon />
                                                     {tool.name}
                                                     {tool.goto ? <ExitToAppIcon /> : <></>}
                                                     <UpButton />
@@ -316,9 +318,12 @@ export function Index(props: {
                                                 <Typography variant="body2">
                                                     {tool.desc}
                                                 </Typography>
-                                            </> : <>         
+                                            </> : <>     
+                                                <div className={Style["singleListIcon"]}>
+                                                    <ToolIcon />
+                                                </div>    
                                                 <Typography variant="h5" component="div">
-                                                    <ToolIcon />{tool.name}
+                                                    {tool.name}
                                                 </Typography>
                                                 <Typography variant="body2">
                                                     <DownButton />{tool.desc}<UpButton />
