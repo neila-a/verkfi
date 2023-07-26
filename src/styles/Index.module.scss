@@ -3,9 +3,16 @@
     flex-wrap: wrap;
     align-content: center;
     justify-content: space-evenly;
-    align-items: center;
+    align-items: flex-end;
     display: flex;
     text-align: center;
+}
+
+.single {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
 }
 
 .singleGridIcon {
