@@ -7,6 +7,7 @@ export function TransitionUp(props) {
 export default function SnackbarUp(props: {
   open: boolean;
   message: string;
+  onClose(): void;
 }) {
   return <Snackbar {...props} autoHideDuration={1000} TransitionComponent={TransitionUp} />;
 }
