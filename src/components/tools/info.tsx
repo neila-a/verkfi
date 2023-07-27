@@ -42,7 +42,7 @@ export const getTools = I18N => [
         name: I18N.get('π计算器'),
         to: "pi",
         desc: I18N.get('计算π的小数点后任意位'),
-        icon: () => <Image src="/image/pi.466x393.png" alt={I18N.get('圆周率图标')} height={24} width={24} />
+        icon: () => <Image placeholder="blur" src="/image/pi.466x393.png" alt={I18N.get('圆周率图标')} height={24} width={24} />
     },
     {
         name: I18N.get('翻转'),
@@ -54,7 +54,7 @@ export const getTools = I18N => [
         name: I18N.get('掷色子'),
         to: "shaizi",
         desc: I18N.get('随机掷色子'),
-        icon: () => <Image src="/image/shaizi.24x24.svg" alt={I18N.get('色子图标')} height={24} width={24} />
+        icon: () => <Image placeholder="blur" src="/image/shaizi.24x24.svg" alt={I18N.get('色子图标')} height={24} width={24} />
     },
     {
         name: I18N.get('滤镜'),
