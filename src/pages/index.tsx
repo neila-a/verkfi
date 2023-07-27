@@ -120,7 +120,7 @@ export function Index(props: {
         const
             id = "toolslist",
             name = "工具列表",
-            empty = realTools.map(tool => tool.to),
+            empty = realTools.map(tool => (tool.to || tool.goto)),
             value = localStorage.getItem(id);
         switch (value) {
             case null:
