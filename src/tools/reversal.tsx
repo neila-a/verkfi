@@ -17,6 +17,7 @@ import {
 import LpLogger from "lp-logger";
 import InputDialog from "../components/dialog/InputDialog";
 import AlertDialog from "../components/dialog/AlertDialog";
+import Snackbar from "../components/snackbar/up";
 var logger = new LpLogger({
     name: I18N.get('翻转'),
     level: "log", // 空字符串时，不显示任何信息
@@ -108,9 +109,9 @@ export function Reversal(): JSX.Element {
                 logger.log("已拆分。");
                 setShowSplitDialog(false);
             }} />}
-            {showCopyDoneDialog && <AlertDialog title={I18N.get('复制完毕')} description={I18N.get('已把结果复制至剪贴板。')} onDone={() => {
+            <Snackbar open={showCopyDoneDialog} message={I18N.get('已把结果复制至剪贴板。')} onClose={() => {
                 setShowCopyDoneDialog(false);
-            }} />}
+            }}/>
         </>
     );
 };
