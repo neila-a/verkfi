@@ -330,9 +330,13 @@ export function Index(props: {
                                                     {tool.name}
                                                 </Typography>
                                                 <Typography variant="body2">
-                                                    <DownButton />{tool.desc}<UpButton />
+                                                    {tool.desc}
                                                 </Typography>
                                                     </div>
+                                                <div>
+                                                    <DownButton />
+                                                    <UpButton />
+                                                </div>
                                             </>}
                                         </div>
                                     </CardContent>
