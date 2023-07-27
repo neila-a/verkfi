@@ -133,7 +133,7 @@ export function Index(props: {
                 const draft = (JSON.parse(value) as string[]).map(toolTo => {
                     var realTool: tool;
                     realTools.forEach(tool => {
-                        if (tool.to == toolTo) {
+                        if ((tool.to || tool.goto) == toolTo) {
                             realTool = tool;
                         }
                     });
