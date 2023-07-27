@@ -121,6 +121,7 @@ export function Index(props: {
             id = "toolslist",
             name = "工具列表",
             empty = realTools.map(tool => {
+                logger.log(tool)
                 if (tool.to) {
                     return tool.to;
                 } else if (tool.goto) {
