@@ -120,16 +120,7 @@ export function Index(props: {
         const
             id = "toolslist",
             name = "工具列表",
-            empty = realTools.map(tool => {
-                logger.log(tool)
-                if (tool.to) {
-                    return tool.to;
-                } else if (tool.goto) {
-                    return tool.goto;
-                } else {
-                    return tool.name;
-                }
-            }),
+            empty = realTools.map(tool => (tool.to || tool.goto)),
             value = localStorage.getItem(id);
         switch (value) {
             case null:
@@ -251,7 +242,7 @@ export function Index(props: {
                                         setTools(draft => {
                                             var pd = draft.slice(0);
                                             downGo(pd, pd.indexOf(tool));
-                                            setSetting("toolslist", "工具列表", JSON.stringify(pd.map(toolp => toolp.name)));
+                                            setSetting("toolslist", "工具列表", JSON.stringify(pd.map(toolp => (tool.to || tool.goto))));
                                             return pd;
                                         });
                                     }}>
@@ -272,7 +263,7 @@ export function Index(props: {
                                         setTools(draft => {
                                             var pd = draft.slice(0);
                                             upGo(pd, pd.indexOf(tool));
-                                            setSetting("toolslist", "工具列表", JSON.stringify(pd.map(toolp => toolp.name)));
+                                            setSetting("toolslist", "工具列表", JSON.stringify(pd.map(toolp => (tool.to || tool.goto))));
                                             return pd;
                                         });
                                     }}>
