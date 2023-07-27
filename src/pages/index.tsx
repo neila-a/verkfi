@@ -242,7 +242,7 @@ export function Index(props: {
                                         setTools(draft => {
                                             var pd = draft.slice(0);
                                             downGo(pd, pd.indexOf(tool));
-                                            setSetting("toolslist", "工具列表", JSON.stringify(pd.map(toolp => (tool.to || tool.goto))));
+                                            setSetting("toolslist", "工具列表", JSON.stringify(pd.map(toolp => (toolp.to || toolp.goto))));
                                             return pd;
                                         });
                                     }}>
@@ -263,7 +263,7 @@ export function Index(props: {
                                         setTools(draft => {
                                             var pd = draft.slice(0);
                                             upGo(pd, pd.indexOf(tool));
-                                            setSetting("toolslist", "工具列表", JSON.stringify(pd.map(toolp => (tool.to || tool.goto))));
+                                            setSetting("toolslist", "工具列表", JSON.stringify(pd.map(toolp => (toolp.to || toolp.goto))));
                                             return pd;
                                         });
                                     }}>
