@@ -281,6 +281,7 @@ export function Index(props: {
                         }
                         return (
                             <div style={{
+                                display: "block",
                                 background: `linear-gradient(45deg, #${tool.color[0]}, #${tool.color[1]});`,
                             }} key={tool.name}> {/* 单个工具 */}
                                 <Card sx={{
