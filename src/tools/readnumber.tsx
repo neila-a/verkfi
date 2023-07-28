@@ -13,8 +13,9 @@ export const logger = new LpLogger({
     name: "ReadNumber",
     level: "log", // 空字符串时，不显示任何信息
 });
-import nzh from "./readnumber/nzh";
+import getNzh from "./readnumber/nzh";
 export default function ReadNumber(): JSX.Element {
+    const nzh = getNzh(I18N);
     var [blur, setBlur] = useState<"number" | "string">("number"),
         [string, setString] = useState<string>(""),
         [number, setNumber] = useState<string>("0");
