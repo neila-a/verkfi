@@ -282,7 +282,7 @@ export function Index(props: {
                         return (
                             <div style={{
                                 display: "block",
-                                background: `linear-gradient(45deg, #${tool.color[0]}, #${tool.color[1]});`,
+                                "--c1": `linear-gradient(45deg, #${tool.color[0]}, #${tool.color[1]});`,
                             }} key={tool.name}> {/* 单个工具 */}
                                 <Card sx={{
                                     minWidth: viewMode == "grid" ? 275 : "100%"
@@ -311,7 +311,9 @@ export function Index(props: {
                                                 setJumpName(tool.name);
                                             }
                                         }}>
-                                            {viewMode == "grid" ? <>
+                                            {viewMode == "grid" ? <div style={{
+                                                background: "var(--c1)"
+                                            }}>
                                                 <div className={Style["singleGridIcon"]}>
                                                     <ToolIcon />
                                                 </div>
@@ -326,7 +328,9 @@ export function Index(props: {
                                                     {tool.desc}
                                                 </Typography>
                                                     </div>
-                                            </> : <>     
+                                            </div> : <div style={{
+                                                background: "var(--c1)"
+                                            }}>     
                                                 <div className={Style["singleListIcon"]}>
                                                     <ToolIcon />
                                                 </div>
@@ -343,7 +347,7 @@ export function Index(props: {
                                                     <DownButton />
                                                     <UpButton />
                                                 </div>
-                                            </>}
+                                            </div>}
                                         </div>
                                     </CardContent>
                                 </Card>
