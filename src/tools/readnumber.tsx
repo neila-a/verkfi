@@ -15,11 +15,11 @@ export const logger = new LpLogger({
 });
 import getNzh from "./readnumber/nzh";
 export default function ReadNumber(): JSX.Element {
-    const nzh = getNzh(I18N);
     var [blur, setBlur] = useState<"number" | "string">("number"),
         [string, setString] = useState<string>(""),
         [number, setNumber] = useState<string>("0");
     function proc(p: string) {
+        const nzh = getNzh(I18N);
         switch (blur) {
             case "number":
                 setString(nzh.encode(p));
