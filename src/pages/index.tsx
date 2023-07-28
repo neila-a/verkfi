@@ -277,7 +277,7 @@ export function Index(props: {
                         return (
                             <Fragment key={tool.name}> {/* 单个工具 */}
                                 <Card sx={{
-                                    "background-image": `linear-gradient(45deg, #${tool.color[0]} 0%, #$={tool.color[1]} 100%);`,
+                                    backgroundImage: `linear-gradient(45deg, #${tool.color[0]} 0%, #$={tool.color[1]} 100%);`,
                                     minWidth: viewMode == "grid" ? 275 : "100%"
                                 }} elevation={10}>
                                     <CardContent>
