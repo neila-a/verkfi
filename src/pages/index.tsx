@@ -232,7 +232,6 @@ export function Index(props: {
                 }}> {/* 工具总览 */}
                     {tools == emptyArray ? <Typography>{I18N.get('未找到任何工具')}</Typography> : tools.map(tool => { // 遍历tools
                         const ToolIcon = tool.icon,
-                            background = "linear-gradient(45deg, #" + tool.color[0] + ", #" + tool.color[1] + ")";
                             subStyle = {
                                 sx: {
                                     color: "#999999"
@@ -283,7 +282,7 @@ export function Index(props: {
                         return (
                             <div style={{
                                 display: "block",
-                                backgroundImage: background,
+                                backgroundImage: "linear-gradient(45deg, #" + tool.color[0] + ", #" + tool.color[1] + ")",
                             }} key={tool.name}> {/* 单个工具 */}
                                 <Card sx={{
                                     minWidth: viewMode == "grid" ? 275 : "100%"
