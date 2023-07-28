@@ -67,8 +67,10 @@ export function Index(props: {
      */
     searchText?: string;
 }): JSX.Element {
-    const initialViewMode = useReadSetting("viewmode", "列表模式", "grid");
+    const initialViewMode = useReadSetting("viewmode", "列表模式", "grid"),
+        initialDarkMode = useReadSetting("darkmode", "暗色模式", "false");
     var realTools = getTools(I18N),
+        [darkMode, setDarkMode] = useState<boolean>(false),
         [sortedTools, setSortedTools] = useState(realTools),
         [setted, setSetted] = useState<boolean>(false),
         [searchText, setSearchText] = useState<string>(""),
@@ -82,8 +84,9 @@ export function Index(props: {
         [tools, setTools] = useState(sortedTools);
     useEffect(() => {
             setViewMode(initialViewMode);
+            setDarkMode(stringToBoolean(initialDarkMode));
             setSetted(true);
-    }, [initialViewMode]); // 检测lS的viewMode
+    }, [initialViewMode, initialDarkMode]); // 检测lS的viewMode
     useEffect(() => {
         if (setted) setSetting("viewmode", "列表模式", viewMode);
     }, [viewMode]); // 实时保存viewMode至lS
@@ -235,7 +238,7 @@ export function Index(props: {
                         const ToolIcon = tool.icon,
                             subStyle = {
                                 sx: {
-                                    color: stringToBoolean(useReadSetting("darkmode", "暗色模式", "false")) ? "" : "#999999"
+                                    color: darkMode ? "" : "#999999"
                                 }
                             };
                         function DownButton(): JSX.Element {
