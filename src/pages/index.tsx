@@ -68,8 +68,10 @@ export function Index(props: {
     searchText?: string;
 }): JSX.Element {
     const initialViewMode = useReadSetting("viewmode", "列表模式", "grid"),
-        initialDarkMode = useReadSetting("darkmode", "暗色模式", "false");
+        initialDarkMode = useReadSetting("darkmode", "暗色模式", "false"),
+        initialColor = useReadSetting("color", "多彩主页", "true");
     var realTools = getTools(I18N),
+        [color, setColor] = useState<boolean>(true),
         [darkMode, setDarkMode] = useState<boolean>(false),
         [sortedTools, setSortedTools] = useState(realTools),
         [setted, setSetted] = useState<boolean>(false),
@@ -84,9 +86,10 @@ export function Index(props: {
         [tools, setTools] = useState(sortedTools);
     useEffect(() => {
             setViewMode(initialViewMode);
+            setColor(stringToBoolean(initialColor));
             setDarkMode(stringToBoolean(initialDarkMode));
             setSetted(true);
-    }, [initialViewMode, initialDarkMode]); // 检测lS的viewMode
+    }, [initialViewMode, initialDarkMode, initialColor]); // 检测lS的viewMode
     useEffect(() => {
         if (setted) setSetting("viewmode", "列表模式", viewMode);
     }, [viewMode]); // 实时保存viewMode至lS
@@ -287,7 +290,7 @@ export function Index(props: {
                             <div key={tool.name}> {/* 单个工具 */}
                                 <Card sx={{
                                     minWidth: viewMode == "grid" ? 275 : "100%",
-                                    backgroundImage: "linear-gradient(45deg, #" + tool.color[0] + ", #" + tool.color[1] + ")"
+                                    backgroundImage: color ? "linear-gradient(45deg, #" + tool.color[0] + ", #" + tool.color[1] + ")" : ""
                                 }} elevation={10}>
                                     <CardContent>
                                         <div className={viewMode == "list" ? Style["singleList"] : ""} onClick={() => {
