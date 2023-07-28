@@ -46,6 +46,7 @@ import CheckDialog from "../components/dialog/CheckDialog";
 import Router from "next/router";
 import setSetting from "../components/setting/setSetting";
 import useReadSetting from "../components/setting/useReadSetting";
+import stringToBoolean from "../components/setting/stringToBoolean";
 import {
     useRouter
 } from "next/router";
@@ -234,7 +235,7 @@ export function Index(props: {
                         const ToolIcon = tool.icon,
                             subStyle = {
                                 sx: {
-                                    color: "#999999"
+                                    color: stringToBoolean(useReadSetting("darkmode", "暗色模式", "false")) ? "" : "#999999"
                                 }
                             };
                         function DownButton(): JSX.Element {
