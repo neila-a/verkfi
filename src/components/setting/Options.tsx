@@ -39,6 +39,11 @@ export default function Options() {
                     setOption("darkmode", "暗色模式", event.target.checked);
                 }} />
             } label={I18N.get("暗色模式")} />
+            <FormControlLabel control={
+                <Switch checked={stringToBoolean(useReadSetting("color", "多彩主页", "true"))} onChange={event => {
+                    setOption("color", "多彩主页", event.target.checked);
+                }} />
+            } label={I18N.get("多彩主页")} />
                 <InputLabel id="lang">
                     {I18N.get("选择语言")}
                 </InputLabel>
