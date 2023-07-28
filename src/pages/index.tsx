@@ -231,7 +231,12 @@ export function Index(props: {
                     display: viewMode == "grid" ? "flex" : "block"
                 }}> {/* 工具总览 */}
                     {tools == emptyArray ? <Typography>{I18N.get('未找到任何工具')}</Typography> : tools.map(tool => { // 遍历tools
-                        const ToolIcon = tool.icon;
+                        const ToolIcon = tool.icon,
+                            subStyle = {
+                                sx: {
+                                    color: "#999999"
+                                }
+                            };
                         function DownButton(): JSX.Element {
                             if (editMode) {
                                 return (
@@ -275,9 +280,10 @@ export function Index(props: {
                             }
                         }
                         return (
-                            <Fragment key={tool.name}> {/* 单个工具 */}
+                            <div style={{
+                                backgroundImage: `linear-gradient(45deg, #${tool.color[0]} 0%, #$={tool.color[1]} 100%);`,
+                            }} key={tool.name}> {/* 单个工具 */}
                                 <Card sx={{
-                                    backgroundImage: `linear-gradient(45deg, #${tool.color[0]} 0%, #$={tool.color[1]} 100%);`,
                                     minWidth: viewMode == "grid" ? 275 : "100%"
                                 }} elevation={10}>
                                     <CardContent>
@@ -315,7 +321,7 @@ export function Index(props: {
                                                     {tool.name}
                                                     <UpButton />
                                                 </Typography>
-                                                <Typography variant="body2">
+                                                <Typography {...subStyle} variant="body2">
                                                     {tool.desc}
                                                 </Typography>
                                                     </div>
@@ -328,7 +334,7 @@ export function Index(props: {
                                                     {tool.goto ? <ExitToAppIcon /> : <></>}
                                                     {tool.name}
                                                 </Typography>
-                                                <Typography variant="body2">
+                                                <Typography {...subStyle} variant="body2">
                                                     {tool.desc}
                                                 </Typography>
                                                     </div>
@@ -341,7 +347,7 @@ export function Index(props: {
                                     </CardContent>
                                 </Card>
                                 {viewMode == "grid" ? <Fragment /> : <br />}
-                            </Fragment>
+                            </div>
                         );
                     })}
                 </Stack>
