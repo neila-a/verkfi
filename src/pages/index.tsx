@@ -282,10 +282,10 @@ export function Index(props: {
                         return (
                             <div style={{
                                 display: "block",
-                                backgroundImage: "linear-gradient(45deg, #" + tool.color[0] + ", #" + tool.color[1] + ")",
                             }} key={tool.name}> {/* 单个工具 */}
                                 <Card sx={{
-                                    minWidth: viewMode == "grid" ? 275 : "100%"
+                                    minWidth: viewMode == "grid" ? 275 : "100%",
+                                    backgroundImage: "linear-gradient(45deg, #" + tool.color[0] + ", #" + tool.color[1] + ")"
                                 }} elevation={10}>
                                     <CardContent>
                                         <div className={viewMode == "list" ? Style["singleList"] : ""} onClick={() => {
