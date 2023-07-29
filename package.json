@@ -1,9 +1,9 @@
 {
   "name": "neilatools",
-  "version": "1.4.0",
-  "devVersion": "377",
+  "version": "1.5.0",
+  "devVersion": "533",
   "dev": false,
-  "description": "Something useless tools",
+  "description": "Platform for Neila's something useless tools.",
   "scripts": {
     "dev": "next dev",
     "build": "pnpm run build:sw && next build",
