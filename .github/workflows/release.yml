@@ -8,7 +8,7 @@ run-name: Create Release
 
 jobs:
   Build:
-    name: Create Release
+    name: Build
     runs-on: ubuntu-latest
     steps:  
       - name: Install Node.js
@@ -17,6 +17,9 @@ jobs:
           node-version: 18
       - name: Build Output  
   Create-Release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
       - name: Create Release
         uses: softprops/actin-gh-release@v0.1.14
         env:
