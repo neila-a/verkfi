@@ -20,7 +20,7 @@ jobs:
       - name: Install dependences
         run: pnpm install
       - name: Build
-        runs: npm run build && ls
+        run: npm run build && ls
   Create-Release:
     name: Create Release
     runs-on: ubuntu-latest
