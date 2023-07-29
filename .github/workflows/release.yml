@@ -15,8 +15,12 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
-      - name: Build Output
-        run: npm install && npm run build && ls
+      - name: Install pnpm
+        run: npm install pnpm -g
+      - name: Install dependences
+        run: pnpm install
+      - name: Build
+        runs: npm run build && ls
   Create-Release:
     name: Create Release
     runs-on: ubuntu-latest
