@@ -331,7 +331,7 @@ export function Index(props: {
                                                     {tool.desc}
                                                 </Typography>
                                                     </div>
-                                            </div> : <div>     
+                                            </div> : <div className={Style["singleList"]}>     
                                                 <div className={Style["singleListIcon"]}>
                                                     <ToolIcon />
                                                 </div>
