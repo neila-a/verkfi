@@ -12,6 +12,8 @@ const nextConfig = {
 	devIndicators: {
 		buildActivityPosition: 'bottom-right',
 	},
+       images: {
+           loader: 'static'
+    }
 }
-
 module.exports = nextConfig;
