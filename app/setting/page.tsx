@@ -1,3 +1,4 @@
+"use client";
 import I18N from 'react-intl-universal';
 import {
 	Typography,
@@ -10,7 +11,7 @@ import {
 	ListItemText,
 	Toolbar
 } from "@mui/material";
-import HeadBar from "../components/HeadBar";
+import HeadBar from "../../components/HeadBar";
 import {
 	useState,
 	Fragment
