@@ -1,6 +1,6 @@
 "use client";
 import I18N from 'react-intl-universal';
-import HeadBar from "../components/HeadBar";
+import HeadBar from "./components/headBar/HeadBar";
 import React, {
     Fragment,
     useEffect,
@@ -29,13 +29,13 @@ import {
 } from "@mui/icons-material";
 import {
     components as ToolComponents
-} from "../components/tools/components";
-import Style from "../styles/Index.module.scss";
+} from "./tools/components";
+import Style from "./styles/Index.module.scss";
 import LpLogger from "lp-logger";
 import {
     getTools,
     tool
-} from "../components/tools/info";
+} from "./tools/info";
 import Window, {
     WindowOptions
 } from "../components/Window";
