@@ -1,11 +1,7 @@
-// import App from "next/app";
-import type {
-    AppProps /*, AppContext */
-} from 'next/app';
-import enUS from "../locales/en-US.json";
-import zhCN from "../locales/zh-CN.json";
-import zhTW from "../locales/zh-TW.json";
-import rkRK from "../locales/rk-RK.json";
+import enUS from "./locales/en-US.json";
+import zhCN from "./locales/zh-CN.json";
+import zhTW from "./locales/zh-TW.json";
+import rkRK from "./locales/rk-RK.json";
 export const locales = {
     enUS,
     zhCN,
@@ -26,9 +22,9 @@ import {
     createTheme
 } from "@mui/material/styles"
 import LpLogger from "lp-logger";
-import style from "../styles/ModifiedApp.module.scss";
-import "../styles/App.scss";
-import useReadSetting from "../components/setting/useReadSetting"
+import style from "./styles/ModifiedApp.module.scss";
+import "./styles/App.scss";
+import useReadSetting from "./components/setting/useReadSetting";
 import {
     isMobile
 } from 'react-device-detect';
@@ -42,7 +38,9 @@ declare global {  //设置全局属性
         installPWA(): void;
     }
 }
-export default function ModifiedApp({ Component, pageProps }: AppProps) {
+export default function ModifiedApp(props: {
+children
+}) {
     const initialMode = useReadSetting("darkmode", "暗色模式", "false").replace("false", "light").replace("true", "dark"),
      [mode, setMode] = useState<'light' | 'dark'>(initialMode),
      theme = useMemo(
@@ -99,7 +97,7 @@ window.installPWA = addToDesktop;
         initDone &&<ThemeProvider theme={theme}>
                 <CssBaseline />
                 <div className={style["fullHeight"]}>
-                    <Component {...pageProps} />
+                    {children}
                 </div>
             </ThemeProvider>
     );
