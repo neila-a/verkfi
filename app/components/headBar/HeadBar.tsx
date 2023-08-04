@@ -7,6 +7,7 @@ import {
 	FormGroup,
 	FormControl
 } from "@mui/material";
+import ErrorBoundary from "../ErrorBoundary";
 import {
 	ArrowBack,
 	Settings as SettingsIcon,
@@ -124,7 +125,9 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 			{showSearchTool && <PureDialog title={I18N.get('搜索工具')} onClose={() => {
 				setSearchText("");
 				setShowSearchTool(false);
-			}} context={<SearchTool isImplant searchText={searchText} />} />}
+				}} context={<ErrorBoundary>
+				<SearchTool isImplant searchText={searchText} />
+				</ErrorBoundary>} />}
 		</>
 	);
 };
