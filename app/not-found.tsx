@@ -1,3 +1,4 @@
+"use client";
 import I18N from 'react-intl-universal';
 import HeadBar from "./components/headBar/HeadBar";
 export default function NotFound(): JSX.Element {
