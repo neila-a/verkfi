@@ -38,26 +38,26 @@ import {
 } from "./tools/info";
 import Window, {
     WindowOptions
-} from "../components/Window";
-import ErrorBoundary from "../components/ErrorBoundary";
+} from "./components/Window";
+import ErrorBoundary from "./components/ErrorBoundary";
 import {
     emptyArray
-} from "../tools/filter";
-import CheckDialog from "../components/dialog/CheckDialog";
+} from "./tools/filter/tool";
+import CheckDialog from "./components/dialog/CheckDialog";
 import Router from "next/router";
-import setSetting from "../components/setting/setSetting";
-import useReadSetting from "../components/setting/useReadSetting";
-import stringToBoolean from "../components/setting/stringToBoolean";
+import setSetting from "./setting/setSetting";
+import useReadSetting from "./setting/useReadSetting";
+import stringToBoolean from "./setting/stringToBoolean";
 import {
     useRouter
 } from "next/router";
-import MouseOverPopover from "../components/Popover";
+import MouseOverPopover from "./components/Popover";
 var logger = new LpLogger({
     name: "Index",
     level: "log", // 空字符串时，不显示任何信息
 });
-import downGo from "../components/arrayMove/downGo";
-import upGo from "../components/arrayMove/upGo";
+import downGo from "./components/arrayMove/downGo";
+import upGo from "./components/arrayMove/upGo";
 export function Index(props: {
     /**
      * 是否为嵌入
