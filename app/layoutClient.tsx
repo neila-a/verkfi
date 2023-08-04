@@ -39,9 +39,7 @@ declare global {  //设置全局属性
         installPWA(): void;
     }
 }
-export default function ModifiedApp(props: {
-children
-}) {
+export default function ModifiedApp(props) {
     const initialMode = useReadSetting("darkmode", "暗色模式", "false").replace("false", "light").replace("true", "dark"),
      [mode, setMode] = useState<'light' | 'dark'>(initialMode),
      theme = useMemo(
@@ -98,7 +96,7 @@ window.installPWA = addToDesktop;
         initDone &&<ThemeProvider theme={theme}>
                 <CssBaseline />
                 <div className={style["fullHeight"]}>
-                    {children}
+                    {props.children}
                 </div>
             </ThemeProvider>
     );
