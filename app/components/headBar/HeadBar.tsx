@@ -19,13 +19,13 @@ import {
 } from "react";
 import style from "./HeadBar.module.scss";
 import LpLogger from "lp-logger";
-import MouseOverPopover from "./Popover";
+import MouseOverPopover from "../Popover";
 import {
 	Theme
 } from "@emotion/react";
 import {
 	Index as SearchTool
-} from "../pages";
+} from "../../page";
 import stringToBoolean from "../../setting/stringToBoolean";
 import useReadSetting from "../../setting/useReadSetting";
 import PureDialog from "../dialog/PureDialog";
