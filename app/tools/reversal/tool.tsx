@@ -15,9 +15,9 @@ import {
     Close
 } from "@mui/icons-material";
 import LpLogger from "lp-logger";
-import InputDialog from "../components/dialog/InputDialog";
-import AlertDialog from "../components/dialog/AlertDialog";
-import Snackbar from "../components/snackbar/up";
+import InputDialog from "../../components/dialog/InputDialog";
+import AlertDialog from "../../components/dialog/AlertDialog";
+import Snackbar from "../../components/snackbar/up";
 var logger = new LpLogger({
     name: I18N.get('翻转'),
     level: "log", // 空字符串时，不显示任何信息
@@ -29,7 +29,7 @@ declare global {  //设置全局属性
         //加入对象
     }
 }
-import destroyer from "../components/destroyer";
+import destroyer from "../../components/destroyer";
 export function Reversal(): JSX.Element {
     var [wordList, setWordList] = useState<[string, number][]>([]),
         [words, setWords] = useState<string>(""),

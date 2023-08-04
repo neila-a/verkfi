@@ -7,14 +7,14 @@ import {
     useState,
     Fragment
 } from "react";
-import InputDialog from "../components/dialog/InputDialog";
-import AlertDialog from "../components/dialog/AlertDialog";
-import style from "../styles/CountLetter.module.scss"
+import InputDialog from "../../components/dialog/InputDialog";
+import AlertDialog from "../../components/dialog/AlertDialog";
+import style from "./CountLetter.module.scss"
 var logger = new LpLogger({
     name: "CountLetter",
     level: "log", // 空字符串时，不显示任何信息
 });
-import table from "./countletter/table";
+import table from "./table";
 function CountLetter(): JSX.Element {
     var [enterDialogOpen, setEnterDialogOpen] = useState<boolean>(false),
         [alertDialogOpen, setAlertDialogOpen] = useState<boolean>(false),

@@ -9,7 +9,7 @@ import {
 import {
     VictoryPie
 } from "victory";
-import CheckDialog from "../dialog/CheckDialog";
+import CheckDialog from "../components/dialog/CheckDialog";
 import {
     MB
 } from "./consts";
@@ -17,7 +17,7 @@ import getSettingsSur from "./getSettingsSur";
 import getSettingsUsed from "./getSettingsUsed";
 import {
     logger
-} from "../../pages/settings";
+} from "./page";
 export default function Reset() {
     var [dialogOpen, setDialogOpen] = useState<boolean>(false),
         [dialogContext, setDialogContext] = useState<string>(""),

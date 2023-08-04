@@ -1,17 +1,17 @@
 import dynamic from "next/dynamic";
-import audiotools from "../../tools/audiotools";
-import countletter from "../../tools/countletter";
-import filter from "../../tools/filter";
-import pi from "../../tools/pi";
-import readnumber from "../../tools/readnumber";
-import reversal from "../../tools/reversal";
-import shaizi from "../../tools/shaizi";
-import mathgen from "../../tools/mathgen";
-import jigsaw from "../../tools/jigsaw";
-const cubic = dynamic(() => import("../../tools/cubic"), {
+import audiotools from "./audiotools/tool";
+import countletter from "./countletter/tool";
+import filter from "./filter/tool";
+import pi from "./pi/tool";
+import readnumber from "./readnumber/tool";
+import reversal from "./reversal/tool";
+import shaizi from "./shaizi/tool";
+import mathgen from "./mathgen/tool";
+import jigsaw from "./jigsaw/tool";
+const cubic = dynamic(() => import("./cubic/tool"), {
     ssr: false,
 });
-import cylinder from "../../tools/cylinder";
+import cylinder from "./cylinder/tool";
 export const components = {
     audiotools,
     countletter,

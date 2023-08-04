@@ -20,7 +20,7 @@ import FilePondPluginImageEdit from 'filepond-plugin-image-edit'; // Import the 
 import 'filepond-plugin-image-edit/dist/filepond-plugin-image-edit.css'; // Import the plugin styles
 import FilePondPluginImageCrop from 'filepond-plugin-image-crop'; // Import the plugin code
 import 'filepond/dist/filepond.min.css'; // Import FilePond styles
-import style from "../styles/Filter.module.scss";
+import style from "./Filter.module.scss";
 import {
     Grid,
     Input as MuiInput,
@@ -36,7 +36,7 @@ import {
     styled
 } from '@mui/material/styles';
 import LpLogger from "lp-logger";
-import destroyer from "../components/destroyer";
+import destroyer from "../../components/destroyer";
 var logger = new LpLogger({
     name: I18N.get('滤镜'),
     level: "log", // 空字符串时，不显示任何信息
@@ -52,7 +52,7 @@ export const Input = styled(MuiInput)`
 import {
     ImageType,
     ImageTypesGen
-} from "./filter/consts";
+} from "./consts";
 export const emptyArray: [] = [];
 export default function Filter(): JSX.Element {
     var [imageArray, setImageArray] = useState<any[]>([]);

@@ -18,14 +18,14 @@ import {
 import {
     emptyArray
 } from "./filter";
-import destroyer from "../components/destroyer";
-import SingleMath from "./mathgen/singleMath";
+import destroyer from "../../components/destroyer";
+import SingleMath from "./singleMath";
 import LpLogger from "lp-logger";
 import {
     calc,
     defaultCalcs
-} from "./mathgen/consts";
-import calcMath from "./mathgen/calcMath";
+} from "./consts";
+import calcMath from "./calcMath";
 export var logger = new LpLogger({
     name: "MathGen",
     level: "log", // 空字符串时，不显示任何信息

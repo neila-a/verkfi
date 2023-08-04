@@ -17,7 +17,7 @@ import Head from "next/head";
 import {
 	Fragment, useState
 } from "react";
-import style from "../styles/HeadBar.module.scss";
+import style from "./HeadBar.module.scss";
 import LpLogger from "lp-logger";
 import MouseOverPopover from "./Popover";
 import {
@@ -26,9 +26,9 @@ import {
 import {
 	Index as SearchTool
 } from "../pages";
-import stringToBoolean from "./setting/stringToBoolean";
-import useReadSetting from "./setting/useReadSetting";
-import PureDialog from "./dialog/PureDialog";
+import stringToBoolean from "../../setting/stringToBoolean";
+import useReadSetting from "../../setting/useReadSetting";
+import PureDialog from "../dialog/PureDialog";
 var logger = new LpLogger({
 	name: "HeadBar",
 	level: "log", // 空字符串时，不显示任何信息
@@ -36,9 +36,9 @@ var logger = new LpLogger({
 import {
 	SxProps
 } from '@mui/material/styles';
-import Search from "./headBar/search";
-import SearchIconWrapper from "./headBar/SearchIconWrapper";
-import StyledInputBase from "./headBar/StyledInputBase";
+import Search from "./search";
+import SearchIconWrapper from "./SearchIconWrapper";
+import StyledInputBase from "./StyledInputBase";
 export interface HeadBarOption {
 	pageName: string;
 	isIndex: boolean;

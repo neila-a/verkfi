@@ -1,4 +1,4 @@
-import style from "../styles/Center.module.scss";
+import style from "./Center.module.scss";
 /**
  * 居中
  * @returns {JSX.Element}  

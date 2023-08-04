@@ -1,5 +1,5 @@
 import I18N from 'react-intl-universal';
-import Center from "../components/Center";
+import Center from "../../components/Center";
 import React, {
     Dispatch,
     SetStateAction,
@@ -11,12 +11,12 @@ import {
     Button,
     TextField
 } from "@mui/material";
-import style from "../styles/ShaiZi.module.scss";
+import style from "./ShaiZi.module.scss";
 import LpLogger from "lp-logger";
-import FullScreenDialog from "../components/dialog/FullScreenDialog";
+import FullScreenDialog from "../../components/dialog/FullScreenDialog";
 import {
     ShaiZiCanvas
-} from "./shaizi/shaiziCanvas";
+} from "./shaiziCanvas";
 export var logger = new LpLogger({
     name: I18N.get('掷骰子'),
     level: "log", // 空字符串时，不显示任何信息
