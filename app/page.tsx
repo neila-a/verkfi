@@ -48,15 +48,15 @@ import Router from "next/router";
 import setSetting from "./setting/setSetting";
 import useReadSetting from "./setting/useReadSetting";
 import stringToBoolean from "./setting/stringToBoolean";
-import {
-    useRouter
-} from "next/router";
 import MouseOverPopover from "./components/Popover";
 var logger = new LpLogger({
     name: "Index",
     level: "log", // 空字符串时，不显示任何信息
 });
 import downGo from "./components/arrayMove/downGo";
+import {
+useSearchParams 
+} from 'next/navigation';
 import upGo from "./components/arrayMove/upGo";
 export function Index(props: {
     /**
@@ -70,7 +70,8 @@ export function Index(props: {
 }): JSX.Element {
     const initialViewMode = useReadSetting("viewmode", "列表模式", "grid"),
         initialDarkMode = useReadSetting("darkmode", "暗色模式", "false"),
-        initialColor = useReadSetting("color", "多彩主页", "true");
+        initialColor = useReadSetting("color", "多彩主页", "true"),
+	searchParams = useSearchParams();
     var realTools = getTools(I18N),
         [color, setColor] = useState<boolean>(true),
         [darkMode, setDarkMode] = useState<boolean>(false),
@@ -83,7 +84,6 @@ export function Index(props: {
         [jumpto, setJumpTo] = useState<string>(realTools[11].goto),
         [jumpName, setJumpName] = useState<string>(realTools[11].name),
         [jumpDialogOpen, setJumpDialogOpen] = useState<boolean>(false),
-        router = useRouter(),
         [tools, setTools] = useState(sortedTools);
     useEffect(() => {
             setViewMode(initialViewMode);
@@ -94,9 +94,6 @@ export function Index(props: {
     useEffect(() => {
         if (setted) setSetting("viewmode", "列表模式", viewMode);
     }, [viewMode]); // 实时保存viewMode至lS
-    const {
-        query
-    } = router;
     /**
      * 搜索工具
      */
@@ -156,10 +153,10 @@ export function Index(props: {
         if (props.isImplant) {
             setSearchText(props.searchText);
             searchTools(props.searchText);
-        } else if (query.searchText) {
-            logger.info("query的内容为", query);
-            setSearchText(query.searchText as string);
-            searchTools(query.searchText as string);
+        } else if (searchParams.has("searchText")) {
+	const paramText = searchParams.get("searchText");
+            setSearchText(paramText);
+            searchTools(paramText);
         }
     }, [query]); // 嵌入式检查
     useEffect(() => {
