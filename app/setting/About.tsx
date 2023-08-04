@@ -6,7 +6,7 @@ import {
 	Handyman as HandyManIcon
 } from "@mui/icons-material";
 import Link from "next/link";
-import style from "./styles/Settings.module.scss";
+import style from "./Settings.module.scss";
 import {
 	version,
 	devVersion

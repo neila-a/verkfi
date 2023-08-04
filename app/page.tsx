@@ -38,7 +38,7 @@ import {
 } from "./tools/info";
 import Window, {
     WindowOptions
-} from "./components/Window";
+} from "./components/window/Window";
 import ErrorBoundary from "./components/ErrorBoundary";
 import {
     emptyArray
