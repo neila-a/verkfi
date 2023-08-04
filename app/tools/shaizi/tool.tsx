@@ -1,5 +1,5 @@
 import I18N from 'react-intl-universal';
-import Center from "../../components/Center";
+import Center from "../../components/center/Center";
 import React, {
     Dispatch,
     SetStateAction,

@@ -17,7 +17,7 @@ import {
 } from "react";
 import {
     emptyArray
-} from "../filter/page";
+} from "../filter/tool";
 import destroyer from "../../components/destroyer";
 import SingleMath from "./singleMath";
 import LpLogger from "lp-logger";
