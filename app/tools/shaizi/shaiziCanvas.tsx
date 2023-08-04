@@ -9,7 +9,7 @@ import {
 import style from "styled-jsx/style";
 import {
     logger
-} from "../shaizi"
+} from "./tool";
 export function ShaiZiCanvas(props: {
     cishu: number;
     setCishu: Dispatch<SetStateAction<number>>
