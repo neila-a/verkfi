@@ -9,7 +9,7 @@
     "build": "pnpm run build:sw && next build",
     "start": "next start",
     "lint": "next lint",
-    "build:sw": "echo \"// autogen script\" > public/service-worker.js && esbuild src/components/service-worker.ts --bundle --minify >> public/service-worker.js"
+    "build:sw": "echo \"// autogen script\" > public/service-worker.js && esbuild app/service-worker.ts --bundle --minify >> public/service-worker.js"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
