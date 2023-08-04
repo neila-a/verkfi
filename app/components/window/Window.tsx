@@ -7,7 +7,7 @@ import React, {
     useEffect,
     useState
 } from "react";
-import style from "../styles/Window.module.scss";
+import style from "./Window.module.scss";
 import {
     CropDin as CropDinIcon,
     Close as CloseIcon

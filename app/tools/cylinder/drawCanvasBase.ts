@@ -1,6 +1,6 @@
 import {
     logger
-} from "../cylinder";
+} from "./tool";
 export default function drawCanvasBase(edge: number, n: number, blocks: [number, number][]) {
     console.time("渲染圆");
     var canvas = document.createElement("canvas");

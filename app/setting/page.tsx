@@ -38,9 +38,9 @@ interface ThemeHaveZIndex {
 		drawer: number;
 	}
 }
-import Options from "../components/setting/Options";
-import Reset from "../components/setting/Reset";
-import About from "../components/setting/About";
+import Options from "./Options";
+import Reset from "./Reset";
+import About from "./About";
 export default function Settings(): JSX.Element {
 	var [context, setContext] = useState<string>(I18N.get("选项"));
 	const sets: set[] = [

@@ -4,7 +4,7 @@ import {
 import genNumber from "./genNumber";
 import {
     logger
-} from "../mathgen";
+} from "./tool";
 import {
     Dispatch,
     SetStateAction

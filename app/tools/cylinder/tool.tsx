@@ -3,10 +3,10 @@ import {
     useEffect,
     useState
 } from "react";
-import style from "../styles/Cylinder.module.scss"
+import style from "./Cylinder.module.scss"
 import LpLogger from "lp-logger";
-import makeCylinder from "./cylinder/makeCylinder";
-import drawCanvasBase from "./cylinder/drawCanvasBase";
+import makeCylinder from "./makeCylinder";
+import drawCanvasBase from "./drawCanvasBase";
 import {
     Typography,
     Grid,

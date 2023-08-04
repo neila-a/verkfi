@@ -2,17 +2,17 @@ import {
     useRouter
 } from "next/router";
 import React, { Fragment } from "react";
-import HeadBar from "../components/HeadBar";
+import HeadBar from "../components/headBar/HeadBar";
 import {
     getTools
-} from "../components/tools/info";
+} from "../tools/info";
 import {
     Box, Toolbar
 } from "@mui/material";
 import I18N from "react-intl-universal";
 import {
     components as tools
-} from "../components/tools/components"
+} from "../tools/components"
 import lpLogger from "lp-logger";
 var logger = new lpLogger({
     name: "ToolFinder",

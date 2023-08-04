@@ -12,7 +12,7 @@ import {
     Button
 } from "@mui/material";
 import LpLogger from "lp-logger";
-import AlertDialog from "../components/dialog/AlertDialog";
+import AlertDialog from "../../components/dialog/AlertDialog";
 var logger = new LpLogger({
     name: I18N.get('π计算器'),
     level: "log", // 空字符串时，不显示任何信息

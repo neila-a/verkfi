@@ -6,11 +6,11 @@ import {
 	Handyman as HandyManIcon
 } from "@mui/icons-material";
 import Link from "next/link";
-import style from "../../styles/Settings.module.scss";
+import style from "./styles/Settings.module.scss";
 import {
 	version,
 	devVersion
-} from "../../../package.json";
+} from "../../package.json";
 export default function About() {
     return (
         <div>
