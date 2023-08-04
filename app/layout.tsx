@@ -1,7 +1,7 @@
 import {
 Metadata
 } from "next";
-import layoutClient from "./layoutClient";
+import BaseLayout from "./layoutClient";
 export const metadata: Metadata = {
 manifest: "/index.webmanifest",
 description: "Neila的一些没用工具。" ,
@@ -21,7 +21,9 @@ export default function Layout({ children }) {
         return (
             <html lang="zh-cmn-Hans-CN">
                 <body>
-                <Layout children={children} />
+                <BaseLayout>
+	{children}
+		</BaseLayout>
                 </body>
             </html>
         )
