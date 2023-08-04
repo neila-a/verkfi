@@ -11,7 +11,7 @@ import {
 	ListItemText,
 	Toolbar
 } from "@mui/material";
-import HeadBar from "../../components/HeadBar";
+import HeadBar from "../components/headBar/HeadBar";
 import {
 	useState,
 	Fragment

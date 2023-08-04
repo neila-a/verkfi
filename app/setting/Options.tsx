@@ -13,7 +13,7 @@ import {
 import setOption from "./setOption";
 import {
     locales
-} from "../../pages/_app";
+} from "../layoutClient";
 import stringToBoolean from "./stringToBoolean";
 import useReadSetting from "./useReadSetting";
 import I18N from "react-intl-universal";
