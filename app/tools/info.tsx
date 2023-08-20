@@ -16,17 +16,18 @@ import {
 import {
     SvgIconTypeMap
 } from "@mui/material";
+import i18n from "react-intl-universal";
 export interface tool {
     name: string;
-    to?: string;
-    goto?: string;
+    to: string;
     desc: string;
-    icon?: (OverridableComponent<SvgIconTypeMap<{}, "svg">> & {
+    icon: (OverridableComponent<SvgIconTypeMap<{}, "svg">> & {
         muiName: string
     }) | (() => JSX.Element);
-    color: string[2];
+    color: [string, string];
+    isGoto?: boolean;
 }
-export const getTools = I18N => [
+export const getTools = (I18N: typeof i18n): tool[] => [
     {
         name: "AudioTools",
         to: "audiotools",
@@ -45,7 +46,7 @@ export const getTools = I18N => [
         name: I18N.get('π计算器'),
         to: "pi",
         desc: I18N.get('计算π的小数点后任意位'),
-        icon: () => <Image placeholder="blur" src="/image/pi.466x393.png" alt={I18N.get('圆周率图标')} height={24} width={24} />,
+        icon: () => <Image src="/image/pi.466x393.png" alt={I18N.get('圆周率图标')} height={24} width={24} />,
         color: ["4facfe", "00f2fe"]
     },
     {
@@ -59,7 +60,7 @@ export const getTools = I18N => [
         name: I18N.get('掷色子'),
         to: "shaizi",
         desc: I18N.get('随机掷色子'),
-        icon: () => <Image placeholder="blur" src="/image/shaizi.24x24.svg" alt={I18N.get('色子图标')} height={24} width={24} />,
+        icon: () => <Image src="/image/shaizi.24x24.svg" alt={I18N.get('色子图标')} height={24} width={24} />,
         color: ["a8edea", "fed6e3"]
     },
     {
@@ -106,9 +107,10 @@ export const getTools = I18N => [
     },
     {
         name: I18N.get('人生倒计时'),
-        goto: "https://github.neila.ga/countdown.js/",
+        to: "https://github.neila.ga/countdown.js/",
         desc: I18N.get('显示时间过去了多少'),
         icon: AccessTimeIcon,
-        color: ["c1dfc4", "deecdd"]
+        color: ["c1dfc4", "deecdd"],
+        isGoto: true
     }
 ];

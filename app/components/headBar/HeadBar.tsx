@@ -13,7 +13,9 @@ import {
 	Settings as SettingsIcon,
 	Search as SearchIcon
 } from "@mui/icons-material"
-import Router from "next/router";
+import {
+	useRouter
+} from "next/router";
 import Head from "next/head";
 import {
 	Fragment, useState
@@ -40,6 +42,7 @@ import {
 import Search from "./search";
 import SearchIconWrapper from "./SearchIconWrapper";
 import StyledInputBase from "./StyledInputBase";
+import Link from 'next/link';
 export interface HeadBarOption {
 	pageName: string;
 	isIndex: boolean;
@@ -64,14 +67,13 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 			{props.only ? <Fragment /> : <>
 				<AppBar position="sticky" sx={props.sx}>
 					<Toolbar>
-						{props.isIndex ? <Fragment /> : <MouseOverPopover text={I18N.get('首页')}>
-							<IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }} onClick={() => {
-								Router.push("/");
-								logger.log("已去往首页。");
-							}}>
-								<ArrowBack />
-							</IconButton>
-						</MouseOverPopover>}
+						{props.isIndex ? <Fragment /> : <Link href="/" className={style["link"]}>
+							<MouseOverPopover text={I18N.get('首页')}>
+								<IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
+									<ArrowBack />
+								</IconButton>
+							</MouseOverPopover>
+						</Link>}
 						<Typography variant="h6" component="div" sx={{
 							flexGrow: 1
 						}} style={{
@@ -98,14 +100,13 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 								</FormControl>
 							</FormGroup>
 						</form>}
-						<MouseOverPopover text={I18N.get('设置')}>
-							<IconButton size="large" edge="end" color="inherit" aria-label="menu" sx={{ mr: 2 }} onClick={() => {
-								Router.push("/settings");
-								logger.log("已去往设置。");
-							}}>
-								<SettingsIcon />
-							</IconButton>
-						</MouseOverPopover>
+						<Link href="/settings" className={style["link"]}>
+							<MouseOverPopover text={I18N.get('设置')}>
+								<IconButton size="large" edge="end" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
+									<SettingsIcon />
+								</IconButton>
+							</MouseOverPopover>
+						</Link>
 					</Toolbar>
 				</AppBar>
 				{stringToBoolean(forkMeOnGitHub) ? <div className={style["github-ribbon"]} style={props.isIndex ? {
@@ -125,9 +126,9 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 			{showSearchTool && <PureDialog title={I18N.get('搜索工具')} onClose={() => {
 				setSearchText("");
 				setShowSearchTool(false);
-				}} context={<ErrorBoundary>
+			}} context={<ErrorBoundary>
 				<SearchTool isImplant searchText={searchText} />
-				</ErrorBoundary>} />}
+			</ErrorBoundary>} />}
 		</>
 	);
 };

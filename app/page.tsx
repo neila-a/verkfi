@@ -55,9 +55,10 @@ var logger = new LpLogger({
 });
 import downGo from "./components/arrayMove/downGo";
 import {
-useSearchParams 
+    useSearchParams
 } from 'next/navigation';
 import upGo from "./components/arrayMove/upGo";
+type viewMode = "list" | "grid";
 export function Index(props: {
     /**
      * 是否为嵌入
@@ -68,28 +69,28 @@ export function Index(props: {
      */
     searchText?: string;
 }): JSX.Element {
-    const initialViewMode = useReadSetting("viewmode", "列表模式", "grid"),
+    const initialViewMode = useReadSetting("viewmode", "列表模式", "grid") as unknown as viewMode,
         initialDarkMode = useReadSetting("darkmode", "暗色模式", "false"),
         initialColor = useReadSetting("color", "多彩主页", "true"),
-	searchParams = useSearchParams();
+        searchParams = useSearchParams();
     var realTools = getTools(I18N),
         [color, setColor] = useState<boolean>(true),
         [darkMode, setDarkMode] = useState<boolean>(false),
         [sortedTools, setSortedTools] = useState(realTools),
         [setted, setSetted] = useState<boolean>(false),
         [searchText, setSearchText] = useState<string>(""),
-        [viewMode, setViewMode] = useState<"list" | "grid">("grid"),
+        [viewMode, setViewMode] = useState<viewMode>("grid"),
         [editMode, setEditMode] = useState<boolean>(false),
         [windows, setWindows] = useState<WindowOptions[]>([]),
-        [jumpto, setJumpTo] = useState<string>(realTools[11].goto),
+        [jumpto, setJumpTo] = useState<string>(realTools[11].to),
         [jumpName, setJumpName] = useState<string>(realTools[11].name),
         [jumpDialogOpen, setJumpDialogOpen] = useState<boolean>(false),
         [tools, setTools] = useState(sortedTools);
     useEffect(() => {
-            setViewMode(initialViewMode);
-            setColor(stringToBoolean(initialColor));
-            setDarkMode(stringToBoolean(initialDarkMode));
-            setSetted(true);
+        setViewMode(initialViewMode);
+        setColor(stringToBoolean(initialColor));
+        setDarkMode(stringToBoolean(initialDarkMode));
+        setSetted(true);
     }, [initialViewMode, initialDarkMode, initialColor]); // 检测lS的viewMode
     useEffect(() => {
         if (setted) setSetting("viewmode", "列表模式", viewMode);
@@ -100,9 +101,8 @@ export function Index(props: {
     function searchTools(search: string) {
         var calcTools: tool[] = [];
         sortedTools.forEach(tool => {
-            var to = String(tool.to),
-                goto = String(tool.goto);
-            if (tool.desc.includes(search) || to.includes(search) || tool.name.includes(search) || goto.includes(search)) calcTools.push(tool);
+            var to = String(tool.to);
+            if (tool.desc.includes(search) || to.includes(search) || tool.name.includes(search)) calcTools.push(tool);
         });
         setTools(calcTools);
     };
@@ -125,7 +125,7 @@ export function Index(props: {
         const
             id = "toolslist",
             name = "工具列表",
-            empty = realTools.map(tool => (tool.to || tool.goto)),
+            empty = realTools.map(atool => atool.to),
             value = localStorage.getItem(id);
         switch (value) {
             case null:
@@ -137,9 +137,9 @@ export function Index(props: {
                 logger.log(`检测到“${name}”为`, JSON.parse(value));
                 const draft = (JSON.parse(value) as string[]).map(toolTo => {
                     var realTool: tool;
-                    realTools.forEach(tool => {
-                        if ((tool.to || tool.goto) == toolTo) {
-                            realTool = tool;
+                    realTools.forEach(atool => {
+                        if (atool.to == toolTo) {
+                            realTool = atool;
                         }
                     });
                     return realTool;
@@ -154,11 +154,11 @@ export function Index(props: {
             setSearchText(props.searchText);
             searchTools(props.searchText);
         } else if (searchParams.has("searchText")) {
-	const paramText = searchParams.get("searchText");
+            const paramText = searchParams.get("searchText");
             setSearchText(paramText);
             searchTools(paramText);
         }
-    }, [query]); // 嵌入式检查
+    }, [searchParams]); // 嵌入式检查
     useEffect(() => {
         if (searchText != "") {
             setEditMode(false);
@@ -235,7 +235,7 @@ export function Index(props: {
                     flexDirection: viewMode == "grid" ? "row" : "",
                     display: viewMode == "grid" ? "flex" : "block"
                 }}> {/* 工具总览 */}
-                    {tools == emptyArray ? <Typography>{I18N.get('未找到任何工具')}</Typography> : tools.map(tool => { // 遍历tools
+                    {tools.length === 0 ? <Typography>{I18N.get('未找到任何工具')}</Typography> : tools.map(tool => { // 遍历tools
                         const ToolIcon = tool.icon,
                             subStyle = {
                                 sx: {
@@ -252,7 +252,7 @@ export function Index(props: {
                                         setTools(draft => {
                                             var pd = draft.slice(0);
                                             downGo(pd, pd.indexOf(tool));
-                                            setSetting("toolslist", "工具列表", JSON.stringify(pd.map(toolp => (toolp.to || toolp.goto))));
+                                            setSetting("toolslist", "工具列表", JSON.stringify(pd.map(toolp => toolp.to)));
                                             return pd;
                                         });
                                     }}>
@@ -273,7 +273,7 @@ export function Index(props: {
                                         setTools(draft => {
                                             var pd = draft.slice(0);
                                             upGo(pd, pd.indexOf(tool));
-                                            setSetting("toolslist", "工具列表", JSON.stringify(pd.map(toolp => (toolp.to || toolp.goto))));
+                                            setSetting("toolslist", "工具列表", JSON.stringify(pd.map(toolp => toolp.to)));
                                             return pd;
                                         });
                                     }}>
@@ -293,25 +293,25 @@ export function Index(props: {
                                     <CardContent>
                                         <div className={viewMode == "list" ? Style["singleList"] : ""} onClick={() => {
                                             logger.info(`点击了${tool.name}`);
-                                            if (typeof tool.goto == "undefined") {
-                                                Router.push(`/tool?tool=${tool.to}`);
-                                            } else {
+                                            if (tool.isGoto) {
                                                 setJumpDialogOpen(true);
-                                                setJumpTo(tool.goto);
+                                                setJumpTo(tool.to);
                                                 setJumpName(tool.name);
+                                            } else {
+                                                Router.push(`/tool?tool=${tool.to}`);
                                             }
                                         }} onContextMenu={event => {
                                             event.preventDefault();
-                                            if (tool.goto == undefined) {
+                                            if (tool.isGoto) {
+                                                setJumpDialogOpen(true);
+                                                setJumpTo(tool.to);
+                                                setJumpName(tool.name);
+                                            } else {
                                                 setWindows([...windows, {
                                                     Component: ToolComponents[tool.to],
                                                     to: `/tool?tool=${tool.to}`,
                                                     name: tool.name
                                                 }]);
-                                            } else {
-                                                setJumpDialogOpen(true);
-                                                setJumpTo(tool.goto);
-                                                setJumpName(tool.name);
                                             }
                                         }}>
                                             {viewMode == "grid" ? <div>
@@ -319,29 +319,29 @@ export function Index(props: {
                                                     <ToolIcon />
                                                 </div>
                                                 <div>
-                                                <Typography variant="h5" component="div">
-                                                    <DownButton />
-                                                    {tool.goto ? <ExitToAppIcon /> : <></>}
-                                                    {tool.name}
-                                                    <UpButton />
-                                                </Typography>
-                                                <Typography {...subStyle} variant="body2">
-                                                    {tool.desc}
-                                                </Typography>
-                                                    </div>
-                                            </div> : <div className={Style["singleList"]}>     
+                                                    <Typography variant="h5" component="div">
+                                                        <DownButton />
+                                                        {tool.isGoto ? <ExitToAppIcon /> : <></>}
+                                                        {tool.name}
+                                                        <UpButton />
+                                                    </Typography>
+                                                    <Typography {...subStyle} variant="body2">
+                                                        {tool.desc}
+                                                    </Typography>
+                                                </div>
+                                            </div> : <div className={Style["singleList"]}>
                                                 <div className={Style["singleListIcon"]}>
                                                     <ToolIcon />
                                                 </div>
                                                 <div>
-                                                <Typography variant="h5" component="div">
-                                                    {tool.goto ? <ExitToAppIcon /> : <></>}
-                                                    {tool.name}
-                                                </Typography>
-                                                <Typography {...subStyle} variant="body2">
-                                                    {tool.desc}
-                                                </Typography>
-                                                    </div>
+                                                    <Typography variant="h5" component="div">
+                                                        {tool.isGoto ? <ExitToAppIcon /> : <></>}
+                                                        {tool.name}
+                                                    </Typography>
+                                                    <Typography {...subStyle} variant="body2">
+                                                        {tool.desc}
+                                                    </Typography>
+                                                </div>
                                                 <div>
                                                     <DownButton />
                                                     <UpButton />
