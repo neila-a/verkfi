@@ -13,9 +13,6 @@ import {
 	Settings as SettingsIcon,
 	Search as SearchIcon
 } from "@mui/icons-material"
-import {
-	useRouter
-} from "next/router";
 import Head from "next/head";
 import {
 	Fragment, useState
@@ -100,7 +97,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 								</FormControl>
 							</FormGroup>
 						</form>}
-						<Link href="/settings" className={style["link"]}>
+						<Link href="/setting" className={style["link"]}>
 							<MouseOverPopover text={I18N.get('设置')}>
 								<IconButton size="large" edge="end" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
 									<SettingsIcon />

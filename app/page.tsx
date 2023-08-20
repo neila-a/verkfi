@@ -44,7 +44,9 @@ import {
     emptyArray
 } from "./tools/filter/tool";
 import CheckDialog from "./components/dialog/CheckDialog";
-import Router from "next/router";
+import {
+    useRouter
+} from 'next/navigation';
 import setSetting from "./setting/setSetting";
 import useReadSetting from "./setting/useReadSetting";
 import stringToBoolean from "./setting/stringToBoolean";
@@ -72,7 +74,8 @@ export function Index(props: {
     const initialViewMode = useReadSetting("viewmode", "列表模式", "grid") as unknown as viewMode,
         initialDarkMode = useReadSetting("darkmode", "暗色模式", "false"),
         initialColor = useReadSetting("color", "多彩主页", "true"),
-        searchParams = useSearchParams();
+        searchParams = useSearchParams(),
+        Router = useRouter();
     var realTools = getTools(I18N),
         [color, setColor] = useState<boolean>(true),
         [darkMode, setDarkMode] = useState<boolean>(false),
