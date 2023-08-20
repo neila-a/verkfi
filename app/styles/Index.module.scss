@@ -6,6 +6,9 @@
     align-items: flex-end;
     display: flex;
     text-align: center;
+    * {
+        cursor: pointer;
+    }
 }
 
 .singleList {
