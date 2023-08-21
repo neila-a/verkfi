@@ -56,7 +56,7 @@ export default function Options() {
                     setLang(plang);
                     setOption("lang", "语言", plang);
                 }}>
-                    {["zhCN", "zhTW", "enUS", "rkRK"].map(ilang => <MenuItem key={ilang} value={ilang}>{ilang}</MenuItem>)}
+                    {Object.keys(locales).map(ilang => <MenuItem key={ilang} value={ilang}>{ilang}</MenuItem>)}
                 </Select>
             <br />
             <Button variant="contained" startIcon={

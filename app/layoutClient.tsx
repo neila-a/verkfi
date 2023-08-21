@@ -2,12 +2,10 @@
 import enUS from "./locales/en-US.json";
 import zhCN from "./locales/zh-CN.json";
 import zhTW from "./locales/zh-TW.json";
-import rkRK from "./locales/rk-RK.json";
 export const locales = {
     enUS,
     zhCN,
-    zhTW,
-    rkRK
+    zhTW
 };
 import intl from 'react-intl-universal';
 import React, {
@@ -39,9 +37,10 @@ declare global {  //设置全局属性
         installPWA(): void;
     }
 }
+type colorMode = 'light' | 'dark';
 export default function ModifiedApp(props) {
-    const initialMode = useReadSetting("darkmode", "暗色模式", "false").replace("false", "light").replace("true", "dark"),
-     [mode, setMode] = useState<'light' | 'dark'>(initialMode),
+    const initialMode = useReadSetting("darkmode", "暗色模式", "false").replace("false", "light").replace("true", "dark") as colorMode,
+     [mode, setMode] = useState<colorMode>(initialMode),
      theme = useMemo(
         () =>
             createTheme({
