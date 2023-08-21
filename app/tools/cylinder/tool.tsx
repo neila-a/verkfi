@@ -123,8 +123,8 @@ export function Cylinder(): JSX.Element {
                     w = b.scrollWidth - 48,
                     h = b.scrollHeight - 48,
                     e = w > h ? h : w,
-                    x = parseInt(String(event.clientX / (e / radiusX))),
-                    z = parseInt(String(event.clientY / (e / radiusZ)));
+                    x = parseInt(String(event.nativeEvent.offsetX / (e / radiusX) * 2 + 1)),
+                    z = parseInt(String(event.nativeEvent.offsetY / (e / radiusZ) * 2 + 1));
                 setPosX(x);
                 setPosZ(z);
             }}>
