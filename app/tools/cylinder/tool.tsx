@@ -18,17 +18,6 @@ export var logger = new LpLogger({
     name: I18N.get('画圆'),
     level: "log"
 });
-declare global {  //设置全局属性
-    interface Window {  //window对象属性
-        drawCanvas(
-            radiusX: number,
-            radiusZ: number,
-            thickness: number,
-            filled: boolean,
-            size: number
-        ): void;
-    }
-}
 export function Cylinder(): JSX.Element {
     var [radiusX, setRadiusX] = useState<number>(50),
         [radiusZ, setRadiusZ] = useState<number>(50),
@@ -46,9 +35,6 @@ export function Cylinder(): JSX.Element {
         c.innerHTML = "";
         c.appendChild(drawCanvasBase(e, g * 2, makeCylinder(radiusX, radiusZ, 1, thickness, filled)));
     };
-    useEffect(() => {
-        window.drawCanvas = drawCanvas;
-    }, []);
     useEffect(drawCanvas, [radiusX, radiusZ, thickness, filled]);
     return (
         <>

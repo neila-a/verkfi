@@ -27,18 +27,13 @@ import useReadSetting from "./setting/useReadSetting";
 import {
     isMobile
 } from 'react-device-detect';
-import ErrorBoundary from "./components/ErrorBoundary";
+import {
+    BeforeInstallPromptEvent
+} from "./declare";
 var logger = new LpLogger({
     name: "NeilaTools",
     level: "log", // 空字符串时，不显示任何信息
 });
-declare global {  //设置全局属性
-    interface Window {  //window对象属性
-        UWAWorker: Promise<ServiceWorkerRegistration>;
-        installPWA(): void;
-        intl: typeof intl;
-    }
-}
 type colorMode = 'light' | 'dark';
 export default function ModifiedApp(props) {
     const initialMode = useReadSetting("darkmode", "暗色模式", "false").replace("false", "light").replace("true", "dark") as colorMode,
@@ -51,14 +46,15 @@ export default function ModifiedApp(props) {
                     },
                 }),
             [mode]
-        );
+        ),
+        lang = ((navigator.languages && navigator.languages[0]) || navigator.language).split("-").join("") || "zhCN";
     useEffect(() => setMode(initialMode), [initialMode]);
     useEffect(() => {
         logger.log("色彩模式为：", mode);
     }, [mode]);
     var [initDone, setInitDone] = useState<boolean>(false);
     intl.init({
-        currentLocale: useReadSetting("lang", "语言", "zhCN"),
+        currentLocale: useReadSetting("lang", "语言", Object.keys(locales).includes(lang) ? lang : "zhCN"),
         locales
     }).then(() => {
         setInitDone(true);
@@ -74,25 +70,25 @@ export default function ModifiedApp(props) {
         }
         if ('serviceWorker' in navigator) {
             // register service worker
-            window.UWAWorker = navigator.serviceWorker.register("/service-worker.js");
-            window.UWAWorker.then((registration) => logger.log(`Service worker for UWA register success:`, registration)).catch((reason) => logger.error(`Service worker for UWA register fail: ${reason}`));
+            navigator.serviceWorker.register("/service-worker.js").then(registration => {
+                logger.log(`Service worker for UWA register success:`, registration)
+            }).catch(reason => {
+                logger.error(`Service worker for UWA register fail: ${reason}`)
+            });
         }
-        var deferredPrompt = null;
+        var deferredPrompt: BeforeInstallPromptEvent;
         // 监听beforeinstallprompt事件，该事件在网站满足PWA安装条件时触发，保存安装事件
-        window.addEventListener("beforeinstallprompt", e => {
-            e.preventDefault();
-            deferredPrompt = e;
+        window.addEventListener("beforeinstallprompt", (event: BeforeInstallPromptEvent) => {
+            event.preventDefault();
+            deferredPrompt = event;
         });
         // 监听appinstalled事件，该事件在用户同意安装后触发，清空安装事件
         window.addEventListener("appinstalled", () => {
             deferredPrompt = null;
         });
         // 手动触发PWA安装
-        function addToDesktop() {
-            deferredPrompt.prompt();
-        }
+        const addToDesktop = () => deferredPrompt.prompt();
         window.installPWA = addToDesktop;
-        window.intl = intl;
     }, []);
     return initDone && <ThemeProvider theme={theme}>
         <CssBaseline />

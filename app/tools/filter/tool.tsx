@@ -41,11 +41,6 @@ var logger = new LpLogger({
     name: I18N.get('滤镜'),
     level: "log", // 空字符串时，不显示任何信息
 });
-declare global {
-    interface Window {
-        imageArray: any[];
-    }
-};
 export const Input = styled(MuiInput)`
   width: 42px;
 `;
@@ -53,9 +48,10 @@ import {
     ImageType,
     ImageTypesGen
 } from "./consts";
+import { FilePondFile, FilePondInitialFile, FilePondServerConfigProps } from 'filepond';
 export const emptyArray: [] = [];
 export default function Filter(): JSX.Element {
-    var [imageArray, setImageArray] = useState<any[]>([]);
+    var [imageArray, setImageArray] = useState<FilePondFile[]>([]);
     var [imageFileName, setImageFileName] = useState<string>("libear-only");
     var [imageBase64, setImageBase64] = useState<string>("/image/libear-only.png");
     var [imageTypes, setImageTypes] = useState<ImageType[]>(ImageTypesGen);
@@ -70,14 +66,11 @@ export default function Filter(): JSX.Element {
         }
     };
     registerPlugin(FilePondPluginFileRename, FilePondPluginImagePreview, FilePondPluginImageResize, FilePondPluginImageEdit, FilePondPluginImageCrop); // Register the plugin
-    useEffect(function () {
-        window.imageArray = imageArray;
-    }, [imageArray, imageFileName]);
     return (
         <>
             <br />
             <FilePond
-                files={imageArray}
+                files={imageArray as unknown as FilePondServerConfigProps["files"]}
                 onupdatefiles={images => {
                     setImageArray(images);
                     setImageFileName(images[0].filenameWithoutExtension);

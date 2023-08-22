@@ -16,12 +16,9 @@ import I18N from "react-intl-universal";
 import {
     useState
 } from "react";
-import { Switcher } from "./Switcher";
-declare global {  //设置全局属性
-    interface Window {  //window对象属性
-        installPWA(): void;
-    }
-}
+import {
+    Switcher
+} from "./Switcher";
 export type options = [string, string, "false" | "true"];
 export default function Options() {
     var [lang, setLang] = useState<string>("");
@@ -34,7 +31,7 @@ export default function Options() {
                 {I18N.get("选择语言")}
             </InputLabel>
             <Select labelId="lang" value={lang} label={I18N.get("选择语言")} onChange={event => {
-                const plang = String(event.target.value);
+                const plang = event.target.value;
                 I18N.init({
                     currentLocale: plang,
                     locales
@@ -42,7 +39,15 @@ export default function Options() {
                 setLang(plang);
                 setOption("lang", "语言", plang);
             }}>
-                {Object.keys(locales).map(ilang => <MenuItem key={ilang} value={ilang}>{ilang}</MenuItem>)}
+                {Object.values(locales).map(ilang => {
+                    const {
+                        langName
+                    } = ilang,
+                        langId = Object.keys(locales).find(key => locales[key] == ilang);
+                    return (
+                        <MenuItem key={langName} value={langId}>{langName}</MenuItem>
+                    )
+                })}
             </Select>
             <br />
             <Button variant="contained" startIcon={
