@@ -27,6 +27,7 @@ import useReadSetting from "./setting/useReadSetting";
 import {
     isMobile
 } from 'react-device-detect';
+import ErrorBoundary from "./components/ErrorBoundary";
 var logger = new LpLogger({
     name: "NeilaTools",
     level: "log", // 空字符串时，不显示任何信息
@@ -93,14 +94,12 @@ export default function ModifiedApp(props) {
         window.installPWA = addToDesktop;
         window.intl = intl;
     }, []);
-    return (
-        initDone && <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <div className={style["fullHeight"]}>
-                {props.children}
-            </div>
-        </ThemeProvider>
-    );
+    return initDone && <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <div className={style["fullHeight"]}>
+            {props.children}
+        </div>
+    </ThemeProvider>;
 }
 // Only uncomment this method if you have blocking data requirements for
 // every single page in your application. This disables the ability to

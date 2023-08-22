@@ -288,7 +288,7 @@ export function Index(props: {
                             }
                         }
                         return (
-                            <div key={tool.name}> {/* 单个工具 */}
+                            <div key={tool.to}> {/* 单个工具 */}
                                 <Card sx={{
                                     minWidth: viewMode == "grid" ? 275 : "100%",
                                     backgroundImage: color ? "linear-gradient(45deg, #" + tool.color[0] + ", #" + tool.color[1] + ")" : ""
