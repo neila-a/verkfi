@@ -5,13 +5,12 @@ import {
 import {
 	Handyman as HandyManIcon
 } from "@mui/icons-material";
-import Link from "next/link";
 import style from "./Settings.module.scss";
-import {
-	version,
-	devVersion
-} from "../../package.json";
+import pack from "../../package.json";
 import ErrorBoundary from '../components/ErrorBoundary';
+const {
+    version, devVersion
+} = pack;
 export default function About() {
     return (
         <ErrorBoundary>
