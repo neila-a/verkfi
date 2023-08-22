@@ -18,6 +18,7 @@ import getSettingsUsed from "./getSettingsUsed";
 import {
     logger
 } from "./page";
+import ErrorBoundary from '../components/ErrorBoundary';
 export default function Reset() {
     var [dialogOpen, setDialogOpen] = useState<boolean>(false),
         [dialogContext, setDialogContext] = useState<string>(""),
@@ -32,7 +33,7 @@ export default function Reset() {
         })
     }, [])
     return (
-        <>
+        <ErrorBoundary>
             <VictoryPie height={256} width={256} colorScale={[
                 "tomato",
                 "orange"
@@ -84,6 +85,6 @@ export default function Reset() {
                 dialogOnDone();
                 setDialogOpen(false);
             }} description={dialogContext} />}
-        </>
+        </ErrorBoundary>
     );
 }

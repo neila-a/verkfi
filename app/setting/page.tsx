@@ -31,6 +31,7 @@ import {
 export const drawerWidth = 122;
 export interface set {
 	name: string;
+	id: string;
 	Component: () => JSX.Element;
 	Icon: typeof HandyManIcon;
 }
@@ -42,21 +43,26 @@ interface ThemeHaveZIndex {
 import Options from "./Options";
 import Reset from "./Reset";
 import About from "./About";
+import { ErrorBar } from 'victory';
+import ErrorBoundary from '../components/ErrorBoundary';
 export default function Settings(): JSX.Element {
-	var [context, setContext] = useState<string>(I18N.get("选项"));
+	var [context, setContext] = useState<string>("option");
 	const sets: set[] = [
 		{
 			name: I18N.get('选项'),
+			id: "option",
 			Component: Options,
 			Icon: SettingsIcon
 		},
 		{
 			name: I18N.get('关于'),
+			id: "about",
 			Component: About,
 			Icon: InfoIcon
 		},
 		{
 			name: I18N.get('重置'),
+			id: "reset",
 			Component: Reset,
 			Icon: ReplayIcon
 		}
@@ -81,8 +87,8 @@ export default function Settings(): JSX.Element {
 				}} id="select">
 					<List>
 						{sets.map((Set, index) => (
-							<ListItem key={Set.name} onClick={event => {
-								setContext(Set.name);
+							<ListItem key={Set.id} onClick={event => {
+								setContext(Set.id);
 							}} disablePadding>
 								<ListItemButton>
 									<ListItemIcon>
@@ -100,15 +106,17 @@ export default function Settings(): JSX.Element {
 				p: 3,
 				marginLeft: `${drawerWidth}px`
 			}}>
-				{sets.map(set => {
-					if (set.name == context) return (
-						<Fragment key={set.name}>
-							<Typography variant="h4">{set.name}</Typography>
-							<set.Component />
-						</Fragment>
-					);
-					return <Fragment key={set.name} />;
-				})}
+				<ErrorBoundary>
+					{sets.map(set => {
+						if (set.id == context) return (
+							<Fragment key={set.name}>
+								<Typography variant="h4">{set.name}</Typography>
+								<set.Component />
+							</Fragment>
+						);
+						return <Fragment key={set.name} />;
+					})}
+				</ErrorBoundary>
 			</Box>
 		</>
 	);

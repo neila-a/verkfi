@@ -11,9 +11,10 @@ import {
 	version,
 	devVersion
 } from "../../package.json";
+import ErrorBoundary from '../components/ErrorBoundary';
 export default function About() {
     return (
-        <div>
+        <ErrorBoundary>
             <div className={style["title"]}>
                 <HandyManIcon sx={{
                     fontSize: "2.125rem"
@@ -33,6 +34,6 @@ export default function About() {
                 <br />
                 {I18N.getHTML('版权')}
             </Typography>
-        </div>
+        </ErrorBoundary>
     );
 }

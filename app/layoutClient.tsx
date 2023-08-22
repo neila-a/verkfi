@@ -35,21 +35,22 @@ declare global {  //设置全局属性
     interface Window {  //window对象属性
         UWAWorker: Promise<ServiceWorkerRegistration>;
         installPWA(): void;
+        intl: typeof intl;
     }
 }
 type colorMode = 'light' | 'dark';
 export default function ModifiedApp(props) {
     const initialMode = useReadSetting("darkmode", "暗色模式", "false").replace("false", "light").replace("true", "dark") as colorMode,
-     [mode, setMode] = useState<colorMode>(initialMode),
-     theme = useMemo(
-        () =>
-            createTheme({
-                palette: {
-                    mode,
-                },
-            }),
-        [mode]
-    );
+        [mode, setMode] = useState<colorMode>(initialMode),
+        theme = useMemo(
+            () =>
+                createTheme({
+                    palette: {
+                        mode,
+                    },
+                }),
+            [mode]
+        );
     useEffect(() => setMode(initialMode), [initialMode]);
     useEffect(() => {
         logger.log("色彩模式为：", mode);
@@ -76,28 +77,29 @@ export default function ModifiedApp(props) {
             window.UWAWorker.then((registration) => logger.log(`Service worker for UWA register success:`, registration)).catch((reason) => logger.error(`Service worker for UWA register fail: ${reason}`));
         }
         var deferredPrompt = null;
-// 监听beforeinstallprompt事件，该事件在网站满足PWA安装条件时触发，保存安装事件
-window.addEventListener("beforeinstallprompt", e => {
-    e.preventDefault();
-    deferredPrompt = e;
-});
-// 监听appinstalled事件，该事件在用户同意安装后触发，清空安装事件
-window.addEventListener("appinstalled", () => {
-    deferredPrompt = null;
-});
-// 手动触发PWA安装
-function addToDesktop() {
-    deferredPrompt.prompt();
-}
-window.installPWA = addToDesktop;
+        // 监听beforeinstallprompt事件，该事件在网站满足PWA安装条件时触发，保存安装事件
+        window.addEventListener("beforeinstallprompt", e => {
+            e.preventDefault();
+            deferredPrompt = e;
+        });
+        // 监听appinstalled事件，该事件在用户同意安装后触发，清空安装事件
+        window.addEventListener("appinstalled", () => {
+            deferredPrompt = null;
+        });
+        // 手动触发PWA安装
+        function addToDesktop() {
+            deferredPrompt.prompt();
+        }
+        window.installPWA = addToDesktop;
+        window.intl = intl;
     }, []);
     return (
-        initDone &&<ThemeProvider theme={theme}>
-                <CssBaseline />
-                <div className={style["fullHeight"]}>
-                    {props.children}
-                </div>
-            </ThemeProvider>
+        initDone && <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <div className={style["fullHeight"]}>
+                {props.children}
+            </div>
+        </ThemeProvider>
     );
 }
 // Only uncomment this method if you have blocking data requirements for
