@@ -12,7 +12,7 @@ export const metadata: Metadata = {
         "msapplication-starturl": "/",
     },
     themeColor: "#1976d2",
-    icon: "/image/favicon.png",
+    icons: "/image/favicon.png",
     appleWebApp: {
         title: "NeilaTools"
     }
