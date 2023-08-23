@@ -2,14 +2,14 @@
 import I18N from 'react-intl-universal';
 import HeadBar from "./components/headBar/HeadBar";
 import React, {
+    Dispatch,
     Fragment,
+    SetStateAction,
     useEffect,
     useState
 } from 'react';
 import {
     Stack,
-    Card,
-    CardContent,
     Typography,
     Divider,
     IconButton,
@@ -21,15 +21,9 @@ import {
     Search as SearchIcon,
     ViewModule as ViewModuleIcon,
     ViewList as ViewListIcon,
-    ExitToApp as ExitToAppIcon,
-    ArrowUpward as ArrowUpwardIcon,
-    ArrowDownward as ArrowDownwardIcon,
     Edit as EditIcon,
     EditOff as EditOffIcon
 } from "@mui/icons-material";
-import {
-    components as ToolComponents
-} from "./tools/components";
 import Style from "./styles/Index.module.scss";
 import LpLogger from "lp-logger";
 import {
@@ -51,16 +45,15 @@ import setSetting from "./setting/setSetting";
 import useReadSetting from "./setting/useReadSetting";
 import stringToBoolean from "./setting/stringToBoolean";
 import MouseOverPopover from "./components/Popover";
-var logger = new LpLogger({
+export var logger = new LpLogger({
     name: "Index",
     level: "log", // 空字符串时，不显示任何信息
 });
-import downGo from "./components/arrayMove/downGo";
 import {
     useSearchParams
 } from 'next/navigation';
-import upGo from "./components/arrayMove/upGo";
-type viewMode = "list" | "grid";
+import { SingleTool } from './SingleTool';
+export type viewMode = "list" | "grid";
 export function Index(props: {
     /**
      * 是否为嵌入
@@ -238,125 +231,22 @@ export function Index(props: {
                     flexDirection: viewMode == "grid" ? "row" : "",
                     display: viewMode == "grid" ? "flex" : "block"
                 }}> {/* 工具总览 */}
-                    {tools.length === 0 ? <Typography>{I18N.get('未找到任何工具')}</Typography> : tools.map(tool => { // 遍历tools
-                        const ToolIcon = tool.icon,
-                            subStyle = {
-                                sx: {
-                                    color: darkMode ? "" : "#999999"
-                                }
-                            };
-                        function DownButton(): JSX.Element {
-                            if (editMode) {
-                                return (
-                                    <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{
-                                        mr: 2
-                                    }} onClick={event => {
-                                        event.stopPropagation();
-                                        setTools(draft => {
-                                            var pd = draft.slice(0);
-                                            downGo(pd, pd.indexOf(tool));
-                                            setSetting("toolslist", "工具列表", JSON.stringify(pd.map(toolp => toolp.to)));
-                                            return pd;
-                                        });
-                                    }}>
-                                        <ArrowDownwardIcon />
-                                    </IconButton>
-                                );
-                            } else {
-                                return <></>;
-                            }
-                        }
-                        function UpButton(): JSX.Element {
-                            if (editMode) {
-                                return (
-                                    <IconButton size="large" edge="end" color="inherit" aria-label="menu" sx={{
-                                        mr: 2
-                                    }} onClick={event => {
-                                        event.stopPropagation();
-                                        setTools(draft => {
-                                            var pd = draft.slice(0);
-                                            upGo(pd, pd.indexOf(tool));
-                                            setSetting("toolslist", "工具列表", JSON.stringify(pd.map(toolp => toolp.to)));
-                                            return pd;
-                                        });
-                                    }}>
-                                        <ArrowUpwardIcon />
-                                    </IconButton>
-                                );
-                            } else {
-                                return <></>;
-                            }
-                        }
-                        return (
-                            <div key={tool.to}> {/* 单个工具 */}
-                                <Card sx={{
-                                    minWidth: viewMode == "grid" ? 275 : "100%",
-                                    backgroundImage: color ? "linear-gradient(45deg, #" + tool.color[0] + ", #" + tool.color[1] + ")" : ""
-                                }} elevation={10}>
-                                    <CardContent>
-                                        <div className={viewMode == "list" ? Style["singleList"] : ""} onClick={() => {
-                                            logger.info(`点击了${tool.name}`);
-                                            if (tool.isGoto) {
-                                                setJumpDialogOpen(true);
-                                                setJumpTo(tool.to);
-                                                setJumpName(tool.name);
-                                            } else {
-                                                Router.push(`/tool?tool=${tool.to}`);
-                                            }
-                                        }} onContextMenu={event => {
-                                            event.preventDefault();
-                                            if (tool.isGoto) {
-                                                setJumpDialogOpen(true);
-                                                setJumpTo(tool.to);
-                                                setJumpName(tool.name);
-                                            } else {
-                                                setWindows([...windows, {
-                                                    Component: ToolComponents[tool.to],
-                                                    to: `/tool?tool=${tool.to}`,
-                                                    name: tool.name
-                                                }]);
-                                            }
-                                        }}>
-                                            {viewMode == "grid" ? <div>
-                                                <div className={Style["singleGridIcon"]}>
-                                                    <ToolIcon />
-                                                </div>
-                                                <div>
-                                                    <Typography variant="h5" component="div">
-                                                        <DownButton />
-                                                        {tool.isGoto ? <ExitToAppIcon /> : <></>}
-                                                        {tool.name}
-                                                        <UpButton />
-                                                    </Typography>
-                                                    <Typography {...subStyle} variant="body2">
-                                                        {tool.desc}
-                                                    </Typography>
-                                                </div>
-                                            </div> : <div className={Style["singleList"]}>
-                                                <div className={Style["singleListIcon"]}>
-                                                    <ToolIcon />
-                                                </div>
-                                                <div>
-                                                    <Typography variant="h5" component="div">
-                                                        {tool.isGoto ? <ExitToAppIcon /> : <></>}
-                                                        {tool.name}
-                                                    </Typography>
-                                                    <Typography {...subStyle} variant="body2">
-                                                        {tool.desc}
-                                                    </Typography>
-                                                </div>
-                                                <div>
-                                                    <DownButton />
-                                                    <UpButton />
-                                                </div>
-                                            </div>}
-                                        </div>
-                                    </CardContent>
-                                </Card>
-                                {viewMode == "grid" ? <Fragment /> : <br />}
-                            </div>
-                        );
-                    })}
+                    {tools.length === 0 ? <Typography>{I18N.get('未找到任何工具')}</Typography> : tools.map(tool => (
+                        <SingleTool
+                            tool={tool}
+                            key={tool.to}
+                            color={color}
+                            darkMode={darkMode}
+                            viewMode={viewMode}
+                            setTools={setTools}
+                            setJumpDialogOpen={setJumpDialogOpen}
+                            setJumpName={setJumpName}
+                            setJumpTo={setJumpTo}
+                            setWindows={setWindows}
+                            editMode={editMode}
+                            windows={windows}
+                        />
+                    ))}
                 </Stack>
                 <ErrorBoundary>
                     {windows == emptyArray ? <Fragment /> : windows.map(window => <Window {...window} key={window.to} />)}

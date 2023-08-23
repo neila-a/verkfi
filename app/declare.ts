@@ -1,4 +1,7 @@
-import { FilePondFile, FilePondServerConfigProps } from "filepond";
+import {
+    Dispatch,
+    SetStateAction
+} from "react";
 
 /**
  * The BeforeInstallPromptEvent is fired at the Window.onbeforeinstallprompt handler
@@ -45,3 +48,8 @@ declare global {
 
     }
 }
+
+/**
+ * React的useState()产生的第二个变量
+ */
+export type setState<T> = Dispatch<SetStateAction<T>>;
