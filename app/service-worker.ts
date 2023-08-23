@@ -47,23 +47,22 @@ self.addEventListener('activate', event => {
 });
 self.addEventListener('fetch', event => {
     if (event.request.method !== 'GET') return;
-    let { requrl } = event.request;
+    let requrl = event.request.url;
     let url = String(requrl);
-    event.respondWith(
-        caches.open(Cache).then(async cache => {
-            const response = await cache.match(event.request);
-            if (response) {
-                return response;
-            }
-            try {
-                const newreq = await fetch(event.request);
-                log(`抓取: ${url}`);
-                if (newreq.ok) cache.put(event.request, newreq.clone());
-                return newreq;
-            } catch (message) {
-                return console.error(message);
-            }
-        })
-    );
+    event.respondWith(caches.open(Cache).then(async cache => {
+        const response = await cache.match(event.request);
+        if (response) {
+            return response;
+        }
+        try {
+            const newreq = await fetch(event.request);
+            log(`抓取: ${url}`);
+            if (newreq.ok) cache.put(event.request, newreq.clone());
+            return newreq;
+        } catch (message) {
+            console.error(message);
+            return message;
+        }
+    }));
 });
 export default Cache;
