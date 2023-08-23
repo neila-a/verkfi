@@ -6,10 +6,9 @@ import {
     logger
 } from "./tool";
 import {
-    Dispatch,
-    SetStateAction
-} from "react";
-export default function calcMath(calcs: calc[], subtractionCheck: boolean, divisionCheck: boolean, max: number, min: number, itemCount: number, setMath: Dispatch<SetStateAction<string[]>>) {
+    setState
+} from "../../declare";
+export default function calcMath(calcs: calc[], subtractionCheck: boolean, divisionCheck: boolean, max: number, min: number, itemCount: number, setMath: setState<string[]>) {
     var calcMaths: string[] = [];
     calcs.forEach(function (mode) {
         const modeS = mode.replace("×", "*").replace("÷", "/")

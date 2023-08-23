@@ -1,14 +1,22 @@
 "use client";
-import React, { Dispatch, SetStateAction } from 'react';
-import { IconButton } from "@mui/material";
-import { ArrowDownward as ArrowDownwardIcon } from "@mui/icons-material";
-import { tool } from "./tools/info";
+import React from 'react';
+import {
+    IconButton
+} from "@mui/material";
+import {
+    ArrowDownward as ArrowDownwardIcon
+} from "@mui/icons-material";
+import {
+    tool
+} from "./tools/info";
 import setSetting from "./setting/setSetting";
 import downGo from "./components/arrayMove/downGo";
-
+import {
+    setState
+} from './declare';
 export function DownButton(props: {
     editMode: boolean;
-    setTools: Dispatch<SetStateAction<tool[]>>;
+    setTools: setState<tool[]>;
     tool: tool;
 }): JSX.Element {
     if (props.editMode) {

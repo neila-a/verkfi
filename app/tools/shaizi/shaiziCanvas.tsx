@@ -10,9 +10,12 @@ import style from "styled-jsx/style";
 import {
     logger
 } from "./tool";
+import {
+    setState
+} from '../../declare';
 export function ShaiZiCanvas(props: {
     cishu: number;
-    setCishu: Dispatch<SetStateAction<number>>
+    setCishu: setState<number>;
 }): JSX.Element {
     var leftX: number = 150,
         topY: number = 100,
