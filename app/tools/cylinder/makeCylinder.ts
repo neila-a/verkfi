@@ -1,12 +1,14 @@
+import {
+    block
+} from './drawCanvasBase';
 export default function makeCylinder(
     radiusX: number,
     radiusZ: number,
     height: number,
     thickness: number,
     filled: boolean
-): [number, number][] { /* 修改自IntellectualSites的FastAsyncWorldEdit */
-    console.time("生成圆");
-    var blocks: [number, number][] = [];
+): block[] { /* 修改自IntellectualSites的FastAsyncWorldEdit */
+    var blocks: block[] = [];
     function setBlock(x: number, y: number, z: number) {
         blocks.push([Number((radiusX + x).toFixed(0)) - 1, Number((radiusZ + z).toFixed(0)) - 1]);
         blocks.push([Number((radiusX - x).toFixed(0)) - 1, Number((radiusZ + z).toFixed(0)) - 1]);
@@ -89,6 +91,5 @@ export default function makeCylinder(
             }
         }
     }
-    console.timeEnd("生成圆");
     return blocks;
 }

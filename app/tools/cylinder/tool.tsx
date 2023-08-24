@@ -4,6 +4,7 @@ import {
     useState
 } from "react";
 import style from "./Cylinder.module.scss"
+import removeIn2 from '../../components/removeIn';
 import LpLogger from "lp-logger";
 import makeCylinder from "./makeCylinder";
 import drawCanvasBase from "./drawCanvasBase";
@@ -14,6 +15,9 @@ import {
     FormGroup,
     Switch
 } from "@mui/material";
+import {
+    block
+} from './drawCanvasBase';
 export var logger = new LpLogger({
     name: I18N.get('画圆'),
     level: "log"
@@ -23,19 +27,46 @@ export function Cylinder(): JSX.Element {
         [radiusZ, setRadiusZ] = useState<number>(50),
         [thickness, setThickness] = useState<number>(1),
         [filled, setFilled] = useState<boolean>(true),
-        [posX, setPosX] = useState<number>(0),
-        [posZ, setPosZ] = useState<number>(0);
-    const drawCanvas = () => {
+        [posX, setPosX] = useState<number>(1),
+        [posZ, setPosZ] = useState<number>(1),
+        [cache, setCache] = useState<block[]>([[1, 1]]),
+        [posCache, setPosCache] = useState<block>([1, 1]);
+    const drawCanvas = (blocks: block[]) => {
         var g = radiusX > radiusZ ? radiusX : radiusZ,
             b = document.body,
             w = b.scrollWidth - 48,
             h = b.scrollHeight - 48,
-            c = document.getElementById("canvascontainer"),
-            e = w > h ? h : w;
-        c.innerHTML = "";
-        c.appendChild(drawCanvasBase(e, g * 2, makeCylinder(radiusX, radiusZ, 1, thickness, filled)));
+            e = w > h ? h : w,
+            nowPos = [posX, posZ],
+            cachePosBlock: block[] = [],
+            posBlock: block[] = [];
+        [nowPos, posCache].forEach((item, index) => ["X", "Z"].forEach((item2, index2) => {
+            let i: number = 0;
+            while (i < g * 2) {
+                let block: block = index2 == 0 ? [i, item[index2] - 1] : [item[index2] - 1, i];
+                index == 0 ? posBlock.push(block) : cachePosBlock.push(block);
+                i++;
+            }
+        }));
+        posBlock = removeIn2(posBlock, blocks) as block[];
+        cachePosBlock = removeIn2(cachePosBlock, blocks) as block[];
+        drawCanvasBase(e, g * 2 + 1, blocks, cache, posBlock, cachePosBlock);
     };
-    useEffect(drawCanvas, [radiusX, radiusZ, thickness, filled]);
+    useEffect(() => {
+        const blocks = makeCylinder(radiusX, radiusZ, 1, thickness, filled);
+        drawCanvas(blocks.slice(0));
+        setCache(blocks.slice(0));
+        setPosCache([posX, posZ]);
+    }, [posX, posZ]);
+    useEffect(() => {
+        const g = radiusX > radiusZ ? radiusX : radiusZ,
+            blocks = makeCylinder(radiusX, radiusZ, 1, thickness, filled);
+        setPosX(g);
+        setPosZ(g);
+        drawCanvas(blocks.slice(0));
+        setCache(blocks.slice(0));
+        setPosCache([posX, posZ]);
+    }, [radiusX, radiusZ, thickness, filled]);
     return (
         <>
             <FormGroup>
