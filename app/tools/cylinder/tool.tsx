@@ -4,10 +4,8 @@ import {
     useState
 } from "react";
 import style from "./Cylinder.module.scss"
-import removeIn2 from '../../components/removeIn';
 import LpLogger from "lp-logger";
 import makeCylinder from "./makeCylinder";
-import drawCanvasBase from "./drawCanvasBase";
 import {
     Typography,
     Grid,
@@ -15,9 +13,9 @@ import {
     FormGroup,
     Switch
 } from "@mui/material";
-import {
+import drawMatrix, {
     block
-} from './drawCanvasBase';
+} from '../../components/matrix/matrix';
 export var logger = new LpLogger({
     name: I18N.get('画圆'),
     level: "log"
@@ -31,30 +29,9 @@ export function Cylinder(): JSX.Element {
         [posZ, setPosZ] = useState<number>(1),
         [cache, setCache] = useState<block[]>([[1, 1]]),
         [posCache, setPosCache] = useState<block>([1, 1]);
-    const drawCanvas = (blocks: block[]) => {
-        var g = radiusX > radiusZ ? radiusX : radiusZ,
-            b = document.body,
-            w = b.scrollWidth - 48,
-            h = b.scrollHeight - 48,
-            e = w > h ? h : w,
-            nowPos = [posX, posZ],
-            cachePosBlock: block[] = [],
-            posBlock: block[] = [];
-        [nowPos, posCache].forEach((item, index) => ["X", "Z"].forEach((item2, index2) => {
-            let i: number = 0;
-            while (i < g * 2) {
-                let block: block = index2 == 0 ? [i, item[index2] - 1] : [item[index2] - 1, i];
-                index == 0 ? posBlock.push(block) : cachePosBlock.push(block);
-                i++;
-            }
-        }));
-        posBlock = removeIn2(posBlock, blocks) as block[];
-        cachePosBlock = removeIn2(cachePosBlock, blocks) as block[];
-        drawCanvasBase(e, g * 2 + 1, blocks, cache, posBlock, cachePosBlock);
-    };
     useEffect(() => {
         const blocks = makeCylinder(radiusX, radiusZ, 1, thickness, filled);
-        drawCanvas(blocks.slice(0));
+        drawMatrix(blocks.slice(0), radiusX > radiusZ ? radiusX : radiusZ, posX, posZ, posCache, cache);
         setCache(blocks.slice(0));
         setPosCache([posX, posZ]);
     }, [posX, posZ]);
@@ -63,7 +40,7 @@ export function Cylinder(): JSX.Element {
             blocks = makeCylinder(radiusX, radiusZ, 1, thickness, filled);
         setPosX(g);
         setPosZ(g);
-        drawCanvas(blocks.slice(0));
+        drawMatrix(blocks.slice(0), radiusX > radiusZ ? radiusX : radiusZ, posX, posZ, posCache, cache);
         setCache(blocks.slice(0));
         setPosCache([posX, posZ]);
     }, [radiusX, radiusZ, thickness, filled]);

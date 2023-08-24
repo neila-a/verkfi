@@ -1,14 +1,11 @@
 import {
+    block,
     logger
-} from "./tool";
-export type block = [number, number];
-export default function drawCanvasBase(edge: number, n: number, blocks: block[], cache: block[], posBlock: block[], posCache: block[]) {
+} from "./matrix";
+export default function drawMatrixBase(edge: number, n: number, blocks: block[], cache: block[], posBlock: block[], posCache: block[]) {
     const onlyPos = blocks.toString() === cache.toString();
     if (!onlyPos) console.time("渲染圆");
-    const canvasByTag = document.getElementsByTagName("canvas")[0] as HTMLCanvasElement,
-        canvas = canvasByTag == null ? document.createElement("canvas") : canvasByTag,
-        size = edge / n,
-        cxt = canvas.getContext('2d');
+    const canvasByTag = document.getElementsByTagName("canvas")[0] as HTMLCanvasElement, canvas = canvasByTag == null ? document.createElement("canvas") : canvasByTag, size = edge / n, cxt = canvas.getContext('2d');
     ["height", "width"].forEach(attr => {
         const edgeStr = edge.toString();
         if (canvas.getAttribute(attr) != edgeStr) {
@@ -26,8 +23,7 @@ export default function drawCanvasBase(edge: number, n: number, blocks: block[],
     const dos: [block[], string][] = [[posCache, "#FFFFFF"], [blocks, "#FF0000"], [posBlock, "#1E9FFF"]];
     dos.forEach((item, index) => {
         cxt.fillStyle = item[1];
-        const path = new Path2D(),
-            pBlock = item[0];
+        const path = new Path2D(), pBlock = item[0];
         for (let i = 0; i < n; i++) {
             for (let j = 0; j < n; j++) {
                 let have: boolean = false;
