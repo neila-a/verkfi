@@ -73,7 +73,8 @@ export default function ToolFinder(): JSX.Element {
                         if (si.to == toolID) tColor = si.color;
                     });
                     return "linear-gradient(45deg, #" + tColor[0] + ", #" + tColor[1] + ")";
-                })() : ""
+                })() : "",
+                color: color ? "#000000" : ""
             }} />
             <Toolbar />
             <Box sx={{

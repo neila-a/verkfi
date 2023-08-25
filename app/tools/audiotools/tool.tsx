@@ -99,7 +99,7 @@ export default function AudioTools(): JSX.Element {
                         allowMultiple={true}
                         maxFiles={1}
                         name="files"
-                        labelIdle={I18N.get('拖拽音频到这里、粘贴或<span class=\"filepond--label-action\">浏览</span>')}
+                        labelIdle={I18N.get('拖拽音频到这里')}
                     />
                 </div>
             </Paper>

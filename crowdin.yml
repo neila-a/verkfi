@@ -7,7 +7,7 @@
 
 "files": [
   {
-    "source": "/src/locales/zh-CN.json",
-    "translation": "/src/locales/%locale%.json"
+    "source": "/app/locales/zh-CN.json",
+    "translation": "/app/locales/%locale%.json"
   }
 ]

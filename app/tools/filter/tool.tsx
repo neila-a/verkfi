@@ -84,7 +84,7 @@ export default function Filter(): JSX.Element {
                 allowMultiple={true}
                 maxFiles={1}
                 name="files"
-                labelIdle={I18N.get('拖拽图片到这里、粘贴或<span class=\"filepond--label-action\">浏览</span>')}
+                labelIdle={I18N.get('拖拽图片到这里')}
             />
             <>
                 <Typography gutterBottom>

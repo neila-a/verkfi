@@ -96,7 +96,7 @@ export const getTools = (I18N: typeof i18n): tool[] => [
         to: "cubic",
         desc: I18N.get('可视化的立方体'),
         icon: ViewInArIcon,
-        color: ["96fbc4", "f9f586"]
+        color: ["37ecba", "72afd3"]
     },
     {
         name: I18N.get('画圆'),
