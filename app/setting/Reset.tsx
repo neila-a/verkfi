@@ -1,6 +1,7 @@
 import I18N from 'react-intl-universal';
 import {
-    Button
+    Button,
+    Stack
 } from "@mui/material";
 import {
     useState,
@@ -34,57 +35,73 @@ export default function Reset() {
     }, [])
     return (
         <ErrorBoundary>
-            <VictoryPie height={256} width={256} colorScale={[
-                "tomato",
-                "orange"
-            ]} animate={{
-                duration: 2000
-            }} data={[
-                {
-                    x: `${I18N.get("缓存空间已使用容量")}：${cacheUsed.toFixed(5)}MB`,
-                    y: Number((cacheUsed / cacheAll * 100).toFixed(5))
-                },
-                {
-                    x: `${I18N.get("缓存空间剩余容量")}：${(cacheAll - cacheUsed).toFixed(5)}MB`,
-                    y: Number(((cacheAll - cacheUsed) / cacheAll * 100).toFixed(5))
-                }
-            ]} />
-            <Button variant="contained" onClick={event => {
-                setDialogOpen(true);
-                setDialogContext(I18N.get("确定清空所有缓存吗？此操作不可恢复。"));
-                setDialogTitle(I18N.get("清空"));
-                setDialogOnDone(() => () => caches.keys().then(keylist => Promise.all(keylist.map(key => {
-                    logger.log(`已删除缓存“${key}”`);
-                    return caches.delete(key);
-                }))));
-            }}>{I18N.get('清空所有缓存')}</Button>
-            <VictoryPie height={256} width={256} colorScale={[
-                "tomato",
-                "orange"
-            ]} animate={{
-                duration: 2000
-            }} data={[
-                {
-                    x: `${I18N.get("设置空间已使用容量")}：${getSettingsUsed()}KB`,
-                    y: getSettingsUsed() / 5120 * 100
-                },
-                {
-                    x: `${I18N.get("设置空间剩余容量")}：${getSettingsSur()}KB`,
-                    y: getSettingsSur() / 5120 * 100
-                }
-            ]} />
-            <Button variant="contained" onClick={event => {
-                setDialogOpen(true);
-                setDialogContext(I18N.get("确定清空所有设置吗？此操作不可恢复。"));
-                setDialogTitle(I18N.get("清空"));
-                setDialogOnDone(() => () => localStorage.clear());
-            }}>{I18N.get('清空所有设置')}</Button>
-            {dialogOpen && <CheckDialog title={dialogTitle} onFalse={() => {
-                setDialogOpen(false);
-            }} onTrue={() => {
-                dialogOnDone();
-                setDialogOpen(false);
-            }} description={dialogContext} />}
+            <Stack
+                direction={{
+                    xs: 'column',
+                    sm: 'row'
+                }}
+                spacing={{
+                    xs: 1,
+                    sm: 2,
+                    md: 4
+                }}
+            >
+                <Stack direction="column">
+                    <VictoryPie colorScale={[
+                        "tomato",
+                        "orange"
+                    ]} animate={{
+                        duration: 2000
+                    }} data={[
+                        {
+                            x: `${I18N.get("缓存空间已使用容量")}：${cacheUsed.toFixed(5)}MB`,
+                            y: Number((cacheUsed / cacheAll * 100).toFixed(5))
+                        },
+                        {
+                            x: `${I18N.get("缓存空间剩余容量")}：${(cacheAll - cacheUsed).toFixed(5)}MB`,
+                            y: Number(((cacheAll - cacheUsed) / cacheAll * 100).toFixed(5))
+                        }
+                    ]} />
+                    <Button variant="contained" onClick={event => {
+                        setDialogOpen(true);
+                        setDialogContext(I18N.get("确定清空所有缓存吗？此操作不可恢复。"));
+                        setDialogTitle(I18N.get("清空"));
+                        setDialogOnDone(() => () => caches.keys().then(keylist => Promise.all(keylist.map(key => {
+                            logger.log(`已删除缓存“${key}”`);
+                            return caches.delete(key);
+                        }))));
+                    }}>{I18N.get('清空所有缓存')}</Button>
+                </Stack>
+                <Stack direction="column">
+                    <VictoryPie colorScale={[
+                        "tomato",
+                        "orange"
+                    ]} animate={{
+                        duration: 2000
+                    }} data={[
+                        {
+                            x: `${I18N.get("设置空间已使用容量")}：${getSettingsUsed()}KB`,
+                            y: getSettingsUsed() / 5120 * 100
+                        },
+                        {
+                            x: `${I18N.get("设置空间剩余容量")}：${getSettingsSur()}KB`,
+                            y: getSettingsSur() / 5120 * 100
+                        }
+                    ]} />
+                    <Button variant="contained" onClick={event => {
+                        setDialogOpen(true);
+                        setDialogContext(I18N.get("确定清空所有设置吗？此操作不可恢复。"));
+                        setDialogTitle(I18N.get("清空"));
+                        setDialogOnDone(() => () => localStorage.clear());
+                    }}>{I18N.get('清空所有设置')}</Button>
+                    {dialogOpen && <CheckDialog title={dialogTitle} onFalse={() => {
+                        setDialogOpen(false);
+                    }} onTrue={() => {
+                        dialogOnDone();
+                        setDialogOpen(false);
+                    }} description={dialogContext} />}
+                </Stack>
+            </Stack>
         </ErrorBoundary>
     );
 }

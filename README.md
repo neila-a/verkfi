@@ -31,3 +31,8 @@ Neila的一些没用工具的平台。
 [License - 版权信息](./LICENSE)  
 [Changelog - 更新日志](https://github.com/neila-a/NeilaTools/releases)  
 [Development - 开发](./CONTRIBUTION.md)
+
+## Q&A
+
+- Q：为什么要给Cylinder单独设计一套渲染系统？  
+A：因为Cylinder是方格驱动的，而市面上的渲染系统都是能支持各种图形的，显然带来了额外的性能开销。
