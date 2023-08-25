@@ -7,6 +7,9 @@ import {
 	FormGroup,
 	FormControl
 } from "@mui/material";
+import {
+	useRouter
+} from 'next/navigation'
 import ErrorBoundary from "../ErrorBoundary";
 import {
 	ArrowBack,
@@ -15,7 +18,8 @@ import {
 } from "@mui/icons-material"
 import Head from "next/head";
 import {
-	Fragment, useState
+	Fragment,
+	useState
 } from "react";
 import style from "./HeadBar.module.scss";
 import LpLogger from "lp-logger";
@@ -57,7 +61,8 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 		return option || "false"
 	}),
 		[searchText, setSearchText] = useState(""),
-		[showSearchTool, setShowSearchTool] = useState<boolean>(false);
+		[showSearchTool, setShowSearchTool] = useState<boolean>(false),
+		router = useRouter();
 	return (
 		<>
 			<Head>
@@ -67,13 +72,15 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 			{props.only ? <Fragment /> : <>
 				<AppBar position="sticky" sx={props.sx}>
 					<Toolbar>
-						{props.isIndex ? <Fragment /> : <Link href="/" className={style["link"]}>
-							<MouseOverPopover text={I18N.get('首页')}>
-								<IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-									<ArrowBack />
-								</IconButton>
-							</MouseOverPopover>
-						</Link>}
+						{props.isIndex ? <Fragment /> : <MouseOverPopover text={I18N.get('首页')}>
+							<IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{
+								mr: 2
+							}} onClick={event => {
+								router.back();
+							}}>
+								<ArrowBack />
+							</IconButton>
+						</MouseOverPopover>}
 						<Typography variant="h6" component="div" sx={{
 							flexGrow: 1
 						}} style={{
