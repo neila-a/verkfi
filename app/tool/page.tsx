@@ -1,5 +1,6 @@
 "use client";
 import {
+    useRouter,
     useSearchParams
 } from "next/navigation";
 import {
@@ -43,7 +44,8 @@ export default function ToolFinder(): JSX.Element {
             }
         });
     },
-        searchParams = useSearchParams();
+        searchParams = useSearchParams(),
+        router = useRouter();
     if (searchParams.has("tool")) {
         let id = searchParams.get("tool");
         toolID = id;
@@ -51,8 +53,7 @@ export default function ToolFinder(): JSX.Element {
     }
     if (searchParams.has("handle")) {
         let id = searchParams.get("handle").replace(/web\+neilatools:\/\//g, "");
-        toolID = id;
-        finder(id);
+        router.push(id);
     }
     if (searchParams.has("only")) {
         only = true;
@@ -68,11 +69,17 @@ export default function ToolFinder(): JSX.Element {
                 return name;
             })()} only={only} sx={{
                 backgroundImage: color ? (() => {
-                    var tColor: [string, string];
+                    var tColor: [string, string],
+                        property: string = "";
                     toolsInfo.forEach(si => {
                         if (si.to == toolID) tColor = si.color;
                     });
-                    return "linear-gradient(45deg, #" + tColor[0] + ", #" + tColor[1] + ")";
+                    try {
+                        property = "linear-gradient(45deg, #" + tColor[0] + ", #" + tColor[1] + ")";
+                    } catch {
+                        property = ""
+                    }
+                    return property || "";
                 })() : "",
                 color: color ? "#000000" : ""
             }} />

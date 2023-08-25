@@ -1,13 +1,15 @@
 "use client";
 import I18N from 'react-intl-universal';
 import HeadBar from "./components/headBar/HeadBar";
-import React, {
-    Dispatch,
+import {
     Fragment,
-    SetStateAction,
     useEffect,
     useState
 } from 'react';
+import {
+    ThemeHaveZIndex,
+    drawerWidth
+} from './setting/page';
 import {
     Stack,
     Typography,
@@ -15,7 +17,10 @@ import {
     IconButton,
     InputBase,
     Paper,
-    Box
+    Box,
+    Drawer,
+    Toolbar,
+    ButtonGroup
 } from "@mui/material";
 import {
     Search as SearchIcon,
@@ -51,7 +56,9 @@ export var logger = new LpLogger({
 import {
     useSearchParams
 } from 'next/navigation';
-import { SingleTool } from './SingleTool';
+import {
+    SingleTool
+} from './SingleTool';
 import checkOption from './setting/checkOption';
 export type viewMode = "list" | "grid";
 export function Index(props: {
@@ -161,18 +168,27 @@ export function Index(props: {
     }, [searchText]); // 自动更新searchText
     return (
         <>
-            {props.isImplant != true && <HeadBar isIndex pageName="NeilaTools" />}
-            <Box sx={{
-                p: 3
+            {props.isImplant != true && <HeadBar isIndex pageName="NeilaTools" sx={{
+                zIndex: theme => (theme as ThemeHaveZIndex).zIndex.drawer + 1
+            }} />}
+            <Drawer variant="permanent" sx={{
+                width: drawerWidth,
+                flexShrink: 0,
+                [`& .MuiDrawer-paper`]: {
+                    width: drawerWidth,
+                    boxSizing: 'border-box'
+                }
             }}>
+                {!props.isImplant && <Toolbar />}
                 <Paper sx={{ // 搜索栏
+                    margin: '2px 4px',
                     p: '2px 4px',
                     display: 'flex',
                     alignItems: 'center'
                 }}>
                     <MouseOverPopover text={I18N.get('搜索')}>
                         <IconButton type="button" sx={{
-                            p: '10px'
+                            p: '10px 5px'
                         }} aria-label="search" onClick={() => {
                             searchTools(searchText);
                         }}>
@@ -188,10 +204,14 @@ export function Index(props: {
                         setSearchText(event.target.value);
                         searchTools(event.target.value);
                     }} />
-                    <Divider sx={{
-                        height: 28,
-                        m: 0.5
-                    }} orientation="vertical" />
+                </Paper>
+                <ButtonGroup variant="outlined" sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    position: "absolute",
+                    bottom: "0px",
+                    width: "inherit"
+                }}>
                     <MouseOverPopover text={viewMode == "grid" ? "切换为列表模式" : "切换为网格模式"}>
                         <IconButton color="primary" sx={{
                             p: '10px'
@@ -224,8 +244,12 @@ export function Index(props: {
                             {editMode ? <EditOffIcon /> : <EditIcon />}
                         </IconButton>
                     </MouseOverPopover>}
-                </Paper>
-                <br />
+                </ButtonGroup>
+            </Drawer>
+            <Box sx={{
+                p: 3,
+                marginLeft: props.isImplant ? "" : `${drawerWidth}px`
+            }}>
                 <Stack spacing={viewMode == "list" ? 3 : 5} className={Style["items"]} sx={{
                     flexDirection: viewMode == "grid" ? "row" : "",
                     display: viewMode == "grid" ? "flex" : "block"

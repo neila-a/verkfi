@@ -35,7 +35,7 @@ export interface set {
 	Component: () => JSX.Element;
 	Icon: typeof HandyManIcon;
 }
-interface ThemeHaveZIndex {
+export interface ThemeHaveZIndex {
 	zIndex: {
 		drawer: number;
 	}
@@ -78,8 +78,7 @@ export default function Settings(): JSX.Element {
 					width: drawerWidth,
 					boxSizing: 'border-box'
 				},
-			}}
-			>
+			}}>
 				<Toolbar />
 				<Box sx={{
 					overflow: 'auto'

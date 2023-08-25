@@ -1,17 +1,26 @@
 import {
+    Handyman as HandymanIcon
+} from "@mui/icons-material";
+import {
     Box,
-    CircularProgress
+    LinearProgress
 } from "@mui/material";
 export default function Loading() {
     return (
         <Box sx={{
             display: "flex",
-            justifyContent: "center",
+            flexWrap: "wrap",
+            alignContent: "center",
             width: "100vw",
             height: "100vh",
-            backgroundColor: "#1976d2"
+            flexDirection: "column",
+            backgroundColor: "#1976d2",
+            justifyContent: "space-evenly"
         }}>
-            <CircularProgress color="success" />
+            <HandymanIcon sx={{
+                fontSize: "1000%"
+            }} />
+            <LinearProgress color="secondary" />
         </Box>
     );
 }

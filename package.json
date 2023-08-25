@@ -39,7 +39,7 @@
         "lp-logger": "github:neila-a/lp-logger-no-window",
         "mathjs": "^11.9.1",
         "moment": "^2.29.4",
-        "next": "13.4.13-canary.12",
+        "next": "13.4.20-canary.6",
         "nzh": "^1.0.11",
         "pi": "^2.0.4",
         "react": "18.2.0",
@@ -53,10 +53,10 @@
         "victory": "^36.6.11"
     },
     "devDependencies": {
-        "@types/three": "^0.152.1",
         "@types/node": "20.3.0",
         "@types/react": "18.2.11",
         "@types/react-dom": "18.2.4",
+        "@types/three": "^0.152.1",
         "esbuild": "^0.18.20",
         "esbuild-loader": "^3.2.0",
         "eslint": "8.42.0",
