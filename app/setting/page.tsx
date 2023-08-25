@@ -43,7 +43,6 @@ interface ThemeHaveZIndex {
 import Options from "./Options";
 import Reset from "./Reset";
 import About from "./About";
-import { ErrorBar } from 'victory';
 import ErrorBoundary from '../components/ErrorBoundary';
 export default function Settings(): JSX.Element {
 	var [context, setContext] = useState<string>("option");

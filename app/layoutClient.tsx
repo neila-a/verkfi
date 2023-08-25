@@ -30,14 +30,17 @@ import {
 import {
     BeforeInstallPromptEvent
 } from "./declare";
+import checkOption from "./setting/checkOption";
 var logger = new LpLogger({
     name: "NeilaTools",
     level: "log", // 空字符串时，不显示任何信息
 });
 type colorMode = 'light' | 'dark';
 export default function ModifiedApp(props) {
-    const initialMode = useReadSetting("darkmode", "暗色模式", "false").replace("false", "light").replace("true", "dark") as colorMode,
-        [mode, setMode] = useState<colorMode>(initialMode),
+    const [mode, setMode] = useState<colorMode>(() => {
+            const mode = checkOption("darkmode", "暗色模式", "false").replace("false", "light").replace("true", "dark") as colorMode;
+            return mode || "light";
+        }),
         theme = useMemo(
             () =>
                 createTheme({
@@ -48,7 +51,6 @@ export default function ModifiedApp(props) {
             [mode]
         ),
         lang = ((navigator.languages && navigator.languages[0]) || navigator.language).split("-").join("") || "zhCN";
-    useEffect(() => setMode(initialMode), [initialMode]);
     useEffect(() => {
         logger.log("色彩模式为：", mode);
     }, [mode]);

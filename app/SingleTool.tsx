@@ -1,7 +1,5 @@
 "use client";
-import React, {
-    Fragment
-} from 'react';
+import React from 'react';
 import {
     Card,
     CardContent,
@@ -122,7 +120,6 @@ export function SingleTool(props: {
                     </div>
                 </CardContent>
             </Card>
-            {viewMode == "grid" ? <Fragment /> : <br />}
         </div>
     );
 }

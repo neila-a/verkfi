@@ -19,7 +19,10 @@ import {
 import {
     Switcher
 } from "./Switcher";
-export type options = [string, string, "false" | "true"];
+import {
+    stringifyCheck
+} from "./Switcher";
+export type options = [string, string, stringifyCheck];
 export default function Options() {
     var [lang, setLang] = useState<string>("");
     return (

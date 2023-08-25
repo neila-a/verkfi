@@ -1,9 +1,10 @@
 "use client";
 import {
-    useRouter,
     useSearchParams
 } from "next/navigation";
-import React from "react";
+import {
+    useState
+} from "react";
 import HeadBar from "../components/headBar/HeadBar";
 import {
     getTools
@@ -17,17 +18,22 @@ import {
     components as tools
 } from "../tools/components"
 import lpLogger from "lp-logger";
+import stringToBoolean from "../setting/stringToBoolean";
+import checkOption from "../setting/checkOption";
 var logger = new lpLogger({
     name: "ToolFinder",
     level: "log"
 });
 export type tJSXE = () => JSX.Element;
 export default function ToolFinder(): JSX.Element {
-    var router = useRouter(),
-        only = false,
+    var only = false,
         toolID: string,
         Tool: tJSXE,
-        toolsInfo = getTools(I18N);
+        toolsInfo = getTools(I18N),
+        [color, setColor] = useState<boolean>(() => {
+            const mode = stringToBoolean(checkOption("color", "多彩主页", "true"));
+            return mode || true;
+        });
     const finder = (id: string) => {
         logger.info(`toolID为${id}`);
         toolsInfo.forEach(si => {
@@ -41,7 +47,7 @@ export default function ToolFinder(): JSX.Element {
     if (searchParams.has("tool")) {
         let id = searchParams.get("tool");
         toolID = id;
-        finder(id)
+        finder(id);
     }
     if (searchParams.has("handle")) {
         let id = searchParams.get("handle").replace(/web\+neilatools:\/\//g, "");
@@ -58,9 +64,17 @@ export default function ToolFinder(): JSX.Element {
                 toolsInfo.forEach(si => {
                     if (si.to == toolID) name = si.name;
                 });
-                if (name == "") return "未找到工具"
+                if (name == "") return I18N.get("未找到工具");
                 return name;
-            })()} only={only} />
+            })()} only={only} sx={{
+                backgroundImage: color ? (() => {
+                    var tColor: [string, string];
+                    toolsInfo.forEach(si => {
+                        if (si.to == toolID) tColor = si.color;
+                    });
+                    return "linear-gradient(45deg, #" + tColor[0] + ", #" + tColor[1] + ")";
+                })() : ""
+            }} />
             <Toolbar />
             <Box sx={{
                 p: 3,

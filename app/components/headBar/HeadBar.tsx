@@ -27,7 +27,6 @@ import {
 	Index as SearchTool
 } from "../../page";
 import stringToBoolean from "../../setting/stringToBoolean";
-import useReadSetting from "../../setting/useReadSetting";
 import PureDialog from "../dialog/PureDialog";
 var logger = new LpLogger({
 	name: "HeadBar",
@@ -40,6 +39,7 @@ import Search from "./search";
 import SearchIconWrapper from "./SearchIconWrapper";
 import StyledInputBase from "./StyledInputBase";
 import Link from 'next/link';
+import checkOption from '../../setting/checkOption';
 export interface HeadBarOption {
 	pageName: string;
 	isIndex: boolean;
@@ -52,7 +52,10 @@ export interface HeadBarOption {
  * @param {string} pageName 页面的名称
  */
 export default function HeadBar(props: HeadBarOption): JSX.Element {
-	var forkMeOnGitHub = useReadSetting("fork-me-on-github", "Fork me on GitHub", String(false)),
+	var [forkMeOnGitHub, setForkMeOnGithub] = useState(() => {
+		const option = checkOption("fork-me-on-github", "Fork me on GitHub", "false");
+		return option || "false"
+	}),
 		[searchText, setSearchText] = useState(""),
 		[showSearchTool, setShowSearchTool] = useState<boolean>(false);
 	return (

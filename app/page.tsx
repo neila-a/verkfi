@@ -42,7 +42,6 @@ import {
     useRouter
 } from 'next/navigation';
 import setSetting from "./setting/setSetting";
-import useReadSetting from "./setting/useReadSetting";
 import stringToBoolean from "./setting/stringToBoolean";
 import MouseOverPopover from "./components/Popover";
 export var logger = new LpLogger({
@@ -53,6 +52,7 @@ import {
     useSearchParams
 } from 'next/navigation';
 import { SingleTool } from './SingleTool';
+import checkOption from './setting/checkOption';
 export type viewMode = "list" | "grid";
 export function Index(props: {
     /**
@@ -64,18 +64,23 @@ export function Index(props: {
      */
     searchText?: string;
 }): JSX.Element {
-    const initialViewMode = useReadSetting("viewmode", "列表模式", "grid") as unknown as viewMode,
-        initialDarkMode = useReadSetting("darkmode", "暗色模式", "false"),
-        initialColor = useReadSetting("color", "多彩主页", "true"),
-        searchParams = useSearchParams(),
+    const searchParams = useSearchParams(),
         Router = useRouter();
     var realTools = getTools(I18N),
-        [color, setColor] = useState<boolean>(true),
-        [darkMode, setDarkMode] = useState<boolean>(false),
+        [color, setColor] = useState<boolean>(() => {
+            const mode = stringToBoolean(checkOption("color", "多彩主页", "true"));
+            return mode || true;
+        }),
+        [darkMode, setDarkMode] = useState<boolean>(() => {
+            const mode = stringToBoolean(checkOption("darkmode", "暗色模式", "false"));
+            return mode || false;
+        }),
         [sortedTools, setSortedTools] = useState(realTools),
-        [setted, setSetted] = useState<boolean>(false),
         [searchText, setSearchText] = useState<string>(""),
-        [viewMode, setViewMode] = useState<viewMode>("grid"),
+        [viewMode, setViewMode] = useState<viewMode>(() => {
+            const mode = checkOption("viewmode", "列表模式", "grid") as viewMode;
+            return mode || "grid";
+        }),
         [editMode, setEditMode] = useState<boolean>(false),
         [windows, setWindows] = useState<WindowOptions[]>([]),
         [jumpto, setJumpTo] = useState<string>(realTools[11].to),
@@ -83,13 +88,7 @@ export function Index(props: {
         [jumpDialogOpen, setJumpDialogOpen] = useState<boolean>(false),
         [tools, setTools] = useState(sortedTools);
     useEffect(() => {
-        setViewMode(initialViewMode);
-        setColor(stringToBoolean(initialColor));
-        setDarkMode(stringToBoolean(initialDarkMode));
-        setSetted(true);
-    }, [initialViewMode, initialDarkMode, initialColor]); // 检测lS的viewMode
-    useEffect(() => {
-        if (setted) setSetting("viewmode", "列表模式", viewMode);
+        setSetting("viewmode", "列表模式", viewMode);
     }, [viewMode]); // 实时保存viewMode至lS
     /**
      * 搜索工具
@@ -227,7 +226,7 @@ export function Index(props: {
                     </MouseOverPopover>}
                 </Paper>
                 <br />
-                <Stack spacing={5} className={Style["items"]} sx={{
+                <Stack spacing={viewMode == "list" ? 3 : 5} className={Style["items"]} sx={{
                     flexDirection: viewMode == "grid" ? "row" : "",
                     display: viewMode == "grid" ? "flex" : "block"
                 }}> {/* 工具总览 */}
