@@ -1,8 +1,8 @@
 import logger from "./logger"
-export default function checkOption(id: string, name: string, empty: string) {
+export default function checkOption<T extends string = string>(id: string, name: string, empty: T) {
     try {
-        var _ret: string;
-        const value = localStorage.getItem(id);
+        var _ret: T;
+        const value = localStorage.getItem(id) as T;
         switch (value) {
             case null:
                 localStorage.setItem(id, empty);

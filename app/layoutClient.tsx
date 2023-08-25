@@ -12,7 +12,7 @@ import '@fontsource/ubuntu/300.css';
 import '@fontsource/ubuntu/400.css';
 import '@fontsource/ubuntu/500.css';
 import '@fontsource/ubuntu/700.css';
-import React, {
+import {
     useEffect,
     useState,
     useMemo
@@ -27,10 +27,6 @@ import {
 import LpLogger from "lp-logger";
 import style from "./styles/ModifiedApp.module.scss";
 import "./styles/App.scss";
-import useReadSetting from "./setting/useReadSetting";
-import {
-    isMobile
-} from 'react-device-detect';
 import {
     BeforeInstallPromptEvent
 } from "./declare";
@@ -42,9 +38,15 @@ var logger = new LpLogger({
 type colorMode = 'light' | 'dark';
 export default function ModifiedApp(props) {
     const [mode, setMode] = useState<colorMode>(() => {
-            const mode = checkOption("darkmode", "暗色模式", "false").replace("false", "light").replace("true", "dark") as colorMode;
-            return mode || "light";
-        }),
+        const mightMode = checkOption("darkmode", "暗色模式", "false");
+        var realMode: colorMode;
+        if (typeof mightMode == "string") {
+            realMode = mightMode.replace("false", "light").replace("true", "dark") as colorMode;
+        } else {
+            realMode = "light";
+        }
+        return realMode || "light";
+    }),
         theme = useMemo(
             () =>
                 createTheme({
@@ -54,13 +56,18 @@ export default function ModifiedApp(props) {
                 }),
             [mode]
         ),
-        lang = ((navigator.languages && navigator.languages[0]) || navigator.language).split("-").join("") || "zhCN";
+        [choosedLang, setChoosedLang] = useState<string>(() => {
+            const browserLang = ((navigator.languages && navigator.languages[0]) || navigator.language).split("-").join("") || "zhCN",
+                detailedLang = Object.keys(locales).includes(browserLang) ? browserLang : "zhCN",
+                choose = checkOption("lang", "语言", detailedLang);
+            return choose || "zhCN"
+        });
     useEffect(() => {
         logger.log("色彩模式为：", mode);
     }, [mode]);
     var [initDone, setInitDone] = useState<boolean>(false);
     intl.init({
-        currentLocale: useReadSetting("lang", "语言", Object.keys(locales).includes(lang) ? lang : "zhCN"),
+        currentLocale: choosedLang,
         locales
     }).then(() => {
         setInitDone(true);
@@ -68,11 +75,11 @@ export default function ModifiedApp(props) {
     });
     useEffect(() => {
         var url = `${location.origin}/tool?handle=%s`;
-        if (!isMobile) {
-            logger.log("检测到此设备并非手机");
+        if (navigator.registerProtocolHandler) {
+            logger.log("检测到此设备可以注册协议");
             navigator.registerProtocolHandler("web+neilatools", url);
         } else {
-            logger.log("检测到此设备为手机，停止注册协议");
+            logger.log("检测到此设备无法注册协议");
         }
         if ('serviceWorker' in navigator) {
             // register service worker
