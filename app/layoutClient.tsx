@@ -75,19 +75,25 @@ export default function ModifiedApp(props) {
     });
     useEffect(() => {
         var url = `${location.origin}/tool?handle=%s`;
-        if (navigator.registerProtocolHandler) {
-            logger.log("检测到此设备可以注册协议");
-            navigator.registerProtocolHandler("web+neilatools", url);
-        } else {
-            logger.log("检测到此设备无法注册协议");
-        }
-        if ('serviceWorker' in navigator) {
-            // register service worker
-            navigator.serviceWorker.register("/service-worker.js").then(registration => {
-                logger.log(`Service worker for UWA register success:`, registration)
-            }).catch(reason => {
-                logger.error(`Service worker for UWA register fail: ${reason}`)
-            });
+        try {
+            if (navigator.registerProtocolHandler) {
+                logger.log("检测到此设备可以注册协议");
+                navigator.registerProtocolHandler("web+neilatools", url);
+            } else {
+                logger.warn("检测到此设备无法注册协议");
+            }
+            if ('serviceWorker' in navigator) {
+                // register service worker
+                navigator.serviceWorker.register("/service-worker.js").then(registration => {
+                    logger.log(`Service worker for UWA register success:`, registration)
+                }).catch(reason => {
+                    logger.error(`Service worker for UWA register fail: ${reason}`)
+                });
+            } else {
+                logger.warn("此设备没有ServiceWorker");
+            }
+        } catch (error) {
+            logger.error(`执行BOM相关操作时发生错误：`, error);
         }
         var deferredPrompt: BeforeInstallPromptEvent;
         // 监听beforeinstallprompt事件，该事件在网站满足PWA安装条件时触发，保存安装事件
