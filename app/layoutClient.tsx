@@ -8,6 +8,10 @@ export const locales = {
     zhTW
 };
 import intl from 'react-intl-universal';
+import '@fontsource/ubuntu/300.css';
+import '@fontsource/ubuntu/400.css';
+import '@fontsource/ubuntu/500.css';
+import '@fontsource/ubuntu/700.css';
 import React, {
     useEffect,
     useState,
