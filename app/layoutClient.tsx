@@ -36,6 +36,7 @@ var logger = new LpLogger({
     level: "log", // 空字符串时，不显示任何信息
 });
 type colorMode = 'light' | 'dark';
+const navigator = {} as Navigator;
 export default function ModifiedApp(props) {
     const [mode, setMode] = useState<colorMode>(() => {
         const mightMode = checkOption("darkmode", "暗色模式", "false");
@@ -57,10 +58,15 @@ export default function ModifiedApp(props) {
             [mode]
         ),
         [choosedLang, setChoosedLang] = useState<string>(() => {
-            const browserLang = ((navigator.languages && navigator.languages[0]) || navigator.language).split("-").join("") || "zhCN",
-                detailedLang = Object.keys(locales).includes(browserLang) ? browserLang : "zhCN",
+            var browserLang: string = "";
+            if (navigator.language || navigator.languages) {
+                browserLang = ((navigator.languages && navigator.languages[0]) || navigator.language).split("-").join("") || "zhCN";
+            } else {
+                browserLang = "zhCN";
+            }
+            const detailedLang = Object.keys(locales).includes(browserLang) ? browserLang : "zhCN",
                 choose = checkOption("lang", "语言", detailedLang);
-            return choose || "zhCN"
+            return choose || "zhCN";
         });
     useEffect(() => {
         logger.log("色彩模式为：", mode);
