@@ -21,7 +21,6 @@ export var logger = new LpLogger({
 	name: "Settings",
 	level: "log", // 空字符串时，不显示任何信息
 });
-import React from "react";
 import {
 	Handyman as HandyManIcon,
 	Settings as SettingsIcon,

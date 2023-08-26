@@ -3,8 +3,7 @@ import {
     IconButton,
     Typography
 } from "@mui/material";
-import React, {
-    useEffect,
+import {
     useState
 } from "react";
 import style from "./Window.module.scss";
@@ -14,7 +13,7 @@ import {
 } from "@mui/icons-material";
 import {
     useRouter
-} from "next/router";
+} from "next/navigation";
 import Draggable from "react-draggable";
 export interface WindowOptions {
     to: string;
@@ -22,7 +21,9 @@ export interface WindowOptions {
     Component(): JSX.Element;
 }
 export default function Window(props: WindowOptions): JSX.Element {
-    const { Component } = props;
+    const {
+        Component
+    } = props;
     const router = useRouter();
     var [closed, setClose] = useState<boolean>(false);
     const id = Math.random().toString().replace(/0\./g, "");

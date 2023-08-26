@@ -15,6 +15,10 @@ export const metadata: Metadata = {
     icons: "/image/favicon.png",
     appleWebApp: {
         title: "NeilaTools"
+    },
+    title: {
+        default: "NeilaTools",
+        template: "%s | NeilaTools"
     }
 }
 export default function Layout({ children }) {

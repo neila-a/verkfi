@@ -16,7 +16,6 @@ import {
 	Settings as SettingsIcon,
 	Search as SearchIcon
 } from "@mui/icons-material"
-import Head from "next/head";
 import {
 	Fragment,
 	useState
@@ -65,10 +64,6 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 		router = useRouter();
 	return (
 		<>
-			<Head>
-				<link rel="shortcut icon" href="/image/favicon.ico" />
-				<title>{props.pageName}</title>
-			</Head>
 			{props.only ? <Fragment /> : <>
 				<AppBar position="sticky" sx={props.sx}>
 					<Toolbar>
