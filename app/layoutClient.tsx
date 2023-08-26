@@ -36,6 +36,7 @@ var logger = new LpLogger({
     level: "log", // 空字符串时，不显示任何信息
 });
 type colorMode = 'light' | 'dark';
+export const isBrowser = () => typeof window !== 'undefined'; // The approach recommended by Next.js
 export default function ModifiedApp(props) {
     const [mode, setMode] = useState<colorMode>(() => {
         const mightMode = checkOption("darkmode", "暗色模式", "false");
@@ -57,11 +58,11 @@ export default function ModifiedApp(props) {
             [mode]
         ),
         [choosedLang, setChoosedLang] = useState<string>(() => {
-            var browserLang: string = "";
-            if (navigator.language || navigator.languages) {
-                browserLang = ((navigator.languages && navigator.languages[0]) || navigator.language).split("-").join("") || "zhCN";
-            } else {
-                browserLang = "zhCN";
+            var browserLang: string = "zhCN";
+            if (isBrowser()) {
+                if (window.navigator.language || window.navigator.languages) {
+                    browserLang = ((window.navigator.languages && window.navigator.languages[0]) || window.navigator.language).split("-").join("") || "zhCN";
+                }
             }
             const detailedLang = Object.keys(locales).includes(browserLang) ? browserLang : "zhCN",
                 choose = checkOption("lang", "语言", detailedLang);
@@ -80,16 +81,16 @@ export default function ModifiedApp(props) {
     });
     useEffect(() => {
         var url = `${location.origin}/tool?handle=%s`;
-        if (navigator) {
-            if ("registerProtocolHandler" in navigator) {
+        if (isBrowser()) {
+            if ("registerProtocolHandler" in window.navigator) {
                 logger.log("检测到此设备可以注册协议");
-                navigator.registerProtocolHandler("web+neilatools", url);
+                window.navigator.registerProtocolHandler("web+neilatools", url);
             } else {
                 logger.warn("检测到此设备无法注册协议");
             }
-            if ('serviceWorker' in navigator) {
+            if ('serviceWorker' in window.navigator) {
                 // register service worker
-                navigator.serviceWorker.register("/service-worker.js").then(registration => {
+                window.navigator.serviceWorker.register("/service-worker.js").then(registration => {
                     logger.log(`Service worker for UWA register success:`, registration)
                 }).catch(reason => {
                     logger.error(`Service worker for UWA register fail: ${reason}`)

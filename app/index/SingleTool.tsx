@@ -11,7 +11,7 @@ import {
 import {
     components as ToolComponents
 } from "../tools/components";
-import Style from "./styles/Index.module.scss";
+import Style from "../styles/Index.module.scss";
 import {
     tool
 } from "../tools/info";
