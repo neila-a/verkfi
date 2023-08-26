@@ -9,6 +9,7 @@
     position: fixed;
     background-color: white; // Will rewrite
     overflow: auto;
+    border-radius: 1em;
 
     max: {
         width: 50vw;
@@ -36,4 +37,8 @@
     cursor: move;
     flex: 1;
     text-align: center;
+}
+
+.top0 {
+    top: 0;
 }

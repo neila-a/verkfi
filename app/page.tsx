@@ -187,46 +187,50 @@ export function Index(props: {
                         searchTools(event.target.value);
                     }} />
                 </Paper>
-                <ButtonGroup variant="outlined" sx={{
-                    display: "flex",
-                    justifyContent: "center",
+                <div style={{
                     position: "absolute",
                     bottom: "0px",
                     width: "inherit"
                 }}>
-                    <MouseOverPopover text={viewMode == "grid" ? "切换为列表模式" : "切换为网格模式"}>
-                        <IconButton color="primary" sx={{
-                            p: '10px'
-                        }} aria-label="directions" onClick={_event => {
-                            switch (viewMode) {
-                                case "grid":
-                                    setViewMode("list");
-                                    break;
-                                case "list":
-                                    setViewMode("grid");
-                                    break;
-                            };
-                        }}>
-                            {viewMode == "grid" ? <ViewListIcon /> : <ViewModuleIcon />}
-                        </IconButton>
-                    </MouseOverPopover>
-                    {searchText == "" && <MouseOverPopover text={editMode ? "关闭编辑模式" : "切换编辑模式"}>
-                        <IconButton color="primary" sx={{
-                            p: '10px'
-                        }} aria-label="directions" onClick={event => {
-                            switch (editMode) {
-                                case true:
-                                    setEditMode(false);
-                                    break;
-                                case false:
-                                    setEditMode(true);
-                                    break;
-                            }
-                        }}>
-                            {editMode ? <EditOffIcon /> : <EditIcon />}
-                        </IconButton>
-                    </MouseOverPopover>}
-                </ButtonGroup>
+                    <Divider />
+                    <ButtonGroup variant="outlined" sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                    }}>
+                        <MouseOverPopover text={viewMode == "grid" ? "切换为列表模式" : "切换为网格模式"}>
+                            <IconButton color="primary" sx={{
+                                p: '10px'
+                            }} aria-label="directions" onClick={_event => {
+                                switch (viewMode) {
+                                    case "grid":
+                                        setViewMode("list");
+                                        break;
+                                    case "list":
+                                        setViewMode("grid");
+                                        break;
+                                };
+                            }}>
+                                {viewMode == "grid" ? <ViewListIcon /> : <ViewModuleIcon />}
+                            </IconButton>
+                        </MouseOverPopover>
+                        {searchText == "" && <MouseOverPopover text={editMode ? "关闭编辑模式" : "切换编辑模式"}>
+                            <IconButton color="primary" sx={{
+                                p: '10px'
+                            }} aria-label="directions" onClick={event => {
+                                switch (editMode) {
+                                    case true:
+                                        setEditMode(false);
+                                        break;
+                                    case false:
+                                        setEditMode(true);
+                                        break;
+                                }
+                            }}>
+                                {editMode ? <EditOffIcon /> : <EditIcon />}
+                            </IconButton>
+                        </MouseOverPopover>}
+                    </ButtonGroup>
+                </div>
             </Drawer>
             <Box sx={{
                 p: 3,
@@ -254,7 +258,9 @@ export function Index(props: {
                     ))}
                 </Stack>
                 <ErrorBoundary>
-                    {windows == emptyArray ? <Fragment /> : windows.map(window => <Window {...window} key={window.to} />)}
+                    {windows == emptyArray ? <Fragment /> : windows.map(window => {
+                        return <Window {...window} key={window.id} />
+                    })}
                 </ErrorBoundary> {/* 窗口容器 */}
                 {jumpDialogOpen ? <CheckDialog description={`${I18N.get("确定离开NeilaTools并跳转至")}${jumpName}？`} title={I18N.get('离开NeilaTools')} onTrue={() => {
                     Router.push(jumpto);

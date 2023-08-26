@@ -80,7 +80,8 @@ export function SingleTool(props: {
                             setWindows([...windows, {
                                 Component: ToolComponents[tool.to],
                                 to: `/tool?tool=${tool.to}`,
-                                name: tool.name
+                                name: tool.name,
+                                id: Math.random().toString().replace(/0\./g, "")
                             }]);
                         }
                     }}>

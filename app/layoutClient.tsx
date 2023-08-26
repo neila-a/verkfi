@@ -36,7 +36,6 @@ var logger = new LpLogger({
     level: "log", // 空字符串时，不显示任何信息
 });
 type colorMode = 'light' | 'dark';
-const navigator = {} as Navigator;
 export default function ModifiedApp(props) {
     const [mode, setMode] = useState<colorMode>(() => {
         const mightMode = checkOption("darkmode", "暗色模式", "false");
@@ -81,8 +80,8 @@ export default function ModifiedApp(props) {
     });
     useEffect(() => {
         var url = `${location.origin}/tool?handle=%s`;
-        try {
-            if (navigator.registerProtocolHandler) {
+        if (navigator) {
+            if ("registerProtocolHandler" in navigator) {
                 logger.log("检测到此设备可以注册协议");
                 navigator.registerProtocolHandler("web+neilatools", url);
             } else {
@@ -98,8 +97,8 @@ export default function ModifiedApp(props) {
             } else {
                 logger.warn("此设备没有ServiceWorker");
             }
-        } catch (error) {
-            logger.error(`执行BOM相关操作时发生错误：`, error);
+        } else {
+            logger.error(`执行BOM相关操作时发生错误`);
         }
         var deferredPrompt: BeforeInstallPromptEvent;
         // 监听beforeinstallprompt事件，该事件在网站满足PWA安装条件时触发，保存安装事件
