@@ -13,22 +13,7 @@ import {
 import {
     Stack,
     Typography,
-    Divider,
-    IconButton,
-    InputBase,
-    Paper,
-    Box,
-    Drawer,
-    Toolbar,
-    ButtonGroup
-} from "@mui/material";
-import {
-    Search as SearchIcon,
-    ViewModule as ViewModuleIcon,
-    ViewList as ViewListIcon,
-    Edit as EditIcon,
-    EditOff as EditOffIcon
-} from "@mui/icons-material";
+    Box} from "@mui/material";
 import Style from "./styles/Index.module.scss";
 import LpLogger from "lp-logger";
 import {
@@ -48,7 +33,6 @@ import {
 } from 'next/navigation';
 import setSetting from "./setting/setSetting";
 import stringToBoolean from "./setting/stringToBoolean";
-import MouseOverPopover from "./components/Popover";
 export var logger = new LpLogger({
     name: "Index",
     level: "log", // 空字符串时，不显示任何信息
@@ -56,14 +40,18 @@ export var logger = new LpLogger({
 import {
     useSearchParams
 } from 'next/navigation';
-import {
-    SingleTool
-} from './SingleTool';
+import SingleTool from './index/SingleTool';
 import checkOption from './setting/checkOption';
-import {
-    getToolsList
-} from './getToolsList';
+import getToolsList from './index/getToolsList';
+import Sidebar from './index/Sidebar';
 export type viewMode = "list" | "grid";
+function SingleList(props: {
+    name: string;
+}) {
+    return (
+        <Typography>{props.name}</Typography>
+    );
+}
 export function Index(props: {
     /**
      * 是否为嵌入
@@ -153,85 +141,16 @@ export function Index(props: {
             {props.isImplant != true && <HeadBar isIndex pageName="NeilaTools" sx={{
                 zIndex: theme => (theme as ThemeHaveZIndex).zIndex.drawer + 1
             }} />}
-            <Drawer variant="permanent" sx={{
-                width: drawerWidth,
-                flexShrink: 0,
-                [`& .MuiDrawer-paper`]: {
-                    width: drawerWidth,
-                    boxSizing: 'border-box'
-                }
-            }}>
-                {!props.isImplant && <Toolbar />}
-                <Paper sx={{ // 搜索栏
-                    margin: '2px 4px',
-                    p: '2px 4px',
-                    display: 'flex',
-                    alignItems: 'center'
-                }}>
-                    <MouseOverPopover text={I18N.get('搜索')}>
-                        <IconButton type="button" sx={{
-                            p: '10px 5px'
-                        }} aria-label="search" onClick={() => {
-                            searchTools(searchText);
-                        }}>
-                            <SearchIcon />
-                        </IconButton>
-                    </MouseOverPopover>
-                    <InputBase value={searchText} sx={{
-                        ml: 1,
-                        flex: 1
-                    }} placeholder={I18N.get('搜索工具')} inputProps={{
-                        'aria-label': 'searchtools',
-                    }} onChange={event => {
-                        setSearchText(event.target.value);
-                        searchTools(event.target.value);
-                    }} />
-                </Paper>
-                <div style={{
-                    position: "absolute",
-                    bottom: "0px",
-                    width: "inherit"
-                }}>
-                    <Divider />
-                    <ButtonGroup variant="outlined" sx={{
-                        display: "flex",
-                        justifyContent: "center",
-                    }}>
-                        <MouseOverPopover text={viewMode == "grid" ? "切换为列表模式" : "切换为网格模式"}>
-                            <IconButton color="primary" sx={{
-                                p: '10px'
-                            }} aria-label="directions" onClick={_event => {
-                                switch (viewMode) {
-                                    case "grid":
-                                        setViewMode("list");
-                                        break;
-                                    case "list":
-                                        setViewMode("grid");
-                                        break;
-                                };
-                            }}>
-                                {viewMode == "grid" ? <ViewListIcon /> : <ViewModuleIcon />}
-                            </IconButton>
-                        </MouseOverPopover>
-                        {searchText == "" && <MouseOverPopover text={editMode ? "关闭编辑模式" : "切换编辑模式"}>
-                            <IconButton color="primary" sx={{
-                                p: '10px'
-                            }} aria-label="directions" onClick={event => {
-                                switch (editMode) {
-                                    case true:
-                                        setEditMode(false);
-                                        break;
-                                    case false:
-                                        setEditMode(true);
-                                        break;
-                                }
-                            }}>
-                                {editMode ? <EditOffIcon /> : <EditIcon />}
-                            </IconButton>
-                        </MouseOverPopover>}
-                    </ButtonGroup>
-                </div>
-            </Drawer>
+            <Sidebar
+                isImplant={props.isImplant}
+                viewMode={viewMode}
+                setViewMode={setViewMode}
+                editMode={editMode}
+                setEditMode={setEditMode}
+                searchText={searchText}
+                setSearchText={setSearchText}
+                searchTools={searchTools}
+            />
             <Box sx={{
                 p: 3,
                 marginLeft: props.isImplant ? "" : `${drawerWidth}px`

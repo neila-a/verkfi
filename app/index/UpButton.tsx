@@ -8,13 +8,13 @@ import {
 } from "@mui/icons-material";
 import {
     tool
-} from "./tools/info";
-import setSetting from "./setting/setSetting";
-import upGo from "./components/arrayMove/upGo";
+} from "../tools/info";
+import setSetting from "../setting/setSetting";
+import upGo from "../components/arrayMove/upGo";
 import {
     setState
-} from './declare';
-export function UpButton(props: {
+} from '../declare';
+export default function UpButton(props: {
     editMode: boolean;
     setTools: setState<tool[]>;
     tool: tool;

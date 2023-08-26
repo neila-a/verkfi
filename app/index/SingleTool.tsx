@@ -10,31 +10,27 @@ import {
 } from "@mui/icons-material";
 import {
     components as ToolComponents
-} from "./tools/components";
+} from "../tools/components";
 import Style from "./styles/Index.module.scss";
 import {
     tool
-} from "./tools/info";
+} from "../tools/info";
 import {
     WindowOptions
-} from "./components/window/Window";
+} from "../components/window/Window";
 import {
     useRouter
 } from 'next/navigation';
-import {
-    DownButton
-} from './DownButton';
-import {
-    UpButton
-} from './UpButton';
+import DownButton from './DownButton';
+import UpButton from './UpButton';
 import {
     viewMode,
     logger
-} from './page';
+} from '../page';
 import {
     setState
-} from './declare';
-export function SingleTool(props: {
+} from '../declare';
+export default function SingleTool(props: {
     tool: tool;
     color: boolean;
     darkMode: boolean;

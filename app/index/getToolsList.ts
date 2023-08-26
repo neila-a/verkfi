@@ -1,13 +1,16 @@
 "use client";
-import { tool } from "./tools/info";
-import { logger } from './page';
-
+import {
+    tool
+} from "../tools/info";
+import {
+    logger
+} from '../page';
 /**
  * 排序工具
  * @param realTools 未排序的工具列表
  * @returns 经过排序的工具列表
  */
-export function getToolsList(realTools) {
+export default function getToolsList(realTools: tool[]) {
     const
         id = "toolslist", name = "工具列表", empty = realTools.map(atool => atool.to), value = localStorage.getItem(id);
     var _ret: tool[] = realTools;

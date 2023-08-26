@@ -8,13 +8,13 @@ import {
 } from "@mui/icons-material";
 import {
     tool
-} from "./tools/info";
-import setSetting from "./setting/setSetting";
-import downGo from "./components/arrayMove/downGo";
+} from "../tools/info";
+import setSetting from "../setting/setSetting";
+import downGo from "../components/arrayMove/downGo";
 import {
     setState
-} from './declare';
-export function DownButton(props: {
+} from '../declare';
+export default function DownButton(props: {
     editMode: boolean;
     setTools: setState<tool[]>;
     tool: tool;
