@@ -60,6 +60,9 @@ import {
     SingleTool
 } from './SingleTool';
 import checkOption from './setting/checkOption';
+import {
+    getToolsList
+} from './getToolsList';
 export type viewMode = "list" | "grid";
 export function Index(props: {
     /**
@@ -73,6 +76,13 @@ export function Index(props: {
 }): JSX.Element {
     const searchParams = useSearchParams(),
         Router = useRouter();
+    /**
+     * 包装过的getToolsList
+     * @returns 经过排序的工具列表
+     */
+    const wrappedGetToolsList = () => {
+        return getToolsList(realTools);
+    }
     var realTools = getTools(I18N),
         [color, setColor] = useState<boolean>(() => {
             const mode = stringToBoolean(checkOption("color", "多彩主页", "true"));
@@ -82,7 +92,7 @@ export function Index(props: {
             const mode = stringToBoolean(checkOption("darkmode", "暗色模式", "false"));
             return mode || false;
         }),
-        [sortedTools, setSortedTools] = useState(realTools),
+        [sortedTools, setSortedTools] = useState(wrappedGetToolsList),
         [searchText, setSearchText] = useState<string>(""),
         [viewMode, setViewMode] = useState<viewMode>(() => {
             const mode = checkOption("viewmode", "列表模式", "grid") as viewMode;
@@ -93,7 +103,7 @@ export function Index(props: {
         [jumpto, setJumpTo] = useState<string>(realTools[11].to),
         [jumpName, setJumpName] = useState<string>(realTools[11].name),
         [jumpDialogOpen, setJumpDialogOpen] = useState<boolean>(false),
-        [tools, setTools] = useState(sortedTools);
+        [tools, setTools] = useState(wrappedGetToolsList);
     useEffect(() => {
         setSetting("viewmode", "列表模式", viewMode);
     }, [viewMode]); // 实时保存viewMode至lS
@@ -123,36 +133,8 @@ export function Index(props: {
         viewMode,
         editMode
     ]);
-    useEffect(() => {
-        const
-            id = "toolslist",
-            name = "工具列表",
-            empty = realTools.map(atool => atool.to),
-            value = localStorage.getItem(id);
-        switch (value) {
-            case null:
-                localStorage.setItem(id, JSON.stringify(empty));
-                logger.log(`检测到“${name}”为空，已设置为`, empty);
-                setSortedTools(realTools);
-                break;
-            default:
-                logger.log(`检测到“${name}”为`, JSON.parse(value));
-                const draft = (JSON.parse(value) as string[]).map(toolTo => {
-                    var realTool: tool;
-                    realTools.forEach(atool => {
-                        if (atool.to == toolTo) {
-                            realTool = atool;
-                        }
-                    });
-                    return realTool;
-                });
-                setSortedTools(draft);
-                setTools(draft);
-                break;
-        }
-    }, []); // 工具排序
     useEffect(function () {
-        if (props.isImplant) {
+        if (props.isImplant && props.searchText) {
             setSearchText(props.searchText);
             searchTools(props.searchText);
         } else if (searchParams.has("searchText")) {
