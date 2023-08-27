@@ -17,6 +17,7 @@ import {
 	Search as SearchIcon
 } from "@mui/icons-material"
 import {
+	CSSProperties,
 	Fragment,
 	useState
 } from "react";
@@ -62,75 +63,82 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 		[searchText, setSearchText] = useState(""),
 		[showSearchTool, setShowSearchTool] = useState<boolean>(false),
 		router = useRouter();
-	return (
-		<>
-			{props.only ? <Fragment /> : <>
-				<AppBar position="sticky" sx={props.sx}>
-					<Toolbar>
-						{props.isIndex ? <Fragment /> : <MouseOverPopover text={I18N.get('首页')}>
-							<IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{
-								mr: 2
-							}} onClick={event => {
-								router.back();
-							}}>
-								<ArrowBack />
-							</IconButton>
-						</MouseOverPopover>}
-						<Typography variant="h6" component="div" sx={{
-							flexGrow: 1
-						}} style={{
-							textAlign: "center"
-						}}>
-							{props.isIndex ? "NeilaTools" : props.pageName}
-						</Typography>
-						{props.isIndex != true && <form onSubmit={event => {
-							event.preventDefault();
-							setShowSearchTool(true);
-						}}>
-							<FormGroup>
-								<FormControl>
-									<Search>
-										<SearchIconWrapper>
-											<SearchIcon />
-										</SearchIconWrapper>
-										<StyledInputBase name="searchText" placeholder={I18N.get('搜索工具……')} onChange={event => {
-											setSearchText(event.target.value);
-										}} inputProps={{
-											'aria-label': 'search'
-										}} value={searchText} />
-									</Search>
-								</FormControl>
-							</FormGroup>
-						</form>}
-						<Link href="/setting" className={style["link"]}>
-							<MouseOverPopover text={I18N.get('设置')}>
-								<IconButton size="large" edge="end" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-									<SettingsIcon />
-								</IconButton>
-							</MouseOverPopover>
-						</Link>
-					</Toolbar>
-				</AppBar>
-				{stringToBoolean(forkMeOnGitHub) ? <div className={style["github-ribbon"]} style={props.isIndex ? {
-					left: "0px"
-				} : {
-					right: "0px"
+	const noDrag: CSSProperties = {
+		WebkitAppRegion: "no-drag",
+	};
+	return props.only ? <Fragment /> : <>
+		<AppBar position="sticky" sx={{
+			WebkitAppRegion: "drag",
+			...props.sx
+		}}>
+			<Toolbar>
+				{props.isIndex ? <Fragment /> : <MouseOverPopover text={I18N.get('首页')} sx={noDrag}>
+					<IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{
+						mr: 2
+					}} onClick={event => {
+						router.back();
+					}}>
+						<ArrowBack />
+					</IconButton>
+				</MouseOverPopover>}
+				<Typography variant="h6" component="div" sx={{
+					flexGrow: 1
+				}} style={{
+					textAlign: "center"
 				}}>
-					<a href="https://github.com/neila-a/NeilaTools.git" style={props.isIndex ? {
-						transform: "rotate(-45deg)",
-						left: "-40px"
-					} : {
-						transform: "rotate(45deg)",
-						right: "-40px"
-					}}>Fork me on GitHub</a>
-				</div> : <Fragment />}
-			</>}
-			{showSearchTool && <PureDialog title={I18N.get('搜索工具')} onClose={() => {
-				setSearchText("");
-				setShowSearchTool(false);
-			}} context={<ErrorBoundary>
+					{props.isIndex ? "NeilaTools" : props.pageName}
+				</Typography>
+				{props.isIndex != true && <form style={noDrag} onSubmit={event => {
+					event.preventDefault();
+					setShowSearchTool(true);
+				}}>
+					<FormGroup>
+						<FormControl>
+							<Search>
+								<SearchIconWrapper>
+									<SearchIcon />
+								</SearchIconWrapper>
+								<StyledInputBase name="searchText" placeholder={I18N.get('搜索工具……')} onChange={event => {
+									setSearchText(event.target.value);
+								}} inputProps={{
+									'aria-label': 'search'
+								}} value={searchText} />
+							</Search>
+						</FormControl>
+					</FormGroup>
+				</form>}
+				<Link href="/setting" className={style["link"]} style={noDrag}>
+					<MouseOverPopover text={I18N.get('设置')}>
+						<IconButton size="large" edge="end" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
+							<SettingsIcon />
+						</IconButton>
+					</MouseOverPopover>
+				</Link>
+			</Toolbar>
+		</AppBar>
+		{stringToBoolean(forkMeOnGitHub) ? <div className={style["github-ribbon"]} style={{
+			...noDrag,
+			...props.isIndex ? {
+				left: "0px"
+			} : {
+				right: "0px"
+			}
+		}}>
+			<a href="https://github.com/neila-a/NeilaTools.git" style={props.isIndex ? {
+				transform: "rotate(-45deg)",
+				left: "-40px"
+			} : {
+				transform: "rotate(45deg)",
+				right: "-40px"
+			}}>Fork me on GitHub</a>
+		</div> : <Fragment />}
+		{showSearchTool && <PureDialog title={I18N.get('搜索工具')} onClose={() => {
+			setSearchText("");
+			setShowSearchTool(false);
+		}}>
+			<ErrorBoundary>
 				<SearchTool isImplant searchText={searchText} />
-			</ErrorBoundary>} />}
-		</>
-	);
+			</ErrorBoundary>
+		</PureDialog>}
+	</>;
 };

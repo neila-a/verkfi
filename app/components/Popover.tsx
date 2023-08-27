@@ -1,6 +1,13 @@
-import * as React from 'react';
-import Popover from '@mui/material/Popover';
-import Typography from '@mui/material/Typography';
+import {
+    ReactNode,
+    useState,
+    MouseEvent,
+    CSSProperties
+} from 'react';
+import {
+    Popover,
+    Typography
+} from '@mui/material';
 import {
     isMobile
 } from 'react-device-detect';
@@ -10,11 +17,12 @@ var logger = new lpLogger({
     level: "log"
 });
 export default function MouseOverPopover(props: {
-    children: React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal;
+    children: ReactNode;
     text: string;
+    sx?: CSSProperties;
 }) {
-    const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
-    const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
+    const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+    const handlePopoverOpen = (event: MouseEvent<HTMLElement>) => {
         if (isMobile) {
             logger.log("检测到此设备为手机，停止显示弹出框");
         } else {
@@ -26,7 +34,7 @@ export default function MouseOverPopover(props: {
     };
     const open = Boolean(anchorEl);
     return (
-        <div>
+        <div style={props.sx ? props.sx : {}}>
             <div
                 aria-haspopup="true"
                 onMouseEnter={handlePopoverOpen}

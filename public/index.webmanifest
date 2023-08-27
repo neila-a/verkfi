@@ -38,7 +38,7 @@
             "name": "设置",
             "short_name": "设置",
             "description": "设置",
-            "url": "/settings",
+            "url": "/setting",
             "icons": [
                 {
                     "src": "/image/settings.png",
@@ -46,5 +46,13 @@
                 }
             ]
         }
+    ],
+    "id": "neila-tools",
+    "display_override": [
+        "window-controls-overlay",
+        "fullscreen",
+        "standalone",
+        "minimal-ui",
+        "browser"
     ]
 }
