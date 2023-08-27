@@ -1,9 +1,9 @@
 "use client";
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Card,
     CardContent,
-    Typography
+    Typography as BaseTypography
 } from "@mui/material";
 import {
     ExitToApp as ExitToAppIcon
@@ -30,6 +30,11 @@ import {
 import {
     setState
 } from '../declare';
+import styled from '@emotion/styled';
+import { drawerWidth } from '../setting/page';
+const Typography = styled(BaseTypography)`
+    word-break: break-all;
+`;
 export default function SingleTool(props: {
     tool: tool;
     color: boolean;
@@ -64,10 +69,15 @@ export default function SingleTool(props: {
             }
         },
         Router = useRouter();
+    const [screenWidth, setScreenWidth] = useState<number>(() => {
+        const windowWidth = window.innerWidth;
+        return windowWidth || 320;
+    });
     return (
         <div key={tool.to}> {/* 单个工具 */}
             <Card sx={{
-                minWidth: viewMode == "grid" ? 275 : "100%",
+                width: viewMode == "grid" ? 275 : "100%",
+                maxWidth: screenWidth - 24 - drawerWidth,
                 backgroundImage: color ? "linear-gradient(45deg, #" + tool.color[0] + ", #" + tool.color[1] + ")" : ""
             }} elevation={10}>
                 <CardContent>
@@ -100,7 +110,7 @@ export default function SingleTool(props: {
                                 <ToolIcon />
                             </div>
                             <div>
-                                <Typography variant="h5" component="div">
+                                <Typography variant="h5">
                                     <DownButton editMode={editMode} setTools={setTools} tool={tool} sortingFor={sortingFor} />
                                     {tool.isGoto ? <ExitToAppIcon /> : <></>}
                                     {tool.name}
@@ -110,24 +120,26 @@ export default function SingleTool(props: {
                                     {tool.desc}
                                 </Typography>
                             </div>
-                        </div> : <div className={Style["singleList"]}>
-                            <div className={Style["singleListIcon"]}>
-                                <ToolIcon />
-                            </div>
-                            <div>
-                                <Typography variant="h5" component="div">
-                                    {tool.isGoto ? <ExitToAppIcon /> : <></>}
-                                    {tool.name}
-                                </Typography>
-                                <Typography {...subStyle} variant="body2">
-                                    {tool.desc}
-                                </Typography>
+                        </div> : <>
+                            <div className={Style["singleListText"]}>
+                                <div className={Style["singleListIcon"]}>
+                                    <ToolIcon />
+                                </div>
+                                <div>
+                                    <Typography variant="h5">
+                                        {tool.isGoto ? <ExitToAppIcon /> : <></>}
+                                        {tool.name}
+                                    </Typography>
+                                    <Typography {...subStyle} variant="body2">
+                                        {tool.desc}
+                                    </Typography>
+                                </div>
                             </div>
                             <div>
                                 <DownButton editMode={editMode} setTools={setTools} tool={tool} sortingFor={sortingFor} />
                                 <UpButton editMode={editMode} setTools={setTools} tool={tool} sortingFor={sortingFor} />
                             </div>
-                        </div>}
+                        </>}
                     </div>
                 </CardContent>
             </Card>

@@ -83,10 +83,10 @@ export default function Sidebar(props: {
         [dialogListName, setDialogListName] = useState<string>("");
     return (
         <Drawer variant="permanent" sx={{
-            width: drawerWidth,
+            maxWidth: drawerWidth,
             flexShrink: 0,
             [`& .MuiDrawer-paper`]: {
-                width: drawerWidth,
+                maxWidth: drawerWidth,
                 boxSizing: 'border-box'
             }
         }}>

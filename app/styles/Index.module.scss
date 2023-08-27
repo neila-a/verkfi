@@ -17,6 +17,7 @@
     cursor: pointer;
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 
 .singleGridIcon {
@@ -27,4 +28,9 @@
     margin: {
         right: 16px;
     }
+}
+
+.singleListText {
+    display: flex;
+    align-items: center;
 }

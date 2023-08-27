@@ -47,7 +47,7 @@ export default function Buttons(props: {
         <div style={{
             position: "absolute",
             bottom: "0px",
-            width: "inherit"
+            width: "100%"
         }}>
             {editMode && <Button onClick={event => {
                 setDialogOpen(true);
