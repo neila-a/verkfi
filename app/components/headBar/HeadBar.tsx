@@ -54,6 +54,8 @@ export interface HeadBarOption {
  * AppBar 的自定义封装。
  * @param {boolean} isIndex 是否是索引页面
  * @param {string} pageName 页面的名称
+ * @param {boolean} only 是否隐藏
+ * @param {SxProps<Theme>} sx 添加的样式
  */
 export default function HeadBar(props: HeadBarOption): JSX.Element {
 	var [forkMeOnGitHub, setForkMeOnGithub] = useState(() => {
@@ -64,6 +66,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 		[showSearchTool, setShowSearchTool] = useState<boolean>(false),
 		router = useRouter();
 	const noDrag: CSSProperties = {
+		// @ts-ignore React的CSSProperties中明明有WebkitAppRegion，但是类型中没有
 		WebkitAppRegion: "no-drag",
 	};
 	return props.only ? <Fragment /> : <>
