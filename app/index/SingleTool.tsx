@@ -42,14 +42,28 @@ export default function SingleTool(props: {
     setJumpName: setState<string>;
     setWindows: setState<WindowOptions[]>;
     windows: WindowOptions[];
+    sortingFor: string;
 }) {
     const {
-        tool, viewMode, editMode, color, setTools, setJumpDialogOpen, setJumpTo, setJumpName, setWindows, windows
-    } = props, ToolIcon = tool.icon, subStyle = {
-        sx: {
-            color: props.darkMode ? "" : "#999999"
-        }
-    }, Router = useRouter();
+        tool,
+        viewMode,
+        editMode,
+        color,
+        setTools,
+        setJumpDialogOpen,
+        setJumpTo,
+        setJumpName,
+        setWindows,
+        windows,
+        sortingFor
+    } = props,
+        ToolIcon = tool.icon,
+        subStyle = {
+            sx: {
+                color: props.darkMode ? "" : "#999999"
+            }
+        },
+        Router = useRouter();
     return (
         <div key={tool.to}> {/* 单个工具 */}
             <Card sx={{
@@ -87,10 +101,10 @@ export default function SingleTool(props: {
                             </div>
                             <div>
                                 <Typography variant="h5" component="div">
-                                    <DownButton editMode={editMode} setTools={setTools} tool={tool} />
+                                    <DownButton editMode={editMode} setTools={setTools} tool={tool} sortingFor={sortingFor} />
                                     {tool.isGoto ? <ExitToAppIcon /> : <></>}
                                     {tool.name}
-                                    <UpButton editMode={editMode} setTools={setTools} tool={tool} />
+                                    <UpButton editMode={editMode} setTools={setTools} tool={tool} sortingFor={sortingFor} />
                                 </Typography>
                                 <Typography {...subStyle} variant="body2">
                                     {tool.desc}
@@ -110,8 +124,8 @@ export default function SingleTool(props: {
                                 </Typography>
                             </div>
                             <div>
-                                <DownButton editMode={editMode} setTools={setTools} tool={tool} />
-                                <UpButton editMode={editMode} setTools={setTools} tool={tool} />
+                                <DownButton editMode={editMode} setTools={setTools} tool={tool} sortingFor={sortingFor} />
+                                <UpButton editMode={editMode} setTools={setTools} tool={tool} sortingFor={sortingFor} />
                             </div>
                         </div>}
                     </div>

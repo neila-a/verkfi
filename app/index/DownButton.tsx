@@ -9,15 +9,16 @@ import {
 import {
     tool
 } from "../tools/info";
-import setSetting from "../setting/setSetting";
 import downGo from "../components/arrayMove/downGo";
 import {
     setState
 } from '../declare';
+import buttonCommonSorting from './buttonCommonSorting';
 export default function DownButton(props: {
     editMode: boolean;
     setTools: setState<tool[]>;
     tool: tool;
+    sortingFor: string;
 }): JSX.Element {
     if (props.editMode) {
         return (
@@ -28,7 +29,7 @@ export default function DownButton(props: {
                 props.setTools(draft => {
                     var pd = draft.slice(0);
                     downGo(pd, pd.indexOf(props.tool));
-                    setSetting("toolslist", "工具列表", JSON.stringify(pd.map(toolp => toolp.to)));
+                    buttonCommonSorting(props.sortingFor, pd);
                     return pd;
                 });
             }}>

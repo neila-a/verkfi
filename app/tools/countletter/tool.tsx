@@ -23,11 +23,11 @@ function CountLetter(): JSX.Element {
         [numberType, setNumberType] = useState<numberType>(10);
     return (
         <>
-            <div className={style["main"]}>
+            <div>
                 <Button onClick={() => {
                     logger.log("已弹出输入框。");
                     setEnterDialogOpen(true);
-                }} variant="contained" className={style["button"]}>{I18N.get('输入')}</Button>
+                }} variant="contained" fullWidth>{I18N.get('输入')}</Button>
                 {enterDialogOpen ? <InputDialog context={I18N.get('输入你要转换的字符（串）')} onDone={context => {
                     table.forEach(single => {
                         context = context.replace(new RegExp(single, "g"), (table.indexOf(single.toUpperCase()) + 1).toString(numberType).toUpperCase());

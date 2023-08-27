@@ -1,7 +1,10 @@
 import {
     DialogContent
 } from "@mui/material";
-import React from "react";
+import {
+    ReactNode,
+    useState
+} from "react";
 import BootstrapDialog from "./BootstrapDialog";
 import BootstrapDialogTitle from "./BootstrapDialogTitle";
 export default function PureDialog(props: {
@@ -12,13 +15,13 @@ export default function PureDialog(props: {
     /**
      * 内容
      */
-    context: JSX.Element;
+    children: ReactNode;
     /**
      * 关闭后的回调
      */
     onClose: () => any;
 }) {
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = useState(true);
     const handleClose = () => {
         setOpen(false);
         props.onClose();
@@ -27,7 +30,7 @@ export default function PureDialog(props: {
         <BootstrapDialog onClose={handleClose} open={open}>
             <BootstrapDialogTitle onClose={handleClose}>{props.title}</BootstrapDialogTitle>
             <DialogContent dividers>
-                {props.context}
+                {props.children}
             </DialogContent>
         </BootstrapDialog>
     );

@@ -14,10 +14,12 @@ import upGo from "../components/arrayMove/upGo";
 import {
     setState
 } from '../declare';
+import buttonCommonSorting from './buttonCommonSorting';
 export default function UpButton(props: {
     editMode: boolean;
     setTools: setState<tool[]>;
     tool: tool;
+    sortingFor: string;
 }): JSX.Element {
     if (props.editMode) {
         return (
@@ -28,7 +30,7 @@ export default function UpButton(props: {
                 props.setTools(draft => {
                     var pd = draft.slice(0);
                     upGo(pd, pd.indexOf(props.tool));
-                    setSetting("toolslist", "工具列表", JSON.stringify(pd.map(toolp => toolp.to)));
+                    buttonCommonSorting(props.sortingFor, pd);
                     return pd;
                 });
             }}>

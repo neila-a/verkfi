@@ -45,13 +45,6 @@ import checkOption from './setting/checkOption';
 import getToolsList from './index/getToolsList';
 import Sidebar from './index/Sidebar';
 export type viewMode = "list" | "grid";
-function SingleList(props: {
-    name: string;
-}) {
-    return (
-        <Typography>{props.name}</Typography>
-    );
-}
 export function Index(props: {
     /**
      * 是否为嵌入
@@ -91,7 +84,8 @@ export function Index(props: {
         [jumpto, setJumpTo] = useState<string>(realTools[11].to),
         [jumpName, setJumpName] = useState<string>(realTools[11].name),
         [jumpDialogOpen, setJumpDialogOpen] = useState<boolean>(false),
-        [tools, setTools] = useState(wrappedGetToolsList);
+        [tools, setTools] = useState(wrappedGetToolsList),
+        [sortingFor, setSortingFor] = useState<string>("__global__");
     useEffect(() => {
         setSetting("viewmode", "列表模式", viewMode);
     }, [viewMode]); // 实时保存viewMode至lS
@@ -150,6 +144,8 @@ export function Index(props: {
                 searchText={searchText}
                 setSearchText={setSearchText}
                 searchTools={searchTools}
+                setTools={setTools}
+                setSortingFor={setSortingFor}
             />
             <Box sx={{
                 p: 3,
@@ -162,6 +158,7 @@ export function Index(props: {
                     {tools.length === 0 ? <Typography>{I18N.get('未找到任何工具')}</Typography> : tools.map(tool => (
                         <SingleTool
                             tool={tool}
+                            sortingFor={sortingFor}
                             key={tool.to}
                             color={color}
                             darkMode={darkMode}
