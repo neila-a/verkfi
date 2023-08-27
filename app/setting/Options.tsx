@@ -3,7 +3,8 @@ import {
     InputLabel,
     Select,
     MenuItem,
-    Button
+    Button,
+    ButtonGroup
 } from "@mui/material";
 import {
     Download as DownloadIcon
@@ -22,9 +23,11 @@ import {
 import {
     stringifyCheck
 } from "./Switcher";
+import PureDialog from "../components/dialog/PureDialog";
 export type options = [string, string, stringifyCheck];
 export default function Options() {
-    var [lang, setLang] = useState<string>("");
+    var [lang, setLang] = useState<string>(""),
+        [dialogOpen, setDialogOpen] = useState<boolean>(false);
     return (
         <FormGroup>
             {([["fork-me-on-github", "Fork me on GitHub", "false"], ["darkmode", "暗色模式", "false"], ["color", "多彩主页", "true"]] as options[]).map((options, index) => (
@@ -56,10 +59,26 @@ export default function Options() {
             <Button variant="contained" startIcon={
                 <DownloadIcon />
             } onClick={() => {
-                window.installPWA();
+                setDialogOpen(true);
             }}>
                 {I18N.get("下载本应用")}
             </Button>
+            {dialogOpen && <PureDialog title={I18N.get("下载本应用")} onClose={() => {
+                setDialogOpen(false);
+            }}>
+                <ButtonGroup variant="contained" fullWidth>
+                    <Button onClick={event => {
+                        window.installPWA();
+                    }}>
+                        {I18N.get("将本应用通过浏览器添加至桌面")}
+                    </Button>
+                    <Button onClick={event => {
+                        window.location.href = "https://github.com/neila-a/NeilaTools/releases";
+                    }}>
+                        {I18N.get("下载单独安装包")}
+                    </Button>
+                </ButtonGroup>
+            </PureDialog>}
         </FormGroup>
     );
 }
