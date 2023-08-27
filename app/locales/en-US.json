@@ -116,5 +116,13 @@
 	"清空": "Clear",
 	"确定离开NeilaTools并跳转至": "Are you sure you want to leave NeilaTools and go to",
 	"多彩主页": "Colorful Homepage",
-	"未找到工具": "No tools found"
+	"未找到工具": "No tools found",
+	"添加工具列表": "Add Tool List",
+	"工具列表名称": "Tool List Name",
+	"创建工具列表": "Create Tool List",
+	"编辑工具列表": "Edit Tool List",
+	"删除此工具列表": "Delete this tool list",
+	"确定删除此工具列表吗？": "Are you sure you want to delete this tool list?",
+	"将本应用通过浏览器添加至桌面": "Add this app via browser to the desktop",
+	"下载单独安装包": "Download individual packages"
 }
