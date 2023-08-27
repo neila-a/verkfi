@@ -14,7 +14,9 @@ import ErrorBoundary from "../ErrorBoundary";
 import {
 	ArrowBack,
 	Settings as SettingsIcon,
-	Search as SearchIcon
+	Search as SearchIcon,
+	LightMode,
+	DarkMode
 } from "@mui/icons-material"
 import {
 	CSSProperties,
@@ -44,6 +46,7 @@ import SearchIconWrapper from "./SearchIconWrapper";
 import StyledInputBase from "./StyledInputBase";
 import Link from 'next/link';
 import checkOption from '../../setting/checkOption';
+import setOption from '../../setting/setOption';
 export interface HeadBarOption {
 	pageName: string;
 	isIndex: boolean;
@@ -62,6 +65,10 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 		const option = checkOption("fork-me-on-github", "Fork me on GitHub", "false");
 		return option || "false"
 	}),
+		[darkMode, setDarkMode] = useState<boolean>(() => {
+			const mode = checkOption("darkmode", "暗色模式", "false");
+			return stringToBoolean(mode) || false;
+		}),
 		[searchText, setSearchText] = useState(""),
 		[showSearchTool, setShowSearchTool] = useState<boolean>(false),
 		router = useRouter();
@@ -75,8 +82,16 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 			...props.sx
 		}}>
 			<Toolbar>
-				{props.isIndex ? <Fragment /> : <MouseOverPopover text={I18N.get('首页')} sx={noDrag}>
-					<IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{
+				{props.isIndex ? <MouseOverPopover text={I18N.get("暗色模式")}>
+					<IconButton size='large' edge="start" color="inherit" aria-label="darkmode" sx={{
+						mr: 2
+					}} onClick={event => {
+						setOption("darkmode", "暗色模式", !darkMode);
+					}}>
+						{darkMode ? <DarkMode /> : <LightMode />}
+					</IconButton>
+				</MouseOverPopover> : <MouseOverPopover text={I18N.get('首页')} sx={noDrag}>
+					<IconButton size="large" edge="start" color="inherit" aria-label="homepage" sx={{
 						mr: 2
 					}} onClick={event => {
 						router.back();

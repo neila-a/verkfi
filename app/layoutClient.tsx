@@ -35,7 +35,7 @@ var logger = new LpLogger({
     name: "NeilaTools",
     level: "log", // 空字符串时，不显示任何信息
 });
-type colorMode = 'light' | 'dark';
+export type colorMode = 'light' | 'dark';
 export const isBrowser = () => typeof window !== 'undefined'; // The approach recommended by Next.js
 export default function ModifiedApp(props) {
     const [mode, setMode] = useState<colorMode>(() => {
