@@ -54,5 +54,14 @@
         "standalone",
         "minimal-ui",
         "browser"
-    ]
+    ],
+    "lang": "zh",
+    "dir": "ltr",
+    "prefer_related_applications": false,
+    "categories": [
+        "utilities"
+    ],
+    "edge_side_panel": {
+        "preferred_width": 320
+    }
 }
