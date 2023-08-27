@@ -72,13 +72,15 @@ export default function SingleTool(props: {
             }} elevation={10}>
                 <CardContent>
                     <div className={viewMode == "list" ? Style["singleList"] : ""} onClick={() => {
-                        logger.info(`点击了${tool.name}`);
-                        if (tool.isGoto) {
-                            setJumpDialogOpen(true);
-                            setJumpTo(tool.to);
-                            setJumpName(tool.name);
-                        } else {
-                            Router.push(`/tool?tool=${tool.to}`);
+                        if (!editMode) {
+                            logger.info(`点击了${tool.name}`);
+                            if (tool.isGoto) {
+                                setJumpDialogOpen(true);
+                                setJumpTo(tool.to);
+                                setJumpName(tool.name);
+                            } else {
+                                Router.push(`/tool?tool=${tool.to}`);
+                            }
                         }
                     }} onContextMenu={event => {
                         event.preventDefault();

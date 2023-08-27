@@ -13,7 +13,8 @@ import {
 import {
     Stack,
     Typography,
-    Box} from "@mui/material";
+    Box
+} from "@mui/material";
 import Style from "./styles/Index.module.scss";
 import LpLogger from "lp-logger";
 import {
@@ -40,10 +41,16 @@ export var logger = new LpLogger({
 import {
     useSearchParams
 } from 'next/navigation';
+import {
+    DragDropContext,
+    Droppable,
+    Draggable
+} from "@hello-pangea/dnd";
 import SingleTool from './index/SingleTool';
 import checkOption from './setting/checkOption';
 import getToolsList from './index/getToolsList';
 import Sidebar from './index/Sidebar';
+import reorder from './components/reorder';
 export type viewMode = "list" | "grid";
 export function Index(props: {
     /**
@@ -155,23 +162,52 @@ export function Index(props: {
                     flexDirection: viewMode == "grid" ? "row" : "",
                     display: viewMode == "grid" ? "flex" : "block"
                 }}> {/* 工具总览 */}
-                    {tools.length === 0 ? <Typography>{I18N.get('未找到任何工具')}</Typography> : tools.map(tool => (
-                        <SingleTool
-                            tool={tool}
-                            sortingFor={sortingFor}
-                            key={tool.to}
-                            color={color}
-                            darkMode={darkMode}
-                            viewMode={viewMode}
-                            setTools={setTools}
-                            setJumpDialogOpen={setJumpDialogOpen}
-                            setJumpName={setJumpName}
-                            setJumpTo={setJumpTo}
-                            setWindows={setWindows}
-                            editMode={editMode}
-                            windows={windows}
-                        />
-                    ))}
+                    {tools.length === 0 ? <Typography>{I18N.get('未找到任何工具')}</Typography> : <DragDropContext onDragEnd={result => {
+                        if (!result.destination) {
+                            return;
+                        }
+                        if (result.destination.index === result.source.index) {
+                            return;
+                        }
+                        console.log(editMode)
+                        if (editMode) {
+                            const newTools = reorder(tools, result.source.index, result.destination.index);
+                            setTools(newTools);
+                        }
+                    }}>
+                        <Droppable droppableId="toolslist" isDropDisabled={!editMode}>
+                            {provided => {
+                                return (
+                                    <div ref={provided.innerRef} {...provided.droppableProps}>
+                                        {tools.map((tool, index) => (
+                                            <Draggable draggableId={tool.to} index={index} key={tool.to}>
+                                                {provided => (
+                                                    <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                                        <SingleTool
+                                                            tool={tool}
+                                                            sortingFor={sortingFor}
+                                                            key={tool.to}
+                                                            color={color}
+                                                            darkMode={darkMode}
+                                                            viewMode={viewMode}
+                                                            setTools={setTools}
+                                                            setJumpDialogOpen={setJumpDialogOpen}
+                                                            setJumpName={setJumpName}
+                                                            setJumpTo={setJumpTo}
+                                                            setWindows={setWindows}
+                                                            editMode={editMode}
+                                                            windows={windows}
+                                                        />
+                                                    </div>
+                                                )}
+                                            </Draggable>
+                                        ))}
+                                        {provided.placeholder}
+                                    </div>
+                                );
+                            }}
+                        </Droppable>
+                    </DragDropContext>}
                 </Stack>
                 <ErrorBoundary>
                     {windows == emptyArray ? <Fragment /> : windows.map(window => {
