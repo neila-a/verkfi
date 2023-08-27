@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import {
     Card,
     CardContent,
-    Typography as BaseTypography
+    Typography
 } from "@mui/material";
 import {
     ExitToApp as ExitToAppIcon
@@ -31,10 +31,12 @@ import {
     setState
 } from '../declare';
 import styled from '@emotion/styled';
-import { drawerWidth } from '../setting/page';
-const Typography = styled(BaseTypography)`
-    word-break: break-all;
-`;
+import {
+    drawerWidth
+} from '../setting/page';
+const BreakAllTypography = styled(Typography)(({ theme }) => ({
+    wordBreak: "break-all"
+}));
 export default function SingleTool(props: {
     tool: tool;
     color: boolean;
@@ -110,15 +112,15 @@ export default function SingleTool(props: {
                                 <ToolIcon />
                             </div>
                             <div>
-                                <Typography variant="h5">
+                                <BreakAllTypography variant="h5">
                                     <DownButton editMode={editMode} setTools={setTools} tool={tool} sortingFor={sortingFor} />
                                     {tool.isGoto ? <ExitToAppIcon /> : <></>}
                                     {tool.name}
                                     <UpButton editMode={editMode} setTools={setTools} tool={tool} sortingFor={sortingFor} />
-                                </Typography>
-                                <Typography {...subStyle} variant="body2">
+                                </BreakAllTypography>
+                                <BreakAllTypography {...subStyle} variant="body2">
                                     {tool.desc}
-                                </Typography>
+                                </BreakAllTypography>
                             </div>
                         </div> : <>
                             <div className={Style["singleListText"]}>
@@ -126,13 +128,13 @@ export default function SingleTool(props: {
                                     <ToolIcon />
                                 </div>
                                 <div>
-                                    <Typography variant="h5">
+                                    <BreakAllTypography variant="h5">
                                         {tool.isGoto ? <ExitToAppIcon /> : <></>}
                                         {tool.name}
-                                    </Typography>
-                                    <Typography {...subStyle} variant="body2">
+                                    </BreakAllTypography>
+                                    <BreakAllTypography {...subStyle} variant="body2">
                                         {tool.desc}
-                                    </Typography>
+                                    </BreakAllTypography>
                                 </div>
                             </div>
                             <div>
