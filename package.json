@@ -1,8 +1,8 @@
 {
     "name": "neilatools",
-    "version": "1.5.1",
-    "devVersion": "594",
-    "dev": false,
+    "version": "1.5.2",
+    "devVersion": "596",
+    "dev": true,
     "description": "Platform for Neila's something useless tools.",
     "private": true,
     "repository": "github:neila-a/NeilaTools",

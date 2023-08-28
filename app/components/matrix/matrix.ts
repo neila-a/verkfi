@@ -1,11 +1,14 @@
 import LpLogger from "lp-logger";
 import removeIn2 from '../removeIn';
 import drawMatrixBase from "./base";
+import {
+    PaletteMode
+} from "@mui/material";
 export var logger = new LpLogger({
     name: "Matrix",
     level: "log"
 });
-export default function drawMatrix(blocks: block[], g: number, posX: number, posZ: number, posCache: block, cache: block[]) {
+export default function drawMatrix(blocks: block[], g: number, posX: number, posZ: number, posCache: block, cache: block[], colorMode: PaletteMode) {
     var b = document.body,
         w = b.scrollWidth - 48,
         h = b.scrollHeight - 48,
@@ -23,7 +26,7 @@ export default function drawMatrix(blocks: block[], g: number, posX: number, pos
     }));
     posBlock = removeIn2(posBlock, blocks) as block[];
     cachePosBlock = removeIn2(cachePosBlock, blocks) as block[];
-    drawMatrixBase(e, g * 2 + 1, blocks, cache, posBlock, cachePosBlock);
+    drawMatrixBase(e, g * 2 + 1, blocks, cache, posBlock, cachePosBlock, colorMode);
 }
 
 export type block = [number, number];

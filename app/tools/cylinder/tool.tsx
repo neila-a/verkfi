@@ -13,6 +13,9 @@ import {
     FormGroup,
     Switch
 } from "@mui/material";
+import {
+    useTheme
+} from '@mui/material/styles';
 import drawMatrix, {
     block
 } from '../../components/matrix/matrix';
@@ -29,18 +32,19 @@ export function Cylinder(): JSX.Element {
         [posZ, setPosZ] = useState<number>(1),
         [cache, setCache] = useState<block[]>([[1, 1]]),
         [posCache, setPosCache] = useState<block>([1, 1]);
+    const theme = useTheme();
     useEffect(() => {
         const blocks = makeCylinder(radiusX, radiusZ, 1, thickness, filled);
-        drawMatrix(blocks.slice(0), radiusX > radiusZ ? radiusX : radiusZ, posX, posZ, posCache, cache);
+        drawMatrix(blocks.slice(0), Math.max(radiusX, radiusZ), posX, posZ, posCache, cache, theme.palette.mode);
         setCache(blocks.slice(0));
         setPosCache([posX, posZ]);
     }, [posX, posZ]);
     useEffect(() => {
-        const g = radiusX > radiusZ ? radiusX : radiusZ,
+        const g = Math.max(radiusX, radiusZ),
             blocks = makeCylinder(radiusX, radiusZ, 1, thickness, filled);
         setPosX(g);
         setPosZ(g);
-        drawMatrix(blocks.slice(0), radiusX > radiusZ ? radiusX : radiusZ, posX, posZ, posCache, cache);
+        drawMatrix(blocks.slice(0), Math.max(radiusX, radiusZ), posX, posZ, posCache, cache, theme.palette.mode);
         setCache(blocks.slice(0));
         setPosCache([posX, posZ]);
     }, [radiusX, radiusZ, thickness, filled]);
