@@ -1,0 +1,14 @@
+[
+    {
+        "relation": [
+            "delegate_permission/common.handle_all_urls"
+        ],
+        "target": {
+            "namespace": "android_app",
+            "package_name": "ga.neila.tools",
+            "sha256_cert_fingerprints": [
+                "D9:88:A1:25:9A:B7:05:C1:1D:4B:97:51:54:28:E6:E9:8B:F1:CB:38:58:11:13:0B:4B:03:6E:5B:B4:6E:37:5E"
+            ]
+        }
+    }
+]
