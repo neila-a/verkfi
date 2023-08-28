@@ -16,11 +16,11 @@ import I18N from "react-intl-universal";
 import {
     getTools
 } from "../tools/info";
-function not(a: string[], b: string[]) {
-    return a.filter((value) => b.indexOf(value) === -1);
+export function not<T>(a: T[], b: T[]) {
+    return a.filter(value => b.indexOf(value) === -1);
 }
-function intersection(a: string[], b: string[]) {
-    return a.filter((value) => b.indexOf(value) !== -1);
+export function intersection<T>(a: T[], b: T[]) {
+    return a.filter(value => b.indexOf(value) !== -1);
 }
 export default function TransferList(props: {
     left: string[];

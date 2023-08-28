@@ -34,14 +34,14 @@ export function Cylinder(): JSX.Element {
         [posCache, setPosCache] = useState<block>([1, 1]);
     const theme = useTheme();
     useEffect(() => {
-        const blocks = makeCylinder(radiusX, radiusZ, 1, thickness, filled);
+        const blocks = makeCylinder(radiusX, radiusZ, thickness, filled);
         drawMatrix(blocks.slice(0), Math.max(radiusX, radiusZ), posX, posZ, posCache, cache, theme.palette.mode);
         setCache(blocks.slice(0));
         setPosCache([posX, posZ]);
     }, [posX, posZ]);
     useEffect(() => {
         const g = Math.max(radiusX, radiusZ),
-            blocks = makeCylinder(radiusX, radiusZ, 1, thickness, filled);
+            blocks = makeCylinder(radiusX, radiusZ, thickness, filled);
         setPosX(g);
         setPosZ(g);
         drawMatrix(blocks.slice(0), Math.max(radiusX, radiusZ), posX, posZ, posCache, cache, theme.palette.mode);
@@ -103,19 +103,23 @@ export function Cylinder(): JSX.Element {
                         <Switch value={filled} onChange={event => setFilled(event.target.checked)} />
                     </Grid>
                 </Grid>
-                <Grid container spacing={1} alignItems="center">
-                    <Grid item>
-                        <Typography id="position" gutterBottom>
-                            {I18N.get('鼠标所在的位置')}
-                        </Typography>
-                    </Grid>
-                    <Grid item>
-                        <Typography gutterBottom>
-                            X：{posX} Y：{posZ}
-                        </Typography>
-                    </Grid>
-                </Grid>
             </FormGroup>
+            <Grid container spacing={1} alignItems="center" sx={{
+                zIndex: 386486,
+                position: "sticky",
+                top: "64px"
+            }}>
+                <Grid item>
+                    <Typography id="position" gutterBottom>
+                        {I18N.get('鼠标所在的位置')}
+                    </Typography>
+                </Grid>
+                <Grid item>
+                    <Typography gutterBottom>
+                        X：{posX} Y：{posZ}
+                    </Typography>
+                </Grid>
+            </Grid>
             <div id="canvascontainer" onMouseMove={event => {
                 const b = document.body,
                     w = b.scrollWidth - 48,

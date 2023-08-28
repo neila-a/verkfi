@@ -1,27 +1,23 @@
 import {
     block
-} from './drawCanvasBase';
+} from '../../components/matrix/matrix';
 export default function makeCylinder(
     radiusX: number,
     radiusZ: number,
-    height: number,
     thickness: number,
     filled: boolean
 ): block[] { /* 修改自IntellectualSites的FastAsyncWorldEdit */
     var blocks: block[] = [];
-    function setBlock(x: number, y: number, z: number) {
-        blocks.push([Number((radiusX + x).toFixed(0)) - 1, Number((radiusZ + z).toFixed(0)) - 1]);
-        blocks.push([Number((radiusX - x).toFixed(0)) - 1, Number((radiusZ + z).toFixed(0)) - 1]);
-        blocks.push([Number((radiusX + x).toFixed(0)) - 1, Number((radiusZ - z).toFixed(0)) - 1]);
-        blocks.push([Number((radiusX - x).toFixed(0)) - 1, Number((radiusZ - z).toFixed(0)) - 1]);
+    const height = 1;
+    function setBlock(x: number, z: number) {
+        const pushOne = (a: number, b: number) => blocks.push([Number(a.toFixed(0)) - 1, Number(b.toFixed(0)) - 1]);
+        pushOne(radiusX + x, radiusZ + z);
+        pushOne(radiusX - x, radiusZ + z);
+        pushOne(radiusX + x, radiusZ - z);
+        pushOne(radiusX - x, radiusZ - z);
     }
     radiusX += 0.5;
     radiusZ += 0.5;
-    if (height == 0) {
-        return [];
-    } else if (height < 0) {
-        height = -height;
-    }
     var invRadiusX = 1 / radiusX;
     var invRadiusZ = 1 / radiusZ;
     var ceilRadiusX = Math.ceil(radiusX);
@@ -58,9 +54,7 @@ export default function makeCylinder(
                 if ((dz2 + nextMinXn * nextMinXn <= 1) && (nextMinZn * nextMinZn + dx2 <= 1)) {
                     continue;
                 }
-                for (var y = 0; y < height; ++y) {
-                    setBlock(x, y, z);
-                }
+                setBlock(x, z);
             }
         }
     } else {
@@ -85,9 +79,7 @@ export default function makeCylinder(
                         continue;
                     }
                 }
-                for (var y = 0; y < height; ++y) {
-                    setBlock(x, y, z);
-                }
+                setBlock(x, z);
             }
         }
     }
