@@ -84,17 +84,7 @@ export default function ModifiedApp(props) {
                 choose = checkOption("lang", "语言", detailedLang);
             return choose || "zhCN";
         });
-    useEffect(() => {
-        logger.log("色彩模式为：", mode);
-    }, [mode]);
     var [initDone, setInitDone] = useState<boolean>(false);
-    intl.init({
-        currentLocale: choosedLang,
-        locales
-    }).then(() => {
-        setInitDone(true);
-        logger.log("语言已经加载完毕");
-    });
     useEffect(() => {
         var url = `${location.origin}/tool?handle=%s`;
         if (isBrowser()) {
@@ -130,11 +120,33 @@ export default function ModifiedApp(props) {
         // 手动触发PWA安装
         const addToDesktop = () => deferredPrompt.prompt();
         window.installPWA = addToDesktop;
+        let isMounted = true;
+        async function loadLang() {
+            if (isMounted) {
+                const result = await intl.init({
+                    currentLocale: choosedLang,
+                    locales
+                });
+                setInitDone(true);
+                logger.log("语言已经加载完毕");
+                return result;
+            }
+        }
+        loadLang();
+        return () => {
+            isMounted = false;
+        }
     }, []);
-    return initDone && <ThemeProvider theme={theme}>
-        <WindowsProvider>
-            {props.children}
-            <WindowContainer />
-        </WindowsProvider>
-    </ThemeProvider>;
+    return initDone && (
+        <div style={{
+            backgroundColor: theme.palette.mode === "dark" ? "#000000" : "#ffffff"
+        }}>
+            <ThemeProvider theme={theme}>
+                <WindowsProvider>
+                    {props.children}
+                    <WindowContainer />
+                </WindowsProvider>
+            </ThemeProvider>
+        </div>
+    );
 }

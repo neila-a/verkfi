@@ -1,12 +1,12 @@
+"use client";
 import {
     Divider,
     IconButton,
-    Typography
+    Typography,
+    Box
 } from "@mui/material";
 import {
     CSSProperties,
-    Fragment,
-    ReactNode,
     useRef,
     useState
 } from "react";
@@ -21,6 +21,9 @@ import {
     useRouter
 } from "next/navigation";
 import Draggable from "react-draggable";
+import {
+    useTheme
+} from "@mui/material/styles";
 export interface WindowOptions {
     to: string;
     name: string;
@@ -32,43 +35,47 @@ export default function Window(props: WindowOptions): JSX.Element {
     const {
         id,
         Component
-    } = props;
+    } = props,
+        theme = useTheme();
     var realSx: CSSProperties = {};
     const router = useRouter();
     if (props.sx !== undefined) {
         realSx = props.sx;
     }
-    var [closed, setClose] = useState<boolean>(false),
+    var [open, setOpen] = useState<boolean>(true),
         nodeRef = useRef<HTMLDivElement>(null),
         [type, setType] = useState<"normal" | "min">("normal");
-    return closed ? <Fragment /> : <>
-        <Draggable handle={`#title${id}`} cancel={`[class*="context${id}"]`} allowAnyClick nodeRef={nodeRef} defaultClassName={style["top0"]}>
-            <div className={style["outer"]} ref={nodeRef}>
-                <div className={style["top"]} style={realSx}>
-                    <div className={style["title"]} id={`title${id}`}>
-                        <Typography variant="subtitle1">
-                            {props.name}
-                        </Typography>
+    return open && (
+        <article>
+            <Draggable handle={`#title${id}`} cancel={`[class*="context${id}"]`} allowAnyClick nodeRef={nodeRef} defaultClassName={style["top0"]}>
+                <div className={style["outer"]} ref={nodeRef}>
+                    <div className={style["top"]} style={realSx}>
+                        <div className={style["title"]} id={`title${id}`}>
+                            <Typography variant="subtitle1">
+                                {props.name}
+                            </Typography>
+                        </div>
+                        <IconButton aria-label="change size" edge="end" onClick={event => type === "min" ? setType("normal") : setType("min")}>
+                            {type === "min" ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />}
+                        </IconButton>
+                        <IconButton aria-label="maxmize" edge="end" onClick={event => router.push(props.to)}>
+                            <CropDinIcon />
+                        </IconButton>
+                        <IconButton aria-label="close" edge="end" onClick={event => setOpen(false)}>
+                            <CloseIcon />
+                        </IconButton>
                     </div>
-                    <IconButton aria-label="change size" edge="end" onClick={event => type === "min" ? setType("normal") : setType("min")}>
-                        {type === "min" ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />}
-                    </IconButton>
-                    <IconButton aria-label="maxmize" edge="end" onClick={event => router.push(props.to)}>
-                        <CropDinIcon />
-                    </IconButton>
-                    <IconButton aria-label="close" edge="end" onClick={event => setClose(true)}>
-                        <CloseIcon />
-                    </IconButton>
-                </div>
-                <div style={{
-                    display: type === "min" ? "none" : ""
-                }}>
                     <Divider />
-                    <div id={`context${id}`}>
+                    <Box sx={{
+                        p: 3,
+                        zIndex: 38602,
+                        display: type === "min" ? "none" : "",
+                        backgroundColor: theme.palette.mode === "dark" ? "#000000" : "#ffffff"
+                    }} id={`context${id}`}>
                         <Component />
-                    </div>
+                    </Box>
                 </div>
-            </div>
-        </Draggable >
-    </>;
+            </Draggable>
+        </article>
+    );
 }
