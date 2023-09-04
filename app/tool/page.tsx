@@ -4,6 +4,7 @@ import {
     useSearchParams
 } from "next/navigation";
 import {
+    FC,
     useState
 } from "react";
 import HeadBar from "../components/headBar/HeadBar";
@@ -21,15 +22,15 @@ import {
 import lpLogger from "lp-logger";
 import stringToBoolean from "../setting/stringToBoolean";
 import checkOption from "../setting/checkOption";
+import getToolColor from "./getToolColor";
 var logger = new lpLogger({
     name: "ToolFinder",
     level: "log"
 });
-export type tJSXE = () => JSX.Element;
 export default function ToolFinder(): JSX.Element {
     var only = false,
         toolID: string,
-        Tool: tJSXE,
+        Tool: FC,
         toolsInfo = getTools(I18N),
         [color, setColor] = useState<boolean>(() => {
             const mode = stringToBoolean(checkOption("color", "多彩主页", "true"));
@@ -38,7 +39,7 @@ export default function ToolFinder(): JSX.Element {
     const finder = (id: string) => {
         logger.info(`toolID为${id}`);
         toolsInfo.forEach(si => {
-            if (((tools[si.to] as tJSXE) != undefined) && (si.to == id) && !si.isGoto) {
+            if (((tools[si.to] as FC) != undefined) && (si.to == id) && !si.isGoto) {
                 Tool = tools[si.to];
                 logger.info("<Tool />为", Tool);
             }
@@ -58,6 +59,7 @@ export default function ToolFinder(): JSX.Element {
     if (searchParams.has("only")) {
         only = true;
     }
+    const toolColor = color ? getToolColor(toolsInfo, toolID) : "";
     return (
         <>
             <HeadBar isIndex={false} pageName={(() => {
@@ -68,19 +70,7 @@ export default function ToolFinder(): JSX.Element {
                 if (name == "") return I18N.get("未找到工具");
                 return name;
             })()} only={only} sx={{
-                backgroundImage: color ? (() => {
-                    var tColor: [string, string],
-                        property: string = "";
-                    toolsInfo.forEach(si => {
-                        if (si.to == toolID) tColor = si.color;
-                    });
-                    try {
-                        property = "linear-gradient(45deg, #" + tColor[0] + ", #" + tColor[1] + ")";
-                    } catch {
-                        property = ""
-                    }
-                    return property || "";
-                })() : "",
+                backgroundImage: toolColor,
                 color: color ? "#000000" : ""
             }} />
             <Toolbar />
