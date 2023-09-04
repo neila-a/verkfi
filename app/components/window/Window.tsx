@@ -13,7 +13,9 @@ import {
 import style from "./Window.module.scss";
 import {
     CropDin as CropDinIcon,
-    Close as CloseIcon
+    Close as CloseIcon,
+    KeyboardArrowDown as KeyboardArrowDownIcon,
+    KeyboardArrowUp as KeyboardArrowUpIcon
 } from "@mui/icons-material";
 import {
     useRouter
@@ -37,7 +39,8 @@ export default function Window(props: WindowOptions): JSX.Element {
         realSx = props.sx;
     }
     var [closed, setClose] = useState<boolean>(false),
-        nodeRef = useRef<HTMLDivElement>(null);
+        nodeRef = useRef<HTMLDivElement>(null),
+        [type, setType] = useState<"normal" | "min">("normal");
     return closed ? <Fragment /> : <>
         <Draggable handle={`#title${id}`} cancel={`[class*="context${id}"]`} allowAnyClick nodeRef={nodeRef} defaultClassName={style["top0"]}>
             <div className={style["outer"]} ref={nodeRef}>
@@ -47,6 +50,9 @@ export default function Window(props: WindowOptions): JSX.Element {
                             {props.name}
                         </Typography>
                     </div>
+                    <IconButton aria-label="change size" edge="end" onClick={event => type === "min" ? setType("normal") : setType("min")}>
+                        {type === "min" ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />}
+                    </IconButton>
                     <IconButton aria-label="maxmize" edge="end" onClick={event => router.push(props.to)}>
                         <CropDinIcon />
                     </IconButton>
@@ -54,11 +60,15 @@ export default function Window(props: WindowOptions): JSX.Element {
                         <CloseIcon />
                     </IconButton>
                 </div>
-                <Divider />
-                <div id={`context${id}`}>
-                    <Component />
+                <div style={{
+                    display: type === "min" ? "none" : ""
+                }}>
+                    <Divider />
+                    <div id={`context${id}`}>
+                        <Component />
+                    </div>
                 </div>
             </div>
-        </Draggable>
+        </Draggable >
     </>;
 }

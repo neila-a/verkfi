@@ -11,7 +11,7 @@ export default function getToolColor(toolsInfo: tool[], toolID: string) {
     try {
         property = "linear-gradient(45deg, #" + tColor[0] + ", #" + tColor[1] + ")";
     } catch {
-        property = "unset";
+        property = "";
     }
     return property;
 }
