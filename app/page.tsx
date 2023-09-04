@@ -13,7 +13,8 @@ import {
 import {
     Stack,
     Typography,
-    Box} from "@mui/material";
+    Box
+} from "@mui/material";
 import Style from "./styles/Index.module.scss";
 import LpLogger from "lp-logger";
 import {
@@ -80,7 +81,6 @@ export function Index(props: {
             return mode || "grid";
         }),
         [editMode, setEditMode] = useState<boolean>(false),
-        [windows, setWindows] = useState<WindowOptions[]>([]),
         [jumpto, setJumpTo] = useState<string>(realTools[11].to),
         [jumpName, setJumpName] = useState<string>(realTools[11].name),
         [jumpDialogOpen, setJumpDialogOpen] = useState<boolean>(false),
@@ -115,7 +115,7 @@ export function Index(props: {
         viewMode,
         editMode
     ]);
-    useEffect(function () {
+    useEffect(() => {
         if (props.isImplant && props.searchText) {
             setSearchText(props.searchText);
             searchTools(props.searchText);
@@ -167,17 +167,10 @@ export function Index(props: {
                             setJumpDialogOpen={setJumpDialogOpen}
                             setJumpName={setJumpName}
                             setJumpTo={setJumpTo}
-                            setWindows={setWindows}
                             editMode={editMode}
-                            windows={windows}
                         />
                     ))}
                 </Stack>
-                <ErrorBoundary>
-                    {windows == emptyArray ? <Fragment /> : windows.map(window => {
-                        return <Window {...window} key={window.id} />
-                    })}
-                </ErrorBoundary> {/* 窗口容器 */}
                 {jumpDialogOpen ? <CheckDialog description={`${I18N.get("确定离开NeilaTools并跳转至")}${jumpName}？`} title={I18N.get('离开NeilaTools')} onTrue={() => {
                     Router.push(jumpto);
                 }} onFalse={() => {

@@ -8,27 +8,19 @@ export const locales = {
     zhTW
 };
 import intl from 'react-intl-universal';
-import '@fontsource/ubuntu/300.css';
-import '@fontsource/ubuntu/400.css';
-import '@fontsource/ubuntu/500.css';
-import '@fontsource/ubuntu/700.css';
 import {
     useEffect,
     useState,
-    useMemo
+    useMemo,
+    ReactNode
 } from 'react';
-import {
-    CssBaseline
-} from "@mui/material";
 import {
     ThemeProvider,
     createTheme
 } from "@mui/material/styles"
 import LpLogger from "lp-logger";
-import style from "./styles/ModifiedApp.module.scss";
-import "./styles/App.scss";
 import {
-    BeforeInstallPromptEvent
+    BeforeInstallPromptEvent, setState
 } from "./declare";
 import checkOption from "./setting/checkOption";
 var logger = new LpLogger({
@@ -37,6 +29,30 @@ var logger = new LpLogger({
 });
 export type colorMode = 'light' | 'dark';
 export const isBrowser = () => typeof window !== 'undefined'; // The approach recommended by Next.js
+import WindowContainer from "./WindowContainer";
+import {
+    createContext
+} from "react";
+import {
+    WindowOptions
+} from "./components/window/Window";
+export const windows = createContext<{
+    windows: WindowOptions[];
+    set: setState<WindowOptions[]>;
+}>(null);
+function WindowsProvider(props: {
+    children: ReactNode
+}) {
+    var [realWindows, setRealWindows] = useState<WindowOptions[]>([]);
+    return (
+        <windows.Provider value={{
+            windows: realWindows,
+            set: setRealWindows
+        }}>
+            {props.children}
+        </windows.Provider>
+    );
+}
 export default function ModifiedApp(props) {
     const [mode, setMode] = useState<colorMode>(() => {
         const mightMode = checkOption("darkmode", "暗色模式", "false");
@@ -116,19 +132,9 @@ export default function ModifiedApp(props) {
         window.installPWA = addToDesktop;
     }, []);
     return initDone && <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <div className={style["fullHeight"]}>
+        <WindowsProvider>
             {props.children}
-        </div>
+            <WindowContainer />
+        </WindowsProvider>
     </ThemeProvider>;
 }
-// Only uncomment this method if you have blocking data requirements for
-// every single page in your application. This disables the ability to
-// perform automatic static optimization, causing every page in your app to
-// be server-side rendered.
-//
-// MyApp.getInitialProps = async (appContext: AppContext) => {
-//   // calls page's `getInitialProps` and fills `appProps.pageProps`
-//   const appProps = await App.getInitialProps(appContext);
-//   return { ...appProps }
-// }

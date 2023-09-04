@@ -37,6 +37,9 @@ import {
 const BreakAllTypography = styled(Typography)(({ theme }) => ({
     wordBreak: "break-all"
 }));
+import {
+    windows
+} from '../layoutClient';
 export default function SingleTool(props: {
     tool: tool;
     color: boolean;
@@ -47,8 +50,6 @@ export default function SingleTool(props: {
     setJumpDialogOpen: setState<boolean>;
     setJumpTo: setState<string>;
     setJumpName: setState<string>;
-    setWindows: setState<WindowOptions[]>;
-    windows: WindowOptions[];
     sortingFor: string;
 }) {
     const {
@@ -60,8 +61,6 @@ export default function SingleTool(props: {
         setJumpDialogOpen,
         setJumpTo,
         setJumpName,
-        setWindows,
-        windows,
         sortingFor
     } = props,
         ToolIcon = tool.icon,
@@ -77,74 +76,78 @@ export default function SingleTool(props: {
     });
     return (
         <div key={tool.to}> {/* 单个工具 */}
-            <Card sx={{
-                width: viewMode == "grid" ? 275 : "100%",
-                maxWidth: screenWidth - 24 - drawerWidth,
-                backgroundImage: color ? "linear-gradient(45deg, #" + tool.color[0] + ", #" + tool.color[1] + ")" : ""
-            }} elevation={10}>
-                <CardContent>
-                    <div className={viewMode == "list" ? Style["singleList"] : ""} onClick={() => {
-                        logger.info(`点击了${tool.name}`);
-                        if (tool.isGoto) {
-                            setJumpDialogOpen(true);
-                            setJumpTo(tool.to);
-                            setJumpName(tool.name);
-                        } else {
-                            Router.push(`/tool?tool=${tool.to}`);
-                        }
-                    }} onContextMenu={event => {
-                        event.preventDefault();
-                        if (tool.isGoto) {
-                            setJumpDialogOpen(true);
-                            setJumpTo(tool.to);
-                            setJumpName(tool.name);
-                        } else {
-                            setWindows([...windows, {
-                                Component: ToolComponents[tool.to],
-                                to: `/tool?tool=${tool.to}`,
-                                name: tool.name,
-                                id: Math.random().toString().replace(/0\./g, "")
-                            }]);
-                        }
-                    }}>
-                        {viewMode == "grid" ? <div>
-                            <div className={Style["singleGridIcon"]}>
-                                <ToolIcon />
+            <windows.Consumer>
+                {value => (
+                    <Card sx={{
+                        width: viewMode == "grid" ? 275 : "100%",
+                        maxWidth: screenWidth - 24 - drawerWidth,
+                        backgroundImage: color ? "linear-gradient(45deg, #" + tool.color[0] + ", #" + tool.color[1] + ")" : ""
+                    }} elevation={10}>
+                        <CardContent>
+                            <div className={viewMode == "list" ? Style["singleList"] : ""} onClick={() => {
+                                logger.info(`点击了${tool.name}`);
+                                if (tool.isGoto) {
+                                    setJumpDialogOpen(true);
+                                    setJumpTo(tool.to);
+                                    setJumpName(tool.name);
+                                } else {
+                                    Router.push(`/tool?tool=${tool.to}`);
+                                }
+                            }} onContextMenu={event => {
+                                event.preventDefault();
+                                if (tool.isGoto) {
+                                    setJumpDialogOpen(true);
+                                    setJumpTo(tool.to);
+                                    setJumpName(tool.name);
+                                } else {
+                                    value.set([...value.windows, {
+                                        Component: ToolComponents[tool.to],
+                                        to: `/tool?tool=${tool.to}`,
+                                        name: tool.name,
+                                        id: Math.random().toString().replace(/0\./g, "")
+                                    }]);
+                                }
+                            }}>
+                                {viewMode == "grid" ? <div>
+                                    <div className={Style["singleGridIcon"]}>
+                                        <ToolIcon />
+                                    </div>
+                                    <div>
+                                        <BreakAllTypography variant="h5">
+                                            <DownButton editMode={editMode} setTools={setTools} tool={tool} sortingFor={sortingFor} />
+                                            {tool.isGoto ? <ExitToAppIcon /> : <></>}
+                                            {tool.name}
+                                            <UpButton editMode={editMode} setTools={setTools} tool={tool} sortingFor={sortingFor} />
+                                        </BreakAllTypography>
+                                        <BreakAllTypography {...subStyle} variant="body2">
+                                            {tool.desc}
+                                        </BreakAllTypography>
+                                    </div>
+                                </div> : <>
+                                    <div className={Style["singleListText"]}>
+                                        <div className={Style["singleListIcon"]}>
+                                            <ToolIcon />
+                                        </div>
+                                        <div>
+                                            <BreakAllTypography variant="h5">
+                                                {tool.isGoto ? <ExitToAppIcon /> : <></>}
+                                                {tool.name}
+                                            </BreakAllTypography>
+                                            <BreakAllTypography {...subStyle} variant="body2">
+                                                {tool.desc}
+                                            </BreakAllTypography>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <DownButton editMode={editMode} setTools={setTools} tool={tool} sortingFor={sortingFor} />
+                                        <UpButton editMode={editMode} setTools={setTools} tool={tool} sortingFor={sortingFor} />
+                                    </div>
+                                </>}
                             </div>
-                            <div>
-                                <BreakAllTypography variant="h5">
-                                    <DownButton editMode={editMode} setTools={setTools} tool={tool} sortingFor={sortingFor} />
-                                    {tool.isGoto ? <ExitToAppIcon /> : <></>}
-                                    {tool.name}
-                                    <UpButton editMode={editMode} setTools={setTools} tool={tool} sortingFor={sortingFor} />
-                                </BreakAllTypography>
-                                <BreakAllTypography {...subStyle} variant="body2">
-                                    {tool.desc}
-                                </BreakAllTypography>
-                            </div>
-                        </div> : <>
-                            <div className={Style["singleListText"]}>
-                                <div className={Style["singleListIcon"]}>
-                                    <ToolIcon />
-                                </div>
-                                <div>
-                                    <BreakAllTypography variant="h5">
-                                        {tool.isGoto ? <ExitToAppIcon /> : <></>}
-                                        {tool.name}
-                                    </BreakAllTypography>
-                                    <BreakAllTypography {...subStyle} variant="body2">
-                                        {tool.desc}
-                                    </BreakAllTypography>
-                                </div>
-                            </div>
-                            <div>
-                                <DownButton editMode={editMode} setTools={setTools} tool={tool} sortingFor={sortingFor} />
-                                <UpButton editMode={editMode} setTools={setTools} tool={tool} sortingFor={sortingFor} />
-                            </div>
-                        </>}
-                    </div>
-                </CardContent>
-            </Card>
+                        </CardContent>
+                    </Card>
+                )}
+            </windows.Consumer>
         </div>
     );
 }

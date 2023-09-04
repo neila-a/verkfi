@@ -82,23 +82,25 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 			...props.sx
 		}}>
 			<Toolbar>
-				{props.isIndex ? <MouseOverPopover text={I18N.get("暗色模式")}>
-					<IconButton size='large' edge="start" color="inherit" aria-label="darkmode" sx={{
-						mr: 2
-					}} onClick={event => {
-						setOption("darkmode", "暗色模式", !darkMode);
-					}}>
-						{darkMode ? <DarkMode /> : <LightMode />}
-					</IconButton>
-				</MouseOverPopover> : <MouseOverPopover text={I18N.get('首页')} sx={noDrag}>
-					<IconButton size="large" edge="start" color="inherit" aria-label="homepage" sx={{
-						mr: 2
-					}} onClick={event => {
-						router.back();
-					}}>
-						<ArrowBack />
-					</IconButton>
-				</MouseOverPopover>}
+				<nav>
+					{props.isIndex ? <MouseOverPopover text={I18N.get("暗色模式")}>
+						<IconButton size='large' edge="start" color="inherit" aria-label="darkmode" sx={{
+							mr: 2
+						}} onClick={event => {
+							setOption("darkmode", "暗色模式", !darkMode);
+						}}>
+							{darkMode ? <DarkMode /> : <LightMode />}
+						</IconButton>
+					</MouseOverPopover> : <MouseOverPopover text={I18N.get('首页')} sx={noDrag}>
+						<IconButton size="large" edge="start" color="inherit" aria-label="homepage" sx={{
+							mr: 2
+						}} onClick={event => {
+							router.back();
+						}}>
+							<ArrowBack />
+						</IconButton>
+					</MouseOverPopover>}
+				</nav>
 				<Typography variant="h6" component="div" sx={{
 					flexGrow: 1
 				}} style={{
@@ -125,13 +127,15 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 						</FormControl>
 					</FormGroup>
 				</form>}
-				<Link href="/setting" className={style["link"]} style={noDrag}>
-					<MouseOverPopover text={I18N.get('设置')}>
-						<IconButton size="large" edge="end" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-							<SettingsIcon />
-						</IconButton>
-					</MouseOverPopover>
-				</Link>
+				<nav>
+					<Link href="/setting" className={style["link"]} style={noDrag}>
+						<MouseOverPopover text={I18N.get('设置')}>
+							<IconButton size="large" edge="end" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
+								<SettingsIcon />
+							</IconButton>
+						</MouseOverPopover>
+					</Link>
+				</nav>
 			</Toolbar>
 		</AppBar>
 		{stringToBoolean(forkMeOnGitHub) ? <div className={style["github-ribbon"]} style={{
