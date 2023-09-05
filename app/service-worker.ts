@@ -29,7 +29,6 @@ export const Cache = `NeilaTools-${version}-${dev == true ? `dev${devVersion}` :
     },
     installFilesEssential = [
         '/',
-        '/tool',
         '/settings',
         '/index.webmanifest',
         '/image/favicon.png'
