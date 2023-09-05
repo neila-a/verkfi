@@ -49,19 +49,26 @@ self.addEventListener('fetch', event => {
     let requrl = event.request.url;
     let url = String(requrl);
     event.respondWith(caches.open(Cache).then(async cache => {
-        const response = await cache.match(event.request);
+        var realReq = event.request.clone();
+        if (url.includes("_rsc=")) {
+            var buffURL = new URL(url);
+            buffURL.searchParams.delete("_rsc");
+            log(`检测到URL：${url}中含有searchParam“rsc”，已删除为${buffURL.toString()}并返回无rsc版本`);
+            url = buffURL.toString();
+        }
+        const response = await cache.match(realReq);
         if (response) {
             return response;
         }
         if (url.includes("handle")) {
             log(`检测到URL：${url}中含有"handle"，不存入缓存`);
-            const newreq = await fetch(event.request);
+            const newreq = await fetch(realReq);
             return newreq;
         }
         try {
-            const newreq = await fetch(event.request);
+            const newreq = await fetch(realReq);
             log(`抓取: ${url}`);
-            if (newreq.ok) cache.put(event.request, newreq.clone());
+            if (newreq.ok) cache.put(realReq, newreq.clone());
             return newreq;
         } catch (message) {
             console.error(message);

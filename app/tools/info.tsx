@@ -17,13 +17,16 @@ import {
     SvgIconTypeMap
 } from "@mui/material";
 import i18n from "react-intl-universal";
+import {
+    FC
+} from "react";
 export interface tool {
     name: string;
     to: string;
     desc: string;
     icon: (OverridableComponent<SvgIconTypeMap<{}, "svg">> & {
         muiName: string
-    }) | (() => JSX.Element);
+    }) | FC;
     color: [string, string];
     isGoto?: boolean;
 }
