@@ -15,7 +15,9 @@ import {
     CropDin as CropDinIcon,
     Close as CloseIcon,
     KeyboardArrowDown as KeyboardArrowDownIcon,
-    KeyboardArrowUp as KeyboardArrowUpIcon
+    KeyboardArrowUp as KeyboardArrowUpIcon,
+    ArrowBackIos as ArrowBackIosIcon,
+    ArrowForwardIos as ArrowForwardIosIcon
 } from "@mui/icons-material";
 import {
     useRouter
@@ -44,6 +46,7 @@ export default function Window(props: WindowOptions): JSX.Element {
     }
     var [open, setOpen] = useState<boolean>(true),
         nodeRef = useRef<HTMLDivElement>(null),
+        [extended, setExtended] = useState<boolean>(false),
         [type, setType] = useState<"normal" | "min">("normal");
     return open && (
         <article>
@@ -55,15 +58,26 @@ export default function Window(props: WindowOptions): JSX.Element {
                                 {props.name}
                             </Typography>
                         </div>
-                        <IconButton aria-label="change size" edge="end" onClick={event => type === "min" ? setType("normal") : setType("min")}>
-                            {type === "min" ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />}
-                        </IconButton>
-                        <IconButton aria-label="maxmize" edge="end" onClick={event => router.push(props.to)}>
-                            <CropDinIcon />
-                        </IconButton>
-                        <IconButton aria-label="close" edge="end" onClick={event => setOpen(false)}>
-                            <CloseIcon />
-                        </IconButton>
+                        {extended ? (
+                            <>
+                                <IconButton aria-label="collapse" edge="end" onClick={event => setExtended(false)}>
+                                    <ArrowForwardIosIcon />
+                                </IconButton>
+                                <IconButton aria-label="change size" edge="end" onClick={event => type === "min" ? setType("normal") : setType("min")}>
+                                    {type === "min" ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />}
+                                </IconButton>
+                                <IconButton aria-label="maxmize" edge="end" onClick={event => router.push(props.to)}>
+                                    <CropDinIcon />
+                                </IconButton>
+                                <IconButton aria-label="close" edge="end" onClick={event => setOpen(false)}>
+                                    <CloseIcon />
+                                </IconButton>
+                            </>
+                        ) : (
+                            <IconButton aria-label="extend" edge="end" onClick={event => setExtended(true)}>
+                                <ArrowBackIosIcon />
+                            </IconButton>
+                        )}
                     </div>
                     <Divider />
                     <Box sx={{
