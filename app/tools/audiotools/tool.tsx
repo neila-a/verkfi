@@ -4,7 +4,10 @@ import {
     Paper,
     Typography
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import {
+    useEffect, 
+    useState
+} from "react";
 import {
     FilePond,
     registerPlugin
@@ -30,7 +33,7 @@ export type status = "recording" | "paused" | "inactive";
 export default function AudioTools(): JSX.Element {
     var [loopAudioSrc, setLoopAudioSrc] = useState<string>(""),
         [loopSpeakAudioSrc, setLoopSpeakAudioSrc] = useState<string>(""),
-        [mediaRecorder, setMediaRecorder] = useState<any>("awaqwq"),
+        [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | "awaqwq">("awaqwq"),
         [status, setStatus] = useState<status>("inactive");
     registerPlugin(FilePondPluginFileRename, FilePondPluginImagePreview, FilePondPluginImageResize, FilePondPluginImageEdit, FilePondPluginImageCrop); // Register the plugin
     useEffect(function () {
@@ -68,6 +71,14 @@ export default function AudioTools(): JSX.Element {
         } else {
             logger.error("浏览器不支持 getUserMedia。");
         }
+        return () => {
+            logger.log("AudioTools已经被卸载，正在返还录音权限。");
+            if (mediaRecorder != "awaqwq") {
+                mediaRecorder.stream.getTracks().forEach(track => {
+                    track.stop();
+                })
+            }
+        };
     }, []);
     function controlAudio(stat: status) {
         setStatus(stat);
@@ -102,6 +113,7 @@ export default function AudioTools(): JSX.Element {
                         labelIdle={I18N.get('拖拽音频到这里')}
                     />
                 </div>
+                <br />
             </Paper>
             <Paper elevation={24} id="audioinput" className={style["audioinput"]}>
                 <div>
@@ -116,7 +128,8 @@ export default function AudioTools(): JSX.Element {
                         {I18N.get('您的浏览器不支持 audio 元素。')}
                     </audio>
                 </div>
-            </Paper >
+                <br />
+            </Paper>
         </>
     );
 };
