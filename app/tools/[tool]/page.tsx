@@ -7,10 +7,10 @@ import {
     FC,
     useState
 } from "react";
-import HeadBar from "../components/headBar/HeadBar";
+import HeadBar from "../../components/headBar/HeadBar";
 import {
     getTools
-} from "../tools/info";
+} from "../info";
 import {
     Box,
     Toolbar
@@ -18,21 +18,26 @@ import {
 import I18N from "react-intl-universal";
 import {
     components as tools
-} from "../tools/components"
+} from "../components"
 import lpLogger from "lp-logger";
-import stringToBoolean from "../setting/stringToBoolean";
-import checkOption from "../setting/checkOption";
-import getToolColor from "./getToolColor";
+import stringToBoolean from "../../setting/stringToBoolean";
+import checkOption from "../../setting/checkOption";
+import getToolColor from "../getToolColor";
 import {
     isBrowser
-} from "../layoutClient";
+} from "../../layoutClient";
 var logger = new lpLogger({
     name: "ToolFinder",
     level: "log"
 });
-export default function ToolFinder(): JSX.Element {
+export default function ToolFinder({
+    params
+}: {
+    params: {
+        tool: string
+    }
+}): JSX.Element {
     var only = false,
-        toolID: string,
         Tool: FC,
         toolsInfo = getTools(I18N),
         [color, setColor] = useState<boolean>(() => {
@@ -42,22 +47,16 @@ export default function ToolFinder(): JSX.Element {
             }
             return true;
         });
-    const finder = (id: string) => {
-        logger.info(`toolID为${id}`);
-        toolsInfo.forEach(si => {
-            if (((tools[si.to] as FC) != undefined) && (si.to == id) && !si.isGoto) {
-                Tool = tools[si.to];
-                logger.info("<Tool />为", Tool);
-            }
-        });
-    },
+    const toolID = params.tool,
         searchParams = useSearchParams(),
         router = useRouter();
-    if (searchParams.has("tool")) {
-        let id = searchParams.get("tool");
-        toolID = id;
-        finder(id);
-    }
+    logger.info(`toolID为${toolID}`);
+    toolsInfo.forEach(si => {
+        if (((tools[si.to] as FC) != undefined) && (si.to == toolID) && !si.isGoto) {
+            Tool = tools[si.to];
+            logger.info("<Tool />为", Tool);
+        }
+    });
     if (searchParams.has("handle")) {
         let id = searchParams.get("handle").replace(/web\+neilatools:\/\//g, "");
         router.push(id);

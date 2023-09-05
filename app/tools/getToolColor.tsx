@@ -1,7 +1,7 @@
 "use client";
 import {
     tool
-} from "../tools/info";
+} from "./info";
 export default function getToolColor(toolsInfo: tool[], toolID: string) {
     var tColor: [string, string],
         property: string = "";

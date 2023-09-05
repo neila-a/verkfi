@@ -102,7 +102,7 @@ export default function SingleTool(props: {
                                     setJumpTo(tool.to);
                                     setJumpName(tool.name);
                                 } else {
-                                    Router.push(`/tool?tool=${tool.to}`);
+                                    Router.push(`/tools/${tool.to}`);
                                 }
                             }} onContextMenu={event => {
                                 event.preventDefault();
@@ -113,7 +113,7 @@ export default function SingleTool(props: {
                                 } else {
                                     value.set([...value.windows, {
                                         Component: ToolComponents[tool.to],
-                                        to: `/tool?tool=${tool.to}`,
+                                        to: `/tools/${tool.to}`,
                                         name: tool.name,
                                         id: Math.random().toString().replace(/0\./g, "")
                                     }]);

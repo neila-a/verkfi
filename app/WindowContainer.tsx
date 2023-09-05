@@ -9,7 +9,7 @@ import checkOption from "./setting/checkOption";
 import {
     useState
 } from "react";
-import getToolColor from "./tool/getToolColor";
+import getToolColor from "./tools/getToolColor";
 import {
     getTools
 } from "./tools/info";
