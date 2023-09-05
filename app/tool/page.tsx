@@ -23,6 +23,9 @@ import lpLogger from "lp-logger";
 import stringToBoolean from "../setting/stringToBoolean";
 import checkOption from "../setting/checkOption";
 import getToolColor from "./getToolColor";
+import {
+    isBrowser
+} from "../layoutClient";
 var logger = new lpLogger({
     name: "ToolFinder",
     level: "log"
@@ -34,7 +37,10 @@ export default function ToolFinder(): JSX.Element {
         toolsInfo = getTools(I18N),
         [color, setColor] = useState<boolean>(() => {
             const mode = stringToBoolean(checkOption("color", "多彩主页", "true"));
-            return mode || true;
+            if (isBrowser()) {
+                return mode;
+            }
+            return true;
         });
     const finder = (id: string) => {
         logger.info(`toolID为${id}`);

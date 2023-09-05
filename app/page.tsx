@@ -21,13 +21,6 @@ import {
     getTools,
     tool
 } from "./tools/info";
-import Window, {
-    WindowOptions
-} from "./components/window/Window";
-import ErrorBoundary from "./components/ErrorBoundary";
-import {
-    emptyArray
-} from "./tools/filter/tool";
 import CheckDialog from "./components/dialog/CheckDialog";
 import {
     useRouter
@@ -66,10 +59,6 @@ export function Index(props: {
         return getToolsList(realTools);
     }
     var realTools = getTools(I18N),
-        [color, setColor] = useState<boolean>(() => {
-            const mode = stringToBoolean(checkOption("color", "多彩主页", "true"));
-            return mode || true;
-        }),
         [darkMode, setDarkMode] = useState<boolean>(() => {
             const mode = stringToBoolean(checkOption("darkmode", "暗色模式", "false"));
             return mode || false;
@@ -160,7 +149,6 @@ export function Index(props: {
                             tool={tool}
                             sortingFor={sortingFor}
                             key={tool.to}
-                            color={color}
                             darkMode={darkMode}
                             viewMode={viewMode}
                             setTools={setTools}

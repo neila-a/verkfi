@@ -34,15 +34,14 @@ import styled from '@emotion/styled';
 import {
     drawerWidth
 } from '../setting/page';
-const BreakAllTypography = styled(Typography)(({ theme }) => ({
-    wordBreak: "break-all"
-}));
 import {
+    isBrowser,
     windows
 } from '../layoutClient';
+import stringToBoolean from "../setting/stringToBoolean";
+import checkOption from '../setting/checkOption';
 export default function SingleTool(props: {
     tool: tool;
-    color: boolean;
     darkMode: boolean;
     viewMode: viewMode;
     setTools: setState<tool[]>;
@@ -56,7 +55,6 @@ export default function SingleTool(props: {
         tool,
         viewMode,
         editMode,
-        color,
         setTools,
         setJumpDialogOpen,
         setJumpTo,
@@ -69,11 +67,24 @@ export default function SingleTool(props: {
                 color: props.darkMode ? "" : "#999999"
             }
         },
-        Router = useRouter();
-    const [screenWidth, setScreenWidth] = useState<number>(() => {
-        const windowWidth = window.innerWidth;
-        return windowWidth || 320;
-    });
+        Router = useRouter(),
+        [screenWidth, setScreenWidth] = useState<number>(() => {
+            const windowWidth = window.innerWidth;
+            return windowWidth || 320;
+        }),
+        [color, setColor] = useState<boolean>(() => {
+            const mode = stringToBoolean(checkOption("color", "多彩主页", "true"));
+            if (isBrowser()) {
+                return mode;
+            }
+            return true;
+        }),
+        ToolTypography = styled(Typography)(({
+            theme
+        }) => ({
+            wordBreak: "break-all",
+            color: color ? "#000000" : ""
+        }));
     return (
         <div key={tool.to}> {/* 单个工具 */}
             <windows.Consumer>
@@ -110,32 +121,36 @@ export default function SingleTool(props: {
                             }}>
                                 {viewMode == "grid" ? <div>
                                     <div className={Style["singleGridIcon"]}>
-                                        <ToolIcon />
+                                        <ToolIcon sx={{
+                                            color: color ? "#000000" : ""
+                                        }} />
                                     </div>
                                     <div>
-                                        <BreakAllTypography variant="h5">
+                                        <ToolTypography variant="h5">
                                             <DownButton editMode={editMode} setTools={setTools} tool={tool} sortingFor={sortingFor} />
                                             {tool.isGoto ? <ExitToAppIcon /> : <></>}
                                             {tool.name}
                                             <UpButton editMode={editMode} setTools={setTools} tool={tool} sortingFor={sortingFor} />
-                                        </BreakAllTypography>
-                                        <BreakAllTypography {...subStyle} variant="body2">
+                                        </ToolTypography>
+                                        <ToolTypography {...subStyle} variant="body2">
                                             {tool.desc}
-                                        </BreakAllTypography>
+                                        </ToolTypography>
                                     </div>
                                 </div> : <>
                                     <div className={Style["singleListText"]}>
                                         <div className={Style["singleListIcon"]}>
-                                            <ToolIcon />
+                                            <ToolIcon sx={{
+                                                color: color ? "#000000" : ""
+                                            }} />
                                         </div>
                                         <div>
-                                            <BreakAllTypography variant="h5">
+                                            <ToolTypography variant="h5">
                                                 {tool.isGoto ? <ExitToAppIcon /> : <></>}
                                                 {tool.name}
-                                            </BreakAllTypography>
-                                            <BreakAllTypography {...subStyle} variant="body2">
+                                            </ToolTypography>
+                                            <ToolTypography {...subStyle} variant="body2">
                                                 {tool.desc}
-                                            </BreakAllTypography>
+                                            </ToolTypography>
                                         </div>
                                     </div>
                                     <div>
