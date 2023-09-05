@@ -86,7 +86,7 @@ export default function ModifiedApp(props) {
         });
     var [initDone, setInitDone] = useState<boolean>(false);
     useEffect(() => {
-        var url = `${location.origin}/tool?handle=%s`;
+        var url = `${location.origin}/handle?handle=%s`;
         if (isBrowser()) {
             if ("registerProtocolHandler" in window.navigator) {
                 logger.log("检测到此设备可以注册协议");

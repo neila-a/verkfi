@@ -78,7 +78,7 @@ export default function ToolFinder({
                 backgroundImage: toolColor,
                 color: color ? "#000000" : ""
             }} />
-            <Toolbar />
+            {!only && <Toolbar />}
             <Box sx={{
                 p: 3,
                 zIndex: 38602
