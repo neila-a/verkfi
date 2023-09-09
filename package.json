@@ -16,7 +16,7 @@
         "url": "https://neilasite.netlify.app/"
     },
     "scripts": {
-        "dev": "npm run ready && next dev",
+        "dev": "npm run ready && next dev --turbo",
         "build": "npm run ready && next build",
         "start": "next start",
         "lint": "next lint",

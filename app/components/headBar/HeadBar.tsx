@@ -87,7 +87,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 						}} onClick={event => {
 							setOption("darkmode", "暗色模式", !darkMode);
 						}}>
-							{darkMode ? <DarkMode /> : <LightMode />}
+							{!darkMode ? <DarkMode /> : <LightMode />}
 						</IconButton>
 					</MouseOverPopover> : <MouseOverPopover text={I18N.get('首页')} sx={noDrag}>
 						<IconButton size="large" edge="start" color="inherit" aria-label="homepage" sx={{
