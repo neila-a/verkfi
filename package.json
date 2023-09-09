@@ -16,11 +16,13 @@
         "url": "https://neilasite.netlify.app/"
     },
     "scripts": {
-        "dev": "next dev",
-        "build": "pnpm run build:sw && next build",
+        "dev": "npm run ready && next dev",
+        "build": "npm run ready && next build",
         "start": "next start",
         "lint": "next lint",
-        "build:sw": "echo \"// autogen script\" > public/service-worker.js && esbuild app/service-worker.ts --bundle --minify >> public/service-worker.js"
+        "ready": "npm run build:sw && npm run build:nc",
+        "build:sw": "esbuild app/service-worker.ts --bundle --minify > public/service-worker.js",
+        "build:nc": "esbuild next.config.ts --bundle --minify > next.config.js"
     },
     "dependencies": {
         "@emotion/react": "^11.11.1",
