@@ -15,7 +15,7 @@ import getSettingsSur from "./getSettingsSur";
 import getSettingsUsed from "./getSettingsUsed";
 import {
     logger
-} from "./page";
+} from "./consts";
 import ErrorBoundary from '../components/ErrorBoundary';
 import getCache from './getCache';
 export default function Reset() {

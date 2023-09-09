@@ -13,21 +13,17 @@ import {
 } from "@mui/material";
 import HeadBar from "../components/headBar/HeadBar";
 import {
-	useState,
-	Fragment
+	useState
 } from "react";
-import LpLogger from "lp-logger";
-export var logger = new LpLogger({
-	name: "Settings",
-	level: "log", // 空字符串时，不显示任何信息
-});
 import {
 	Handyman as HandyManIcon,
 	Settings as SettingsIcon,
 	Info as InfoIcon,
 	Replay as ReplayIcon
 } from "@mui/icons-material";
-export const drawerWidth = 122;
+import {
+	drawerWidth
+} from './consts';
 export interface set {
 	name: string;
 	id: string;

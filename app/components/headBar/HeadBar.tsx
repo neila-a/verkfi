@@ -29,9 +29,7 @@ import MouseOverPopover from "../Popover";
 import {
 	Theme
 } from "@emotion/react";
-import {
-	Index as SearchTool
-} from "../../page";
+import Index from '../../page';
 import stringToBoolean from "../../setting/stringToBoolean";
 import PureDialog from "../dialog/PureDialog";
 var logger = new LpLogger({
@@ -159,7 +157,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 			setShowSearchTool(false);
 		}}>
 			<ErrorBoundary>
-				<SearchTool isImplant searchText={searchText} />
+				<Index isImplant searchText={searchText} />
 			</ErrorBoundary>
 		</PureDialog>}
 	</>;

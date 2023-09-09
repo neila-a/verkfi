@@ -2,7 +2,7 @@
 import I18N from 'react-intl-universal';
 import {
     drawerWidth
-} from '../setting/page';
+} from '../setting/consts';
 import {
     IconButton,
     InputBase,
@@ -22,7 +22,7 @@ import {
 } from '../declare';
 import {
     viewMode
-} from '../page';
+} from './consts';
 import {
     useState
 } from 'react';

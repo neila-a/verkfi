@@ -1,5 +1,7 @@
 "use client";
-import React, { useState } from 'react';
+import React, {
+    useState
+} from 'react';
 import {
     Card,
     CardContent,
@@ -16,9 +18,6 @@ import {
     tool
 } from "../tools/info";
 import {
-    WindowOptions
-} from "../components/window/Window";
-import {
     useRouter
 } from 'next/navigation';
 import DownButton from './DownButton';
@@ -26,14 +25,14 @@ import UpButton from './UpButton';
 import {
     viewMode,
     logger
-} from '../page';
+} from './consts';
 import {
     setState
 } from '../declare';
 import styled from '@emotion/styled';
 import {
     drawerWidth
-} from '../setting/page';
+} from '../setting/consts';
 import {
     isBrowser,
     windows

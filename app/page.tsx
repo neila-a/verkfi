@@ -6,17 +6,18 @@ import {
     useEffect,
     useState
 } from 'react';
-import {
-    ThemeHaveZIndex,
-    drawerWidth
+import type {
+    ThemeHaveZIndex
 } from './setting/page';
+import {
+    drawerWidth
+} from './setting/consts';
 import {
     Stack,
     Typography,
     Box
 } from "@mui/material";
 import Style from "./styles/Index.module.scss";
-import LpLogger from "lp-logger";
 import {
     getTools,
     tool
@@ -27,10 +28,6 @@ import {
 } from 'next/navigation';
 import setSetting from "./setting/setSetting";
 import stringToBoolean from "./setting/stringToBoolean";
-export var logger = new LpLogger({
-    name: "Index",
-    level: "log", // 空字符串时，不显示任何信息
-});
 import {
     useSearchParams
 } from 'next/navigation';
@@ -38,8 +35,11 @@ import SingleTool from './index/SingleTool';
 import checkOption from './setting/checkOption';
 import getToolsList from './index/getToolsList';
 import Sidebar from './index/Sidebar';
-export type viewMode = "list" | "grid";
-export function Index(props: {
+import {
+    viewMode,
+    logger
+} from './index/consts';
+export default function Index(props: {
     /**
      * 是否为嵌入
      */
@@ -168,4 +168,3 @@ export function Index(props: {
         </>
     );
 };
-export default Index;

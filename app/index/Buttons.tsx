@@ -9,7 +9,7 @@ import {
 } from '../declare';
 import {
     viewMode
-} from '../page';
+} from './consts';
 import SwitchEditMode from "./SwitchEditMode";
 import SwitchViewMode from "./SwitchViewMode";
 import I18N from "react-intl-universal";

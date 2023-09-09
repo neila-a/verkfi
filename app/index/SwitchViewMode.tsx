@@ -12,7 +12,7 @@ import {
 } from '../declare';
 import {
     viewMode
-} from '../page';
+} from './consts';
 export default function SwitchViewMode(props: {
     viewMode: viewMode;
     setViewMode: setState<viewMode>;

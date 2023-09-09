@@ -4,7 +4,7 @@ import {
 } from "../tools/info";
 import {
     logger
-} from '../page';
+} from './consts';
 /**
  * 排序工具
  * @param realTools 未排序的工具列表
