@@ -11,7 +11,7 @@ export default function PureDialog(props: {
     /**
      * 标题
      */
-    title: string;
+    title: ReactNode;
     /**
      * 内容
      */
@@ -19,7 +19,7 @@ export default function PureDialog(props: {
     /**
      * 关闭后的回调
      */
-    onClose: () => any;
+    onClose: Function;
 }) {
     const [open, setOpen] = useState(true);
     const handleClose = () => {

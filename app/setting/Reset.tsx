@@ -11,29 +11,27 @@ import {
     VictoryPie
 } from "victory";
 import CheckDialog from "../components/dialog/CheckDialog";
-import {
-    MB
-} from "./consts";
 import getSettingsSur from "./getSettingsSur";
 import getSettingsUsed from "./getSettingsUsed";
 import {
     logger
 } from "./page";
 import ErrorBoundary from '../components/ErrorBoundary';
+import getCache from './getCache';
 export default function Reset() {
     var [dialogOpen, setDialogOpen] = useState<boolean>(false),
         [dialogContext, setDialogContext] = useState<string>(""),
         [dialogTitle, setDialogTitle] = useState<string>(""),
         [cacheUsed, setCacheUsed] = useState<number>(1),
         [cacheAll, setCacheAll] = useState<number>(2),
+        [load, setLoad] = useState<boolean>(false),
         [dialogOnDone, setDialogOnDone] = useState<() => any>(() => null);
     useEffect(() => {
-        navigator.storage.estimate().then(estimate => {
-            setCacheUsed(estimate.usage / MB);
-            setCacheAll(estimate.quota / MB);
-        })
-    }, [])
-    return (
+        getCache("usage").then(value => setCacheUsed(value));
+        getCache("quota").then(value => setCacheAll(value));
+        setLoad(true);
+    }, []);
+    return load && (
         <ErrorBoundary>
             <Stack
                 direction={{

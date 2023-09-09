@@ -104,15 +104,18 @@ export default function Settings(): JSX.Element {
 				marginLeft: `${drawerWidth}px`
 			}}>
 				<ErrorBoundary>
-					{sets.map(set => {
-						if (set.id == context) return (
-							<Fragment key={set.name}>
-								<Typography variant="h4">{set.name}</Typography>
-								<set.Component />
-							</Fragment>
-						);
-						return <Fragment key={set.name} />;
-					})}
+					{sets.map(set => set.id === "reset" ? (context === set.id && <>
+						<Typography variant="h4">{set.name}</Typography>
+						<set.Component />
+						{/* 如果是重置的话隐藏不用display: none;而是直接取消元素，以此避免重置的动画出现问题 */}
+					</>) : (
+						<div style={{
+							display: context === set.id ? "" : "none"
+						}} key={set.id}>
+							<Typography variant="h4">{set.name}</Typography>
+							<set.Component />
+						</div>
+					))}
 				</ErrorBoundary>
 			</Box>
 		</>
