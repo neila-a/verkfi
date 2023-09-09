@@ -1,5 +1,5 @@
 <div style="text-align: center">
-    ![Social](./public/image/social.png)
+    <img alt="Social" src="./public/image/social.png" />
 </div>
 
 # NeilaTools
