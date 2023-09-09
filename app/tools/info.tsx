@@ -21,9 +21,9 @@ import {
     FC
 } from "react";
 import {
-    Color,
-    hex
+    Hex
 } from "../declare";
+const hex = Hex.hex;
 export interface tool {
     name: string;
     to: Lowercase<string>;
@@ -31,7 +31,7 @@ export interface tool {
     icon: (OverridableComponent<SvgIconTypeMap<{}, "svg">> & {
         muiName: string
     }) | FC;
-    color: [Color, Color];
+    color: [Hex.Hex, Hex.Hex];
     isGoto?: boolean;
 }
 export const getTools = (I18N: typeof i18n): tool[] => [
