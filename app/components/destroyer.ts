@@ -1,11 +1,12 @@
 
 /**
  * 从数组里删除项目
- * @param any[] 用来删除的数组
- * @param any 要删除的项目值
+ * @param T 类型参数，用来删除的数组中的类型
+ * @param T[] 用来删除的数组
+ * @param T 要删除的项目值
  * @returns 删除完毕的数组
  */
-export default function destroyer<T = any>(array: T[], ...arg: any[]): T[] {
+export default function destroyer<T = any>(array: T[], ...arg: T[]): T[] {
     // 获取目标数组
     var newArray: T[] = array; // [1, 2, 1, 3, 2, 1, 3, 4, 2, 6]
     // 声明一个空数组，用来存储需要从`newArray`中删除的元素

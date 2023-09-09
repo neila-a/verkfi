@@ -22,13 +22,6 @@ var logger = new LpLogger({
     name: I18N.get('翻转'),
     level: "log", // 空字符串时，不显示任何信息
 });
-declare global {  //设置全局属性
-    interface Window {  //window对象属性
-        words: any,
-        wordList: any
-        //加入对象
-    }
-}
 import destroyer from "../../components/destroyer";
 export function Reversal(): JSX.Element {
     var [wordList, setWordList] = useState<[string, number][]>([]),
@@ -38,10 +31,6 @@ export function Reversal(): JSX.Element {
         [copyError, setCopyError] = useState<string>(""),
         [showSplitDialog, setShowSplitDialog] = useState<boolean>(false),
         [showCopyDoneDialog, setShowCopyDoneDialog] = useState<boolean>(false);
-    useEffect(() => {
-        window.words = words;
-        window.wordList = wordList;
-    }, [words, wordList]);
     return (
         <>
             <Alert severity="info">{I18N.get('以空格分隔，按回车添加。')}</Alert>
@@ -49,7 +38,7 @@ export function Reversal(): JSX.Element {
                 if (event.key == "Enter") {
                     setWordList(current => [...current, [
                         words,
-                        Math.random() * 10000000000000000
+                        Math.random() * 1000000000000000
                     ]]);
                     setWords("");
                     logger.log("已保存至列表。");

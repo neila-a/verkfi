@@ -1,4 +1,4 @@
-export default function downGo(fieldData: any[], index: number) {
+export default function downGo<T = any>(fieldData: T[], index: number) {
     if (index != fieldData.length - 1) {
         fieldData[index] = fieldData.splice(index + 1, 1, fieldData[index])[0];
     } else {
