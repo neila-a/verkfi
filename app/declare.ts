@@ -53,3 +53,23 @@ declare global {
  * React的useState()产生的第二个变量
  */
 export type setState<T> = Dispatch<SetStateAction<T>>;
+
+
+type HexDigit = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f';
+type HexColor<T extends string> =
+    T extends `${HexDigit}${HexDigit}${HexDigit}${infer Rest1}`
+    ? (Rest1 extends `${HexDigit}${HexDigit}${HexDigit}`
+        ? T  // six-digit hex color
+        : never
+    )
+    : never;
+/**
+ * 六位的小写十六进制字符串
+ */
+export type Color = string & { __type: "HexColor" };
+/**
+ * 将一个任意字符串的类型锁定为六位的小写十六进制字符串
+ * @param string 任意字符串
+ * @returns 六位的小写十六进制字符串
+ */
+export const hex: <T extends string>(string: HexColor<T>) => Color = string => string;
