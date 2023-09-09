@@ -1,7 +1,7 @@
 {
     "name": "neilatools",
     "version": "1.5.2",
-    "devVersion": "596",
+    "devVersion": "622",
     "dev": true,
     "description": "Platform for Neila's something useless tools.",
     "private": true,
@@ -20,9 +20,12 @@
         "build": "npm run ready && next build",
         "start": "next start",
         "lint": "next lint",
-        "ready": "npm run build:nc && npm run build:sw",
+        "ready": "npm run builds && npm run modifyPackage",
+        "builds": "npm run build:nc && npm run build:sw && npm run build:mp",
         "build:sw": "esbuild app/service-worker.ts --bundle --minify > public/service-worker.js",
-        "build:nc": "esbuild next.config.ts --bundle --minify > next.config.js"
+        "build:nc": "esbuild next.config.ts --bundle --minify > next.config.js",
+        "build:mp": "esbuild modifyPackage.ts --bundle --minify --platform=node > modifyPackage.js",
+        "modifyPackage": "node modifyPackage.js && rm modifyPackage.js"
     },
     "dependencies": {
         "@emotion/react": "^11.11.1",
