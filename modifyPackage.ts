@@ -2,7 +2,7 @@ import * as fs from "node:fs";
 import pack from "./package.json";
 import ChildProcess from "node:child_process";
 import Logger from "lp-logger";
-ChildProcess.execSync("git pull");
+ChildProcess.execSync("git pull origin main");
 const logger = new Logger({
     name: "ModifyPackage",
     level: "log"
