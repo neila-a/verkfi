@@ -53,7 +53,7 @@ self.addEventListener('fetch', event => {
         if (url.includes("_rsc=")) {
             var buffURL = new URL(url);
             buffURL.searchParams.delete("_rsc");
-            log(`检测到URL：${url}中含有searchParam“rsc”，已删除为${buffURL.toString()}并返回无rsc版本`);
+            log(`检测到URL：${url} 中含有searchParam“rsc”，已删除为 ${buffURL.toString()} 并返回无rsc版本`);
             url = buffURL.toString();
         }
         const response = await cache.match(realReq);
