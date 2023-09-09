@@ -10,3 +10,9 @@
 
 - Write a JSON file in `/locales/`;
 - Add to `/pages/_app.tsx`.
+
+## Make a commit
+
+- Do something;
+- `npm run modifyPackage`
+- Push it to GitHub.
