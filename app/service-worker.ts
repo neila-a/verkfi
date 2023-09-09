@@ -16,7 +16,7 @@ import {
 ]; */
 declare let self: ServiceWorkerGlobalScope;
 export const Cache = `NeilaTools-${version}-${dev == true ? `dev${devVersion}` : "prod"}`, // C
-    log = text => console.log(`%cServiceWorker`, `background: #52c41a;border-radius: 0.5em;color: white;font-weight: bold;padding: 2px 0.5em`, text),
+    log = (text: string) => console.log(`%cServiceWorker`, `background: #52c41a;border-radius: 0.5em;color: white;font-weight: bold;padding: 2px 0.5em`, text),
     installStaticFiles = () => caches.open(Cache).then(cache => cache.addAll(installFilesEssential).catch(console.error)), // install static assets
     clearOldCaches = async () => {
         const keylist = await caches.keys();
@@ -27,7 +27,7 @@ export const Cache = `NeilaTools-${version}-${dev == true ? `dev${devVersion}` :
             return caches.delete(key_1);
         }));
     },
-    installFilesEssential = [
+    installFilesEssential: `/${Lowercase<string>}`[] = [
         '/',
         '/settings',
         '/index.webmanifest',
