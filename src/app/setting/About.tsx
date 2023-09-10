@@ -12,7 +12,7 @@ import {
     Article as ArticleIcon
 } from "@mui/icons-material";
 import style from "./Settings.module.scss";
-import pack from "../../package.json";
+import pack from "../../../package.json";
 import ErrorBoundary from '../components/ErrorBoundary';
 import {
     OverridableComponent

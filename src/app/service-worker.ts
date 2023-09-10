@@ -2,7 +2,7 @@ import {
     version,
     devVersion,
     dev
-} from "../package.json";
+} from "../../package.json";
 /* const toolsTo = [
     "audiotools",
     "countletter",
