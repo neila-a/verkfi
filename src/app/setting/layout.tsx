@@ -1,7 +1,6 @@
 "use client";
 import I18N from 'react-intl-universal';
 import {
-	Typography,
 	Box,
 	Drawer,
 	List,
@@ -13,7 +12,7 @@ import {
 } from "@mui/material";
 import HeadBar from "../components/headBar/HeadBar";
 import {
-	useState
+	ReactNode
 } from "react";
 import {
 	Handyman as HandyManIcon,
@@ -27,7 +26,6 @@ import {
 export interface set {
 	name: string;
 	id: string;
-	Component: () => JSX.Element;
 	Icon: typeof HandyManIcon;
 }
 export interface ThemeHaveZIndex {
@@ -35,32 +33,31 @@ export interface ThemeHaveZIndex {
 		drawer: number;
 	}
 }
-import Options from "./Options";
-import Reset from "./Reset";
-import About from "./About";
 import ErrorBoundary from '../components/ErrorBoundary';
-export default function Settings(): JSX.Element {
-	var [context, setContext] = useState<string>("option");
+import {
+	useRouter
+} from 'next/navigation';
+export default function Settings(props: {
+	children: ReactNode
+}): JSX.Element {
 	const sets: set[] = [
 		{
 			name: I18N.get('选项'),
 			id: "option",
-			Component: Options,
 			Icon: SettingsIcon
 		},
 		{
 			name: I18N.get('关于'),
 			id: "about",
-			Component: About,
 			Icon: InfoIcon
 		},
 		{
 			name: I18N.get('重置'),
 			id: "reset",
-			Component: Reset,
 			Icon: ReplayIcon
 		}
-	];
+	],
+		router = useRouter();
 	return (
 		<>
 			<HeadBar isIndex={false} pageName={I18N.get('设置')} sx={{
@@ -81,7 +78,7 @@ export default function Settings(): JSX.Element {
 					<List>
 						{sets.map((Set, index) => (
 							<ListItem key={Set.id} onClick={event => {
-								setContext(Set.id);
+								router.push(`/setting/${Set.id}`);
 							}} disablePadding>
 								<ListItemButton>
 									<ListItemIcon>
@@ -100,18 +97,7 @@ export default function Settings(): JSX.Element {
 				marginLeft: `${drawerWidth}px`
 			}}>
 				<ErrorBoundary>
-					{sets.map(set => set.id === "reset" ? (context === set.id && <>
-						<Typography variant="h4">{set.name}</Typography>
-						<set.Component />
-						{/* 如果是重置的话隐藏不用display: none;而是直接取消元素，以此避免重置的动画出现问题 */}
-					</>) : (
-						<div style={{
-							display: context === set.id ? "" : "none"
-						}} key={set.id}>
-							<Typography variant="h4">{set.name}</Typography>
-							<set.Component />
-						</div>
-					))}
+					{props.children}
 				</ErrorBoundary>
 			</Box>
 		</>

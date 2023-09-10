@@ -13,7 +13,7 @@ const nextConfig: NextConfig = {
 	},
 	devIndicators: {
 		buildActivityPosition: 'bottom-right',
-	},
+	}
 }
 
 module.exports = nextConfig;

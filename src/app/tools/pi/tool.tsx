@@ -46,43 +46,41 @@ function PI(): JSX.Element {
     return (
         <>
             <br />
-            <Head>
-                <style jsx>{`/*
-                    body {
-                        border-radius: 100px;
-                        border: 1px solid;
-                        height: {{ window.screen.availHeight }}px;
-                    }*/
-                    #outendwm {
-                        word-wrap: break-word;
-                        word-break: "break-all;
-                        overflow: hidden;
-                    }
-                    h3 {
-                        text-align: center;
-                        font-family: Cambria;
-                    }
-                    h2 {
-                        padding-left: 1%;
-                    }
-                    div#input > *, #isUseAlertShow, #outendwm {
-                        margin-left: 2%;
-                    }
-                    button {
-                        background-color: #3399ff;
-                        border-color: #3399ff;
-                        border-radius: 100px;
-                        color: #ffffff;
-                    }
-                    button:hover {
-                        background-color: #ffffff;
-                        color: #000000;
-                    }
-                    div#out {
-                        margin-bottom: 50px;
-                    }
-                `}</style>
-            </Head>
+            <style jsx>{`/*
+                body {
+                    border-radius: 100px;
+                    border: 1px solid;
+                    height: {{ window.screen.availHeight }}px;
+                }*/
+                #outendwm {
+                    word-wrap: break-word;
+                    word-break: break-all;
+                    overflow: hidden;
+                }
+                h3 {
+                    text-align: center;
+                    font-family: Cambria;
+                }
+                h2 {
+                    padding-left: 1%;
+                }
+                div#input > *, #isUseAlertShow, #outendwm {
+                    margin-left: 2%;
+                }
+                button {
+                    background-color: #3399ff;
+                    border-color: #3399ff;
+                    border-radius: 100px;
+                    color: #ffffff;
+                }
+                button:hover {
+                    background-color: #ffffff;
+                    color: #000000;
+                }
+                div#out {
+                    margin-bottom: 50px;
+                }
+            `}</style>
             <div id="input">
                 <TextField id="weishu" label={I18N.get('π的小数点后位数')} variant="outlined" value={weishu} type="number" onChange={event => {
                     var ws = Number(event.target.value);

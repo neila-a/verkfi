@@ -6,7 +6,7 @@ import setOption from "./setOption";
 import I18N from "react-intl-universal";
 import {
     options
-} from "./Options";
+} from "./option/page";
 import {
     useState
 } from "react";

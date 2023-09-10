@@ -1,7 +1,9 @@
+"use client";
 import I18N from 'react-intl-universal';
 import {
     Button,
-    Stack
+    Stack,
+    Typography
 } from "@mui/material";
 import {
     useState,
@@ -10,14 +12,14 @@ import {
 import {
     VictoryPie
 } from "victory";
-import CheckDialog from "../components/dialog/CheckDialog";
-import getSettingsSur from "./getSettingsSur";
-import getSettingsUsed from "./getSettingsUsed";
+import CheckDialog from "../../components/dialog/CheckDialog";
+import getSettingsSur from "../getSettingsSur";
+import getSettingsUsed from "../getSettingsUsed";
 import {
     logger
-} from "./consts";
-import ErrorBoundary from '../components/ErrorBoundary';
-import getCache from './getCache';
+} from "../consts";
+import ErrorBoundary from '../../components/ErrorBoundary';
+import getCache from '../getCache';
 export default function Reset() {
     var [dialogOpen, setDialogOpen] = useState<boolean>(false),
         [dialogContext, setDialogContext] = useState<string>(""),
@@ -33,6 +35,9 @@ export default function Reset() {
     }, []);
     return load && (
         <ErrorBoundary>
+            <Typography variant='h4'>
+                {I18N.get('重置')}
+            </Typography>
             <Stack
                 direction={{
                     xs: 'column',

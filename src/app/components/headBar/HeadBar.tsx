@@ -126,7 +126,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 					</FormGroup>
 				</form>}
 				<nav>
-					<Link href="/setting" className={style["link"]} style={noDrag}>
+					<Link href="/setting/option" className={style["link"]} style={noDrag}>
 						<MouseOverPopover text={I18N.get('设置')}>
 							<IconButton size="large" edge="end" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
 								<SettingsIcon />

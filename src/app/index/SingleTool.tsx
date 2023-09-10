@@ -84,13 +84,14 @@ export default function SingleTool(props: {
             wordBreak: "break-all",
             color: color ? "#000000" : ""
         }));
+    const fullWidth = screenWidth - 24 - drawerWidth;
     return (
         <div key={tool.to}> {/* 单个工具 */}
             <windows.Consumer>
                 {value => (
                     <Card sx={{
-                        width: viewMode == "grid" ? 275 : "100%",
-                        maxWidth: screenWidth - 24 - drawerWidth,
+                        width: viewMode == "grid" ? 275 : fullWidth,
+                        maxWidth: fullWidth,
                         backgroundImage: color ? "linear-gradient(45deg, #" + tool.color[0] + ", #" + tool.color[1] + ")" : ""
                     }} elevation={10}>
                         <CardContent>

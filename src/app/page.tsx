@@ -8,7 +8,7 @@ import {
 } from 'react';
 import type {
     ThemeHaveZIndex
-} from './setting/page';
+} from './setting/layout';
 import {
     drawerWidth
 } from './setting/consts';

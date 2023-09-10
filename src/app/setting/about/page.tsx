@@ -1,3 +1,4 @@
+"use client";
 import I18N from 'react-intl-universal';
 import {
     Grid,
@@ -11,9 +12,9 @@ import {
     Storage as StorageIcon,
     Article as ArticleIcon
 } from "@mui/icons-material";
-import style from "./Settings.module.scss";
-import pack from "../../../package.json";
-import ErrorBoundary from '../components/ErrorBoundary';
+import style from "./About.module.scss";
+import pack from "../../../../package.json";
+import ErrorBoundary from '../../components/ErrorBoundary';
 import {
     OverridableComponent
 } from '@mui/material/OverridableComponent';
@@ -22,10 +23,10 @@ import {
     useState,
     useEffect
 } from 'react';
-import getCache from './getCache';
-import getSettingsSur from './getSettingsSur';
-import getSettingsUsed from './getSettingsUsed';
-import PureDialog from '../components/dialog/PureDialog';
+import getCache from '../getCache';
+import getSettingsSur from '../getSettingsSur';
+import getSettingsUsed from '../getSettingsUsed';
+import PureDialog from '../../components/dialog/PureDialog';
 interface singleAbout {
     icon: OverridableComponent<SvgIconTypeMap<{}, "svg">> & {
         muiName: string
@@ -125,6 +126,9 @@ export default function About() {
     }, []);
     return load && (
         <ErrorBoundary>
+            <Typography variant='h4'>
+                {I18N.get('关于')}
+            </Typography>
             <div className={style["title"]}>
                 <HandyManIcon sx={{
                     fontSize: "2.125rem"
