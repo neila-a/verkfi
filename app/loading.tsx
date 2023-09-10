@@ -5,14 +5,13 @@ import {
     Box,
     LinearProgress
 } from "@mui/material";
-import { ReactNode } from "react";
+import {
+    ReactNode
+} from "react";
 export default function Loading(props: {
     children?: ReactNode;
 }) {
-    var Progress = props.children;
-    if (Progress === undefined) {
-        Progress = <LinearProgress color="secondary" />;
-    }
+    var isLoading = props.children === undefined;
     return (
         <Box sx={{
             display: "flex",
@@ -28,7 +27,9 @@ export default function Loading(props: {
             <HandymanIcon sx={{
                 fontSize: "1000%"
             }} />
-            {Progress}
+            {isLoading ? <LinearProgress color="secondary" sx={{
+                width: 160
+            }} /> : props.children}
         </Box>
     );
 }
