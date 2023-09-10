@@ -36,6 +36,10 @@ import {
 import {
     WindowOptions
 } from "./components/window/Window";
+import {
+    Typography
+} from "@mui/material";
+import Loading from "./loading";
 export const windows = createContext<{
     windows: WindowOptions[];
     set: setState<WindowOptions[]>;
@@ -141,6 +145,13 @@ export default function ModifiedApp(props) {
         <div style={{
             backgroundColor: theme.palette.mode === "dark" ? "#000000" : "#ffffff"
         }}>
+            <noscript>
+                <Loading>
+                    <Typography>
+                        Error: Unable to execute JavaScript.
+                    </Typography>
+                </Loading>
+            </noscript>
             <ThemeProvider theme={theme}>
                 {props.children}
                 <WindowContainer />

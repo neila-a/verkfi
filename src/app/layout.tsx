@@ -2,7 +2,7 @@ import {
     Metadata
 } from "next";
 import {
-    CssBaseline, Typography
+    CssBaseline
 } from "@mui/material";
 import '@fontsource/ubuntu/300.css';
 import '@fontsource/ubuntu/400.css';
@@ -13,7 +13,6 @@ import "./styles/App.scss";
 import BaseLayout, {
     WindowsProvider
 } from "./layoutClient";
-import Loading from "./loading";
 export const metadata: Metadata = {
     manifest: "/index.webmanifest",
     description: "Neila的一些没用工具。",
@@ -39,13 +38,6 @@ export default function Layout({
     return (
         <html lang="zh-cmn-Hans-CN">
             <body>
-                <noscript>
-                    <Loading>
-                        <Typography>
-                            Error: Unable to execute JavaScript.
-                        </Typography>
-                    </Loading>
-                </noscript>
                 <main>
                     <CssBaseline />
                     <div className={style["fullHeight"]}>
