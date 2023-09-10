@@ -63,34 +63,36 @@ export default function Settings(props: {
 			<HeadBar isIndex={false} pageName={I18N.get('设置')} sx={{
 				zIndex: theme => (theme as ThemeHaveZIndex).zIndex.drawer + 1
 			}} />
-			<Drawer variant="permanent" sx={{
-				width: drawerWidth,
-				flexShrink: 0,
-				[`& .MuiDrawer-paper`]: {
+			<nav>
+				<Drawer variant="permanent" sx={{
 					width: drawerWidth,
-					boxSizing: 'border-box'
-				},
-			}}>
-				<Toolbar />
-				<Box sx={{
-					overflow: 'auto'
-				}} id="select">
-					<List>
-						{sets.map((Set, index) => (
-							<ListItem key={Set.id} onClick={event => {
-								router.push(`/setting/${Set.id}`);
-							}} disablePadding>
-								<ListItemButton>
-									<ListItemIcon>
-										<Set.Icon />
-									</ListItemIcon>
-									<ListItemText primary={Set.name} />
-								</ListItemButton>
-							</ListItem>
-						))}
-					</List>
-				</Box>
-			</Drawer>
+					flexShrink: 0,
+					[`& .MuiDrawer-paper`]: {
+						width: drawerWidth,
+						boxSizing: 'border-box'
+					},
+				}}>
+					<Toolbar />
+					<Box sx={{
+						overflow: 'auto'
+					}} id="select">
+						<List>
+							{sets.map((Set, index) => (
+								<ListItem key={Set.id} onClick={event => {
+									router.push(`/setting/${Set.id}`);
+								}} disablePadding>
+									<ListItemButton>
+										<ListItemIcon>
+											<Set.Icon />
+										</ListItemIcon>
+										<ListItemText primary={Set.name} />
+									</ListItemButton>
+								</ListItem>
+							))}
+						</List>
+					</Box>
+				</Drawer>
+			</nav>
 			<Box component="main" sx={{
 				flexGrow: 1,
 				p: 3,

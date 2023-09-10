@@ -133,5 +133,11 @@
 	"域名": "Host",
 	"路径": "Path",
 	"协议": "Protocol",
-	"端口": "Port"
+	"端口": "Port",
+	"发生了一些错误": "Something went wrong",
+	"重试": "Retry",
+	"缓存空间": "Cache Space",
+	"已用": "Used",
+	"总容量": "Total space",
+	"设置空间": "Set space"
 }

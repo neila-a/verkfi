@@ -1,13 +1,14 @@
-"project_id": "598043"
-"api_token": "9ae171730df016208992f36e0c135fb121b600d4291380a9e479e63c75c22df5119f42df22b7ef21"
-"base_path": "."
-"base_url": "https://api.crowdin.com"
-
-"preserve_hierarchy": true
-
-"files": [
-  {
-    "source": "/app/locales/zh-CN.json",
-    "translation": "/app/locales/%locale%.json"
-  }
-]
+{
+    "project_id": "598043",
+    "api_token": "9ae171730df016208992f36e0c135fb121b600d4291380a9e479e63c75c22df5119f42df22b7ef21",
+    "base_path": ".",
+    "base_url": "https://api.crowdin.com",
+    "preserve_hierarchy": true,
+    "files":
+        [
+            {
+                "source": "/src/app/locales/zh-CN.json",
+                "translation": "/src/app/locales/%locale%.json",
+            },
+        ],
+}

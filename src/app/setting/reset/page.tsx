@@ -2,16 +2,16 @@
 import I18N from 'react-intl-universal';
 import {
     Button,
+    Divider,
     Stack,
     Typography
 } from "@mui/material";
 import {
     useState,
-    useEffect
+    useEffect,
+    FC,
+    ReactNode
 } from "react";
-import {
-    VictoryPie
-} from "victory";
 import CheckDialog from "../../components/dialog/CheckDialog";
 import getSettingsSur from "../getSettingsSur";
 import getSettingsUsed from "../getSettingsUsed";
@@ -20,6 +20,20 @@ import {
 } from "../consts";
 import ErrorBoundary from '../../components/ErrorBoundary';
 import getCache from '../getCache';
+import Line from './Line';
+import {
+    ResponsiveStyleValue
+} from '@mui/system';
+const direction: ResponsiveStyleValue<'row' | 'row-reverse' | 'column' | 'column-reverse'> = {
+    xs: "column",
+    sm: "row",
+    md: "row"
+};
+const Spacing3Stack: FC<{
+    children: ReactNode
+}> = props => <Stack spacing={3}>
+    {props.children}
+</Stack >;
 export default function Reset() {
     var [dialogOpen, setDialogOpen] = useState<boolean>(false),
         [dialogContext, setDialogContext] = useState<string>(""),
@@ -38,33 +52,18 @@ export default function Reset() {
             <Typography variant='h4'>
                 {I18N.get('重置')}
             </Typography>
-            <Stack
-                direction={{
-                    xs: 'column',
-                    sm: 'row'
-                }}
-                spacing={{
-                    xs: 1,
-                    sm: 2,
-                    md: 4
-                }}
-            >
-                <Stack direction="column">
-                    <VictoryPie colorScale={[
-                        "tomato",
-                        "orange"
-                    ]} animate={{
-                        duration: 2000
-                    }} data={[
-                        {
-                            x: `${I18N.get("缓存空间已使用容量")}：${cacheUsed.toFixed(5)}MB`,
-                            y: Number((cacheUsed / cacheAll * 100).toFixed(5))
-                        },
-                        {
-                            x: `${I18N.get("缓存空间剩余容量")}：${(cacheAll - cacheUsed).toFixed(5)}MB`,
-                            y: Number(((cacheAll - cacheUsed) / cacheAll * 100).toFixed(5))
-                        }
-                    ]} />
+            <Stack direction={direction} spacing={{
+                xs: 10,
+                sm: 15,
+                md: 20
+            }} divider={<Divider orientation="vertical" flexItem />}>
+                <Spacing3Stack>
+                    <Line
+                        value={Number((cacheUsed / cacheAll * 100).toFixed(5))}
+                        mainLabel={I18N.get("缓存空间")}
+                        usedLabel={`${I18N.get("已用")} ${cacheUsed.toFixed(5)} MB`}
+                        surLabel={`${I18N.get("总容量")} ${cacheAll.toFixed(5)} MB`}
+                    />
                     <Button variant="contained" onClick={event => {
                         setDialogOpen(true);
                         setDialogContext(I18N.get("确定清空所有缓存吗？此操作不可恢复。"));
@@ -74,23 +73,14 @@ export default function Reset() {
                             return caches.delete(key);
                         }))));
                     }}>{I18N.get('清空所有缓存')}</Button>
-                </Stack>
-                <Stack direction="column">
-                    <VictoryPie colorScale={[
-                        "tomato",
-                        "orange"
-                    ]} animate={{
-                        duration: 2000
-                    }} data={[
-                        {
-                            x: `${I18N.get("设置空间已使用容量")}：${getSettingsUsed()}KB`,
-                            y: getSettingsUsed() / 5120 * 100
-                        },
-                        {
-                            x: `${I18N.get("设置空间剩余容量")}：${getSettingsSur()}KB`,
-                            y: getSettingsSur() / 5120 * 100
-                        }
-                    ]} />
+                </Spacing3Stack>
+                <Spacing3Stack>
+                    <Line
+                        value={Number((cacheUsed / cacheAll * 100).toFixed(5))}
+                        mainLabel={I18N.get("设置空间")}
+                        usedLabel={`${I18N.get("已用")} ${getSettingsUsed()} KB`}
+                        surLabel={`${I18N.get("总容量")} ${getSettingsSur()} KB`}
+                    />
                     <Button variant="contained" onClick={event => {
                         setDialogOpen(true);
                         setDialogContext(I18N.get("确定清空所有设置吗？此操作不可恢复。"));
@@ -103,7 +93,7 @@ export default function Reset() {
                         dialogOnDone();
                         setDialogOpen(false);
                     }} description={dialogContext} />}
-                </Stack>
+                </Spacing3Stack>
             </Stack>
         </ErrorBoundary>
     );

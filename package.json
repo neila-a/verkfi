@@ -1,7 +1,7 @@
 {
     "name": "neilatools",
     "version": "1.5.2",
-    "devVersion": "633",
+    "devVersion": "634",
     "dev": true,
     "description": "Platform for Neila's something useless tools.",
     "private": true,
@@ -34,6 +34,7 @@
         "@mui/icons-material": "^5.14.8",
         "@mui/material": "^5.14.8",
         "@mui/styled-engine-sc": "^5.14.8",
+        "@mui/system": "^5.14.8",
         "dom-to-image": "^2.6.0",
         "file-saver": "^2.0.5",
         "filepond": "^4.30.4",
@@ -56,8 +57,7 @@
         "react-intl-universal": "^2.6.21",
         "sass": "^1.66.1",
         "sharp": "^0.32.5",
-        "styled-components": "^5.3.11",
-        "victory": "^36.6.11"
+        "styled-components": "^5.3.11"
     },
     "devDependencies": {
         "@types/node": "20.3.0",
