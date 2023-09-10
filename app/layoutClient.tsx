@@ -40,7 +40,7 @@ export const windows = createContext<{
     windows: WindowOptions[];
     set: setState<WindowOptions[]>;
 }>(null);
-function WindowsProvider(props: {
+export function WindowsProvider(props: {
     children: ReactNode
 }) {
     var [realWindows, setRealWindows] = useState<WindowOptions[]>([]);
@@ -142,10 +142,8 @@ export default function ModifiedApp(props) {
             backgroundColor: theme.palette.mode === "dark" ? "#000000" : "#ffffff"
         }}>
             <ThemeProvider theme={theme}>
-                <WindowsProvider>
-                    {props.children}
-                    <WindowContainer />
-                </WindowsProvider>
+                {props.children}
+                <WindowContainer />
             </ThemeProvider>
         </div>
     );

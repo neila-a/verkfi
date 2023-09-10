@@ -1,7 +1,7 @@
 {
     "name": "neilatools",
     "version": "1.5.2",
-    "devVersion": "626",
+    "devVersion": "628",
     "dev": true,
     "description": "Platform for Neila's something useless tools.",
     "private": true,
@@ -16,7 +16,7 @@
         "url": "https://neilasite.netlify.app/"
     },
     "scripts": {
-        "dev": "npm run ready && next dev --turbo",
+        "dev": "npm run modifyPackage && npm run ready && next dev --turbo",
         "build": "npm run ready && next build",
         "start": "next start",
         "lint": "next lint",
