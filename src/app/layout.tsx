@@ -1,18 +1,6 @@
 import {
     Metadata
 } from "next";
-import {
-    CssBaseline
-} from "@mui/material";
-import '@fontsource/ubuntu/300.css';
-import '@fontsource/ubuntu/400.css';
-import '@fontsource/ubuntu/500.css';
-import '@fontsource/ubuntu/700.css';
-import style from "./styles/Layout.module.scss";
-import "./styles/App.scss";
-import BaseLayout, {
-    WindowsProvider
-} from "./layoutClient";
 export const metadata: Metadata = {
     manifest: "/index.webmanifest",
     description: "Neila的一些没用工具。",
@@ -32,12 +20,35 @@ export const metadata: Metadata = {
         template: "%s | NeilaTools"
     }
 }
+import {
+    CssBaseline
+} from "@mui/material";
+import '@fontsource/ubuntu/300.css';
+import '@fontsource/ubuntu/400.css';
+import '@fontsource/ubuntu/500.css';
+import '@fontsource/ubuntu/700.css';
+import style from "./styles/Layout.module.scss";
+import {
+    Typography
+} from "@mui/material";
+import Loading from "./loading";
+import "./styles/App.scss";
+import BaseLayout, {
+    WindowsProvider
+} from "./layoutClient";
 export default function Layout({
     children
 }) {
     return (
         <html lang="zh-cmn-Hans-CN">
             <body>
+                <noscript>
+                    <Loading>
+                        <Typography>
+                            Error: Unable to execute JavaScript.
+                        </Typography>
+                    </Loading>
+                </noscript>
                 <main>
                     <CssBaseline />
                     <div className={style["fullHeight"]}>
