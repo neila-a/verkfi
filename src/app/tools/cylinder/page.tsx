@@ -20,11 +20,11 @@ import {
 import drawMatrix, {
     block
 } from '../../components/matrix/matrix';
-export var logger = new LpLogger({
+var logger = new LpLogger({
     name: I18N.get('画圆'),
     level: "log"
 });
-export function Cylinder(): JSX.Element {
+function Cylinder(): JSX.Element {
     var [radiusX, setRadiusX] = useState<number>(50),
         [radiusZ, setRadiusZ] = useState<number>(50),
         [thickness, setThickness] = useState<number>(1),

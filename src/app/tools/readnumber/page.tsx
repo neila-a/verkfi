@@ -11,7 +11,7 @@ import Nzh from "nzh";
 import {
     useState
 } from "react";
-export const logger = new LpLogger({
+const logger = new LpLogger({
     name: "ReadNumber",
     level: "log", // 空字符串时，不显示任何信息
 });

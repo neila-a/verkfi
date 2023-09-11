@@ -18,17 +18,15 @@ import {
 } from "react";
 import destroyer from "../../components/destroyer";
 import SingleMath from "./singleMath";
-import LpLogger from "lp-logger";
+import {
+    logger
+} from './consts';
 import {
     calc,
     defaultCalcs
 } from "./consts";
 import calcMath from "./calcMath";
-export var logger = new LpLogger({
-    name: "MathGen",
-    level: "log", // 空字符串时，不显示任何信息
-});
-export function MathGen(): JSX.Element {
+function MathGen(): JSX.Element {
     var [min, setMin] = useState<number>(0),
         [max, setMax] = useState<number>(10),
         [itemCount, setItemCount] = useState<number>(20),

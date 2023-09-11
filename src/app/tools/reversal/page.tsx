@@ -24,7 +24,7 @@ var logger = new LpLogger({
     level: "log", // 空字符串时，不显示任何信息
 });
 import destroyer from "../../components/destroyer";
-export function Reversal(): JSX.Element {
+function Reversal(): JSX.Element {
     var [wordList, setWordList] = useState<[string, number][]>([]),
         [words, setWords] = useState<string>(""),
         [output, setOutput] = useState<string>(""),

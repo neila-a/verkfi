@@ -42,15 +42,17 @@ var logger = new LpLogger({
     name: I18N.get('滤镜'),
     level: "log", // 空字符串时，不显示任何信息
 });
-export const Input = styled(MuiInput)`
+const Input = styled(MuiInput)`
   width: 42px;
 `;
 import {
     ImageType,
     ImageTypesGen
 } from "./consts";
-import { FilePondFile, FilePondInitialFile, FilePondServerConfigProps } from 'filepond';
-export const emptyArray: [] = [];
+import {
+    FilePondFile,
+    FilePondServerConfigProps
+} from 'filepond';
 export default function Filter(): JSX.Element {
     var [imageArray, setImageArray] = useState<FilePondFile[]>([]);
     var [imageFileName, setImageFileName] = useState<string>("libear-only");
@@ -97,7 +99,7 @@ export default function Filter(): JSX.Element {
                     <FormControlLabel label={I18N.get('全部')} control={
                         <Checkbox
                             checked={imageTypes == ImageTypesGen}
-                            indeterminate={(imageTypes != ImageTypesGen) && (imageTypes != emptyArray)}
+                            indeterminate={(imageTypes != ImageTypesGen) && (imageTypes.toString() !== "")}
                             onChange={event => {
                                 switch (event.target.checked) {
                                     case true:

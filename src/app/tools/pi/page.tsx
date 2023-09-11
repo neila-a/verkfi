@@ -1,6 +1,5 @@
 "use client";
 import I18N from 'react-intl-universal';
-import Head from "next/head";
 import React, {
     useState
 } from "react";
@@ -18,7 +17,7 @@ var logger = new LpLogger({
     name: I18N.get('π计算器'),
     level: "log", // 空字符串时，不显示任何信息
 });
-export const pi = require("pi");
+const pi = require("pi");
 function PI(): JSX.Element {
     var [weishu, setWeishu] = useState<number>(1),
         [useAlertShow, setUseAlertShow] = useState<boolean>(false),

@@ -2,10 +2,6 @@
 import I18N from 'react-intl-universal';
 import Center from "../../components/center/Center";
 import React, {
-    Dispatch,
-    SetStateAction,
-    useEffect,
-    useRef,
     useState
 } from "react";
 import {
@@ -13,16 +9,11 @@ import {
     TextField
 } from "@mui/material";
 import style from "./ShaiZi.module.scss";
-import LpLogger from "lp-logger";
 import FullScreenDialog from "../../components/dialog/FullScreenDialog";
 import {
     ShaiZiCanvas
 } from "./shaiziCanvas";
-export var logger = new LpLogger({
-    name: I18N.get('掷骰子'),
-    level: "log", // 空字符串时，不显示任何信息
-});
-export function ShaiZi(): JSX.Element {
+function ShaiZi(): JSX.Element {
     var [useDialogShow, setUseDialogShow] = useState<boolean>(false),
         [cishu, setCishu] = useState<number>(1);
     return (

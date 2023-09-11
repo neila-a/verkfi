@@ -1,5 +1,5 @@
 "use client";
-export function Jigsaw(): JSX.Element {
+function Jigsaw(): JSX.Element {
     return (
         <>
         </>

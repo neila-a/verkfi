@@ -7,7 +7,7 @@ import {
 import style from "styled-jsx/style";
 import {
     logger
-} from "./page";
+} from "./consts";
 import {
     setState
 } from '../../declare';
