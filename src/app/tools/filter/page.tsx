@@ -1,3 +1,4 @@
+"use client";
 import I18N from 'react-intl-universal';
 import * as React from "react";
 import {

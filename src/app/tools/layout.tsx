@@ -1,16 +1,18 @@
 "use client";
 import {
     useRouter,
-    useSearchParams
+    useSearchParams,
+    useSelectedLayoutSegment
 } from "next/navigation";
 import {
     FC,
+    ReactNode,
     useState
 } from "react";
-import HeadBar from "../../components/headBar/HeadBar";
+import HeadBar from "../components/headBar/HeadBar";
 import {
     getTools
-} from "../info";
+} from "./info";
 import {
     Box,
     Toolbar
@@ -18,24 +20,20 @@ import {
 import I18N from "react-intl-universal";
 import {
     components as tools
-} from "../components"
+} from "./components"
 import lpLogger from "lp-logger";
-import stringToBoolean from "../../setting/stringToBoolean";
-import checkOption from "../../setting/checkOption";
-import getToolColor from "../getToolColor";
+import stringToBoolean from "../setting/stringToBoolean";
+import checkOption from "../setting/checkOption";
+import getToolColor from "./getToolColor";
 import {
     isBrowser
-} from "../../layoutClient";
+} from "../layoutClient";
 var logger = new lpLogger({
     name: "ToolFinder",
     level: "log"
 });
-export default function ToolFinder({
-    params
-}: {
-    params: {
-        tool: string
-    }
+export default function ToolFinder(props: {
+    children: ReactNode;
 }): JSX.Element {
     var only = false,
         Tool: FC,
@@ -47,7 +45,7 @@ export default function ToolFinder({
             }
             return true;
         });
-    const toolID = params.tool,
+    const toolID = useSelectedLayoutSegment(),
         searchParams = useSearchParams(),
         router = useRouter();
     logger.info(`toolID为${toolID}`);
@@ -83,7 +81,7 @@ export default function ToolFinder({
                 p: 3,
                 zIndex: 38602
             }} id="container">
-                {toolID != undefined && <Tool />}
+                {props.children}
             </Box>
             <div id="outside" />
         </>

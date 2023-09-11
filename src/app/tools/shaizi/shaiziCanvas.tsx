@@ -1,7 +1,5 @@
 import I18N from 'react-intl-universal';
 import {
-    Dispatch,
-    SetStateAction,
     useState,
     useRef,
     useEffect
@@ -9,7 +7,7 @@ import {
 import style from "styled-jsx/style";
 import {
     logger
-} from "./tool";
+} from "./page";
 import {
     setState
 } from '../../declare';

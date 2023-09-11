@@ -1,3 +1,4 @@
+"use client";
 import I18N from 'react-intl-universal';
 import {
     Checkbox,
@@ -15,9 +16,6 @@ import {
     useEffect,
     useState
 } from "react";
-import {
-    emptyArray
-} from "../filter/tool";
 import destroyer from "../../components/destroyer";
 import SingleMath from "./singleMath";
 import LpLogger from "lp-logger";
@@ -130,7 +128,7 @@ export function MathGen(): JSX.Element {
                     </ButtonGroup>
                     <br />
                 </FormGroup>
-                {maths == emptyArray ? <Typography>{I18N.get('没有任何已生成的算式')}</Typography> : maths.map(math => <SingleMath math={math} showOut={showOut} key={math} />)}
+                {maths.toString() === "" ? <Typography>{I18N.get('没有任何已生成的算式')}</Typography> : maths.map(math => <SingleMath math={math} showOut={showOut} key={math} />)}
             </Box>
         </>
     );

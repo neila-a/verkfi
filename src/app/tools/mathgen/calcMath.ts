@@ -4,7 +4,7 @@ import {
 import genNumber from "./genNumber";
 import {
     logger
-} from "./tool";
+} from "./page";
 import {
     setState
 } from "../../declare";
