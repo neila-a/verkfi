@@ -1,6 +1,9 @@
 import setSetting from "./setSetting";
-export default function setOption(id: string, name: string, value: boolean | string): boolean {
+export default function setOption(id: string, name: string, value: boolean | string): never {
     setSetting(id, name, String(value));
     location.reload();
-    return Boolean(value);
+    throw {
+        message: "Redirecting...",
+        name: "setOption"
+    };
 }
