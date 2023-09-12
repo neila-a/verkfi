@@ -1,24 +1,48 @@
 import {
     Metadata
 } from "next";
-export const metadata: Metadata = {
-    manifest: "/index.webmanifest",
-    description: "Neila的一些没用工具。",
-    applicationName: "NeilaTools",
-    other: {
-        "msapplication-tooltip": "NeilaTools",
-        "msapplication-navbutton-color": "#1976d2",
-        "msapplication-starturl": "/",
-    },
-    themeColor: "#1976d2",
-    icons: "/image/favicon.png",
-    appleWebApp: {
-        title: "NeilaTools"
-    },
-    title: {
-        default: "NeilaTools",
-        template: "%s | NeilaTools"
-    }
+import {
+    getRepoInfo
+} from "./components/getRepoInfo";
+export async function generateMetadata() {
+    const repoInfo = await getRepoInfo();
+    return ({
+        manifest: "/index.webmanifest",
+        description: repoInfo.description,
+        applicationName: repoInfo.name,
+        other: {
+            "msapplication-tooltip": repoInfo.name,
+            "msapplication-navbutton-color": "#1976d2",
+            "msapplication-starturl": "/",
+        },
+        themeColor: "#1976d2",
+        icons: "/image/favicon.png",
+        appleWebApp: {
+            title: repoInfo.name
+        },
+        title: {
+            default: repoInfo.name,
+            template: `%s | ${repoInfo.name}`
+        },
+        openGraph: {
+            title: repoInfo.name,
+            description: repoInfo.description,
+            url: pack.homepage,
+            siteName: repoInfo.name,
+            images: [
+                {
+                    url: './image/social.png',
+                    width: 1280,
+                    height: 640,
+                },
+            ],
+            locale: 'zh_CN',
+            alternateLocale: [
+                "zh_TW",
+                "en_US"
+            ]
+        }
+    }) as Metadata;
 }
 import {
     CssBaseline
@@ -28,6 +52,7 @@ import '@fontsource/ubuntu/400.css';
 import '@fontsource/ubuntu/500.css';
 import '@fontsource/ubuntu/700.css';
 import style from "./styles/Layout.module.scss";
+import pack from "../../package.json";
 import {
     Typography
 } from "@mui/material";
@@ -36,9 +61,10 @@ import "./styles/App.scss";
 import BaseLayout, {
     WindowsProvider
 } from "./layoutClient";
-export default function Layout({
+export default async function Layout({
     children
 }) {
+    const repoInfo = await getRepoInfo();
     return (
         <html lang="zh-cmn-Hans-CN">
             <body>
