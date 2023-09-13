@@ -22,7 +22,8 @@ import {
     getTools,
     tool
 } from "./tools/info";
-import CheckDialog from "./components/dialog/CheckDialog";
+import dynamic from 'next/dynamic';
+const CheckDialog = dynamic(() => import("./components/dialog/CheckDialog"));
 import {
     useRouter
 } from 'next/navigation';

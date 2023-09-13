@@ -16,8 +16,9 @@ import {
     Close
 } from "@mui/icons-material";
 import LpLogger from "lp-logger";
-import InputDialog from "../../components/dialog/InputDialog";
-import AlertDialog from "../../components/dialog/AlertDialog";
+import dynamic from 'next/dynamic';
+const InputDialog = dynamic(() => import("../../components/dialog/InputDialog"));
+const AlertDialog = dynamic(() => import("../../components/dialog/AlertDialog"));
 import Snackbar from "../../components/snackbar/up";
 var logger = new LpLogger({
     name: I18N.get('翻转'),

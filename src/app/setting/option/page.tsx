@@ -25,7 +25,8 @@ import {
 import {
     stringifyCheck
 } from "../Switcher";
-import PureDialog from "../../components/dialog/PureDialog";
+import dynamic from 'next/dynamic';
+const PureDialog = dynamic(() => import("../../components/dialog/PureDialog"));
 export type options = [string, string, stringifyCheck];
 export default function Options() {
     var [lang, setLang] = useState<string>(""),

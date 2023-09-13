@@ -9,7 +9,8 @@ import {
     TextField
 } from "@mui/material";
 import style from "./ShaiZi.module.scss";
-import FullScreenDialog from "../../components/dialog/FullScreenDialog";
+import dynamic from 'next/dynamic';
+const FullScreenDialog = dynamic(() => import("../../components/dialog/FullScreenDialog"));
 import {
     ShaiZiCanvas
 } from "./shaiziCanvas";

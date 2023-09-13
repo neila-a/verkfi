@@ -11,7 +11,8 @@ import I18N from "react-intl-universal";
 import {
     useState
 } from "react";
-import PureDialog from "../components/dialog/PureDialog";
+import dynamic from 'next/dynamic';
+const PureDialog = dynamic(() => import("../components/dialog/PureDialog"));
 import TransferList from "../components/TransferList";
 import {
     lists

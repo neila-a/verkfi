@@ -8,8 +8,9 @@ import {
     useState,
     Fragment
 } from "react";
-import InputDialog from "../../components/dialog/InputDialog";
-import AlertDialog from "../../components/dialog/AlertDialog";
+import dynamic from 'next/dynamic';
+const InputDialog = dynamic(() => import("../../components/dialog/InputDialog"));
+const AlertDialog = dynamic(() => import("../../components/dialog/AlertDialog"));
 import style from "./CountLetter.module.scss"
 var logger = new LpLogger({
     name: "CountLetter",

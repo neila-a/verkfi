@@ -12,7 +12,8 @@ import {
     FC,
     ReactNode
 } from "react";
-import CheckDialog from "../../components/dialog/CheckDialog";
+import dynamic from 'next/dynamic';
+const CheckDialog = dynamic(() => import("../../components/dialog/CheckDialog"));
 import getSettingsSur from "../getSettingsSur";
 import getSettingsUsed from "../getSettingsUsed";
 import {

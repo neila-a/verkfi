@@ -31,7 +31,8 @@ import {
 } from "@emotion/react";
 import Index from '../../page';
 import stringToBoolean from "../../setting/stringToBoolean";
-import PureDialog from "../dialog/PureDialog";
+import dynamic from 'next/dynamic';
+const PureDialog = dynamic(() => import("../dialog/PureDialog"));
 var logger = new LpLogger({
 	name: "HeadBar",
 	level: "log", // 空字符串时，不显示任何信息

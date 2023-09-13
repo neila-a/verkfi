@@ -37,8 +37,9 @@ import {
     locales
 } from '../layoutClient';
 export type lists = [string, string[]][];
-import EditToolsListDialog from "./EditToolsListDialog";
-import CheckDialog from '../components/dialog/CheckDialog';
+import dynamic from 'next/dynamic';
+const EditToolsListDialog = dynamic(() => import("./EditToolsListDialog"));
+const CheckDialog = dynamic(() => import("../components/dialog/CheckDialog"));
 import setSetting from '../setting/setSetting';
 export default function Sidebar(props: {
     /**

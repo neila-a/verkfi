@@ -22,8 +22,8 @@ import {
 import {
     lists
 } from "./Sidebar";
-import EditToolsListDialog from "./EditToolsListDialog";
-import CheckDialog from "../components/dialog/CheckDialog";
+import dynamic from 'next/dynamic';
+const EditToolsListDialog = dynamic(() => import("./EditToolsListDialog"));
 import setSetting from "../setting/setSetting";
 export default function Buttons(props: {
     viewMode: viewMode;

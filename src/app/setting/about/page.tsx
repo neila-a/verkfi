@@ -26,7 +26,8 @@ import {
 import getCache from '../getCache';
 import getSettingsSur from '../getSettingsSur';
 import getSettingsUsed from '../getSettingsUsed';
-import PureDialog from '../../components/dialog/PureDialog';
+import dynamic from 'next/dynamic';
+const PureDialog = dynamic(() => import("../../components/dialog/PureDialog"));
 interface singleAbout {
     icon: OverridableComponent<SvgIconTypeMap<{}, "svg">> & {
         muiName: string
