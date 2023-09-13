@@ -10,9 +10,6 @@ import {
 import {
     ExitToApp as ExitToAppIcon
 } from "@mui/icons-material";
-import {
-    components as ToolComponents
-} from "../tools/components";
 import Style from "../styles/Index.module.scss";
 import {
     tool
@@ -112,7 +109,7 @@ export default function SingleTool(props: {
                                     setJumpName(tool.name);
                                 } else {
                                     value.set([...value.windows, {
-                                        Component: ToolComponents[tool.to],
+                                        page: `/tools/${tool.to}?only`,
                                         to: `/tools/${tool.to}`,
                                         name: tool.name,
                                         id: Math.random().toString().replace(/0\./g, "")

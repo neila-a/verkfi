@@ -31,7 +31,7 @@ var logger = new LpLogger({
     level: "log", // 空字符串时，不显示任何信息
 });
 export type status = "recording" | "paused" | "inactive";
-export default function AudioTools(): JSX.Element {
+function AudioTools(): JSX.Element {
     var [loopAudioSrc, setLoopAudioSrc] = useState<string>(""),
         [loopSpeakAudioSrc, setLoopSpeakAudioSrc] = useState<string>(""),
         [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | "awaqwq">("awaqwq"),
@@ -134,3 +134,4 @@ export default function AudioTools(): JSX.Element {
         </>
     );
 };
+export default AudioTools;

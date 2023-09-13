@@ -18,9 +18,6 @@ import {
     Toolbar
 } from "@mui/material";
 import I18N from "react-intl-universal";
-import {
-    components as tools
-} from "./components"
 import lpLogger from "lp-logger";
 import stringToBoolean from "../setting/stringToBoolean";
 import checkOption from "../setting/checkOption";
@@ -36,7 +33,6 @@ export default function ToolFinder(props: {
     children: ReactNode;
 }): JSX.Element {
     var only = false,
-        Tool: FC,
         toolsInfo = getTools(I18N),
         [color, setColor] = useState<boolean>(() => {
             const mode = stringToBoolean(checkOption("color", "多彩主页", "true"));
@@ -49,12 +45,6 @@ export default function ToolFinder(props: {
         searchParams = useSearchParams(),
         router = useRouter();
     logger.info(`toolID为${toolID}`);
-    toolsInfo.forEach(si => {
-        if (((tools[si.to] as FC) != undefined) && (si.to == toolID) && !si.isGoto) {
-            Tool = tools[si.to];
-            logger.info("<Tool />为", Tool);
-        }
-    });
     if (searchParams.has("handle")) {
         let id = searchParams.get("handle").replace(/web\+neilatools:\/\//g, "");
         router.push(id);

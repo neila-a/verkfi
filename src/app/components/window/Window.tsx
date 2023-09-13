@@ -29,14 +29,13 @@ import {
 export interface WindowOptions {
     to: string;
     name: string;
-    Component: () => JSX.Element;
+    page: string;
     id: string;
     sx?: CSSProperties;
 }
 export default function Window(props: WindowOptions): JSX.Element {
     const {
-        id,
-        Component
+        id
     } = props,
         theme = useTheme();
     var realSx: CSSProperties = {};
@@ -46,12 +45,17 @@ export default function Window(props: WindowOptions): JSX.Element {
     }
     var [open, setOpen] = useState<boolean>(true),
         nodeRef = useRef<HTMLDivElement>(null),
+        [size, setSize] = useState<[number, number]>([50, 50]), /* height, width */
         [extended, setExtended] = useState<boolean>(false),
         [type, setType] = useState<"normal" | "min">("normal");
+    const sizeStyle: CSSProperties = {
+        height: `${size[0]}vh`,
+        width: `${size[1]}vw`
+    };
     return open && (
         <article>
             <Draggable handle={`#title${id}`} cancel={`[class*="context${id}"]`} allowAnyClick nodeRef={nodeRef} defaultClassName={style["top0"]}>
-                <div className={style["outer"]} ref={nodeRef}>
+                <div className={style["outer"]} ref={nodeRef} style={sizeStyle}>
                     <div className={style["top"]} style={realSx}>
                         <div className={style["title"]} id={`title${id}`}>
                             <Typography variant="subtitle1">
@@ -80,14 +84,10 @@ export default function Window(props: WindowOptions): JSX.Element {
                         )}
                     </div>
                     <Divider />
-                    <Box sx={{
-                        p: 3,
-                        zIndex: 38602,
-                        display: type === "min" ? "none" : "",
-                        backgroundColor: theme.palette.mode === "dark" ? "#000000" : "#ffffff"
-                    }} id={`context${id}`}>
-                        <Component />
-                    </Box>
+                    <iframe style={{
+                        border: "none",
+                        ...sizeStyle
+                    }} src={props.page} />
                 </div>
             </Draggable>
         </article>
