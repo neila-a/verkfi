@@ -9,29 +9,22 @@ import {
     FormControlLabel,
     Switch,
     TextField,
-    Button
+    Button,
+    Snackbar
 } from "@mui/material";
-import LpLogger from "lp-logger";
 import dynamic from 'next/dynamic';
+import calc from './generatePis';
 const AlertDialog = dynamic(() => import("../../components/dialog/AlertDialog"));
-var logger = new LpLogger({
-    name: I18N.get('π计算器'),
-    level: "log", // 空字符串时，不显示任何信息
-});
-const pi = require("pi");
+import {
+    logger
+} from './consts';
 function PI(): JSX.Element {
     var [weishu, setWeishu] = useState<number>(1),
         [useAlertShow, setUseAlertShow] = useState<boolean>(false),
         [showInfoDialog, setShowInfoDialog] = useState<boolean>(false),
+        [showCopyDoneDialog, setShowCopyDoneDialog] = useState<boolean>(false),
         [dialogInfo, setDialogInfo] = useState<string>(""),
         [out, setOut] = useState("");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    function calc(ws: number): string {
-        logger.log(`位数是：${ws}`);
-        const ret: string = String(pi(ws));
-        logger.log(`结果是：${ret}`);
-        return (ret);
-    }
     function proc(ws: number) {
         const retinfo: string = calc(ws);
         switch (useAlertShow) {
@@ -46,37 +39,9 @@ function PI(): JSX.Element {
     };
     return (
         <>
-            <br />
-            <style jsx>{`/*
-                body {
-                    border-radius: 100px;
-                    border: 1px solid;
-                    height: {{ window.screen.availHeight }}px;
-                }*/
-                #outendwm {
-                    word-wrap: break-word;
-                    word-break: break-all;
-                    overflow: hidden;
-                }
-                h3 {
-                    text-align: center;
-                    font-family: Cambria;
-                }
-                h2 {
-                    padding-left: 1%;
-                }
+            <style jsx>{`
                 div#input > *, #isUseAlertShow, #outendwm {
                     margin-left: 2%;
-                }
-                button {
-                    background-color: #3399ff;
-                    border-color: #3399ff;
-                    border-radius: 100px;
-                    color: #ffffff;
-                }
-                button:hover {
-                    background-color: #ffffff;
-                    color: #000000;
                 }
                 div#out {
                     margin-bottom: 50px;
@@ -110,19 +75,23 @@ function PI(): JSX.Element {
                     display: "inline-block"
                 }} onClick={() => {
                     navigator.clipboard.writeText(out).then(() => {
-                        setDialogInfo("已把结果复制到剪贴板。");
-                        setShowInfoDialog(true);
+                        setShowCopyDoneDialog(true);
                         logger.log("已把结果复制到剪贴板。");
                     }).catch(error => {
                         setDialogInfo(`复制结果时出现问题，报错：${error}`);
                         logger.error(`糟糕！出错了：${error}`);
                     });
                 }}>{I18N.get('复制')}</Button>
-                <Typography variant="body1" id="outendwm" gutterBottom>{I18N.get('π是：')}{out}</Typography>
+                <Typography variant="body1" sx={{
+                    wordBreak: "break-all"
+                }} gutterBottom>{I18N.get('π是：')}{out}</Typography>
             </div>
             {showInfoDialog && <AlertDialog title={I18N.get('提示')} description={dialogInfo} onDone={() => {
                 setShowInfoDialog(false);
             }} />}
+            <Snackbar open={showCopyDoneDialog} message={I18N.get('已把结果复制至剪贴板。')} onClose={() => {
+                setShowCopyDoneDialog(false);
+            }} />
         </>
     );
 };
