@@ -3,6 +3,7 @@ import {
     devVersion,
     dev
 } from "../../package.json";
+import pages from "./pages.json";
 /* const toolsTo = [
     "audiotools",
     "countletter",
@@ -17,7 +18,6 @@ import {
 declare let self: ServiceWorkerGlobalScope;
 export const Cache = `NeilaTools-${version}-${dev == true ? `dev${devVersion}` : "prod"}`, // C
     log = (text: string) => console.log(`%cServiceWorker`, `background: #52c41a;border-radius: 0.5em;color: white;font-weight: bold;padding: 2px 0.5em`, text),
-    installStaticFiles = () => caches.open(Cache).then(cache => cache.addAll(installFilesEssential).catch(console.error)), // install static assets
     clearOldCaches = async () => {
         const keylist = await caches.keys();
         return await Promise.all(keylist.filter(key => {
@@ -27,17 +27,17 @@ export const Cache = `NeilaTools-${version}-${dev == true ? `dev${devVersion}` :
             return caches.delete(key_1);
         }));
     },
-    installFilesEssential: `/${Lowercase<string>}`[] = [
-        '/',
-        '/settings',
+    installFilesEssential: string[] = [
         '/index.webmanifest',
         '/image/favicon.png'
-    ];
+    ].concat(pages);
 log(`版本为${Cache}`);
-self.addEventListener('install', event => {
-    event.waitUntil(installStaticFiles().then(() => {
-        return self.skipWaiting();
-    }));
+self.addEventListener('install', async event => {
+    const installStaticFiles = async () => {
+        const cachea = await caches.open(Cache);
+        cachea.addAll(installFilesEssential).catch(console.error);
+    };
+    event.waitUntil(installStaticFiles().then(() => self.skipWaiting()));
 });
 self.addEventListener('activate', event => {
     return event.waitUntil(clearOldCaches().then(() => {

@@ -1,7 +1,7 @@
 {
     "name": "neilatools",
     "version": "1.5.2",
-    "devVersion": "645",
+    "devVersion": "646",
     "dev": true,
     "description": "Platform for Neila's something useless tools.",
     "private": true,
@@ -16,16 +16,16 @@
         "url": "https://neilasite.netlify.app/"
     },
     "scripts": {
-        "dev": "npm run modifyPackage && npm run ready && next dev --turbo",
-        "build": "npm run ready && next build",
+        "dev": "npm run predev && next dev",
+        "precommon": "npm run build:nc && npm run build:sw",
+        "prebuild": "npm run build:mp && node prebuild.js && rm prebuild.js && npm run precommon",
+        "build": "next build",
+        "predev": "npm run build:mp && node prebuild.js dev && rm prebuild.js && npm run precommon",
         "start": "next start",
         "lint": "next lint",
-        "ready": "npm run builds",
-        "builds": "npm run build:nc && npm run build:sw",
         "build:sw": "esbuild src/app/service-worker.ts --bundle --minify > public/service-worker.js",
         "build:nc": "esbuild next.config.ts --bundle --minify > next.config.js",
-        "build:mp": "esbuild modifyPackage.ts --bundle --minify --platform=node > modifyPackage.js",
-        "modifyPackage": "npm run build:mp && node modifyPackage.js && rm modifyPackage.js"
+        "build:mp": "esbuild prebuild.ts --bundle --minify --platform=node > prebuild.js"
     },
     "dependencies": {
         "@emotion/react": "^11.11.1",

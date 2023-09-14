@@ -23,4 +23,23 @@ async function main() {
     fs.writeFileSync("package.json", JSON.stringify(oldPackage, null, 4));
     return oldPackage;
 }
-main();
+if (process.argv[2] === "dev") {
+    main();
+}
+var pages = ChildProcess.execSync(`find ./src/app -name '*page.tsx'`).toString().replaceAll("./src/app", "").replaceAll("page.tsx", "").split("\n");
+pages.forEach((single, index) => {
+    if (single !== "/") {
+        pages[index] = pages[index].substr(0, pages[index].length - 1);
+    }
+});
+pages.forEach((single, index) => {
+    if (single === "/handle") {
+        pages.splice(index, 1);
+    }
+});
+pages.forEach((single, index) => {
+    if (single === "") {
+        pages.splice(index, 1);
+    }
+});
+fs.writeFileSync("src/app/pages.json", JSON.stringify(pages, null, 4));
