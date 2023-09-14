@@ -1,7 +1,7 @@
 {
     "name": "NeilaTools",
     "short_name": "NeilaTools",
-    "description": "Neila 的一些没用小工具。",
+    "description": "Platform for Neila's something useless tools.",
     "start_url": "/",
     "display": "fullscreen",
     "orientation": "any",
