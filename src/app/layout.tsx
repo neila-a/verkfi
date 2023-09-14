@@ -45,6 +45,9 @@ export async function generateMetadata() {
     }) as Metadata;
 }
 import {
+    Analytics
+} from '@vercel/analytics/react';
+import {
     CssBaseline
 } from "@mui/material";
 import '@fontsource/ubuntu/300.css';
@@ -85,6 +88,7 @@ export default async function Layout({
                         </WindowsProvider>
                     </div>
                 </main>
+                <Analytics />
             </body>
         </html>
     )
