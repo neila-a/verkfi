@@ -22,8 +22,6 @@ import {
     getTools,
     tool
 } from "./tools/info";
-import dynamic from 'next/dynamic';
-const CheckDialog = dynamic(() => import("./components/dialog/CheckDialog"));
 import {
     useRouter
 } from 'next/navigation';
@@ -44,21 +42,20 @@ export default function Index(props: {
     /**
      * 是否为嵌入
      */
-    isImplant?: boolean;
+    isImplant: boolean;
     /**
      * 搜索内容
      */
-    searchText?: string;
+    children: string;
 }): JSX.Element {
     const searchParams = useSearchParams(),
-        Router = useRouter();
-    /**
-     * 包装过的getToolsList
-     * @returns 经过排序的工具列表
-     */
-    const wrappedGetToolsList = () => {
-        return getToolsList(realTools);
-    }
+        /**
+         * 包装过的getToolsList
+         * @returns 经过排序的工具列表
+         */
+        wrappedGetToolsList = () => {
+            return getToolsList(realTools);
+        }
     var realTools = getTools(I18N),
         [darkMode, setDarkMode] = useState<boolean>(() => {
             const mode = stringToBoolean(checkOption("darkmode", "暗色模式", "false"));
@@ -71,9 +68,6 @@ export default function Index(props: {
             return mode || "grid";
         }),
         [editMode, setEditMode] = useState<boolean>(false),
-        [jumpto, setJumpTo] = useState<string>(realTools[11].to),
-        [jumpName, setJumpName] = useState<string>(realTools[11].name),
-        [jumpDialogOpen, setJumpDialogOpen] = useState<boolean>(false),
         [tools, setTools] = useState(wrappedGetToolsList),
         [sortingFor, setSortingFor] = useState<string>("__global__");
     useEffect(() => {
@@ -106,9 +100,9 @@ export default function Index(props: {
         editMode
     ]);
     useEffect(() => {
-        if (props.isImplant && props.searchText) {
-            setSearchText(props.searchText);
-            searchTools(props.searchText);
+        if (props.isImplant) {
+            setSearchText(props.children);
+            searchTools(props.children);
         } else if (searchParams.has("searchText")) {
             const paramText = searchParams.get("searchText");
             setSearchText(paramText);
@@ -153,18 +147,10 @@ export default function Index(props: {
                             darkMode={darkMode}
                             viewMode={viewMode}
                             setTools={setTools}
-                            setJumpDialogOpen={setJumpDialogOpen}
-                            setJumpName={setJumpName}
-                            setJumpTo={setJumpTo}
                             editMode={editMode}
                         />
                     ))}
                 </Stack>
-                {jumpDialogOpen ? <CheckDialog description={`${I18N.get("确定离开NeilaTools并跳转至")}${jumpName}？`} title={I18N.get('离开NeilaTools')} onTrue={() => {
-                    Router.push(jumpto);
-                }} onFalse={() => {
-                    setJumpDialogOpen(false);
-                }} /> : <Fragment /> /* 跳转对话框容器 */}
             </Box>
         </>
     );

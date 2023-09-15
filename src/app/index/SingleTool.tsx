@@ -1,5 +1,6 @@
 "use client";
 import React, {
+    Fragment,
     useState
 } from 'react';
 import {
@@ -27,6 +28,8 @@ import {
     setState
 } from '../declare';
 import styled from '@emotion/styled';
+import dynamic from 'next/dynamic';
+const CheckDialog = dynamic(() => import("../components/dialog/CheckDialog"));
 import {
     drawerWidth
 } from '../setting/consts';
@@ -36,15 +39,13 @@ import {
 } from '../layoutClient';
 import stringToBoolean from "../setting/stringToBoolean";
 import checkOption from '../setting/checkOption';
+import I18N from "react-intl-universal";
 export default function SingleTool(props: {
     tool: tool;
     darkMode: boolean;
     viewMode: viewMode;
     setTools: setState<tool[]>;
     editMode: boolean;
-    setJumpDialogOpen: setState<boolean>;
-    setJumpTo: setState<string>;
-    setJumpName: setState<string>;
     sortingFor: string;
 }) {
     const {
@@ -52,9 +53,6 @@ export default function SingleTool(props: {
         viewMode,
         editMode,
         setTools,
-        setJumpDialogOpen,
-        setJumpTo,
-        setJumpName,
         sortingFor
     } = props,
         ToolIcon = tool.icon,
@@ -75,13 +73,22 @@ export default function SingleTool(props: {
             }
             return true;
         }),
+        [jumpto, setJumpTo] = useState<string>(""),
+        [jumpName, setJumpName] = useState<string>(""),
+        [jumpDialogOpen, setJumpDialogOpen] = useState<boolean>(false),
         ToolTypography = styled(Typography)(({
             theme
         }) => ({
             wordBreak: "break-all",
             color: color ? "#000000" : ""
         }));
-    const fullWidth = screenWidth - 24 - drawerWidth;
+    const fullWidth = screenWidth - 24 - drawerWidth,
+        buttonOptions = {
+            editMode: editMode,
+            setTools: setTools,
+            tool: tool,
+            sortingFor: sortingFor
+        };
     return (
         <div key={tool.to}> {/* 单个工具 */}
             <windows.Consumer>
@@ -124,10 +131,10 @@ export default function SingleTool(props: {
                                     </div>
                                     <div>
                                         <ToolTypography variant="h5">
-                                            <DownButton editMode={editMode} setTools={setTools} tool={tool} sortingFor={sortingFor} />
+                                            <DownButton {...buttonOptions} />
                                             {tool.isGoto ? <ExitToAppIcon /> : <></>}
                                             {tool.name}
-                                            <UpButton editMode={editMode} setTools={setTools} tool={tool} sortingFor={sortingFor} />
+                                            <UpButton {...buttonOptions} />
                                         </ToolTypography>
                                         <ToolTypography {...subStyle} variant="body2">
                                             {tool.desc}
@@ -151,8 +158,8 @@ export default function SingleTool(props: {
                                         </div>
                                     </div>
                                     <div>
-                                        <DownButton editMode={editMode} setTools={setTools} tool={tool} sortingFor={sortingFor} />
-                                        <UpButton editMode={editMode} setTools={setTools} tool={tool} sortingFor={sortingFor} />
+                                        <DownButton {...buttonOptions} />
+                                        <UpButton {...buttonOptions} />
                                     </div>
                                 </>}
                             </div>
@@ -160,6 +167,11 @@ export default function SingleTool(props: {
                     </Card>
                 )}
             </windows.Consumer>
+            {jumpDialogOpen ? <CheckDialog description={`${I18N.get("确定离开NeilaTools并跳转至")}${jumpName}？`} title={I18N.get('离开NeilaTools')} onTrue={() => {
+                Router.push(jumpto);
+            }} onFalse={() => {
+                setJumpDialogOpen(false);
+            }} /> : <Fragment /> /* 跳转对话框容器 */}
         </div>
     );
 }

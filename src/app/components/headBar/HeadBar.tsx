@@ -29,10 +29,10 @@ import MouseOverPopover from "../Popover";
 import {
 	Theme
 } from "@emotion/react";
-import Index from '../../page';
 import stringToBoolean from "../../setting/stringToBoolean";
 import dynamic from 'next/dynamic';
 const PureDialog = dynamic(() => import("../dialog/PureDialog"));
+const Index = dynamic(() => import("../../page"));
 var logger = new LpLogger({
 	name: "HeadBar",
 	level: "log", // 空字符串时，不显示任何信息
@@ -158,7 +158,9 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 			setShowSearchTool(false);
 		}}>
 			<ErrorBoundary>
-				<Index isImplant searchText={searchText} />
+				<Index isImplant>
+					{searchText}
+				</Index>
 			</ErrorBoundary>
 		</PureDialog>}
 	</>;
