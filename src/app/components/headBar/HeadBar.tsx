@@ -1,3 +1,4 @@
+"use client";
 import I18N from 'react-intl-universal';
 import {
 	AppBar,
@@ -48,7 +49,7 @@ import checkOption from '../../setting/checkOption';
 import setOption from '../../setting/setOption';
 export interface HeadBarOption {
 	pageName: string;
-	isIndex: boolean;
+	isIndex?: boolean;
 	only?: boolean;
 	sx?: SxProps<Theme>;
 };
@@ -60,6 +61,9 @@ export interface HeadBarOption {
  * @param {SxProps<Theme>} sx 添加的样式
  */
 export default function HeadBar(props: HeadBarOption): JSX.Element {
+	const {
+		isIndex = false
+	} = props;
 	var [forkMeOnGitHub, setForkMeOnGithub] = useState(() => {
 		const option = checkOption("fork-me-on-github", "Fork me on GitHub", "false");
 		return option || "false"

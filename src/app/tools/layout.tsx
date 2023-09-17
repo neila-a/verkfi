@@ -5,11 +5,11 @@ import {
     useSelectedLayoutSegment
 } from "next/navigation";
 import {
-    FC,
     ReactNode,
-    useState
+    useState,
+    useContext,
+    useEffect
 } from "react";
-import HeadBar from "../components/headBar/HeadBar";
 import {
     getTools
 } from "./info";
@@ -23,6 +23,7 @@ import stringToBoolean from "../setting/stringToBoolean";
 import checkOption from "../setting/checkOption";
 import getToolColor from "./getToolColor";
 import {
+    Metadata,
     isBrowser
 } from "../layoutClient";
 var logger = new lpLogger({
@@ -53,19 +54,26 @@ export default function ToolFinder(props: {
         only = true;
     }
     const toolColor = color ? getToolColor(toolsInfo, toolID) : "";
-    return (
-        <>
-            <HeadBar isIndex={false} pageName={(() => {
+    const metaData = useContext(Metadata);
+    useEffect(() => {
+        metaData.set({
+            pageName: (() => {
                 var name: string;
                 toolsInfo.forEach(si => {
                     if (si.to == toolID) name = si.name;
                 });
                 if (name == "") return I18N.get("未找到工具");
                 return name;
-            })()} only={only} sx={{
+            })(),
+            only,
+            sx: {
                 backgroundImage: toolColor,
                 color: color ? "#000000" : ""
-            }} />
+            }
+        });
+    }, []);
+    return (
+        <>
             {!only && <Toolbar />}
             <Box sx={{
                 p: 3,

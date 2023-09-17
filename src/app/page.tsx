@@ -3,6 +3,7 @@ import I18N from 'react-intl-universal';
 import HeadBar from "./components/headBar/HeadBar";
 import {
     Fragment,
+    useContext,
     useEffect,
     useState
 } from 'react';
@@ -22,9 +23,6 @@ import {
     getTools,
     tool
 } from "./tools/info";
-import {
-    useRouter
-} from 'next/navigation';
 import setSetting from "./setting/setSetting";
 import stringToBoolean from "./setting/stringToBoolean";
 import {
@@ -38,15 +36,16 @@ import {
     viewMode,
     logger
 } from './index/consts';
+import { Metadata } from './layoutClient';
 export default function Index(props: {
     /**
      * 是否为嵌入
      */
-    isImplant: boolean;
+    isImplant?: boolean;
     /**
      * 搜索内容
      */
-    children: string;
+    children?: string;
 }): JSX.Element {
     const searchParams = useSearchParams(),
         /**
@@ -114,11 +113,18 @@ export default function Index(props: {
             setEditMode(false);
         }
     }, [searchText]); // 自动更新searchText
+    useContext(Metadata).set(props.isImplant !== true ? {
+        isIndex: true,
+        pageName: "NeilaTools",
+        sx: {
+            zIndex: theme => (theme as ThemeHaveZIndex).zIndex.drawer + 1
+        }
+    } : {
+        pageName: "NeilaTools",
+        only: true
+    });
     return (
         <>
-            {props.isImplant != true && <HeadBar isIndex pageName="NeilaTools" sx={{
-                zIndex: theme => (theme as ThemeHaveZIndex).zIndex.drawer + 1
-            }} />}
             <Sidebar
                 isImplant={props.isImplant}
                 viewMode={viewMode}

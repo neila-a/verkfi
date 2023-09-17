@@ -36,6 +36,9 @@ import {
 import {
     WindowOptions
 } from "./components/window/Window";
+import type {
+    HeadBarOption
+} from "./components/headBar/HeadBar";
 export const windows = createContext<{
     windows: WindowOptions[];
     set: setState<WindowOptions[]>;
@@ -53,7 +56,29 @@ export function WindowsProvider(props: {
         </windows.Provider>
     );
 }
-export default function ModifiedApp(props) {
+export const Metadata = createContext<{
+    value: HeadBarOption,
+    set: setState<HeadBarOption>
+}>(null);
+export function MetadataProvider(props: {
+    children: ReactNode
+}) {
+    var [real, setReal] = useState<HeadBarOption>({
+        pageName: "NeilaTools"
+    });
+    return (
+        <Metadata.Provider value={{
+            value: real,
+            set: setReal
+        }}>
+            {props.children}
+        </Metadata.Provider>
+    );
+}
+import HeadBar from "./components/headBar/HeadBar";
+export default function ModifiedApp(props: {
+    children: ReactNode
+}) {
     const [mode, setMode] = useState<colorMode>(() => {
         const mightMode = checkOption("darkmode", "暗色模式", "false");
         var realMode: colorMode;
@@ -138,13 +163,18 @@ export default function ModifiedApp(props) {
         }
     }, []);
     return initDone && (
-        <div style={{
-            backgroundColor: theme.palette.mode === "dark" ? "#000000" : "#ffffff"
-        }}>
-            <ThemeProvider theme={theme}>
-                {props.children}
-                <WindowContainer />
-            </ThemeProvider>
-        </div>
+        <>
+            <Metadata.Consumer>
+                {metaData => <HeadBar {...metaData.value} />}
+            </Metadata.Consumer>
+            <div style={{
+                backgroundColor: theme.palette.mode === "dark" ? "#000000" : "#ffffff"
+            }}>
+                <ThemeProvider theme={theme}>
+                    {props.children}
+                    <WindowContainer />
+                </ThemeProvider>
+            </div>
+        </>
     );
 }

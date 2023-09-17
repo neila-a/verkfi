@@ -62,6 +62,7 @@ import {
 import Loading from "./loading";
 import "./styles/App.scss";
 import BaseLayout, {
+    MetadataProvider,
     WindowsProvider
 } from "./layoutClient";
 export default async function Layout({
@@ -81,11 +82,13 @@ export default async function Layout({
                 <main>
                     <CssBaseline />
                     <div className={style["fullHeight"]}>
-                        <WindowsProvider>
-                            <BaseLayout>
-                                {children}
-                            </BaseLayout>
-                        </WindowsProvider>
+                        <MetadataProvider>
+                            <WindowsProvider>
+                                <BaseLayout>
+                                    {children}
+                                </BaseLayout>
+                            </WindowsProvider>
+                        </MetadataProvider>
                     </div>
                 </main>
                 <Analytics />

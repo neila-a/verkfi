@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import HeadBar from "../components/headBar/HeadBar";
 import {
-	ReactNode
+	ReactNode, useContext, useEffect
 } from "react";
 import {
 	Handyman as HandyManIcon,
@@ -37,6 +37,9 @@ import ErrorBoundary from '../components/ErrorBoundary';
 import {
 	useRouter
 } from 'next/navigation';
+import {
+	Metadata
+} from '../layoutClient';
 export default function Settings(props: {
 	children: ReactNode
 }): JSX.Element {
@@ -57,12 +60,18 @@ export default function Settings(props: {
 			Icon: ReplayIcon
 		}
 	],
-		router = useRouter();
+		router = useRouter(),
+		metadata = useContext(Metadata);
+	useEffect(() => {
+		metadata.set({
+			pageName: I18N.get('设置'),
+			sx: {
+				zIndex: theme => (theme as ThemeHaveZIndex).zIndex.drawer + 1
+			}
+		});
+	}, []);
 	return (
 		<>
-			<HeadBar isIndex={false} pageName={I18N.get('设置')} sx={{
-				zIndex: theme => (theme as ThemeHaveZIndex).zIndex.drawer + 1
-			}} />
 			<nav>
 				<Drawer variant="permanent" sx={{
 					width: drawerWidth,

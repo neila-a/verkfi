@@ -5,7 +5,8 @@ const nextConfig: NextConfig = {
 	reactStrictMode: true,
 	devIndicators: {
 		buildActivityPosition: 'bottom-right',
-	}
+	},
+	compress: true
 }
 
 module.exports = nextConfig;
