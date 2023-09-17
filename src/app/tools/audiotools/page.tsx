@@ -23,7 +23,6 @@ import FilePondPluginImageCrop from 'filepond-plugin-image-crop'; // Import the 
 import {
     FilePondFile
 } from "filepond";
-import 'filepond/dist/filepond.min.css'; // Import FilePond styles
 import style from "./AudioTools.module.scss";
 import LpLogger from "lp-logger";
 var logger = new LpLogger({

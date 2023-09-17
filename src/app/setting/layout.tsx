@@ -18,7 +18,8 @@ import {
 	Handyman as HandyManIcon,
 	Settings as SettingsIcon,
 	Info as InfoIcon,
-	Replay as ReplayIcon
+	Replay as ReplayIcon,
+	Extension as ExtensionIcon
 } from "@mui/icons-material";
 import {
 	drawerWidth
@@ -55,6 +56,11 @@ export default function Settings(props: {
 			name: I18N.get('重置'),
 			id: "reset",
 			Icon: ReplayIcon
+		},
+		{
+			name: I18N.get('扩展'),
+			id: "extendeds",
+			Icon: ExtensionIcon
 		}
 	],
 		router = useRouter();

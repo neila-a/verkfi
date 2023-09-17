@@ -17,7 +17,7 @@ class ClassedDexie extends Dexie {
     constructor() {
         super(dbName);
         this.version(1).stores({
-            [dbName]: '++id, name, desc, to, icon, color, file' // Primary key and indexed props
+            [dbName]: 'to, name, desc, to, icon, color, file' // Primary key and indexed props
         });
     }
 }

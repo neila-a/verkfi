@@ -121,16 +121,6 @@ export default function Sidebar(props: {
             </div>
         );
     }
-    useEffect(() => {
-        db.extendedTools.add({
-            name: "foo bar",
-            to: "foobar",
-            desc: "Foo bar.",
-            icon: "/image/favicon.png",
-            color: ["FFFFFF", "FFFFFF"],
-            file: "<p> A Foobar Extension! SssSss </p>"
-        });
-    }, []);
     return (
         <Drawer variant="permanent" sx={{
             maxWidth: drawerWidth,

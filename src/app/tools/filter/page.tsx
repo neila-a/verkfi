@@ -20,7 +20,6 @@ import FilePondPluginImageResize from 'filepond-plugin-image-resize'; // Import 
 import FilePondPluginImageEdit from 'filepond-plugin-image-edit'; // Import the plugin code
 import 'filepond-plugin-image-edit/dist/filepond-plugin-image-edit.css'; // Import the plugin styles
 import FilePondPluginImageCrop from 'filepond-plugin-image-crop'; // Import the plugin code
-import 'filepond/dist/filepond.min.css'; // Import FilePond styles
 import style from "./Filter.module.scss";
 import {
     Grid,
