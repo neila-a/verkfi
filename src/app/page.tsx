@@ -42,11 +42,11 @@ export default function Index(props: {
     /**
      * 是否为嵌入
      */
-    isImplant: boolean;
+    isImplant?: boolean;
     /**
      * 搜索内容
      */
-    children: string;
+    children?: string;
 }): JSX.Element {
     const searchParams = useSearchParams(),
         /**
