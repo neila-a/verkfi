@@ -102,18 +102,26 @@ export default function SingleTool(props: {
                             <div className={viewMode == "list" ? Style["singleList"] : ""} onClick={() => {
                                 logger.info(`点击了${tool.name}`);
                                 if (tool.isGoto) {
-                                    setJumpDialogOpen(true);
-                                    setJumpTo(tool.to);
-                                    setJumpName(tool.name);
+                                    if (tool.to.startsWith("/extendedTools")) {
+                                        Router.push(tool.to);
+                                    } else {
+                                        setJumpDialogOpen(true);
+                                        setJumpTo(tool.to);
+                                        setJumpName(tool.name);
+                                    }
                                 } else {
                                     Router.push(`/tools/${tool.to}`);
                                 }
                             }} onContextMenu={event => {
                                 event.preventDefault();
                                 if (tool.isGoto) {
-                                    setJumpDialogOpen(true);
-                                    setJumpTo(tool.to);
-                                    setJumpName(tool.name);
+                                    if (tool.to.startsWith("/extendedTools")) {
+                                        Router.push(tool.to);
+                                    } else {
+                                        setJumpDialogOpen(true);
+                                        setJumpTo(tool.to);
+                                        setJumpName(tool.name);
+                                    }
                                 } else {
                                     value.set([...value.windows, {
                                         page: `/tools/${tool.to}?only`,
@@ -132,7 +140,7 @@ export default function SingleTool(props: {
                                     <div>
                                         <ToolTypography variant="h5">
                                             <DownButton {...buttonOptions} />
-                                            {tool.isGoto ? <ExitToAppIcon /> : <></>}
+                                            {(tool.isGoto && !tool.to.startsWith("/extendedTools")) ? <ExitToAppIcon /> : <></>}
                                             {tool.name}
                                             <UpButton {...buttonOptions} />
                                         </ToolTypography>
@@ -149,7 +157,7 @@ export default function SingleTool(props: {
                                         </div>
                                         <div>
                                             <ToolTypography variant="h5">
-                                                {tool.isGoto ? <ExitToAppIcon /> : <></>}
+                                                {(tool.isGoto && !tool.to.startsWith("/extendedTools")) ? <ExitToAppIcon /> : <></>}
                                                 {tool.name}
                                             </ToolTypography>
                                             <ToolTypography {...subStyle} variant="body2">

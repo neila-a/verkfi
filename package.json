@@ -1,7 +1,7 @@
 {
     "name": "neila-tools",
     "version": "1.5.2",
-    "devVersion": "652",
+    "devVersion": "653",
     "dev": true,
     "description": "Platform for Neila's something useless tools.",
     "private": true,
@@ -37,6 +37,8 @@
         "@mui/styled-engine-sc": "^5.14.9",
         "@mui/system": "^5.14.9",
         "@vercel/analytics": "^1.0.2",
+        "dexie": "^3.2.4",
+        "dexie-react-hooks": "^1.1.6",
         "dom-to-image": "^2.6.0",
         "file-saver": "^2.0.5",
         "filepond": "^4.30.4",

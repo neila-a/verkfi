@@ -24,15 +24,52 @@ import {
     Hex
 } from "../declare";
 const hex = Hex.hex;
+/**
+ * Metadata for your tool.
+ */
 export interface tool {
+
+    /** 
+     * Name of your tool.
+     * @example FooBar
+     */
     name: string;
+
+    /**
+     * Path of your tool.
+     * @example foo-bar
+     */
     to: Lowercase<string>;
+
+    /**
+     * Description of your tool.
+     * @example Foo for the bar.
+     */
     desc: string;
+
+    /**
+     * URL for icon of your tool.
+     * @example https://foo.com/bar.png
+     */
     icon: (OverridableComponent<SvgIconTypeMap<{}, "svg">> & {
         muiName: string
     }) | FC;
+
+    /**
+     * Background of your tool.  
+     * It will display in HeadBar when user set "color" to true.  
+     * It should be uppercase.
+     * @example ["000000", "FFFFFF"]
+     */
     color: [Hex.Hex, Hex.Hex];
+
+    /**
+     * If your tool is in the outside, set this.  
+     * If enabled, when user click your tool, they will redirect to the address in "to".
+     * @example true
+     */
     isGoto?: boolean;
+
 }
 export const getTools = (I18N: typeof i18n): tool[] => [
     {

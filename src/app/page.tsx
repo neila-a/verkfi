@@ -55,7 +55,7 @@ export default function Index(props: {
          */
         wrappedGetToolsList = () => {
             return getToolsList(realTools);
-        }
+        };
     var realTools = getTools(I18N),
         [darkMode, setDarkMode] = useState<boolean>(() => {
             const mode = stringToBoolean(checkOption("darkmode", "暗色模式", "false"));

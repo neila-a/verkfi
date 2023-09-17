@@ -9,7 +9,7 @@ export default function getToolColor(toolsInfo: tool[], toolID: string) {
         if (si.to == toolID) tColor = si.color;
     });
     try {
-        property = "linear-gradient(45deg, #" + tColor[0] + ", #" + tColor[1] + ")";
+        property = `linear-gradient(45deg, #${tColor[0]}, #${tColor[1]})`;
     } catch {
         property = "";
     }

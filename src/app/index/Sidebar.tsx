@@ -18,12 +18,16 @@ import {
 import MouseOverPopover from "../components/Popover";
 import Buttons from './Buttons';
 import {
+    Hex,
     setState
 } from '../declare';
 import {
     viewMode
 } from './consts';
 import {
+    MouseEventHandler,
+    ReactNode,
+    useEffect,
     useState
 } from 'react';
 import {
@@ -41,6 +45,11 @@ import dynamic from 'next/dynamic';
 const EditToolsListDialog = dynamic(() => import("./EditToolsListDialog"));
 const CheckDialog = dynamic(() => import("../components/dialog/CheckDialog"));
 import setSetting from '../setting/setSetting';
+import Image from 'next/image';
+import {
+    useLiveQuery
+} from 'dexie-react-hooks';
+import db from '../extendedTools/db';
 export default function Sidebar(props: {
     /**
      * 是否为嵌入
@@ -81,7 +90,47 @@ export default function Sidebar(props: {
     var [dialogOpen, setDialogOpen] = useState<boolean>(false),
         [dialogTools, setDialogTools] = useState<string[]>([]),
         [removeDialogOpen, setRemoveDialogOpen] = useState<boolean>(false),
-        [dialogListName, setDialogListName] = useState<string>("");
+        [dialogListName, setDialogListName] = useState<string>(""),
+        [editing, setEditing] = useState<boolean>(searchText === "");
+    const extendedTools = useLiveQuery(() => db.extendedTools.toArray()),
+        convertedExtendedTools: tool[] = extendedTools?.map(single => ({
+            name: single.name,
+            to: `/extendedTools?id=${single.to}` as Lowercase<string>,
+            desc: single.desc,
+            icon: () => <Image src={single.icon} alt={single.name} height={24} width={24} />,
+            color: single.color as [Hex.Hex, Hex.Hex],
+            isGoto: true
+        }));
+    function SingleSelect(props: {
+        tool: string;
+        onClick: MouseEventHandler<HTMLButtonElement>;
+        editButton: ReactNode;
+    }) {
+        return (
+            <div style={{
+                width: "100%",
+                whiteSpace: "nowrap"
+            }}>
+                <Button onClick={event => {
+                    setEditing(searchText === "");
+                    props.onClick(event);
+                }}>
+                    {props.tool}
+                </Button>
+                {props.editButton}
+            </div>
+        );
+    }
+    useEffect(() => {
+        db.extendedTools.add({
+            name: "foo bar",
+            to: "foobar",
+            desc: "Foo bar.",
+            icon: "/image/favicon.png",
+            color: ["FFFFFF", "FFFFFF"],
+            file: "<p> A Foobar Extension! SssSss </p>"
+        });
+    }, []);
     return (
         <Drawer variant="permanent" sx={{
             maxWidth: drawerWidth,
@@ -125,52 +174,40 @@ export default function Sidebar(props: {
                         return have;
                     });
                     return (
-                        <div key={single[0]} style={{
-                            width: "100%",
-                            whiteSpace: "nowrap"
+                        <SingleSelect key={single[0]} tool={single[0]} onClick={event => {
+                            setSearchText("");
+                            searchTools("");
+                            let draft: tool[] = [];
+                            if (isAll) {
+                                draft = realTools;
+                                setSortingFor("__global__");
+                            } else {
+                                draft = single[1].map(toolTo => realTools.filter(one => one.to === toolTo)[0]);
+                                setSortingFor(single[0]);
+                            }
+                            setTools(draft);
+                        }} editButton={(editMode && !isAll) ? <IconButton onClick={event => {
+                            setDialogOpen(true);
+                            setDialogListName(single[0]);
+                        }} sx={{
+                            position: "absolute",
+                            right: "0"
                         }}>
-                            <Button onClick={event => {
-                                setSearchText("");
-                                searchTools("");
-                                var draft: tool[];
-                                if (isAll) {
-                                    draft = realTools;
-                                    setSortingFor("__global__");
-                                } else {
-                                    draft = single[1].map(toolTo => {
-                                        var realTool: tool;
-                                        realTools.forEach(atool => {
-                                            if (atool.to == toolTo) {
-                                                realTool = atool;
-                                            }
-                                        });
-                                        return realTool;
-                                    });
-                                    setSortingFor(single[0]);
-                                }
-                                setTools(draft);
-                            }}>
-                                {single[0]}
-                            </Button>
-                            {(editMode && !isAll) && <IconButton onClick={event => {
-                                setDialogOpen(true);
-                                setDialogListName(single[0]);
-                            }} sx={{
-                                position: "absolute",
-                                right: "0"
-                            }}>
-                                <EditIcon />
-                            </IconButton>}
-                        </div>
+                            <EditIcon />
+                        </IconButton> : <></>} />
                     );
                 })}
+                <SingleSelect tool={I18N.get("扩展工具")} onClick={event => {
+                    setEditing(false);
+                    setTools(convertedExtendedTools);
+                }} editButton={<></>} />
             </Center>
             <Buttons
                 editMode={editMode}
                 viewMode={viewMode}
                 setEditMode={setEditMode}
                 setViewMode={setViewMode}
-                editing={searchText === ""}
+                editing={editing}
                 setList={setList}
             />
             {dialogOpen && <EditToolsListDialog
