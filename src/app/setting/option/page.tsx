@@ -9,7 +9,8 @@ import {
     Typography
 } from "@mui/material";
 import {
-    Download as DownloadIcon
+    Download as DownloadIcon,
+    Help as HelpIcon
 } from "@mui/icons-material"
 import setOption from "../setOption";
 import {
@@ -26,7 +27,8 @@ import {
     stringifyCheck
 } from "../Switcher";
 import dynamic from 'next/dynamic';
-const PureDialog = dynamic(() => import("../../components/dialog/PureDialog"));
+const PureDialog = dynamic(() => import("../../components/dialog/PureDialog")),
+    ghURL = "https://github.com/neila-a/NeilaTools/";
 export type options = [string, string, stringifyCheck];
 export default function Options() {
     var [lang, setLang] = useState<string>(""),
@@ -62,13 +64,18 @@ export default function Options() {
                 })}
             </Select>
             <br />
-            <Button variant="contained" startIcon={
-                <DownloadIcon />
-            } onClick={() => {
-                setDialogOpen(true);
-            }}>
-                {I18N.get("下载本应用")}
-            </Button>
+            <ButtonGroup fullWidth>
+                <Button variant="contained" startIcon={<DownloadIcon />} onClick={() => {
+                    setDialogOpen(true);
+                }}>
+                    {I18N.get("下载本应用")}
+                </Button>
+                <Button variant="outlined" startIcon={<HelpIcon />} onClick={event => {
+                    window.location.href = `${ghURL}wiki`;
+                }}>
+                    {I18N.get("帮助")}
+                </Button>
+            </ButtonGroup>
             {dialogOpen && <PureDialog title={I18N.get("下载本应用")} onClose={() => {
                 setDialogOpen(false);
             }}>
@@ -79,7 +86,7 @@ export default function Options() {
                         {I18N.get("将本应用通过浏览器添加至桌面")}
                     </Button>
                     <Button onClick={event => {
-                        window.location.href = "https://github.com/neila-a/NeilaTools/releases";
+                        window.location.href = `${ghURL}releases`;
                     }}>
                         {I18N.get("下载单独安装包")}
                     </Button>
