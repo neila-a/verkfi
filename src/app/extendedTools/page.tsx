@@ -28,6 +28,9 @@ export default function ExtendedTools() {
             file: ""
         }),
         [color, setColor] = useStoragedState("color", "多彩主页", "true");
+    const {
+        name = ""
+    } = tool;
     if (param.has("id")) {
         toolID = param.get("id");
     }
@@ -40,11 +43,15 @@ export default function ExtendedTools() {
     }, []);
     return (
         <>
-            <HeadBar isIndex={false} pageName={tool.name} only={false} sx={{
-                backgroundImage: `linear-gradient(45deg, #${tool.color[0]}, #${tool.color[1]})`,
-                color: stringToBoolean(color) ? "#000000" : ""
-            }} />
-            <Toolbar />
+            {!param.has("only") && (
+                <>
+                    <HeadBar isIndex={false} pageName={name} only={false} sx={{
+                        backgroundImage: `linear-gradient(45deg, #${tool.color[0]}, #${tool.color[1]})`,
+                        color: stringToBoolean(color) ? "#000000" : ""
+                    }} />
+                    <Toolbar />
+                </>
+            )}
             <Box sx={{
                 p: 3,
                 zIndex: 38602

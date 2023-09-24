@@ -26,11 +26,13 @@ import Draggable from "react-draggable";
 import {
     useTheme
 } from "@mui/material/styles";
+import { Hex } from "../../declare";
 export interface WindowOptions {
     to: string;
     name: string;
     page: string;
     id: string;
+    color: [Hex.Hex, Hex.Hex]
     sx?: CSSProperties;
 }
 export default function Window(props: WindowOptions): JSX.Element {
@@ -70,7 +72,10 @@ export default function Window(props: WindowOptions): JSX.Element {
                                 <IconButton aria-label="change size" edge="end" onClick={event => type === "min" ? setType("normal") : setType("min")}>
                                     {type === "min" ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />}
                                 </IconButton>
-                                <IconButton aria-label="maxmize" edge="end" onClick={event => router.push(props.to)}>
+                                <IconButton aria-label="maxmize" edge="end" onClick={event => {
+                                    router.push(props.to);
+                                    setOpen(false);
+                                }}>
                                     <CropDinIcon />
                                 </IconButton>
                                 <IconButton aria-label="close" edge="end" onClick={event => setOpen(false)}>

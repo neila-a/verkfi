@@ -42,13 +42,13 @@ import {
     PaletteMode
 } from "@mui/material";
 import {
-    usePathname
+    usePathname,
+    useSearchParams
 } from "next/navigation";
 import Index from "./page";
 import {
     drawerWidth
 } from "./setting/consts";
-import { exp } from "mathjs";
 export const windows = createContext<{
     windows: WindowOptions[];
     set: setState<WindowOptions[]>;
@@ -80,7 +80,8 @@ export default function ModifiedApp(props: {
             [mode]
         ),
         pathname = usePathname(),
-        indexRef =  useRef(null),
+        params = useSearchParams(),
+        indexRef = useRef(null),
         [choosedLang, setChoosedLang] = useState<string>(() => {
             var browserLang: string = "zhCN";
             if (isBrowser()) {
@@ -146,14 +147,17 @@ export default function ModifiedApp(props: {
         }
     }, []);
     var [expand, setExpand] = useState<boolean>(false);
+    const implant = (pathname === "/") || (params.get("only") === "true"),
+        marginLeft: string = implant ? "" : (expand ? `calc(min(${`calc(100vw - ${drawerWidth}px)`}, 320px) + ${drawerWidth}px)` : `${drawerWidth}px`),
+        Sidebar = implant ? null : <Index expand={expand} setExpand={setExpand} isImplant />;
     return initDone && (
         <div style={{
             backgroundColor: theme.palette.mode === "dark" ? "#000000" : "#ffffff"
         }}>
             <ThemeProvider theme={theme}>
-                {pathname !== "/" && <Index expand={expand} setExpand={setExpand} isImplant />}
+                {Sidebar}
                 <div style={{
-                    marginLeft: pathname === "/" ? "" : (expand ? `calc(min(${`calc(100vw - ${drawerWidth}px)`}, 320px) + ${drawerWidth}px)` : drawerWidth)
+                    marginLeft: marginLeft
                 }}>
                     {props.children}
                 </div>

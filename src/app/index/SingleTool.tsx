@@ -13,6 +13,7 @@ import {
 } from "@mui/icons-material";
 import Style from "../styles/Index.module.scss";
 import {
+    getTools,
     tool
 } from "../tools/info";
 import {
@@ -41,6 +42,8 @@ import stringToBoolean from "../setting/stringToBoolean";
 import checkOption from '../setting/checkOption';
 import I18N from "react-intl-universal";
 import useStoragedState from '../components/useStoragedState';
+import getToolColor from '../tools/getToolColor';
+import db from '../extendedTools/db';
 export default function SingleTool(props: {
     tool: tool;
     darkMode: boolean;
@@ -56,6 +59,7 @@ export default function SingleTool(props: {
         setTools,
         sortingFor
     } = props,
+        toolsInfo = getTools(I18N),
         ToolIcon = tool.icon,
         subStyle = {
             sx: {
@@ -107,11 +111,17 @@ export default function SingleTool(props: {
                                 } else {
                                     Router.push(`/tools/${tool.to}`);
                                 }
-                            }} onContextMenu={event => {
+                            }} onContextMenu={async event => {
                                 event.preventDefault();
                                 if (tool.isGoto) {
                                     if (tool.to.startsWith("/extendedTools")) {
-                                        Router.push(tool.to);
+                                        value.set([...value.windows, {
+                                            page: `${tool.to}&only=true`,
+                                            to: tool.to,
+                                            name: tool.name,
+                                            color: tool.color,
+                                            id: Math.random().toString().replace(/0\./g, "")
+                                        }]);
                                     } else {
                                         setJumpDialogOpen(true);
                                         setJumpTo(tool.to);
@@ -119,8 +129,9 @@ export default function SingleTool(props: {
                                     }
                                 } else {
                                     value.set([...value.windows, {
-                                        page: `/tools/${tool.to}?only`,
+                                        page: `/tools/${tool.to}?only=true`,
                                         to: `/tools/${tool.to}`,
+                                        color: tool.color,
                                         name: tool.name,
                                         id: Math.random().toString().replace(/0\./g, "")
                                     }]);

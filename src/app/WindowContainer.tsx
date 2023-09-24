@@ -30,7 +30,7 @@ export default function WindowContainer() {
             <windows.Consumer>
                 {value => value.windows.map(single => (
                     <Window {...single} key={single.id} sx={{
-                        background: stringToBoolean(color) ? getToolColor(toolsInfo, toolsInfo.filter(tool => tool.name === single.name)[0].to) : (theme.palette.mode === "dark" ? "#000000" : "#ffffff"),
+                        background: stringToBoolean(color) ? `linear-gradient(45deg, #${single.color[0]}, #${single.color[1]})` : (theme.palette.mode === "dark" ? "#000000" : "#ffffff"),
                     }} />
                 ))}
             </windows.Consumer>

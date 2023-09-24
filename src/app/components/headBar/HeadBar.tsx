@@ -74,7 +74,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 	return props.only ? <Fragment /> : <>
 		<AppBar position="fixed" sx={{
 			WebkitAppRegion: "drag",
-			zIndex: 38610,
+			zIndex: 38600,
 			left: 0,
 			width: "100vw",
 			...props.sx
