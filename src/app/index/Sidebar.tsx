@@ -57,6 +57,7 @@ export default function Sidebar(props: {
     isImplant?: boolean;
     viewMode: viewMode;
     setViewMode: setState<viewMode>;
+    setShow: setState<"tools" | "home">;
     editMode: boolean;
     setEditMode: setState<boolean>;
     searchText: string;
@@ -165,14 +166,19 @@ export default function Sidebar(props: {
                     searchTools(event.target.value);
                 }} />
             </Paper>
-            <div onClick={event => {
-                props.setExpand(true);
-                if (clickCount === 1) {
-                    props.setExpand(false);
-                    clickCount = 0;
-                }
-            }}>
-                <Center>
+            <Center>
+                {!props.isImplant && <SingleSelect wantSortingFor="__home__" tool={I18N.get("主页")} onClick={event => {
+                    props.setShow("home");
+                    setSortingFor("__home__");
+                }} editButton={<></>} />}
+                <div onClick={event => {
+                    props.setShow("tools");
+                    props.setExpand(true);
+                    if (clickCount === 1) {
+                        props.setExpand(false);
+                        clickCount = 0;
+                    }
+                }}>
                     {([[I18N.get("全部"), realTools.map(atool => atool.to)]] as lists).concat(list).map(single => {
                         const isAll = Object.values(locales).some(singleLang => {
                             const strings = Object.values(singleLang);
@@ -226,8 +232,8 @@ export default function Sidebar(props: {
                         props.setSortedTools(convertedExtendedTools);
                         setTools(convertedExtendedTools);
                     }} editButton={<></>} />
-                </Center>
-            </div>
+                </div>
+            </Center>
             <Buttons
                 editMode={editMode}
                 viewMode={viewMode}

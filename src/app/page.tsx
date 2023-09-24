@@ -32,12 +32,17 @@ import SingleTool from './index/SingleTool';
 import getToolsList from './index/getToolsList';
 import Sidebar from './index/Sidebar';
 import {
-    viewMode,
-    logger
+    viewMode
 } from './index/consts';
 import useStoragedState from './components/useStoragedState';
 import stringToBoolean from './setting/stringToBoolean';
-import { setState } from './declare';
+import {
+    setState
+} from './declare';
+import Center from './components/center/Center';
+import {
+    Handyman as HandymanIcon
+} from '@mui/icons-material';
 export default function Index(props: {
     /**
      * 是否为嵌入
@@ -65,13 +70,15 @@ export default function Index(props: {
     } = props;
     var realTools = getTools(I18N),
         [darkModeFormStorage, setDarkModeFormStorage] = useStoragedState<PaletteMode>("darkmode", "暗色模式", "light"),
+        [recentlyUsed, setRecentlyUsed] = useStoragedState<string>("recently-tools", "最近使用的工具", "[]"),
         [sortedTools, setSortedTools] = useState(wrappedGetToolsList),
         [searchText, setSearchText] = useState<string>(""),
         [viewMode, setViewMode] = useStoragedState<viewMode>("viewmode", "列表模式", "grid"),
         [editMode, setEditMode] = useState<boolean>(false),
         [expandThis, setExpandThis] = useState<boolean>(false),
         [tools, setTools] = useState(wrappedGetToolsList),
-        [sortingFor, setSortingFor] = useState<string>("__global__"),
+        [sortingFor, setSortingFor] = useState<string>(props.isImplant ? "__global__" : "__home__"),
+        [show, setShow] = useState<"tools" | "home">(props.isImplant ? "tools" : "home"),
         darkMode = stringToBoolean(darkModeFormStorage.replace("light", "false").replace("dark", "true"));
     if (props.setExpand) {
         var {
@@ -106,30 +113,37 @@ export default function Index(props: {
             setEditMode(false);
         }
     }, []);
+    function ToolsStack(props: {
+        paramTool: tool[];
+    }) {
+        return (
+            <Stack spacing={viewMode == "list" ? 3 : 5} className={Style["items"]} sx={{
+                flexDirection: viewMode == "grid" ? "row" : "",
+                display: viewMode == "grid" ? "flex" : "block",
+                width: "100%"
+            }}> {/* 工具总览 */}
+                {tools.length === 0 ? <Typography>{I18N.get('未找到任何工具')}</Typography> : props.paramTool.map((tool, index) => (
+                    <SingleTool
+                        isFirst={(searchText !== "") && (index === 0)}
+                        tool={tool}
+                        sortingFor={sortingFor}
+                        key={tool.to}
+                        darkMode={darkMode}
+                        viewMode={viewMode}
+                        setTools={setTools}
+                        editMode={editMode}
+                    />
+                ))}
+            </Stack>
+        );
+    }
     function Tools() {
         return (
             <Box sx={{
                 p: 3,
                 marginLeft: props.isImplant ? "" : `${drawerWidth}px`
             }}>
-                <Stack spacing={viewMode == "list" ? 3 : 5} className={Style["items"]} sx={{
-                    flexDirection: viewMode == "grid" ? "row" : "",
-                    display: viewMode == "grid" ? "flex" : "block",
-                    width: "100%"
-                }}> {/* 工具总览 */}
-                    {tools.length === 0 ? <Typography>{I18N.get('未找到任何工具')}</Typography> : tools.map((tool, index) => (
-                        <SingleTool
-                            isFirst={(searchText !== "") && (index === 0)}
-                            tool={tool}
-                            sortingFor={sortingFor}
-                            key={tool.to}
-                            darkMode={darkMode}
-                            viewMode={viewMode}
-                            setTools={setTools}
-                            editMode={editMode}
-                        />
-                    ))}
-                </Stack>
+                <ToolsStack paramTool={tools} />
             </Box>
         );
     }
@@ -139,6 +153,7 @@ export default function Index(props: {
                 zIndex: theme => (theme as ThemeHaveZIndex).zIndex.drawer + 1
             }} />}
             <Sidebar
+                setShow={setShow}
                 isImplant={props.isImplant}
                 viewMode={viewMode}
                 setViewMode={setViewMode}
@@ -154,19 +169,51 @@ export default function Index(props: {
                 expand={expand}
                 setExpand={setExpand}
             />
-            {props.isImplant ? (expand && <Drawer anchor='left' variant="permanent" sx={{
-                flexShrink: 0,
-                [`& .MuiDrawer-paper`]: {
-                    position: "absolute",
-                    left: drawerWidth,
-                    maxWidth: `calc(100vw - ${drawerWidth}px)`,
-                    width: `320px`,
-                    boxSizing: 'border-box'
-                }
-            }}>
-                <Toolbar />
-                <Tools />
-            </Drawer>) : <Tools />}
+            {show === "tools" ? (props.isImplant ? (
+                expand && <Drawer anchor='left' variant="permanent" sx={{
+                    flexShrink: 0,
+                    [`& .MuiDrawer-paper`]: {
+                        position: "absolute",
+                        left: drawerWidth,
+                        maxWidth: `calc(100vw - ${drawerWidth}px)`,
+                        width: `320px`,
+                        boxSizing: 'border-box'
+                    }
+                }}>
+                    <Toolbar />
+                    <Tools />
+                </Drawer>
+            ) : <Tools />) : (
+                <Box sx={{
+                    p: 3,
+                    marginLeft: props.isImplant ? "" : `${drawerWidth}px`
+                }}>
+                    <Box sx={{
+                        paddingBottom: 3,
+                        width: "100%"
+                    }}>
+                        <Center>
+                            <HandymanIcon sx={{
+                                fontSize: "1000%"
+                            }} />
+                        </Center>
+                    </Box>
+                    <Box>
+                        <Typography variant='h4'>
+                            {I18N.get('最近使用')}
+                        </Typography>
+                        <ToolsStack paramTool={(JSON.parse(recentlyUsed) as string[]).map(to => {
+                            var tool: tool;
+                            realTools.forEach(single => {
+                                if (single.to === to) {
+                                    tool = single;
+                                }
+                            });
+                            return tool;
+                        })} />
+                    </Box>
+                </Box>
+            )}
         </div>
     );
 };
