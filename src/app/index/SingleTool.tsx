@@ -67,10 +67,6 @@ export default function SingleTool(props: {
             }
         },
         Router = useRouter(),
-        [screenWidth, setScreenWidth] = useState<number>(() => {
-            const windowWidth = window.innerWidth;
-            return windowWidth || 320;
-        }),
         [color, setColor] = useStoragedState("color", "多彩主页", "true"),
         [jumpto, setJumpTo] = useState<string>(""),
         [jumpName, setJumpName] = useState<string>(""),
@@ -81,7 +77,7 @@ export default function SingleTool(props: {
             wordBreak: "break-all",
             color: stringToBoolean(color) ? "#000000" : ""
         }));
-    const fullWidth = screenWidth - 24 - drawerWidth,
+    const fullWidth = `100%`,
         buttonOptions = {
             editMode: editMode,
             setTools: setTools,
@@ -89,11 +85,11 @@ export default function SingleTool(props: {
             sortingFor: sortingFor
         };
     return (
-        <div key={tool.to}> {/* 单个工具 */}
+        <Fragment key={tool.to}> {/* 单个工具 */}
             <windows.Consumer>
                 {value => (
                     <Card sx={{
-                        width: viewMode == "grid" ? 275 : fullWidth,
+                        width: viewMode == "grid" ? "275px" : fullWidth,
                         maxWidth: fullWidth,
                         backgroundImage: stringToBoolean(color) ? "linear-gradient(45deg, #" + tool.color[0] + ", #" + tool.color[1] + ")" : ""
                     }} elevation={10}>
@@ -181,11 +177,13 @@ export default function SingleTool(props: {
                     </Card>
                 )}
             </windows.Consumer>
-            {jumpDialogOpen ? <CheckDialog description={`${I18N.get("确定离开NeilaTools并跳转至")}${jumpName}？`} title={I18N.get('离开NeilaTools')} onTrue={() => {
-                Router.push(jumpto);
-            }} onFalse={() => {
-                setJumpDialogOpen(false);
-            }} /> : <Fragment /> /* 跳转对话框容器 */}
-        </div>
+            {
+                jumpDialogOpen ? <CheckDialog description={`${I18N.get("确定离开NeilaTools并跳转至")}${jumpName}？`} title={I18N.get('离开NeilaTools')} onTrue={() => {
+                    Router.push(jumpto);
+                }} onFalse={() => {
+                    setJumpDialogOpen(false);
+                }} /> : <Fragment /> /* 跳转对话框容器 */
+            }
+        </Fragment>
     );
 }

@@ -114,7 +114,8 @@ export default function Index(props: {
             }}>
                 <Stack spacing={viewMode == "list" ? 3 : 5} className={Style["items"]} sx={{
                     flexDirection: viewMode == "grid" ? "row" : "",
-                    display: viewMode == "grid" ? "flex" : "block"
+                    display: viewMode == "grid" ? "flex" : "block",
+                    width: "100%"
                 }}> {/* 工具总览 */}
                     {tools.length === 0 ? <Typography>{I18N.get('未找到任何工具')}</Typography> : tools.map(tool => (
                         <SingleTool
