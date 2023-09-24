@@ -27,7 +27,7 @@ export default function drawMatrixBase(edge: number, n: number, blocks: block[],
     dos.forEach((item, index) => {
         cxt.fillStyle = item[1];
         const path = new Path2D(), pBlock = item[0];
-        for (let i = 0; i < n; i++) {
+        for (let i = 0; i <= n; i++) {
             for (let j = 0; j < n; j++) {
                 let have: boolean = false;
                 pBlock.forEach(value => {

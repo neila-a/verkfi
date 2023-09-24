@@ -20,14 +20,9 @@ import {
 import {
     useTheme
 } from "@mui/material/styles";
+import useStoragedState from "./components/useStoragedState";
 export default function WindowContainer() {
-    var [color, setColor] = useState<boolean>(() => {
-        const mode = stringToBoolean(checkOption("color", "多彩主页", "true"));
-        if (isBrowser()) {
-            return mode;
-        }
-        return true;
-    });
+    var [color, setColor] = useStoragedState("color", "多彩主页", "true");
     const toolsInfo = getTools(I18N),
         theme = useTheme();
     return (
@@ -35,7 +30,7 @@ export default function WindowContainer() {
             <windows.Consumer>
                 {value => value.windows.map(single => (
                     <Window {...single} key={single.id} sx={{
-                        background: color ? getToolColor(toolsInfo, toolsInfo.filter(tool => tool.name === single.name)[0].to) : (theme.palette.mode === "dark" ? "#000000" : "#ffffff"),
+                        background: stringToBoolean(color) ? getToolColor(toolsInfo, toolsInfo.filter(tool => tool.name === single.name)[0].to) : (theme.palette.mode === "dark" ? "#000000" : "#ffffff"),
                     }} />
                 ))}
             </windows.Consumer>

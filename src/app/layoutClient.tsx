@@ -36,6 +36,8 @@ import {
 import {
     WindowOptions
 } from "./components/window/Window";
+import useStoragedState from "./components/useStoragedState";
+import { PaletteMode } from "@mui/material";
 export const windows = createContext<{
     windows: WindowOptions[];
     set: setState<WindowOptions[]>;
@@ -53,17 +55,10 @@ export function WindowsProvider(props: {
         </windows.Provider>
     );
 }
-export default function ModifiedApp(props) {
-    const [mode, setMode] = useState<colorMode>(() => {
-        const mightMode = checkOption("darkmode", "暗色模式", "false");
-        var realMode: colorMode;
-        if (typeof mightMode == "string") {
-            realMode = mightMode.replace("false", "light").replace("true", "dark") as colorMode;
-        } else {
-            realMode = "light";
-        }
-        return realMode || "light";
-    }),
+export default function ModifiedApp(props: {
+    children: ReactNode
+}) {
+    const [mode, setMode] = useStoragedState<PaletteMode>("darkmode", "暗色模式", "light"),
         theme = useMemo(
             () =>
                 createTheme({

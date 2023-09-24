@@ -38,7 +38,7 @@ export default function Options() {
             <Typography variant='h4'>
                 {I18N.get('选项')}
             </Typography>
-            {([["fork-me-on-github", "Fork me on GitHub", "false"], ["darkmode", "暗色模式", "false"], ["color", "多彩主页", "true"]] as options[]).map((options, index) => (
+            {([["fork-me-on-github", "Fork me on GitHub", "false"], ["darkmode", "暗色模式", "light"], ["color", "多彩主页", "true"]] as options[]).map((options, index) => (
                 <Switcher options={options} index={index} key={options[0]} />
             ))}
             <InputLabel id="lang">

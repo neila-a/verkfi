@@ -19,9 +19,6 @@ import {
 import destroyer from "../../components/destroyer";
 import SingleMath from "./singleMath";
 import {
-    logger
-} from './consts';
-import {
     calc,
     defaultCalcs
 } from "./consts";
@@ -39,9 +36,6 @@ function MathGen(): JSX.Element {
             "-"
         ]);
     const packagedCalcMath = () => calcMath(calcs, subtractionCheck, divisionCheck, max, min, itemCount, setMath);
-    useEffect(function () {
-        logger.log("calcs为", calcs);
-    }, [calcs]);
     useEffect(packagedCalcMath, [
         min,
         max,

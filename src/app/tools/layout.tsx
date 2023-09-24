@@ -20,11 +20,8 @@ import {
 import I18N from "react-intl-universal";
 import lpLogger from "lp-logger";
 import stringToBoolean from "../setting/stringToBoolean";
-import checkOption from "../setting/checkOption";
 import getToolColor from "./getToolColor";
-import {
-    isBrowser
-} from "../layoutClient";
+import useStoragedState from "../components/useStoragedState";
 var logger = new lpLogger({
     name: "ToolFinder",
     level: "log"
@@ -34,13 +31,7 @@ export default function ToolFinder(props: {
 }): JSX.Element {
     var only = false,
         toolsInfo = getTools(I18N),
-        [color, setColor] = useState<boolean>(() => {
-            const mode = stringToBoolean(checkOption("color", "多彩主页", "true"));
-            if (isBrowser()) {
-                return mode;
-            }
-            return true;
-        });
+        [color, setColor] = useStoragedState("color", "多彩主页", "true");
     const toolID = useSelectedLayoutSegment(),
         searchParams = useSearchParams(),
         router = useRouter();
@@ -52,7 +43,7 @@ export default function ToolFinder(props: {
     if (searchParams.has("only")) {
         only = true;
     }
-    const toolColor = color ? getToolColor(toolsInfo, toolID) : "";
+    const toolColor = stringToBoolean(color) ? getToolColor(toolsInfo, toolID) : "";
     return (
         <>
             <HeadBar isIndex={false} pageName={(() => {
@@ -64,7 +55,7 @@ export default function ToolFinder(props: {
                 return name;
             })()} only={only} sx={{
                 backgroundImage: toolColor,
-                color: color ? "#000000" : ""
+                color: stringToBoolean(color) ? "#000000" : ""
             }} />
             {!only && <Toolbar />}
             <Box sx={{

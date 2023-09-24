@@ -9,7 +9,6 @@ import {
 import {
     tool
 } from "../tools/info";
-import setSetting from "../setting/setSetting";
 import upGo from "../components/arrayMove/upGo";
 import {
     setState

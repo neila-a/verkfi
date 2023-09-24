@@ -40,6 +40,7 @@ import {
 import stringToBoolean from "../setting/stringToBoolean";
 import checkOption from '../setting/checkOption';
 import I18N from "react-intl-universal";
+import useStoragedState from '../components/useStoragedState';
 export default function SingleTool(props: {
     tool: tool;
     darkMode: boolean;
@@ -66,13 +67,7 @@ export default function SingleTool(props: {
             const windowWidth = window.innerWidth;
             return windowWidth || 320;
         }),
-        [color, setColor] = useState<boolean>(() => {
-            const mode = stringToBoolean(checkOption("color", "多彩主页", "true"));
-            if (isBrowser()) {
-                return mode;
-            }
-            return true;
-        }),
+        [color, setColor] = useStoragedState("color", "多彩主页", "true"),
         [jumpto, setJumpTo] = useState<string>(""),
         [jumpName, setJumpName] = useState<string>(""),
         [jumpDialogOpen, setJumpDialogOpen] = useState<boolean>(false),
@@ -80,7 +75,7 @@ export default function SingleTool(props: {
             theme
         }) => ({
             wordBreak: "break-all",
-            color: color ? "#000000" : ""
+            color: stringToBoolean(color) ? "#000000" : ""
         }));
     const fullWidth = screenWidth - 24 - drawerWidth,
         buttonOptions = {
@@ -96,7 +91,7 @@ export default function SingleTool(props: {
                     <Card sx={{
                         width: viewMode == "grid" ? 275 : fullWidth,
                         maxWidth: fullWidth,
-                        backgroundImage: color ? "linear-gradient(45deg, #" + tool.color[0] + ", #" + tool.color[1] + ")" : ""
+                        backgroundImage: stringToBoolean(color) ? "linear-gradient(45deg, #" + tool.color[0] + ", #" + tool.color[1] + ")" : ""
                     }} elevation={10}>
                         <CardContent>
                             <div className={viewMode == "list" ? Style["singleList"] : ""} onClick={() => {
@@ -134,7 +129,7 @@ export default function SingleTool(props: {
                                 {viewMode == "grid" ? <div>
                                     <div className={Style["singleGridIcon"]}>
                                         <ToolIcon sx={{
-                                            color: color ? "#000000" : ""
+                                            color: stringToBoolean(color) ? "#000000" : ""
                                         }} />
                                     </div>
                                     <div>
@@ -152,7 +147,7 @@ export default function SingleTool(props: {
                                     <div className={Style["singleListText"]}>
                                         <div className={Style["singleListIcon"]}>
                                             <ToolIcon sx={{
-                                                color: color ? "#000000" : ""
+                                                color: stringToBoolean(color) ? "#000000" : ""
                                             }} />
                                         </div>
                                         <div>

@@ -2,7 +2,6 @@
 import I18N from 'react-intl-universal';
 import HeadBar from "./components/headBar/HeadBar";
 import {
-    Fragment,
     useEffect,
     useState
 } from 'react';
@@ -15,7 +14,8 @@ import {
 import {
     Stack,
     Typography,
-    Box
+    Box,
+    PaletteMode
 } from "@mui/material";
 import Style from "./styles/Index.module.scss";
 import {
@@ -23,21 +23,17 @@ import {
     tool
 } from "./tools/info";
 import {
-    useRouter
-} from 'next/navigation';
-import setSetting from "./setting/setSetting";
-import stringToBoolean from "./setting/stringToBoolean";
-import {
     useSearchParams
 } from 'next/navigation';
 import SingleTool from './index/SingleTool';
-import checkOption from './setting/checkOption';
 import getToolsList from './index/getToolsList';
 import Sidebar from './index/Sidebar';
 import {
     viewMode,
     logger
 } from './index/consts';
+import useStoragedState from './components/useStoragedState';
+import stringToBoolean from './setting/stringToBoolean';
 export default function Index(props: {
     /**
      * 是否为嵌入
@@ -57,22 +53,14 @@ export default function Index(props: {
             return getToolsList(realTools);
         };
     var realTools = getTools(I18N),
-        [darkMode, setDarkMode] = useState<boolean>(() => {
-            const mode = stringToBoolean(checkOption("darkmode", "暗色模式", "false"));
-            return mode || false;
-        }),
+        [darkModeFormStorage, setDarkModeFormStorage] = useStoragedState<PaletteMode>("darkmode", "暗色模式", "light"),
         [sortedTools, setSortedTools] = useState(wrappedGetToolsList),
         [searchText, setSearchText] = useState<string>(""),
-        [viewMode, setViewMode] = useState<viewMode>(() => {
-            const mode = checkOption("viewmode", "列表模式", "grid") as viewMode;
-            return mode || "grid";
-        }),
+        [viewMode, setViewMode] = useStoragedState<viewMode>("viewmode", "列表模式", "grid"),
         [editMode, setEditMode] = useState<boolean>(false),
         [tools, setTools] = useState(wrappedGetToolsList),
-        [sortingFor, setSortingFor] = useState<string>("__global__");
-    useEffect(() => {
-        setSetting("viewmode", "列表模式", viewMode);
-    }, [viewMode]); // 实时保存viewMode至lS
+        [sortingFor, setSortingFor] = useState<string>("__global__"),
+        darkMode = stringToBoolean(darkModeFormStorage.replace("light", "false").replace("dark", "true"));
     /**
      * 搜索工具
      */
@@ -84,36 +72,17 @@ export default function Index(props: {
         });
         setTools(calcTools);
     };
-    useEffect(function () {
-        { // 打印信息用于调试
-            console.groupCollapsed("值信息");
-            logger.info(`tools为`, tools);
-            logger.info(`searchText为`, searchText);
-            logger.info(`viewMode为`, viewMode);
-            logger.info(`editMode为`, editMode)
-            console.groupEnd();
-        }
-    }, [
-        tools,
-        searchText,
-        viewMode,
-        editMode
-    ]);
-    useEffect(() => {
-        if (props.isImplant) {
-            setSearchText(props.children);
-            searchTools(props.children);
-        } else if (searchParams.has("searchText")) {
-            const paramText = searchParams.get("searchText");
-            setSearchText(paramText);
-            searchTools(paramText);
-        }
-    }, [searchParams]); // 嵌入式检查
-    useEffect(() => {
-        if (searchText != "") {
-            setEditMode(false);
-        }
-    }, [searchText]); // 自动更新searchText
+    if (props.isImplant) {
+        setSearchText(props.children);
+        searchTools(props.children);
+    } else if (searchParams.has("searchText")) {
+        const paramText = searchParams.get("searchText");
+        setSearchText(paramText);
+        searchTools(paramText);
+    }
+    if (searchText != "") {
+        setEditMode(false);
+    }
     return (
         <>
             {props.isImplant != true && <HeadBar isIndex pageName="NeilaTools" sx={{

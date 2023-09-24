@@ -5,7 +5,8 @@ import {
 	IconButton,
 	Typography,
 	FormGroup,
-	FormControl
+	FormControl,
+	PaletteMode
 } from "@mui/material";
 import {
 	useRouter
@@ -45,7 +46,7 @@ import SearchIconWrapper from "./SearchIconWrapper";
 import StyledInputBase from "./StyledInputBase";
 import Link from 'next/link';
 import checkOption from '../../setting/checkOption';
-import setOption from '../../setting/setOption';
+import useStoragedState from '../useStoragedState';
 export interface HeadBarOption {
 	pageName: string;
 	isIndex: boolean;
@@ -64,13 +65,11 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 		const option = checkOption("fork-me-on-github", "Fork me on GitHub", "false");
 		return option || "false"
 	}),
-		[darkMode, setDarkMode] = useState<boolean>(() => {
-			const mode = checkOption("darkmode", "暗色模式", "false");
-			return stringToBoolean(mode) || false;
-		}),
+		[darkModeFormStorage, setDarkModeFormStorage] = useStoragedState<PaletteMode>("darkmode", "暗色模式", "light"),
 		[searchText, setSearchText] = useState(""),
 		[showSearchTool, setShowSearchTool] = useState<boolean>(false),
-		router = useRouter();
+		router = useRouter(),
+		darkMode = stringToBoolean(darkModeFormStorage.replace("light", "false").replace("dark", "true"));
 	const noDrag: CSSProperties = {
 		// @ts-ignore React的CSSProperties中明明有WebkitAppRegion，但是类型中没有
 		WebkitAppRegion: "no-drag",
@@ -86,7 +85,8 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 						<IconButton size='large' edge="start" color="inherit" aria-label="darkmode" sx={{
 							mr: 2
 						}} onClick={event => {
-							setOption("darkmode", "暗色模式", !darkMode);
+							setDarkModeFormStorage(darkModeFormStorage === "light" ? "dark" : "light");
+							location.reload();
 						}}>
 							{!darkMode ? <DarkMode /> : <LightMode />}
 						</IconButton>

@@ -24,7 +24,6 @@ import {
 } from "./Sidebar";
 import dynamic from 'next/dynamic';
 const EditToolsListDialog = dynamic(() => import("./EditToolsListDialog"));
-import setSetting from "../setting/setSetting";
 export default function Buttons(props: {
     viewMode: viewMode;
     setViewMode: setState<viewMode>;

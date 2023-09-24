@@ -11,14 +11,11 @@ import {
     useEffect,
     useState
 } from "react";
-import {
-    isBrowser
-} from "../layoutClient";
-import checkOption from "../setting/checkOption";
 import stringToBoolean from "../setting/stringToBoolean";
 import db, {
     single
 } from "./db";
+import useStoragedState from "../components/useStoragedState";
 export default function ExtendedTools() {
     const param = useSearchParams();
     var toolID = "",
@@ -30,13 +27,7 @@ export default function ExtendedTools() {
             color: ["", ""],
             file: ""
         }),
-        [color, setColor] = useState<boolean>(() => {
-            const mode = stringToBoolean(checkOption("color", "多彩主页", "true"));
-            if (isBrowser()) {
-                return mode;
-            }
-            return true;
-        });
+        [color, setColor] = useStoragedState("color", "多彩主页", "true");
     if (param.has("id")) {
         toolID = param.get("id");
     }
@@ -46,12 +37,12 @@ export default function ExtendedTools() {
         }).then(real => {
             setTool(real);
         });
-    }, [])
+    }, []);
     return (
         <>
             <HeadBar isIndex={false} pageName={tool.name} only={false} sx={{
                 backgroundImage: `linear-gradient(45deg, #${tool.color[0]}, #${tool.color[1]})`,
-                color: color ? "#000000" : ""
+                color: stringToBoolean(color) ? "#000000" : ""
             }} />
             <Toolbar />
             <Box sx={{

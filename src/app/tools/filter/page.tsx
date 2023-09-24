@@ -2,8 +2,7 @@
 import I18N from 'react-intl-universal';
 import * as React from "react";
 import {
-    useState,
-    useEffect
+    useState
 } from "react";
 import domtoimage from 'dom-to-image';
 import {
