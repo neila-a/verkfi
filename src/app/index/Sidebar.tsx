@@ -66,6 +66,7 @@ export default function Sidebar(props: {
      */
     searchTools(search: string): void;
     setTools: setState<tool[]>;
+    sortingFor: string;
     setSortingFor: setState<string>;
     expand: boolean;
     setExpand: setState<boolean>;
@@ -79,6 +80,7 @@ export default function Sidebar(props: {
         setSearchText,
         searchTools,
         setTools,
+        sortingFor,
         setSortingFor
     } = props,
         [realTools, setRealTools] = useState(getToolsList(getTools(I18N)));
@@ -93,7 +95,8 @@ export default function Sidebar(props: {
         [dialogTools, setDialogTools] = useState<string[]>([]),
         [removeDialogOpen, setRemoveDialogOpen] = useState<boolean>(false),
         [dialogListName, setDialogListName] = useState<string>(""),
-        [editing, setEditing] = useState<boolean>(searchText === "");
+        [editing, setEditing] = useState<boolean>(searchText === ""),
+        clickCount = 0;
     const extendedTools = useLiveQuery(() => db.extendedTools.toArray()),
         convertedExtendedTools: tool[] = extendedTools?.map(single => ({
             name: single.name,
@@ -107,13 +110,16 @@ export default function Sidebar(props: {
         tool: string;
         onClick: MouseEventHandler<HTMLButtonElement>;
         editButton: ReactNode;
+        wantSortingFor?: string;
     }) {
         return (
             <div style={{
                 width: "100%",
                 whiteSpace: "nowrap"
             }}>
-                <Button onClick={event => {
+                <Button fullWidth sx={{
+                    backgroundColor: sortingFor === props.wantSortingFor ? "#D3D3D3" : ""
+                }} onClick={event => {
                     setEditing(searchText === "");
                     props.onClick(event);
                 }}>
@@ -158,7 +164,13 @@ export default function Sidebar(props: {
                     searchTools(event.target.value);
                 }} />
             </Paper>
-            <div onClick={event => props.setExpand(true)}>
+            <div onClick={event => {
+                props.setExpand(true);
+                if (clickCount === 1) {
+                    props.setExpand(false);
+                    clickCount = 0;
+                }
+            }}>
                 <Center>
                     {([[I18N.get("全部"), realTools.map(atool => atool.to)]] as lists).concat(list).map(single => {
                         const isAll = Object.values(locales).some(singleLang => {
@@ -167,31 +179,47 @@ export default function Sidebar(props: {
                             return have;
                         });
                         return (
-                            <SingleSelect key={single[0]} tool={single[0]} onClick={event => {
-                                setEditing(true);
-                                setSearchText("");
-                                searchTools("");
-                                let draft: tool[] = [];
-                                if (isAll) {
-                                    draft = realTools;
-                                    setSortingFor("__global__");
-                                } else {
-                                    draft = single[1].map(toolTo => realTools.filter(one => one.to === toolTo)[0]);
-                                    setSortingFor(single[0]);
-                                }
-                                setTools(draft);
-                            }} editButton={(editMode && !isAll) ? <IconButton onClick={event => {
-                                setDialogOpen(true);
-                                setDialogListName(single[0]);
-                            }} sx={{
-                                position: "absolute",
-                                right: "0"
-                            }}>
-                                <EditIcon />
-                            </IconButton> : <></>} />
+                            <>
+                                <SingleSelect key={single[0]} tool={single[0]} onClick={event => {
+                                    setEditing(true);
+                                    setSearchText("");
+                                    searchTools("");
+                                    let draft: tool[] = [];
+                                    clickCount++;
+                                    if (isAll) {
+                                        draft = realTools;
+                                        if (sortingFor !== "__global__") {
+                                            clickCount = 0;
+                                        }
+                                        setSortingFor("__global__");
+                                    } else {
+                                        draft = single[1].map(toolTo => realTools.filter(one => one.to === toolTo)[0]);
+                                        if (sortingFor !== single[0]) {
+                                            clickCount = 0;
+                                        }
+                                        setSortingFor(single[0]);
+                                    }
+                                    setTools(draft);
+                                }} editButton={(
+                                    (editMode && !isAll) ? <IconButton onClick={event => {
+                                        setDialogOpen(true);
+                                        setDialogListName(single[0]);
+                                    }} sx={{
+                                        position: "absolute",
+                                        right: "0"
+                                    }}>
+                                        <EditIcon />
+                                    </IconButton> : <></>
+                                )} wantSortingFor={isAll ? "__global__" : single[0]} />
+                            </>
                         );
                     })}
-                    <SingleSelect tool={I18N.get("扩展工具")} onClick={event => {
+                    <SingleSelect wantSortingFor="__extended__" tool={I18N.get("扩展工具")} onClick={event => {
+                        clickCount++;
+                        if (sortingFor !== "__extended__") {
+                            clickCount = 0;
+                        }
+                        setSortingFor("__extended__");
                         setEditing(false);
                         setTools(convertedExtendedTools);
                     }} editButton={<></>} />

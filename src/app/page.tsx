@@ -147,6 +147,7 @@ export default function Index(props: {
                 setSearchText={setSearchText}
                 searchTools={searchTools}
                 setTools={setTools}
+                sortingFor={sortingFor}
                 setSortingFor={setSortingFor}
                 expand={expand}
                 setExpand={setExpand}
