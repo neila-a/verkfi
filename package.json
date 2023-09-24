@@ -1,7 +1,7 @@
 {
     "name": "neila-tools",
     "version": "1.5.2",
-    "devVersion": "656",
+    "devVersion": "657",
     "dev": true,
     "description": "Platform for Neila's something useless tools.",
     "private": true,

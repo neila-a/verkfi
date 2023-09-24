@@ -3,6 +3,7 @@ import I18N from 'react-intl-universal';
 import HeadBar from "./components/headBar/HeadBar";
 import {
     useEffect,
+    useRef,
     useState
 } from 'react';
 import type {
@@ -15,7 +16,9 @@ import {
     Stack,
     Typography,
     Box,
-    PaletteMode
+    PaletteMode,
+    Drawer,
+    Toolbar
 } from "@mui/material";
 import Style from "./styles/Index.module.scss";
 import {
@@ -34,6 +37,7 @@ import {
 } from './index/consts';
 import useStoragedState from './components/useStoragedState';
 import stringToBoolean from './setting/stringToBoolean';
+import { setState } from './declare';
 export default function Index(props: {
     /**
      * 是否为嵌入
@@ -43,6 +47,9 @@ export default function Index(props: {
      * 搜索内容
      */
     children?: string;
+    ref?;
+    expand?: boolean;
+    setExpand?: setState<boolean>;
 }): JSX.Element {
     const searchParams = useSearchParams(),
         /**
@@ -51,16 +58,30 @@ export default function Index(props: {
          */
         wrappedGetToolsList = () => {
             return getToolsList(realTools);
-        };
+        },
+        refThis = useRef();
+    const {
+        ref = refThis
+    } = props;
     var realTools = getTools(I18N),
         [darkModeFormStorage, setDarkModeFormStorage] = useStoragedState<PaletteMode>("darkmode", "暗色模式", "light"),
         [sortedTools, setSortedTools] = useState(wrappedGetToolsList),
         [searchText, setSearchText] = useState<string>(""),
         [viewMode, setViewMode] = useStoragedState<viewMode>("viewmode", "列表模式", "grid"),
         [editMode, setEditMode] = useState<boolean>(false),
+        [expandThis, setExpandThis] = useState<boolean>(false),
         [tools, setTools] = useState(wrappedGetToolsList),
         [sortingFor, setSortingFor] = useState<string>("__global__"),
         darkMode = stringToBoolean(darkModeFormStorage.replace("light", "false").replace("dark", "true"));
+    if (props.setExpand) {
+        var {
+            expand,
+            setExpand
+        } = props;
+    } else {
+        var expand = expandThis,
+            setExpand = setExpandThis;
+    }
     /**
      * 搜索工具
      */
@@ -72,34 +93,21 @@ export default function Index(props: {
         });
         setTools(calcTools);
     };
-    if (props.isImplant) {
-        setSearchText(props.children);
-        searchTools(props.children);
-    } else if (searchParams.has("searchText")) {
-        const paramText = searchParams.get("searchText");
-        setSearchText(paramText);
-        searchTools(paramText);
-    }
-    if (searchText != "") {
-        setEditMode(false);
-    }
-    return (
-        <>
-            {props.isImplant != true && <HeadBar isIndex pageName="NeilaTools" sx={{
-                zIndex: theme => (theme as ThemeHaveZIndex).zIndex.drawer + 1
-            }} />}
-            <Sidebar
-                isImplant={props.isImplant}
-                viewMode={viewMode}
-                setViewMode={setViewMode}
-                editMode={editMode}
-                setEditMode={setEditMode}
-                searchText={searchText}
-                setSearchText={setSearchText}
-                searchTools={searchTools}
-                setTools={setTools}
-                setSortingFor={setSortingFor}
-            />
+    useEffect(() => {
+        if (props.isImplant) {
+            setSearchText(props.children);
+            searchTools(props.children);
+        } else if (searchParams.has("searchText")) {
+            const paramText = searchParams.get("searchText");
+            setSearchText(paramText);
+            searchTools(paramText);
+        }
+        if (searchText != "") {
+            setEditMode(false);
+        }
+    }, []);
+    function Tools() {
+        return (
             <Box sx={{
                 p: 3,
                 marginLeft: props.isImplant ? "" : `${drawerWidth}px`
@@ -121,6 +129,40 @@ export default function Index(props: {
                     ))}
                 </Stack>
             </Box>
-        </>
+        );
+    }
+    return (
+        <div ref={ref}>
+            {props.isImplant !== true && <HeadBar isIndex pageName="NeilaTools" sx={{
+                zIndex: theme => (theme as ThemeHaveZIndex).zIndex.drawer + 1
+            }} />}
+            <Sidebar
+                isImplant={props.isImplant}
+                viewMode={viewMode}
+                setViewMode={setViewMode}
+                editMode={editMode}
+                setEditMode={setEditMode}
+                searchText={searchText}
+                setSearchText={setSearchText}
+                searchTools={searchTools}
+                setTools={setTools}
+                setSortingFor={setSortingFor}
+                expand={expand}
+                setExpand={setExpand}
+            />
+            {props.isImplant ? (expand && <Drawer anchor='left' variant="permanent" sx={{
+                flexShrink: 0,
+                [`& .MuiDrawer-paper`]: {
+                    position: "absolute",
+                    left: drawerWidth,
+                    maxWidth: `calc(100vw - ${drawerWidth}px)`,
+                    width: `320px`,
+                    boxSizing: 'border-box'
+                }
+            }}>
+                <Toolbar />
+                <Tools />
+            </Drawer>) : <Tools />}
+        </div>
     );
 };

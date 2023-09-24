@@ -41,9 +41,6 @@ var logger = new LpLogger({
 import {
 	SxProps
 } from '@mui/material/styles';
-import Search from "./search";
-import SearchIconWrapper from "./SearchIconWrapper";
-import StyledInputBase from "./StyledInputBase";
 import Link from 'next/link';
 import checkOption from '../../setting/checkOption';
 import useStoragedState from '../useStoragedState';
@@ -75,8 +72,11 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 		WebkitAppRegion: "no-drag",
 	};
 	return props.only ? <Fragment /> : <>
-		<AppBar position="sticky" sx={{
+		<AppBar position="fixed" sx={{
 			WebkitAppRegion: "drag",
+			zIndex: 38610,
+			left: 0,
+			width: "100vw",
 			...props.sx
 		}}>
 			<Toolbar>
@@ -107,25 +107,6 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 				}}>
 					{props.isIndex ? "NeilaTools" : props.pageName}
 				</Typography>
-				{props.isIndex != true && <form style={noDrag} onSubmit={event => {
-					event.preventDefault();
-					setShowSearchTool(true);
-				}}>
-					<FormGroup>
-						<FormControl>
-							<Search>
-								<SearchIconWrapper>
-									<SearchIcon />
-								</SearchIconWrapper>
-								<StyledInputBase name="searchText" placeholder={I18N.get('搜索工具……')} onChange={event => {
-									setSearchText(event.target.value);
-								}} inputProps={{
-									'aria-label': 'search'
-								}} value={searchText} />
-							</Search>
-						</FormControl>
-					</FormGroup>
-				</form>}
 				<nav>
 					<Link href="/setting/option" className={style["link"]} style={noDrag}>
 						<MouseOverPopover text={I18N.get('设置')}>
@@ -163,5 +144,6 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 				</Index>
 			</ErrorBoundary>
 		</PureDialog>}
+		<Toolbar />
 	</>;
 };

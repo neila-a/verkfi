@@ -57,7 +57,6 @@ export default function ToolFinder(props: {
                 backgroundImage: toolColor,
                 color: stringToBoolean(color) ? "#000000" : ""
             }} />
-            {!only && <Toolbar />}
             <Box sx={{
                 p: 3,
                 zIndex: 38602

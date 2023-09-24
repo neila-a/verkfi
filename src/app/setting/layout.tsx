@@ -102,7 +102,6 @@ export default function Settings(props: {
 			<Box component="main" sx={{
 				flexGrow: 1,
 				p: 3,
-				marginLeft: `${drawerWidth}px`
 			}}>
 				<ErrorBoundary>
 					{props.children}

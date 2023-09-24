@@ -12,7 +12,8 @@ import {
     useEffect,
     useState,
     useMemo,
-    ReactNode
+    ReactNode,
+    useRef
 } from 'react';
 import {
     ThemeProvider,
@@ -37,7 +38,17 @@ import {
     WindowOptions
 } from "./components/window/Window";
 import useStoragedState from "./components/useStoragedState";
-import { PaletteMode } from "@mui/material";
+import {
+    PaletteMode
+} from "@mui/material";
+import {
+    usePathname
+} from "next/navigation";
+import Index from "./page";
+import {
+    drawerWidth
+} from "./setting/consts";
+import { exp } from "mathjs";
 export const windows = createContext<{
     windows: WindowOptions[];
     set: setState<WindowOptions[]>;
@@ -68,6 +79,8 @@ export default function ModifiedApp(props: {
                 }),
             [mode]
         ),
+        pathname = usePathname(),
+        indexRef =  useRef(null),
         [choosedLang, setChoosedLang] = useState<string>(() => {
             var browserLang: string = "zhCN";
             if (isBrowser()) {
@@ -132,12 +145,18 @@ export default function ModifiedApp(props: {
             isMounted = false;
         }
     }, []);
+    var [expand, setExpand] = useState<boolean>(false);
     return initDone && (
         <div style={{
             backgroundColor: theme.palette.mode === "dark" ? "#000000" : "#ffffff"
         }}>
             <ThemeProvider theme={theme}>
-                {props.children}
+                {pathname !== "/" && <Index expand={expand} setExpand={setExpand} isImplant />}
+                <div style={{
+                    marginLeft: pathname === "/" ? "" : (expand ? `calc(min(${`calc(100vw - ${drawerWidth}px)`}, 320px) + ${drawerWidth}px)` : drawerWidth)
+                }}>
+                    {props.children}
+                </div>
                 <WindowContainer />
             </ThemeProvider>
         </div>

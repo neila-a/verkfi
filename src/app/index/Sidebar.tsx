@@ -67,6 +67,8 @@ export default function Sidebar(props: {
     searchTools(search: string): void;
     setTools: setState<tool[]>;
     setSortingFor: setState<string>;
+    expand: boolean;
+    setExpand: setState<boolean>;
 }) {
     const {
         viewMode,
@@ -130,7 +132,7 @@ export default function Sidebar(props: {
                 boxSizing: 'border-box'
             }
         }}>
-            {!props.isImplant && <Toolbar />}
+            <Toolbar />
             <Paper sx={{
                 margin: '2px 4px',
                 p: '2px 4px',
@@ -195,6 +197,9 @@ export default function Sidebar(props: {
             <Buttons
                 editMode={editMode}
                 viewMode={viewMode}
+                isImplant={props.isImplant}
+                expand={props.expand}
+                setExpand={props.setExpand}
                 setEditMode={setEditMode}
                 setViewMode={setViewMode}
                 editing={editing}

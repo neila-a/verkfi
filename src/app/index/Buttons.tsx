@@ -2,7 +2,8 @@
 import {
     Divider,
     ButtonGroup,
-    Button
+    Button,
+    IconButton
 } from "@mui/material";
 import {
     setState
@@ -12,6 +13,10 @@ import {
 } from './consts';
 import SwitchEditMode from "./SwitchEditMode";
 import SwitchViewMode from "./SwitchViewMode";
+import {
+    ArrowBackIos as ArrowBackIosIcon,
+    ArrowForwardIos as ArrowForwardIosIcon
+} from "@mui/icons-material";
 import I18N from "react-intl-universal";
 import {
     Add as AddIcon
@@ -25,12 +30,18 @@ import {
 import dynamic from 'next/dynamic';
 const EditToolsListDialog = dynamic(() => import("./EditToolsListDialog"));
 export default function Buttons(props: {
+    /**
+     * 是否为嵌入
+     */
+    isImplant?: boolean;
     viewMode: viewMode;
     setViewMode: setState<viewMode>;
     editMode: boolean;
     setEditMode: setState<boolean>;
     editing: boolean;
     setList: setState<lists>;
+    expand: boolean;
+    setExpand: setState<boolean>;
 }) {
     const {
         viewMode,
@@ -60,6 +71,13 @@ export default function Buttons(props: {
             }}>
                 <SwitchViewMode viewMode={viewMode} setViewMode={setViewMode} />
                 {editing && <SwitchEditMode editMode={editMode} setEditMode={setEditMode} />}
+                {props.isImplant && (<IconButton color="primary" sx={{
+                    p: '10px'
+                }} aria-label="directions" onClick={event => {
+                    props.setExpand(!props.expand);
+                }}>
+                    {props.expand ? <ArrowBackIosIcon /> : <ArrowForwardIosIcon />}
+                </IconButton>)}
             </ButtonGroup>
             {dialogOpen && <EditToolsListDialog
                 dialogTools={dialogTools}
