@@ -158,42 +158,45 @@ export default function Sidebar(props: {
                     searchTools(event.target.value);
                 }} />
             </Paper>
-            <Center>
-                {([[I18N.get("全部"), realTools.map(atool => atool.to)]] as lists).concat(list).map(single => {
-                    const isAll = Object.values(locales).some(singleLang => {
-                        const strings = Object.values(singleLang);
-                        let have: boolean = strings.includes(single[0]);
-                        return have;
-                    });
-                    return (
-                        <SingleSelect key={single[0]} tool={single[0]} onClick={event => {
-                            setSearchText("");
-                            searchTools("");
-                            let draft: tool[] = [];
-                            if (isAll) {
-                                draft = realTools;
-                                setSortingFor("__global__");
-                            } else {
-                                draft = single[1].map(toolTo => realTools.filter(one => one.to === toolTo)[0]);
-                                setSortingFor(single[0]);
-                            }
-                            setTools(draft);
-                        }} editButton={(editMode && !isAll) ? <IconButton onClick={event => {
-                            setDialogOpen(true);
-                            setDialogListName(single[0]);
-                        }} sx={{
-                            position: "absolute",
-                            right: "0"
-                        }}>
-                            <EditIcon />
-                        </IconButton> : <></>} />
-                    );
-                })}
-                <SingleSelect tool={I18N.get("扩展工具")} onClick={event => {
-                    setEditing(false);
-                    setTools(convertedExtendedTools);
-                }} editButton={<></>} />
-            </Center>
+            <div onClick={event => props.setExpand(true)}>
+                <Center>
+                    {([[I18N.get("全部"), realTools.map(atool => atool.to)]] as lists).concat(list).map(single => {
+                        const isAll = Object.values(locales).some(singleLang => {
+                            const strings = Object.values(singleLang);
+                            let have: boolean = strings.includes(single[0]);
+                            return have;
+                        });
+                        return (
+                            <SingleSelect key={single[0]} tool={single[0]} onClick={event => {
+                                setEditing(true);
+                                setSearchText("");
+                                searchTools("");
+                                let draft: tool[] = [];
+                                if (isAll) {
+                                    draft = realTools;
+                                    setSortingFor("__global__");
+                                } else {
+                                    draft = single[1].map(toolTo => realTools.filter(one => one.to === toolTo)[0]);
+                                    setSortingFor(single[0]);
+                                }
+                                setTools(draft);
+                            }} editButton={(editMode && !isAll) ? <IconButton onClick={event => {
+                                setDialogOpen(true);
+                                setDialogListName(single[0]);
+                            }} sx={{
+                                position: "absolute",
+                                right: "0"
+                            }}>
+                                <EditIcon />
+                            </IconButton> : <></>} />
+                        );
+                    })}
+                    <SingleSelect tool={I18N.get("扩展工具")} onClick={event => {
+                        setEditing(false);
+                        setTools(convertedExtendedTools);
+                    }} editButton={<></>} />
+                </Center>
+            </div>
             <Buttons
                 editMode={editMode}
                 viewMode={viewMode}
