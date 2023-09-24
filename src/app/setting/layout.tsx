@@ -10,6 +10,7 @@ import {
 import HeadBar from "../components/headBar/HeadBar";
 import {
 	ReactNode,
+	useContext,
 	useState
 } from "react";
 import {
@@ -34,9 +35,13 @@ export interface ThemeHaveZIndex {
 }
 import ErrorBoundary from '../components/ErrorBoundary';
 import {
-	useRouter, useSelectedLayoutSegment
+	useRouter,
+	useSelectedLayoutSegment
 } from 'next/navigation';
-import Link from 'next/link';
+import {
+	showSidebar
+} from '../layoutClient';
+import stringToBoolean from './stringToBoolean';
 export default function Settings(props: {
 	children: ReactNode
 }): JSX.Element {
@@ -64,7 +69,8 @@ export default function Settings(props: {
 	],
 		router = useRouter(),
 		id = useSelectedLayoutSegment();
-	const [value, setValue] = useState(sets.indexOf(sets.filter(set => set.id === id)[0]));
+	const [value, setValue] = useState(sets.indexOf(sets.filter(set => set.id === id)[0])),
+		context = useContext(showSidebar);
 	return (
 		<>
 			<HeadBar isIndex={false} pageName={I18N.get('设置')} sx={{
@@ -74,7 +80,7 @@ export default function Settings(props: {
 				<Drawer anchor="top" variant="permanent" sx={{
 					flexShrink: 0,
 					[`& .MuiDrawer-paper`]: {
-						marginLeft: `${drawerWidth}px`,
+						marginLeft: stringToBoolean(context.show) && `${drawerWidth}px`,
 						boxSizing: 'border-box'
 					},
 				}}>

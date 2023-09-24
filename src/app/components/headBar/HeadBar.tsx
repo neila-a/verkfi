@@ -15,9 +15,10 @@ import ErrorBoundary from "../ErrorBoundary";
 import {
 	ArrowBack,
 	Settings as SettingsIcon,
-	Search as SearchIcon,
 	LightMode,
-	DarkMode
+	DarkMode,
+	ArrowBackIos as ArrowBackIos,
+	ArrowForwardIos as ArrowForward
 } from "@mui/icons-material"
 import {
 	CSSProperties,
@@ -44,6 +45,9 @@ import {
 import Link from 'next/link';
 import checkOption from '../../setting/checkOption';
 import useStoragedState from '../useStoragedState';
+import {
+	showSidebar
+} from '../../layoutClient';
 export interface HeadBarOption {
 	pageName: string;
 	isIndex: boolean;
@@ -107,10 +111,23 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 				}}>
 					{props.isIndex ? "NeilaTools" : props.pageName}
 				</Typography>
+				<showSidebar.Consumer>
+					{value => !props.isIndex && (
+						<IconButton onClick={event => {
+							value.set((!stringToBoolean(value.show)).toString());
+						}} size="large" edge="end" color="inherit" aria-label="menu" sx={{
+							mr: 2
+						}}>
+							{value.show === "false" ? <ArrowForward /> : <ArrowBackIos />}
+						</IconButton>
+					)}
+				</showSidebar.Consumer>
 				<nav>
 					<Link href="/setting/option" className={style["link"]} style={noDrag}>
 						<MouseOverPopover text={I18N.get('设置')}>
-							<IconButton size="large" edge="end" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
+							<IconButton size="large" edge="end" color="inherit" aria-label="menu" sx={{
+								mr: 2
+							}}>
 								<SettingsIcon />
 							</IconButton>
 						</MouseOverPopover>

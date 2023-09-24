@@ -49,12 +49,13 @@ import Index from "./page";
 import {
     drawerWidth
 } from "./setting/consts";
+import stringToBoolean from "./setting/stringToBoolean";
 export const windows = createContext<{
     windows: WindowOptions[];
     set: setState<WindowOptions[]>;
 }>(null);
 export function WindowsProvider(props: {
-    children: ReactNode
+    children: ReactNode;
 }) {
     var [realWindows, setRealWindows] = useState<WindowOptions[]>([]);
     return (
@@ -66,6 +67,10 @@ export function WindowsProvider(props: {
         </windows.Provider>
     );
 }
+export const showSidebar = createContext<{
+    show: string;
+    set: setState<string>;
+}>(null);
 export default function ModifiedApp(props: {
     children: ReactNode
 }) {
@@ -146,22 +151,28 @@ export default function ModifiedApp(props: {
             isMounted = false;
         }
     }, []);
-    var [expand, setExpand] = useState<boolean>(false);
+    var [expand, setExpand] = useState<boolean>(false),
+        [showSidebarState, setShowSidebar] = useStoragedState<"true" | "false">("sidebar", "边栏", "true");
     const implant = (pathname === "/") || (params.get("only") === "true"),
         marginLeft: string = implant ? "" : (expand ? `calc(min(${`calc(100vw - ${drawerWidth}px)`}, 320px) + ${drawerWidth}px)` : `${drawerWidth}px`),
-        Sidebar = implant ? null : <Index expand={expand} setExpand={setExpand} isImplant />;
+        Sidebar = implant ? null : (stringToBoolean(showSidebarState) && <Index expand={expand} setExpand={setExpand} isImplant />);
     return initDone && (
         <div style={{
             backgroundColor: theme.palette.mode === "dark" ? "#000000" : "#ffffff"
         }}>
             <ThemeProvider theme={theme}>
-                {Sidebar}
-                <div style={{
-                    marginLeft: marginLeft
+                <showSidebar.Provider value={{
+                    show: showSidebarState,
+                    set: setShowSidebar
                 }}>
-                    {props.children}
-                </div>
-                <WindowContainer />
+                    {Sidebar}
+                    <div style={{
+                        marginLeft: stringToBoolean(showSidebarState) ? marginLeft : ""
+                    }}>
+                        {props.children}
+                    </div>
+                    <WindowContainer />
+                </showSidebar.Provider>
             </ThemeProvider>
         </div>
     );
