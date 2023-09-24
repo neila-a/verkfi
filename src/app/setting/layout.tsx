@@ -3,16 +3,14 @@ import I18N from 'react-intl-universal';
 import {
 	Box,
 	Drawer,
-	List,
-	ListItem,
-	ListItemButton,
-	ListItemIcon,
-	ListItemText,
+	Tab,
+	Tabs,
 	Toolbar
 } from "@mui/material";
 import HeadBar from "../components/headBar/HeadBar";
 import {
-	ReactNode
+	ReactNode,
+	useState
 } from "react";
 import {
 	Handyman as HandyManIcon,
@@ -38,6 +36,7 @@ import ErrorBoundary from '../components/ErrorBoundary';
 import {
 	useRouter
 } from 'next/navigation';
+import Link from 'next/link';
 export default function Settings(props: {
 	children: ReactNode
 }): JSX.Element {
@@ -64,40 +63,32 @@ export default function Settings(props: {
 		}
 	],
 		router = useRouter();
+	const [value, setValue] = useState(0);
 	return (
 		<>
 			<HeadBar isIndex={false} pageName={I18N.get('设置')} sx={{
 				zIndex: theme => (theme as ThemeHaveZIndex).zIndex.drawer + 1
 			}} />
 			<nav>
-				<Drawer variant="permanent" sx={{
-					width: drawerWidth,
+				<Drawer anchor="top" variant="permanent" sx={{
 					flexShrink: 0,
 					[`& .MuiDrawer-paper`]: {
-						width: drawerWidth,
+						marginLeft: `${drawerWidth}px`,
 						boxSizing: 'border-box'
 					},
 				}}>
 					<Toolbar />
-					<Box sx={{
-						overflow: 'auto'
-					}} id="select">
-						<List>
-							{sets.map((Set, index) => (
-								<ListItem key={Set.id} onClick={event => {
-									router.push(`/setting/${Set.id}`);
-								}} disablePadding>
-									<ListItemButton>
-										<ListItemIcon>
-											<Set.Icon />
-										</ListItemIcon>
-										<ListItemText primary={Set.name} />
-									</ListItemButton>
-								</ListItem>
-							))}
-						</List>
-					</Box>
+					<Tabs value={value} onChange={(event, newValue) => {
+						setValue(newValue);
+					}}>
+						{sets.map(Set => (
+							<Tab icon={<Set.Icon />} iconPosition="start" label={Set.name} key={Set.id} onClick={event => {
+								router.push(`/setting/${Set.id}`);
+							}} />
+						))}
+					</Tabs>
 				</Drawer>
+				<Toolbar />
 			</nav>
 			<Box component="main" sx={{
 				flexGrow: 1,
