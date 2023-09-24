@@ -1,7 +1,7 @@
 {
     "name": "neila-tools",
     "version": "1.5.2",
-    "devVersion": "654",
+    "devVersion": "655",
     "dev": true,
     "description": "Platform for Neila's something useless tools.",
     "private": true,
@@ -75,5 +75,5 @@
         "eslint-plugin-react-hooks": "^4.6.0",
         "typescript": "5.1.3"
     },
-    "homepage": "https://neila-tools.vercel.app/"
+    "homepage": "https://neila-tools.netlify.app/"
 }
