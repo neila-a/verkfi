@@ -117,8 +117,9 @@ export default function Index(props: {
                     display: viewMode == "grid" ? "flex" : "block",
                     width: "100%"
                 }}> {/* 工具总览 */}
-                    {tools.length === 0 ? <Typography>{I18N.get('未找到任何工具')}</Typography> : tools.map(tool => (
+                    {tools.length === 0 ? <Typography>{I18N.get('未找到任何工具')}</Typography> : tools.map((tool, index) => (
                         <SingleTool
+                            isFirst={(searchText !== "") && (index === 0)}
                             tool={tool}
                             sortingFor={sortingFor}
                             key={tool.to}
@@ -147,6 +148,7 @@ export default function Index(props: {
                 setSearchText={setSearchText}
                 searchTools={searchTools}
                 setTools={setTools}
+                setSortedTools={setSortedTools}
                 sortingFor={sortingFor}
                 setSortingFor={setSortingFor}
                 expand={expand}

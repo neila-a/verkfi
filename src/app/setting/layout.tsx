@@ -34,7 +34,7 @@ export interface ThemeHaveZIndex {
 }
 import ErrorBoundary from '../components/ErrorBoundary';
 import {
-	useRouter
+	useRouter, useSelectedLayoutSegment
 } from 'next/navigation';
 import Link from 'next/link';
 export default function Settings(props: {
@@ -62,8 +62,9 @@ export default function Settings(props: {
 			Icon: ExtensionIcon
 		}
 	],
-		router = useRouter();
-	const [value, setValue] = useState(0);
+		router = useRouter(),
+		id = useSelectedLayoutSegment();
+	const [value, setValue] = useState(sets.indexOf(sets.filter(set => set.id === id)[0]));
 	return (
 		<>
 			<HeadBar isIndex={false} pageName={I18N.get('设置')} sx={{
@@ -78,7 +79,14 @@ export default function Settings(props: {
 					},
 				}}>
 					<Toolbar />
-					<Tabs value={value} onChange={(event, newValue) => {
+					<Tabs sx={{
+						width: `calc(100% - ${drawerWidth}px)`,
+						[`& .MuiTab-root`]: {
+							maxWidth: `${100 / sets.length}%`,
+							width: `${100 / sets.length}%`,
+							minWidth: `${100 / sets.length}%`
+						}
+					}} scrollButtons allowScrollButtonsMobile value={value} onChange={(event, newValue) => {
 						setValue(newValue);
 					}}>
 						{sets.map(Set => (

@@ -66,6 +66,7 @@ export default function Sidebar(props: {
      */
     searchTools(search: string): void;
     setTools: setState<tool[]>;
+    setSortedTools: setState<tool[]>;
     sortingFor: string;
     setSortingFor: setState<string>;
     expand: boolean;
@@ -199,6 +200,7 @@ export default function Sidebar(props: {
                                         }
                                         setSortingFor(single[0]);
                                     }
+                                    props.setSortedTools(draft);
                                     setTools(draft);
                                 }} editButton={(
                                     (editMode && !isAll) ? <IconButton onClick={event => {
@@ -221,6 +223,7 @@ export default function Sidebar(props: {
                         }
                         setSortingFor("__extended__");
                         setEditing(false);
+                        props.setSortedTools(convertedExtendedTools);
                         setTools(convertedExtendedTools);
                     }} editButton={<></>} />
                 </Center>

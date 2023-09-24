@@ -32,20 +32,14 @@ import styled from '@emotion/styled';
 import dynamic from 'next/dynamic';
 const CheckDialog = dynamic(() => import("../components/dialog/CheckDialog"));
 import {
-    drawerWidth
-} from '../setting/consts';
-import {
-    isBrowser,
     windows
 } from '../layoutClient';
 import stringToBoolean from "../setting/stringToBoolean";
-import checkOption from '../setting/checkOption';
 import I18N from "react-intl-universal";
 import useStoragedState from '../components/useStoragedState';
-import getToolColor from '../tools/getToolColor';
-import db from '../extendedTools/db';
 export default function SingleTool(props: {
     tool: tool;
+    isFirst: boolean;
     darkMode: boolean;
     viewMode: viewMode;
     setTools: setState<tool[]>;
@@ -173,6 +167,10 @@ export default function SingleTool(props: {
                                     </div>
                                 </>}
                             </div>
+                            {props.isFirst && <iframe style={{
+                                border: "none",
+                                width: "100%"
+                            }} src={tool.isGoto ? (!tool.to.startsWith("/") ? tool.to : `${tool.to}&only=true`) : `/tools/${tool.to}?only=true`} />}
                         </CardContent>
                     </Card>
                 )}
