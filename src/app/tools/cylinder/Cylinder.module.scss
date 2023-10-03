@@ -1,0 +1,10 @@
+.container {
+    $main: min(100vw - 48px, 100vh - 48px);
+    width: $main;
+    height: $main;
+
+    & canvas {
+        width: $main !important;
+        height: $main !important;
+    }
+}

@@ -8,11 +8,11 @@ export var logger = new LpLogger({
     name: "Matrix",
     level: "log"
 });
-export default function drawMatrix(blocks: block[], g: number, posX: number, posZ: number, posCache: block, cache: block[], colorMode: PaletteMode) {
-    var b = document.body,
-        w = b.scrollWidth - 48,
-        h = b.scrollHeight - 48,
-        e = w > h ? h : w,
+import {
+    Graphics
+} from "@pixi/graphics";
+export default function drawMatrix(blocks: block[], g: number, posX: number, posZ: number, posCache: block, cache: block[], colorMode: PaletteMode, graphics: Graphics) {
+    var e = Math.min(document.body.scrollWidth - 48, document.body.scrollHeight - 48),
         nowPos = [posX, posZ],
         cachePosBlock: block[] = [],
         posBlock: block[] = [];
@@ -26,7 +26,7 @@ export default function drawMatrix(blocks: block[], g: number, posX: number, pos
     }));
     posBlock = removeIn2(posBlock, blocks) as block[];
     cachePosBlock = removeIn2(cachePosBlock, blocks) as block[];
-    drawMatrixBase(e, g * 2 + 1, blocks, cache, posBlock, cachePosBlock, colorMode);
+    drawMatrixBase(e, g * 2 + 1, blocks, cache, posBlock, cachePosBlock, colorMode, graphics);
 }
 
 export type block = [number, number];

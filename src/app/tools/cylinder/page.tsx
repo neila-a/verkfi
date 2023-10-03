@@ -4,7 +4,11 @@ import {
     useEffect,
     useState
 } from "react";
-import style from "./Cylinder.module.scss"
+import {
+    Stage,
+    Container,
+    Graphics
+} from "@pixi/react";
 import LpLogger from "lp-logger";
 import makeCylinder from "./makeCylinder";
 import {
@@ -20,6 +24,7 @@ import {
 import drawMatrix, {
     block
 } from '../../components/matrix/matrix';
+import style from "./Cylinder.module.scss";
 var logger = new LpLogger({
     name: I18N.get('画圆'),
     level: "log"
@@ -36,7 +41,6 @@ function Cylinder(): JSX.Element {
     const theme = useTheme();
     useEffect(() => {
         const blocks = makeCylinder(radiusX, radiusZ, thickness, filled);
-        drawMatrix(blocks.slice(0), Math.max(radiusX, radiusZ), posX, posZ, posCache, cache, theme.palette.mode);
         setCache(blocks.slice(0));
         setPosCache([posX, posZ]);
     }, [posX, posZ]);
@@ -45,7 +49,6 @@ function Cylinder(): JSX.Element {
             blocks = makeCylinder(radiusX, radiusZ, thickness, filled);
         setPosX(g);
         setPosZ(g);
-        drawMatrix(blocks.slice(0), Math.max(radiusX, radiusZ), posX, posZ, posCache, cache, theme.palette.mode);
         setCache(blocks.slice(0));
         setPosCache([posX, posZ]);
     }, [radiusX, radiusZ, thickness, filled]);
@@ -121,7 +124,7 @@ function Cylinder(): JSX.Element {
                     </Typography>
                 </Grid>
             </Grid>
-            <div id="canvascontainer" onMouseMove={event => {
+            <div className={style["container"]} id="canvascontainer" onMouseMove={event => {
                 const b = document.body,
                     w = b.scrollWidth - 48,
                     h = b.scrollHeight - 48,
@@ -131,7 +134,16 @@ function Cylinder(): JSX.Element {
                 setPosX(x);
                 setPosZ(z);
             }}>
-                <canvas id="canvas" width={1} height={1} />
+                <Stage options={{
+                    backgroundColor: theme.palette.mode !== "light" ? 0x000000 : 0xffffff
+                }}>
+                    <Container>
+                        <Graphics draw={graphics => {
+                            const blocks = makeCylinder(radiusX, radiusZ, thickness, filled);
+                            drawMatrix(blocks.slice(0), Math.max(radiusX, radiusZ), posX, posZ, posCache, cache, theme.palette.mode, graphics);
+                        }} />
+                    </Container>
+                </Stage>
             </div>
         </>
     );
