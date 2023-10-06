@@ -23,6 +23,7 @@ import {
 import {
 	CSSProperties,
 	Fragment,
+	useContext,
 	useState
 } from "react";
 import style from "./HeadBar.module.scss";
@@ -43,9 +44,9 @@ import {
 	SxProps
 } from '@mui/material/styles';
 import Link from 'next/link';
-import checkOption from '../../setting/checkOption';
-import useStoragedState from '../useStoragedState';
 import {
+	darkMode as darkModeContext,
+	forkMeOnGitHub as forkMeOnGitHubContext,
 	showSidebar
 } from '../../layoutClient';
 export interface HeadBarOption {
@@ -62,15 +63,12 @@ export interface HeadBarOption {
  * @param {SxProps<Theme>} sx 添加的样式
  */
 export default function HeadBar(props: HeadBarOption): JSX.Element {
-	var [forkMeOnGitHub, setForkMeOnGithub] = useState(() => {
-		const option = checkOption("fork-me-on-github", "Fork me on GitHub", "false");
-		return option || "false"
-	}),
-		[darkModeFormStorage, setDarkModeFormStorage] = useStoragedState<PaletteMode>("darkmode", "暗色模式", "light"),
+	var forkMeOnGithub = useContext(forkMeOnGitHubContext),
+		darkModeFormStorage = useContext(darkModeContext),
 		[searchText, setSearchText] = useState(""),
 		[showSearchTool, setShowSearchTool] = useState<boolean>(false),
 		router = useRouter(),
-		darkMode = stringToBoolean(darkModeFormStorage.replace("light", "false").replace("dark", "true"));
+		darkMode = stringToBoolean(darkModeFormStorage.mode.replace("light", "false").replace("dark", "true"));
 	const noDrag: CSSProperties = {
 		// @ts-ignore React的CSSProperties中明明有WebkitAppRegion，但是类型中没有
 		WebkitAppRegion: "no-drag",
@@ -89,8 +87,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 						<IconButton size='large' edge="start" color="inherit" aria-label="darkmode" sx={{
 							mr: 2
 						}} onClick={event => {
-							setDarkModeFormStorage(darkModeFormStorage === "light" ? "dark" : "light");
-							location.reload();
+							darkModeFormStorage.set(darkModeFormStorage.mode === "light" ? "dark" : "light");
 						}}>
 							{!darkMode ? <DarkMode /> : <LightMode />}
 						</IconButton>
@@ -135,7 +132,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 				</nav>
 			</Toolbar>
 		</AppBar>
-		{stringToBoolean(forkMeOnGitHub) ? <div className={style["github-ribbon"]} style={{
+		{stringToBoolean(forkMeOnGithub.value) ? <div className={style["github-ribbon"]} style={{
 			...noDrag,
 			...props.isIndex ? {
 				left: "0px"

@@ -13,7 +13,8 @@ import {
     useState,
     useMemo,
     ReactNode,
-    useRef
+    useRef,
+    useReducer
 } from 'react';
 import {
     ThemeProvider,
@@ -50,6 +51,8 @@ import {
     drawerWidth
 } from "./setting/consts";
 import stringToBoolean from "./setting/stringToBoolean";
+import { stringifyCheck } from "./setting/Switcher";
+import setSetting from "./setting/setSetting";
 export const windows = createContext<{
     windows: WindowOptions[];
     set: setState<WindowOptions[]>;
@@ -71,6 +74,41 @@ export const showSidebar = createContext<{
     show: string;
     set: setState<string>;
 }>(null);
+export const forkMeOnGitHub = createContext<{
+    value: stringifyCheck;
+    set: setState<stringifyCheck>;
+}>(null);
+export const darkMode = createContext<{
+    mode: PaletteMode;
+    set: setState<PaletteMode>;
+}>(null);
+export const colorMode = createContext<{
+    value: stringifyCheck;
+    set: setState<stringifyCheck>;
+}>(null);
+export const lang = createContext<{
+    value: string;
+    set: setState<string>;
+}>(null);
+export const useLang = () => {
+    var browserLang: string = "zhCN";
+    if (isBrowser()) {
+        if (window.navigator.language || window.navigator.languages) {
+            browserLang = ((window.navigator.languages && window.navigator.languages[0]) || window.navigator.language).split("-").join("") || "zhCN";
+        }
+    }
+    const detailedLang = Object.keys(locales).includes(browserLang) ? browserLang : "zhCN",
+        choose = checkOption("lang", "语言", detailedLang),
+        real = choose || "zhCN";
+    return useReducer((old: string, val: string) => {
+        intl.init({
+            currentLocale: val,
+            locales
+        });
+        setSetting("lang", "语言", val);
+        return val;
+    }, real);
+};
 export default function ModifiedApp(props: {
     children: ReactNode
 }) {
@@ -87,17 +125,7 @@ export default function ModifiedApp(props: {
         pathname = usePathname(),
         params = useSearchParams(),
         indexRef = useRef(null),
-        [choosedLang, setChoosedLang] = useState<string>(() => {
-            var browserLang: string = "zhCN";
-            if (isBrowser()) {
-                if (window.navigator.language || window.navigator.languages) {
-                    browserLang = ((window.navigator.languages && window.navigator.languages[0]) || window.navigator.language).split("-").join("") || "zhCN";
-                }
-            }
-            const detailedLang = Object.keys(locales).includes(browserLang) ? browserLang : "zhCN",
-                choose = checkOption("lang", "语言", detailedLang);
-            return choose || "zhCN";
-        });
+        [choosedLang, setChoosedLang] = useLang();
     var [initDone, setInitDone] = useState<boolean>(false);
     useEffect(() => {
         var url = `${location.origin}/handle?handle=%s`;
@@ -137,13 +165,12 @@ export default function ModifiedApp(props: {
         let isMounted = true;
         async function loadLang() {
             if (isMounted) {
-                const result = await intl.init({
+                await intl.init({
                     currentLocale: choosedLang,
                     locales
                 });
                 setInitDone(true);
                 logger.log("语言已经加载完毕");
-                return result;
             }
         }
         loadLang();
@@ -155,7 +182,9 @@ export default function ModifiedApp(props: {
         [showSidebarState, setShowSidebar] = useStoragedState<"true" | "false">("sidebar", "边栏", "true");
     const implant = (pathname === "/") || (params.get("only") === "true"),
         marginLeft: string = implant ? "" : (expand ? `calc(min(${`calc(100vw - ${drawerWidth}px)`}, 320px) + ${drawerWidth}px)` : `${drawerWidth}px`),
-        Sidebar = implant ? null : (stringToBoolean(showSidebarState) && <Index expand={expand} setExpand={setExpand} isImplant />);
+        Sidebar = implant ? null : (stringToBoolean(showSidebarState) && <Index expand={expand} setExpand={setExpand} isImplant />),
+        [forkMeOnGitHubState, setForkMeOnGithub] = useStoragedState<stringifyCheck>("fork-me-on-github", "Fork me on GitHub", "false"),
+        [colorModeState, setColorModeState] = useStoragedState<stringifyCheck>("color", "多彩主页", "true");
     return initDone && (
         <div style={{
             backgroundColor: theme.palette.mode === "dark" ? "#000000" : "#ffffff"
@@ -165,13 +194,33 @@ export default function ModifiedApp(props: {
                     show: showSidebarState,
                     set: setShowSidebar
                 }}>
-                    {Sidebar}
-                    <div style={{
-                        marginLeft: stringToBoolean(showSidebarState) ? marginLeft : ""
+                    <forkMeOnGitHub.Provider value={{
+                        value: forkMeOnGitHubState,
+                        set: setForkMeOnGithub
                     }}>
-                        {props.children}
-                    </div>
-                    <WindowContainer />
+                        <darkMode.Provider value={{
+                            mode: mode,
+                            set: setMode
+                        }}>
+                            <colorMode.Provider value={{
+                                value: colorModeState,
+                                set: setColorModeState
+                            }}>
+                                <lang.Provider value={{
+                                    value: choosedLang,
+                                    set: setChoosedLang
+                                }}>
+                                    {Sidebar}
+                                    <div style={{
+                                        marginLeft: stringToBoolean(showSidebarState) ? marginLeft : ""
+                                    }}>
+                                        {props.children}
+                                    </div>
+                                    <WindowContainer />
+                                </lang.Provider>
+                            </colorMode.Provider>
+                        </darkMode.Provider>
+                    </forkMeOnGitHub.Provider>
                 </showSidebar.Provider>
             </ThemeProvider>
         </div>

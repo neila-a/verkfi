@@ -8,6 +8,7 @@ import {
 } from "next/navigation";
 import HeadBar from "../components/headBar/HeadBar";
 import {
+    useContext,
     useEffect,
     useState
 } from "react";
@@ -15,7 +16,9 @@ import stringToBoolean from "../setting/stringToBoolean";
 import db, {
     single
 } from "./db";
-import useStoragedState from "../components/useStoragedState";
+import {
+    colorMode
+} from "../layoutClient";
 export default function ExtendedTools() {
     const param = useSearchParams();
     var toolID = "",
@@ -27,7 +30,8 @@ export default function ExtendedTools() {
             color: ["", ""],
             file: ""
         }),
-        [color, setColor] = useStoragedState("color", "多彩主页", "true");
+        colorContext = useContext(colorMode),
+        color = colorContext.value;
     const {
         name = ""
     } = tool;
