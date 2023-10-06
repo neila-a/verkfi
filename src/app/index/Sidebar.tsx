@@ -9,7 +9,8 @@ import {
     Paper,
     Drawer,
     Toolbar,
-    Button
+    Button,
+    useTheme
 } from "@mui/material";
 import {
     Edit as EditIcon,
@@ -120,7 +121,8 @@ export default function Sidebar(props: {
                 whiteSpace: "nowrap"
             }}>
                 <Button fullWidth sx={{
-                    backgroundColor: sortingFor === props.wantSortingFor ? "#D3D3D3" : ""
+                    bgcolor: theme => sortingFor === props.wantSortingFor ? theme.palette.action.active : "",
+                    color: theme => sortingFor === props.wantSortingFor ? theme.palette.primary[theme.palette.mode] : ""
                 }} onClick={event => {
                     setEditing(searchText === "");
                     props.onClick(event);
