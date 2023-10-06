@@ -96,7 +96,7 @@ function AudioTools(): JSX.Element {
     }
     return (
         <>
-            <Paper elevation={24} id="audioreplay" className={style["audioreplay"]}>
+            <Paper id="audioreplay" className={style["audioreplay"]}>
                 <div>
                     <Typography variant="h3" gutterBottom>{I18N.get('音频循环播放')}</Typography>
                     <audio controls loop src={loopAudioSrc}>
@@ -115,7 +115,7 @@ function AudioTools(): JSX.Element {
                 </div>
                 <br />
             </Paper>
-            <Paper elevation={24} id="audioinput" className={style["audioinput"]}>
+            <Paper id="audioinput" className={style["audioinput"]}>
                 <div>
                     <Typography variant="h3" gutterBottom>{I18N.get('音频录制并循环')}</Typography>
                     <Button variant="contained" onClick={() => {

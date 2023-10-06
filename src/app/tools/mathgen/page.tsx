@@ -74,7 +74,7 @@ function MathGen(): JSX.Element {
                             setDivisionCheck(event.currentTarget.checked);
                         }} />
                     } />
-                    <Paper elevation={6} sx={{
+                    <Paper sx={{
                         "> *": {
                             p: 1
                         }

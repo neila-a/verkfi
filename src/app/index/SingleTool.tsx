@@ -86,7 +86,7 @@ export default function SingleTool(props: {
                         width: viewMode == "grid" ? "275px" : fullWidth,
                         maxWidth: fullWidth,
                         backgroundImage: stringToBoolean(color) ? "linear-gradient(45deg, #" + tool.color[0] + ", #" + tool.color[1] + ")" : ""
-                    }} elevation={10}>
+                    }}>
                         <CardContent>
                             <div className={viewMode == "list" ? Style["singleList"] : ""} onClick={() => {
                                 logger.info(`点击了${tool.name}`);
