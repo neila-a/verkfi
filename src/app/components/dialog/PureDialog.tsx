@@ -7,6 +7,7 @@ import {
 } from "react";
 import BootstrapDialog from "./BootstrapDialog";
 import BootstrapDialogTitle from "./BootstrapDialogTitle";
+import Transition from "./Transition";
 export default function PureDialog(props: {
     /**
      * 标题
@@ -27,7 +28,7 @@ export default function PureDialog(props: {
         props.onClose();
     };
     return (
-        <BootstrapDialog onClose={handleClose} open={open}>
+        <BootstrapDialog onClose={handleClose} open={open} TransitionComponent={Transition}>
             <BootstrapDialogTitle onClose={handleClose}>{props.title}</BootstrapDialogTitle>
             <DialogContent dividers>
                 {props.children}
