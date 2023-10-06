@@ -18,7 +18,8 @@ import {
     Box,
     PaletteMode,
     Drawer,
-    Toolbar
+    Toolbar,
+    Paper
 } from "@mui/material";
 import Style from "./styles/Index.module.scss";
 import {
@@ -99,6 +100,7 @@ export default function Index(props: {
             if (tool.desc.includes(search) || to.includes(search) || tool.name.includes(search)) calcTools.push(tool);
         });
         setTools(calcTools);
+        setExpand(true);
     };
     useEffect(() => {
         if (props.isImplant) {
@@ -199,18 +201,22 @@ export default function Index(props: {
                         </Center>
                     </Box>
                     <Box>
-                        <Typography variant='h4'>
-                            {I18N.get('最近使用')}
-                        </Typography>
-                        <ToolsStack paramTool={(JSON.parse(recentlyUsed) as string[]).map(to => {
-                            var tool: tool;
-                            realTools.forEach(single => {
-                                if (single.to === to) {
-                                    tool = single;
-                                }
-                            });
-                            return tool;
-                        })} />
+                        <Paper sx={{
+                            p: 3
+                        }}>
+                            <Typography variant='h4'>
+                                {I18N.get('最近使用')}
+                            </Typography>
+                            <ToolsStack paramTool={(JSON.parse(recentlyUsed) as string[]).map(to => {
+                                var tool: tool;
+                                realTools.forEach(single => {
+                                    if (single.to === to) {
+                                        tool = single;
+                                    }
+                                });
+                                return tool;
+                            })} />
+                        </Paper>
                     </Box>
                 </Box>
             )}
