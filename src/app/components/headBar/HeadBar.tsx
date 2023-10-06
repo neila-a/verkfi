@@ -94,7 +94,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 						}}>
 							{!darkMode ? <DarkMode /> : <LightMode />}
 						</IconButton>
-					</MouseOverPopover> : <MouseOverPopover text={I18N.get('首页')} sx={noDrag}>
+					</MouseOverPopover> : <MouseOverPopover text={I18N.get('上一页')} sx={noDrag}>
 						<IconButton size="large" edge="start" color="inherit" aria-label="homepage" sx={{
 							mr: 2
 						}} onClick={event => {
