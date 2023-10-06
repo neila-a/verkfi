@@ -120,7 +120,7 @@ export default function Sidebar(props: {
                 width: "100%",
                 whiteSpace: "nowrap"
             }}>
-                <Button fullWidth sx={{
+                <Button aria-label={props.tool} fullWidth sx={{
                     bgcolor: theme => sortingFor === props.wantSortingFor ? theme.palette.action.active : "",
                     color: theme => sortingFor === props.wantSortingFor ? theme.palette.primary[theme.palette.mode] : ""
                 }} onClick={event => {
