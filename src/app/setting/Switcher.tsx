@@ -1,32 +1,31 @@
 import {
     FormControlLabel,
+    PaletteMode,
     Switch
 } from "@mui/material";
-import setOption from "./setOption";
 import I18N from "react-intl-universal";
 import {
-    options
+    option
 } from "./option/page";
 import {
-    useState
+    Dispatch,
+    useContext
 } from "react";
-import checkOption from "./checkOption";
 import stringToBoolean from "./stringToBoolean";
 export type stringifyCheck = "false" | "true";
 export function Switcher(props: {
-    options: options;
+    option: option;
     index: number;
 }) {
     const {
-        options
+        option
     } = props,
-        [checked, setChecked] = useState<stringifyCheck>(() => {
-            const check = checkOption(options[0], options[1], options[2]) as stringifyCheck;
-            return check || options[2];
-        });
+        value = useContext(option[0]),
+        isDarkMode = option[1] === "暗色模式",
+        isForkMeOnGitHub = option[1] === "Fork me on GitHub";
     return (
-        <FormControlLabel control={<Switch checked={stringToBoolean(checked)} onChange={event => {
-            setOption(options[0], options[1], event.target.checked);
-        }} />} label={props.index === 0 ? options[1] : I18N.get(options[1])} />
+        <FormControlLabel control={<Switch checked={stringToBoolean(isDarkMode ? (value.mode as PaletteMode).replace("light", "false").replace("dark", "true") : value.value as stringifyCheck)} onChange={event => {
+            (value.set as Dispatch<any>)(isDarkMode ? ((value.mode as PaletteMode) === "dark" ? "light" : "dark") : String((!stringToBoolean(value.value as stringifyCheck))));
+        }} />} label={isForkMeOnGitHub ? option[1] : I18N.get(option[1])} />
     );
 }

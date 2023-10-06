@@ -11,47 +11,48 @@ import {
 import {
     Download as DownloadIcon,
     Help as HelpIcon
-} from "@mui/icons-material"
-import setOption from "../setOption";
+} from "@mui/icons-material";
 import {
+    colorMode,
+    darkMode,
+    forkMeOnGitHub,
+    lang as langContext,
     locales
 } from "../../layoutClient";
 import I18N from "react-intl-universal";
 import {
+    Context,
+    useContext,
     useState
 } from "react";
 import {
     Switcher
 } from "../Switcher";
-import {
-    stringifyCheck
-} from "../Switcher";
 import dynamic from 'next/dynamic';
+import {
+    useRouter
+} from "next/navigation";
 const PureDialog = dynamic(() => import("../../components/dialog/PureDialog")),
     ghURL = "https://github.com/neila-a/NeilaTools/";
-export type options = [string, string, stringifyCheck];
+export type option = [Context<any>, string];
 export default function Options() {
-    var [lang, setLang] = useState<string>(""),
-        [dialogOpen, setDialogOpen] = useState<boolean>(false);
+    var lang = useContext(langContext),
+        [dialogOpen, setDialogOpen] = useState<boolean>(false),
+        router = useRouter();
     return (
         <FormGroup>
             <Typography variant='h4'>
                 {I18N.get('选项')}
             </Typography>
-            {([["fork-me-on-github", "Fork me on GitHub", "false"], ["darkmode", "暗色模式", "light"], ["color", "多彩主页", "true"]] as options[]).map((options, index) => (
-                <Switcher options={options} index={index} key={options[0]} />
+            {([[forkMeOnGitHub, "Fork me on GitHub"], [darkMode, "暗色模式"], [colorMode, "多彩主页"]] as option[]).map((options, index) => (
+                <Switcher option={options} index={index} key={options[1]} />
             ))}
             <InputLabel id="lang">
                 {I18N.get("选择语言")}
             </InputLabel>
-            <Select labelId="lang" value={lang} label={I18N.get("选择语言")} onChange={event => {
+            <Select labelId="lang" value={lang.value} label={I18N.get("选择语言")} onChange={event => {
                 const plang = event.target.value;
-                I18N.init({
-                    currentLocale: plang,
-                    locales
-                });
-                setLang(plang);
-                setOption("lang", "语言", plang);
+                lang.set(plang);
             }}>
                 {Object.values(locales).map(ilang => {
                     const {
@@ -71,7 +72,7 @@ export default function Options() {
                     {I18N.get("下载本应用")}
                 </Button>
                 <Button variant="outlined" startIcon={<HelpIcon />} onClick={event => {
-                    window.location.href = `${ghURL}wiki`;
+                    router.push(`${ghURL}wiki`);
                 }}>
                     {I18N.get("帮助")}
                 </Button>
@@ -86,7 +87,7 @@ export default function Options() {
                         {I18N.get("将本应用通过浏览器添加至桌面")}
                     </Button>
                     <Button onClick={event => {
-                        window.location.href = `${ghURL}releases`;
+                        router.push(`${ghURL}releases`);
                     }}>
                         {I18N.get("下载单独安装包")}
                     </Button>

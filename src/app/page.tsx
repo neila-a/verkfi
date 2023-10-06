@@ -2,6 +2,7 @@
 import I18N from 'react-intl-universal';
 import HeadBar from "./components/headBar/HeadBar";
 import {
+    useContext,
     useEffect,
     useRef,
     useState
@@ -44,6 +45,9 @@ import Center from './components/center/Center';
 import {
     Handyman as HandymanIcon
 } from '@mui/icons-material';
+import {
+    darkMode as darkModeContext
+} from './layoutClient';
 export default function Index(props: {
     /**
      * 是否为嵌入
@@ -70,7 +74,7 @@ export default function Index(props: {
         ref = refThis
     } = props;
     var realTools = getTools(I18N),
-        [darkModeFormStorage, setDarkModeFormStorage] = useStoragedState<PaletteMode>("darkmode", "暗色模式", "light"),
+        darkModeFormStorage = useContext(darkModeContext).mode,
         [recentlyUsed, setRecentlyUsed] = useStoragedState<string>("recently-tools", "最近使用的工具", "[]"),
         [sortedTools, setSortedTools] = useState(wrappedGetToolsList),
         [searchText, setSearchText] = useState<string>(""),

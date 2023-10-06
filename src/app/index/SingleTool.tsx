@@ -1,6 +1,7 @@
 "use client";
 import React, {
     Fragment,
+    useContext,
     useState
 } from 'react';
 import {
@@ -32,6 +33,7 @@ import styled from '@emotion/styled';
 import dynamic from 'next/dynamic';
 const CheckDialog = dynamic(() => import("../components/dialog/CheckDialog"));
 import {
+    colorMode,
     windows
 } from '../layoutClient';
 import stringToBoolean from "../setting/stringToBoolean";
@@ -61,7 +63,8 @@ export default function SingleTool(props: {
             }
         },
         Router = useRouter(),
-        [color, setColor] = useStoragedState("color", "多彩主页", "true"),
+        colorContext = useContext(colorMode),
+        color = colorContext.value,
         [jumpto, setJumpTo] = useState<string>(""),
         [jumpName, setJumpName] = useState<string>(""),
         [jumpDialogOpen, setJumpDialogOpen] = useState<boolean>(false),

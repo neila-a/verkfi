@@ -5,23 +5,23 @@ import {
     useSelectedLayoutSegment
 } from "next/navigation";
 import {
-    FC,
     ReactNode,
-    useState
+    useContext
 } from "react";
 import HeadBar from "../components/headBar/HeadBar";
 import {
     getTools
 } from "./info";
 import {
-    Box,
-    Toolbar
+    Box
 } from "@mui/material";
 import I18N from "react-intl-universal";
 import lpLogger from "lp-logger";
 import stringToBoolean from "../setting/stringToBoolean";
 import getToolColor from "./getToolColor";
-import useStoragedState from "../components/useStoragedState";
+import {
+    colorMode
+} from "../layoutClient";
 var logger = new lpLogger({
     name: "ToolFinder",
     level: "log"
@@ -31,7 +31,8 @@ export default function ToolFinder(props: {
 }): JSX.Element {
     var only = false,
         toolsInfo = getTools(I18N),
-        [color, setColor] = useStoragedState("color", "多彩主页", "true");
+        colorContext = useContext(colorMode),
+        color = colorContext.value;
     const toolID = useSelectedLayoutSegment(),
         searchParams = useSearchParams(),
         router = useRouter();
