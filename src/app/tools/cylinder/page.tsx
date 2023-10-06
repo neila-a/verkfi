@@ -104,23 +104,28 @@ function Cylinder(): JSX.Element {
                         <Switch value={filled} onChange={event => setFilled(event.target.checked)} />
                     </Grid>
                 </Grid>
+                <Grid direction="row" container spacing={1} alignItems="center" sx={{
+                    zIndex: 386486,
+                    position: "sticky",
+                    top: "64px"
+                }}>
+                    <Grid item>
+                        <Typography id="position" gutterBottom>
+                            {I18N.get('位置')}
+                        </Typography>
+                    </Grid>
+                    <Grid item container spacing={1}>
+                        <TextField label="X" value={posX} type="number" InputLabelProps={{
+                            shrink: true,
+                            inputMode: 'numeric'
+                        }} onChange={event => setPosX(Number(event.target.value))} />
+                        <TextField label="Y" value={posZ} type="number" InputLabelProps={{
+                            shrink: true,
+                            inputMode: 'numeric'
+                        }} onChange={event => setPosZ(Number(event.target.value))} />
+                    </Grid>
+                </Grid>
             </FormGroup>
-            <Grid container spacing={1} alignItems="center" sx={{
-                zIndex: 386486,
-                position: "sticky",
-                top: "64px"
-            }}>
-                <Grid item>
-                    <Typography id="position" gutterBottom>
-                        {I18N.get('鼠标所在的位置')}
-                    </Typography>
-                </Grid>
-                <Grid item>
-                    <Typography gutterBottom>
-                        X：{posX} Y：{posZ}
-                    </Typography>
-                </Grid>
-            </Grid>
             <div id="canvascontainer" onMouseMove={event => {
                 const b = window.getComputedStyle(document.getElementById("canvascontainer")),
                     w = Number(b.width.replace("px", "")),

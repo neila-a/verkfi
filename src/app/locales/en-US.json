@@ -59,7 +59,7 @@
 	"左右半径": "Left and right radius",
 	"线条厚度": "Line thickness",
 	"填充（线条厚度为0时填满圆心）": "Fill (full center when thickness is 0)",
-	"鼠标所在的位置": "Position of mouse",
+	"位置": "Position of mouse",
 	"拖拽图片到这里": "Drag and drop image here, paste or<span class=\"filepond--label-action\">browse</span>",
 	"滤镜类型": "Filter type",
 	"全部": "All",
