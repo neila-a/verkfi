@@ -8,16 +8,18 @@ import {
 export default function drawMatrixBase(edge: number, n: number, blocks: block[], cache: block[], posBlock: block[], posCache: block[], colorMode: PaletteMode) {
     const onlyPos = blocks.toString() === cache.toString();
     if (!onlyPos) console.time("渲染圆");
-    const canvasByTag = document.getElementsByTagName("canvas")[0] as HTMLCanvasElement, canvas = canvasByTag == null ? document.createElement("canvas") : canvasByTag, size = edge / n, cxt = canvas.getContext('2d');
+    const canvas = (document.getElementsByTagName("canvas")[0] as HTMLCanvasElement) || document.createElement("canvas"),
+        size = edge / n,
+        cxt = canvas.getContext('2d');
     ["height", "width"].forEach(attr => {
         const edgeStr = edge.toString();
         if (canvas.getAttribute(attr) != edgeStr) {
             canvas.setAttribute(attr, edgeStr);
         }
-    });
+    }); // 如果canvas不等于edge则设为edge
     if (!onlyPos) {
         const w = canvas.getAttribute("width");
-        canvas.setAttribute("width", w);
+        canvas.setAttribute("width", w); // 刷新
         console.groupCollapsed("blocks的值");
         logger.log(`blocks为`, blocks);
         logger.groupEnd("blocks的值");

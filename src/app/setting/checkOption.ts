@@ -15,7 +15,6 @@ export default function checkOption<T extends string = string>(id: string, name:
                 break;
         }
     } catch (error) {
-        logger.warn(`检测“${name}”时发生错误，已返回`, undefined);
         return undefined;
     }
     return _ret;

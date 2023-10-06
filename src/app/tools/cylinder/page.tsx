@@ -122,12 +122,12 @@ function Cylinder(): JSX.Element {
                 </Grid>
             </Grid>
             <div id="canvascontainer" onMouseMove={event => {
-                const b = document.body,
-                    w = b.scrollWidth - 48,
-                    h = b.scrollHeight - 48,
-                    e = w > h ? h : w,
-                    x = parseInt(String(event.nativeEvent.offsetX / (e / radiusX) * 2 + 1)),
-                    z = parseInt(String(event.nativeEvent.offsetY / (e / radiusZ) * 2 + 1));
+                const b = window.getComputedStyle(document.getElementById("canvascontainer")),
+                    w = Number(b.width.replace("px", "")),
+                    h = Number(b.height.replace("px", "")),
+                    e = Math.min(h, w),
+                    x = Math.round(event.nativeEvent.offsetX / (e / radiusX) * 2 + 1),
+                    z = Math.round(event.nativeEvent.offsetY / (e / radiusZ) * 2 + 1);
                 setPosX(x);
                 setPosZ(z);
             }}>
