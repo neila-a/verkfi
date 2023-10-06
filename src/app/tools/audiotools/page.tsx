@@ -2,11 +2,12 @@
 import I18N from 'react-intl-universal';
 import {
     Button,
+    Grid,
     Paper,
     Typography
 } from "@mui/material";
 import {
-    useEffect, 
+    useEffect,
     useState
 } from "react";
 import {
@@ -25,11 +26,15 @@ import {
 } from "filepond";
 import style from "./AudioTools.module.scss";
 import LpLogger from "lp-logger";
+import styled from '@emotion/styled';
 var logger = new LpLogger({
     name: "AudioTools",
     level: "log", // 空字符串时，不显示任何信息
 });
 export type status = "recording" | "paused" | "inactive";
+const Module = styled(Paper)({
+    padding: "3px"
+});
 function AudioTools(): JSX.Element {
     var [loopAudioSrc, setLoopAudioSrc] = useState<string>(""),
         [loopSpeakAudioSrc, setLoopSpeakAudioSrc] = useState<string>(""),
@@ -95,10 +100,10 @@ function AudioTools(): JSX.Element {
         }
     }
     return (
-        <>
-            <Paper id="audioreplay" className={style["audioreplay"]}>
-                <div>
-                    <Typography variant="h3" gutterBottom>{I18N.get('音频循环播放')}</Typography>
+        <Grid container direction="column" spacing={2}>
+            <Grid item>
+                <Module id="audioreplay">
+                    <Typography variant="h4" gutterBottom>{I18N.get('音频循环播放')}</Typography>
                     <audio controls loop src={loopAudioSrc}>
                         {I18N.get('您的浏览器不支持 audio 元素。')}
                     </audio>
@@ -112,12 +117,11 @@ function AudioTools(): JSX.Element {
                         name="files"
                         labelIdle={I18N.get('拖拽音频到这里')}
                     />
-                </div>
-                <br />
-            </Paper>
-            <Paper id="audioinput" className={style["audioinput"]}>
-                <div>
-                    <Typography variant="h3" gutterBottom>{I18N.get('音频录制并循环')}</Typography>
+                </Module>
+            </Grid>
+            <Grid item>
+                <Module id="audioinput">
+                    <Typography variant="h4" gutterBottom>{I18N.get('音频录制并循环')}</Typography>
                     <Button variant="contained" onClick={() => {
                         return controlAudio("recording");
                     }} disabled={status == "recording"}>{I18N.get('开始')}</Button>
@@ -127,10 +131,9 @@ function AudioTools(): JSX.Element {
                     <audio controls loop src={loopSpeakAudioSrc}>
                         {I18N.get('您的浏览器不支持 audio 元素。')}
                     </audio>
-                </div>
-                <br />
-            </Paper>
-        </>
+                </Module>
+            </Grid>
+        </Grid>
     );
 };
 export default AudioTools;
