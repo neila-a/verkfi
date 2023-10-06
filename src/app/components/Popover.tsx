@@ -12,6 +12,7 @@ import {
     isMobile
 } from 'react-device-detect';
 import lpLogger from "lp-logger";
+import { ThemeHaveZIndex } from '../setting/layout';
 var logger = new lpLogger({
     name: "Popover",
     level: "log"
@@ -46,6 +47,7 @@ export default function MouseOverPopover(props: {
                 id="mouse-over-popover"
                 sx={{
                     pointerEvents: 'none',
+                    zIndex: theme => (theme as ThemeHaveZIndex).zIndex.drawer + 2
                 }}
                 open={open}
                 anchorEl={anchorEl}
