@@ -39,7 +39,8 @@ function MathGen(): JSX.Element {
     useEffect(packagedCalcMath, [
         min,
         max,
-        itemCount
+        itemCount,
+        calcs
     ]);
     return (
         <>
