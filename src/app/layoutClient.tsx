@@ -84,6 +84,10 @@ export const forkMeOnGitHub = createContext<{
     value: stringifyCheck;
     set: setState<stringifyCheck>;
 }>(null);
+export const paletteColors = createContext<{
+    value: string;
+    set: setState<string>;
+}>(null);
 export const darkMode = createContext<{
     mode: PaletteMode;
     set: setState<PaletteMode>;
@@ -119,14 +123,17 @@ export default function ModifiedApp(props: {
     children: ReactNode
 }) {
     const [mode, setMode] = useStoragedState<PaletteMode>("darkmode", "暗色模式", "light"),
+        [palette, setPalette] = useStoragedState<string>("palette", "调色版", "__none__"),
+        realPalette = palette === "__none__" ? {} : JSON.parse(palette),
         theme = useMemo(
             () =>
                 createTheme({
                     palette: {
+                        ...realPalette,
                         mode,
                     },
                 }),
-            [mode]
+            [mode, palette]
         ),
         pathname = usePathname(),
         params = useSearchParams(),
@@ -221,13 +228,18 @@ export default function ModifiedApp(props: {
                                         value: sidebarModeState,
                                         set: setSidebarMode
                                     }}>
-                                        {Sidebar}
-                                        <div style={{
-                                            marginLeft: (stringToBoolean(showSidebarState) && sidebarModeState === "sidebar") ? marginLeft : ""
+                                        <paletteColors.Provider value={{
+                                            value: palette,
+                                            set: setPalette
                                         }}>
-                                            {props.children}
-                                        </div>
-                                        <WindowContainer />
+                                            {Sidebar}
+                                            <div style={{
+                                                marginLeft: (stringToBoolean(showSidebarState) && sidebarModeState === "sidebar") ? marginLeft : ""
+                                            }}>
+                                                {props.children}
+                                            </div>
+                                            <WindowContainer />
+                                        </paletteColors.Provider>
                                     </sidebarMode.Provider>
                                 </lang.Provider>
                             </colorMode.Provider>
