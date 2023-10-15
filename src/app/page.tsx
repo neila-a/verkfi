@@ -2,7 +2,6 @@
 import I18N from 'react-intl-universal';
 import HeadBar from "./components/headBar/HeadBar";
 import {
-    useContext,
     useEffect,
     useRef,
     useState
@@ -14,7 +13,6 @@ import {
     drawerWidth
 } from './setting/consts';
 import {
-    Stack,
     Typography,
     Box,
     PaletteMode,
@@ -22,7 +20,6 @@ import {
     Toolbar,
     Paper
 } from "@mui/material";
-import Style from "./styles/Index.module.scss";
 import {
     getTools,
     tool
@@ -30,14 +27,12 @@ import {
 import {
     useSearchParams
 } from 'next/navigation';
-import SingleTool from './index/SingleTool';
 import getToolsList from './index/getToolsList';
 import Sidebar from './index/Sidebar';
 import {
     viewMode
 } from './index/consts';
 import useStoragedState from './components/useStoragedState';
-import stringToBoolean from './setting/stringToBoolean';
 import {
     setState
 } from './declare';
@@ -45,9 +40,8 @@ import Center from './components/center/Center';
 import {
     Handyman as HandymanIcon
 } from '@mui/icons-material';
-import {
-    darkMode as darkModeContext
-} from './layoutClient';
+import ToolsStack from './index/ToolsStack';
+import searchBase from './index/searchBase';
 export default function Index(props: {
     /**
      * 是否为嵌入
@@ -74,7 +68,6 @@ export default function Index(props: {
         ref = refThis
     } = props;
     var realTools = getTools(I18N),
-        darkModeFormStorage = useContext(darkModeContext).mode,
         [recentlyUsed, setRecentlyUsed] = useStoragedState<string>("recently-tools", "最近使用的工具", "[]"),
         [sortedTools, setSortedTools] = useState(wrappedGetToolsList),
         [searchText, setSearchText] = useState<string>(""),
@@ -83,8 +76,7 @@ export default function Index(props: {
         [expandThis, setExpandThis] = useState<boolean>(false),
         [tools, setTools] = useState(wrappedGetToolsList),
         [sortingFor, setSortingFor] = useState<string>(props.isImplant ? "__global__" : "__home__"),
-        [show, setShow] = useState<"tools" | "home">(props.isImplant ? "tools" : "home"),
-        darkMode = stringToBoolean(darkModeFormStorage.replace("light", "false").replace("dark", "true"));
+        [show, setShow] = useState<"tools" | "home">(props.isImplant ? "tools" : "home");
     if (props.setExpand) {
         var {
             expand,
@@ -98,12 +90,7 @@ export default function Index(props: {
      * 搜索工具
      */
     function searchTools(search: string) {
-        var calcTools: tool[] = [];
-        sortedTools.forEach(tool => {
-            var to = String(tool.to);
-            if (tool.desc.includes(search) || to.includes(search) || tool.name.includes(search)) calcTools.push(tool);
-        });
-        setTools(calcTools);
+        setTools(searchBase(sortedTools, search));
         setExpand(true);
     };
     useEffect(() => {
@@ -119,37 +106,20 @@ export default function Index(props: {
             setEditMode(false);
         }
     }, []);
-    function ToolsStack(props: {
-        paramTool: tool[];
-    }) {
-        return (
-            <Stack spacing={viewMode == "list" ? 3 : 5} className={Style["items"]} sx={{
-                flexDirection: viewMode == "grid" ? "row" : "",
-                display: viewMode == "grid" ? "flex" : "block",
-                width: "100%"
-            }}> {/* 工具总览 */}
-                {tools.length === 0 ? <Typography>{I18N.get('未找到任何工具')}</Typography> : props.paramTool.map((tool, index) => (
-                    <SingleTool
-                        isFirst={(searchText !== "") && (index === 0)}
-                        tool={tool}
-                        sortingFor={sortingFor}
-                        key={tool.to}
-                        darkMode={darkMode}
-                        viewMode={viewMode}
-                        setTools={setTools}
-                        editMode={editMode}
-                    />
-                ))}
-            </Stack>
-        );
-    }
     function Tools() {
         return (
             <Box sx={{
                 p: 3,
                 marginLeft: props.isImplant ? "" : `${drawerWidth}px`
             }}>
-                <ToolsStack paramTool={tools} />
+                <ToolsStack
+                    paramTool={tools}
+                    viewMode={viewMode}
+                    searchText={searchText}
+                    sortingFor={sortingFor}
+                    setTools={setTools}
+                    editMode={editMode}
+                />
             </Box>
         );
     }
@@ -211,15 +181,21 @@ export default function Index(props: {
                             <Typography variant='h4'>
                                 {I18N.get('最近使用')}
                             </Typography>
-                            <ToolsStack paramTool={(JSON.parse(recentlyUsed) as string[]).map(to => {
-                                var tool: tool;
-                                realTools.forEach(single => {
-                                    if (single.to === to) {
-                                        tool = single;
-                                    }
-                                });
-                                return tool;
-                            })} />
+                            <ToolsStack
+                                viewMode={viewMode}
+                                searchText=""
+                                sortingFor={sortingFor}
+                                setTools={setTools}
+                                editMode={editMode}
+                                paramTool={(JSON.parse(recentlyUsed) as string[]).map(to => {
+                                    var tool: tool;
+                                    realTools.forEach(single => {
+                                        if (single.to === to) {
+                                            tool = single;
+                                        }
+                                    });
+                                    return tool;
+                                })} />
                         </Paper>
                     </Box>
                 </Box>

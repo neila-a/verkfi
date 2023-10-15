@@ -12,7 +12,7 @@ import {
 import {
     ExitToApp as ExitToAppIcon
 } from "@mui/icons-material";
-import Style from "../styles/Index.module.scss";
+import Style from "./Index.module.scss";
 import {
     getTools,
     tool

@@ -105,7 +105,7 @@ function Cylinder(): JSX.Element {
                     </Grid>
                 </Grid>
                 <Grid direction="row" container spacing={1} alignItems="center" sx={{
-                    zIndex: 386486,
+                    zIndex: 38601,
                     position: "sticky",
                     top: "64px"
                 }}>

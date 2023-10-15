@@ -59,8 +59,7 @@ export default function ToolFinder(props: {
                 color: stringToBoolean(color) ? "#000000" : ""
             }} />
             <Box sx={{
-                p: 3,
-                zIndex: 38602
+                p: 3
             }} id="container">
                 {props.children}
             </Box>

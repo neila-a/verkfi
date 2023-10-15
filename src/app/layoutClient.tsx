@@ -53,6 +53,7 @@ import {
 import stringToBoolean from "./setting/stringToBoolean";
 import { stringifyCheck } from "./setting/Switcher";
 import setSetting from "./setting/setSetting";
+import Menu from "./Menu";
 export const windows = createContext<{
     windows: WindowOptions[];
     set: setState<WindowOptions[]>;
@@ -71,8 +72,13 @@ export function WindowsProvider(props: {
     );
 }
 export const showSidebar = createContext<{
-    show: string;
-    set: setState<string>;
+    show: stringifyCheck;
+    set: setState<stringifyCheck>;
+}>(null);
+export type sidebarMode = "menu" | "sidebar";
+export const sidebarMode = createContext<{
+    value: sidebarMode;
+    set: setState<sidebarMode>;
 }>(null);
 export const forkMeOnGitHub = createContext<{
     value: stringifyCheck;
@@ -179,10 +185,11 @@ export default function ModifiedApp(props: {
         }
     }, []);
     var [expand, setExpand] = useState<boolean>(false),
-        [showSidebarState, setShowSidebar] = useStoragedState<"true" | "false">("sidebar", "边栏", "true");
+        [sidebarModeState, setSidebarMode] = useStoragedState<sidebarMode>("sidebarmode", "边栏模式", "menu"),
+        [showSidebarState, setShowSidebar] = useStoragedState<stringifyCheck>("sidebar", "边栏", "false");
     const implant = (pathname === "/") || (params.get("only") === "true"),
         marginLeft: string = implant ? "" : (expand ? `calc(min(${`calc(100vw - ${drawerWidth}px)`}, 320px) + ${drawerWidth}px)` : `${drawerWidth}px`),
-        Sidebar = implant ? null : (stringToBoolean(showSidebarState) && <Index expand={expand} setExpand={setExpand} isImplant />),
+        Sidebar = implant ? null : (sidebarModeState === "menu" ? <Menu /> : (showSidebarState && <Index isImplant expand={expand} setExpand={setExpand} />)),
         [forkMeOnGitHubState, setForkMeOnGithub] = useStoragedState<stringifyCheck>("fork-me-on-github", "Fork me on GitHub", "false"),
         [colorModeState, setColorModeState] = useStoragedState<stringifyCheck>("color", "多彩主页", "true");
     return initDone && (
@@ -210,13 +217,18 @@ export default function ModifiedApp(props: {
                                     value: choosedLang,
                                     set: setChoosedLang
                                 }}>
-                                    {Sidebar}
-                                    <div style={{
-                                        marginLeft: stringToBoolean(showSidebarState) ? marginLeft : ""
+                                    <sidebarMode.Provider value={{
+                                        value: sidebarModeState,
+                                        set: setSidebarMode
                                     }}>
-                                        {props.children}
-                                    </div>
-                                    <WindowContainer />
+                                        {Sidebar}
+                                        <div style={{
+                                            marginLeft: (stringToBoolean(showSidebarState) && sidebarModeState === "sidebar") ? marginLeft : ""
+                                        }}>
+                                            {props.children}
+                                        </div>
+                                        <WindowContainer />
+                                    </sidebarMode.Provider>
                                 </lang.Provider>
                             </colorMode.Provider>
                         </darkMode.Provider>

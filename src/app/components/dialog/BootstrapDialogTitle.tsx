@@ -12,9 +12,15 @@ export default function BootstrapDialogTitle(props: {
     children: ReactNode;
     onClose: () => void;
 }) {
-    const { children, onClose } = props;
+    const {
+        children,
+        onClose
+    } = props;
     return (
-        <DialogTitle sx={{ m: 0, p: 2 }}>
+        <DialogTitle sx={{
+            m: 0,
+            p: 2
+        }}>
             {children}
             {onClose ? (
                 <IconButton
@@ -24,7 +30,7 @@ export default function BootstrapDialogTitle(props: {
                         position: 'absolute',
                         right: 8,
                         top: 8,
-                        color: (theme) => theme.palette.grey[500],
+                        color: theme => theme.palette.grey[500],
                     }}
                 >
                     <CloseIcon />

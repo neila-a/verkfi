@@ -20,7 +20,7 @@ export default function UpButton(props: {
     tool: tool;
     sortingFor: string;
 }): JSX.Element {
-    if (props.editMode) {
+    if (props.editMode && props.sortingFor !== "__home__") {
         return (
             <IconButton size="large" edge="end" color="inherit" aria-label="menu" sx={{
                 mr: 2
@@ -34,9 +34,9 @@ export default function UpButton(props: {
                 });
             }}>
                 <ArrowUpwardIcon />
-            </IconButton>
+            </IconButton >
         );
     } else {
-        return <></>;
+        return null;
     }
 }
