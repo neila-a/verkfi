@@ -108,7 +108,7 @@ function MathGen(): JSX.Element {
                         </FormGroup>
                     </Paper>
                     <br />
-                    <ButtonGroup variant="contained">
+                    <ButtonGroup fullWidth>
                         <Button variant="contained" onClick={packagedCalcMath}>
                             {I18N.get('计算')}
                         </Button>
