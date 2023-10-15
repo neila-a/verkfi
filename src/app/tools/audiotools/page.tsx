@@ -3,7 +3,6 @@ import I18N from 'react-intl-universal';
 import {
     Button,
     Grid,
-    Paper,
     Typography
 } from "@mui/material";
 import {
@@ -26,15 +25,12 @@ import {
 } from "filepond";
 import style from "./AudioTools.module.scss";
 import LpLogger from "lp-logger";
-import styled from '@emotion/styled';
+import Module from './Module';
 var logger = new LpLogger({
     name: "AudioTools",
     level: "log", // 空字符串时，不显示任何信息
 });
 export type status = "recording" | "paused" | "inactive";
-const Module = styled(Paper)({
-    padding: "3px"
-});
 function AudioTools(): JSX.Element {
     var [loopAudioSrc, setLoopAudioSrc] = useState<string>(""),
         [loopSpeakAudioSrc, setLoopSpeakAudioSrc] = useState<string>(""),

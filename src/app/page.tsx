@@ -2,6 +2,7 @@
 import I18N from 'react-intl-universal';
 import HeadBar from "./components/headBar/HeadBar";
 import {
+    useContext,
     useEffect,
     useRef,
     useState
@@ -42,6 +43,10 @@ import {
 } from '@mui/icons-material';
 import ToolsStack from './index/ToolsStack';
 import searchBase from './index/searchBase';
+import {
+    showSidebar as showSidebarContext
+} from './layoutClient';
+import stringToBoolean from './setting/stringToBoolean';
 export default function Index(props: {
     /**
      * 是否为嵌入
@@ -68,6 +73,7 @@ export default function Index(props: {
         ref = refThis
     } = props;
     var realTools = getTools(I18N),
+        showSidebar = useContext(showSidebarContext),
         [recentlyUsed, setRecentlyUsed] = useStoragedState<string>("recently-tools", "最近使用的工具", "[]"),
         [sortedTools, setSortedTools] = useState(wrappedGetToolsList),
         [searchText, setSearchText] = useState<string>(""),
@@ -123,7 +129,7 @@ export default function Index(props: {
             </Box>
         );
     }
-    return (
+    return (props.isImplant ? (stringToBoolean(showSidebar.show)) : true) && (
         <div ref={ref}>
             {props.isImplant !== true && <HeadBar isIndex pageName="NeilaTools" sx={{
                 zIndex: theme => (theme as ThemeHaveZIndex).zIndex.drawer + 1

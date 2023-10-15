@@ -184,12 +184,12 @@ export default function ModifiedApp(props: {
             isMounted = false;
         }
     }, []);
-    var [expand, setExpand] = useState<boolean>(false),
+    const [expand, setExpand] = useState<boolean>(false),
         [sidebarModeState, setSidebarMode] = useStoragedState<sidebarMode>("sidebarmode", "边栏模式", "menu"),
-        [showSidebarState, setShowSidebar] = useStoragedState<stringifyCheck>("sidebar", "边栏", "false");
-    const implant = (pathname === "/") || (params.get("only") === "true"),
+        [showSidebarState, setShowSidebar] = useStoragedState<stringifyCheck>("sidebar", "边栏", "false"),
+        implant = (pathname === "/") || (params.get("only") === "true"),
         marginLeft: string = implant ? "" : (expand ? `calc(min(${`calc(100vw - ${drawerWidth}px)`}, 320px) + ${drawerWidth}px)` : `${drawerWidth}px`),
-        Sidebar = implant ? null : (sidebarModeState === "menu" ? <Menu /> : (showSidebarState && <Index isImplant expand={expand} setExpand={setExpand} />)),
+        Sidebar = implant ? null : (sidebarModeState === "menu" ? <Menu /> : <Index isImplant expand={expand} setExpand={setExpand} />),
         [forkMeOnGitHubState, setForkMeOnGithub] = useStoragedState<stringifyCheck>("fork-me-on-github", "Fork me on GitHub", "false"),
         [colorModeState, setColorModeState] = useStoragedState<stringifyCheck>("color", "多彩主页", "true");
     return initDone && (

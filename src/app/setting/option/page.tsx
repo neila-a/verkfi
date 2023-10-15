@@ -6,22 +6,30 @@ import {
     MenuItem,
     Button,
     ButtonGroup,
-    Typography
+    Typography,
+    Paper,
+    Box,
+    Grid,
+    Theme
 } from "@mui/material";
 import {
+    CallToActionOutlined,
     Download as DownloadIcon,
-    Help as HelpIcon
+    Help as HelpIcon,
+    ViewSidebar as ViewSidebarIcon
 } from "@mui/icons-material";
 import {
     colorMode,
     darkMode,
     forkMeOnGitHub,
     lang as langContext,
-    locales
+    locales,
+    sidebarMode
 } from "../../layoutClient";
 import I18N from "react-intl-universal";
 import {
     Context,
+    ReactNode,
     useContext,
     useState
 } from "react";
@@ -32,6 +40,29 @@ import dynamic from 'next/dynamic';
 import {
     useRouter
 } from "next/navigation";
+function Module(props: {
+    children: ReactNode;
+    mode: sidebarMode;
+}) {
+    const mode = useContext(sidebarMode),
+        isThis = props.mode === mode.value;
+    return (
+        <Grid item>
+            <Paper onClick={event => {
+                mode.set(props.mode);
+            }} sx={{
+                p: 3,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                boxShadow: theme => isThis ? `inset 0 0 0 3px ${theme.palette.primary[theme.palette.mode]}` : "",
+                borderColor: theme => isThis ? theme.palette.primary[theme.palette.mode] : ""
+            }}>
+                {props.children}
+            </Paper>
+        </Grid>
+    );
+}
 const PureDialog = dynamic(() => import("../../components/dialog/PureDialog")),
     ghURL = "https://github.com/neila-a/NeilaTools/";
 export type option = [Context<any>, string];
@@ -47,6 +78,27 @@ export default function Options() {
             {([[forkMeOnGitHub, "Fork me on GitHub"], [darkMode, "暗色模式"], [colorMode, "多彩主页"]] as option[]).map((options, index) => (
                 <Switcher option={options} index={index} key={options[1]} />
             ))}
+            <InputLabel>
+                {I18N.get('菜单模式')}
+            </InputLabel>
+            <Grid container direction="row" spacing={1} sx={{
+                justifyContent: "space-evenly"
+            }}>
+                <Module mode="menu">
+                    <CallToActionOutlined sx={{
+                        fontSize: "500%",
+                        color: theme => theme.palette.primary.main
+                    }} />
+                    {I18N.get("菜单窗口")}
+                </Module>
+                <Module mode="sidebar">
+                    <ViewSidebarIcon sx={{
+                        fontSize: "500%",
+                        color: theme => theme.palette.primary.main
+                    }} />
+                    {I18N.get("侧边栏")}
+                </Module>
+            </Grid>
             <InputLabel id="lang">
                 {I18N.get("选择语言")}
             </InputLabel>
@@ -72,7 +124,7 @@ export default function Options() {
                     {I18N.get("下载本应用")}
                 </Button>
                 <Button variant="outlined" startIcon={<HelpIcon />} onClick={event => {
-                    router.push(`${ghURL}wiki`);
+                    router.push(`${ghURL} wiki`);
                 }}>
                     {I18N.get("帮助")}
                 </Button>
@@ -92,7 +144,8 @@ export default function Options() {
                         {I18N.get("下载单独安装包")}
                     </Button>
                 </ButtonGroup>
-            </PureDialog>}
-        </FormGroup>
+            </PureDialog>
+            }
+        </FormGroup >
     );
 }

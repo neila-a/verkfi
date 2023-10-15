@@ -7,7 +7,8 @@ import {
     Numbers as NumbersIcon,
     Extension as ExtensionIcon,
     ViewInAr as ViewInArIcon,
-    Adjust as AdjustIcon
+    Adjust as AdjustIcon,
+    Calculate as CalculateIcon
 } from "@mui/icons-material";
 import Image from "next/image";
 import {
@@ -125,7 +126,7 @@ export const getTools = (I18N: typeof i18n): tool[] => [
         name: I18N.get('算式生成器'),
         to: "mathgen",
         desc: I18N.get('生成一些算式'),
-        icon: NumbersIcon,
+        icon: CalculateIcon,
         color: [hex("96fbc4"), hex("f9f586")]
     },
     {

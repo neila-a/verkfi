@@ -10,7 +10,8 @@ import {
     Alert,
     Chip,
     Button,
-    ButtonGroup
+    ButtonGroup,
+    Box
 } from "@mui/material";
 import {
     Close
@@ -25,7 +26,6 @@ var logger = new LpLogger({
     level: "log", // 空字符串时，不显示任何信息
 });
 import destroyer from "../../components/destroyer";
-import { Box } from '@mui/system';
 function Reversal(): JSX.Element {
     var [wordList, setWordList] = useState<[string, number][]>([]),
         [words, setWords] = useState<string>(""),
