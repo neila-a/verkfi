@@ -85,8 +85,7 @@ export default function Sidebar(props: {
         setTools,
         sortingFor,
         setSortingFor
-    } = props,
-        [realTools, setRealTools] = useState(getToolsList(getTools(I18N)));
+    } = props;
     var [list, setList] = useState<lists>(() => {
         const defaultList: lists = [],
             defaultListJSON = JSON.stringify(defaultList),
@@ -181,7 +180,7 @@ export default function Sidebar(props: {
                         clickCount = 0;
                     }
                 }}>
-                    {([[I18N.get("全部"), realTools.map(atool => atool.to)]] as lists).concat(list).map(single => {
+                    {([[I18N.get("全部"), getToolsList(getTools(I18N)).map(atool => atool.to)]] as lists).concat(list).map(single => {
                         const isAll = Object.values(locales).some(singleLang => {
                             const strings = Object.values(singleLang);
                             let have: boolean = strings.includes(single[0]);
@@ -196,13 +195,13 @@ export default function Sidebar(props: {
                                     let draft: tool[] = [];
                                     clickCount++;
                                     if (isAll) {
-                                        draft = realTools;
+                                        draft = getToolsList(getTools(I18N));
                                         if (sortingFor !== "__global__") {
                                             clickCount = 0;
                                         }
                                         setSortingFor("__global__");
                                     } else {
-                                        draft = single[1].map(toolTo => realTools.filter(one => one.to === toolTo)[0]);
+                                        draft = single[1].map(toolTo => getToolsList(getTools(I18N)).filter(one => one.to === toolTo)[0]);
                                         if (sortingFor !== single[0]) {
                                             clickCount = 0;
                                         }
@@ -260,7 +259,7 @@ export default function Sidebar(props: {
                     list.forEach(single => {
                         if (single[0] === dialogListName) {
                             single[1].forEach(to => {
-                                realTools.forEach(tool => {
+                                getToolsList(getTools(I18N)).forEach(tool => {
                                     if (tool.to === to) {
                                         realLeft.push(tool.name);
                                     }
