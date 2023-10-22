@@ -38,7 +38,7 @@ function Reversal(): JSX.Element {
         <Box>
             <Box sx={{
                 "> *": {
-                    marginBottom: 1
+                    mb: 1
                 }
             }}>
                 <Alert severity="info">

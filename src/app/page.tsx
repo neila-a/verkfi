@@ -116,7 +116,7 @@ export default function Index(props: {
         return (
             <Box sx={{
                 p: 3,
-                marginLeft: props.isImplant ? "" : `${drawerWidth}px`
+                ml: props.isImplant ? "" : `${drawerWidth}px`
             }}>
                 <ToolsStack
                     paramTool={tools}
@@ -168,7 +168,7 @@ export default function Index(props: {
             ) : <Tools />) : (
                 <Box sx={{
                     p: 3,
-                    marginLeft: props.isImplant ? "" : `${drawerWidth}px`
+                    ml: props.isImplant ? "" : `${drawerWidth}px`
                 }}>
                     <Box sx={{
                         paddingBottom: 3,
@@ -181,28 +181,24 @@ export default function Index(props: {
                         </Center>
                     </Box>
                     <Box>
-                        <Paper sx={{
-                            p: 3
-                        }}>
-                            <Typography variant='h4'>
-                                {I18N.get('最近使用')}
-                            </Typography>
-                            <ToolsStack
-                                viewMode={viewMode}
-                                searchText=""
-                                sortingFor={sortingFor}
-                                setTools={setTools}
-                                editMode={editMode}
-                                paramTool={(JSON.parse(recentlyUsed) as string[]).map(to => {
-                                    var tool: tool;
-                                    realTools.forEach(single => {
-                                        if (single.to === to) {
-                                            tool = single;
-                                        }
-                                    });
-                                    return tool;
-                                })} />
-                        </Paper>
+                        <Typography variant='h4'>
+                            {I18N.get('最近使用')}
+                        </Typography>
+                        <ToolsStack
+                            viewMode={viewMode}
+                            searchText=""
+                            sortingFor={sortingFor}
+                            setTools={setTools}
+                            editMode={editMode}
+                            paramTool={(JSON.parse(recentlyUsed) as string[]).map(to => {
+                                var tool: tool;
+                                realTools.forEach(single => {
+                                    if (single.to === to) {
+                                        tool = single;
+                                    }
+                                });
+                                return tool;
+                            })} />
                     </Box>
                 </Box>
             )}

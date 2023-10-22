@@ -15,7 +15,6 @@ import stringToBoolean from "./stringToBoolean";
 export type stringifyCheck = "false" | "true";
 export function Switcher(props: {
     option: option;
-    index: number;
 }) {
     const {
         option

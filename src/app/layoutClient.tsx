@@ -40,6 +40,7 @@ import {
 } from "./components/window/Window";
 import useStoragedState from "./components/useStoragedState";
 import {
+    Box,
     PaletteMode
 } from "@mui/material";
 import {
@@ -123,7 +124,7 @@ export default function ModifiedApp(props: {
     children: ReactNode
 }) {
     const [mode, setMode] = useStoragedState<PaletteMode>("darkmode", "暗色模式", "light"),
-        [palette, setPalette] = useStoragedState<string>("palette", "调色版", "__none__"),
+        [palette, setPalette] = useStoragedState<string>("palette", "调色板", "__none__"),
         realPalette = palette === "__none__" ? {} : JSON.parse(palette),
         theme = useMemo(
             () =>
@@ -195,58 +196,54 @@ export default function ModifiedApp(props: {
         [sidebarModeState, setSidebarMode] = useStoragedState<sidebarMode>("sidebarmode", "边栏模式", "menu"),
         [showSidebarState, setShowSidebar] = useStoragedState<stringifyCheck>("sidebar", "边栏", "false"),
         implant = (pathname === "/") || (params.get("only") === "true"),
-        marginLeft: string = implant ? "" : (expand ? `calc(min(${`calc(100vw - ${drawerWidth}px)`}, 320px) + ${drawerWidth}px)` : `${drawerWidth}px`),
+        ml: string = implant ? "" : (expand ? `calc(min(${`calc(100vw - ${drawerWidth}px)`}, 320px) + ${drawerWidth}px)` : `${drawerWidth}px`),
         Sidebar = implant ? null : (sidebarModeState === "menu" ? <Menu /> : <Index isImplant expand={expand} setExpand={setExpand} />),
         [forkMeOnGitHubState, setForkMeOnGithub] = useStoragedState<stringifyCheck>("fork-me-on-github", "Fork me on GitHub", "false"),
         [colorModeState, setColorModeState] = useStoragedState<stringifyCheck>("color", "多彩主页", "true");
     return initDone && (
-        <div style={{
-            backgroundColor: theme.palette.mode === "dark" ? "#000000" : "#ffffff"
-        }}>
-            <ThemeProvider theme={theme}>
-                <showSidebar.Provider value={{
-                    show: showSidebarState,
-                    set: setShowSidebar
+        <ThemeProvider theme={theme}>
+            <showSidebar.Provider value={{
+                show: showSidebarState,
+                set: setShowSidebar
+            }}>
+                <forkMeOnGitHub.Provider value={{
+                    value: forkMeOnGitHubState,
+                    set: setForkMeOnGithub
                 }}>
-                    <forkMeOnGitHub.Provider value={{
-                        value: forkMeOnGitHubState,
-                        set: setForkMeOnGithub
+                    <darkMode.Provider value={{
+                        mode: mode,
+                        set: setMode
                     }}>
-                        <darkMode.Provider value={{
-                            mode: mode,
-                            set: setMode
+                        <colorMode.Provider value={{
+                            value: colorModeState,
+                            set: setColorModeState
                         }}>
-                            <colorMode.Provider value={{
-                                value: colorModeState,
-                                set: setColorModeState
+                            <lang.Provider value={{
+                                value: choosedLang,
+                                set: setChoosedLang
                             }}>
-                                <lang.Provider value={{
-                                    value: choosedLang,
-                                    set: setChoosedLang
+                                <sidebarMode.Provider value={{
+                                    value: sidebarModeState,
+                                    set: setSidebarMode
                                 }}>
-                                    <sidebarMode.Provider value={{
-                                        value: sidebarModeState,
-                                        set: setSidebarMode
+                                    <paletteColors.Provider value={{
+                                        value: palette,
+                                        set: setPalette
                                     }}>
-                                        <paletteColors.Provider value={{
-                                            value: palette,
-                                            set: setPalette
+                                        {Sidebar}
+                                        <Box sx={{
+                                            ml: (stringToBoolean(showSidebarState) && sidebarModeState === "sidebar") ? ml : ""
                                         }}>
-                                            {Sidebar}
-                                            <div style={{
-                                                marginLeft: (stringToBoolean(showSidebarState) && sidebarModeState === "sidebar") ? marginLeft : ""
-                                            }}>
-                                                {props.children}
-                                            </div>
-                                            <WindowContainer />
-                                        </paletteColors.Provider>
-                                    </sidebarMode.Provider>
-                                </lang.Provider>
-                            </colorMode.Provider>
-                        </darkMode.Provider>
-                    </forkMeOnGitHub.Provider>
-                </showSidebar.Provider>
-            </ThemeProvider>
-        </div>
+                                            {props.children}
+                                        </Box>
+                                        <WindowContainer />
+                                    </paletteColors.Provider>
+                                </sidebarMode.Provider>
+                            </lang.Provider>
+                        </colorMode.Provider>
+                    </darkMode.Provider>
+                </forkMeOnGitHub.Provider>
+            </showSidebar.Provider>
+        </ThemeProvider>
     );
 }

@@ -1,25 +1,37 @@
-"use client"; // 提交颜色在dispatch函数里
+"use client";
 import * as React from 'react';
 import {
     rgbToHex,
     useTheme
 } from '@mui/material/styles';
 import * as colors from '@mui/material/colors';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Radio from '@mui/material/Radio';
-import Tooltip from '@mui/material/Tooltip';
-import Typography from '@mui/material/Typography';
-import CheckIcon from '@mui/icons-material/Check';
-import Slider from '@mui/material/Slider';
+import {
+    Check as CheckIcon
+} from '@mui/icons-material';
 import {
     capitalize
 } from '@mui/material/utils';
-import { isBrowser, paletteColors } from '../../layoutClient';
-import useStoragedState from '../../components/useStoragedState';
+import I18N from "react-intl-universal";
+import {
+    darkMode,
+    isBrowser,
+    paletteColors
+} from '../../layoutClient';
 import checkOption from '../checkOption';
 import setSetting from '../setSetting';
-import { Button } from '@mui/material';
+import {
+    Button,
+    Box,
+    Grid,
+    Radio,
+    Tooltip,
+    Typography,
+    Slider,
+    InputLabel
+} from '@mui/material';
+import {
+    Switcher
+} from '../Switcher';
 const defaults = {
     primary: '#2196f3',
     secondary: '#f50057',
@@ -40,7 +52,7 @@ const hues = [
     'yellow',
     'amber',
     'orange',
-    'deepOrange',
+    'deepOrange'
 ];
 const shades = [
     900,
@@ -73,14 +85,14 @@ function ColorTool() {
     });
     var value = defaultState;
     if (isBrowser()) {
-        value = checkOption("internalpalette", "内部调色版", defaultState);
+        value = checkOption("internalpalette", "内部调色板", defaultState);
     }
     const [state, setState] = React.useReducer((old, now) => {
         const paletteColors = {
             primary: { ...colors[now.primaryHue], main: now.primary },
             secondary: { ...colors[now.secondaryHue], main: now.secondary },
         };
-        setSetting("internalpalette", "内部调色版", JSON.stringify(now));
+        setSetting("internalpalette", "内部调色板", JSON.stringify(now));
         palette.set(JSON.stringify(paletteColors));
         return now;
     }, JSON.parse(value));
@@ -130,14 +142,16 @@ function ColorTool() {
             [`${name}Input`]: color,
         });
     };
-    const colorBar = color => {
+    const ColorBar = ({ color }) => {
         const background = theme.palette.augmentColor({
             color: {
                 main: color,
             },
         });
         return (
-            <Grid container sx={{ mt: 2 }}>
+            <Grid container sx={{
+                mt: 2
+            }}>
                 {['dark', 'main', 'light'].map((key) => (
                     <Box
                         sx={{
@@ -163,19 +177,34 @@ function ColorTool() {
             </Grid>
         );
     };
-    const colorPicker = (intent) => {
-        const intentInput = state[`${intent}Input`];
+    const ColorPicker = (props: {
+        intent: string
+    }) => {
+        const {
+            intent
+        } = props;
         const intentShade = state[`${intent}Shade`];
         const color = state[`${intent}`];
         return (
             <Grid item>
                 <Typography component="label" gutterBottom htmlFor={intent} variant="h6">
-                    {capitalize(intent)}
+                    {I18N.get(intent)}
                 </Typography>
-                <Box sx={{ display: 'flex', alignItems: 'center', mt: 2, mb: 2 }}>
-                    <Typography id={`${intent}ShadeSliderLabel`}>Shade:</Typography>
+                <Box sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    mt: 2,
+                    mb: 2
+                }}>
+                    <Typography id={`${intent}ShadeSliderLabel`} sx={{
+                        width: 60
+                    }}>{`${I18N.get("shade")}:`}</Typography>
                     <Slider
-                        sx={{ width: 'calc(100% - 80px)', ml: 3, mr: 3 }}
+                        sx={{
+                            width: 'calc(100% - 80px)',
+                            ml: 3,
+                            mr: 3
+                        }}
                         value={intentShade}
                         min={0}
                         max={13}
@@ -185,17 +214,22 @@ function ColorTool() {
                     />
                     <Typography>{shades[intentShade]}</Typography>
                 </Box>
-                <Box sx={{ width: 192 }}>
+                <Box sx={{
+                    width: 192
+                }}>
                     {hues.map((hue) => {
                         const shade =
                             intent === 'primary'
                                 ? shades[state.primaryShade]
                                 : shades[state.secondaryShade];
                         const backgroundColor = colors[hue][shade];
+                        const showHue = I18N.get(hue);
                         return (
-                            <Tooltip placement="right" title={hue} key={hue}>
+                            <Tooltip placement="right" title={showHue} key={hue}>
                                 <Radio
-                                    sx={{ p: 0 }}
+                                    sx={{
+                                        p: 0
+                                    }}
                                     color="default"
                                     checked={state[intent] === backgroundColor}
                                     onChange={handleChangeHue(intent)}
@@ -203,8 +237,13 @@ function ColorTool() {
                                     name={intent}
                                     icon={
                                         <Box
-                                            sx={{ width: 48, height: 48 }}
-                                            style={{ backgroundColor }}
+                                            sx={{
+                                                width: 48,
+                                                height: 48
+                                            }}
+                                            style={{
+                                                backgroundColor
+                                            }}
                                         />
                                     }
                                     checkedIcon={
@@ -219,9 +258,13 @@ function ColorTool() {
                                                 justifyContent: 'center',
                                                 alignItems: 'center',
                                             }}
-                                            style={{ backgroundColor }}
+                                            style={{
+                                                backgroundColor
+                                            }}
                                         >
-                                            <CheckIcon style={{ fontSize: 30 }} />
+                                            <CheckIcon style={{
+                                                fontSize: 30
+                                            }} />
                                         </Box>
                                     }
                                 />
@@ -229,23 +272,25 @@ function ColorTool() {
                         );
                     })}
                 </Box>
-                {colorBar(color)}
+                <ColorBar color={color} />
             </Grid>
         );
     };
     return (
         <>
+            <Switcher option={[darkMode, "暗色模式"]} />
             <Grid container spacing={5} sx={{
-                p: 0
+                p: 0,
+                mb: 2
             }}>
-                {colorPicker('primary')}
-                {colorPicker('secondary')}
+                <ColorPicker intent="primary" />
+                <ColorPicker intent="secondary" />
             </Grid>
-            <Button variant="contained" onClick={event => {
+            <Button fullWidth variant="contained" onClick={event => {
                 palette.set("__none__");
                 setState(JSON.parse(defaultState));
             }}>
-                Reset
+                {I18N.get("重置")}
             </Button>
         </>
     );

@@ -18,7 +18,8 @@ import {
 	Settings as SettingsIcon,
 	Info as InfoIcon,
 	Replay as ReplayIcon,
-	Extension as ExtensionIcon
+	Extension as ExtensionIcon,
+	Palette as PaletteIcon
 } from "@mui/icons-material";
 import {
 	drawerWidth
@@ -39,7 +40,8 @@ import {
 	useSelectedLayoutSegment
 } from 'next/navigation';
 import {
-	showSidebar
+	showSidebar as showSidebarContext,
+	sidebarMode as sidebarModeContext
 } from '../layoutClient';
 import stringToBoolean from './stringToBoolean';
 export default function Settings(props: {
@@ -65,12 +67,18 @@ export default function Settings(props: {
 			name: I18N.get('扩展'),
 			id: "extendeds",
 			Icon: ExtensionIcon
+		},
+		{
+			name: I18N.get("主题"),
+			id: "theme",
+			Icon: PaletteIcon
 		}
 	],
 		router = useRouter(),
 		id = useSelectedLayoutSegment();
 	const [value, setValue] = useState(sets.indexOf(sets.filter(set => set.id === id)[0])),
-		context = useContext(showSidebar);
+		showSidebar = useContext(showSidebarContext),
+		sidebarMode = useContext(sidebarModeContext);
 	return (
 		<>
 			<HeadBar isIndex={false} pageName={I18N.get('设置')} sx={{
@@ -80,13 +88,13 @@ export default function Settings(props: {
 				<Drawer anchor="top" variant="permanent" sx={{
 					flexShrink: 0,
 					[`& .MuiDrawer-paper`]: {
-						marginLeft: stringToBoolean(context.show) && `${drawerWidth}px`,
+						ml: stringToBoolean(showSidebar.show) && `${drawerWidth}px`,
 						boxSizing: 'border-box'
 					},
 				}}>
 					<Toolbar />
 					<Tabs sx={{
-						width: `calc(100% - ${drawerWidth}px)`,
+						width: (sidebarMode.value === "sidebar") ? `calc(100% - ${drawerWidth}px)` : "100%",
 						[`& .MuiTab-root`]: {
 							maxWidth: `${100 / sets.length}%`,
 							width: `${100 / sets.length}%`,

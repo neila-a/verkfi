@@ -20,7 +20,6 @@ import {
 } from "@mui/icons-material";
 import {
     colorMode,
-    darkMode,
     forkMeOnGitHub,
     lang as langContext,
     locales,
@@ -75,8 +74,8 @@ export default function Options() {
             <Typography variant='h4'>
                 {I18N.get('选项')}
             </Typography>
-            {([[forkMeOnGitHub, "Fork me on GitHub"], [darkMode, "暗色模式"], [colorMode, "多彩主页"]] as option[]).map((options, index) => (
-                <Switcher option={options} index={index} key={options[1]} />
+            {([[forkMeOnGitHub, "Fork me on GitHub"], [colorMode, "多彩主页"]] as option[]).map(options => (
+                <Switcher option={options} key={options[1]} />
             ))}
             <InputLabel>
                 {I18N.get('菜单模式')}
