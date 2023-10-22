@@ -214,7 +214,7 @@ export default function Index(props: {
                                 sortingFor={"__home__"}
                                 setTools={setTools}
                                 editMode={false}
-                                paramTool={Object.entries(JSON.parse(mostUsed)).toSorted((r, g) => {
+                                paramTool={(Object.entries(JSON.parse(mostUsed)) as [string, number][]).toSorted((r, g) => {
                                     if (r[1] < g[1]) {
                                         return 1;
                                     } if (r[1] > g[1]) {
