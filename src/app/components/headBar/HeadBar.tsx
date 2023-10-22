@@ -3,28 +3,23 @@ import {
 	AppBar,
 	Toolbar,
 	IconButton,
-	Typography,
-	FormGroup,
-	FormControl,
-	PaletteMode
+	Typography
 } from "@mui/material";
 import {
 	useRouter
 } from 'next/navigation'
-import ErrorBoundary from "../ErrorBoundary";
 import {
 	ArrowBack,
 	Settings as SettingsIcon,
 	LightMode,
 	DarkMode,
-	ArrowBackIos as ArrowBackIos,
-	ArrowForwardIos as ArrowForward
+	Menu as MenuIcon,
+	MenuOpen
 } from "@mui/icons-material"
 import {
 	CSSProperties,
 	Fragment,
-	useContext,
-	useState
+	useContext
 } from "react";
 import style from "./HeadBar.module.scss";
 import LpLogger from "lp-logger";
@@ -113,7 +108,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 						}} size="large" edge="end" color="inherit" aria-label="menu" sx={{
 							mr: 2
 						}}>
-							{value.show === "false" ? <ArrowForward /> : <ArrowBackIos />}
+							{value.show === "false" ? <MenuIcon /> : <MenuOpen />}
 						</IconButton>
 					)}
 				</showSidebar.Consumer>
