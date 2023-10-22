@@ -49,15 +49,15 @@ export default function Menu() {
     const control = useContext(showSidebar),
         theme = useTheme(),
         fullScreen = useMediaQuery(theme.breakpoints.down('sm')),
-        realTools = getTools(I18N), // 硬编码的工具列表
+        realTools = getTools(I18N), // 硬编码的分类
         [recentlyUsed, setRecentlyUsed] = useStoragedState<string>("recently-tools", "最近使用的工具", "[]"),
         [viewMode, setViewMode] = useStoragedState<viewMode>("viewmode", "列表模式", "grid"),
         [editMode, setEditMode] = useState<boolean>(false),
         [sortingFor, setSortingFor] = useState<string>("__home__"),
         [list, setList] = useState<lists>(getList),
         [searchText, setSearchText] = useState<string>(""),
-        [sortedTools, setSortedTools] = useState(() => getToolsList(realTools)), // 排序完毕，但是不会根据搜索而改动的工具列表
-        [tools, setTools] = useState<tool[]>(() => getToolsList(realTools)), // 经常改动的工具列表
+        [sortedTools, setSortedTools] = useState(() => getToolsList(realTools)), // 排序完毕，但是不会根据搜索而改动的分类
+        [tools, setTools] = useState<tool[]>(() => getToolsList(realTools)), // 经常改动的分类
         [editing, setEditing] = useState<boolean>(searchText === "");
     function searchTools(search: string) {
         if (search !== "") {
@@ -156,7 +156,7 @@ export default function Menu() {
                         </Box>
                         <Box>
                             <Typography variant='h4'>
-                                {I18N.get('工具列表')}
+                                {I18N.get('分类')}
                                 <Selects
                                     setEditing={setEditing}
                                     modifyClickCount={value => null}

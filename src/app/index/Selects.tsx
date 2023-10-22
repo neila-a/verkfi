@@ -141,8 +141,8 @@ export default function Selects(props: {
                     return realLeft;
                 })()} />}
             {removeDialogOpen && <CheckDialog
-                title={I18N.get("删除此工具列表")}
-                description={I18N.get("确定删除此工具列表吗？")}
+                title={I18N.get("删除此分类")}
+                description={I18N.get("确定删除此分类吗？")}
                 onTrue={() => {
                     var listDraft: lists = list;
                     listDraft.forEach(draftSingle => {

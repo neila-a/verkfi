@@ -62,7 +62,7 @@ export default function Buttons(props: {
             {editMode && <Button onClick={event => {
                 setDialogOpen(true);
             }} startIcon={<AddIcon />}>
-                {I18N.get("添加工具列表")}
+                {I18N.get("添加分类")}
             </Button>}
             <Divider />
             <ButtonGroup variant="outlined" sx={{

@@ -63,7 +63,7 @@ export default function Index(props: {
     const searchParams = useSearchParams(),
         /**
          * 包装过的getToolsList
-         * @returns 经过排序的工具列表
+         * @returns 经过排序的分类
          */
         wrappedGetToolsList = () => {
             return getToolsList(realTools);

@@ -46,7 +46,7 @@ export default function EditToolsListDialog(props: {
         return JSON.parse(lists) as lists;
     }),
         right = toolsList.map(atool => atool.name),
-        createOrEdit = !edit(list) ? I18N.get("创建工具列表") : I18N.get("编辑工具列表");
+        createOrEdit = !edit(list) ? I18N.get("创建分类") : I18N.get("编辑分类");
     right = right.filter(v => props.left.every(val => val !== v));
     return (
         <>
@@ -55,7 +55,7 @@ export default function EditToolsListDialog(props: {
                 setDialogListName("");
                 setDialogOpen(false);
             }}>
-                <TextField value={dialogListName} autoFocus margin="dense" label={I18N.get("工具列表名称")} fullWidth variant="standard" onChange={event => {
+                <TextField value={dialogListName} autoFocus margin="dense" label={I18N.get("分类名称")} fullWidth variant="standard" onChange={event => {
                     setDialogListName(event.target.value);
                 }} />
                 <TransferList left={props.left} right={right} onLeftChange={context => {
@@ -96,7 +96,7 @@ export default function EditToolsListDialog(props: {
                         setDialogTools([]);
                         return setDialogOpen(false);
                     }}>
-                        {I18N.get("删除此工具列表")}
+                        {I18N.get("删除此分类")}
                     </Button>}
                 </ButtonGroup>
             </PureDialog>

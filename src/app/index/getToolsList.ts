@@ -7,12 +7,12 @@ import {
 } from './consts';
 /**
  * 排序工具
- * @param realTools 未排序的工具列表
- * @returns 经过排序的工具列表
+ * @param realTools 未排序的分类
+ * @returns 经过排序的分类
  */
 export default function getToolsList(realTools: tool[]) {
     const
-        id = "toolslist", name = "工具列表", empty = realTools.map(atool => atool.to), value = localStorage.getItem(id);
+        id = "toolslist", name = "分类", empty = realTools.map(atool => atool.to), value = localStorage.getItem(id);
     var _ret: tool[] = realTools;
     switch (value) {
         case null:
