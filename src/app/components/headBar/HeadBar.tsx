@@ -33,9 +33,6 @@ import {
 	Theme
 } from "@emotion/react";
 import stringToBoolean from "../../setting/stringToBoolean";
-import dynamic from 'next/dynamic';
-const PureDialog = dynamic(() => import("../dialog/PureDialog"));
-const Index = dynamic(() => import("../../page"));
 var logger = new LpLogger({
 	name: "HeadBar",
 	level: "log", // 空字符串时，不显示任何信息
@@ -49,6 +46,9 @@ import {
 	forkMeOnGitHub as forkMeOnGitHubContext,
 	showSidebar
 } from '../../layoutClient';
+import {
+	stringifyCheck
+} from '../../setting/Switcher';
 export interface HeadBarOption {
 	pageName: string;
 	isIndex: boolean;
@@ -65,8 +65,6 @@ export interface HeadBarOption {
 export default function HeadBar(props: HeadBarOption): JSX.Element {
 	var forkMeOnGithub = useContext(forkMeOnGitHubContext),
 		darkModeFormStorage = useContext(darkModeContext),
-		[searchText, setSearchText] = useState(""),
-		[showSearchTool, setShowSearchTool] = useState<boolean>(false),
 		router = useRouter(),
 		darkMode = stringToBoolean(darkModeFormStorage.mode.replace("light", "false").replace("dark", "true"));
 	const noDrag: CSSProperties = {
@@ -111,7 +109,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 				<showSidebar.Consumer>
 					{value => !props.isIndex && (
 						<IconButton onClick={event => {
-							value.set((!stringToBoolean(value.show)).toString());
+							value.set((!stringToBoolean(value.show)).toString() as stringifyCheck);
 						}} size="large" edge="end" color="inherit" aria-label="menu" sx={{
 							mr: 2
 						}}>
@@ -148,16 +146,6 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 				right: "-40px"
 			}}>Fork me on GitHub</a>
 		</div> : <Fragment />}
-		{showSearchTool && <PureDialog title={I18N.get('搜索工具')} onClose={() => {
-			setSearchText("");
-			setShowSearchTool(false);
-		}}>
-			<ErrorBoundary>
-				<Index isImplant>
-					{searchText}
-				</Index>
-			</ErrorBoundary>
-		</PureDialog>}
 		<Toolbar />
 	</>;
 };
