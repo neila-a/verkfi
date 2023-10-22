@@ -76,7 +76,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 		}}>
 			<Toolbar>
 				<nav>
-					{props.isIndex ? <MouseOverPopover text={I18N.get("暗色模式")}>
+					{props.isIndex ? <MouseOverPopover text={I18N.get("暗色模式")} sx={noDrag}>
 						<IconButton size='large' edge="start" color="inherit" aria-label="darkmode" sx={{
 							mr: 2
 						}} onClick={event => {
@@ -106,14 +106,19 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 						<IconButton onClick={event => {
 							value.set((!stringToBoolean(value.show)).toString() as stringifyCheck);
 						}} size="large" edge="end" color="inherit" aria-label="menu" sx={{
-							mr: 2
+							mr: 2,
+							...noDrag
 						}}>
-							{value.show === "false" ? <MenuIcon /> : <MenuOpen />}
+							{value.show === "false" ? <MouseOverPopover text={I18N.get("打开菜单")}>
+								<MenuIcon />
+							</MouseOverPopover> : <MouseOverPopover text={I18N.get("关闭菜单")}>
+								<MenuOpen />
+							</MouseOverPopover>}
 						</IconButton>
 					)}
 				</showSidebar.Consumer>
-				<nav>
-					<Link href="/setting/option" className={style["link"]} style={noDrag}>
+				<nav style={noDrag}>
+					<Link href="/setting/option" className={style["link"]}>
 						<MouseOverPopover text={I18N.get('设置')}>
 							<IconButton size="large" edge="end" color="inherit" aria-label="menu" sx={{
 								mr: 2

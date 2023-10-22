@@ -120,12 +120,55 @@ export const useLang = () => {
         return val;
     }, real);
 };
+const registerProtocolHandler = () => {
+    const url = `${location.origin}/handle?handle=%s`;
+    if ("registerProtocolHandler" in window.navigator) {
+        logger.log("检测到此设备可以注册协议");
+        window.navigator.registerProtocolHandler("web+neilatools", url);
+    } else {
+        logger.warn("检测到此设备无法注册协议");
+    }
+};
+const registerServiceWorker = () => {
+    if ('serviceWorker' in window.navigator) {
+        // register service worker
+        window.navigator.serviceWorker.register("/service-worker.js").then(registration => {
+            logger.log(`Service worker for UWA register success:`, registration)
+        }).catch(reason => {
+            logger.error(`Service worker for UWA register fail: ${reason}`)
+        });
+    } else {
+        logger.warn("此设备没有ServiceWorker");
+    }
+};
+const desktopAdder = () => {
+    const defaultPrompt = {
+        prompt() {
+            logger.error("无法安装");
+        },
+    };
+    //@ts-ignore 不是，你不能安装PWA还强行安装，指定没好果汁吃奥
+    var deferredPrompt: BeforeInstallPromptEvent = defaultPrompt;
+    // 监听beforeinstallprompt事件，该事件在网站满足PWA安装条件时触发，保存安装事件
+    window.addEventListener("beforeinstallprompt", (event: BeforeInstallPromptEvent) => {
+        event.preventDefault();
+        deferredPrompt = event;
+    });
+    // 监听appinstalled事件，该事件在用户同意安装后触发，清空安装事件
+    window.addEventListener("appinstalled", () => {
+        //@ts-ignore 不是，你安装完了还想安装，指定没好果汁吃奥
+        deferredPrompt = defaultPrompt;
+    });
+    // 手动触发PWA安装
+    const addToDesktop = () => deferredPrompt.prompt();
+    window.installPWA = addToDesktop;
+}
 export default function ModifiedApp(props: {
     children: ReactNode
 }) {
     const [mode, setMode] = useStoragedState<PaletteMode>("darkmode", "暗色模式", "light"),
         [palette, setPalette] = useStoragedState<string>("palette", "调色板", "__none__"),
-        realPalette = palette === "__none__" ? {} : JSON.parse(palette),
+        realPalette = useMemo(() => (palette === "__none__" ? {} : JSON.parse(palette)), [palette]),
         theme = useMemo(
             () =>
                 createTheme({
@@ -139,43 +182,24 @@ export default function ModifiedApp(props: {
         pathname = usePathname(),
         params = useSearchParams(),
         indexRef = useRef(null),
-        [choosedLang, setChoosedLang] = useLang();
-    var [initDone, setInitDone] = useState<boolean>(false);
+        [choosedLang, setChoosedLang] = useLang(),
+        [initDone, setInitDone] = useState<boolean>(false),
+        [expand, setExpand] = useState<boolean>(false),
+        [sidebarModeState, setSidebarMode] = useStoragedState<sidebarMode>("sidebarmode", "边栏模式", "menu"),
+        [showSidebarState, setShowSidebar] = useStoragedState<stringifyCheck>("sidebar", "边栏", "false"),
+        implant = (pathname === "/") || (params.get("only") === "true"),
+        ml: string = implant ? "" : (expand ? `calc(min(${`calc(100vw - ${drawerWidth}px)`}, 320px) + ${drawerWidth}px)` : `${drawerWidth}px`),
+        Sidebar = implant ? null : (sidebarModeState === "menu" ? <Menu /> : <Index isImplant expand={expand} setExpand={setExpand} />),
+        [forkMeOnGitHubState, setForkMeOnGithub] = useStoragedState<stringifyCheck>("fork-me-on-github", "Fork me on GitHub", "false"),
+        [colorModeState, setColorModeState] = useStoragedState<stringifyCheck>("color", "多彩主页", "true");
     useEffect(() => {
-        var url = `${location.origin}/handle?handle=%s`;
         if (isBrowser()) {
-            if ("registerProtocolHandler" in window.navigator) {
-                logger.log("检测到此设备可以注册协议");
-                window.navigator.registerProtocolHandler("web+neilatools", url);
-            } else {
-                logger.warn("检测到此设备无法注册协议");
-            }
-            if ('serviceWorker' in window.navigator) {
-                // register service worker
-                window.navigator.serviceWorker.register("/service-worker.js").then(registration => {
-                    logger.log(`Service worker for UWA register success:`, registration)
-                }).catch(reason => {
-                    logger.error(`Service worker for UWA register fail: ${reason}`)
-                });
-            } else {
-                logger.warn("此设备没有ServiceWorker");
-            }
+            registerProtocolHandler();
+            registerServiceWorker();
         } else {
             logger.error(`执行BOM相关操作时发生错误`);
         }
-        var deferredPrompt: BeforeInstallPromptEvent;
-        // 监听beforeinstallprompt事件，该事件在网站满足PWA安装条件时触发，保存安装事件
-        window.addEventListener("beforeinstallprompt", (event: BeforeInstallPromptEvent) => {
-            event.preventDefault();
-            deferredPrompt = event;
-        });
-        // 监听appinstalled事件，该事件在用户同意安装后触发，清空安装事件
-        window.addEventListener("appinstalled", () => {
-            deferredPrompt = null;
-        });
-        // 手动触发PWA安装
-        const addToDesktop = () => deferredPrompt.prompt();
-        window.installPWA = addToDesktop;
+        desktopAdder();
         let isMounted = true;
         async function loadLang() {
             if (isMounted) {
@@ -192,14 +216,6 @@ export default function ModifiedApp(props: {
             isMounted = false;
         }
     }, []);
-    const [expand, setExpand] = useState<boolean>(false),
-        [sidebarModeState, setSidebarMode] = useStoragedState<sidebarMode>("sidebarmode", "边栏模式", "menu"),
-        [showSidebarState, setShowSidebar] = useStoragedState<stringifyCheck>("sidebar", "边栏", "false"),
-        implant = (pathname === "/") || (params.get("only") === "true"),
-        ml: string = implant ? "" : (expand ? `calc(min(${`calc(100vw - ${drawerWidth}px)`}, 320px) + ${drawerWidth}px)` : `${drawerWidth}px`),
-        Sidebar = implant ? null : (sidebarModeState === "menu" ? <Menu /> : <Index isImplant expand={expand} setExpand={setExpand} />),
-        [forkMeOnGitHubState, setForkMeOnGithub] = useStoragedState<stringifyCheck>("fork-me-on-github", "Fork me on GitHub", "false"),
-        [colorModeState, setColorModeState] = useStoragedState<stringifyCheck>("color", "多彩主页", "true");
     return initDone && (
         <ThemeProvider theme={theme}>
             <showSidebar.Provider value={{
