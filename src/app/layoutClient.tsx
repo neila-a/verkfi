@@ -129,14 +129,15 @@ const registerProtocolHandler = () => {
         logger.warn("检测到此设备无法注册协议");
     }
 };
-const registerServiceWorker = () => {
+const registerServiceWorker = async () => {
     if ('serviceWorker' in window.navigator) {
-        // register service worker
-        window.navigator.serviceWorker.register("/service-worker.js").then(registration => {
-            logger.log(`Service worker for UWA register success:`, registration)
-        }).catch(reason => {
-            logger.error(`Service worker for UWA register fail: ${reason}`)
-        });
+        try {
+            // register service worker
+            const registration = await window.navigator.serviceWorker.register("/service-worker.js");
+            logger.log(`Service worker for UWA register success:`, registration);
+        } catch (reason) {
+            logger.error(`Service worker for UWA register fail: ${reason}`);
+        }
     } else {
         logger.warn("此设备没有ServiceWorker");
     }
