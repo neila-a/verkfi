@@ -75,6 +75,7 @@ export default function Index(props: {
     var realTools = getTools(I18N),
         showSidebar = useContext(showSidebarContext),
         [recentlyUsed, setRecentlyUsed] = useStoragedState<string>("recently-tools", "最近使用的工具", "[]"),
+        [mostUsed, setMostUsed] = useStoragedState<string>("most-tools", "最常使用的工具", "{}"),
         [sortedTools, setSortedTools] = useState(wrappedGetToolsList),
         [searchText, setSearchText] = useState<string>(""),
         [viewMode, setViewMode] = useStoragedState<viewMode>("viewmode", "列表模式", "grid"),
@@ -199,6 +200,38 @@ export default function Index(props: {
                                 });
                                 return tool;
                             })} />
+                    </Box>
+                    <Box>
+                        <Typography variant='h4'>
+                            {I18N.get('最常使用')}
+                        </Typography>
+                        <Box sx={{
+                            p: 1
+                        }}>
+                            <ToolsStack
+                                viewMode={viewMode}
+                                searchText=""
+                                sortingFor={"__home__"}
+                                setTools={setTools}
+                                editMode={false}
+                                paramTool={Object.entries(JSON.parse(mostUsed)).toSorted((r, g) => {
+                                    if (r[1] < g[1]) {
+                                        return 1;
+                                    } if (r[1] > g[1]) {
+                                        return -1;
+                                    }
+                                    return 0;
+                                }).slice(0, 3).map(item => {
+                                    const to = item[0];
+                                    var tool: tool;
+                                    realTools.forEach(single => {
+                                        if (single.to === to) {
+                                            tool = single;
+                                        }
+                                    });
+                                    return tool;
+                                })} />
+                        </Box>
                     </Box>
                 </Box>
             )}

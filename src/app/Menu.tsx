@@ -51,6 +51,7 @@ export default function Menu() {
         fullScreen = useMediaQuery(theme.breakpoints.down('sm')),
         realTools = getTools(I18N), // 硬编码的分类
         [recentlyUsed, setRecentlyUsed] = useStoragedState<string>("recently-tools", "最近使用的工具", "[]"),
+        [mostUsed, setMostUsed] = useStoragedState<string>("most-tools", "最常使用的工具", "{}"),
         [viewMode, setViewMode] = useStoragedState<viewMode>("viewmode", "列表模式", "grid"),
         [editMode, setEditMode] = useState<boolean>(false),
         [sortingFor, setSortingFor] = useState<string>("__home__"),
@@ -114,7 +115,7 @@ export default function Menu() {
                     }} onChange={event => {
                         setSearchText(event.target.value);
                         searchTools(event.target.value);
-                        }} />
+                    }} />
                     <IconButton
                         aria-label="close"
                         onClick={event => {
@@ -144,6 +145,38 @@ export default function Menu() {
                                     setTools={tools => null}
                                     editMode={false}
                                     paramTool={(JSON.parse(recentlyUsed) as string[]).map(to => {
+                                        var tool: tool;
+                                        realTools.forEach(single => {
+                                            if (single.to === to) {
+                                                tool = single;
+                                            }
+                                        });
+                                        return tool;
+                                    })} />
+                            </Box>
+                        </Box>
+                        <Box>
+                            <Typography variant='h4'>
+                                {I18N.get('最常使用')}
+                            </Typography>
+                            <Box sx={{
+                                p: 1
+                            }}>
+                                <ToolsStack
+                                    viewMode={viewMode}
+                                    searchText=""
+                                    sortingFor={"__home__"}
+                                    setTools={tools => null}
+                                    editMode={false}
+                                    paramTool={Object.entries(JSON.parse(mostUsed)).toSorted((r, g) => {
+                                        if (r[1] < g[1]) {
+                                            return 1;
+                                        } if (r[1] > g[1]) {
+                                            return -1;
+                                        }
+                                        return 0;
+                                    }).slice(0, 3).map(item => {
+                                        const to = item[0];
                                         var tool: tool;
                                         realTools.forEach(single => {
                                             if (single.to === to) {
