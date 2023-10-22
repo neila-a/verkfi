@@ -71,8 +71,7 @@ export default function SingleTool(props: {
         ToolTypography = styled(Typography)(({
             theme
         }) => ({
-            wordBreak: "break-all",
-            color: stringToBoolean(color) ? "#000000" : ""
+            wordBreak: "break-all"
         }));
     const fullWidth = `100%`,
         buttonOptions = {
@@ -132,9 +131,7 @@ export default function SingleTool(props: {
                             }}>
                                 {viewMode == "grid" ? <div>
                                     <div className={Style["singleGridIcon"]}>
-                                        <ToolIcon sx={{
-                                            color: stringToBoolean(color) ? "#000000" : ""
-                                        }} />
+                                        <ToolIcon />
                                     </div>
                                     <div>
                                         <ToolTypography variant="h5">
@@ -150,9 +147,7 @@ export default function SingleTool(props: {
                                 </div> : <>
                                     <div className={Style["singleListText"]}>
                                         <div className={Style["singleListIcon"]}>
-                                            <ToolIcon sx={{
-                                                color: stringToBoolean(color) ? "#000000" : ""
-                                            }} />
+                                            <ToolIcon />
                                         </div>
                                         <div>
                                             <ToolTypography variant="h5">

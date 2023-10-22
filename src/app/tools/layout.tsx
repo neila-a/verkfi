@@ -55,8 +55,7 @@ export default function ToolFinder(props: {
                 if (name == "") return I18N.get("未找到工具");
                 return name;
             })()} only={only} sx={{
-                backgroundImage: toolColor,
-                color: stringToBoolean(color) ? "#000000" : ""
+                backgroundImage: toolColor
             }} />
             <Box sx={{
                 p: 3

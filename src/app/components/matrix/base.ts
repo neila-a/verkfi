@@ -3,9 +3,9 @@ import {
     logger
 } from "./matrix";
 import {
-    PaletteMode
+    Palette
 } from "@mui/material";
-export default function drawMatrixBase(edge: number, n: number, blocks: block[], cache: block[], posBlock: block[], posCache: block[], colorMode: PaletteMode) {
+export default function drawMatrixBase(edge: number, n: number, blocks: block[], cache: block[], posBlock: block[], posCache: block[], palette: Palette) {
     const onlyPos = blocks.toString() === cache.toString();
     if (!onlyPos) console.time("渲染圆");
     const canvas = (document.getElementsByTagName("canvas")[0] as HTMLCanvasElement) || document.createElement("canvas"),
@@ -24,8 +24,8 @@ export default function drawMatrixBase(edge: number, n: number, blocks: block[],
         logger.log(`blocks为`, blocks);
         logger.groupEnd("blocks的值");
     }
-    cxt.strokeStyle = colorMode === "light" ? "#000000" : "#FFFFFF";
-    const dos: [block[], string][] = [[posCache, colorMode === "dark" ? "#000000" : "#FFFFFF"], [blocks, "#FF0000"], [posBlock, "#1E9FFF"]];
+    cxt.strokeStyle = palette.text.primary;
+    const dos: [block[], string][] = [[posCache, palette.background.default], [blocks, "#FF0000"], [posBlock, palette.primary[palette.mode]]];
     dos.forEach((item, index) => {
         cxt.fillStyle = item[1];
         const path = new Path2D(), pBlock = item[0];

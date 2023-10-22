@@ -47,9 +47,6 @@ export async function generateMetadata() {
 import {
     Analytics
 } from '@vercel/analytics/react';
-import {
-    CssBaseline
-} from "@mui/material";
 import '@fontsource/ubuntu/300.css';
 import '@fontsource/ubuntu/400.css';
 import '@fontsource/ubuntu/500.css';
@@ -80,7 +77,6 @@ export default async function Layout({
                     </Loading>
                 </noscript>
                 <main>
-                    <CssBaseline />
                     <div className={style["fullHeight"]}>
                         <WindowsProvider>
                             <BaseLayout>

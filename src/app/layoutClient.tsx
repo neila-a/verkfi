@@ -41,6 +41,7 @@ import {
 import useStoragedState from "./components/useStoragedState";
 import {
     Box,
+    CssBaseline,
     PaletteMode
 } from "@mui/material";
 import {
@@ -218,14 +219,14 @@ export default function ModifiedApp(props: {
         }
     }, []);
     return initDone && (
-        <ThemeProvider theme={theme}>
-            <showSidebar.Provider value={{
-                show: showSidebarState,
-                set: setShowSidebar
-            }}>
-                <forkMeOnGitHub.Provider value={{
-                    value: forkMeOnGitHubState,
-                    set: setForkMeOnGithub
+        <forkMeOnGitHub.Provider value={{
+            value: forkMeOnGitHubState,
+            set: setForkMeOnGithub
+        }}>
+            <ThemeProvider theme={theme}>
+                <showSidebar.Provider value={{
+                    show: showSidebarState,
+                    set: setShowSidebar
                 }}>
                     <darkMode.Provider value={{
                         mode: mode,
@@ -247,6 +248,7 @@ export default function ModifiedApp(props: {
                                         value: palette,
                                         set: setPalette
                                     }}>
+                                        <CssBaseline />
                                         {Sidebar}
                                         <Box sx={{
                                             ml: (stringToBoolean(showSidebarState) && sidebarModeState === "sidebar") ? ml : ""
@@ -259,8 +261,8 @@ export default function ModifiedApp(props: {
                             </lang.Provider>
                         </colorMode.Provider>
                     </darkMode.Provider>
-                </forkMeOnGitHub.Provider>
-            </showSidebar.Provider>
-        </ThemeProvider>
+                </showSidebar.Provider>
+            </ThemeProvider>
+        </forkMeOnGitHub.Provider>
     );
 }

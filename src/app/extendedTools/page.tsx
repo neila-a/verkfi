@@ -50,8 +50,7 @@ export default function ExtendedTools() {
             {!param.has("only") && (
                 <>
                     <HeadBar isIndex={false} pageName={name} only={false} sx={{
-                        backgroundImage: `linear-gradient(45deg, #${tool.color[0]}, #${tool.color[1]})`,
-                        color: stringToBoolean(color) ? "#000000" : ""
+                        backgroundImage: `linear-gradient(45deg, #${tool.color[0]}, #${tool.color[1]})`
                     }} />
                     <Toolbar />
                 </>

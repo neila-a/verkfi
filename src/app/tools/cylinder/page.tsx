@@ -36,7 +36,7 @@ function Cylinder(): JSX.Element {
     const theme = useTheme();
     useEffect(() => {
         const blocks = makeCylinder(radiusX, radiusZ, thickness, filled);
-        drawMatrix(blocks.slice(0), Math.max(radiusX, radiusZ), posX, posZ, posCache, cache, theme.palette.mode);
+        drawMatrix(blocks.slice(0), Math.max(radiusX, radiusZ), posX, posZ, posCache, cache, theme.palette);
         setCache(blocks.slice(0));
         setPosCache([posX, posZ]);
     }, [posX, posZ]);
@@ -45,7 +45,7 @@ function Cylinder(): JSX.Element {
             blocks = makeCylinder(radiusX, radiusZ, thickness, filled);
         setPosX(g);
         setPosZ(g);
-        drawMatrix(blocks.slice(0), Math.max(radiusX, radiusZ), posX, posZ, posCache, cache, theme.palette.mode);
+        drawMatrix(blocks.slice(0), Math.max(radiusX, radiusZ), posX, posZ, posCache, cache, theme.palette);
         setCache(blocks.slice(0));
         setPosCache([posX, posZ]);
     }, [radiusX, radiusZ, thickness, filled]);
