@@ -74,6 +74,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 			zIndex: 38600,
 			left: 0,
 			width: "100vw",
+			opacity: 0.95,
 			...props.sx
 		}}>
 			<Toolbar>

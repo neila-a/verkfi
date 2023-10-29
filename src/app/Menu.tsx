@@ -82,7 +82,8 @@ export default function Menu() {
             }} sx={{
                 ".MuiDialog-paper": {
                     maxWidth: "unset"
-                }
+                },
+                zIndex: 38601
             }} open={stringToBoolean(control.show)} keepMounted TransitionComponent={Transition}>
                 <DialogTitle sx={{
                     m: 0,
