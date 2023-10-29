@@ -128,7 +128,7 @@ export default function Options() {
                     {I18N.get("帮助")}
                 </Button>
             </ButtonGroup>
-            {dialogOpen && <PureDialog title={I18N.get("下载本应用")} onClose={() => {
+            <PureDialog open={dialogOpen} title={I18N.get("下载本应用")} onClose={() => {
                 setDialogOpen(false);
             }}>
                 <ButtonGroup variant="contained" fullWidth>
@@ -144,7 +144,6 @@ export default function Options() {
                     </Button>
                 </ButtonGroup>
             </PureDialog>
-            }
         </FormGroup >
     );
 }

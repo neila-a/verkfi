@@ -17,15 +17,14 @@ export default function FullScreenDialog(props: {
     title: string;
     context: ReactNode;
     onDone(): any;
+    open: boolean;
 }) {
-    const [open, setOpen] = useState(true);
     const handleClose = () => {
         props.onDone();
-        setOpen(false);
     };
     return (
         <>
-            <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
+            <Dialog fullScreen open={props.open} onClose={handleClose} TransitionComponent={Transition}>
                 <AppBar sx={{
                     position: 'relative'
                 }}>

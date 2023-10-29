@@ -88,12 +88,12 @@ export default function Reset() {
                         setDialogTitle(I18N.get("清空"));
                         setDialogOnDone(() => () => localStorage.clear());
                     }}>{I18N.get('清空所有设置')}</Button>
-                    {dialogOpen && <CheckDialog title={dialogTitle} onFalse={() => {
+                    <CheckDialog open={dialogOpen} title={dialogTitle} onFalse={() => {
                         setDialogOpen(false);
                     }} onTrue={() => {
                         dialogOnDone();
                         setDialogOpen(false);
-                    }} description={dialogContext} />}
+                    }} description={dialogContext} />
                 </Spacing3Stack>
             </Stack>
         </ErrorBoundary>

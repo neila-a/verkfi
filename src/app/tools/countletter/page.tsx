@@ -30,7 +30,7 @@ function CountLetter(): JSX.Element {
                     logger.log("已弹出输入框。");
                     setEnterDialogOpen(true);
                 }} variant="contained" fullWidth>{I18N.get('输入')}</Button>
-                {enterDialogOpen ? <InputDialog context={I18N.get('输入你要转换的字符（串）')} onDone={context => {
+                <InputDialog open={enterDialogOpen} context={I18N.get('输入你要转换的字符（串）')} onDone={context => {
                     table.forEach(single => {
                         context = context.replace(new RegExp(single, "g"), (table.indexOf(single.toUpperCase()) + 1).toString(numberType).toUpperCase());
                     })
@@ -38,10 +38,10 @@ function CountLetter(): JSX.Element {
                     setOut(context);
                     setAlertDialogOpen(true);
                     logger.log(`已处理完毕，结果为${context}。`);
-                }} title={I18N.get('输入字符')} label={I18N.get('在这里输入')} /> : <Fragment /> /* 输入对话框容器 */}
-                {alertDialogOpen ? <AlertDialog title={I18N.get('输出')} description={out} onDone={() => {
+                }} title={I18N.get('输入字符')} label={I18N.get('在这里输入')} />
+                <AlertDialog open={alertDialogOpen} title={I18N.get('输出')} description={out} onDone={() => {
                     setAlertDialogOpen(false);
-                }} /> : <Fragment /> /* 输出对话框容器 */}
+                }} /> {/* 输出对话框容器 */}
             </div>
             <br />
             <FormControl>

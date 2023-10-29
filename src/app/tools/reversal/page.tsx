@@ -95,10 +95,10 @@ function Reversal(): JSX.Element {
                 </ButtonGroup>
             </Box>
             <Typography variant="body1">{I18N.get('结果：')}{output}</Typography>
-            {showCopyErrorDialog && <AlertDialog onDone={() => {
+            <AlertDialog open={showCopyErrorDialog} onDone={() => {
                 setShowCopyErrorDialog(false);
-            }} title={I18N.get('复制出现错误')} description={copyError} />}
-            {showSplitDialog && <InputDialog label="" title={I18N.get('拆分')} context={I18N.get('请输入拆分的符号，不输入则是逐字拆分')} onDone={context => {
+            }} title={I18N.get('复制出现错误')} description={copyError} />
+            <InputDialog open={showSplitDialog} label="" title={I18N.get('拆分')} context={I18N.get('请输入拆分的符号，不输入则是逐字拆分')} onDone={context => {
                 setWordList(words.split(context).map(word => {
                     return [
                         word,
@@ -107,7 +107,7 @@ function Reversal(): JSX.Element {
                 }));
                 logger.log("已拆分。");
                 setShowSplitDialog(false);
-            }} />}
+            }} />
             <Snackbar open={showCopyDoneDialog} message={I18N.get('已把结果复制至剪贴板。')} onClose={() => {
                 setShowCopyDoneDialog(false);
             }}/>

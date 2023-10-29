@@ -32,6 +32,7 @@ export default function EditToolsListDialog(props: {
     setDialogOpen: setState<boolean>;
     left: string[];
     setRemoveDialogOpen: setState<boolean>;
+    open: boolean;
 }) {
     const {
         dialogTools, setDialogTools, dialogListName, setDialogListName, setDialogOpen
@@ -49,57 +50,55 @@ export default function EditToolsListDialog(props: {
         createOrEdit = !edit(list) ? I18N.get("创建分类") : I18N.get("编辑分类");
     right = right.filter(v => props.left.every(val => val !== v));
     return (
-        <>
-            <PureDialog title={createOrEdit} onClose={() => {
-                setDialogTools([]);
-                setDialogListName("");
-                setDialogOpen(false);
-            }}>
-                <TextField value={dialogListName} autoFocus margin="dense" label={I18N.get("分类名称")} fullWidth variant="standard" onChange={event => {
-                    setDialogListName(event.target.value);
-                }} />
-                <TransferList left={props.left} right={right} onLeftChange={context => {
-                    var tos: string[] = [];
-                    context.forEach(name => {
-                        toolsList.forEach(fullTool => {
-                            if (fullTool.name === name) {
-                                tos.push(fullTool.to);
-                            }
-                        });
-                    });
-                    setDialogTools(tos);
-                }} onRightChange={context => null} />
-                <ButtonGroup fullWidth>
-                    <Button variant="contained" onClick={event => {
-                        var listDraft: lists = list,
-                            have: boolean = false;
-                        list.forEach((singleList, index) => {
-                            if (singleList[0] === dialogListName) {
-                                listDraft[index] = [singleList[0], dialogTools];
-                                have = true;
-                            }
-                        });
-                        if (!have) {
-                            listDraft.push([dialogListName, dialogTools]);
+        <PureDialog open={props.open} title={createOrEdit} onClose={() => {
+            setDialogTools([]);
+            setDialogListName("");
+            setDialogOpen(false);
+        }}>
+            <TextField value={dialogListName} autoFocus margin="dense" label={I18N.get("分类名称")} fullWidth variant="standard" onChange={event => {
+                setDialogListName(event.target.value);
+            }} />
+            <TransferList left={props.left} right={right} onLeftChange={context => {
+                var tos: string[] = [];
+                context.forEach(name => {
+                    toolsList.forEach(fullTool => {
+                        if (fullTool.name === name) {
+                            tos.push(fullTool.to);
                         }
-                        setList(listDraft);
-                        props.setList(listDraft);
-                        setSetting("lists", "集合列表", JSON.stringify(listDraft));
-                        setDialogListName("");
-                        setDialogTools([]);
-                        return setDialogOpen(false);
-                    }}>
-                        {createOrEdit}
-                    </Button>
-                    {edit(list) && <Button variant="outlined" onClick={event => {
-                        props.setRemoveDialogOpen(true);
-                        setDialogTools([]);
-                        return setDialogOpen(false);
-                    }}>
-                        {I18N.get("删除此分类")}
-                    </Button>}
-                </ButtonGroup>
-            </PureDialog>
-        </>
+                    });
+                });
+                setDialogTools(tos);
+            }} onRightChange={context => null} />
+            <ButtonGroup fullWidth>
+                <Button variant="contained" onClick={event => {
+                    var listDraft: lists = list,
+                        have: boolean = false;
+                    list.forEach((singleList, index) => {
+                        if (singleList[0] === dialogListName) {
+                            listDraft[index] = [singleList[0], dialogTools];
+                            have = true;
+                        }
+                    });
+                    if (!have) {
+                        listDraft.push([dialogListName, dialogTools]);
+                    }
+                    setList(listDraft);
+                    props.setList(listDraft);
+                    setSetting("lists", "集合列表", JSON.stringify(listDraft));
+                    setDialogListName("");
+                    setDialogTools([]);
+                    return setDialogOpen(false);
+                }}>
+                    {createOrEdit}
+                </Button>
+                {edit(list) && <Button variant="outlined" onClick={event => {
+                    props.setRemoveDialogOpen(true);
+                    setDialogTools([]);
+                    return setDialogOpen(false);
+                }}>
+                    {I18N.get("删除此分类")}
+                </Button>}
+            </ButtonGroup>
+        </PureDialog>
     );
 }

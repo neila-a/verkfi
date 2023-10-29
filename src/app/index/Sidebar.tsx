@@ -31,9 +31,6 @@ import {
 } from "../tools/info";
 import Center from '../components/center/Center';
 export type lists = [string, string[]][];
-import dynamic from 'next/dynamic';
-export const EditToolsListDialog = dynamic(() => import("./EditToolsListDialog"));
-export const CheckDialog = dynamic(() => import("../components/dialog/CheckDialog"));
 import getList from './getList';
 import SingleSelect from './SingleSelect';
 import Selects from './Selects';

@@ -157,13 +157,13 @@ export default function About() {
                     </Grid>
                 ))}
             </Grid>
-            {dialogOpen && <PureDialog title={dialogTitle} onClose={() => {
+            <PureDialog open={dialogOpen} title={dialogTitle} onClose={() => {
                 setDialogContext("");
                 setDialogTitle("");
                 setDialogOpen(false);
             }}>
                 {dialogContext}
-            </PureDialog>}
+            </PureDialog>
         </ErrorBoundary>
     );
 }

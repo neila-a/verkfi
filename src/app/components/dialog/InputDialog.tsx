@@ -17,15 +17,14 @@ export default function InputDialog(props: {
     context: string | JSX.Element;
     title: string;
     onDone(context: string): any;
+    open: boolean;
 }) {
-    var [open, setOpen] = useState(true),
-        [input, setInput] = useState<string>("");
+    var [input, setInput] = useState<string>("");
     const handleClose = () => {
-        setOpen(false);
         props.onDone(input);
     };
     return (
-        <Dialog open={open} onClose={handleClose} TransitionComponent={Transition} keepMounted>
+        <Dialog open={props.open} onClose={handleClose} TransitionComponent={Transition} keepMounted>
             <DialogTitle>{props.title}</DialogTitle>
             <DialogContent>
                 <DialogContentText>

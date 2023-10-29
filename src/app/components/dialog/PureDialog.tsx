@@ -21,14 +21,13 @@ export default function PureDialog(props: {
      * 关闭后的回调
      */
     onClose: Function;
+    open: boolean;
 }) {
-    const [open, setOpen] = useState(true);
     const handleClose = () => {
-        setOpen(false);
         props.onClose();
     };
     return (
-        <BootstrapDialog onClose={handleClose} open={open} TransitionComponent={Transition}>
+        <BootstrapDialog onClose={handleClose} open={props.open} TransitionComponent={Transition}>
             <BootstrapDialogTitle onClose={handleClose}>{props.title}</BootstrapDialogTitle>
             <DialogContent dividers>
                 {props.children}

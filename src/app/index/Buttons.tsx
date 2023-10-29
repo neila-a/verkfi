@@ -79,7 +79,8 @@ export default function Buttons(props: {
                     {props.expand ? <ArrowBackIosIcon /> : <ArrowForwardIosIcon />}
                 </IconButton>)}
             </ButtonGroup>
-            {dialogOpen && <EditToolsListDialog
+            <EditToolsListDialog
+                open={dialogOpen}
                 dialogTools={dialogTools}
                 setRemoveDialogOpen={setDialogOpen}
                 setDialogTools={setDialogTools}
@@ -88,7 +89,7 @@ export default function Buttons(props: {
                 setDialogOpen={setDialogOpen}
                 setList={props.setList}
                 left={[]}
-            />}
+            />
         </div>
     );
 }

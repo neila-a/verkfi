@@ -147,18 +147,18 @@ export default function ExtendedManager() {
             }} variant="outlined">
                 {I18N.get("添加扩展")}
             </Button>
-            {modifyDialogOpen && <PureDialog onClose={event => {
+            <PureDialog open={modifyDialogOpen} onClose={event => {
                 setModifyDialogOpen(false);
             }} title={I18N.get("编辑扩展")}>
                 <DialogInputs type="modify" />
-            </PureDialog>}
-            {removeDialogOpen && <CheckDialog title={I18N.get("删除扩展")} description={`${I18N.get("确定删除扩展")}${fileInfo.name}?`} onFalse={() => {
+            </PureDialog>
+            <CheckDialog open={removeDialogOpen} title={I18N.get("删除扩展")} description={`${I18N.get("确定删除扩展")}${fileInfo.name}?`} onFalse={() => {
                 reset();
             }} onTrue={async () => {
                 const id = await db.extendedTools.delete(fileInfo.to);
                 reset();
-            }} />}
-            {addDialogOpen && <PureDialog onClose={() => {
+            }} />
+            <PureDialog open={addDialogOpen} onClose={() => {
                 reset();
             }} title={I18N.get("添加扩展")}>
                 <FilePond
@@ -187,7 +187,7 @@ export default function ExtendedManager() {
                     labelIdle={I18N.get('拖拽扩展到这里')}
                 />
                 <DialogInputs type="add" />
-            </PureDialog>}
+            </PureDialog>
         </>
     );
 }

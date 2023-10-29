@@ -13,14 +13,13 @@ export default function AlertDialog(props: {
     title: string;
     description: string;
     onDone(): any;
+    open: boolean;
 }) {
-    var [open, setOpen] = React.useState(true);
     const handleClose = () => {
-        setOpen(false);
         props.onDone();
     };
     return (
-        <Dialog open={open} onClose={handleClose} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description" TransitionComponent={Transition}>
+        <Dialog open={props.open} onClose={handleClose} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description" TransitionComponent={Transition}>
             <DialogTitle id="alert-dialog-title">
                 {props.title}
             </DialogTitle>

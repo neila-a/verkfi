@@ -32,9 +32,9 @@ function ShaiZi(): JSX.Element {
                     setUseDialogShow(true);
                 }}>{I18N.get('全屏')}</Button>
             </Center>
-            {useDialogShow && <FullScreenDialog title={I18N.get('掷色子（全屏模式）')} onDone={() => {
+            <FullScreenDialog open={useDialogShow} title={I18N.get('掷色子（全屏模式）')} onDone={() => {
                 setUseDialogShow(false);
-            }} context={<ShaiZiCanvas cishu={cishu} setCishu={setCishu} />} />}
+            }} context={<ShaiZiCanvas cishu={cishu} setCishu={setCishu} />} />
         </div>
     );
 };

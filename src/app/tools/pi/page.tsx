@@ -86,9 +86,9 @@ function PI(): JSX.Element {
                     wordBreak: "break-all"
                 }} gutterBottom>{I18N.get('π是：')}{out}</Typography>
             </div>
-            {showInfoDialog && <AlertDialog title={I18N.get('提示')} description={dialogInfo} onDone={() => {
+            <AlertDialog open={showInfoDialog} title={I18N.get('提示')} description={dialogInfo} onDone={() => {
                 setShowInfoDialog(false);
-            }} />}
+            }} />
             <Snackbar open={showCopyDoneDialog} message={I18N.get('已把结果复制至剪贴板。')} onClose={() => {
                 setShowCopyDoneDialog(false);
             }} />

@@ -27,10 +27,11 @@ import Image from 'next/image';
 import { useLiveQuery } from 'dexie-react-hooks';
 import db from '../extendedTools/db';
 import SingleSelect from './SingleSelect';
+import dynamic from 'next/dynamic';
+const EditToolsListDialog = dynamic(() => import("./EditToolsListDialog"));
+const CheckDialog = dynamic(() => import("../components/dialog/CheckDialog"));
 import {
-    lists,
-    EditToolsListDialog,
-    CheckDialog
+    lists
 } from './Sidebar';
 export default function Selects(props: {
     list: lists;
@@ -117,7 +118,8 @@ export default function Selects(props: {
                 props.setSortedTools(convertedExtendedTools);
                 setTools(convertedExtendedTools);
             }} editButton={<></>} />
-            {dialogOpen && <EditToolsListDialog
+            <EditToolsListDialog
+                open={dialogOpen}
                 dialogTools={dialogTools}
                 setDialogTools={setDialogTools}
                 dialogListName={dialogListName}
@@ -139,8 +141,9 @@ export default function Selects(props: {
                         }
                     });
                     return realLeft;
-                })()} />}
-            {removeDialogOpen && <CheckDialog
+                })()} />
+            <CheckDialog
+                open={removeDialogOpen}
                 title={I18N.get("删除此分类")}
                 description={I18N.get("确定删除此分类吗？")}
                 onTrue={() => {
@@ -158,7 +161,7 @@ export default function Selects(props: {
                 onFalse={() => {
                     setDialogListName("");
                     return setRemoveDialogOpen(false);
-                }} />}
+                }} />
         </Box>
     );
 }

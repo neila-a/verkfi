@@ -173,13 +173,12 @@ export default function SingleTool(props: {
                     </Card>
                 )}
             </windows.Consumer>
-            {
-                jumpDialogOpen ? <CheckDialog description={`${I18N.get("确定离开NeilaTools并跳转至")}${jumpName}？`} title={I18N.get('离开NeilaTools')} onTrue={() => {
-                    Router.push(jumpto);
-                }} onFalse={() => {
-                    setJumpDialogOpen(false);
-                }} /> : <Fragment /> /* 跳转对话框容器 */
-            }
+            <CheckDialog open={jumpDialogOpen} description={`${I18N.get("确定离开NeilaTools并跳转至")}${jumpName}？`} title={I18N.get('离开NeilaTools')} onTrue={() => {
+                Router.push(jumpto);
+                setJumpDialogOpen(false);
+            }} onFalse={() => {
+                setJumpDialogOpen(false);
+            }} />
         </Fragment>
     );
 }
