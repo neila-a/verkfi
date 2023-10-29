@@ -40,7 +40,7 @@ export default function EditToolsListDialog(props: {
         dialogTools, setDialogTools, dialogListName, setDialogListName, setDialogOpen
     } = props,
         edit = (forList: lists) => forList.some(single => single[0] === dialogListName),
-        [toolsList, setToolsList] = useState(getToolsList(getTools(intl)));
+        [toolsList, setToolsList] = useState(getToolsList(getTools(get)));
     var [list, setList] = useState<lists>(() => {
         const defaultList: lists = [],
             defaultListJSON = JSON.stringify(defaultList),

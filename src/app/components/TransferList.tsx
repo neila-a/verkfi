@@ -30,7 +30,7 @@ export default function TransferList(props: {
     onLeftChange: (context: string[]) => void;
     onRightChange: (context: string[]) => void;
 }) {
-    const toolsList = getTools(intl),
+    const toolsList = getTools(get),
         [checked, setChecked] = useState<string[]>([]),
         [left, setLeft] = useState<string[]>(props.left),
         [right, setRight] = useState<string[]>(props.right),

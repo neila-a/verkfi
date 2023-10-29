@@ -74,7 +74,7 @@ export default function Index(props: {
     const {
         ref = refThis
     } = props;
-    var realTools = getTools(intl),
+    var realTools = getTools(get),
         showSidebar = useContext(showSidebarContext),
         [recentlyUsed, setRecentlyUsed] = useStoragedState<string>("recently-tools", "最近使用的工具", "[]"),
         [mostUsed, setMostUsed] = useStoragedState<string>("most-tools", "最常使用的工具", "{}"),

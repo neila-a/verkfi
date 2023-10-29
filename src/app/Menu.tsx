@@ -53,7 +53,7 @@ export default function Menu() {
     const control = useContext(showSidebar),
         theme = useTheme(),
         fullScreen = useMediaQuery(theme.breakpoints.down('sm')),
-        realTools = getTools(intl), // 硬编码的分类
+        realTools = getTools(get), // 硬编码的分类
         [recentlyUsed, setRecentlyUsed] = useStoragedState<string>("recently-tools", "最近使用的工具", "[]"),
         [mostUsed, setMostUsed] = useStoragedState<string>("most-tools", "最常使用的工具", "{}"),
         [viewMode, setViewMode] = useStoragedState<viewMode>("viewmode", "列表模式", "list"),

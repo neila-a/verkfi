@@ -72,10 +72,7 @@ export interface tool {
     isGoto?: boolean;
 
 }
-export const getTools = (I18N: typeof i18n): tool[] => {
-    const {
-        get
-    } = I18N;
+export const getTools = (get: typeof i18n.get): tool[] => {
     return [
         {
             name: "AudioTools",

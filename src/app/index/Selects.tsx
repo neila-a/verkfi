@@ -94,13 +94,13 @@ export default function Selects(props: {
                         let draft: tool[] = [];
                         props.modifyClickCount("++");
                         if (isAll) {
-                            draft = getToolsList(getTools(intl));
+                            draft = getToolsList(getTools(get));
                             if (sortingFor !== "__global__") {
                                 props.modifyClickCount(0);
                             }
                             setSortingFor("__global__");
                         } else {
-                            draft = single[1].map(toolTo => getToolsList(getTools(intl)).filter(one => one.to === toolTo)[0]);
+                            draft = single[1].map(toolTo => getToolsList(getTools(get)).filter(one => one.to === toolTo)[0]);
                             if (sortingFor !== single[0]) {
                                 props.modifyClickCount(0);
                             }
@@ -125,7 +125,7 @@ export default function Selects(props: {
             justifyContent: "space-evenly",
             alignItems: "center"
         }}>
-            {realSelect([get("全部"), getToolsList(getTools(intl)).map(atool => atool.to)], true)}
+            {realSelect([get("全部"), getToolsList(getTools(get)).map(atool => atool.to)], true)}
             <DragDropContext onDragEnd={result => {
                 if (!result.destination) {
                     return;
@@ -193,7 +193,7 @@ export default function Selects(props: {
                     list.forEach(single => {
                         if (single[0] === dialogListName) {
                             single[1].forEach(to => {
-                                getToolsList(getTools(intl)).forEach(tool => {
+                                getToolsList(getTools(get)).forEach(tool => {
                                     if (tool.to === to) {
                                         realLeft.push(tool.name);
                                     }

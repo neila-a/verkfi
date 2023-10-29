@@ -58,7 +58,7 @@ export default function SingleTool(props: {
         setTools,
         sortingFor
     } = props,
-        toolsInfo = getTools(intl),
+        toolsInfo = getTools(get),
         ToolIcon = tool.icon,
         subStyle = {
             sx: {

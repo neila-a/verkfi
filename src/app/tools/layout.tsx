@@ -32,7 +32,7 @@ export default function ToolFinder(props: {
     children: ReactNode;
 }): JSX.Element {
     var only = false,
-        toolsInfo = getTools(intl),
+        toolsInfo = getTools(get),
         colorContext = useContext(colorMode),
         color = colorContext.value;
     const toolID = useSelectedLayoutSegment(),
