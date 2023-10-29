@@ -4,7 +4,6 @@ import {
     useEffect,
     useState
 } from "react";
-import style from "./Cylinder.module.scss"
 import LpLogger from "lp-logger";
 import makeCylinder from "./makeCylinder";
 import {
