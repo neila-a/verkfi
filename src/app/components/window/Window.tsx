@@ -45,7 +45,7 @@ export default function Window(props: WindowOptions): JSX.Element {
     if (props.sx !== undefined) {
         realSx = props.sx;
     }
-    var [open, setOpen] = useState<boolean>(true),
+    const [open, setOpen] = useState<boolean>(true),
         nodeRef = useRef<HTMLDivElement>(null),
         [size, setSize] = useState<[number, number]>([50, 50]), /* height, width */
         [extended, setExtended] = useState<boolean>(false),

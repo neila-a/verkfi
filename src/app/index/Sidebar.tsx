@@ -125,7 +125,7 @@ export default function Sidebar(props: {
                         list={list}
                         setList={setList}
                         editMode={editMode}
-                        setEditing={setEditMode}
+                        setEditing={setEditing}
                         sortingFor={sortingFor}
                         setSortingFor={setSortingFor}
                         searchText={searchText}

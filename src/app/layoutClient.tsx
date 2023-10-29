@@ -63,7 +63,7 @@ export const windows = createContext<{
 export function WindowsProvider(props: {
     children: ReactNode;
 }) {
-    var [realWindows, setRealWindows] = useState<WindowOptions[]>([]);
+    const [realWindows, setRealWindows] = useState<WindowOptions[]>([]);
     return (
         <windows.Provider value={{
             windows: realWindows,

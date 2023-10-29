@@ -11,20 +11,20 @@ import Nzh from "nzh";
 import {
     useState
 } from "react";
+const nzh = new Nzh({
+    ch: '零一二三四五六七八九',
+    ch_u: '个十百千万亿兆京垓姊穰沟涧正载极',
+    ch_f: '负',
+    ch_d: '点',
+    m_u: '元角分厘',
+    m_t: '人民币',
+    m_z: '正'
+}); // 数字转汉字这种功能不需要什么国际化
 const logger = new LpLogger({
     name: "ReadNumber",
     level: "log", // 空字符串时，不显示任何信息
 });
 export default function ReadNumber(): JSX.Element {
-    const nzh = new Nzh({
-    ch: I18N.get('零一二三四五六七八九'),
-    ch_u: I18N.get('个十百千万亿兆京垓姊穰沟涧正载极'),
-    ch_f: I18N.get('负'),
-    ch_d: I18N.get('点'),
-    m_u: I18N.get('元角分厘'),
-    m_t: I18N.get('人民币'),
-    m_z: I18N.get('正')
-    });
     var [blur, setBlur] = useState<"number" | "string">("number"),
         [string, setString] = useState<string>(""),
         [number, setNumber] = useState<string>("0");
@@ -48,15 +48,15 @@ export default function ReadNumber(): JSX.Element {
                         </Typography>
                     </Grid>
                     <Grid item>
-                    <TextField value={number} type="number" fullWidth InputLabelProps={{
-                        shrink: true,
-                        "aria-labelledby": "number"
-                    }} onChange={event => {
-                        const { value } = event.target;
-                        setBlur("number");
-                        setNumber(value);
-                        proc(value);
-                    }} />
+                        <TextField value={number} type="number" fullWidth InputLabelProps={{
+                            shrink: true,
+                            "aria-labelledby": "number"
+                        }} onChange={event => {
+                            const { value } = event.target;
+                            setBlur("number");
+                            setNumber(value);
+                            proc(value);
+                        }} />
                     </Grid>
                 </Grid>
                 <Grid container spacing={1} alignItems="center">
@@ -66,14 +66,14 @@ export default function ReadNumber(): JSX.Element {
                         </Typography>
                     </Grid>
                     <Grid item>
-                    <TextField InputLabelProps={{
-                        "aria-labelledby": "string"
-                    }} value={string} fullWidth onChange={event => {
-                        const { value } = event.target;
-                        setBlur("string");
-                        setString(value);
-                        proc(value);
-                    }} />
+                        <TextField InputLabelProps={{
+                            "aria-labelledby": "string"
+                        }} value={string} fullWidth onChange={event => {
+                            const { value } = event.target;
+                            setBlur("string");
+                            setString(value);
+                            proc(value);
+                        }} />
                     </Grid>
                 </Grid>
             </FormGroup>

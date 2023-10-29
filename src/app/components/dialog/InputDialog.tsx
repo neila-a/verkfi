@@ -19,7 +19,7 @@ export default function InputDialog(props: {
     onDone(context: string): any;
     open: boolean;
 }) {
-    var [input, setInput] = useState<string>("");
+    const [input, setInput] = useState<string>("");
     const handleClose = () => {
         props.onDone(input);
     };

@@ -50,7 +50,7 @@ export default function Buttons(props: {
         setEditMode,
         editing
     } = props;
-    var [dialogOpen, setDialogOpen] = useState<boolean>(false),
+    const [dialogOpen, setDialogOpen] = useState<boolean>(false),
         [dialogTools, setDialogTools] = useState<string[]>([]),
         [dialogListName, setDialogListName] = useState<string>("");
     return (

@@ -21,14 +21,7 @@ export default function SwitchEditMode(props: {
         <IconButton color="primary" sx={{
             p: '10px'
         }} aria-label="directions" onClick={event => {
-            switch (editMode) {
-                case true:
-                    setEditMode(false);
-                    break;
-                case false:
-                    setEditMode(true);
-                    break;
-            }
+            setEditMode(old => !old);
         }}>
             {editMode ? <EditOffIcon /> : <EditIcon />}
         </IconButton>
