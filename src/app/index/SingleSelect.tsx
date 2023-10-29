@@ -26,13 +26,13 @@ export default function SingleSelect(props: {
         <Box sx={{
             maxWidth: "100%",
             display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center"
+            justifyContent: "center",
+            alignItems: "center",
+            bgcolor: theme => props.sortingFor === props.wantSortingFor ? theme.palette.action.active : ""
         }}>
             {props.dragButton}
             <Button aria-label={props.tool} sx={{
                 overflow: "hidden",
-                bgcolor: theme => props.sortingFor === props.wantSortingFor ? theme.palette.action.active : "",
                 color: theme => props.sortingFor === props.wantSortingFor ? theme.palette.primary[theme.palette.mode] : ""
             }} onClick={event => {
                 if (!props.editMode) {
@@ -50,7 +50,10 @@ export default function SingleSelect(props: {
             width: "100%",
             whiteSpace: "nowrap",
             display: "flex",
-            justifyContent: "center"
+            justifyContent: "center",
+            ["& > *"]: {
+                width: "100%"
+            }
         }}>
             <Inner />
         </Box>
