@@ -170,6 +170,7 @@ export default function ModifiedApp(props: {
 }) {
     const [mode, setMode] = useStoragedState<PaletteMode>("darkmode", "暗色模式", "light"),
         [palette, setPalette] = useStoragedState<string>("palette", "调色板", "__none__"),
+        [first, setFirst] = useStoragedState<string>("first", "第一次使用", "true"),
         realPalette = useMemo(() => (palette === "__none__" ? {} : JSON.parse(palette)), [palette]),
         theme = useMemo(
             () =>

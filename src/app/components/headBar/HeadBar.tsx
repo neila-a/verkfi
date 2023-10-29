@@ -76,15 +76,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 		}}>
 			<Toolbar>
 				<nav>
-					{props.isIndex ? <MouseOverPopover text={I18N.get("暗色模式")} sx={noDrag}>
-						<IconButton size='large' edge="start" color="inherit" aria-label="darkmode" sx={{
-							mr: 2
-						}} onClick={event => {
-							darkModeFormStorage.set(darkModeFormStorage.mode === "light" ? "dark" : "light");
-						}}>
-							{!darkMode ? <DarkMode /> : <LightMode />}
-						</IconButton>
-					</MouseOverPopover> : <MouseOverPopover text={I18N.get('上一页')} sx={noDrag}>
+					{!props.isIndex && <MouseOverPopover text={I18N.get('上一页')} sx={noDrag}>
 						<IconButton size="large" edge="start" color="inherit" aria-label="homepage" sx={{
 							mr: 2
 						}} onClick={event => {
@@ -96,8 +88,6 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 				</nav>
 				<Typography variant="h6" component="div" sx={{
 					flexGrow: 1
-				}} style={{
-					textAlign: "center"
 				}}>
 					{props.isIndex ? "NeilaTools" : props.pageName}
 				</Typography>
@@ -117,7 +107,11 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 						</IconButton>
 					)}
 				</showSidebar.Consumer>
-				<nav style={noDrag}>
+				<nav style={{
+					display: "flex",
+					alignItems: "center",
+					...noDrag
+				}}>
 					<Link href="/setting/option" className={style["link"]}>
 						<MouseOverPopover text={I18N.get('设置')}>
 							<IconButton size="large" edge="end" color="inherit" aria-label="menu" sx={{
