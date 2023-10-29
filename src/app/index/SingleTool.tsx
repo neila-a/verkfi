@@ -5,6 +5,7 @@ import React, {
     useState
 } from 'react';
 import {
+    Box,
     Card,
     CardContent,
     Typography
@@ -129,11 +130,11 @@ export default function SingleTool(props: {
                                     }]);
                                 }
                             }}>
-                                {viewMode == "grid" ? <div>
+                                {viewMode == "grid" ? <Box>
                                     <div className={Style["singleGridIcon"]}>
                                         <ToolIcon />
                                     </div>
-                                    <div>
+                                    <Box>
                                         <ToolTypography variant="h5">
                                             <DownButton {...buttonOptions} />
                                             {(tool.isGoto && !tool.to.startsWith("/extendedTools")) ? <ExitToAppIcon /> : <></>}
@@ -143,13 +144,13 @@ export default function SingleTool(props: {
                                         <ToolTypography {...subStyle} variant="body2">
                                             {tool.desc}
                                         </ToolTypography>
-                                    </div>
-                                </div> : <>
+                                    </Box>
+                                </Box> : <>
                                     <div className={Style["singleListText"]}>
                                         <div className={Style["singleListIcon"]}>
                                             <ToolIcon />
                                         </div>
-                                        <div>
+                                        <Box>
                                             <ToolTypography variant="h5">
                                                 {(tool.isGoto && !tool.to.startsWith("/extendedTools")) ? <ExitToAppIcon /> : <></>}
                                                 {tool.name}
@@ -157,12 +158,12 @@ export default function SingleTool(props: {
                                             <ToolTypography {...subStyle} variant="body2">
                                                 {tool.desc}
                                             </ToolTypography>
-                                        </div>
+                                        </Box>
                                     </div>
-                                    <div>
+                                    <Box>
                                         <DownButton {...buttonOptions} />
                                         <UpButton {...buttonOptions} />
-                                    </div>
+                                    </Box>
                                 </>}
                             </div>
                             {props.isFirst && <iframe style={{

@@ -3,7 +3,8 @@ import {
     Divider,
     ButtonGroup,
     Button,
-    IconButton
+    IconButton,
+    Box
 } from "@mui/material";
 import {
     setState
@@ -54,7 +55,7 @@ export default function Buttons(props: {
         [dialogTools, setDialogTools] = useState<string[]>([]),
         [dialogListName, setDialogListName] = useState<string>("");
     return (
-        <div style={{
+        <Box sx={{
             position: "absolute",
             bottom: "0px",
             width: "100%"
@@ -90,6 +91,6 @@ export default function Buttons(props: {
                 setList={props.setList}
                 left={[]}
             />
-        </div>
+        </Box>
     );
 }

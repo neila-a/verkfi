@@ -7,7 +7,8 @@ import {
     Divider,
     TextField,
     IconButton,
-    ButtonGroup
+    ButtonGroup,
+    Box
 } from "@mui/material";
 import {
     useState
@@ -105,29 +106,29 @@ export default function ExtendedManager() {
                 {extendedTools?.map(single => <Paper sx={{
                     padding: 2
                 }} key={single.to}>
-                    <div style={{
+                    <Box sx={{
                         display: "flex",
                         justifyContent: "space-between"
                     }}>
                         <Stack direction="row" divider={<Divider orientation="vertical" flexItem />} spacing={2}>
                             <Stack direction="row" spacing={1}>
-                                <div>
+                                <Box>
                                     <Image src={single.icon} alt={single.name} height={24} width={24} />
-                                </div>
-                                <div>
+                                </Box>
+                                <Box>
                                     <Typography>
                                         {single.name}
                                     </Typography>
                                     <Typography>
                                         <strong>{I18N.get("ID")}</strong> {single.to}
                                     </Typography>
-                                </div>
+                                </Box>
                             </Stack>
-                            <div>
+                            <Box>
                                 <strong>{I18N.get('描述')}</strong>
                                 <br />
                                 {single.desc}
-                            </div>
+                            </Box>
                         </Stack>
                         <IconButton onClick={event => {
                             setFile(single.file);
@@ -138,7 +139,7 @@ export default function ExtendedManager() {
                         }}>
                             <EditIcon />
                         </IconButton>
-                    </div>
+                    </Box>
                 </Paper>)}
             </Stack>
             <br />

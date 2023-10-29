@@ -1,5 +1,6 @@
 "use client";
 import {
+    Box,
     Button, Paper
 } from "@mui/material";
 import {
@@ -34,12 +35,12 @@ export default function SingleSelect(props: {
         </>
     )
     return props.isSidebar ? (
-        <div style={{
+        <Box sx={{
             width: "100%",
             whiteSpace: "nowrap"
         }}>
             <Inner />
-        </div>
+        </Box>
     ) : (
         <Inner />
     );

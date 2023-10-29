@@ -5,6 +5,7 @@ import {
     CSSProperties
 } from 'react';
 import {
+    Box,
     Popover,
     Typography
 } from '@mui/material';
@@ -35,7 +36,7 @@ export default function MouseOverPopover(props: {
     };
     const open = Boolean(anchorEl);
     return (
-        <div style={props.sx ? props.sx : {}}>
+        <Box sx={props.sx ? props.sx : {}}>
             <div
                 aria-haspopup="true"
                 onMouseEnter={handlePopoverOpen}
@@ -64,6 +65,6 @@ export default function MouseOverPopover(props: {
             >
                 <Typography sx={{ p: 1 }}>{props.text}</Typography>
             </Popover>
-        </div>
+        </Box>
     );
 }

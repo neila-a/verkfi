@@ -176,9 +176,13 @@ export default function Index(props: {
                         width: "100%"
                     }}>
                         <Center>
-                            <HandymanIcon sx={{
-                                fontSize: "1000%"
-                            }} />
+                            <Box sx={{
+                                cursor: "pointer"
+                            }}>
+                                <HandymanIcon sx={{
+                                    fontSize: "1000%"
+                                }} />
+                            </Box>
                         </Center>
                     </Box>
                     <Box>

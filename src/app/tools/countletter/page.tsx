@@ -1,6 +1,7 @@
 "use client";
 import I18N from 'react-intl-universal';
 import {
+    Box,
     Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup
 } from "@mui/material";
 import LpLogger from "lp-logger";
@@ -25,7 +26,7 @@ function CountLetter(): JSX.Element {
         [numberType, setNumberType] = useState<numberType>(10);
     return (
         <>
-            <div>
+            <Box>
                 <Button onClick={() => {
                     logger.log("已弹出输入框。");
                     setEnterDialogOpen(true);
@@ -42,7 +43,7 @@ function CountLetter(): JSX.Element {
                 <AlertDialog open={alertDialogOpen} title={I18N.get('输出')} description={out} onDone={() => {
                     setAlertDialogOpen(false);
                 }} /> {/* 输出对话框容器 */}
-            </div>
+            </Box>
             <br />
             <FormControl>
                 <FormLabel id="radio-buttons-group-label">数字进制</FormLabel>

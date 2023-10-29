@@ -1,6 +1,7 @@
 "use client";
 import I18N from 'react-intl-universal';
 import {
+    Box,
     Grid,
     SvgIconTypeMap,
     Typography
@@ -141,7 +142,7 @@ export default function About() {
             <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
                 {Object.values(abouts).map((item, index) => (
                     <Grid item xs={2} sm={4} md={4} key={Object.keys(abouts).filter(single => abouts[single] === item)[0]}>
-                        <div style={{
+                        <Box style={{
                             cursor: "pointer"
                         }} onClick={event => {
                             setDialogContext(item.context);
@@ -153,7 +154,7 @@ export default function About() {
                                 <br />
                                 {item.name}
                             </Typography>
-                        </div>
+                        </Box>
                     </Grid>
                 ))}
             </Grid>
