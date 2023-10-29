@@ -11,7 +11,8 @@ import {
     Typography
 } from "@mui/material";
 import {
-    ExitToApp as ExitToAppIcon
+    ExitToApp as ExitToAppIcon,
+    DragIndicator as DragIndicatorIcon
 } from "@mui/icons-material";
 import Style from "./Index.module.scss";
 import {
@@ -39,7 +40,6 @@ import {
 } from '../layoutClient';
 import stringToBoolean from "../setting/stringToBoolean";
 import I18N from "react-intl-universal";
-import useStoragedState from '../components/useStoragedState';
 export default function SingleTool(props: {
     tool: tool;
     isFirst: boolean;
@@ -73,16 +73,20 @@ export default function SingleTool(props: {
             theme
         }) => ({
             wordBreak: "break-all"
-        }));
-    const fullWidth = `100%`,
+        })),
+        fullWidth = `100%`,
         buttonOptions = {
             editMode: editMode,
             setTools: setTools,
             tool: tool,
             sortingFor: sortingFor
-        };
+        },
+        db = <DownButton {...buttonOptions} />,
+        ub = <UpButton {...buttonOptions} />;
     return (
-        <Fragment key={tool.to}> {/* 单个工具 */}
+        <Box sx={{
+            mb: viewMode === "list" ? 2 : ""
+        }} key={tool.to}> {/* 单个工具 */}
             <windows.Consumer>
                 {value => (
                     <Card sx={{
@@ -136,10 +140,10 @@ export default function SingleTool(props: {
                                     </div>
                                     <Box>
                                         <ToolTypography variant="h5">
-                                            <DownButton {...buttonOptions} />
+                                            {db}
                                             {(tool.isGoto && !tool.to.startsWith("/extendedTools")) ? <ExitToAppIcon /> : <></>}
                                             {tool.name}
-                                            <UpButton {...buttonOptions} />
+                                            {ub}
                                         </ToolTypography>
                                         <ToolTypography {...subStyle} variant="body2">
                                             {tool.desc}
@@ -161,8 +165,7 @@ export default function SingleTool(props: {
                                         </Box>
                                     </div>
                                     <Box>
-                                        <DownButton {...buttonOptions} />
-                                        <UpButton {...buttonOptions} />
+                                        {editMode && <DragIndicatorIcon />}
                                     </Box>
                                 </>}
                             </div>
@@ -180,6 +183,6 @@ export default function SingleTool(props: {
             }} onFalse={() => {
                 setJumpDialogOpen(false);
             }} />
-        </Fragment>
+        </Box>
     );
 }

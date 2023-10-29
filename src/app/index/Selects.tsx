@@ -44,6 +44,7 @@ export default function Selects(props: {
     setSortedTools: setState<tool[]>;
     setTools: setState<tool[]>;
     editMode: boolean;
+    setEditMode: setState<boolean>;
     isSidebar?: boolean;
     searchTools(search: string): void;
     modifyClickCount(value: number | "++"): void;
@@ -115,6 +116,7 @@ export default function Selects(props: {
                 }
                 setSortingFor("__extended__");
                 setEditing(false);
+                props.setEditMode(false);
                 props.setSortedTools(convertedExtendedTools);
                 setTools(convertedExtendedTools);
             }} editButton={<></>} />

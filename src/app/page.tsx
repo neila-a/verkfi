@@ -78,7 +78,7 @@ export default function Index(props: {
         [mostUsed, setMostUsed] = useStoragedState<string>("most-tools", "最常使用的工具", "{}"),
         [sortedTools, setSortedTools] = useState(wrappedGetToolsList),
         [searchText, setSearchText] = useState<string>(""),
-        [viewMode, setViewMode] = useStoragedState<viewMode>("viewmode", "列表模式", "grid"),
+        [viewMode, setViewMode] = useStoragedState<viewMode>("viewmode", "列表模式", "list"),
         [editMode, setEditMode] = useState<boolean>(false),
         [expandThis, setExpandThis] = useState<boolean>(false),
         [tools, setTools] = useState(wrappedGetToolsList),
@@ -187,21 +187,25 @@ export default function Index(props: {
                         <Typography variant='h4'>
                             {I18N.get('最近使用')}
                         </Typography>
-                        <ToolsStack
-                            viewMode={viewMode}
-                            searchText=""
-                            sortingFor={sortingFor}
-                            setTools={setTools}
-                            editMode={editMode}
-                            paramTool={(JSON.parse(recentlyUsed) as string[]).map(to => {
-                                var tool: tool;
-                                realTools.forEach(single => {
-                                    if (single.to === to) {
-                                        tool = single;
-                                    }
-                                });
-                                return tool;
-                            })} />
+                        <Box sx={{
+                            p: 1
+                        }}>
+                            <ToolsStack
+                                viewMode={viewMode}
+                                searchText=""
+                                sortingFor={sortingFor}
+                                setTools={setTools}
+                                editMode={false}
+                                paramTool={(JSON.parse(recentlyUsed) as string[]).map(to => {
+                                    var tool: tool;
+                                    realTools.forEach(single => {
+                                        if (single.to === to) {
+                                            tool = single;
+                                        }
+                                    });
+                                    return tool;
+                                })} />
+                        </Box>
                     </Box>
                     <Box>
                         <Typography variant='h4'>

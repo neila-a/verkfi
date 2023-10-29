@@ -52,7 +52,7 @@ export default function Menu() {
         realTools = getTools(I18N), // 硬编码的分类
         [recentlyUsed, setRecentlyUsed] = useStoragedState<string>("recently-tools", "最近使用的工具", "[]"),
         [mostUsed, setMostUsed] = useStoragedState<string>("most-tools", "最常使用的工具", "{}"),
-        [viewMode, setViewMode] = useStoragedState<viewMode>("viewmode", "列表模式", "grid"),
+        [viewMode, setViewMode] = useStoragedState<viewMode>("viewmode", "列表模式", "list"),
         [editMode, setEditMode] = useState<boolean>(false),
         [sortingFor, setSortingFor] = useState<string>("__home__"),
         [list, setList] = useState<lists>(getList),
@@ -191,6 +191,7 @@ export default function Menu() {
                             <Typography variant='h4'>
                                 {I18N.get('分类')}
                                 <Selects
+                                    setEditMode={setEditMode}
                                     setEditing={setEditing}
                                     modifyClickCount={value => null}
                                     list={list}

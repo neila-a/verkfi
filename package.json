@@ -1,7 +1,7 @@
 {
     "name": "neila-tools",
     "version": "1.5.3",
-    "devVersion": "704",
+    "devVersion": "708",
     "dev": true,
     "description": "Platform for Neila's something useless tools.",
     "private": true,
@@ -32,6 +32,7 @@
         "@emotion/react": "^11.11.1",
         "@emotion/styled": "^11.11.0",
         "@fontsource/ubuntu": "^5.0.8",
+        "@hello-pangea/dnd": "^16.3.0",
         "@mui/icons-material": "^5.14.15",
         "@mui/material": "^5.14.15",
         "@mui/styled-engine-sc": "^5.14.12",

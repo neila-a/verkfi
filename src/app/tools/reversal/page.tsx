@@ -63,7 +63,9 @@ function Reversal(): JSX.Element {
                         }} deleteIcon={<Close />} />
                     );
                 })}
-                <ButtonGroup fullWidth>
+                <ButtonGroup fullWidth sx={{
+                    mt: 1
+                }}>
                     <Button variant="contained" onClick={() => {
                         var stageOutput: [string, number][] = wordList;
                         stageOutput.sort(() => {

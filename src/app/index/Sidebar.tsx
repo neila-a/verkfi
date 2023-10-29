@@ -121,6 +121,7 @@ export default function Sidebar(props: {
                     }
                 }}>
                     <Selects
+                        setEditMode={setEditMode}
                         isSidebar
                         list={list}
                         setList={setList}
