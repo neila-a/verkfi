@@ -1,12 +1,17 @@
 import {
     block
 } from '../../components/matrix/matrix';
+/**
+ * 返回一个圆。
+ * ![cylinder](./cylinder.png)
+ * @source FastAsyncWorldEdit
+ */
 export default function makeCylinder(
     radiusX: number,
     radiusZ: number,
     thickness: number,
     filled: boolean
-): block[] { /* 修改自IntellectualSites的FastAsyncWorldEdit */
+): block[] {
     var blocks: block[] = [];
     const height = 1;
     function setBlock(x: number, z: number) {

@@ -25,29 +25,29 @@ var logger = new LpLogger({
     level: "log"
 });
 function Cylinder(): JSX.Element {
-    var [radiusX, setRadiusX] = useState<number>(50),
+    const [radiusX, setRadiusX] = useState<number>(50),
         [radiusZ, setRadiusZ] = useState<number>(50),
         [thickness, setThickness] = useState<number>(1),
         [filled, setFilled] = useState<boolean>(true),
         [posX, setPosX] = useState<number>(1),
         [posZ, setPosZ] = useState<number>(1),
         [cache, setCache] = useState<block[]>([[1, 1]]),
-        [posCache, setPosCache] = useState<block>([1, 1]);
-    const theme = useTheme();
+        [posCache, setPosCache] = useState<block>([1, 1]),
+        theme = useTheme();
     useEffect(() => {
         const blocks = makeCylinder(radiusX, radiusZ, thickness, filled);
-        drawMatrix(blocks.slice(0), Math.max(radiusX, radiusZ), posX, posZ, posCache, cache, theme.palette);
         setCache(blocks.slice(0));
         setPosCache([posX, posZ]);
+        drawMatrix(blocks.slice(0), Math.max(radiusX, radiusZ), posX, posZ, posCache, cache, theme.palette);
     }, [posX, posZ]);
     useEffect(() => {
         const g = Math.max(radiusX, radiusZ),
             blocks = makeCylinder(radiusX, radiusZ, thickness, filled);
+        setCache(blocks.slice(0));
+        setPosCache([posX, posZ]);
         setPosX(g);
         setPosZ(g);
         drawMatrix(blocks.slice(0), Math.max(radiusX, radiusZ), posX, posZ, posCache, cache, theme.palette);
-        setCache(blocks.slice(0));
-        setPosCache([posX, posZ]);
     }, [radiusX, radiusZ, thickness, filled]);
     return (
         <>
@@ -104,11 +104,7 @@ function Cylinder(): JSX.Element {
                         <Switch value={filled} onChange={event => setFilled(event.target.checked)} />
                     </Grid>
                 </Grid>
-                <Grid direction="row" container spacing={1} alignItems="center" sx={{
-                    zIndex: 38601,
-                    position: "sticky",
-                    top: "64px"
-                }}>
+                <Grid direction="row" container spacing={1} alignItems="center">
                     <Grid item>
                         <Typography id="position" gutterBottom>
                             {I18N.get('位置')}
@@ -133,8 +129,12 @@ function Cylinder(): JSX.Element {
                     e = Math.min(h, w),
                     x = Math.round(event.nativeEvent.offsetX / (e / radiusX) * 2 + 1),
                     z = Math.round(event.nativeEvent.offsetY / (e / radiusZ) * 2 + 1);
-                setPosX(x);
-                setPosZ(z);
+                if (posX !== x) {
+                    setPosX(x);
+                }
+                if (posZ !== z) {
+                    setPosZ(z);
+                }
             }}>
                 <canvas id="canvas" width={1} height={1} />
             </div>
