@@ -108,7 +108,7 @@ export default function Sidebar(props: {
                 }} />
             </Paper>
             <Center>
-                {!props.isImplant && <SingleSelect isSidebar={true} sortingFor={sortingFor} searchText={searchText} setEditing={setEditing} wantSortingFor="__home__" tool={I18N.get("主页")} onClick={event => {
+                {!props.isImplant && <SingleSelect dragButton={<></>} editMode={editMode} isSidebar={true} sortingFor={sortingFor} searchText={searchText} setEditing={setEditing} wantSortingFor="__home__" tool={I18N.get("主页")} onClick={event => {
                     props.setShow("home");
                     setSortingFor("__home__");
                 }} editButton={<></>} />}

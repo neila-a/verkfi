@@ -14,30 +14,43 @@ export default function SingleSelect(props: {
     tool: string;
     onClick: MouseEventHandler<HTMLButtonElement>;
     editButton: ReactNode;
+    dragButton: ReactNode;
     wantSortingFor?: string;
     sortingFor: string;
     searchText: string;
     isSidebar: boolean;
+    editMode: boolean;
     setEditing: setState<boolean>;
 }) {
     const Inner = () => (
-        <>
-            <Button aria-label={props.tool} fullWidth sx={{
+        <Box sx={{
+            maxWidth: "100%",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center"
+        }}>
+            {props.dragButton}
+            <Button aria-label={props.tool} sx={{
+                overflow: "hidden",
                 bgcolor: theme => props.sortingFor === props.wantSortingFor ? theme.palette.action.active : "",
                 color: theme => props.sortingFor === props.wantSortingFor ? theme.palette.primary[theme.palette.mode] : ""
             }} onClick={event => {
-                props.setEditing(props.searchText === "");
-                props.onClick(event);
+                if (!props.editMode) {
+                    props.setEditing(props.searchText === "");
+                    props.onClick(event);
+                }
             }}>
                 {props.tool}
             </Button>
             {props.editButton}
-        </>
+        </Box>
     )
     return props.isSidebar ? (
         <Box sx={{
             width: "100%",
-            whiteSpace: "nowrap"
+            whiteSpace: "nowrap",
+            display: "flex",
+            justifyContent: "center"
         }}>
             <Inner />
         </Box>

@@ -11,7 +11,7 @@ import {
     Hex,
     setState
 } from '../declare';
-import {
+import React, {
     useState
 } from 'react';
 import {
@@ -24,7 +24,9 @@ import {
 } from '../layoutClient';
 import setSetting from '../setting/setSetting';
 import Image from 'next/image';
-import { useLiveQuery } from 'dexie-react-hooks';
+import {
+    useLiveQuery
+} from 'dexie-react-hooks';
 import db from '../extendedTools/db';
 import SingleSelect from './SingleSelect';
 import dynamic from 'next/dynamic';
@@ -33,6 +35,15 @@ const CheckDialog = dynamic(() => import("../components/dialog/CheckDialog"));
 import {
     lists
 } from './Sidebar';
+import {
+    DragDropContext,
+    Draggable,
+    Droppable
+} from '@hello-pangea/dnd';
+import reorder from '../components/reorder';
+import {
+    DragIndicator as DragIndicatorIcon
+} from "@mui/icons-material";
 export default function Selects(props: {
     list: lists;
     setList: setState<lists>;
@@ -58,58 +69,104 @@ export default function Selects(props: {
         isGoto: true
     })), {
         list, setList, setTools, searchTools, searchText, setSearchText, sortingFor, setSortingFor, setEditing
-    } = props;
-    var [dialogOpen, setDialogOpen] = useState<boolean>(false), [dialogTools, setDialogTools] = useState<string[]>([]), [removeDialogOpen, setRemoveDialogOpen] = useState<boolean>(false), [dialogListName, setDialogListName] = useState<string>("");
+    } = props,
+        [dialogOpen, setDialogOpen] = useState<boolean>(false),
+        [dialogTools, setDialogTools] = useState<string[]>([]),
+        [removeDialogOpen, setRemoveDialogOpen] = useState<boolean>(false),
+        [dialogListName, setDialogListName] = useState<string>(""),
+        realSelect = (single: [string, string[]], isAll: boolean) => (
+            <Box>
+                <SingleSelect
+                    dragButton={props.editMode && !isAll && <DragIndicatorIcon />}
+                    editMode={props.editMode}
+                    isSidebar={Boolean(props.isSidebar)}
+                    sortingFor={sortingFor}
+                    searchText={searchText}
+                    setEditing={setEditing}
+                    key={single[0]}
+                    tool={single[0]}
+                    onClick={event => {
+                        setEditing(true);
+                        setSearchText("");
+                        searchTools("");
+                        let draft: tool[] = [];
+                        props.modifyClickCount("++");
+                        if (isAll) {
+                            draft = getToolsList(getTools(I18N));
+                            if (sortingFor !== "__global__") {
+                                props.modifyClickCount(0);
+                            }
+                            setSortingFor("__global__");
+                        } else {
+                            draft = single[1].map(toolTo => getToolsList(getTools(I18N)).filter(one => one.to === toolTo)[0]);
+                            if (sortingFor !== single[0]) {
+                                props.modifyClickCount(0);
+                            }
+                            setSortingFor(single[0]);
+                        }
+                        props.setSortedTools(draft);
+                        setTools(draft);
+                    }} editButton={(
+                        (props.editMode && !isAll) ? <IconButton onClick={event => {
+                            setDialogOpen(true);
+                            setDialogListName(single[0]);
+                        }}>
+                            <EditIcon />
+                        </IconButton> : <></>
+                    )} wantSortingFor={isAll ? "__global__" : single[0]} />
+            </Box>
+        );
     return (
         <Box sx={{
             width: "100%",
             display: Boolean(props.isSidebar) ? "" : "flex",
-            justifyContent: "space-evenly"
+            justifyContent: "space-evenly",
+            alignItems: "center"
         }}>
-            {([[I18N.get("全部"), getToolsList(getTools(I18N)).map(atool => atool.to)]] as lists).concat(list).map(single => {
-                const isAll = Object.values(locales).some(singleLang => {
-                    const strings = Object.values(singleLang);
-                    let have: boolean = strings.includes(single[0]);
-                    return have;
-                });
-                return (
-                    <>
-                        <SingleSelect isSidebar={Boolean(props.isSidebar)} sortingFor={sortingFor} searchText={searchText} setEditing={setEditing} key={single[0]} tool={single[0]} onClick={event => {
-                            setEditing(true);
-                            setSearchText("");
-                            searchTools("");
-                            let draft: tool[] = [];
-                            props.modifyClickCount("++");
-                            if (isAll) {
-                                draft = getToolsList(getTools(I18N));
-                                if (sortingFor !== "__global__") {
-                                    props.modifyClickCount(0);
-                                }
-                                setSortingFor("__global__");
-                            } else {
-                                draft = single[1].map(toolTo => getToolsList(getTools(I18N)).filter(one => one.to === toolTo)[0]);
-                                if (sortingFor !== single[0]) {
-                                    props.modifyClickCount(0);
-                                }
-                                setSortingFor(single[0]);
-                            }
-                            props.setSortedTools(draft);
-                            setTools(draft);
-                        }} editButton={(
-                            (props.editMode && !isAll) ? <IconButton onClick={event => {
-                                setDialogOpen(true);
-                                setDialogListName(single[0]);
-                            }} sx={{
-                                position: "absolute",
-                                right: "0"
+            {realSelect([I18N.get("全部"), getToolsList(getTools(I18N)).map(atool => atool.to)], true)}
+            <DragDropContext onDragEnd={result => {
+                if (!result.destination) {
+                    return;
+                }
+                if (result.destination.index === result.source.index) {
+                    return;
+                }
+                console.log(props.editMode)
+                if (props.editMode) {
+                    const newLists = reorder(props.list, result.source.index, result.destination.index);
+                    setSetting("lists", "集合列表", JSON.stringify(newLists))
+                    props.setList(newLists);
+                }
+            }}>
+                <Droppable direction={Boolean(props.isSidebar) ? "vertical" : "horizontal"} droppableId="categories" isDropDisabled={!props.editMode}>
+                    {provided => {
+                        return (
+                            <Box ref={provided.innerRef} {...provided.droppableProps} sx={{
+                                display: Boolean(props.isSidebar) ? "" : "flex"
                             }}>
-                                <EditIcon />
-                            </IconButton> : <></>
-                        )} wantSortingFor={isAll ? "__global__" : single[0]} />
-                    </>
-                );
-            })}
-            <SingleSelect isSidebar={Boolean(props.isSidebar)} sortingFor={sortingFor} searchText={searchText} setEditing={setEditing} wantSortingFor="__extended__" tool={I18N.get("扩展工具")} onClick={event => {
+                                {list.map((value: [string, string[]], index: number) => {
+                                    const single = value, isAll = Object.values(locales).some(singleLang => {
+                                        const strings = Object.values(singleLang);
+                                        let have: boolean = strings.includes(single[0]);
+                                        return have;
+                                    });
+                                    return props.editMode ? (
+                                        <Draggable draggableId={single[0]} index={index} key={single[0]}>
+                                            {provided => (
+                                                <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                                    {realSelect(value, false)}
+                                                </div>
+                                            )}
+                                        </Draggable>
+                                    ) : realSelect(value, false);
+                                })}
+                                {provided.placeholder}
+                            </Box>
+                        );
+                    }}
+                </Droppable>
+            </DragDropContext>
+            <SingleSelect dragButton={<></>} editMode={props.editMode} isSidebar={Boolean(props.isSidebar)} sortingFor={sortingFor} searchText={searchText} setEditing={setEditing} wantSortingFor="__extended__" tool={I18N.get("扩展工具")} onClick={event => {
                 props.modifyClickCount("++");
                 if (sortingFor !== "__extended__") {
                     props.modifyClickCount(0);
