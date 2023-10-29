@@ -59,10 +59,10 @@ export default function ToolFinder(props: {
             }} />
             <Box sx={{
                 p: 3
-            }} id="container">
+            }} component="article" id="container">
                 {props.children}
             </Box>
-            <div id="outside" />
+            <Box component="section" id="outside" />
         </>
     );
 }

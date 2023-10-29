@@ -76,15 +76,13 @@ export default async function Layout({
                         </Typography>
                     </Loading>
                 </noscript>
-                <main>
-                    <div className={style["fullHeight"]}>
-                        <WindowsProvider>
-                            <BaseLayout>
-                                {children}
-                            </BaseLayout>
-                        </WindowsProvider>
-                    </div>
-                </main>
+                <div className={style["fullHeight"]}>
+                    <WindowsProvider>
+                        <BaseLayout>
+                            {children}
+                        </BaseLayout>
+                    </WindowsProvider>
+                </div>
                 <Analytics />
             </body>
         </html>

@@ -112,7 +112,7 @@ export default function Settings(props: {
 				</Drawer>
 				<Toolbar />
 			</nav>
-			<Box component="main" sx={{
+			<Box component="article" sx={{
 				flexGrow: 1,
 				p: 3,
 			}}>
