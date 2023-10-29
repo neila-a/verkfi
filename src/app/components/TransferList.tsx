@@ -12,7 +12,9 @@ import {
     Button,
     Paper
 } from "@mui/material"
-import I18N from "react-intl-universal";
+import intl, {
+    get
+} from "react-intl-universal";
 import {
     getTools
 } from "../tools/info";
@@ -28,7 +30,7 @@ export default function TransferList(props: {
     onLeftChange: (context: string[]) => void;
     onRightChange: (context: string[]) => void;
 }) {
-    const toolsList = getTools(I18N),
+    const toolsList = getTools(intl),
         [checked, setChecked] = useState<string[]>([]),
         [left, setLeft] = useState<string[]>(props.left),
         [right, setRight] = useState<string[]>(props.right),

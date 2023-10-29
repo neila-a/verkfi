@@ -1,4 +1,6 @@
-import I18N from 'react-intl-universal';
+import {
+    get
+} from 'react-intl-universal';
 import {
     Dialog,
     DialogTitle,
@@ -30,7 +32,7 @@ export default function AlertDialog(props: {
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleClose} autoFocus>
-                    {I18N.get('确定')}
+                    {get('确定')}
                 </Button>
             </DialogActions>
         </Dialog>

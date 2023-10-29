@@ -1,5 +1,7 @@
 "use client";
-import I18N from 'react-intl-universal';
+import {
+    get
+} from 'react-intl-universal';
 import {
     Button,
     Divider,
@@ -51,7 +53,7 @@ export default function Reset() {
     return load && (
         <ErrorBoundary>
             <Typography variant='h4'>
-                {I18N.get('重置')}
+                {get('重置')}
             </Typography>
             <Stack direction={direction} spacing={{
                 xs: 10,
@@ -61,33 +63,33 @@ export default function Reset() {
                 <Spacing3Stack>
                     <Line
                         value={Number((cacheUsed / cacheAll * 100).toFixed(5))}
-                        mainLabel={I18N.get("缓存空间")}
-                        usedLabel={`${I18N.get("已用")} ${cacheUsed.toFixed(5)} MB`}
-                        surLabel={`${I18N.get("总容量")} ${cacheAll.toFixed(5)} MB`}
+                        mainLabel={get("缓存空间")}
+                        usedLabel={`${get("已用")} ${cacheUsed.toFixed(5)} MB`}
+                        surLabel={`${get("总容量")} ${cacheAll.toFixed(5)} MB`}
                     />
                     <Button variant="contained" onClick={event => {
                         setDialogOpen(true);
-                        setDialogContext(I18N.get("清空缓存吗？此操作不可恢复。"));
-                        setDialogTitle(I18N.get("清空"));
+                        setDialogContext(get("清空缓存吗？此操作不可恢复。"));
+                        setDialogTitle(get("清空"));
                         setDialogOnDone(() => () => caches.keys().then(keylist => Promise.all(keylist.map(key => {
                             logger.log(`已删除缓存“${key}”`);
                             return caches.delete(key);
                         }))));
-                    }}>{I18N.get('清空所有缓存')}</Button>
+                    }}>{get('清空所有缓存')}</Button>
                 </Spacing3Stack>
                 <Spacing3Stack>
                     <Line
                         value={Number((cacheUsed / cacheAll * 100).toFixed(5))}
-                        mainLabel={I18N.get("设置空间")}
-                        usedLabel={`${I18N.get("已用")} ${getSettingsUsed()} KB`}
-                        surLabel={`${I18N.get("总容量")} ${getSettingsSur()} KB`}
+                        mainLabel={get("设置空间")}
+                        usedLabel={`${get("已用")} ${getSettingsUsed()} KB`}
+                        surLabel={`${get("总容量")} ${getSettingsSur()} KB`}
                     />
                     <Button variant="contained" onClick={event => {
                         setDialogOpen(true);
-                        setDialogContext(I18N.get("清空设置吗？此操作不可恢复。"));
-                        setDialogTitle(I18N.get("清空"));
+                        setDialogContext(get("清空设置吗？此操作不可恢复。"));
+                        setDialogTitle(get("清空"));
                         setDialogOnDone(() => () => localStorage.clear());
-                    }}>{I18N.get('清空所有设置')}</Button>
+                    }}>{get('清空所有设置')}</Button>
                     <CheckDialog open={dialogOpen} title={dialogTitle} onFalse={() => {
                         setDialogOpen(false);
                     }} onTrue={() => {

@@ -11,7 +11,9 @@ import {
 import {
     capitalize
 } from '@mui/material/utils';
-import I18N from "react-intl-universal";
+import {
+    get
+} from "react-intl-universal";
 import {
     darkMode,
     isBrowser,
@@ -188,7 +190,7 @@ function ColorTool() {
         return (
             <Grid item>
                 <Typography component="label" gutterBottom htmlFor={intent} variant="h6">
-                    {I18N.get(intent)}
+                    {get(intent)}
                 </Typography>
                 <Box sx={{
                     display: 'flex',
@@ -198,7 +200,7 @@ function ColorTool() {
                 }}>
                     <Typography id={`${intent}ShadeSliderLabel`} sx={{
                         width: 60
-                    }}>{`${I18N.get("shade")}:`}</Typography>
+                    }}>{`${get("shade")}:`}</Typography>
                     <Slider
                         sx={{
                             width: 'calc(100% - 80px)',
@@ -223,7 +225,7 @@ function ColorTool() {
                                 ? shades[state.primaryShade]
                                 : shades[state.secondaryShade];
                         const backgroundColor = colors[hue][shade];
-                        const showHue = I18N.get(hue);
+                        const showHue = get(hue);
                         return (
                             <Tooltip placement="right" title={showHue} key={hue}>
                                 <Radio
@@ -290,7 +292,7 @@ function ColorTool() {
                 palette.set("__none__");
                 setState(JSON.parse(defaultState));
             }}>
-                {I18N.get("重置")}
+                {get("重置")}
             </Button>
         </>
     );

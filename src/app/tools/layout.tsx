@@ -15,7 +15,9 @@ import {
 import {
     Box
 } from "@mui/material";
-import I18N from "react-intl-universal";
+import intl, {
+    get
+} from "react-intl-universal";
 import lpLogger from "lp-logger";
 import stringToBoolean from "../setting/stringToBoolean";
 import getToolColor from "./getToolColor";
@@ -30,7 +32,7 @@ export default function ToolFinder(props: {
     children: ReactNode;
 }): JSX.Element {
     var only = false,
-        toolsInfo = getTools(I18N),
+        toolsInfo = getTools(intl),
         colorContext = useContext(colorMode),
         color = colorContext.value;
     const toolID = useSelectedLayoutSegment(),
@@ -52,7 +54,7 @@ export default function ToolFinder(props: {
                 toolsInfo.forEach(si => {
                     if (si.to == toolID) name = si.name;
                 });
-                if (name == "") return I18N.get("未找到工具");
+                if (name == "") return get("未找到工具");
                 return name;
             })()} only={only} sx={{
                 backgroundImage: toolColor

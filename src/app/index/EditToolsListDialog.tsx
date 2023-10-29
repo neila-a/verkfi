@@ -7,7 +7,9 @@ import {
 import {
     setState
 } from '../declare';
-import I18N from "react-intl-universal";
+import intl, {
+    get
+} from "react-intl-universal";
 import {
     useState
 } from "react";
@@ -38,7 +40,7 @@ export default function EditToolsListDialog(props: {
         dialogTools, setDialogTools, dialogListName, setDialogListName, setDialogOpen
     } = props,
         edit = (forList: lists) => forList.some(single => single[0] === dialogListName),
-        [toolsList, setToolsList] = useState(getToolsList(getTools(I18N)));
+        [toolsList, setToolsList] = useState(getToolsList(getTools(intl)));
     var [list, setList] = useState<lists>(() => {
         const defaultList: lists = [],
             defaultListJSON = JSON.stringify(defaultList),
@@ -47,7 +49,7 @@ export default function EditToolsListDialog(props: {
         return JSON.parse(lists) as lists;
     }),
         right = toolsList.map(atool => atool.name),
-        createOrEdit = !edit(list) ? I18N.get("创建分类") : I18N.get("编辑分类");
+        createOrEdit = !edit(list) ? get("创建分类") : get("编辑分类");
     right = right.filter(v => props.left.every(val => val !== v));
     return (
         <PureDialog open={props.open} title={createOrEdit} onClose={() => {
@@ -55,7 +57,7 @@ export default function EditToolsListDialog(props: {
             setDialogListName("");
             setDialogOpen(false);
         }}>
-            <TextField value={dialogListName} autoFocus margin="dense" label={I18N.get("分类名称")} fullWidth variant="standard" onChange={event => {
+            <TextField value={dialogListName} autoFocus margin="dense" label={get("分类名称")} fullWidth variant="standard" onChange={event => {
                 setDialogListName(event.target.value);
             }} />
             <TransferList left={props.left} right={right} onLeftChange={context => {
@@ -96,7 +98,7 @@ export default function EditToolsListDialog(props: {
                     setDialogTools([]);
                     return setDialogOpen(false);
                 }}>
-                    {I18N.get("删除此分类")}
+                    {get("删除此分类")}
                 </Button>}
             </ButtonGroup>
         </PureDialog>

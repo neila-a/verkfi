@@ -1,5 +1,7 @@
 "use client";
-import I18N from 'react-intl-universal';
+import {
+    get
+} from 'react-intl-universal';
 import {
     FormGroup,
     Grid,
@@ -44,7 +46,7 @@ export default function ReadNumber(): JSX.Element {
                 <Grid container spacing={1} alignItems="center">
                     <Grid item>
                         <Typography id="number" gutterBottom>
-                            {I18N.get('数字')}
+                            {get('数字')}
                         </Typography>
                     </Grid>
                     <Grid item>
@@ -62,7 +64,7 @@ export default function ReadNumber(): JSX.Element {
                 <Grid container spacing={1} alignItems="center">
                     <Grid item>
                         <Typography id="string" gutterBottom>
-                            {I18N.get('汉字')}
+                            {get('汉字')}
                         </Typography>
                     </Grid>
                     <Grid item>

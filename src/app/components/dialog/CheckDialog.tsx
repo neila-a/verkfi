@@ -1,4 +1,6 @@
-import I18N from 'react-intl-universal';
+import {
+    get
+} from 'react-intl-universal';
 import {
     Dialog,
     DialogTitle,
@@ -26,10 +28,10 @@ export default function CheckDialog(props: {
             <DialogActions>
                 <Button onClick={() => {
                     props.onFalse();
-                }}>{I18N.get('取消')}</Button>
+                }}>{get('取消')}</Button>
                 <Button onClick={() => {
                     props.onTrue();
-                }}>{I18N.get('确定')}</Button>
+                }}>{get('确定')}</Button>
             </DialogActions>
         </Dialog>
     );

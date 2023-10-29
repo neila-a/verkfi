@@ -1,5 +1,7 @@
 "use client";
-import I18N from 'react-intl-universal';
+import intl, {
+    get
+} from 'react-intl-universal';
 import {
     Box,
     IconButton
@@ -92,13 +94,13 @@ export default function Selects(props: {
                         let draft: tool[] = [];
                         props.modifyClickCount("++");
                         if (isAll) {
-                            draft = getToolsList(getTools(I18N));
+                            draft = getToolsList(getTools(intl));
                             if (sortingFor !== "__global__") {
                                 props.modifyClickCount(0);
                             }
                             setSortingFor("__global__");
                         } else {
-                            draft = single[1].map(toolTo => getToolsList(getTools(I18N)).filter(one => one.to === toolTo)[0]);
+                            draft = single[1].map(toolTo => getToolsList(getTools(intl)).filter(one => one.to === toolTo)[0]);
                             if (sortingFor !== single[0]) {
                                 props.modifyClickCount(0);
                             }
@@ -123,7 +125,7 @@ export default function Selects(props: {
             justifyContent: "space-evenly",
             alignItems: "center"
         }}>
-            {realSelect([I18N.get("全部"), getToolsList(getTools(I18N)).map(atool => atool.to)], true)}
+            {realSelect([get("全部"), getToolsList(getTools(intl)).map(atool => atool.to)], true)}
             <DragDropContext onDragEnd={result => {
                 if (!result.destination) {
                     return;
@@ -166,7 +168,7 @@ export default function Selects(props: {
                     }}
                 </Droppable>
             </DragDropContext>
-            <SingleSelect dragButton={<></>} editMode={props.editMode} isSidebar={Boolean(props.isSidebar)} sortingFor={sortingFor} searchText={searchText} setEditing={setEditing} wantSortingFor="__extended__" tool={I18N.get("扩展工具")} onClick={event => {
+            <SingleSelect dragButton={<></>} editMode={props.editMode} isSidebar={Boolean(props.isSidebar)} sortingFor={sortingFor} searchText={searchText} setEditing={setEditing} wantSortingFor="__extended__" tool={get("扩展工具")} onClick={event => {
                 props.modifyClickCount("++");
                 if (sortingFor !== "__extended__") {
                     props.modifyClickCount(0);
@@ -191,7 +193,7 @@ export default function Selects(props: {
                     list.forEach(single => {
                         if (single[0] === dialogListName) {
                             single[1].forEach(to => {
-                                getToolsList(getTools(I18N)).forEach(tool => {
+                                getToolsList(getTools(intl)).forEach(tool => {
                                     if (tool.to === to) {
                                         realLeft.push(tool.name);
                                     }
@@ -203,8 +205,8 @@ export default function Selects(props: {
                 })()} />
             <CheckDialog
                 open={removeDialogOpen}
-                title={I18N.get("删除此分类")}
-                description={I18N.get("确定删除此分类吗？")}
+                title={get("删除此分类")}
+                description={get("确定删除此分类吗？")}
                 onTrue={() => {
                     var listDraft: lists = list;
                     listDraft.forEach(draftSingle => {

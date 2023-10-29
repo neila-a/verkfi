@@ -1,5 +1,7 @@
 "use client";
-import I18N from 'react-intl-universal';
+import {
+    get
+} from 'react-intl-universal';
 import {
     useContext
 } from 'react';
@@ -49,7 +51,7 @@ export default function ToolsStack(props: {
             display: viewMode == "grid" ? "flex" : "block",
             width: "100%"
         }}> {/* 工具总览 */}
-            {props.paramTool.length === 0 ? <Typography>{I18N.get('未找到任何工具')}</Typography> : (viewMode === "list" ? <DragDropContext onDragEnd={result => {
+            {props.paramTool.length === 0 ? <Typography>{get('未找到任何工具')}</Typography> : (viewMode === "list" ? <DragDropContext onDragEnd={result => {
                 if (!result.destination) {
                     return;
                 }

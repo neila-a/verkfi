@@ -39,7 +39,9 @@ import {
     windows
 } from '../layoutClient';
 import stringToBoolean from "../setting/stringToBoolean";
-import I18N from "react-intl-universal";
+import intl, {
+    get
+} from "react-intl-universal";
 export default function SingleTool(props: {
     tool: tool;
     isFirst: boolean;
@@ -56,7 +58,7 @@ export default function SingleTool(props: {
         setTools,
         sortingFor
     } = props,
-        toolsInfo = getTools(I18N),
+        toolsInfo = getTools(intl),
         ToolIcon = tool.icon,
         subStyle = {
             sx: {
@@ -67,6 +69,7 @@ export default function SingleTool(props: {
         colorContext = useContext(colorMode),
         color = colorContext.value,
         [jumpto, setJumpTo] = useState<string>(""),
+        [elevation, setElevation] = useState<number>(2),
         [jumpName, setJumpName] = useState<string>(""),
         [jumpDialogOpen, setJumpDialogOpen] = useState<boolean>(false),
         ToolTypography = styled(Typography)(({
@@ -89,10 +92,14 @@ export default function SingleTool(props: {
         }} key={tool.to}> {/* 单个工具 */}
             <windows.Consumer>
                 {value => (
-                    <Card sx={{
+                    <Card elevation={elevation} sx={{
                         width: viewMode == "grid" ? "275px" : fullWidth,
                         maxWidth: fullWidth,
                         backgroundImage: stringToBoolean(color) ? "linear-gradient(45deg, #" + tool.color[0] + ", #" + tool.color[1] + ")" : ""
+                    }} onMouseEnter={event => {
+                        setElevation(8);
+                    }} onMouseLeave={event => {
+                        setElevation(2); // reset to default
                     }}>
                         <CardContent>
                             <div className={viewMode == "list" ? Style["singleList"] : ""} onClick={() => {
@@ -177,7 +184,7 @@ export default function SingleTool(props: {
                     </Card>
                 )}
             </windows.Consumer>
-            <CheckDialog open={jumpDialogOpen} description={`${I18N.get("确定离开NeilaTools并跳转至")}${jumpName}？`} title={I18N.get('离开NeilaTools')} onTrue={() => {
+            <CheckDialog open={jumpDialogOpen} description={`${get("确定离开NeilaTools并跳转至")}${jumpName}？`} title={get('离开NeilaTools')} onTrue={() => {
                 Router.push(jumpto);
                 setJumpDialogOpen(false);
             }} onFalse={() => {

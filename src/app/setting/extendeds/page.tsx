@@ -13,7 +13,9 @@ import {
 import {
     useState
 } from "react";
-import I18N from "react-intl-universal";
+import {
+    get
+} from "react-intl-universal";
 import {
     FilePond
 } from 'react-filepond'; // Import React FilePond
@@ -71,7 +73,7 @@ export default function ExtendedManager() {
     }) {
         return (
             <>
-                {[["name", "名称"], ["to", "ID"], ["desc", "描述"], ["icon", "图标"], ["color", "背景色"]].map(item => <TextField key={item[0]} margin="dense" value={fileInfo[item[0]]} label={I18N.get(item[1])} fullWidth variant="standard" onChange={event => {
+                {[["name", "名称"], ["to", "ID"], ["desc", "描述"], ["icon", "图标"], ["color", "背景色"]].map(item => <TextField key={item[0]} margin="dense" value={fileInfo[item[0]]} label={get(item[1])} fullWidth variant="standard" onChange={event => {
                     var bufferInfo: NXTMetadata = JSON.parse(JSON.stringify(fileInfo));
                     bufferInfo[item[0]] = event.target.value;
                     setFileInfo(bufferInfo);
@@ -85,13 +87,13 @@ export default function ExtendedManager() {
                         });
                         reset();
                     }}>
-                        {props.type === "add" ? I18N.get("添加") : I18N.get("编辑")}
+                        {props.type === "add" ? get("添加") : get("编辑")}
                     </Button>}
                     {props.type === "modify" && <Button variant="outlined" onClick={async event => {
                         setModifyDialogOpen(false);
                         setRemoveDialogOpen(true);
                     }}>
-                        {I18N.get("删除")}
+                        {get("删除")}
                     </Button>}
                 </ButtonGroup>
             </>
@@ -100,7 +102,7 @@ export default function ExtendedManager() {
     return (
         <>
             <Typography variant="h4">
-                {I18N.get('扩展')}
+                {get('扩展')}
             </Typography>
             <Stack spacing={2}>
                 {extendedTools?.map(single => <Paper sx={{
@@ -120,12 +122,12 @@ export default function ExtendedManager() {
                                         {single.name}
                                     </Typography>
                                     <Typography>
-                                        <strong>{I18N.get("ID")}</strong> {single.to}
+                                        <strong>{get("ID")}</strong> {single.to}
                                     </Typography>
                                 </Box>
                             </Stack>
                             <Box>
-                                <strong>{I18N.get('描述')}</strong>
+                                <strong>{get('描述')}</strong>
                                 <br />
                                 {single.desc}
                             </Box>
@@ -146,14 +148,14 @@ export default function ExtendedManager() {
             <Button startIcon={<AddIcon />} fullWidth onClick={event => {
                 setAddDialogOpen(true);
             }} variant="outlined">
-                {I18N.get("添加扩展")}
+                {get("添加扩展")}
             </Button>
             <PureDialog open={modifyDialogOpen} onClose={event => {
                 setModifyDialogOpen(false);
-            }} title={I18N.get("编辑扩展")}>
+            }} title={get("编辑扩展")}>
                 <DialogInputs type="modify" />
             </PureDialog>
-            <CheckDialog open={removeDialogOpen} title={I18N.get("删除扩展")} description={`${I18N.get("确定删除扩展")}${fileInfo.name}?`} onFalse={() => {
+            <CheckDialog open={removeDialogOpen} title={get("删除扩展")} description={`${get("确定删除扩展")}${fileInfo.name}?`} onFalse={() => {
                 reset();
             }} onTrue={async () => {
                 const id = await db.extendedTools.delete(fileInfo.to);
@@ -161,7 +163,7 @@ export default function ExtendedManager() {
             }} />
             <PureDialog open={addDialogOpen} onClose={() => {
                 reset();
-            }} title={I18N.get("添加扩展")}>
+            }} title={get("添加扩展")}>
                 <FilePond
                     files={fileArray as unknown as FilePondServerConfigProps["files"]}
                     onupdatefiles={files => {
@@ -185,7 +187,7 @@ export default function ExtendedManager() {
                     allowMultiple={true}
                     maxFiles={1}
                     name="files"
-                    labelIdle={I18N.get('拖拽扩展到这里')}
+                    labelIdle={get('拖拽扩展到这里')}
                 />
                 <DialogInputs type="add" />
             </PureDialog>

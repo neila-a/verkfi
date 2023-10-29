@@ -18,7 +18,9 @@ import {
 } from "react";
 import Transition from "./components/dialog/Transition";
 import MouseOverPopover from "./components/Popover";
-import I18N from "react-intl-universal";
+import intl, {
+    get
+} from "react-intl-universal";
 import {
     ArrowBackIos as ArrowBackIosIcon,
     Close as CloseIcon,
@@ -43,13 +45,15 @@ import getList from "./index/getList";
 import {
     lists
 } from "./index/Sidebar";
-import { showSidebar } from "./layoutClient";
+import {
+    showSidebar
+} from "./layoutClient";
 import stringToBoolean from "./setting/stringToBoolean";
 export default function Menu() {
     const control = useContext(showSidebar),
         theme = useTheme(),
         fullScreen = useMediaQuery(theme.breakpoints.down('sm')),
-        realTools = getTools(I18N), // 硬编码的分类
+        realTools = getTools(intl), // 硬编码的分类
         [recentlyUsed, setRecentlyUsed] = useStoragedState<string>("recently-tools", "最近使用的工具", "[]"),
         [mostUsed, setMostUsed] = useStoragedState<string>("most-tools", "最常使用的工具", "{}"),
         [viewMode, setViewMode] = useStoragedState<viewMode>("viewmode", "列表模式", "list"),
@@ -98,7 +102,7 @@ export default function Menu() {
                             <ArrowBackIosIcon />
                         </IconButton>
                     )}
-                    <MouseOverPopover text={I18N.get('搜索')}>
+                    <MouseOverPopover text={get('搜索')}>
                         <IconButton type="button" sx={{
                             p: '10px 5px'
                         }} aria-label="search" onClick={() => {
@@ -110,7 +114,7 @@ export default function Menu() {
                     <InputBase value={searchText} sx={{
                         ml: 1,
                         flex: 1
-                    }} placeholder={I18N.get('搜索工具')} inputProps={{
+                    }} placeholder={get('搜索工具')} inputProps={{
                         'aria-label': 'searchtools',
                     }} onChange={event => {
                         setSearchText(event.target.value);
@@ -133,7 +137,7 @@ export default function Menu() {
                     {sortingFor === "__home__" ? <>
                         <Box>
                             <Typography variant='h4'>
-                                {I18N.get('最近使用')}
+                                {get('最近使用')}
                             </Typography>
                             <Box sx={{
                                 p: 1
@@ -157,7 +161,7 @@ export default function Menu() {
                         </Box>
                         <Box>
                             <Typography variant='h4'>
-                                {I18N.get('最常使用')}
+                                {get('最常使用')}
                             </Typography>
                             <Box sx={{
                                 p: 1
@@ -189,7 +193,7 @@ export default function Menu() {
                         </Box>
                         <Box>
                             <Typography variant='h4'>
-                                {I18N.get('分类')}
+                                {get('分类')}
                                 <Selects
                                     setEditMode={setEditMode}
                                     setEditing={setEditing}

@@ -18,7 +18,9 @@ import {
     ArrowBackIos as ArrowBackIosIcon,
     ArrowForwardIos as ArrowForwardIosIcon
 } from "@mui/icons-material";
-import I18N from "react-intl-universal";
+import {
+    get
+} from "react-intl-universal";
 import {
     Add as AddIcon
 } from "@mui/icons-material";
@@ -63,7 +65,7 @@ export default function Buttons(props: {
             {editMode && <Button onClick={event => {
                 setDialogOpen(true);
             }} startIcon={<AddIcon />}>
-                {I18N.get("添加分类")}
+                {get("添加分类")}
             </Button>}
             <Divider />
             <ButtonGroup variant="outlined" sx={{

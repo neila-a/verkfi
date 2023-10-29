@@ -1,5 +1,7 @@
 "use client";
-import I18N from 'react-intl-universal';
+import {
+    get
+} from 'react-intl-universal';
 import React, {
     useState
 } from "react";
@@ -48,7 +50,7 @@ function PI(): JSX.Element {
                 }
             `}</style>
             <div id="input">
-                <TextField id="weishu" label={I18N.get('π的小数点后位数')} variant="outlined" value={weishu} type="number" onChange={event => {
+                <TextField id="weishu" label={get('π的小数点后位数')} variant="outlined" value={weishu} type="number" onChange={event => {
                     var ws = Number(event.target.value);
                     setWeishu(ws);
                     proc(ws);
@@ -63,14 +65,14 @@ function PI(): JSX.Element {
                             setUseAlertShow(true);
                         }
                     }} />
-                } label={I18N.get('用提示框显示结果')} />
+                } label={get('用提示框显示结果')} />
             </FormGroup>
             <div id="out" style={{
                 display: useAlertShow ? "none" : "block"
             }}>
                 <Typography variant="h4" style={{
                     display: "inline-block"
-                }} gutterBottom>{I18N.get('结果')}</Typography>
+                }} gutterBottom>{get('结果')}</Typography>
                 <Button variant="contained" style={{
                     display: "inline-block"
                 }} onClick={() => {
@@ -81,15 +83,15 @@ function PI(): JSX.Element {
                         setDialogInfo(`复制结果时出现问题，报错：${error}`);
                         logger.error(`糟糕！出错了：${error}`);
                     });
-                }}>{I18N.get('复制')}</Button>
+                }}>{get('复制')}</Button>
                 <Typography variant="body1" sx={{
                     wordBreak: "break-all"
-                }} gutterBottom>{I18N.get('π是：')}{out}</Typography>
+                }} gutterBottom>{get('π是：')}{out}</Typography>
             </div>
-            <AlertDialog open={showInfoDialog} title={I18N.get('提示')} description={dialogInfo} onDone={() => {
+            <AlertDialog open={showInfoDialog} title={get('提示')} description={dialogInfo} onDone={() => {
                 setShowInfoDialog(false);
             }} />
-            <Snackbar open={showCopyDoneDialog} message={I18N.get('已把结果复制至剪贴板。')} onClose={() => {
+            <Snackbar open={showCopyDoneDialog} message={get('已把结果复制至剪贴板。')} onClose={() => {
                 setShowCopyDoneDialog(false);
             }} />
         </>

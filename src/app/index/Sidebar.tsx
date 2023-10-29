@@ -1,5 +1,7 @@
 "use client";
-import I18N from 'react-intl-universal';
+import {
+    get
+} from 'react-intl-universal';
 import {
     drawerWidth
 } from '../setting/consts';
@@ -88,7 +90,7 @@ export default function Sidebar(props: {
                 display: 'flex',
                 alignItems: 'center'
             }}>
-                <MouseOverPopover text={I18N.get('搜索')}>
+                <MouseOverPopover text={get('搜索')}>
                     <IconButton type="button" sx={{
                         p: '10px 5px'
                     }} aria-label="search" onClick={() => {
@@ -100,7 +102,7 @@ export default function Sidebar(props: {
                 <InputBase value={searchText} sx={{
                     ml: 1,
                     flex: 1
-                }} placeholder={I18N.get('搜索工具')} inputProps={{
+                }} placeholder={get('搜索工具')} inputProps={{
                     'aria-label': 'searchtools',
                 }} onChange={event => {
                     setSearchText(event.target.value);
@@ -108,7 +110,7 @@ export default function Sidebar(props: {
                 }} />
             </Paper>
             <Center>
-                {!props.isImplant && <SingleSelect dragButton={<></>} editMode={editMode} isSidebar={true} sortingFor={sortingFor} searchText={searchText} setEditing={setEditing} wantSortingFor="__home__" tool={I18N.get("主页")} onClick={event => {
+                {!props.isImplant && <SingleSelect dragButton={<></>} editMode={editMode} isSidebar={true} sortingFor={sortingFor} searchText={searchText} setEditing={setEditing} wantSortingFor="__home__" tool={get("主页")} onClick={event => {
                     props.setShow("home");
                     setSortingFor("__home__");
                 }} editButton={<></>} />}

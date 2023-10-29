@@ -1,4 +1,6 @@
-import I18N from 'react-intl-universal';
+import {
+    get
+} from 'react-intl-universal';
 import {
     useState,
     useRef,
@@ -157,7 +159,7 @@ export function ShaiZiCanvas(props: {
     }, []);
     return (
         <canvas id="canvas" height="300" width="400" className={style["canvas"]} ref={canvas} onClick={clickMe}>
-            {I18N.get('你的浏览器不支持这个工具。')}
+            {get('你的浏览器不支持这个工具。')}
         </canvas>
     );
 }

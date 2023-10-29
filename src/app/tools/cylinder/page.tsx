@@ -1,5 +1,7 @@
 "use client";
-import I18N from 'react-intl-universal';
+import {
+    get
+} from 'react-intl-universal';
 import {
     useEffect,
     useState
@@ -20,7 +22,7 @@ import drawMatrix, {
     block
 } from '../../components/matrix/matrix';
 var logger = new LpLogger({
-    name: I18N.get('画圆'),
+    name: get('画圆'),
     level: "log"
 });
 function Cylinder(): JSX.Element {
@@ -54,7 +56,7 @@ function Cylinder(): JSX.Element {
                 <Grid container spacing={1} alignItems="center">
                     <Grid item>
                         <Typography id="radiusX" gutterBottom>
-                            {I18N.get('上下半径')}
+                            {get('上下半径')}
                         </Typography>
                     </Grid>
                     <Grid item>
@@ -68,7 +70,7 @@ function Cylinder(): JSX.Element {
                 <Grid container spacing={1} alignItems="center">
                     <Grid item>
                         <Typography id="radiusZ" gutterBottom>
-                            {I18N.get('左右半径')}
+                            {get('左右半径')}
                         </Typography>
                     </Grid>
                     <Grid item>
@@ -82,7 +84,7 @@ function Cylinder(): JSX.Element {
                 <Grid container spacing={1} alignItems="center">
                     <Grid item>
                         <Typography id="thickness" gutterBottom>
-                            {I18N.get('线条厚度')}
+                            {get('线条厚度')}
                         </Typography>
                     </Grid>
                     <Grid item>
@@ -96,7 +98,7 @@ function Cylinder(): JSX.Element {
                 <Grid container spacing={1} alignItems="center">
                     <Grid item>
                         <Typography id="filled" gutterBottom>
-                            {I18N.get('填充（线条厚度为0时填满圆心）')}
+                            {get('填充（线条厚度为0时填满圆心）')}
                         </Typography>
                     </Grid>
                     <Grid item>
@@ -106,7 +108,7 @@ function Cylinder(): JSX.Element {
                 <Grid direction="row" container spacing={1} alignItems="center">
                     <Grid item>
                         <Typography id="position" gutterBottom>
-                            {I18N.get('位置')}
+                            {get('位置')}
                         </Typography>
                     </Grid>
                     <Grid item container spacing={1}>

@@ -1,5 +1,7 @@
 "use client";
-import I18N from 'react-intl-universal';
+import {
+    get, getHTML
+} from 'react-intl-universal';
 import {
     Box,
     Grid,
@@ -60,51 +62,51 @@ export default function About() {
     const abouts = {
         law: {
             icon: CopyrightIcon,
-            name: I18N.get("法律信息"),
+            name: get("法律信息"),
             context: <Typography>
                 ©Copyleft ! 2022-2023， Neila.
                 <br />
-                {I18N.get('本程序从未提供品质担保。')}
+                {get('本程序从未提供品质担保。')}
                 <br />
-                {I18N.getHTML('版权')}
+                {getHTML('版权')}
             </Typography>
         },
         version: {
             icon: InfoIcon,
-            name: I18N.get("版本信息"),
+            name: get("版本信息"),
             context: <Typography>
-                {I18N.get('发行版本：')}{version}
+                {get('发行版本：')}{version}
                 <br />
-                {I18N.get('内部版本：')}{devVersion}
+                {get('内部版本：')}{devVersion}
             </Typography>
         },
         storage: {
             icon: StorageIcon,
-            name: I18N.get("存储信息"),
+            name: get("存储信息"),
             context: <Typography>
-                {I18N.get("缓存空间已使用容量")}：{cacheUsed.toFixed(5)}MB
+                {get("缓存空间已使用容量")}：{cacheUsed.toFixed(5)}MB
                 <br />
-                {I18N.get("缓存空间剩余容量")}：{(cacheAll - cacheUsed).toFixed(5)}MB
+                {get("缓存空间剩余容量")}：{(cacheAll - cacheUsed).toFixed(5)}MB
                 <br />
                 <br />
-                {I18N.get("设置空间已使用容量")}：{getSettingsUsed()}KB
+                {get("设置空间已使用容量")}：{getSettingsUsed()}KB
                 <br />
-                {I18N.get("设置空间剩余容量")}：{getSettingsSur()}KB
+                {get("设置空间剩余容量")}：{getSettingsSur()}KB
             </Typography>
         },
         statusInfo: {
             icon: ArticleIcon,
-            name: I18N.get("状态信息"),
+            name: get("状态信息"),
             context: <Typography>
-                {I18N.get("完整路径名")}：{addressInfo.href}
+                {get("完整路径名")}：{addressInfo.href}
                 <br />
-                {I18N.get("域名")}：{addressInfo.host}
+                {get("域名")}：{addressInfo.host}
                 <br />
-                {I18N.get("路径")}：{addressInfo.pathname}
+                {get("路径")}：{addressInfo.pathname}
                 <br />
-                {I18N.get("协议")}：{addressInfo.protocol}
+                {get("协议")}：{addressInfo.protocol}
                 <br />
-                {I18N.get("端口")}：{addressInfo.port}
+                {get("端口")}：{addressInfo.port}
             </Typography>
         }
     } satisfies abouts;
@@ -129,7 +131,7 @@ export default function About() {
     return load && (
         <ErrorBoundary>
             <Typography variant='h4'>
-                {I18N.get('关于')}
+                {get('关于')}
             </Typography>
             <div className={style["title"]}>
                 <HandyManIcon sx={{

@@ -1,5 +1,7 @@
 "use client";
-import I18N from 'react-intl-universal';
+import {
+    get
+} from 'react-intl-universal';
 import {
 	Box,
 	Drawer,
@@ -49,27 +51,27 @@ export default function Settings(props: {
 }): JSX.Element {
 	const sets: set[] = [
 		{
-			name: I18N.get('选项'),
+			name: get('选项'),
 			id: "option",
 			Icon: SettingsIcon
 		},
 		{
-			name: I18N.get('关于'),
+			name: get('关于'),
 			id: "about",
 			Icon: InfoIcon
 		},
 		{
-			name: I18N.get('重置'),
+			name: get('重置'),
 			id: "reset",
 			Icon: ReplayIcon
 		},
 		{
-			name: I18N.get('扩展'),
+			name: get('扩展'),
 			id: "extendeds",
 			Icon: ExtensionIcon
 		},
 		{
-			name: I18N.get("主题"),
+			name: get("主题"),
 			id: "theme",
 			Icon: PaletteIcon
 		}
@@ -81,7 +83,7 @@ export default function Settings(props: {
 		sidebarMode = useContext(sidebarModeContext);
 	return (
 		<>
-			<HeadBar isIndex={false} pageName={I18N.get('设置')} sx={{
+			<HeadBar isIndex={false} pageName={get('设置')} sx={{
 				zIndex: theme => (theme as ThemeHaveZIndex).zIndex.drawer + 1
 			}} />
 			<nav>

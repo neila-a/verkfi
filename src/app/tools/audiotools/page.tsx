@@ -1,5 +1,7 @@
 "use client";
-import I18N from 'react-intl-universal';
+import {
+    get
+} from 'react-intl-universal';
 import {
     Button,
     Grid,
@@ -98,9 +100,9 @@ function AudioTools(): JSX.Element {
         <Grid container direction="column" spacing={2}>
             <Grid item>
                 <Module id="audioreplay">
-                    <Typography variant="h4" gutterBottom>{I18N.get('音频循环播放')}</Typography>
+                    <Typography variant="h4" gutterBottom>{get('音频循环播放')}</Typography>
                     <audio controls loop src={loopAudioSrc}>
-                        {I18N.get('您的浏览器不支持 audio 元素。')}
+                        {get('您的浏览器不支持 audio 元素。')}
                     </audio>
                     <FilePond
                         files={[]}
@@ -110,21 +112,21 @@ function AudioTools(): JSX.Element {
                         allowMultiple={true}
                         maxFiles={1}
                         name="files"
-                        labelIdle={I18N.get('拖拽音频到这里')}
+                        labelIdle={get('拖拽音频到这里')}
                     />
                 </Module>
             </Grid>
             <Grid item>
                 <Module id="audioinput">
-                    <Typography variant="h4" gutterBottom>{I18N.get('音频录制并循环')}</Typography>
+                    <Typography variant="h4" gutterBottom>{get('音频录制并循环')}</Typography>
                     <Button variant="contained" onClick={() => {
                         return controlAudio("recording");
-                    }} disabled={status == "recording"}>{I18N.get('开始')}</Button>
+                    }} disabled={status == "recording"}>{get('开始')}</Button>
                     <Button variant="contained" onClick={() => {
                         return controlAudio("inactive");
-                    }} disabled={status == "inactive"}>{I18N.get('停止')}</Button>
+                    }} disabled={status == "inactive"}>{get('停止')}</Button>
                     <audio controls loop src={loopSpeakAudioSrc}>
-                        {I18N.get('您的浏览器不支持 audio 元素。')}
+                        {get('您的浏览器不支持 audio 元素。')}
                     </audio>
                 </Module>
             </Grid>

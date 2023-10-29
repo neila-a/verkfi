@@ -3,7 +3,9 @@ import {
     PaletteMode,
     Switch
 } from "@mui/material";
-import I18N from "react-intl-universal";
+import {
+    get
+} from "react-intl-universal";
 import {
     option
 } from "./option/page";
@@ -25,6 +27,6 @@ export function Switcher(props: {
     return (
         <FormControlLabel control={<Switch checked={stringToBoolean(isDarkMode ? (value.mode as PaletteMode).replace("light", "false").replace("dark", "true") : value.value as stringifyCheck)} onChange={event => {
             (value.set as Dispatch<any>)(isDarkMode ? ((value.mode as PaletteMode) === "dark" ? "light" : "dark") : String((!stringToBoolean(value.value as stringifyCheck))));
-        }} />} label={isForkMeOnGitHub ? option[1] : I18N.get(option[1])} />
+        }} />} label={isForkMeOnGitHub ? option[1] : get(option[1])} />
     );
 }

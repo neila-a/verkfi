@@ -1,4 +1,6 @@
-import I18N from 'react-intl-universal';
+import {
+    get
+} from 'react-intl-universal';
 import {
     useState,
     Fragment
@@ -18,12 +20,12 @@ export default function SingleMath(props: {
         <div className={style["single"]}>
             <Typography>{math.replace(/=.*/g, "")}</Typography>
             <div className={style["out"]}>
-                <TextField label={I18N.get('结果')} type="number" InputLabelProps={{
+                <TextField label={get('结果')} type="number" InputLabelProps={{
                     shrink: true,
                 }} error={isError} onChange={event => {
                     setError((event.currentTarget.value == math.replace(/.*=/g, "")) ? false : true);
                 }} />
-                {showOut == true ? <Typography>{I18N.get('答案：')}{math.replace(/.*=/g, "")}</Typography> : <Fragment />}
+                {showOut == true ? <Typography>{get('答案：')}{math.replace(/.*=/g, "")}</Typography> : <Fragment />}
             </div>
         </div>
     );

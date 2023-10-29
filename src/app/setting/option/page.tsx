@@ -25,7 +25,9 @@ import {
     locales,
     sidebarMode
 } from "../../layoutClient";
-import I18N from "react-intl-universal";
+import {
+    get
+} from "react-intl-universal";
 import {
     Context,
     ReactNode,
@@ -72,13 +74,13 @@ export default function Options() {
     return (
         <FormGroup>
             <Typography variant='h4'>
-                {I18N.get('选项')}
+                {get('选项')}
             </Typography>
             {([[forkMeOnGitHub, "Fork me on GitHub"], [colorMode, "多彩主页"]] as option[]).map(options => (
                 <Switcher option={options} key={options[1]} />
             ))}
             <InputLabel>
-                {I18N.get('菜单模式')}
+                {get('菜单模式')}
             </InputLabel>
             <Grid container direction="row" spacing={1} sx={{
                 justifyContent: "space-evenly"
@@ -88,20 +90,20 @@ export default function Options() {
                         fontSize: "500%",
                         color: theme => theme.palette.primary.main
                     }} />
-                    {I18N.get("菜单窗口")}
+                    {get("菜单窗口")}
                 </Module>
                 <Module mode="sidebar">
                     <ViewSidebarIcon sx={{
                         fontSize: "500%",
                         color: theme => theme.palette.primary.main
                     }} />
-                    {I18N.get("侧边栏")}
+                    {get("侧边栏")}
                 </Module>
             </Grid>
             <InputLabel id="lang">
-                {I18N.get("选择语言")}
+                {get("选择语言")}
             </InputLabel>
-            <Select labelId="lang" value={lang.value} label={I18N.get("选择语言")} onChange={event => {
+            <Select labelId="lang" value={lang.value} label={get("选择语言")} onChange={event => {
                 const plang = event.target.value;
                 lang.set(plang);
             }}>
@@ -120,27 +122,27 @@ export default function Options() {
                 <Button variant="contained" startIcon={<DownloadIcon />} onClick={() => {
                     setDialogOpen(true);
                 }}>
-                    {I18N.get("下载本应用")}
+                    {get("下载本应用")}
                 </Button>
                 <Button variant="outlined" startIcon={<HelpIcon />} onClick={event => {
                     router.push(`${ghURL} wiki`);
                 }}>
-                    {I18N.get("帮助")}
+                    {get("帮助")}
                 </Button>
             </ButtonGroup>
-            <PureDialog open={dialogOpen} title={I18N.get("下载本应用")} onClose={() => {
+            <PureDialog open={dialogOpen} title={get("下载本应用")} onClose={() => {
                 setDialogOpen(false);
             }}>
                 <ButtonGroup variant="contained" fullWidth>
                     <Button onClick={event => {
                         window.installPWA();
                     }}>
-                        {I18N.get("将本应用通过浏览器添加至桌面")}
+                        {get("将本应用通过浏览器添加至桌面")}
                     </Button>
                     <Button onClick={event => {
                         router.push(`${ghURL}releases`);
                     }}>
-                        {I18N.get("下载单独安装包")}
+                        {get("下载单独安装包")}
                     </Button>
                 </ButtonGroup>
             </PureDialog>

@@ -1,5 +1,7 @@
 "use client";
-import I18N from 'react-intl-universal';
+import {
+    get
+} from 'react-intl-universal';
 import {
     Box,
     Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup
@@ -29,8 +31,8 @@ function CountLetter(): JSX.Element {
                 <Button onClick={() => {
                     logger.log("已弹出输入框。");
                     setEnterDialogOpen(true);
-                }} variant="contained" fullWidth>{I18N.get('输入')}</Button>
-                <InputDialog open={enterDialogOpen} context={I18N.get('输入你要转换的字符（串）')} onDone={context => {
+                }} variant="contained" fullWidth>{get('输入')}</Button>
+                <InputDialog open={enterDialogOpen} context={get('输入你要转换的字符（串）')} onDone={context => {
                     table.forEach(single => {
                         context = context.replace(new RegExp(single, "g"), (table.indexOf(single.toUpperCase()) + 1).toString(numberType).toUpperCase());
                     })
@@ -38,8 +40,8 @@ function CountLetter(): JSX.Element {
                     setOut(context);
                     setAlertDialogOpen(true);
                     logger.log(`已处理完毕，结果为${context}。`);
-                }} title={I18N.get('输入字符')} label={I18N.get('在这里输入')} />
-                <AlertDialog open={alertDialogOpen} title={I18N.get('输出')} description={out} onDone={() => {
+                }} title={get('输入字符')} label={get('在这里输入')} />
+                <AlertDialog open={alertDialogOpen} title={get('输出')} description={out} onDone={() => {
                     setAlertDialogOpen(false);
                 }} /> {/* 输出对话框容器 */}
             </Box>

@@ -1,5 +1,7 @@
 "use client";
-import I18N from 'react-intl-universal';
+import {
+    get
+} from 'react-intl-universal';
 import Center from "../../components/center/Center";
 import React, {
     useState
@@ -23,16 +25,16 @@ function ShaiZi(): JSX.Element {
                 <ShaiZiCanvas cishu={cishu} setCishu={setCishu} />
                 <br />
                 <br />
-                <TextField id="weishu" label={I18N.get('掷色子的次数')} variant="outlined" value={cishu} type="number" onChange={event => {
+                <TextField id="weishu" label={get('掷色子的次数')} variant="outlined" value={cishu} type="number" onChange={event => {
                     setCishu(Number(event.target.value));
                 }} />
                 <br />
                 <br />
                 <Button variant="contained" onClick={event => {
                     setUseDialogShow(true);
-                }}>{I18N.get('全屏')}</Button>
+                }}>{get('全屏')}</Button>
             </Center>
-            <FullScreenDialog open={useDialogShow} title={I18N.get('掷色子（全屏模式）')} onDone={() => {
+            <FullScreenDialog open={useDialogShow} title={get('掷色子（全屏模式）')} onDone={() => {
                 setUseDialogShow(false);
             }} context={<ShaiZiCanvas cishu={cishu} setCishu={setCishu} />} />
         </div>

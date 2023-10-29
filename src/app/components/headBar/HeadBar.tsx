@@ -1,4 +1,6 @@
-import I18N from 'react-intl-universal';
+import {
+    get
+} from 'react-intl-universal';
 import {
 	AppBar,
 	Toolbar,
@@ -67,7 +69,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 		WebkitAppRegion: "no-drag",
 	};
 	return props.only ? <Fragment /> : <>
-		<AppBar position="fixed" sx={{
+		<AppBar elevation={4} position="fixed" sx={{
 			WebkitAppRegion: "drag",
 			zIndex: 38600,
 			left: 0,
@@ -76,7 +78,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 		}}>
 			<Toolbar>
 				<nav>
-					{!props.isIndex && <MouseOverPopover text={I18N.get('上一页')} sx={noDrag}>
+					{!props.isIndex && <MouseOverPopover text={get('上一页')} sx={noDrag}>
 						<IconButton size="large" edge="start" color="inherit" aria-label="homepage" sx={{
 							mr: 2
 						}} onClick={event => {
@@ -87,7 +89,8 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 					</MouseOverPopover>}
 				</nav>
 				<Typography variant="h6" component="div" sx={{
-					flexGrow: 1
+					flexGrow: 1,
+					textAlign: props.isIndex ? "center" : ""
 				}}>
 					{props.isIndex ? "NeilaTools" : props.pageName}
 				</Typography>
@@ -99,9 +102,9 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 							mr: 2,
 							...noDrag
 						}}>
-							{value.show === "false" ? <MouseOverPopover text={I18N.get("打开菜单")}>
+							{value.show === "false" ? <MouseOverPopover text={get("打开菜单")}>
 								<MenuIcon />
-							</MouseOverPopover> : <MouseOverPopover text={I18N.get("关闭菜单")}>
+							</MouseOverPopover> : <MouseOverPopover text={get("关闭菜单")}>
 								<MenuOpen />
 							</MouseOverPopover>}
 						</IconButton>
@@ -113,7 +116,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 					...noDrag
 				}}>
 					<Link href="/setting/option" className={style["link"]}>
-						<MouseOverPopover text={I18N.get('设置')}>
+						<MouseOverPopover text={get('设置')}>
 							<IconButton size="large" edge="end" color="inherit" aria-label="menu" sx={{
 								mr: 2
 							}}>

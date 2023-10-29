@@ -1,5 +1,7 @@
 "use client";
-import I18N from 'react-intl-universal';
+import intl, {
+    get
+} from 'react-intl-universal';
 import HeadBar from "./components/headBar/HeadBar";
 import {
     useContext,
@@ -72,7 +74,7 @@ export default function Index(props: {
     const {
         ref = refThis
     } = props;
-    var realTools = getTools(I18N),
+    var realTools = getTools(intl),
         showSidebar = useContext(showSidebarContext),
         [recentlyUsed, setRecentlyUsed] = useStoragedState<string>("recently-tools", "最近使用的工具", "[]"),
         [mostUsed, setMostUsed] = useStoragedState<string>("most-tools", "最常使用的工具", "{}"),
@@ -185,7 +187,7 @@ export default function Index(props: {
                     </Box>
                     <Box>
                         <Typography variant='h4'>
-                            {I18N.get('最近使用')}
+                            {get('最近使用')}
                         </Typography>
                         <Box sx={{
                             p: 1
@@ -209,7 +211,7 @@ export default function Index(props: {
                     </Box>
                     <Box>
                         <Typography variant='h4'>
-                            {I18N.get('最常使用')}
+                            {get('最常使用')}
                         </Typography>
                         <Box sx={{
                             p: 1

@@ -1,5 +1,7 @@
 "use client";
-import I18N from 'react-intl-universal';
+import {
+    get
+} from 'react-intl-universal';
 import {
     Checkbox,
     FormControlLabel,
@@ -48,29 +50,29 @@ function MathGen(): JSX.Element {
                 p: 1
             }}>
                 <FormGroup>
-                    <TextField label={I18N.get('上限')} type="number" InputLabelProps={{
+                    <TextField label={get('上限')} type="number" InputLabelProps={{
                         shrink: true,
                     }} onChange={event => {
                         setMax(Number(event.currentTarget.value));
                     }} defaultValue={max} />
                     <br />
-                    <TextField label={I18N.get('下限')} type="number" InputLabelProps={{
+                    <TextField label={get('下限')} type="number" InputLabelProps={{
                         shrink: true,
                     }} onChange={event => {
                         setMin(Number(event.currentTarget.value));
                     }} defaultValue={min} />
                     <br />
-                    <TextField label={I18N.get('个数')} type="number" InputLabelProps={{
+                    <TextField label={get('个数')} type="number" InputLabelProps={{
                         shrink: true,
                     }} onChange={event => {
                         setItemCount(Number(event.currentTarget.value));
                     }} defaultValue={itemCount} />
-                    <FormControlLabel label={I18N.get('减数检查')} control={
+                    <FormControlLabel label={get('减数检查')} control={
                         <Checkbox checked={subtractionCheck} onChange={event => {
                             setSubtractionCheck(event.currentTarget.checked);
                         }} />
                     } />
-                    <FormControlLabel label={I18N.get('除数检查')} control={
+                    <FormControlLabel label={get('除数检查')} control={
                         <Checkbox checked={divisionCheck} onChange={event => {
                             setDivisionCheck(event.currentTarget.checked);
                         }} />
@@ -81,8 +83,8 @@ function MathGen(): JSX.Element {
                         }
                     }}>
                         <FormGroup>
-                            <FormLabel component="legend">{I18N.get('选择计算方法')}</FormLabel>
-                            <FormControlLabel label={I18N.get('全选')} control={
+                            <FormLabel component="legend">{get('选择计算方法')}</FormLabel>
+                            <FormControlLabel label={get('全选')} control={
                                 <Checkbox checked={calcs == defaultCalcs} onChange={event => {
                                     switch (event.target.checked) {
                                         case false:
@@ -111,17 +113,17 @@ function MathGen(): JSX.Element {
                     <br />
                     <ButtonGroup fullWidth>
                         <Button variant="contained" onClick={packagedCalcMath}>
-                            {I18N.get('计算')}
+                            {get('计算')}
                         </Button>
                         <Button variant="outlined" onClick={event => {
                             showOut ? setShowOut(false) : setShowOut(true);
                         }}>
-                            {showOut ? "隐藏" : "显示"}{I18N.get('答案')}
+                            {showOut ? "隐藏" : "显示"}{get('答案')}
                         </Button>
                     </ButtonGroup>
                     <br />
                 </FormGroup>
-                {maths.toString() === "" ? <Typography>{I18N.get('没有任何已生成的算式')}</Typography> : maths.map(math => <SingleMath math={math} showOut={showOut} key={math} />)}
+                {maths.toString() === "" ? <Typography>{get('没有任何已生成的算式')}</Typography> : maths.map(math => <SingleMath math={math} showOut={showOut} key={math} />)}
             </Box>
         </>
     );
