@@ -16,7 +16,7 @@ import pages from "./pages.json";
     "readnumber",
 ]; */
 declare let self: ServiceWorkerGlobalScope;
-export const Cache = `NeilaTools-${version}-${dev == true ? `dev${devVersion}` : "prod"}`, // C
+export const Cache = `verkfi-${version}-${dev == true ? `dev${devVersion}` : "prod"}`, // C
     log = (text: string) => console.log(`%cServiceWorker`, `background: #52c41a;border-radius: 0.5em;color: white;font-weight: bold;padding: 2px 0.5em`, text),
     clearOldCaches = async () => {
         const keylist = await caches.keys();

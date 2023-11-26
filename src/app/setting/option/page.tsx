@@ -65,7 +65,7 @@ function Module(props: {
     );
 }
 const PureDialog = dynamic(() => import("../../components/dialog/PureDialog")),
-    ghURL = "https://github.com/neila-a/NeilaTools/";
+    ghURL = "https://github.com/neila-a/verkfi/";
 export type option = [Context<any>, string];
 export default function Options() {
     var lang = useContext(langContext),

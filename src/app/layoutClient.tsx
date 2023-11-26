@@ -26,7 +26,7 @@ import {
 } from "./declare";
 import checkOption from "./setting/checkOption";
 var logger = new LpLogger({
-    name: "NeilaTools",
+    name: "verkfi",
     level: "log", // 空字符串时，不显示任何信息
 });
 export type colorMode = 'light' | 'dark';
@@ -125,7 +125,7 @@ const registerProtocolHandler = () => {
     const url = `${location.origin}/handle?handle=%s`;
     if ("registerProtocolHandler" in window.navigator) {
         logger.log("检测到此设备可以注册协议");
-        window.navigator.registerProtocolHandler("web+neilatools", url);
+        window.navigator.registerProtocolHandler("web+verkfi", url);
     } else {
         logger.warn("检测到此设备无法注册协议");
     }

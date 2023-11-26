@@ -40,7 +40,7 @@ export default function ToolFinder(props: {
         router = useRouter();
     logger.info(`toolID为${toolID}`);
     if (searchParams.has("handle")) {
-        let id = searchParams.get("handle").replace(/web\+neilatools:\/\//g, "");
+        let id = searchParams.get("handle").replace(/web\+verkfi:\/\//g, "");
         router.push(id);
     }
     if (searchParams.has("only")) {

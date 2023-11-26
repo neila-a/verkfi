@@ -58,7 +58,7 @@ export default function ExtendedTools() {
             <Box sx={{
                 p: 3
             }} component="article" id="container">
-                <div id="neilatools_context" dangerouslySetInnerHTML={{
+                <div id="verkfi_context" dangerouslySetInnerHTML={{
                     __html: tool.file
                 }} />
             </Box>

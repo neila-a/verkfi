@@ -93,7 +93,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 					flexGrow: 1,
 					textAlign: props.isIndex ? "center" : ""
 				}}>
-					{props.isIndex ? "NeilaTools" : props.pageName}
+					{props.isIndex ? "verkfi" : props.pageName}
 				</Typography>
 				<showSidebar.Consumer>
 					{value => !props.isIndex && (
@@ -136,7 +136,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 				right: "0px"
 			}
 		}}>
-			<a href="https://github.com/neila-a/NeilaTools.git" style={props.isIndex ? {
+			<a href="https://github.com/neila-a/verkfi.git" style={props.isIndex ? {
 				transform: "rotate(-45deg)",
 				left: "-40px"
 			} : {

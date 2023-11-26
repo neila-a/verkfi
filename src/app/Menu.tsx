@@ -49,6 +49,7 @@ import {
     showSidebar
 } from "./layoutClient";
 import stringToBoolean from "./setting/stringToBoolean";
+import { useRouter } from "next/navigation";
 export default function Menu() {
     const control = useContext(showSidebar),
         theme = useTheme(),
@@ -61,6 +62,7 @@ export default function Menu() {
         [sortingFor, setSortingFor] = useState<string>("__home__"),
         [list, setList] = useState<lists>(getList),
         [searchText, setSearchText] = useState<string>(""),
+        router = useRouter(),
         [sortedTools, setSortedTools] = useState(() => getToolsList(realTools)), // 排序完毕，但是不会根据搜索而改动的分类
         [tools, setTools] = useState<tool[]>(() => getToolsList(realTools)), // 经常改动的分类
         [editing, setEditing] = useState<boolean>(searchText === "");
@@ -228,13 +230,16 @@ export default function Menu() {
                     justifyContent: "space-between"
                 }}>
                     <Box sx={{
-                        display: "flex"
+                        display: "flex",
+                        cursor: "pointer"
+                    }} onClick={event => {
+                        router.push("/")
                     }}>
                         <HandymanIcon />
                         <Typography sx={{
                             ml: 1
                         }}>
-                            NeilaTools
+                            verkfi
                         </Typography>
                     </Box>
                     <Box sx={{

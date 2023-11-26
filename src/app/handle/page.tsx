@@ -8,7 +8,7 @@ export default function Handle() {
     const searchParams = useSearchParams(),
         router = useRouter();
     if (searchParams.has("handle")) {
-        router.push(`/tools/${searchParams.get("handle").replace(/web\+neilatools:\/\//g, "")}`);
+        router.push(`/tools/${searchParams.get("handle").replace(/web\+verkfi:\/\//g, "")}`);
     }
     return <Loading />;
 }

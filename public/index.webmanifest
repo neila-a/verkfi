@@ -1,6 +1,6 @@
 {
-    "name": "NeilaTools",
-    "short_name": "NeilaTools",
+    "name": "verkfi",
+    "short_name": "verkfi",
     "description": "Platform for Neila's something useless tools.",
     "start_url": "/",
     "display": "fullscreen",
@@ -49,11 +49,11 @@
     ],
     "protocol_handlers": [
         {
-            "protocol": "web+neilatools",
+            "protocol": "web+verkfi",
             "url": "/handle?handle=%s"
         }
     ],
-    "id": "neila-tools",
+    "id": "verkfi",
     "display_override": [
         "window-controls-overlay",
         "fullscreen",

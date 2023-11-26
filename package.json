@@ -1,13 +1,13 @@
 {
-    "name": "neila-tools",
+    "name": "verkfi",
     "version": "1.5.3",
-    "devVersion": "708",
+    "devVersion": "716",
     "dev": true,
     "description": "Platform for Neila's something useless tools.",
     "private": true,
-    "repository": "github:neila-a/NeilaTools",
+    "repository": "github:neila-a/verkfi",
     "bugs": {
-        "url": "https://github.com/neila-a/NeilaTools/issues",
+        "url": "https://github.com/neila-a/verkfi/issues",
         "email": "neilaspace@outlook.com"
     },
     "author": {

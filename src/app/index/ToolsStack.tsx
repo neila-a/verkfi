@@ -58,7 +58,6 @@ export default function ToolsStack(props: {
                 if (result.destination.index === result.source.index) {
                     return;
                 }
-                console.log(props.editMode)
                 if (props.editMode) {
                     const newTools = reorder(props.paramTool, result.source.index, result.destination.index);
                     buttonCommonSorting(props.sortingFor, newTools);

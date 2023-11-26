@@ -133,7 +133,6 @@ export default function Selects(props: {
                 if (result.destination.index === result.source.index) {
                     return;
                 }
-                console.log(props.editMode)
                 if (props.editMode) {
                     const newLists = reorder(props.list, result.source.index, result.destination.index);
                     setSetting("lists", "集合列表", JSON.stringify(newLists))
