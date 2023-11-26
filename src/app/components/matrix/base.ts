@@ -5,8 +5,7 @@ import {
 import {
     Palette
 } from "@mui/material";
-export default function drawMatrixBase(edge: number, n: number, blocks: block[], cache: block[], posBlock: block[], posCache: block[], palette: Palette) {
-    const onlyPos = blocks.toString() === cache.toString();
+export default function drawMatrixBase(edge: number, n: number, blocks: block[], cache: block[], posBlock: block[], posCache: block[], palette: Palette, onlyPos: boolean) {
     if (!onlyPos) console.time("渲染圆");
     const canvas = (document.getElementsByTagName("canvas")[0] as HTMLCanvasElement) || document.createElement("canvas"),
         size = edge / n,
@@ -28,17 +27,11 @@ export default function drawMatrixBase(edge: number, n: number, blocks: block[],
     const dos: [block[], string][] = [[posCache, palette.background.default], [blocks, "#FF0000"], [posBlock, palette.primary[palette.mode]]];
     dos.forEach((item, index) => {
         cxt.fillStyle = item[1];
-        const path = new Path2D(), pBlock = item[0];
+        const path = new Path2D(), pBlock = item[0].map(item => item.toString());
         for (let i = 0; i <= n; i++) {
             for (let j = 0; j < n; j++) {
-                let have: boolean = false;
-                pBlock.forEach(value => {
-                    if (value[0] == i && value[1] == j) {
-                        have = true;
-                    }
-                });
-                if (have) {
-                    index == 0 ? cxt.clearRect(size * j, size * i, size, size) : path.rect(size * j, size * i, size, size);
+                if (pBlock.includes([i, j].toString())) {
+                    path.rect(size * j, size * i, size, size);
                 }
             }
         }

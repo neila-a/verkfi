@@ -15,6 +15,7 @@ import {
     FormGroup,
     Switch
 } from "@mui/material";
+import throttle from '../../components/throttle';
 import {
     useTheme
 } from '@mui/material/styles';
@@ -32,23 +33,21 @@ function Cylinder(): JSX.Element {
         [filled, setFilled] = useState<boolean>(true),
         [posX, setPosX] = useState<number>(1),
         [posZ, setPosZ] = useState<number>(1),
-        [cache, setCache] = useState<block[]>([[1, 1]]),
-        [posCache, setPosCache] = useState<block>([1, 1]),
+        [posCache, setPosCache] = useState<block>([1,1]),
         theme = useTheme();
-    useEffect(() => {
+    var cache: block[] = [[1, 1]];
+    const updatePos = throttle((X: number, Z: number) => {
         const blocks = makeCylinder(radiusX, radiusZ, thickness, filled);
-        setCache(blocks.slice(0));
-        setPosCache([posX, posZ]);
-        drawMatrix(blocks.slice(0), Math.max(radiusX, radiusZ), posX, posZ, posCache, cache, theme.palette);
-    }, [posX, posZ]);
+        drawMatrix(blocks.slice(0), Math.max(radiusX, radiusZ), X, Z, posCache, cache, theme.palette, true);
+        setPosCache([X, Z]);
+        cache = blocks.slice(0);
+    }, 17 /* 1000(ms, = 1s) / 60(60fps) = 17(ms) */);
     useEffect(() => {
         const g = Math.max(radiusX, radiusZ),
             blocks = makeCylinder(radiusX, radiusZ, thickness, filled);
-        setCache(blocks.slice(0));
-        setPosCache([posX, posZ]);
-        setPosX(g);
-        setPosZ(g);
-        drawMatrix(blocks.slice(0), Math.max(radiusX, radiusZ), posX, posZ, posCache, cache, theme.palette);
+        drawMatrix(blocks.slice(0), g, g, g, posCache, cache, theme.palette, false);
+        setPosCache([g, g]);
+        cache = blocks.slice(0);
     }, [radiusX, radiusZ, thickness, filled]);
     return (
         <>
@@ -115,11 +114,19 @@ function Cylinder(): JSX.Element {
                         <TextField label="X" value={posX} type="number" InputLabelProps={{
                             shrink: true,
                             inputMode: 'numeric'
-                        }} onChange={event => setPosX(Number(event.target.value))} />
+                        }} onChange={event => {
+                            const value = Number(event.target.value);
+                            setPosX(value);
+                            updatePos(value, posZ);
+                        }} />
                         <TextField label="Y" value={posZ} type="number" InputLabelProps={{
                             shrink: true,
                             inputMode: 'numeric'
-                        }} onChange={event => setPosZ(Number(event.target.value))} />
+                        }} onChange={event => {
+                            const value = Number(event.target.value);
+                            setPosZ(value);
+                            updatePos(posZ, value);
+                        }} />
                     </Grid>
                 </Grid>
             </FormGroup>
@@ -136,6 +143,7 @@ function Cylinder(): JSX.Element {
                 if (posZ !== z) {
                     setPosZ(z);
                 }
+                updatePos(x, z);
             }}>
                 <canvas id="canvas" width={1} height={1} />
             </div>
