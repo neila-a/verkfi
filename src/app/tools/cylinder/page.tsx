@@ -36,7 +36,7 @@ function Cylinder(): JSX.Element {
         [posX, setPosX] = useState<number>(1),
         [posZ, setPosZ] = useState<number>(1),
         theme = useTheme(),
-	posCache = useRef<block>([1,1])
+	posCache = useRef<block>([1,1]),
 	cache = useRef<block[]>([]),
 	blocks = useMemo(() => makeCylinder(radiusX, radiusZ, thickness, filled), [radiusX, radiusZ, thickness, filled]);
     const updatePos = throttle((X: number, Z: number) => {
