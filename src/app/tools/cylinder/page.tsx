@@ -4,7 +4,9 @@ import {
 } from 'react-intl-universal';
 import {
     useEffect,
-    useState
+    useState,
+    useMemo,
+    useRef
 } from "react";
 import LpLogger from "lp-logger";
 import makeCylinder from "./makeCylinder";
@@ -33,21 +35,20 @@ function Cylinder(): JSX.Element {
         [filled, setFilled] = useState<boolean>(true),
         [posX, setPosX] = useState<number>(1),
         [posZ, setPosZ] = useState<number>(1),
-        [posCache, setPosCache] = useState<block>([1,1]),
-        theme = useTheme();
-    var cache: block[] = [[1, 1]];
+        theme = useTheme(),
+	posCache = useRef<block>([1,1])
+	cache = useRef<block[]>([]),
+	blocks = useMemo(() => makeCylinder(radiusX, radiusZ, thickness, filled), [radiusX, radiusZ, thickness, filled]);
     const updatePos = throttle((X: number, Z: number) => {
-        const blocks = makeCylinder(radiusX, radiusZ, thickness, filled);
-        drawMatrix(blocks.slice(0), Math.max(radiusX, radiusZ), X, Z, posCache, cache, theme.palette, true);
-        setPosCache([X, Z]);
-        cache = blocks.slice(0);
+        drawMatrix(blocks.slice(0), Math.max(radiusX, radiusZ), X, Z, posCache.current, cache.current, theme.palette, true);
+	posCache.current = [X, Z];
+        cache.current = blocks.slice(0);
     }, 17 /* 1000(ms, = 1s) / 60(60fps) = 17(ms) */);
     useEffect(() => {
-        const g = Math.max(radiusX, radiusZ),
-            blocks = makeCylinder(radiusX, radiusZ, thickness, filled);
-        drawMatrix(blocks.slice(0), g, g, g, posCache, cache, theme.palette, false);
-        setPosCache([g, g]);
-        cache = blocks.slice(0);
+        const g = Math.max(radiusX, radiusZ);
+        drawMatrix(blocks.slice(0), g, g, g, posCache.current, cache.current, theme.palette, false);
+        posCache.current = [g, g];
+        cache.current = blocks.slice(0);
     }, [radiusX, radiusZ, thickness, filled]);
     return (
         <>
