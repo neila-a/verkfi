@@ -1,13 +1,15 @@
 "use client";
 import {
-    useContext
+    useContext,
+    useState
 } from "react";
 import {
     Handyman as HandymanIcon
 } from "@mui/icons-material";
 import {
     Box,
-    LinearProgress
+    LinearProgress,
+    Typography
 } from "@mui/material";
 import {
     first as firstContext
@@ -15,15 +17,17 @@ import {
 import type info from "./info";
 export default function First() {
     const first = useContext(firstContext),
+        [step, setStep] = useState<number>(0),
         infos: info[] = [
             {
                 image: <HandymanIcon sx={{
                     fontSize: "1000%"
                 }} />,
-                title: "verkfi",
+                title: "Verkfi",
                 context: ""
             }
-        ];
+        ],
+        currentInfo = infos[step];
     return (
         <>
             <Box sx={{
@@ -37,7 +41,15 @@ export default function First() {
                 justifyContent: "space-evenly",
                 alignItems: "center"
             }}>
-                
+                {currentInfo.image}
+                <Box>
+                    <Typography variant="h2">
+                        {currentInfo.title}
+                    </Typography>
+                    <Typography variant="body1">
+                        {currentInfo.context}
+                    </Typography>
+                </Box>
             </Box>
         </>
     );

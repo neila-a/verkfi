@@ -136,7 +136,7 @@ export default function Index(props: {
     }
     return (props.isImplant ? (stringToBoolean(showSidebar.show)) : true) && (
         <div ref={ref}>
-            {props.isImplant !== true && <HeadBar isIndex pageName="verkfi" sx={{
+            {props.isImplant !== true && <HeadBar isIndex pageName="Verkfi" sx={{
                 zIndex: theme => (theme as ThemeHaveZIndex).zIndex.drawer + 1
             }} />}
             <Sidebar

@@ -93,7 +93,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 					flexGrow: 1,
 					textAlign: props.isIndex ? "center" : ""
 				}}>
-					{props.isIndex ? "verkfi" : props.pageName}
+					{props.isIndex ? "Verkfi" : props.pageName}
 				</Typography>
 				<showSidebar.Consumer>
 					{value => !props.isIndex && (

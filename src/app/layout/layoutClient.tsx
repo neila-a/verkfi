@@ -24,7 +24,7 @@ import {
     setState
 } from "../declare";
 export var logger = new LpLogger({
-    name: "verkfi",
+    name: "Verkfi",
     level: "log", // 空字符串时，不显示任何信息
 });
 export type colorMode = 'light' | 'dark';

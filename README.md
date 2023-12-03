@@ -2,7 +2,7 @@
     <img alt="Social" src="./public/image/social.png" />
 </div>
 
-# verkfi
+# Verkfi
 
 ![发布](https://img.shields.io/github/v/release/neila-a/verkfi?include_prereleases&style=for-the-badge)
 ![打开问题](https://img.shields.io/github/issues-raw/neila-a/verkfi?style=for-the-badge)

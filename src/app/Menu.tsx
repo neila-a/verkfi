@@ -226,7 +226,7 @@ export default function Menu() {
                         <Typography sx={{
                             ml: 1
                         }}>
-                            verkfi
+                            Verkfi
                         </Typography>
                     </Box>
                     <Box sx={{

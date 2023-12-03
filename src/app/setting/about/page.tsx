@@ -139,7 +139,7 @@ export default function About() {
                 }} />
                 <Typography variant="h4" sx={{
                     fontWeight: 300
-                }}>verkfi</Typography>
+                }}>Verkfi</Typography>
             </div>
             <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
                 {Object.values(abouts).map((item, index) => (

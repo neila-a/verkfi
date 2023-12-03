@@ -182,7 +182,7 @@ export default function SingleTool(props: {
                     </Card>
                 )}
             </windows.Consumer>
-            <CheckDialog open={jumpDialogOpen} description={`${get("确定离开verkfi并跳转至")}${jumpName}？`} title={get('离开verkfi')} onTrue={() => {
+            <CheckDialog open={jumpDialogOpen} description={`${get("确定离开Verkfi并跳转至")}${jumpName}？`} title={get('离开Verkfi')} onTrue={() => {
                 Router.push(jumpto);
                 setJumpDialogOpen(false);
             }} onFalse={() => {
