@@ -18,7 +18,7 @@ import {
     darkMode,
     isBrowser,
     paletteColors
-} from '../../layoutClient';
+} from '../../layout/layoutClient';
 import checkOption from '../checkOption';
 import setSetting from '../setSetting';
 import {

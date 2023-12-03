@@ -47,9 +47,12 @@ import {
 } from "./index/Sidebar";
 import {
     showSidebar
-} from "./layoutClient";
+} from "./layout/layoutClient";
 import stringToBoolean from "./setting/stringToBoolean";
-import { useRouter } from "next/navigation";
+import {
+    useRouter
+} from "next/navigation";
+import getParamTools from "./index/getParamTools";
 export default function Menu() {
     const control = useContext(showSidebar),
         theme = useTheme(),
@@ -175,23 +178,7 @@ export default function Menu() {
                                     sortingFor={"__home__"}
                                     setTools={tools => null}
                                     editMode={false}
-                                    paramTool={(Object.entries(JSON.parse(mostUsed)) as [string, number][]).sort((r, g) => {
-                                        if (r[1] < g[1]) {
-                                            return 1;
-                                        } if (r[1] > g[1]) {
-                                            return -1;
-                                        }
-                                        return 0;
-                                    }).slice(0, 3).map(item => {
-                                        const to = item[0];
-                                        var tool: tool;
-                                        realTools.forEach(single => {
-                                            if (single.to === to) {
-                                                tool = single;
-                                            }
-                                        });
-                                        return tool;
-                                    })} />
+                                    paramTool={getParamTools(mostUsed, realTools)} />
                             </Box>
                         </Box>
                         <Box>

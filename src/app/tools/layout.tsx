@@ -23,7 +23,7 @@ import stringToBoolean from "../setting/stringToBoolean";
 import getToolColor from "./getToolColor";
 import {
     colorMode
-} from "../layoutClient";
+} from "../layout/layoutClient";
 var logger = new lpLogger({
     name: "ToolFinder",
     level: "log"

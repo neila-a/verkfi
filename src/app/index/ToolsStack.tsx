@@ -28,7 +28,7 @@ import {
 } from "@hello-pangea/dnd";
 import {
     darkMode as darkModeContext
-} from '../layoutClient';
+} from '../layout/layoutClient';
 import reorder from '../components/reorder';
 import setSetting from '../setting/setSetting';
 import buttonCommonSorting from './buttonCommonSorting';

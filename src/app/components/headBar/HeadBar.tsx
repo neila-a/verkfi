@@ -42,7 +42,7 @@ import {
 	darkMode as darkModeContext,
 	forkMeOnGitHub as forkMeOnGitHubContext,
 	showSidebar
-} from '../../layoutClient';
+} from '../../layout/layoutClient';
 import {
 	stringifyCheck
 } from '../../setting/Switcher';

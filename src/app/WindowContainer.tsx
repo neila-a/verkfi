@@ -4,7 +4,7 @@ import Window from "./components/window/Window";
 import {
     colorMode,
     windows
-} from "./layoutClient";
+} from "./layout/layoutClient";
 import stringToBoolean from "./setting/stringToBoolean";
 import {
     useTheme

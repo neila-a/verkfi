@@ -47,8 +47,9 @@ import ToolsStack from './index/ToolsStack';
 import searchBase from './index/searchBase';
 import {
     showSidebar as showSidebarContext
-} from './layoutClient';
+} from './layout/layoutClient';
 import stringToBoolean from './setting/stringToBoolean';
+import getParamTools from './index/getParamTools';
 export default function Index(props: {
     /**
      * 是否为嵌入
@@ -222,23 +223,7 @@ export default function Index(props: {
                                 sortingFor={"__home__"}
                                 setTools={setTools}
                                 editMode={false}
-                                paramTool={(Object.entries(JSON.parse(mostUsed)) as [string, number][]).sort((r, g) => {
-                                    if (r[1] < g[1]) {
-                                        return 1;
-                                    } if (r[1] > g[1]) {
-                                        return -1;
-                                    }
-                                    return 0;
-                                }).slice(0, 3).map(item => {
-                                    const to = item[0];
-                                    var tool: tool;
-                                    realTools.forEach(single => {
-                                        if (single.to === to) {
-                                            tool = single;
-                                        }
-                                    });
-                                    return tool;
-                                })} />
+                                paramTool={getParamTools(mostUsed, realTools)} />
                         </Box>
                     </Box>
                 </Box>

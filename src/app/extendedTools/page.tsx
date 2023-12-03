@@ -18,7 +18,7 @@ import db, {
 } from "./db";
 import {
     colorMode
-} from "../layoutClient";
+} from "../layout/layoutClient";
 export default function ExtendedTools() {
     const param = useSearchParams();
     var toolID = "",

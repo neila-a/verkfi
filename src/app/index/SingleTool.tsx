@@ -37,7 +37,7 @@ const CheckDialog = dynamic(() => import("../components/dialog/CheckDialog"));
 import {
     colorMode,
     windows
-} from '../layoutClient';
+} from '../layout/layoutClient';
 import stringToBoolean from "../setting/stringToBoolean";
 import intl, {
     get
@@ -87,9 +87,7 @@ export default function SingleTool(props: {
         db = <DownButton {...buttonOptions} />,
         ub = <UpButton {...buttonOptions} />;
     return (
-        <Box sx={{
-            mb: viewMode === "list" ? 2 : ""
-        }} key={tool.to}> {/* 单个工具 */}
+        <Box mb={viewMode === "list" ? 2 : ""} key={tool.to}> {/* 单个工具 */}
             <windows.Consumer>
                 {value => (
                     <Card elevation={elevation} sx={{

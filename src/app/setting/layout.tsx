@@ -44,7 +44,7 @@ import {
 import {
 	showSidebar as showSidebarContext,
 	sidebarMode as sidebarModeContext
-} from '../layoutClient';
+} from '../layout/layoutClient';
 import stringToBoolean from './stringToBoolean';
 export default function Settings(props: {
 	children: ReactNode

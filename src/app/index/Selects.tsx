@@ -23,7 +23,7 @@ import {
 import getToolsList from './getToolsList';
 import {
     locales
-} from '../layoutClient';
+} from '../layout/layoutClient';
 import setSetting from '../setting/setSetting';
 import Image from 'next/image';
 import {

@@ -24,7 +24,7 @@ import {
     lang as langContext,
     locales,
     sidebarMode
-} from "../../layoutClient";
+} from "../../layout/layoutClient";
 import {
     get
 } from "react-intl-universal";

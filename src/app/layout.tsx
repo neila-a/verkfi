@@ -44,9 +44,6 @@ export async function generateMetadata() {
         }
     }) as Metadata;
 }
-import {
-    Analytics
-} from '@vercel/analytics/react';
 import '@fontsource/ubuntu/300.css';
 import '@fontsource/ubuntu/400.css';
 import '@fontsource/ubuntu/500.css';
@@ -61,11 +58,13 @@ import Loading from "./loading";
 import "./styles/App.scss";
 import BaseLayout, {
     WindowsProvider
-} from "./layoutClient";
+} from "./layout/layoutClient";
+import {
+    Suspense
+} from "react";
 export default async function Layout({
     children
 }) {
-    const repoInfo = await getRepoInfo();
     return (
         <html lang="zh-cmn-Hans-CN">
             <body>
@@ -77,13 +76,14 @@ export default async function Layout({
                     </Loading>
                 </noscript>
                 <div className={style["fullHeight"]}>
-                    <WindowsProvider>
-                        <BaseLayout>
-                            {children}
-                        </BaseLayout>
-                    </WindowsProvider>
+                    <Suspense fallback={<Loading />}> {/* 阻止整个页面坠落到客户端模式 */}
+                        <WindowsProvider>
+                            <BaseLayout>
+                                {children}
+                            </BaseLayout>
+                        </WindowsProvider>
+                    </Suspense>
                 </div>
-                <Analytics />
             </body>
         </html>
     )

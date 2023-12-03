@@ -3,7 +3,7 @@ import {
 } from "react";
 import {
     isBrowser
-} from "../layoutClient";
+} from "../layout/layoutClient";
 import checkOption from "../setting/checkOption";
 import setSetting from "../setting/setSetting";
 export default function useStoragedState<T extends string = string>(id: string, name: string, empty: T) {
