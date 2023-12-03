@@ -103,9 +103,9 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 							mr: 2,
 							...noDrag
 						}}>
-							{value.show === "false" ? <MouseOverPopover text={get("打开菜单")}>
+							{value.show === "false" ? <MouseOverPopover text={get("menu.打开菜单")}>
 								<MenuIcon />
-							</MouseOverPopover> : <MouseOverPopover text={get("关闭菜单")}>
+							</MouseOverPopover> : <MouseOverPopover text={get("menu.关闭菜单")}>
 								<MenuOpen />
 							</MouseOverPopover>}
 						</IconButton>

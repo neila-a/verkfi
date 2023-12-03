@@ -80,7 +80,7 @@ export default function Options() {
                 <Switcher option={options} key={options[1]} />
             ))}
             <InputLabel>
-                {get('菜单模式')}
+                {get('option.菜单模式')}
             </InputLabel>
             <Grid container direction="row" spacing={1} sx={{
                 justifyContent: "space-evenly"
@@ -90,14 +90,14 @@ export default function Options() {
                         fontSize: "500%",
                         color: theme => theme.palette.primary.main
                     }} />
-                    {get("菜单窗口")}
+                    {get("option.menuModes.菜单窗口")}
                 </Module>
                 <Module mode="sidebar">
                     <ViewSidebarIcon sx={{
                         fontSize: "500%",
                         color: theme => theme.palette.primary.main
                     }} />
-                    {get("侧边栏")}
+                    {get("option.menuModes.侧边栏")}
                 </Module>
             </Grid>
             <InputLabel id="lang">

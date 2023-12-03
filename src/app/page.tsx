@@ -28,6 +28,7 @@ import {
     tool
 } from "./tools/info";
 import {
+    useRouter,
     useSearchParams
 } from 'next/navigation';
 import getToolsList from './index/getToolsList';
@@ -46,6 +47,7 @@ import {
 import ToolsStack from './index/ToolsStack';
 import searchBase from './index/searchBase';
 import {
+    first as firstContext,
     showSidebar as showSidebarContext
 } from './layout/layoutClient';
 import stringToBoolean from './setting/stringToBoolean';
@@ -63,28 +65,24 @@ export default function Index(props: {
     expand?: boolean;
     setExpand?: setState<boolean>;
 }): JSX.Element {
-    const searchParams = useSearchParams(),
-        /**
-         * 包装过的getToolsList
-         * @returns 经过排序的分类
-         */
-        wrappedGetToolsList = () => {
-            return getToolsList(realTools);
-        },
-        refThis = useRef();
-    const {
-        ref = refThis
-    } = props;
-    var realTools = getTools(get),
+    const realTools = getTools(get),
+        searchParams = useSearchParams(),
+        router = useRouter(),
+        toolsList = getToolsList(realTools),
+        refThis = useRef(),
+        {
+            ref = refThis
+        } = props,
         showSidebar = useContext(showSidebarContext),
+        first = useContext(firstContext),
         [recentlyUsed, setRecentlyUsed] = useStoragedState<string>("recently-tools", "最近使用的工具", "[]"),
         [mostUsed, setMostUsed] = useStoragedState<string>("most-tools", "最常使用的工具", "{}"),
-        [sortedTools, setSortedTools] = useState(wrappedGetToolsList),
+        [sortedTools, setSortedTools] = useState(toolsList),
         [searchText, setSearchText] = useState<string>(""),
         [viewMode, setViewMode] = useStoragedState<viewMode>("viewmode", "列表模式", "list"),
         [editMode, setEditMode] = useState<boolean>(false),
         [expandThis, setExpandThis] = useState<boolean>(false),
-        [tools, setTools] = useState(wrappedGetToolsList),
+        [tools, setTools] = useState(toolsList),
         [sortingFor, setSortingFor] = useState<string>(props.isImplant ? "__global__" : "__home__"),
         [show, setShow] = useState<"tools" | "home">(props.isImplant ? "tools" : "home");
     if (props.setExpand) {
@@ -104,6 +102,9 @@ export default function Index(props: {
         setExpand(true);
     };
     useEffect(() => {
+        if (first.value) {
+            router.push("/first");
+        }
         if (props.isImplant) {
             setSearchText(props.children);
             searchTools(props.children);

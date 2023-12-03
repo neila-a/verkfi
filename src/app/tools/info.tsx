@@ -103,10 +103,10 @@ export const getTools = (get: typeof i18n.get): tool[] => {
             color: [hex("fa709a"), hex("fee140")]
         },
         {
-            name: get('掷色子'),
+            name: get('shaizi.掷色子'),
             to: "shaizi",
-            desc: get('随机掷色子'),
-            icon: () => <Image src="/image/shaizi.24x24.svg" alt={get('色子图标')} height={24} width={24} />,
+            desc: get('shaizi.随机掷色子'),
+            icon: () => <Image src="/image/shaizi.24x24.svg" alt={get('shaizi.色子图标')} height={24} width={24} />,
             color: [hex("a8edea"), hex("fed6e3")]
         },
         {

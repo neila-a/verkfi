@@ -190,7 +190,7 @@ function ColorTool() {
         return (
             <Grid item>
                 <Typography component="label" gutterBottom htmlFor={intent} variant="h6">
-                    {get(intent)}
+                    {get(`theme.${intent}`)}
                 </Typography>
                 <Box sx={{
                     display: 'flex',
@@ -200,7 +200,7 @@ function ColorTool() {
                 }}>
                     <Typography id={`${intent}ShadeSliderLabel`} sx={{
                         width: 60
-                    }}>{`${get("shade")}:`}</Typography>
+                    }}>{`${get("theme.shade")}:`}</Typography>
                     <Slider
                         sx={{
                             width: 'calc(100% - 80px)',
@@ -225,7 +225,7 @@ function ColorTool() {
                                 ? shades[state.primaryShade]
                                 : shades[state.secondaryShade];
                         const backgroundColor = colors[hue][shade];
-                        const showHue = get(hue);
+                        const showHue = get(`theme.colors.${hue}`);
                         return (
                             <Tooltip placement="right" title={showHue} key={hue}>
                                 <Radio
