@@ -49,13 +49,13 @@ import '@fontsource/ubuntu/400.css';
 import '@fontsource/ubuntu/500.css';
 import '@fontsource/ubuntu/700.css';
 import 'filepond/dist/filepond.min.css'; // Import FilePond styles
-import style from "./styles/Layout.module.scss";
+import style from "./layout/Layout.module.scss";
 import pack from "../../package.json";
 import {
     Typography
 } from "@mui/material";
 import Loading from "./loading";
-import "./styles/App.scss";
+import "./layout/global.scss";
 import BaseLayout, {
     WindowsProvider
 } from "./layout/layoutClient";
