@@ -118,7 +118,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 				}}>
 					<Link href="/setting/option" className={style["link"]}>
 						<MouseOverPopover text={get('设置')}>
-							<IconButton size="large" edge="end" color="inherit" aria-label="menu" sx={{
+							<IconButton size="large" edge="end" color="inherit" aria-label="settings" sx={{
 								mr: 2
 							}}>
 								<SettingsIcon />
