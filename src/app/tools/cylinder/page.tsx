@@ -36,12 +36,12 @@ function Cylinder(): JSX.Element {
         [posX, setPosX] = useState<number>(1),
         [posZ, setPosZ] = useState<number>(1),
         theme = useTheme(),
-	posCache = useRef<block>([1,1]),
-	cache = useRef<block[]>([]),
-	blocks = useMemo(() => makeCylinder(radiusX, radiusZ, thickness, filled), [radiusX, radiusZ, thickness, filled]);
+        posCache = useRef<block>([1, 1]),
+        cache = useRef<block[]>([]),
+        blocks = useMemo(() => makeCylinder(radiusX, radiusZ, thickness, filled), [radiusX, radiusZ, thickness, filled]);
     const updatePos = throttle((X: number, Z: number) => {
         drawMatrix(blocks.slice(0), Math.max(radiusX, radiusZ), X, Z, posCache.current, cache.current, theme.palette, true);
-	posCache.current = [X, Z];
+        posCache.current = [X, Z];
         cache.current = blocks.slice(0);
     }, 17 /* 1000(ms, = 1s) / 60(60fps) = 17(ms) */);
     useEffect(() => {
