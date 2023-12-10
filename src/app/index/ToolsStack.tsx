@@ -8,6 +8,7 @@ import {
 } from 'react';
 import {
     Box,
+    Collapse,
     Stack
 } from "@mui/material";
 import style from "./Index.module.scss";
@@ -33,6 +34,9 @@ import {
 import reorder from '../components/reorder';
 import buttonCommonSorting from './buttonCommonSorting';
 import ToolsNotFound from './ToolsNotFound';
+import {
+    TransitionGroup
+} from 'react-transition-group';
 export default function ToolsStack(props: {
     paramTool: tool[];
     viewMode: viewMode;
@@ -85,15 +89,19 @@ export default function ToolsStack(props: {
                         {provided => {
                             return (
                                 <div ref={provided.innerRef} {...provided.droppableProps}>
-                                    {props.paramTool.map((tool, index) => (
-                                        <Draggable draggableId={tool.to} index={index} key={tool.to}>
-                                            {provided => (
-                                                <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                                    <Insert index={index} tool={tool} />
-                                                </div>
-                                            )}
-                                        </Draggable>
-                                    ))}
+                                    <TransitionGroup>
+                                        {props.paramTool.map((tool, index) => (
+                                            <Collapse key={tool.to}>
+                                                <Draggable draggableId={tool.to} index={index}>
+                                                    {provided => (
+                                                        <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                                            <Insert index={index} tool={tool} />
+                                                        </div>
+                                                    )}
+                                                </Draggable>
+                                            </Collapse>
+                                        ))}
+                                    </TransitionGroup>
                                     {provided.placeholder}
                                 </div>
                             );
@@ -104,9 +112,15 @@ export default function ToolsStack(props: {
         );
     }
     function GridContainer() {
-        return props.paramTool.map((tool, index) => (
-            <Insert key={tool.to} tool={tool} index={index} />
-        ));
+        return (
+            <TransitionGroup>
+                {props.paramTool.map((tool, index) => (
+                    <Collapse key={tool.to}>
+                        <Insert key={tool.to} tool={tool} index={index} />
+                    </Collapse>
+                ))}
+            </TransitionGroup>
+        );
     }
     var darkModeFormStorage = useContext(darkModeContext).mode,
         darkMode = stringToBoolean(darkModeFormStorage.replace("light", "false").replace("dark", "true"));

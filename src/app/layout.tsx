@@ -5,30 +5,31 @@ import {
     getRepoInfo
 } from "./components/getRepoInfo";
 export async function generateMetadata() {
-    const repoInfo = await getRepoInfo();
+    const repoInfo = await getRepoInfo(),
+        upperName = repoInfo.name.charAt(0).toUpperCase() + repoInfo.name.slice(1);
     return ({
         manifest: "/index.webmanifest",
         description: repoInfo.description,
-        applicationName: repoInfo.name,
+        applicationName: upperName,
         other: {
-            "msapplication-tooltip": repoInfo.name,
+            "msapplication-tooltip": upperName,
             "msapplication-navbutton-color": "#1976d2",
             "msapplication-starturl": "/",
         },
         themeColor: "#1976d2",
         icons: "/image/favicon.png",
         appleWebApp: {
-            title: repoInfo.name
+            title: upperName
         },
         title: {
-            default: repoInfo.name,
-            template: `%s | ${repoInfo.name}`
+            default: upperName,
+            template: `%s | ${upperName}`
         },
         openGraph: {
-            title: repoInfo.name,
+            title: upperName,
             description: repoInfo.description,
             url: pack.homepage,
-            siteName: repoInfo.name,
+            siteName: upperName,
             images: [
                 {
                     url: './image/social.png',

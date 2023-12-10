@@ -92,6 +92,12 @@ dependencies:
   react-intl-universal:
     specifier: ^2.9.1
     version: 2.9.1(react@18.2.0)
+  react-swipeable:
+    specifier: ^7.0.1
+    version: 7.0.1(react@18.2.0)
+  react-transition-group:
+    specifier: ^4.4.5
+    version: 4.4.5(react-dom@18.2.0)(react@18.2.0)
   sass:
     specifier: ^1.69.5
     version: 1.69.5
@@ -118,6 +124,9 @@ devDependencies:
   '@types/react-dom':
     specifier: 18.2.4
     version: 18.2.4
+  '@types/react-transition-group':
+    specifier: ^4.4.10
+    version: 4.4.10
   '@types/three':
     specifier: ^0.152.1
     version: 0.152.1
@@ -1442,7 +1451,6 @@ packages:
     resolution: {integrity: sha512-hT/+s0VQs2ojCX823m60m5f0sL5idt9SO6Tj6Dg+rdphGPIeJbJ6CxvBYkgkGKrYeDjvIpKTR38UzmtHJOGW3Q==}
     dependencies:
       '@types/react': 18.2.11
-    dev: false
 
   /@types/react@18.2.11:
     resolution: {integrity: sha512-+hsJr9hmwyDecSMQAmX7drgbDpyE+EgSF6t7+5QEBAn1tQK7kl1vWZ4iRf6SjQ8lk7dyEULxUmZOIpN0W5baZA==}
@@ -3994,6 +4002,14 @@ packages:
       react-is: 18.2.0
       redux: 4.2.1
       use-sync-external-store: 1.2.0(react@18.2.0)
+    dev: false
+
+  /react-swipeable@7.0.1(react@18.2.0):
+    resolution: {integrity: sha512-RKB17JdQzvECfnVj9yDZsiYn3vH0eyva/ZbrCZXZR0qp66PBRhtg4F9yJcJTWYT5Adadi+x4NoG53BxKHwIYLQ==}
+    peerDependencies:
+      react: ^16.8.3 || ^17 || ^18
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /react-transition-group@4.4.5(react-dom@18.2.0)(react@18.2.0):

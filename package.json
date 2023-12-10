@@ -1,7 +1,7 @@
 {
     "name": "verkfi",
     "version": "1.5.3",
-    "devVersion": "726",
+    "devVersion": "729",
     "dev": true,
     "description": "Platform for Neila's something useless tools.",
     "private": true,
@@ -61,6 +61,8 @@
         "react-draggable": "^4.4.6",
         "react-filepond": "^7.1.2",
         "react-intl-universal": "^2.9.1",
+        "react-swipeable": "^7.0.1",
+        "react-transition-group": "^4.4.5",
         "sass": "^1.69.5",
         "sharp": "^0.32.6",
         "styled-components": "^5.3.11"
@@ -71,6 +73,7 @@
         "@types/node": "20.3.0",
         "@types/react": "18.2.11",
         "@types/react-dom": "18.2.4",
+        "@types/react-transition-group": "^4.4.10",
         "@types/three": "^0.152.1",
         "esbuild": "^0.18.20",
         "esbuild-loader": "^3.2.0",
