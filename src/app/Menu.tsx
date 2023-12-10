@@ -25,7 +25,8 @@ import {
     ArrowBackIos as ArrowBackIosIcon,
     Close as CloseIcon,
     Handyman as HandymanIcon,
-    Search as SearchIcon
+    Search as SearchIcon,
+    Home as HomeIcon
 } from "@mui/icons-material";
 import searchBase from './index/searchBase';
 import ToolsStack from "./index/ToolsStack";
@@ -217,10 +218,7 @@ export default function Menu() {
                     justifyContent: "space-between"
                 }}>
                     <Box sx={{
-                        display: "flex",
-                        cursor: "pointer"
-                    }} onClick={event => {
-                        router.push("/")
+                        display: "flex"
                     }}>
                         <HandymanIcon />
                         <Typography sx={{
@@ -232,6 +230,15 @@ export default function Menu() {
                     <Box sx={{
                         display: "flex"
                     }}>
+                        <MouseOverPopover text={get("主页")}>
+                            <IconButton color="primary" sx={{
+                                p: '10px'
+                            }} aria-label={get("主页")} onClick={_event => {
+                                router.push("/");
+                            }}>
+                                <HomeIcon />
+                            </IconButton>
+                        </MouseOverPopover>
                         <SwitchViewMode viewMode={viewMode} setViewMode={setViewMode} />
                         {(editing && sortingFor !== "__extended__") && <SwitchEditMode editMode={editMode} setEditMode={setEditMode} />}
                     </Box>

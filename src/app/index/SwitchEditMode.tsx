@@ -20,7 +20,7 @@ export default function SwitchEditMode(props: {
     return <MouseOverPopover text={editMode ? "关闭编辑模式" : "切换编辑模式"}>
         <IconButton color="primary" sx={{
             p: '10px'
-        }} aria-label="directions" onClick={event => {
+        }} aria-label={editMode ? "关闭编辑模式" : "切换编辑模式"} onClick={event => {
             setEditMode(old => !old);
         }}>
             {editMode ? <EditOffIcon /> : <EditIcon />}

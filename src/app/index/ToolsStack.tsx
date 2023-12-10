@@ -3,21 +3,18 @@ import {
     get
 } from 'react-intl-universal';
 import {
+    ReactNode,
     useContext
 } from 'react';
 import {
     Box,
-    Stack,
-    Typography
+    Stack
 } from "@mui/material";
 import style from "./Index.module.scss";
 import {
     tool
 } from "../tools/info";
 import SingleTool from './SingleTool';
-import {
-    SyncProblem as SyncProblemIcon
-} from "@mui/icons-material";
 import {
     viewMode
 } from './consts';
@@ -35,6 +32,7 @@ import {
 } from '../layout/layoutClient';
 import reorder from '../components/reorder';
 import buttonCommonSorting from './buttonCommonSorting';
+import ToolsNotFound from './ToolsNotFound';
 export default function ToolsStack(props: {
     paramTool: tool[];
     viewMode: viewMode;
@@ -46,28 +44,28 @@ export default function ToolsStack(props: {
     const {
         viewMode
     } = props;
-    var darkModeFormStorage = useContext(darkModeContext).mode,
-        darkMode = stringToBoolean(darkModeFormStorage.replace("light", "false").replace("dark", "true"));
-    return (
-        <Stack spacing={viewMode == "list" ? 3 : 5} className={style["items"]} sx={{
-            flexDirection: viewMode == "grid" ? "row" : "",
-            display: viewMode == "grid" ? "flex" : "block",
-            width: "100%"
-        }}> {/* 工具总览 */}
-            {props.paramTool.length === 0 ? <Box sx={{
-                color: theme => theme.palette.text.disabled,
-                cursor: "default",
-                ["*"]: {
-                    cursor: "default"
-                }
-            }}>
-                <SyncProblemIcon sx={{
-                    fontSize: "500%"
-                }} />
-                <Typography>
-                    未找到任何工具
-                </Typography>
-            </Box> : (viewMode === "list" ? <DragDropContext onDragEnd={result => {
+    function Insert({
+        index,
+        tool
+    }: {
+        index: number;
+        tool: tool;
+    }) {
+        return (
+            <SingleTool
+                isFirst={(props.searchText !== "") && (index === 0)}
+                tool={tool}
+                sortingFor={props.sortingFor}
+                key={tool.to}
+                darkMode={darkMode}
+                viewMode={viewMode}
+                setTools={props.setTools}
+                editMode={props.editMode} />
+        );
+    }
+    function ListContainer() {
+        return (
+            <DragDropContext onDragEnd={result => {
                 if (!result.destination) {
                     return;
                 }
@@ -91,15 +89,7 @@ export default function ToolsStack(props: {
                                         <Draggable draggableId={tool.to} index={index} key={tool.to}>
                                             {provided => (
                                                 <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                                    <SingleTool
-                                                        isFirst={(props.searchText !== "") && (index === 0)}
-                                                        tool={tool}
-                                                        sortingFor={props.sortingFor}
-                                                        key={tool.to}
-                                                        darkMode={darkMode}
-                                                        viewMode={viewMode}
-                                                        setTools={props.setTools}
-                                                        editMode={props.editMode} />
+                                                    <Insert index={index} tool={tool} />
                                                 </div>
                                             )}
                                         </Draggable>
@@ -110,17 +100,23 @@ export default function ToolsStack(props: {
                         }}
                     </Droppable>
                 </Box>
-            </DragDropContext> : props.paramTool.map((tool, index) => (
-                <SingleTool
-                    isFirst={(props.searchText !== "") && (index === 0)}
-                    tool={tool}
-                    sortingFor={props.sortingFor}
-                    key={tool.to}
-                    darkMode={darkMode}
-                    viewMode={viewMode}
-                    setTools={props.setTools}
-                    editMode={props.editMode} />
-            )))}
+            </DragDropContext>
+        );
+    }
+    function GridContainer() {
+        return props.paramTool.map((tool, index) => (
+            <Insert key={tool.to} tool={tool} index={index} />
+        ));
+    }
+    var darkModeFormStorage = useContext(darkModeContext).mode,
+        darkMode = stringToBoolean(darkModeFormStorage.replace("light", "false").replace("dark", "true"));
+    return (
+        <Stack spacing={viewMode == "list" ? 3 : 5} className={style["items"]} sx={{
+            flexDirection: viewMode == "grid" ? "row" : "",
+            display: viewMode == "grid" ? "flex" : "block",
+            width: "100%"
+        }}> {/* 工具总览 */}
+            {props.paramTool.length === 0 ? <ToolsNotFound /> : ((viewMode === "list" && props.editMode) ? <ListContainer /> : <GridContainer />)}
         </Stack>
     );
 }

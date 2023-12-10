@@ -23,7 +23,7 @@ export default function SwitchViewMode(props: {
     return <MouseOverPopover text={viewMode == "grid" ? "切换为列表模式" : "切换为网格模式"}>
         <IconButton color="primary" sx={{
             p: '10px'
-        }} aria-label="directions" onClick={_event => {
+        }} aria-label={viewMode == "grid" ? "切换为列表模式" : "切换为网格模式"} onClick={_event => {
             switch (viewMode) {
                 case "grid":
                     setViewMode("list");
