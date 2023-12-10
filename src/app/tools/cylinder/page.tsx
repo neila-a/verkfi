@@ -15,7 +15,8 @@ import {
     Grid,
     TextField,
     FormGroup,
-    Switch
+    Switch,
+    Box
 } from "@mui/material";
 import throttle from '../../components/throttle';
 import {
@@ -131,7 +132,9 @@ function Cylinder(): JSX.Element {
                     </Grid>
                 </Grid>
             </FormGroup>
-            <div id="canvascontainer" onMouseMove={event => {
+            <Box id="canvascontainer" sx={{
+                cursor: "cell"
+            }} onMouseMove={event => {
                 const b = window.getComputedStyle(document.getElementById("canvascontainer")),
                     w = Number(b.width.replace("px", "")),
                     h = Number(b.height.replace("px", "")),
@@ -147,7 +150,7 @@ function Cylinder(): JSX.Element {
                 updatePos(x, z);
             }}>
                 <canvas id="canvas" width={1} height={1} />
-            </div>
+            </Box>
         </>
     );
 }

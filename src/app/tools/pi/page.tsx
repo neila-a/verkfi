@@ -74,7 +74,8 @@ function PI(): JSX.Element {
                     display: "inline-block"
                 }} gutterBottom>{get('结果')}</Typography>
                 <Button variant="contained" style={{
-                    display: "inline-block"
+                    display: "inline-block",
+                    cursor: "copy"
                 }} onClick={() => {
                     navigator.clipboard.writeText(out).then(() => {
                         setShowCopyDoneDialog(true);

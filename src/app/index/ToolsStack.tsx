@@ -16,6 +16,9 @@ import {
 } from "../tools/info";
 import SingleTool from './SingleTool';
 import {
+    SyncProblem as SyncProblemIcon
+} from "@mui/icons-material";
+import {
     viewMode
 } from './consts';
 import stringToBoolean from '../setting/stringToBoolean';
@@ -31,7 +34,6 @@ import {
     darkMode as darkModeContext
 } from '../layout/layoutClient';
 import reorder from '../components/reorder';
-import setSetting from '../setting/setSetting';
 import buttonCommonSorting from './buttonCommonSorting';
 export default function ToolsStack(props: {
     paramTool: tool[];
@@ -52,7 +54,20 @@ export default function ToolsStack(props: {
             display: viewMode == "grid" ? "flex" : "block",
             width: "100%"
         }}> {/* 工具总览 */}
-            {props.paramTool.length === 0 ? <Typography>{get('未找到任何工具')}</Typography> : (viewMode === "list" ? <DragDropContext onDragEnd={result => {
+            {props.paramTool.length === 0 ? <Box sx={{
+                color: theme => theme.palette.text.disabled,
+                cursor: "default",
+                ["*"]: {
+                    cursor: "default"
+                }
+            }}>
+                <SyncProblemIcon sx={{
+                    fontSize: "500%"
+                }} />
+                <Typography>
+                    未找到任何工具
+                </Typography>
+            </Box> : (viewMode === "list" ? <DragDropContext onDragEnd={result => {
                 if (!result.destination) {
                     return;
                 }

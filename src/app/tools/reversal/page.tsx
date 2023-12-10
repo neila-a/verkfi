@@ -43,7 +43,9 @@ function Reversal(): JSX.Element {
                     mb: 1
                 }
             }}>
-                <Alert severity="info">
+                <Alert severity="info" sx={{
+                    cursor: "help"
+                }}>
                     {get('以空格分隔，按回车添加。')}
                 </Alert>
                 <TextField fullWidth label={get('输入框')} id="input" onKeyDown={event => {
@@ -88,7 +90,9 @@ function Reversal(): JSX.Element {
                         setShowSplitDialog(true);
                         logger.log("已打开输入对话框。");
                     }}>{get('拆分')}</Button>
-                    <Button variant="outlined" onClick={() => {
+                    <Button variant="outlined" sx={{
+                        cursor: "copy"
+                    }} onClick={() => {
                         navigator.clipboard.writeText(output).then(() => {
                             setShowCopyDoneDialog(true);
                         }).catch(error => {
