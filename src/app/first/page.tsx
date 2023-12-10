@@ -1,11 +1,13 @@
 "use client";
 import {
+    MouseEventHandler,
     useContext,
     useState
 } from "react";
 import {
     Box,
     Button,
+    Collapse,
     IconButton,
     Stack,
     Typography
@@ -24,27 +26,40 @@ import {
 import {
     get
 } from "react-intl-universal";
-import EarthIcon from "./earthIcon";
+import FeatureIcon from "./featureIcon";
+import DevicesIcon from "./devicesIcon";
+import {
+    useRouter
+} from "next/navigation";
 export default function First() {
     const first = useContext(firstContext),
         [step, setStep] = useState<number>(0),
+        router = useRouter(),
         infos: info[] = [
             {
                 image: <HandymanIcon sx={{
                     fontSize: "2000%"
                 }} />,
-                title: "Verkfi",
+                title: get("first.infos.start.title"),
                 context: get("first.infos.start.context")
             },
             {
-                image: <EarthIcon sx={{
+                image: <FeatureIcon sx={{
                     fontSize: "2000%"
                 }} />,
-                title: get("first.infos.middle.title"),
                 context: get("first.infos.middle.context")
+            },
+            {
+                image: <DevicesIcon sx={{
+                    fontSize: "2000%"
+                }} />,
+                context: get("first.infos.end.context")
             }
         ],
-        currentInfo = infos[step];
+        currentInfo = infos[step],
+        preventer: MouseEventHandler = event => {
+            event.preventDefault();
+        };
     return (
         <>
             <Stack sx={{
@@ -57,14 +72,27 @@ export default function First() {
                 backgroundColor: "#1976d2",
                 justifyContent: "space-evenly",
                 alignItems: "center"
+            }} id="context-container" onClick={event => {
+                const leftInstance = event.screenX,
+                    rightInstance = event.screenY,
+                    elementWidth = Number(window.getComputedStyle(document.getElementById("context-container")).width.replace("px", ""));
+                if (leftInstance < (elementWidth / 2)) {
+                    setStep(old => Math.max(0, old - 1));
+                } else {
+                    setStep(old => Math.min(infos.length - 1, old + 1));
+                }
             }}>
-                {currentInfo.image}
-                <Stack spacing={3} sx={{
+                <Box onClick={preventer}>
+                    <Collapse key={currentInfo.context} orientation="horizontal" in={true}>
+                        {currentInfo.image}
+                    </Collapse>
+                </Box>
+                <Stack onClick={preventer} spacing={3} sx={{
                     textAlign: "center"
                 }}>
-                    <Typography variant="h3">
+                    {step === 0 && <Typography variant="h3">
                         {currentInfo.title}
-                    </Typography>
+                    </Typography>}
                     <Typography variant="h6">
                         {currentInfo.context}
                     </Typography>
@@ -84,8 +112,9 @@ export default function First() {
                 }}>
                     <ArrowBack />
                 </IconButton>
-                <Button variant="contained" onClick={() => {
-
+                <Button variant="contained" onClick={event => {
+                    first.set("false");
+                    router.push("/");
                 }}>
                     {get("first.现在开始")}
                 </Button>

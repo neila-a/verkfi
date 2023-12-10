@@ -150,10 +150,14 @@ export default function ModifiedApp(props: {
         let isMounted = true;
         async function loadLang() {
             if (isMounted) {
-                await intl.init({
-                    currentLocale: choosedLang,
-                    locales
-                });
+                try {
+                    await intl.init({
+                        currentLocale: choosedLang,
+                        locales
+                    });
+                } catch (error) {
+                    logger.error("语言加载出现错误：", error);
+                }
                 setInitDone(true);
                 logger.log("语言已经加载完毕");
             }

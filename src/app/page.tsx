@@ -102,7 +102,7 @@ export default function Index(props: {
         setExpand(true);
     };
     useEffect(() => {
-        if (first.value) {
+        if (stringToBoolean(first.value)) {
             router.push("/first");
         }
         if (props.isImplant) {

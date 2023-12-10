@@ -3,6 +3,6 @@ import {
 } from "react";
 export default interface info {
     image: ReactNode;
-    title: string;
+    title?: string;
     context: string;
 }

@@ -6,6 +6,7 @@ import {
     useContext
 } from 'react';
 import {
+    Box,
     Stack,
     Typography
 } from "@mui/material";
@@ -64,32 +65,36 @@ export default function ToolsStack(props: {
                     props.setTools(newTools);
                 }
             }}>
-                <Droppable droppableId="toolslist" isDropDisabled={!props.editMode}>
-                    {provided => {
-                        return (
-                            <div ref={provided.innerRef} {...provided.droppableProps}>
-                                {props.paramTool.map((tool, index) => (
-                                    <Draggable draggableId={tool.to} index={index} key={tool.to}>
-                                        {provided => (
-                                            <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                                <SingleTool
-                                                    isFirst={(props.searchText !== "") && (index === 0)}
-                                                    tool={tool}
-                                                    sortingFor={props.sortingFor}
-                                                    key={tool.to}
-                                                    darkMode={darkMode}
-                                                    viewMode={viewMode}
-                                                    setTools={props.setTools}
-                                                    editMode={props.editMode} />
-                                            </div>
-                                        )}
-                                    </Draggable>
-                                ))}
-                                {provided.placeholder}
-                            </div>
-                        );
-                    }}
-                </Droppable>
+                <Box sx={{
+                    width: "100%"
+                }}>
+                    <Droppable droppableId="toolslist" isDropDisabled={!props.editMode}>
+                        {provided => {
+                            return (
+                                <div ref={provided.innerRef} {...provided.droppableProps}>
+                                    {props.paramTool.map((tool, index) => (
+                                        <Draggable draggableId={tool.to} index={index} key={tool.to}>
+                                            {provided => (
+                                                <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                                    <SingleTool
+                                                        isFirst={(props.searchText !== "") && (index === 0)}
+                                                        tool={tool}
+                                                        sortingFor={props.sortingFor}
+                                                        key={tool.to}
+                                                        darkMode={darkMode}
+                                                        viewMode={viewMode}
+                                                        setTools={props.setTools}
+                                                        editMode={props.editMode} />
+                                                </div>
+                                            )}
+                                        </Draggable>
+                                    ))}
+                                    {provided.placeholder}
+                                </div>
+                            );
+                        }}
+                    </Droppable>
+                </Box>
             </DragDropContext> : props.paramTool.map((tool, index) => (
                 <SingleTool
                     isFirst={(props.searchText !== "") && (index === 0)}
