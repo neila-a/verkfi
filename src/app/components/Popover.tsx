@@ -13,7 +13,9 @@ import {
     isMobile
 } from 'react-device-detect';
 import lpLogger from "lp-logger";
-import { ThemeHaveZIndex } from '../setting/layout';
+import {
+    ThemeHaveZIndex
+} from '../setting/layout';
 var logger = new lpLogger({
     name: "Popover",
     level: "log"

@@ -36,7 +36,8 @@ import {
 import getToolsList from './index/getToolsList';
 import Sidebar from './index/Sidebar';
 import {
-    viewMode
+    viewMode,
+    homeWhere
 } from './index/consts';
 import useStoragedState from './components/useStoragedState';
 import {
@@ -50,11 +51,15 @@ import ToolsStack from './index/ToolsStack';
 import searchBase from './index/searchBase';
 import {
     first as firstContext,
+    recentlyUsed as recentlyUsedContext,
+    mostUsed as mostUsedContext,
     showSidebar as showSidebarContext
 } from './layout/layoutClient';
 import stringToBoolean from './setting/stringToBoolean';
 import getParamTools from './index/getParamTools';
-import { not } from './components/TransferList';
+import {
+    not
+} from './components/TransferList';
 export default function Index(props: {
     /**
      * 是否为嵌入
@@ -78,8 +83,8 @@ export default function Index(props: {
         } = props,
         showSidebar = useContext(showSidebarContext),
         first = useContext(firstContext),
-        [recentlyUsed, setRecentlyUsed] = useStoragedState<string>("recently-tools", "最近使用的工具", "[]"),
-        [mostUsed, setMostUsed] = useStoragedState<string>("most-tools", "最常使用的工具", "{}"),
+        recentlyUsed = useContext(recentlyUsedContext).value,
+        mostUsed = useContext(mostUsedContext).value,
         [sortedTools, setSortedTools] = useState(toolsList),
         [searchText, setSearchText] = useState<string>(""),
         [viewMode, setViewMode] = useStoragedState<viewMode>("viewmode", "列表模式", "list"),
@@ -232,44 +237,48 @@ export default function Index(props: {
                         </Box>
                     </Collapse>
                     <Box>
-                        <Typography variant='h4'>
-                            {get('最近使用')}
-                        </Typography>
-                        <Box sx={{
-                            p: 1
-                        }}>
-                            <ToolsStack
-                                viewMode={viewMode}
-                                searchText=""
-                                sortingFor={sortingFor}
-                                setTools={setTools}
-                                editMode={false}
-                                paramTool={(JSON.parse(recentlyUsed) as string[]).map(to => {
-                                    var tool: tool;
-                                    realTools.forEach(single => {
-                                        if (single.to === to) {
-                                            tool = single;
-                                        }
-                                    });
-                                    return tool;
-                                })} />
-                        </Box>
+                        <homeWhere.Provider value="recently">
+                            <Typography variant='h4'>
+                                {get('最近使用')}
+                            </Typography>
+                            <Box sx={{
+                                p: 1
+                            }}>
+                                <ToolsStack
+                                    viewMode={viewMode}
+                                    searchText=""
+                                    sortingFor={sortingFor}
+                                    setTools={setTools}
+                                    editMode={false}
+                                    paramTool={(JSON.parse(recentlyUsed) as string[]).map(to => {
+                                        var tool: tool;
+                                        realTools.forEach(single => {
+                                            if (single.to === to) {
+                                                tool = single;
+                                            }
+                                        });
+                                        return tool;
+                                    })} />
+                            </Box>
+                        </homeWhere.Provider>
                     </Box>
                     <Box>
-                        <Typography variant='h4'>
-                            {get('最常使用')}
-                        </Typography>
-                        <Box sx={{
-                            p: 1
-                        }}>
-                            <ToolsStack
-                                viewMode={viewMode}
-                                searchText=""
-                                sortingFor={"__home__"}
-                                setTools={setTools}
-                                editMode={false}
-                                paramTool={getParamTools(mostUsed, realTools)} />
-                        </Box>
+                        <homeWhere.Provider value="most">
+                            <Typography variant='h4'>
+                                {get('最常使用')}
+                            </Typography>
+                            <Box sx={{
+                                p: 1
+                            }}>
+                                <ToolsStack
+                                    viewMode={viewMode}
+                                    searchText=""
+                                    sortingFor={"__home__"}
+                                    setTools={setTools}
+                                    editMode={false}
+                                    paramTool={getParamTools(mostUsed, realTools)} />
+                            </Box>
+                        </homeWhere.Provider>
                     </Box>
                 </Box>
             )}

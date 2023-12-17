@@ -1,30 +1,35 @@
 "use client";
 import {
+    useContext,
     useEffect
 } from "react";
-import checkOption from "../setting/checkOption";
 import {
     useSelectedLayoutSegment
 } from "next/navigation";
-import setSetting from "../setting/setSetting";
 import Recently from "../components/Recently";
+import {
+    recentlyUsed as recentlyUsedContext,
+    mostUsed as mostUsedContext
+} from "../layout/layoutClient";
 // 每个3格最多显示
 export default function Template(props: {
     children: React.ReactNode
 }) {
-    const thisTool = useSelectedLayoutSegment();
+    const thisTool = useSelectedLayoutSegment(),
+        recentlyUsed = useContext(recentlyUsedContext),
+        mostUsedState = useContext(mostUsedContext);
     useEffect(() => {
-        const set = new Recently(3, (JSON.parse(checkOption<string>("recently-tools", "最近使用的工具", "[]")) as string[]).reverse());
+        const set = new Recently(3, (JSON.parse(recentlyUsed.value) as string[]).reverse());
         set.add(thisTool);
-        setSetting("recently-tools", "最近使用的工具", JSON.stringify(set.get().reverse()));
-        const mostUsed = JSON.parse(checkOption<string>("most-tools", "最常使用的工具", "{}"));
+        const mostUsed = JSON.parse(mostUsedState.value);
         if (mostUsed.hasOwnProperty(thisTool)) {
             mostUsed[thisTool] = mostUsed[thisTool] + 1;
         } else {
             mostUsed[thisTool] = 0;
         }
-        setSetting("most-tools", "最常使用的工具", JSON.stringify(mostUsed));
-    }, []);
+        recentlyUsed.set(JSON.stringify(set.get().reverse()));
+        mostUsedState.set(JSON.stringify(mostUsed));
+    }, []); // 不放在副作用里会导致无限循环
     return (
         <>
             {props.children}

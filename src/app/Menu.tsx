@@ -7,7 +7,6 @@ import {
     DialogTitle,
     IconButton,
     InputBase,
-    Paper,
     Typography,
     useMediaQuery,
     useTheme
@@ -47,7 +46,9 @@ import {
     lists
 } from "./index/Sidebar";
 import {
-    showSidebar
+    showSidebar,
+    recentlyUsed as recentlyUsedContext,
+    mostUsed as mostUsedContext,
 } from "./layout/layoutClient";
 import stringToBoolean from "./setting/stringToBoolean";
 import {
@@ -59,8 +60,8 @@ export default function Menu() {
         theme = useTheme(),
         fullScreen = useMediaQuery(theme.breakpoints.down('sm')),
         realTools = getTools(get), // 硬编码的分类
-        [recentlyUsed, setRecentlyUsed] = useStoragedState<string>("recently-tools", "最近使用的工具", "[]"),
-        [mostUsed, setMostUsed] = useStoragedState<string>("most-tools", "最常使用的工具", "{}"),
+        recentlyUsed = useContext(recentlyUsedContext).value,
+        mostUsed = useContext(mostUsedContext).value,
         [viewMode, setViewMode] = useStoragedState<viewMode>("viewmode", "列表模式", "list"),
         [editMode, setEditMode] = useState<boolean>(false),
         [sortingFor, setSortingFor] = useState<string>("__home__"),

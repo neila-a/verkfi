@@ -92,6 +92,14 @@ export const lang = createContext<{
     value: string;
     set: setState<string>;
 }>(null);
+export const recentlyUsed = createContext<{
+    value: string;
+    set: setState<string>;
+}>(null);
+export const mostUsed = createContext<{
+    value: string;
+    set: setState<string>;
+}>(null);
 export const windows = createContext<{
     windows: WindowOptions[];
     set: setState<WindowOptions[]>;
@@ -114,6 +122,8 @@ export default function ModifiedApp(props: {
 }) {
     const [mode, setMode] = useStoragedState<PaletteMode>("darkmode", "暗色模式", "light"),
         [palette, setPalette] = useStoragedState<string>("palette", "调色板", "__none__"),
+        [recentlyUsedState, setRecentlyUsed] = useStoragedState<string>("recently-tools", "最近使用的工具", "[]"),
+        [mostUsedState, setMostUsed] = useStoragedState<string>("most-tools", "最常使用的工具", "{}"),
         realPalette = useMemo(() => (palette === "__none__" ? {} : JSON.parse(palette)), [palette]),
         theme = useMemo(
             () =>
@@ -201,14 +211,24 @@ export default function ModifiedApp(props: {
                                             value: palette,
                                             set: setPalette
                                         }}>
-                                            <CssBaseline />
-                                            <Box component="aside">
-                                                {Sidebar}
-                                            </Box>
-                                            <Box component="main" ml={(stringToBoolean(showSidebarState) && sidebarModeState === "sidebar") ? ml : ""}>
-                                                {props.children}
-                                            </Box>
-                                            <WindowContainer />
+                                            <recentlyUsed.Provider value={{
+                                                value: recentlyUsedState,
+                                                set: setRecentlyUsed
+                                            }}>
+                                                <mostUsed.Provider value={{
+                                                    value: mostUsedState,
+                                                    set: setMostUsed
+                                                }}>
+                                                    <CssBaseline />
+                                                    <Box component="aside">
+                                                        {Sidebar}
+                                                    </Box>
+                                                    <Box component="main" ml={(stringToBoolean(showSidebarState) && sidebarModeState === "sidebar") ? ml : ""}>
+                                                        {props.children}
+                                                    </Box>
+                                                    <WindowContainer />
+                                                </mostUsed.Provider>
+                                            </recentlyUsed.Provider>
                                         </paletteColors.Provider>
                                     </sidebarMode.Provider>
                                 </lang.Provider>

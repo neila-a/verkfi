@@ -26,7 +26,9 @@ import Draggable from "react-draggable";
 import {
     useTheme
 } from "@mui/material/styles";
-import { Hex } from "../../declare";
+import {
+    Hex
+} from "../../declare";
 export interface WindowOptions {
     to: string;
     name: string;

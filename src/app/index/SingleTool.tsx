@@ -1,6 +1,5 @@
 "use client";
-import React, {
-    Fragment,
+import {
     useContext,
     useState
 } from 'react';
@@ -16,7 +15,6 @@ import {
 } from "@mui/icons-material";
 import Style from "./Index.module.scss";
 import {
-    getTools,
     tool
 } from "../tools/info";
 import {
@@ -26,7 +24,8 @@ import DownButton from './DownButton';
 import UpButton from './UpButton';
 import {
     viewMode,
-    logger
+    logger,
+    homeWhere as homeWhereContext
 } from './consts';
 import {
     setState
@@ -36,12 +35,18 @@ import dynamic from 'next/dynamic';
 const CheckDialog = dynamic(() => import("../components/dialog/CheckDialog"));
 import {
     colorMode,
-    windows
+    windows,
+    recentlyUsed as recentlyUsedContext,
+    mostUsed as mostUsedContext,
 } from '../layout/layoutClient';
 import stringToBoolean from "../setting/stringToBoolean";
-import intl, {
+import {
+    useSwipeable
+} from "react-swipeable";
+import {
     get
 } from "react-intl-universal";
+import destroyer from '../components/destroyer';
 export default function SingleTool(props: {
     tool: tool;
     isFirst: boolean;
@@ -58,7 +63,6 @@ export default function SingleTool(props: {
         setTools,
         sortingFor
     } = props,
-        toolsInfo = getTools(get),
         ToolIcon = tool.icon,
         subStyle = {
             sx: {
@@ -67,8 +71,11 @@ export default function SingleTool(props: {
         },
         Router = useRouter(),
         colorContext = useContext(colorMode),
+        recentlyUsed = useContext(recentlyUsedContext),
+        mostUsed = useContext(mostUsedContext),
         color = colorContext.value,
         [jumpto, setJumpTo] = useState<string>(""),
+        homeWhere = useContext(homeWhereContext),
         [elevation, setElevation] = useState<number>(2),
         [jumpName, setJumpName] = useState<string>(""),
         [jumpDialogOpen, setJumpDialogOpen] = useState<boolean>(false),
@@ -84,10 +91,27 @@ export default function SingleTool(props: {
             tool: tool,
             sortingFor: sortingFor
         },
+        swipeHandler = useSwipeable({
+            onSwipedRight: data => {
+                switch (homeWhere) {
+                    case "most": {
+                        let old = JSON.parse(mostUsed.value);
+                        delete old[tool.to];
+                        mostUsed.set(JSON.stringify(old));
+                        break;
+                    }
+                    case "recently": {
+                        let old = JSON.parse(recentlyUsed.value) as string[];
+                        recentlyUsed.set(JSON.stringify(destroyer(old, tool.to)));
+                        break;
+                    }
+                }
+            }
+        }),
         db = <DownButton {...buttonOptions} />,
         ub = <UpButton {...buttonOptions} />;
     return (
-        <Box mb={viewMode === "list" ? 2 : ""} key={tool.to}> {/* 单个工具 */}
+        <Box mb={viewMode === "list" ? 2 : ""} key={tool.to} {...swipeHandler}> {/* 单个工具 */}
             <windows.Consumer>
                 {value => (
                     <Card elevation={elevation} sx={{
