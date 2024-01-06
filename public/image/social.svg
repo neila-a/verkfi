@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg width="1280" height="640" viewBox="0 0 338.66666 169.33333" version="1.1" id="svg1" xml:space="preserve"
+    inkscape:version="1.3.2 (091e20e, 2023-11-25)" sodipodi:docname="social.svg" inkscape:export-filename="social.png"
+    inkscape:export-xdpi="72" inkscape:export-ydpi="72" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns="http://www.w3.org/2000/svg"
+    xmlns:svg="http://www.w3.org/2000/svg" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:cc="http://creativecommons.org/ns#">
+    <sodipodi:namedview id="namedview1" pagecolor="#ffffff" bordercolor="#000000" borderopacity="0.25"
+        inkscape:showpageshadow="2" inkscape:pageopacity="0.0" inkscape:pagecheckerboard="true"
+        inkscape:deskcolor="#d1d1d1" inkscape:document-units="mm" inkscape:zoom="0.59468254" inkscape:cx="613.77285"
+        inkscape:cy="249.71307" inkscape:window-width="1600" inkscape:window-height="858" inkscape:window-x="0"
+        inkscape:window-y="42" inkscape:window-maximized="1" inkscape:current-layer="layer1" />
+    <defs id="defs1" />
+    <g inkscape:label="图层 1" inkscape:groupmode="layer" id="layer1">
+        <g id="g1" transform="matrix(1.680785,0,0,1.6807862,78.570941,-6.0957898)" inkscape:label="g1">
+            <line y2="18" x2="90" y1="90" x1="54" style="stroke:#81c784;stroke-width:15" id="line1" />
+            <line y1="18" x1="18" y2="90" x2="54" style="stroke:#fff176;stroke-width:15" id="line2" />
+            <path
+                style="font-variation-settings:normal;opacity:1;fill:#fff176;fill-opacity:1;stroke:#fff176;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+                d="m 60.690216,86.49426 1.717317,3.471295 -1.671146,3.348135 -13.507658,0.03675 z" id="path4" />
+        </g>
+    </g>
+    <metadata id="metadata1">
+        <rdf:RDF>
+            <cc:Work rdf:about="">
+                <cc:license rdf:resource="http://creativecommons.org/licenses/by/4.0/" />
+            </cc:Work>
+            <cc:License rdf:about="http://creativecommons.org/licenses/by/4.0/">
+                <cc:permits rdf:resource="http://creativecommons.org/ns#Reproduction" />
+                <cc:permits rdf:resource="http://creativecommons.org/ns#Distribution" />
+                <cc:requires rdf:resource="http://creativecommons.org/ns#Notice" />
+                <cc:requires rdf:resource="http://creativecommons.org/ns#Attribution" />
+                <cc:permits rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+            </cc:License>
+        </rdf:RDF>
+    </metadata>
+</svg>
