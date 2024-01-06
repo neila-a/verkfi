@@ -1,13 +1,11 @@
 import {
-    Handyman as HandymanIcon
-} from "@mui/icons-material";
-import {
     Box,
     LinearProgress
 } from "@mui/material";
 import {
     ReactNode
 } from "react";
+import Image from "next/image";
 export default function Loading(props: {
     children?: ReactNode;
 }) {
@@ -24,9 +22,7 @@ export default function Loading(props: {
             justifyContent: "space-evenly",
             alignItems: "center"
         }}>
-            <HandymanIcon sx={{
-                fontSize: "1000%"
-            }} />
+            <Image src="/image/favicon.svg" width={160} height={160} alt="VerkfiIcon" />
             {isLoading ? <LinearProgress color="secondary" sx={{
                 width: 160
             }} /> : props.children}

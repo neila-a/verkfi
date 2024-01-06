@@ -16,20 +16,20 @@ import {
 	useState
 } from "react";
 import {
-	Handyman as HandyManIcon,
 	Settings as SettingsIcon,
 	Info as InfoIcon,
 	Replay as ReplayIcon,
 	Extension as ExtensionIcon,
 	Palette as PaletteIcon
 } from "@mui/icons-material";
+import type VerkfiIcon from '../components/verkfiIcon/verkfiIcon';
 import {
 	drawerWidth
 } from './consts';
 export interface set {
 	name: string;
 	id: string;
-	Icon: typeof HandyManIcon;
+	Icon: typeof VerkfiIcon;
 }
 export interface ThemeHaveZIndex {
 	zIndex: {

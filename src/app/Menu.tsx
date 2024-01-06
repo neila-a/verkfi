@@ -23,7 +23,6 @@ import intl, {
 import {
     ArrowBackIos as ArrowBackIosIcon,
     Close as CloseIcon,
-    Handyman as HandymanIcon,
     Search as SearchIcon,
     Home as HomeIcon
 } from "@mui/icons-material";
@@ -55,6 +54,7 @@ import {
     useRouter
 } from "next/navigation";
 import getParamTools from "./index/getParamTools";
+import VerkfiIcon from "./components/verkfiIcon/verkfiIcon";
 export default function Menu() {
     const control = useContext(showSidebar),
         theme = useTheme(),
@@ -221,7 +221,7 @@ export default function Menu() {
                     <Box sx={{
                         display: "flex"
                     }}>
-                        <HandymanIcon />
+                        <VerkfiIcon />
                         <Typography sx={{
                             ml: 1
                         }}>

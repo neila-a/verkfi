@@ -44,9 +44,6 @@ import {
     setState
 } from './declare';
 import Center from './components/center/Center';
-import {
-    Handyman as HandymanIcon
-} from '@mui/icons-material';
 import ToolsStack from './index/ToolsStack';
 import searchBase from './index/searchBase';
 import {
@@ -60,6 +57,7 @@ import getParamTools from './index/getParamTools';
 import {
     not
 } from './components/TransferList';
+import VerkfiIcon from './components/verkfiIcon/verkfiIcon';
 export default function Index(props: {
     /**
      * 是否为嵌入
@@ -210,7 +208,7 @@ export default function Index(props: {
                         width: "100%"
                     }}>
                         <Center>
-                            <HandymanIcon onClick={event => {
+                            <VerkfiIcon onClick={event => {
                                 setShowTries(old => !old);
                             }} sx={{
                                 fontSize: "1000%",

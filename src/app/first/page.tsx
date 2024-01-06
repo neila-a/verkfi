@@ -15,9 +15,6 @@ import {
 import {
     first as firstContext
 } from "../layout/layoutClient";
-import {
-    Handyman as HandymanIcon
-} from "@mui/icons-material";
 import type info from "./info";
 import {
     ArrowBack,
@@ -31,13 +28,14 @@ import DevicesIcon from "./devicesIcon";
 import {
     useRouter
 } from "next/navigation";
+import VerkfiIcon from "../components/verkfiIcon/verkfiIcon";
 export default function First() {
     const first = useContext(firstContext),
         [step, setStep] = useState<number>(0),
         router = useRouter(),
         infos: info[] = [
             {
-                image: <HandymanIcon sx={{
+                image: <VerkfiIcon sx={{
                     fontSize: "2000%"
                 }} />,
                 title: get("first.infos.start.title"),

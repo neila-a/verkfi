@@ -9,7 +9,6 @@ import {
     Typography
 } from "@mui/material";
 import {
-    Handyman as HandyManIcon,
     Info as InfoIcon,
     Copyright as CopyrightIcon,
     Storage as StorageIcon,
@@ -30,6 +29,7 @@ import getCache from '../getCache';
 import getSettingsSur from '../getSettingsSur';
 import getSettingsUsed from '../getSettingsUsed';
 import dynamic from 'next/dynamic';
+import VerkfiIcon from '../../components/verkfiIcon/verkfiIcon';
 const PureDialog = dynamic(() => import("../../components/dialog/PureDialog"));
 interface singleAbout {
     icon: OverridableComponent<SvgIconTypeMap<{}, "svg">> & {
@@ -134,7 +134,7 @@ export default function About() {
                 {get('关于')}
             </Typography>
             <div className={style["title"]}>
-                <HandyManIcon sx={{
+                <VerkfiIcon sx={{
                     fontSize: "2.125rem"
                 }} />
                 <Typography variant="h4" sx={{
