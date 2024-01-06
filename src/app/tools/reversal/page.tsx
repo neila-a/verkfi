@@ -46,7 +46,7 @@ function Reversal(): JSX.Element {
                 <Alert severity="info" sx={{
                     cursor: "help"
                 }}>
-                    {get('以空格分隔，按回车添加。')}
+                    {get('reversal.以空格分隔，按回车添加。')}
                 </Alert>
                 <TextField fullWidth label={get('输入框')} id="input" onKeyDown={event => {
                     if (event.key == "Enter") {
@@ -99,14 +99,14 @@ function Reversal(): JSX.Element {
                             setCopyError(`复制结果时出现错误，请报告给开发人员：${error}`);
                             setShowCopyErrorDialog(true);
                         });
-                    }}>{get('复制')}</Button>
+                    }}>{get('copy.复制')}</Button>
                 </ButtonGroup>
             </Box>
             <Typography variant="body1">{get('结果：')}{output}</Typography>
             <AlertDialog open={showCopyErrorDialog} onDone={() => {
                 setShowCopyErrorDialog(false);
-            }} title={get('复制出现错误')} description={copyError} />
-            <InputDialog open={showSplitDialog} label="" title={get('拆分')} context={get('请输入拆分的符号，不输入则是逐字拆分')} onDone={context => {
+            }} title={get('copy.复制出现错误')} description={copyError} />
+            <InputDialog open={showSplitDialog} label="" title={get('拆分')} context={get('reversal.请输入拆分的符号，不输入则是逐字拆分')} onDone={context => {
                 setWordList(words.split(context).map(word => {
                     return [
                         word,
@@ -116,9 +116,9 @@ function Reversal(): JSX.Element {
                 logger.log("已拆分。");
                 setShowSplitDialog(false);
             }} />
-            <Snackbar open={showCopyDoneDialog} message={get('已把结果复制至剪贴板。')} onClose={() => {
+            <Snackbar open={showCopyDoneDialog} message={get('copy.已把结果复制至剪贴板。')} onClose={() => {
                 setShowCopyDoneDialog(false);
-            }}/>
+            }} />
         </Box>
     );
 };

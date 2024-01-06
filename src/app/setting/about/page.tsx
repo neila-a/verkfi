@@ -62,18 +62,18 @@ export default function About() {
     const abouts = {
         law: {
             icon: CopyrightIcon,
-            name: get("法律信息"),
+            name: get("infos.法律信息"),
             context: <Typography>
-                ©Copyleft ! 2022-2023， Neila.
+                ©Copyleft ! 2022-{new Date().getFullYear()}， Neila
                 <br />
-                {get('本程序从未提供品质担保。')}
+                {get('copyright.本程序从未提供品质担保。')}
                 <br />
-                {getHTML('版权')}
+                {getHTML('copyright.版权')}
             </Typography>
         },
         version: {
             icon: InfoIcon,
-            name: get("版本信息"),
+            name: get("infos.版本信息"),
             context: <Typography>
                 {get('发行版本：')}{version}
                 <br />
@@ -82,31 +82,31 @@ export default function About() {
         },
         storage: {
             icon: StorageIcon,
-            name: get("存储信息"),
+            name: get("infos.存储信息"),
             context: <Typography>
-                {get("缓存空间已使用容量")}：{cacheUsed.toFixed(5)}MB
+                {get("storage.缓存空间已使用容量")}：{cacheUsed.toFixed(5)}MB
                 <br />
-                {get("缓存空间剩余容量")}：{(cacheAll - cacheUsed).toFixed(5)}MB
+                {get("storage.缓存空间剩余容量")}：{(cacheAll - cacheUsed).toFixed(5)}MB
                 <br />
                 <br />
-                {get("设置空间已使用容量")}：{getSettingsUsed()}KB
+                {get("storage.设置空间已使用容量")}：{getSettingsUsed()}KB
                 <br />
-                {get("设置空间剩余容量")}：{getSettingsSur()}KB
+                {get("storage.设置空间剩余容量")}：{getSettingsSur()}KB
             </Typography>
         },
         statusInfo: {
             icon: ArticleIcon,
-            name: get("状态信息"),
+            name: get("infos.状态信息"),
             context: <Typography>
-                {get("完整路径名")}：{addressInfo.href}
+                {get("infos.status.完整路径名")}：{addressInfo.href}
                 <br />
-                {get("域名")}：{addressInfo.host}
+                {get("infos.status.域名")}：{addressInfo.host}
                 <br />
-                {get("路径")}：{addressInfo.pathname}
+                {get("infos.status.路径")}：{addressInfo.pathname}
                 <br />
-                {get("协议")}：{addressInfo.protocol}
+                {get("infos.status.协议")}：{addressInfo.protocol}
                 <br />
-                {get("端口")}：{addressInfo.port}
+                {get("infos.status.端口")}：{addressInfo.port}
             </Typography>
         }
     } satisfies abouts;

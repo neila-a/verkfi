@@ -112,7 +112,7 @@ function AudioTools(): JSX.Element {
                         allowMultiple={true}
                         maxFiles={1}
                         name="files"
-                        labelIdle={get('拖拽音频到这里')}
+                        labelIdle={get('drag.拖拽音频到这里')}
                     />
                 </Module>
             </Grid>

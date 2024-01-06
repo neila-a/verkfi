@@ -66,7 +66,7 @@ export default function Settings(props: {
 			Icon: ReplayIcon
 		},
 		{
-			name: get('扩展'),
+			name: get('extensions.扩展'),
 			id: "extendeds",
 			Icon: ExtensionIcon
 		},

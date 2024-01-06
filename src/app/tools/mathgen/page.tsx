@@ -67,12 +67,12 @@ function MathGen(): JSX.Element {
                     }} onChange={event => {
                         setItemCount(Number(event.currentTarget.value));
                     }} defaultValue={itemCount} />
-                    <FormControlLabel label={get('减数检查')} control={
+                    <FormControlLabel label={get('mathgen.减数检查')} control={
                         <Checkbox checked={subtractionCheck} onChange={event => {
                             setSubtractionCheck(event.currentTarget.checked);
                         }} />
                     } />
-                    <FormControlLabel label={get('除数检查')} control={
+                    <FormControlLabel label={get('mathgen.除数检查')} control={
                         <Checkbox checked={divisionCheck} onChange={event => {
                             setDivisionCheck(event.currentTarget.checked);
                         }} />
@@ -83,7 +83,7 @@ function MathGen(): JSX.Element {
                         }
                     }}>
                         <FormGroup>
-                            <FormLabel component="legend">{get('选择计算方法')}</FormLabel>
+                            <FormLabel component="legend">{get('mathgen.选择计算方法')}</FormLabel>
                             <FormControlLabel label={get('全选')} control={
                                 <Checkbox checked={calcs == defaultCalcs} onChange={event => {
                                     switch (event.target.checked) {
@@ -123,7 +123,7 @@ function MathGen(): JSX.Element {
                     </ButtonGroup>
                     <br />
                 </FormGroup>
-                {maths.toString() === "" ? <Typography>{get('没有任何已生成的算式')}</Typography> : maths.map(math => <SingleMath math={math} showOut={showOut} key={math} />)}
+                {maths.toString() === "" ? <Typography>{get('mathgen.没有任何已生成的算式')}</Typography> : maths.map(math => <SingleMath math={math} showOut={showOut} key={math} />)}
             </Box>
         </>
     );

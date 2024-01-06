@@ -57,7 +57,7 @@ function Cylinder(): JSX.Element {
                 <Grid container spacing={1} alignItems="center">
                     <Grid item>
                         <Typography id="radiusX" gutterBottom>
-                            {get('上下半径')}
+                            {get('cylinder.上下半径')}
                         </Typography>
                     </Grid>
                     <Grid item>
@@ -71,7 +71,7 @@ function Cylinder(): JSX.Element {
                 <Grid container spacing={1} alignItems="center">
                     <Grid item>
                         <Typography id="radiusZ" gutterBottom>
-                            {get('左右半径')}
+                            {get('cylinder.左右半径')}
                         </Typography>
                     </Grid>
                     <Grid item>
@@ -85,7 +85,7 @@ function Cylinder(): JSX.Element {
                 <Grid container spacing={1} alignItems="center">
                     <Grid item>
                         <Typography id="thickness" gutterBottom>
-                            {get('线条厚度')}
+                            {get('cylinder.线条厚度')}
                         </Typography>
                     </Grid>
                     <Grid item>
@@ -99,7 +99,7 @@ function Cylinder(): JSX.Element {
                 <Grid container spacing={1} alignItems="center">
                     <Grid item>
                         <Typography id="filled" gutterBottom>
-                            {get('填充（线条厚度为0时填满圆心）')}
+                            {get('cylinder.填充（线条厚度为0时填满圆心）')}
                         </Typography>
                     </Grid>
                     <Grid item>
@@ -109,7 +109,7 @@ function Cylinder(): JSX.Element {
                 <Grid direction="row" container spacing={1} alignItems="center">
                     <Grid item>
                         <Typography id="position" gutterBottom>
-                            {get('位置')}
+                            {get('cylinder.位置')}
                         </Typography>
                     </Grid>
                     <Grid item container spacing={1}>

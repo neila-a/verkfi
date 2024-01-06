@@ -9,20 +9,11 @@
 	"搜索工具": "Search tool",
 	"发行版本：": "Release version:",
 	"内部版本：": "Internal version:",
-	"本程序从未提供品质担保。": "Quality guarantees have never been provided in this procedure.",
-	"版权": "All of the copyright, following<br><a href=\"https://www.gnu.org/licenses/agpl.html\">GNU Affero General Public License</a><br>Authorizes, welcome you to republish it after you have fulfilled certain conditions.",
-	"清空所有缓存": "Clear all caches",
-	"清空所有设置": "Clear all settings",
 	"录音、复读": "Recording, Reading",
 	"找出字母在26字母表中的顺序": "Find the order in the 26 letters list",
-	"π计算器": "Pi calculator",
-	"计算π的小数点后任意位": "Calculate any decimal position of the PI's",
 	"圆周率图标": "Circle rate icon",
 	"翻转": "Reversal",
 	"随机翻转字符串": "Random flip string",
-	"掷色子": "Throws",
-	"随机掷色子": "Random throws",
-	"色子图标": "Throws icon",
 	"滤镜": "Filter",
 	"将一张图片处理成不同的": "Handle an image into a different one",
 	"读数字": "Reading numbers",
@@ -46,7 +37,6 @@
 	"重置": "Reset",
 	"音频循环播放": "Audio loop",
 	"您的浏览器不支持 audio 元素。": "Your browser does not support audio element.",
-	"拖拽音频到这里": "Drag and drop audio here, paste or<span class=\"filepond--label-action\">browse</span>",
 	"音频录制并循环": "Audio recording and loop",
 	"开始": "Start",
 	"停止": "Stop",
@@ -55,108 +45,197 @@
 	"输入字符": "Enter string",
 	"在这里输入": "Enter here",
 	"输出": "Output",
-	"上下半径": "Top and bottom radius",
-	"左右半径": "Left and right radius",
-	"线条厚度": "Line thickness",
-	"填充（线条厚度为0时填满圆心）": "Fill (full center when thickness is 0)",
-	"位置": "Location",
-	"拖拽图片到这里": "Drag and drop image here, paste or<span class=\"filepond--label-action\">browse</span>",
-	"拖拽扩展到这里": "Drag and drop extend here, paste or<span class=\"filepond--label-action\">browse</span>",
 	"滤镜类型": "Filter type",
 	"全部": "All",
 	"图片大小": "Image size",
+	"全选": "Select all",
+	"计算": "Calculate",
 	"上限": "Limit",
 	"下限": "Floor",
 	"个数": "Count",
-	"减数检查": "Subtraction check",
-	"除数检查": "Division check",
-	"选择计算方法": "Methodology selection",
-	"全选": "Select all",
-	"计算": "Calculate",
-	"答案": "Solutions",
-	"没有任何已生成的算式": "No generated algorithms",
-	"结果": "Result",
 	"答案：": "Answer:",
-	"π的小数点后位数": "Number of decimals after Pick",
+	"答案": "Solutions",
+	"结果": "Result",
 	"用提示框显示结果": "Show results in a prompt box",
-	"复制": "Copy",
-	"π是：": "Pi is:",
 	"提示": "Tips",
 	"数字": "Number",
 	"汉字": "Kanji",
-	"零一二三四五六七八九": "零一二三四五六七八九",
-	"个十百千万亿兆京垓姊穰沟涧正载极": "个十百千万亿兆京垓姊穰沟涧正载极",
-	"负": "Negative",
-	"点": "dot",
-	"元角分厘": "元角分厘",
-	"人民币": "CNY",
-	"正": "Positief",
-	"以空格分隔，按回车添加。": "Separate by spaces, press Enter to add.",
 	"输入框": "Entry Field",
 	"处理": "Process",
 	"重来": "Refresh",
 	"拆分": "Split",
 	"结果：": "Results:",
-	"复制出现错误": "Error copying",
-	"请输入拆分的符号，不输入则是逐字拆分": "Please enter a split symbol. Do not enter it to be split word",
-	"复制完毕": "Copy completed",
-	"已把结果复制至剪贴板。": "Results copied to clipboard.",
-	"掷骰子": "Dice throwing",
-	"掷色子的次数": "Number of Traps",
-	"全屏": "Full Screen",
-	"掷色子（全屏模式）": "Throws (Full Screen Mode)",
 	"你的浏览器不支持这个工具。": "Your browser does not support this tool.",
 	"暗色模式": "Dark Mode",
-	"下载本应用": "Download this app",
-	"缓存空间已使用容量": "Cache space used for capacity",
-	"缓存空间剩余容量": "Free capacity of cache space",
-	"清空缓存吗？此操作不可恢复。": "Clear cache? This cannot be undone.",
-	"设置空间已使用容量": "Option space used capacity",
-	"设置空间剩余容量": "Free capacity of option space",
-	"清空设置吗？此操作不可恢复。": "Clear settings? This action cannot be undone.",
-	"清空": "Clear",
-	"确定离开Verkfi并跳转至": "Are you sure you want to leave Verkfi and go to",
+	"确定离开Verkfi并跳转至": "Are you sure to leave Verkfi and go to",
 	"多彩主页": "Colorful Homepage",
 	"未找到工具": "No tools found",
-	"添加分类": "Add Tool List",
-	"分类名称": "Tool List Name",
-	"创建分类": "Create Tool List",
-	"编辑分类": "Edit Tool List",
-	"删除此分类": "Delete this tool list",
-	"确定删除此分类吗？": "Are you sure you want to delete this tool list?",
-	"将本应用通过浏览器添加至桌面": "Add this app via browser to the desktop",
-	"下载单独安装包": "Download individual packages",
-	"法律信息": "Legal information",
-	"版本信息": "Version Information",
-	"存储信息": "Storage information",
-	"状态信息": "Status",
-	"完整路径名": "Full path name",
-	"域名": "Host",
-	"路径": "Path",
-	"协议": "Protocol",
-	"端口": "Port",
 	"发生了一些错误": "Something went wrong",
 	"重试": "Retry",
-	"缓存空间": "Cache Space",
 	"已用": "Used",
-	"总容量": "Total space",
-	"设置空间": "Set space",
 	"帮助": "Help",
-	"扩展工具": "Extended Tools",
-	"扩展": "Extended",
-	"添加扩展": "Add Extended",
 	"名称": "Name",
 	"ID": "ID",
 	"描述": "Description",
 	"图标": "Icon",
 	"背景色": "Background color",
 	"添加": "Add",
-	"编辑扩展": "Edit extend",
 	"编辑": "Edit",
 	"删除": "Delete",
-	"删除扩展": "Delete extend",
-	"确定删除扩展": "Are you sure you want to delete the extend",
 	"主页": "Home page",
-	"最近使用": "Recently Used",
-	"最常使用": "Most used"
+	"主题": "Themes",
+	"drag": {
+		"拖拽音频到这里": "Drag and drop audio here, paste or<span class=\"filepond--label-action\">to view</span>",
+		"拖拽图片到这里": "Drag and drop images here, paste or<span class=\"filepond--label-action\">to view</span>",
+		"拖拽扩展到这里": "Drag and drop extends here, paste or<span class=\"filepond--label-action\">to view</span>"
+	},
+	"mathgen": {
+		"减数检查": "Subtraction check",
+		"除数检查": "Division check",
+		"选择计算方法": "Methodology selection",
+		"没有任何已生成的算式": "No generated algorithms"
+	},
+	"reversal": {
+		"以空格分隔，按回车添加。": "Separate by spaces, press Enter to add.",
+		"请输入拆分的符号，不输入则是逐字拆分": "Please enter a split symbol. Do not enter it to be split word"
+	},
+	"copy": {
+		"复制": "Copy",
+		"复制出现错误": "Error copying",
+		"复制完毕": "Copy completed",
+		"已把结果复制至剪贴板。": "Results copied to clipboard."
+	},
+	"download": {
+		"下载本应用": "Download this app",
+		"将本应用通过浏览器添加至桌面": "Add this app via browser to the desktop",
+		"下载单独安装包": "Download individual packages"
+	},
+	"cylinder": {
+		"上下半径": "Top and bottom radius",
+		"左右半径": "Left and right radius",
+		"线条厚度": "Line thickness",
+		"位置": "Location",
+		"填充（线条厚度为0时填满圆心）": "Fill (full center when thickness is 0)"
+	},
+	"clear": {
+		"清空所有缓存": "Clear all caches",
+		"清空所有设置": "Clear all settings",
+		"清空缓存吗？此操作不可恢复。": "Clear cache? This cannot be undone.",
+		"清空设置吗？此操作不可恢复。": "Clear settings? This action cannot be undone.",
+		"清空": "Clear"
+	},
+	"storage": {
+		"缓存空间": "Cache Space",
+		"设置空间": "Set space",
+		"缓存空间已使用容量": "Cache space used for capacity",
+		"缓存空间剩余容量": "Free capacity of cache space",
+		"设置空间已使用容量": "Option space used capacity",
+		"设置空间剩余容量": "Free capacity of option space",
+		"总容量": "Total space"
+	},
+	"category": {
+		"添加分类": "Add a category",
+		"分类名称": "Category name",
+		"创建分类": "Create Category",
+		"编辑分类": "Edit Category",
+		"分类": "Categories",
+		"删除此分类": "Delete this category",
+		"确定删除此分类吗？": "Are you sure you want to delete this category?"
+	},
+	"use": {
+		"最近使用": "Recently Used",
+		"最常使用": "Most used"
+	},
+	"pi": {
+		"π计算器": "Pi calculator",
+		"计算π的小数点后任意位": "Calculate any decimal position of the PI's",
+		"π是：": "Pi is:",
+		"π的小数点后位数": "Number of decimals after Pick"
+	},
+	"copyright": {
+		"本程序从未提供品质担保。": "Quality guarantees have never been provided in this procedure.",
+		"版权": "All of the copyright, following<br><a href=\"https://www.gnu.org/licenses/agpl.html\">GNU Affero General Public License</a><br>Authorizes, welcome you to republish it after you have fulfilled certain conditions."
+	},
+	"shaizi": {
+		"掷骰子": "Dice throwing",
+		"掷色子的次数": "Number of Traps",
+		"全屏": "Full Screen",
+		"掷色子（全屏模式）": "Throws (Full Screen Mode)",
+		"随机掷色子": "Random throws",
+		"色子图标": "Throws icon",
+		"掷色子": "Throws"
+	},
+	"infos": {
+		"法律信息": "Legal information",
+		"版本信息": "Version Information",
+		"存储信息": "Storage information",
+		"状态信息": "Status",
+		"status": {
+			"完整路径名": "Full path name",
+			"域名": "Host",
+			"路径": "Path",
+			"协议": "Protocol",
+			"端口": "Port"
+		}
+	},
+	"option": {
+		"菜单模式": "Menu mode",
+		"menuModes": {
+			"菜单窗口": "Menu window",
+			"侧边栏": "Sidebar"
+		}
+	},
+	"extensions": {
+		"扩展工具": "Extended Tools",
+		"扩展": "Extended",
+		"添加扩展": "Add Extended",
+		"编辑扩展": "Edit extend",
+		"删除扩展": "Delete extend",
+		"确定删除扩展": "Are you sure you want to delete the extend"
+	},
+	"theme": {
+		"primary": "Primary color",
+		"secondary": "Secondary color",
+		"shade": "Shade",
+		"colors": {
+			"red": "Red",
+			"pink": "Pink",
+			"purple": "Purple",
+			"deepPurple": "Deep Purple",
+			"indigo": "Indigo",
+			"blue": "Blue",
+			"lightBlue": "Light Blue",
+			"cyan": "Cyan",
+			"teal": "Teal",
+			"green": "Green",
+			"lightGreen": "Light green",
+			"lime": "lime",
+			"yellow": "Yellow",
+			"amber": "Amber",
+			"orange": "Orange",
+			"deepOrange": "Deep Orange"
+		}
+	},
+	"menu": {
+		"打开菜单": "Open Menu",
+		"关闭菜单": "Close Menu"
+	},
+	"first": {
+		"现在开始": "Get started",
+		"infos": {
+			"start": {
+				"title": "Your tool, anywhere",
+				"context": "Explore more possibilities"
+			},
+			"middle": {
+				"context": "Discover features you don't think"
+			},
+			"end": {
+				"context": "Use tools on different devices and platforms"
+			}
+		}
+	},
+	"index": {
+		"trythese": "Try these"
+	}
 }

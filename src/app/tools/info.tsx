@@ -89,9 +89,9 @@ export const getTools = (get: typeof i18n.get): tool[] => {
             color: [hex("e0c3fc"), hex("8ec5fc")]
         },
         {
-            name: get('π计算器'),
+            name: get('pi.π计算器'),
             to: "pi",
-            desc: get('计算π的小数点后任意位'),
+            desc: get('pi.计算π的小数点后任意位'),
             icon: () => <Image src="/image/pi.466x393.png" alt={get('圆周率图标')} height={24} width={24} />,
             color: [hex("4facfe"), hex("00f2fe")]
         },

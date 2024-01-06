@@ -122,7 +122,7 @@ export default function Options() {
                 <Button variant="contained" startIcon={<DownloadIcon />} onClick={() => {
                     setDialogOpen(true);
                 }}>
-                    {get("下载本应用")}
+                    {get("download.下载本应用")}
                 </Button>
                 <Button variant="outlined" startIcon={<HelpIcon />} onClick={event => {
                     router.push(`${ghURL} wiki`);
@@ -130,19 +130,19 @@ export default function Options() {
                     {get("帮助")}
                 </Button>
             </ButtonGroup>
-            <PureDialog open={dialogOpen} title={get("下载本应用")} onClose={() => {
+            <PureDialog open={dialogOpen} title={get("download.下载本应用")} onClose={() => {
                 setDialogOpen(false);
             }}>
                 <ButtonGroup variant="contained" fullWidth>
                     <Button onClick={event => {
                         window.installPWA();
                     }}>
-                        {get("将本应用通过浏览器添加至桌面")}
+                        {get("download.将本应用通过浏览器添加至桌面")}
                     </Button>
                     <Button onClick={event => {
                         router.push(`${ghURL}releases`);
                     }}>
-                        {get("下载单独安装包")}
+                        {get("download.下载单独安装包")}
                     </Button>
                 </ButtonGroup>
             </PureDialog>

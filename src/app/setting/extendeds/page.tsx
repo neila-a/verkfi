@@ -102,7 +102,7 @@ export default function ExtendedManager() {
     return (
         <>
             <Typography variant="h4">
-                {get('扩展')}
+                {get('extensions.扩展')}
             </Typography>
             <Stack spacing={2}>
                 {extendedTools?.map(single => <Paper sx={{
@@ -148,14 +148,14 @@ export default function ExtendedManager() {
             <Button startIcon={<AddIcon />} fullWidth onClick={event => {
                 setAddDialogOpen(true);
             }} variant="outlined">
-                {get("添加扩展")}
+                {get("extensions.添加扩展")}
             </Button>
             <PureDialog open={modifyDialogOpen} onClose={event => {
                 setModifyDialogOpen(false);
-            }} title={get("编辑扩展")}>
+            }} title={get("extensions.编辑扩展")}>
                 <DialogInputs type="modify" />
             </PureDialog>
-            <CheckDialog open={removeDialogOpen} title={get("删除扩展")} description={`${get("确定删除扩展")}${fileInfo.name}?`} onFalse={() => {
+            <CheckDialog open={removeDialogOpen} title={get("extensions.删除扩展")} description={`${get("extensions.确定删除扩展")}${fileInfo.name}?`} onFalse={() => {
                 reset();
             }} onTrue={async () => {
                 const id = await db.extendedTools.delete(fileInfo.to);
@@ -163,7 +163,7 @@ export default function ExtendedManager() {
             }} />
             <PureDialog open={addDialogOpen} onClose={() => {
                 reset();
-            }} title={get("添加扩展")}>
+            }} title={get("extensions.添加扩展")}>
                 <FilePond
                     files={fileArray as unknown as FilePondServerConfigProps["files"]}
                     onupdatefiles={files => {
@@ -187,7 +187,7 @@ export default function ExtendedManager() {
                     allowMultiple={true}
                     maxFiles={1}
                     name="files"
-                    labelIdle={get('拖拽扩展到这里')}
+                    labelIdle={get('drag.拖拽扩展到这里')}
                 />
                 <DialogInputs type="add" />
             </PureDialog>

@@ -50,7 +50,7 @@ function PI(): JSX.Element {
                 }
             `}</style>
             <div id="input">
-                <TextField id="weishu" label={get('π的小数点后位数')} variant="outlined" value={weishu} type="number" onChange={event => {
+                <TextField id="weishu" label={get('pi.π的小数点后位数')} variant="outlined" value={weishu} type="number" onChange={event => {
                     var ws = Number(event.target.value);
                     setWeishu(ws);
                     proc(ws);
@@ -79,20 +79,20 @@ function PI(): JSX.Element {
                 }} onClick={() => {
                     navigator.clipboard.writeText(out).then(() => {
                         setShowCopyDoneDialog(true);
-                        logger.log("已把结果复制到剪贴板。");
+                        logger.log("copy.已把结果复制到剪贴板。");
                     }).catch(error => {
                         setDialogInfo(`复制结果时出现问题，报错：${error}`);
                         logger.error(`糟糕！出错了：${error}`);
                     });
-                }}>{get('复制')}</Button>
+                }}>{get('copy.复制')}</Button>
                 <Typography variant="body1" sx={{
                     wordBreak: "break-all"
-                }} gutterBottom>{get('π是：')}{out}</Typography>
+                }} gutterBottom>{get('pi.π是：')}{out}</Typography>
             </div>
             <AlertDialog open={showInfoDialog} title={get('提示')} description={dialogInfo} onDone={() => {
                 setShowInfoDialog(false);
             }} />
-            <Snackbar open={showCopyDoneDialog} message={get('已把结果复制至剪贴板。')} onClose={() => {
+            <Snackbar open={showCopyDoneDialog} message={get('copy.已把结果复制至剪贴板。')} onClose={() => {
                 setShowCopyDoneDialog(false);
             }} />
         </>

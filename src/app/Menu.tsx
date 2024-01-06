@@ -145,7 +145,7 @@ export default function Menu() {
                     {sortingFor === "__home__" ? <>
                         <Box>
                             <Typography variant='h4'>
-                                {get('最近使用')}
+                                {get('use.最近使用')}
                             </Typography>
                             <Box sx={{
                                 p: 1
@@ -169,7 +169,7 @@ export default function Menu() {
                         </Box>
                         <Box>
                             <Typography variant='h4'>
-                                {get('最常使用')}
+                                {get('use.最常使用')}
                             </Typography>
                             <Box sx={{
                                 p: 1
@@ -185,7 +185,7 @@ export default function Menu() {
                         </Box>
                         <Box>
                             <Typography variant='h4'>
-                                {get('分类')}
+                                {get('category.分类')}
                                 <Selects
                                     setEditMode={setEditMode}
                                     setEditing={setEditing}

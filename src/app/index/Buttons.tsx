@@ -65,7 +65,7 @@ export default function Buttons(props: {
             {editMode && <Button onClick={event => {
                 setDialogOpen(true);
             }} startIcon={<AddIcon />}>
-                {get("添加分类")}
+                {get("category.添加分类")}
             </Button>}
             <Divider />
             <ButtonGroup variant="outlined" sx={{

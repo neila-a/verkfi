@@ -87,7 +87,7 @@ export default function Filter(): JSX.Element {
                 allowMultiple={true}
                 maxFiles={1}
                 name="files"
-                labelIdle={get('拖拽图片到这里')}
+                labelIdle={get('drag.拖拽图片到这里')}
             />
             <>
                 <Typography gutterBottom>

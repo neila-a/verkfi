@@ -237,7 +237,7 @@ export default function Index(props: {
                     <Box>
                         <homeWhere.Provider value="recently">
                             <Typography variant='h4'>
-                                {get('最近使用')}
+                                {get('use.最近使用')}
                             </Typography>
                             <Box sx={{
                                 p: 1
@@ -263,7 +263,7 @@ export default function Index(props: {
                     <Box>
                         <homeWhere.Provider value="most">
                             <Typography variant='h4'>
-                                {get('最常使用')}
+                                {get('use.最常使用')}
                             </Typography>
                             <Box sx={{
                                 p: 1

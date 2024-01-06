@@ -167,7 +167,7 @@ export default function Selects(props: {
                     }}
                 </Droppable>
             </DragDropContext>
-            <SingleSelect dragButton={<></>} editMode={props.editMode} isSidebar={Boolean(props.isSidebar)} sortingFor={sortingFor} searchText={searchText} setEditing={setEditing} wantSortingFor="__extended__" tool={get("扩展工具")} onClick={event => {
+            <SingleSelect dragButton={<></>} editMode={props.editMode} isSidebar={Boolean(props.isSidebar)} sortingFor={sortingFor} searchText={searchText} setEditing={setEditing} wantSortingFor="__extended__" tool={get("extensions.扩展工具")} onClick={event => {
                 props.modifyClickCount("++");
                 if (sortingFor !== "__extended__") {
                     props.modifyClickCount(0);
@@ -204,8 +204,8 @@ export default function Selects(props: {
                 })()} />
             <CheckDialog
                 open={removeDialogOpen}
-                title={get("删除此分类")}
-                description={get("确定删除此分类吗？")}
+                title={get("category.删除此分类")}
+                description={get("category.确定删除此分类吗？")}
                 onTrue={() => {
                     var listDraft: lists = list;
                     listDraft.forEach(draftSingle => {
