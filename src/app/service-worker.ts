@@ -3,6 +3,7 @@ import {
     devVersion,
     dev
 } from "../../package.json";
+import db from "./extendedTools/db";
 import pages from "./pages.json";
 /* const toolsTo = [
     "audiotools",
@@ -16,7 +17,7 @@ import pages from "./pages.json";
     "readnumber",
 ]; */
 declare let self: ServiceWorkerGlobalScope;
-export const Cache = `verkfi-${version}-${dev == true ? `dev${devVersion}` : "prod"}`, // C
+export const Cache = `Verkfi-${version}-${dev == true ? `dev${devVersion}` : "prod"}`, // C
     log = (text: string) => console.log(`%cServiceWorker`, `background: #52c41a;border-radius: 0.5em;color: white;font-weight: bold;padding: 2px 0.5em`, text),
     clearOldCaches = async () => {
         const keylist = await caches.keys();
@@ -48,15 +49,21 @@ self.addEventListener('fetch', event => {
     if (event.request.method !== 'GET') return;
     let requrl = event.request.url;
     let url = String(requrl);
+    let path = new URL(url).pathname.split("/");
+    path.shift();
     event.respondWith(caches.open(Cache).then(async cache => {
         var realReq = event.request.clone();
+        var response: Response;
         if (url.includes("_rsc=")) {
-            var buffURL = new URL(url);
-            buffURL.searchParams.delete("_rsc");
-            log(`检测到URL：${url} 中含有searchParam“rsc”，已删除为 ${buffURL.toString()} 并返回无rsc版本`);
-            url = buffURL.toString();
+            log(`检测到URL：${url} 中含有searchParam“rsc”，已返回无rsc版本`);
+            response = await cache.match(realReq, {
+                ignoreSearch: true
+            });
+        } else if (path[0] === "extendedfiles") {
+            response = new Response(new Blob([(await db.extendedTools.toArray()).filter(item => item.to === path[1])[0].files.filter(item => item[0] === path[2])[0][1]]));
+        } else {
+            response = await cache.match(realReq);
         }
-        const response = await cache.match(realReq);
         if (response) {
             return response;
         }

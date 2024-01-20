@@ -28,7 +28,7 @@ export default function ExtendedTools() {
             to: "",
             icon: "",
             color: ["", ""],
-            file: ""
+            files: []
         }),
         colorContext = useContext(colorMode),
         color = colorContext.value;
@@ -52,15 +52,14 @@ export default function ExtendedTools() {
                     <HeadBar isIndex={false} pageName={name} only={false} sx={{
                         backgroundImage: `linear-gradient(45deg, #${tool.color[0]}, #${tool.color[1]})`
                     }} />
-                    <Toolbar />
                 </>
             )}
             <Box sx={{
                 p: 3
             }} component="article" id="container">
-                <div id="verkfi_context" dangerouslySetInnerHTML={{
-                    __html: tool.file
-                }} />
+                <iframe style={{
+                    border: "none"
+                }} src={`/extendedfiles/${tool.to}/index.html`} />
             </Box>
             <section id="outside" />
         </>

@@ -17,6 +17,9 @@ import {
     get
 } from "react-intl-universal";
 import {
+    Filesystem
+} from "@tybys/browser-asar";
+import {
     FilePond
 } from 'react-filepond'; // Import React FilePond
 import dynamic from "next/dynamic";
@@ -56,7 +59,7 @@ export default function ExtendedManager() {
     var [addDialogOpen, setAddDialogOpen] = useState<boolean>(false),
         [fileArray, setFileArray] = useState<FilePondFile[]>([]),
         [fileInfo, setFileInfo] = useState<NXTMetadata>(emptyNXTMetadata),
-        [file, setFile] = useState<string>("__UnReaded__"),
+        [files, setFiles] = useState<[string, Uint8Array][]>([]),
         [removeDialogOpen, setRemoveDialogOpen] = useState<boolean>(false),
         [modifyDialogOpen, setModifyDialogOpen] = useState<boolean>(false);
     const reset = () => {
@@ -64,7 +67,7 @@ export default function ExtendedManager() {
         setModifyDialogOpen(false);
         setRemoveDialogOpen(false);
         setFileArray([]);
-        setFile("__UnReaded__");
+        setFiles([]);
         setFileInfo(emptyNXTMetadata);
     },
         extendedTools = useLiveQuery(() => db.extendedTools.toArray());
@@ -73,16 +76,18 @@ export default function ExtendedManager() {
     }) {
         return (
             <>
-                {[["name", "名称"], ["to", "ID"], ["desc", "描述"], ["icon", "图标"], ["color", "背景色"]].map(item => <TextField key={item[0]} margin="dense" value={fileInfo[item[0]]} label={get(item[1])} fullWidth variant="standard" onChange={event => {
-                    var bufferInfo: NXTMetadata = JSON.parse(JSON.stringify(fileInfo));
-                    bufferInfo[item[0]] = event.target.value;
-                    setFileInfo(bufferInfo);
-                }} />)}
+                {[["name", "名称"], ["to", "ID"], ["desc", "描述"], ["icon", "图标"], ["color", "背景色"]].map(item => (
+                    <TextField key={item[0]} margin="dense" value={fileInfo[item[0]]} label={get(item[1])} fullWidth variant="outlined" onChange={event => {
+                        var bufferInfo: NXTMetadata = JSON.parse(JSON.stringify(fileInfo));
+                        bufferInfo[item[0]] = event.target.value;
+                        setFileInfo(bufferInfo);
+                    }} />
+                ))}
                 <ButtonGroup fullWidth>
-                    {file !== "__UnReaded__" && <Button variant="contained" onClick={async event => {
+                    {files.length !== 0 && <Button variant="contained" onClick={async event => {
                         const id = await db.extendedTools.put({
                             ...fileInfo,
-                            file,
+                            files,
                             color: fileInfo.color
                         });
                         reset();
@@ -115,7 +120,7 @@ export default function ExtendedManager() {
                         <Stack direction="row" divider={<Divider orientation="vertical" flexItem />} spacing={2}>
                             <Stack direction="row" spacing={1}>
                                 <Box>
-                                    <Image src={single.icon} alt={single.name} height={24} width={24} />
+                                    <Image src={`/extendedfiles/${single.to}/${single.icon}`} alt={single.name} height={24} width={24} />
                                 </Box>
                                 <Box>
                                     <Typography>
@@ -133,7 +138,7 @@ export default function ExtendedManager() {
                             </Box>
                         </Stack>
                         <IconButton onClick={event => {
-                            setFile(single.file);
+                            setFiles(single.files);
                             setFileInfo({
                                 ...single
                             });
@@ -168,21 +173,23 @@ export default function ExtendedManager() {
                     files={fileArray as unknown as FilePondServerConfigProps["files"]}
                     onupdatefiles={files => {
                         setFileArray(files);
-                        var reader = new FileReader();
+                        const reader = new FileReader();
                         reader.onload = function () {
-                            const parsedFile = new DOMParser().parseFromString(reader.result as string, "text/html"),
-                                getMetaInfo = (name: string) => {
-                                    var content = parsedFile.getElementsByTagName("meta")[`nt:${name}`].content;
-                                    parsedFile.getElementsByTagName("meta")[`nt:${name}`].remove();
-                                    return content;
-                                };
-                            var metaData: NXTMetadata = emptyNXTMetadata;
-                            ["name", "to", "desc", "icon", "color"].forEach((item: string) => metaData[item] = getMetaInfo(item));
-                            metaData.color = JSON.parse(metaData.color as unknown as string);
-                            setFileInfo(emptyNXTMetadata);
-                            setFile(new XMLSerializer().serializeToString(parsedFile));
+                            const fs = new Filesystem(new Uint8Array(reader.result as ArrayBuffer));
+                            const dir = fs.readdirSync("/").filter(item => item !== "package.json");
+                            const main = JSON.parse(fs.readFileSync("package.json", true));
+                            setFileInfo({
+                                name: main.name,
+                                to: main.to,
+                                desc: main.description,
+                                icon: main.icon,
+                                color: main.color
+                            });
+                            var stageFiles: [string, Uint8Array][] = [];
+                            dir.forEach(item => stageFiles.push([item, fs.readFileSync(item)]));
+                            setFiles(stageFiles);
                         };
-                        reader.readAsText(files[0].file);
+                        reader.readAsArrayBuffer(files[0].file);
                     }}
                     allowMultiple={true}
                     maxFiles={1}

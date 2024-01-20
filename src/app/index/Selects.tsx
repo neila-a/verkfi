@@ -62,16 +62,18 @@ export default function Selects(props: {
     searchTools(search: string): void;
     modifyClickCount(value: number | "++"): void;
 }) {
-    const extendedTools = useLiveQuery(() => db.extendedTools.toArray()), convertedExtendedTools: tool[] = extendedTools?.map(single => ({
-        name: single.name,
-        to: `/extendedTools?id=${single.to}` as Lowercase<string>,
-        desc: single.desc,
-        icon: () => <Image src={single.icon} alt={single.name} height={24} width={24} />,
-        color: single.color as [Hex.Hex, Hex.Hex],
-        isGoto: true
-    })), {
-        list, setList, setTools, searchTools, searchText, setSearchText, sortingFor, setSortingFor, setEditing
-    } = props,
+    const extendedTools = useLiveQuery(() => db.extendedTools.toArray()),
+        convertedExtendedTools: tool[] = extendedTools?.map(single => ({
+            name: single.name,
+            to: `/extendedTools?id=${single.to}` as Lowercase<string>,
+            desc: single.desc,
+            icon: () => <Image src={`/extendedfiles/${single.to}/${single.icon}`} alt={single.name} height={24} width={24} />,
+            color: single.color as [Hex.Hex, Hex.Hex],
+            isGoto: true
+        })),
+        {
+            list, setList, setTools, searchTools, searchText, setSearchText, sortingFor, setSortingFor, setEditing
+        } = props,
         [dialogOpen, setDialogOpen] = useState<boolean>(false),
         [dialogTools, setDialogTools] = useState<string[]>([]),
         [removeDialogOpen, setRemoveDialogOpen] = useState<boolean>(false),

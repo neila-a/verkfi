@@ -1,0 +1,10 @@
+{
+    "name": "laz_durno_kkehet",
+    "to": "demovxt",
+    "description": "A demo",
+    "icon": "fav.png",
+    "color": [
+        "114514",
+        "191981"
+    ]
+}

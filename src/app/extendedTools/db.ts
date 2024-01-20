@@ -8,7 +8,7 @@ export interface single {
     to: Lowercase<string>;
     icon: string;
     color: [string, string];
-    file: string;
+    files: [string, Uint8Array][];
 }
 class ClassedDexie extends Dexie {
     // 'friends' is added by dexie when declaring the stores()
@@ -16,8 +16,8 @@ class ClassedDexie extends Dexie {
     [dbName]!: Table<single>;
     constructor() {
         super(dbName);
-        this.version(1).stores({
-            [dbName]: 'to, name, desc, to, icon, color, file' // Primary key and indexed props
+        this.version(2).stores({
+            [dbName]: 'to, name, desc, to, icon, color, files' // Primary key and indexed props
         });
     }
 }
