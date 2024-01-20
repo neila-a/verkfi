@@ -1,0 +1,71 @@
+---
+description: 配置你的工具，让Verkfi知道它是什么
+---
+
+# 配置
+
+## package.json
+
+没错，就是npm中使用的package.json。你将在其中编写一些内容，告诉Verkfi除npm需要知道的东西外的其他东西。
+
+{% code title="原始的package.json" lineNumbers="true" fullWidth="true" %}
+````json
+```json
+{
+  "name": "example",
+  "version": "1.0.0",
+  "description": "A example tool.",
+  "main": "index.html",
+  "author": "Example"
+}
+```
+````
+{% endcode %}
+
+{% code title="Verkfi需要的package.json" lineNumbers="true" fullWidth="true" %}
+````json
+```json
+{
+    "name": "example",
+    "to": "example",
+    "description": "A example tool.",
+    "icon": "icon.png",
+    "color": [
+        "000000",
+        "FFFFFF"
+    ]
+}
+```
+````
+{% endcode %}
+
+我想你已经发现，Verkfi的package.json和npm的package.json既有重合，又有不同。这完全不用担心——Verkfi的解析器不会因为你在package.json中放入了npm或别的什么东西需要而Verkfi不需要的字段而报错，它只会读取自己需要的字段。
+
+### 字段说明
+
+name：工具的名称。
+
+icon：工具的图标。
+
+description：工具的描述。
+
+to：工具的路径。在Verkfi内部，工具的路径一般是发挥了ID的作用的，所以它必须是唯一的。
+
+color：工具的颜色。当用户开启了“多彩主页”功能时，工具会显示出背景色。
+
+### 示例
+
+![一张工具的效果图](<.gitbook/assets/tool (1).png>)
+
+<pre class="language-json" data-title="图中工具的配置" data-line-numbers data-full-width="true"><code class="lang-json">{
+<strong>    name: "画圆",
+</strong>    to: "cylinder",
+    desc: "根据各种不同的选项画圆",
+<strong>    icon: "AdjustIcon.svg",
+</strong>    color: ["fff1eb", "ace0f9"]
+}
+</code></pre>
+
+#### 注意
+
+* 工具的入口无法定义，只能在index.html
