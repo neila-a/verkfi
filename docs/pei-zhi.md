@@ -51,7 +51,7 @@ color：工具的颜色。当用户开启了“多彩主页”功能时，工具
 
 ### 示例
 
-![一张工具的效果图](<.gitbook/assets/tool (1).png>)
+<figure><img src=".gitbook/assets/tool.png" alt="一张工具的效果图"><figcaption><p>一张工具的效果图</p></figcaption></figure>
 
 {% code title="这个工具的package.json" lineNumbers="true" fullWidth="true" %}
 ```json
