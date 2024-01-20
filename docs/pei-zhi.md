@@ -9,7 +9,6 @@ description: 配置你的工具，让Verkfi知道它是什么
 没错，就是npm中使用的package.json。你将在其中编写一些内容，告诉Verkfi除npm需要知道的东西外的其他东西。
 
 {% code title="原始的package.json" lineNumbers="true" fullWidth="true" %}
-````json
 ```json
 {
   "name": "example",
@@ -19,11 +18,9 @@ description: 配置你的工具，让Verkfi知道它是什么
   "author": "Example"
 }
 ```
-````
 {% endcode %}
 
 {% code title="Verkfi需要的package.json" lineNumbers="true" fullWidth="true" %}
-````json
 ```json
 {
     "name": "example",
@@ -36,7 +33,6 @@ description: 配置你的工具，让Verkfi知道它是什么
     ]
 }
 ```
-````
 {% endcode %}
 
 我想你已经发现，Verkfi的package.json和npm的package.json既有重合，又有不同。这完全不用担心——Verkfi的解析器不会因为你在package.json中放入了npm或别的什么东西需要而Verkfi不需要的字段而报错，它只会读取自己需要的字段。
@@ -57,14 +53,17 @@ color：工具的颜色。当用户开启了“多彩主页”功能时，工具
 
 ![一张工具的效果图](<.gitbook/assets/tool (1).png>)
 
-<pre class="language-json" data-title="图中工具的配置" data-line-numbers data-full-width="true"><code class="lang-json">{
-<strong>    name: "画圆",
-</strong>    to: "cylinder",
+{% code title="这个工具的package.json" lineNumbers="true" fullWidth="true" %}
+```json
+{
+    name: "画圆",
+    to: "cylinder",
     desc: "根据各种不同的选项画圆",
-<strong>    icon: "AdjustIcon.svg",
-</strong>    color: ["fff1eb", "ace0f9"]
+    icon: "AdjustIcon.svg",
+    color: ["fff1eb", "ace0f9"]
 }
-</code></pre>
+```
+{% endcode %}
 
 #### 注意
 
