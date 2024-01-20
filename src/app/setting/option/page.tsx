@@ -125,7 +125,7 @@ export default function Options() {
                     {get("download.下载本应用")}
                 </Button>
                 <Button variant="outlined" startIcon={<HelpIcon />} onClick={event => {
-                    router.push(`${ghURL} wiki`);
+                    router.push("https://neila.gitbook.io/verkfi/");
                 }}>
                     {get("帮助")}
                 </Button>
