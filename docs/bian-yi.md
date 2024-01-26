@@ -10,4 +10,16 @@ Verkfi的扩展工具文件后缀是“VXT”，意为“Verkfi eXtended Tool”
 
 要想将工具打包为VXT，只需用asar打包工具将其打包起来即可。
 
+```bash
+npm install @electron/asar -g
+# foo为要打包的整个目录，bar为文件名（可以相同）
+asar pack foo bar.vxt
+```
+
+或者
+
+<pre class="language-bash"><code class="lang-bash"><strong># foo为要打包的整个目录，bar为文件名（可以相同）
+</strong><strong>npx @electron/asar pack foo bar.vxt
+</strong></code></pre>
+
 就这样，我们的第一个Verkfi工具制作成功了！
