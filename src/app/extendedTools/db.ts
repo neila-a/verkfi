@@ -1,13 +1,11 @@
 import Dexie, {
     Table
 } from 'dexie';
+import {
+    NXTMetadata
+} from '../setting/extendeds/page';
 const dbName = 'extendedTools';
-export interface single {
-    name: string;
-    desc: string;
-    to: Lowercase<string>;
-    icon: string;
-    color: [string, string];
+export interface single extends NXTMetadata {
     files: [string, Uint8Array][];
 }
 class ClassedDexie extends Dexie {
@@ -16,8 +14,8 @@ class ClassedDexie extends Dexie {
     [dbName]!: Table<single>;
     constructor() {
         super(dbName);
-        this.version(2).stores({
-            [dbName]: 'to, name, desc, to, icon, color, files' // Primary key and indexed props
+        this.version(3).stores({
+            [dbName]: 'to, name, desc, to, icon, color, main, files' // Primary key and indexed props
         });
     }
 }
