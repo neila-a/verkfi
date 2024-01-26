@@ -6,6 +6,7 @@ import {
 import {
     SyncProblem as SyncProblemIcon
 } from "@mui/icons-material";
+import { get } from "react-intl-universal";
 export default function ToolsNotFound() {
     return (
         <Box sx={{
@@ -19,7 +20,7 @@ export default function ToolsNotFound() {
                 fontSize: "500%"
             }} />
             <Typography>
-                未找到任何工具
+                {get("index.notfound")}
             </Typography>
         </Box>
     );

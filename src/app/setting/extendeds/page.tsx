@@ -49,7 +49,8 @@ const emptyNXTMetadata: NXTMetadata = {
 }
 import {
     Add as AddIcon,
-    Edit as EditIcon
+    Edit as EditIcon,
+    SyncProblem as SyncProblemIcon
 } from "@mui/icons-material";
 import {
     useLiveQuery
@@ -112,7 +113,17 @@ export default function ExtendedManager() {
                 {get('extensions.扩展')}
             </Typography>
             <Stack spacing={2}>
-                {extendedTools?.map(single => <Paper sx={{
+                {extendedTools?.length === 0 ? <Box sx={{
+                    color: theme => theme.palette.text.disabled,
+                    textAlign: "center"
+                }}>
+                    <SyncProblemIcon sx={{
+                        fontSize: "500%"
+                    }} />
+                    <Typography>
+                        {get("extensions.未找到任何扩展")}
+                    </Typography>
+                </Box> : extendedTools?.map(single => <Paper sx={{
                     padding: 2
                 }} key={single.to}>
                     <Box sx={{

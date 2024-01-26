@@ -31,12 +31,16 @@ import {
     FormControlLabel,
     FormGroup,
     ImageList,
-    ImageListItem
+    ImageListItem,
+    Box
 } from "@mui/material";
 import {
     styled
 } from '@mui/material/styles';
 import LpLogger from "lp-logger";
+import {
+    SyncProblem as SyncProblemIcon
+} from '@mui/icons-material';
 import destroyer from "../../components/destroyer";
 var logger = new LpLogger({
     name: get('滤镜'),
@@ -158,7 +162,17 @@ export default function Filter(): JSX.Element {
                     </Grid>
                 </Grid>
             </>
-            <ImageList>
+            {imageTypes.length === 0 ? <Box sx={{
+                color: theme => theme.palette.text.disabled,
+                textAlign: "center"
+            }}>
+                <SyncProblemIcon sx={{
+                    fontSize: "500%"
+                }} />
+                <Typography>
+                    {get("filter.没有任何已生成的图片")}
+                </Typography>
+            </Box> : <ImageList>
                 {imageTypes.map((type) => (
                     <ImageListItem key={type}>
                         <img title={type} key={type} className={`${style[type]} ${style["image"]}`} src={imageBase64} id={type} alt={type} style={{
@@ -171,7 +185,7 @@ export default function Filter(): JSX.Element {
                         }} />
                     </ImageListItem>
                 ))}
-            </ImageList>
+            </ImageList>}
         </>
     );
 };
