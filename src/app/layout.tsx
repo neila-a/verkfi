@@ -16,7 +16,6 @@ export async function generateMetadata() {
             "msapplication-navbutton-color": "#1976d2",
             "msapplication-starturl": "/",
         },
-        themeColor: "#1976d2",
         icons: "/image/favicon.png",
         appleWebApp: {
             title: upperName
@@ -44,6 +43,14 @@ export async function generateMetadata() {
             ]
         }
     }) as Metadata;
+}
+import {
+    Viewport
+} from "next";
+export function generateViewport(): Viewport {
+    return {
+        themeColor: "#1976d2",
+    }
 }
 import '@fontsource/ubuntu/300.css';
 import '@fontsource/ubuntu/400.css';

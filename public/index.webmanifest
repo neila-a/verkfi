@@ -9,28 +9,10 @@
     "theme_color": "#2196f3",
     "icons": [
         {
-            "src": "/image/favicon_192x192.png",
-            "sizes": "192x192",
+            "src": "/image/favicon.310x310.png",
+            "sizes": "310x310",
             "type": "image/png",
             "purpose": "any"
-        },
-        {
-            "src": "/image/favicon_192x192.png",
-            "sizes": "192x192",
-            "type": "image/png",
-            "purpose": "maskable"
-        },
-        {
-            "src": "/image/favicon_512x512.png",
-            "sizes": "512x512",
-            "type": "image/png",
-            "purpose": "any"
-        },
-        {
-            "src": "/image/favicon_512x512.png",
-            "sizes": "512x512",
-            "type": "image/png",
-            "purpose": "maskable"
         }
     ],
     "shortcuts": [
@@ -42,7 +24,7 @@
             "icons": [
                 {
                     "src": "/image/settings.png",
-                    "sizes": "75x75"
+                    "sizes": "96x96"
                 }
             ]
         }
@@ -69,5 +51,21 @@
     ],
     "edge_side_panel": {
         "preferred_width": 320
-    }
+    },
+    "screenshots": [
+        {
+            "src": "image/screenshots/narrow_homepage.png",
+            "sizes": "430x933",
+            "type": "image/png",
+            "form_factor": "narrow",
+            "label": "Home of Verkfi"
+        },
+        {
+            "src": "image/screenshots/wide_homepage.png",
+            "sizes": "1505x782",
+            "type": "image/png",
+            "form_factor": "wide",
+            "label": "Home of Verkfi"
+        }
+    ]
 }
