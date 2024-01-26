@@ -31,19 +31,21 @@ import {
 /**
  * In PluginDevelpmenting.md
  */
-interface NXTMetadata {
+export interface NXTMetadata {
     name: string;
     to: Lowercase<string>;
     desc: string;
     icon: string;
     color: [string, string];
+    main: string;
 }
 const emptyNXTMetadata: NXTMetadata = {
     name: "",
     desc: "",
     to: "",
     icon: "",
-    color: ["", ""]
+    color: ["", ""],
+    main: ""
 }
 import {
     Add as AddIcon,
@@ -76,7 +78,7 @@ export default function ExtendedManager() {
     }) {
         return (
             <>
-                {[["name", "名称"], ["to", "ID"], ["desc", "描述"], ["icon", "图标"], ["color", "背景色"]].map(item => (
+                {[["name", "名称"], ["to", "ID"], ["desc", "描述"], ["icon", "图标"], ["color", "背景色"], ["main", "入口"]].map(item => (
                     <TextField key={item[0]} margin="dense" value={fileInfo[item[0]]} label={get(item[1])} fullWidth variant="outlined" onChange={event => {
                         var bufferInfo: NXTMetadata = JSON.parse(JSON.stringify(fileInfo));
                         bufferInfo[item[0]] = event.target.value;
@@ -183,7 +185,8 @@ export default function ExtendedManager() {
                                 to: main.to,
                                 desc: main.description,
                                 icon: main.icon,
-                                color: main.color
+                                color: main.color,
+                                main: main.main
                             });
                             var stageFiles: [string, Uint8Array][] = [];
                             dir.forEach(item => stageFiles.push([item, fs.readFileSync(item)]));

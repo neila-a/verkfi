@@ -28,7 +28,8 @@ export default function ExtendedTools() {
             to: "",
             icon: "",
             color: ["", ""],
-            files: []
+            files: [],
+            main: ""
         }),
         colorContext = useContext(colorMode),
         color = colorContext.value;
@@ -59,7 +60,7 @@ export default function ExtendedTools() {
             }} component="article" id="container">
                 <iframe style={{
                     border: "none"
-                }} src={`/extendedfiles/${tool.to}/index.html`} />
+                }} src={`/extendedfiles/${tool.to}/${tool.main}`} />
             </Box>
             <section id="outside" />
         </>

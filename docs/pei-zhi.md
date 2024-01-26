@@ -49,6 +49,8 @@ to：工具的路径。在Verkfi内部，工具的路径一般是发挥了ID的�
 
 color：工具的颜色。当用户开启了“多彩主页”功能时，工具会显示出背景色。
 
+main: 工具的入口，例如`index.html`（相对于工具自身的根路径）
+
 ### 示例
 
 <figure><img src=".gitbook/assets/tool.png" alt="一张工具的效果图"><figcaption><p>一张工具的效果图</p></figcaption></figure>
@@ -60,7 +62,8 @@ color：工具的颜色。当用户开启了“多彩主页”功能时，工具
     to: "cylinder",
     desc: "根据各种不同的选项画圆",
     icon: "AdjustIcon.svg",
-    color: ["fff1eb", "ace0f9"]
+    color: ["fff1eb", "ace0f9"],
+    main: "index.html"
 }
 ```
 {% endcode %}
