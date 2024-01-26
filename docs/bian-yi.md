@@ -18,8 +18,9 @@ asar pack foo bar.vxt
 
 或者
 
-<pre class="language-bash"><code class="lang-bash"><strong># foo为要打包的整个目录，bar为文件名（可以相同）
-</strong><strong>npx @electron/asar pack foo bar.vxt
-</strong></code></pre>
+```bash
+# foo为要打包的整个目录，bar为文件名（可以相同）
+npx @electron/asar pack foo bar.vxt
+```
 
 就这样，我们的第一个Verkfi工具制作成功了！
