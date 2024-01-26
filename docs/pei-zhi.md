@@ -30,7 +30,8 @@ description: 配置你的工具，让Verkfi知道它是什么
     "color": [
         "000000",
         "FFFFFF"
-    ]
+    ],
+    "main": "index.html"
 }
 ```
 {% endcode %}
