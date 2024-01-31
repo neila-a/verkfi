@@ -8,7 +8,8 @@ import {
     Extension as ExtensionIcon,
     ViewInAr as ViewInArIcon,
     Adjust as AdjustIcon,
-    Calculate as CalculateIcon
+    Calculate as CalculateIcon,
+    AccountBalance as AccountBalanceIcon
 } from "@mui/icons-material";
 import Image from "next/image";
 import {
@@ -150,6 +151,13 @@ export const getTools = (get: typeof i18n.get): tool[] => {
             desc: get('根据各种不同的选项画圆'),
             icon: AdjustIcon,
             color: [hex("fff1eb"), hex("ace0f9")]
+        },
+        {
+            name: get('pillar.name'),
+            to: "pillar",
+            desc: get('pillar.description'),
+            icon: AccountBalanceIcon,
+            color: [hex("ffe53b"),hex("ff2525")]
         },
         {
             name: get('人生倒计时'),

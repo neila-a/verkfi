@@ -41,6 +41,7 @@ build/Release
 out
 public/service-worker.js
 next.config.js
+*.vxt
 
 # Dependency directories
 node_modules/

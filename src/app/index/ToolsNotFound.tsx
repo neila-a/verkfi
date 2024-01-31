@@ -6,7 +6,9 @@ import {
 import {
     SyncProblem as SyncProblemIcon
 } from "@mui/icons-material";
-import { get } from "react-intl-universal";
+import {
+    get
+} from "react-intl-universal";
 export default function ToolsNotFound() {
     return (
         <Box sx={{
