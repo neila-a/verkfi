@@ -7,7 +7,6 @@ import {
     Divider,
     TextField,
     IconButton,
-    ButtonGroup,
     Box
 } from "@mui/material";
 import {
@@ -58,6 +57,8 @@ import {
 import Image from "next/image";
 import db from "../../extendedTools/db";
 import CheckDialog from "../../components/dialog/CheckDialog";
+import DialogInputs from "./DialogInputs";
+export type inputTypes = "modify" | "add";
 export default function ExtendedManager() {
     var [addDialogOpen, setAddDialogOpen] = useState<boolean>(false),
         [fileArray, setFileArray] = useState<FilePondFile[]>([]),
@@ -73,40 +74,16 @@ export default function ExtendedManager() {
         setFiles([]);
         setFileInfo(emptyNXTMetadata);
     },
-        extendedTools = useLiveQuery(() => db.extendedTools.toArray());
-    function DialogInputs(props: {
-        type: "modify" | "add"
-    }) {
-        return (
-            <>
-                {[["name", "名称"], ["to", "ID"], ["desc", "描述"], ["icon", "图标"], ["color", "背景色"], ["main", "入口"]].map(item => (
-                    <TextField key={item[0]} margin="dense" value={fileInfo[item[0]]} label={get(item[1])} fullWidth variant="outlined" onChange={event => {
-                        var bufferInfo: NXTMetadata = JSON.parse(JSON.stringify(fileInfo));
-                        bufferInfo[item[0]] = event.target.value;
-                        setFileInfo(bufferInfo);
-                    }} />
-                ))}
-                <ButtonGroup fullWidth>
-                    {files.length !== 0 && <Button variant="contained" onClick={async event => {
-                        const id = await db.extendedTools.put({
-                            ...fileInfo,
-                            files,
-                            color: fileInfo.color
-                        });
-                        reset();
-                    }}>
-                        {props.type === "add" ? get("添加") : get("编辑")}
-                    </Button>}
-                    {props.type === "modify" && <Button variant="outlined" onClick={async event => {
-                        setModifyDialogOpen(false);
-                        setRemoveDialogOpen(true);
-                    }}>
-                        {get("删除")}
-                    </Button>}
-                </ButtonGroup>
-            </>
-        );
-    }
+        extendedTools = useLiveQuery(() => db.extendedTools.toArray()),
+        packagedDialogInputs = (type: inputTypes) => <DialogInputs
+            type={type}
+            fileInfo={fileInfo}
+            setFileInfo={setFileInfo}
+            files={files}
+            reset={reset}
+            setModifyDialogOpen={setModifyDialogOpen}
+            setRemoveDialogOpen={setRemoveDialogOpen}
+        />
     return (
         <>
             <Typography variant="h4">
@@ -171,7 +148,7 @@ export default function ExtendedManager() {
             <PureDialog open={modifyDialogOpen} onClose={event => {
                 setModifyDialogOpen(false);
             }} title={get("extensions.编辑扩展")}>
-                <DialogInputs type="modify" />
+                {packagedDialogInputs("modify")}
             </PureDialog>
             <CheckDialog open={removeDialogOpen} title={get("extensions.删除扩展")} description={`${get("extensions.确定删除扩展")}${fileInfo.name}?`} onFalse={() => {
                 reset();
@@ -210,7 +187,7 @@ export default function ExtendedManager() {
                     name="files"
                     labelIdle={get('drag.拖拽扩展到这里')}
                 />
-                <DialogInputs type="add" />
+                {packagedDialogInputs("add")}
             </PureDialog>
         </>
     );
