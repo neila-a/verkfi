@@ -54,7 +54,7 @@ export default function ExtendedTools() {
                     border: "none"
                 }} src={`/extendedfiles/${tool.to}/${tool.main}`} />
             </Box>
-            <section id="outside" />
+            <Box component="article" id="outside" />
         </>
     );
 }

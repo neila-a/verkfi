@@ -34,7 +34,7 @@ export type collocation = [number, number, number, number];
 export default function Pillar(): JSX.Element {
     const [type, setType] = useState<type>(2),
         [length, setLength] = useState<number>(0),
-        pillars = useMemo<collocation[]>(() => [[1, 1, 1, 1]], [type, length]);
+        pillars = useMemo<collocation[]>(() => [[1, 2, 3, 4]], [type, length]);
     return (
         <>
             <FormGroup>

@@ -1,5 +1,6 @@
 "use client";
 import {
+    Box,
     Paper,
     Typography
 } from "@mui/material";
@@ -12,6 +13,7 @@ import {
 import {
     collocation
 } from "./page";
+import CopyButton from "../../components/CopyButton";
 export default function SingleCollocation(props: {
     collocation: collocation;
 }) {
@@ -24,9 +26,18 @@ export default function SingleCollocation(props: {
         }} onMouseLeave={event => {
             setElevation(2); // reset to default
         }}>
-            {props.collocation.map((value, index) => <Typography sx={{
-                mb: index === 1 ? 1 : ""
-            }} key={index}>{get(`pillar.collocationShow.${index}`)}: {value}</Typography>)}
+            {props.collocation.map((value, index) => (
+                <Box key={index} display="flex" alignItems="center">
+                    <Typography sx={{
+                        mb: index === 1 ? 1 : ""
+                    }}>
+                        {get(`pillar.collocationShow.${index}`)}: {value}
+                    </Typography>
+                    <CopyButton onlyIcon>
+                        {value.toString()}
+                    </CopyButton>
+                </Box>
+            ))}
         </Paper>
     );
 }
