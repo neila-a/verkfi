@@ -14,9 +14,9 @@ import {
     Box
 } from "@mui/material";
 import dynamic from 'next/dynamic';
+const AlertDialog = dynamic(() => import("../../components/dialog/AlertDialog"));
 import calc from './generatePis';
 import CopyButton from '../../components/CopyButton';
-export const AlertDialog = dynamic(() => import("../../components/dialog/AlertDialog"));
 function PI(): JSX.Element {
     const [weishu, setWeishu] = useState<number>(1),
         [useAlertShow, setUseAlertShow] = useState<boolean>(false),

@@ -18,28 +18,34 @@ import {
     get
 } from "react-intl-universal";
 import SingleCollocation from "./SingleCollocation";
-type type = 0 | 1 | 2;
+import calcPillars from "./calcPillars";
+/**
+ * 0：只有中间有柱子  
+ * 1：一端和中间有柱子  
+ * 2：两端和中间有柱子
+ */
+export type type = 0 | 1 | 2;
 /**
  * 0：间隔  
  * 1：柱子
  */
 const examples: (0 | 1)[][] = [[0, 1, 0], [1, 0, 1, 0], [1, 0, 1]];
 /**
- * 0：柱子长度
- * 1：柱子个数
- * 2：间隔长度
+ * 0：柱子长度  
+ * 1：柱子个数  
+ * 2：间隔长度  
  * 3：间隔个数
  */
 export type collocation = [number, number, number, number];
 export default function Pillar(): JSX.Element {
     const [type, setType] = useState<type>(2),
         [length, setLength] = useState<number>(0),
-        pillars = useMemo<collocation[]>(() => [[1, 2, 3, 4]], [type, length]);
+        pillars = useMemo<collocation[]>(() => calcPillars(type, length), [type, length]);
     return (
         <>
             <FormGroup>
                 <FormControl sx={{
-                    mb: "9px"
+                    mb: 2
                 }}>
                     <TextField
                         value={length}

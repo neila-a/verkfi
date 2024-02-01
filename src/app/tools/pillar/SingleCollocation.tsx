@@ -19,8 +19,9 @@ export default function SingleCollocation(props: {
 }) {
     const [elevation, setElevation] = useState<number>(2);
     return (
-        <Paper sx={{
-            p: 2
+        <Paper component="section" sx={{
+            p: 2,
+            mb: 2
         }} elevation={elevation} onMouseEnter={event => {
             setElevation(8);
         }} onMouseLeave={event => {
