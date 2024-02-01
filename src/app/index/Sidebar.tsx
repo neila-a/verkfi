@@ -11,7 +11,8 @@ import {
     Paper,
     Drawer,
     Toolbar,
-    useTheme
+    useTheme,
+    Box
 } from "@mui/material";
 import {
     Search as SearchIcon
@@ -114,7 +115,7 @@ export default function Sidebar(props: {
                     props.setShow("home");
                     setSortingFor("__home__");
                 }} editButton={<></>} />}
-                <div onClick={event => {
+                <Box onClick={event => {
                     props.setShow("tools");
                     props.setExpand(true);
                     if (clickCount === 1) {
@@ -144,7 +145,7 @@ export default function Sidebar(props: {
                             }
                         }}
                     />
-                </div>
+                </Box>
             </Center>
             <Buttons
                 editMode={editMode}

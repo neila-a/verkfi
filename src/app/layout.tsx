@@ -60,6 +60,7 @@ import 'filepond/dist/filepond.min.css'; // Import FilePond styles
 import style from "./layout/Layout.module.scss";
 import pack from "../../package.json";
 import {
+    Box,
     Typography
 } from "@mui/material";
 import Loading from "./loading";
@@ -83,7 +84,7 @@ export default async function Layout({
                         </Typography>
                     </Loading>
                 </noscript>
-                <div className={style["fullHeight"]}>
+                <Box className={style["fullHeight"]}>
                     <Suspense fallback={<Loading />}> {/* 阻止整个页面坠落到客户端模式 */}
                         <WindowsProvider>
                             <BaseLayout>
@@ -91,7 +92,7 @@ export default async function Layout({
                             </BaseLayout>
                         </WindowsProvider>
                     </Suspense>
-                </div>
+                </Box>
             </body>
         </html>
     )

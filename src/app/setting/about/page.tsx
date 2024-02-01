@@ -58,13 +58,14 @@ export default function About() {
         [dialogOpen, setDialogOpen] = useState<boolean>(false),
         [dialogContext, setDialogContext] = useState<ReactNode>(""),
         [dialogTitle, setDialogTitle] = useState<string>(""),
+        year = new Date().getFullYear(),
         [addressInfo, setAddressInfo] = useState<typeof initialAddressInfo>(initialAddressInfo);
     const abouts = {
         law: {
             icon: CopyrightIcon,
             name: get("infos.法律信息"),
-            context: <Typography>
-                ©Copyleft ! 2022-{new Date().getFullYear()}， Neila
+            context: <Typography component="p">
+                ©Copyleft ! <time dateTime="2022">2022</time>-<time dateTime={year.toString()}>{year}</time>， Neila
                 <br />
                 {get('copyright.本程序从未提供品质担保。')}
                 <br />
@@ -133,18 +134,25 @@ export default function About() {
             <Typography variant='h4'>
                 {get('关于')}
             </Typography>
-            <div className={style["title"]}>
+            <Box className={style["title"]}>
                 <VerkfiIcon sx={{
                     fontSize: "2.125rem"
                 }} />
                 <Typography variant="h4" sx={{
                     fontWeight: 300
                 }}>Verkfi</Typography>
-            </div>
-            <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+            </Box>
+            <Grid container spacing={{
+                xs: 2,
+                md: 3
+            }} columns={{
+                xs: 4,
+                sm: 8,
+                md: 12
+            }}>
                 {Object.values(abouts).map((item, index) => (
                     <Grid item xs={2} sm={4} md={4} key={Object.keys(abouts).filter(single => abouts[single] === item)[0]}>
-                        <Box style={{
+                        <Box sx={{
                             cursor: "pointer"
                         }} onClick={event => {
                             setDialogContext(item.context);

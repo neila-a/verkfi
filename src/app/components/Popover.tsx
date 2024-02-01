@@ -36,13 +36,13 @@ export default function MouseOverPopover(props: {
         open = Boolean(anchorEl);
     return (
         <Box sx={props.sx ? props.sx : {}}>
-            <div
+            <Box
                 aria-haspopup="true"
                 onMouseEnter={handlePopoverOpen}
                 onMouseLeave={handlePopoverClose}
             >
                 {props.children}
-            </div>
+            </Box>
             <Popover
                 id="mouse-over-popover"
                 sx={{

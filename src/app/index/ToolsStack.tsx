@@ -88,22 +88,22 @@ export default function ToolsStack(props: {
                     <Droppable droppableId="toolslist" isDropDisabled={!props.editMode}>
                         {provided => {
                             return (
-                                <div ref={provided.innerRef} {...provided.droppableProps}>
+                                <Box ref={provided.innerRef} {...provided.droppableProps}>
                                     <TransitionGroup>
                                         {props.paramTool.map((tool, index) => (
                                             <Collapse key={tool.to}>
                                                 <Draggable draggableId={tool.to} index={index}>
                                                     {provided => (
-                                                        <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                                        <Box ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                                                             <Insert index={index} tool={tool} />
-                                                        </div>
+                                                        </Box>
                                                     )}
                                                 </Draggable>
                                             </Collapse>
                                         ))}
                                     </TransitionGroup>
                                     {provided.placeholder}
-                                </div>
+                                </Box>
                             );
                         }}
                     </Droppable>

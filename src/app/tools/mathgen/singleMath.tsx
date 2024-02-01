@@ -7,7 +7,8 @@ import {
 } from "react";
 import {
     Typography,
-    TextField
+    TextField,
+    Box
 } from "@mui/material";
 import style from "./SingleMath.module.scss";
 export default function SingleMath(props: {
@@ -20,16 +21,16 @@ export default function SingleMath(props: {
             showOut
         } = props;
     return (
-        <div className={style["single"]}>
+        <Box className={style["single"]}>
             <Typography>{math.replace(/=.*/g, "")}</Typography>
-            <div className={style["out"]}>
+            <Box className={style["out"]}>
                 <TextField label={get('结果')} type="number" InputLabelProps={{
                     shrink: true,
                 }} error={isError} onChange={event => {
                     setError((event.currentTarget.value == math.replace(/.*=/g, "")) ? false : true);
                 }} />
                 {showOut == true ? <Typography>{get('答案：')}{math.replace(/.*=/g, "")}</Typography> : <Fragment />}
-            </div>
-        </div>
+            </Box>
+        </Box>
     );
 }

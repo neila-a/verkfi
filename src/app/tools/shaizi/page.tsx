@@ -7,6 +7,7 @@ import React, {
     useState
 } from "react";
 import {
+    Box,
     Button,
     TextField
 } from "@mui/material";
@@ -20,7 +21,7 @@ function ShaiZi(): JSX.Element {
     const [useDialogShow, setUseDialogShow] = useState<boolean>(false),
         [cishu, setCishu] = useState<number>(1);
     return (
-        <div className={style["allWidth"]}>
+        <Box className={style["allWidth"]}>
             <Center>
                 <ShaiZiCanvas cishu={cishu} setCishu={setCishu} />
                 <br />
@@ -37,7 +38,7 @@ function ShaiZi(): JSX.Element {
             <FullScreenDialog open={useDialogShow} title={get('shaizi.掷色子（全屏模式）')} onDone={() => {
                 setUseDialogShow(false);
             }} context={<ShaiZiCanvas cishu={cishu} setCishu={setCishu} />} />
-        </div>
+        </Box>
     );
 };
 export default ShaiZi;

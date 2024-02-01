@@ -156,9 +156,9 @@ export default function Selects(props: {
                                     return props.editMode ? (
                                         <Draggable draggableId={single[0]} index={index} key={single[0]}>
                                             {provided => (
-                                                <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                                <Box ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                                                     {realSelect(value, false)}
-                                                </div>
+                                                </Box>
                                             )}
                                         </Draggable>
                                     ) : realSelect(value, false);

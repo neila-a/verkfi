@@ -124,7 +124,7 @@ export default function SingleTool(props: {
                         setElevation(2); // reset to default
                     }}>
                         <CardContent>
-                            <div className={viewMode == "list" ? Style["singleList"] : ""} onClick={() => {
+                            <Box className={viewMode == "list" ? Style["singleList"] : ""} onClick={() => {
                                 logger.info(`点击了${tool.name}`);
                                 if (tool.isGoto) {
                                     if (tool.to.startsWith("/extendedTools")) {
@@ -164,9 +164,9 @@ export default function SingleTool(props: {
                                 }
                             }}>
                                 {viewMode == "grid" ? <Box>
-                                    <div className={Style["singleGridIcon"]}>
+                                    <Box className={Style["singleGridIcon"]}>
                                         <ToolIcon />
-                                    </div>
+                                    </Box>
                                     <Box>
                                         <ToolTypography variant="h5">
                                             {db}
@@ -179,10 +179,10 @@ export default function SingleTool(props: {
                                         </ToolTypography>
                                     </Box>
                                 </Box> : <>
-                                    <div className={Style["singleListText"]}>
-                                        <div className={Style["singleListIcon"]}>
+                                    <Box className={Style["singleListText"]}>
+                                        <Box className={Style["singleListIcon"]}>
                                             <ToolIcon />
-                                        </div>
+                                        </Box>
                                         <Box>
                                             <ToolTypography variant="h5">
                                                 {(tool.isGoto && !tool.to.startsWith("/extendedTools")) ? <ExitToAppIcon /> : <></>}
@@ -192,12 +192,12 @@ export default function SingleTool(props: {
                                                 {tool.desc}
                                             </ToolTypography>
                                         </Box>
-                                    </div>
+                                    </Box>
                                     <Box>
                                         {editMode && <DragIndicatorIcon />}
                                     </Box>
                                 </>}
-                            </div>
+                            </Box>
                             {props.isFirst && <iframe style={{
                                 border: "none",
                                 width: "100%"

@@ -5,7 +5,8 @@ import {
 	AppBar,
 	Toolbar,
 	IconButton,
-	Typography
+	Typography,
+	Box
 } from "@mui/material";
 import {
 	useRouter
@@ -128,7 +129,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 				</nav>
 			</Toolbar>
 		</AppBar>
-		{stringToBoolean(forkMeOnGithub.value) ? <div className={style["github-ribbon"]} style={{
+		{stringToBoolean(forkMeOnGithub.value) ? <Box className={style["github-ribbon"]} sx={{
 			...noDrag,
 			...props.isIndex ? {
 				left: "0px"
@@ -143,7 +144,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 				transform: "rotate(45deg)",
 				right: "-40px"
 			}}>Fork me on GitHub</a>
-		</div> : <Fragment />}
+		</Box> : <Fragment />}
 		<Toolbar />
 	</>;
 };

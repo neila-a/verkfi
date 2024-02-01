@@ -57,15 +57,15 @@ export default function Window(props: WindowOptions): JSX.Element {
             width: `${size[1]}vw`
         };
     return open && (
-        <article>
+        <Box component="article">
             <Draggable handle={`#title${id}`} cancel={`[class*="context${id}"]`} allowAnyClick nodeRef={nodeRef} defaultClassName={style["top0"]}>
-                <div className={style["outer"]} ref={nodeRef} style={sizeStyle}>
-                    <div className={style["top"]} style={realSx}>
-                        <div className={style["title"]} id={`title${id}`}>
+                <Box className={style["outer"]} ref={nodeRef} style={sizeStyle}>
+                    <Box className={style["top"]} style={realSx}>
+                        <Box className={style["title"]} id={`title${id}`}>
                             <Typography variant="subtitle1">
                                 {props.name}
                             </Typography>
-                        </div>
+                        </Box>
                         {extended ? (
                             <>
                                 <IconButton aria-label="collapse" edge="end" onClick={event => setExtended(false)}>
@@ -89,14 +89,14 @@ export default function Window(props: WindowOptions): JSX.Element {
                                 <ArrowBackIosIcon />
                             </IconButton>
                         )}
-                    </div>
+                    </Box>
                     <Divider />
                     <iframe style={{
                         border: "none",
                         ...sizeStyle
                     }} src={props.page} />
-                </div>
+                </Box>
             </Draggable>
-        </article>
+        </Box>
     );
 }
