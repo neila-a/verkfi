@@ -21,10 +21,10 @@ export default function InputDialog(props: {
     onDone(context: string): any;
     open: boolean;
 }) {
-    const [input, setInput] = useState<string>("");
-    const handleClose = () => {
-        props.onDone(input);
-    };
+    const [input, setInput] = useState<string>(""),
+        handleClose = () => {
+            props.onDone(input);
+        };
     return (
         <Dialog open={props.open} onClose={handleClose} TransitionComponent={Transition} keepMounted>
             <DialogTitle>{props.title}</DialogTitle>

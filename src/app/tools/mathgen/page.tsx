@@ -29,7 +29,7 @@ import {
     SyncProblem as SyncProblemIcon
 } from '@mui/icons-material';
 function MathGen(): JSX.Element {
-    var [min, setMin] = useState<number>(0),
+    const [min, setMin] = useState<number>(0),
         [max, setMax] = useState<number>(10),
         [itemCount, setItemCount] = useState<number>(20),
         [maths, setMath] = useState<string[]>([]),
@@ -39,8 +39,8 @@ function MathGen(): JSX.Element {
         [calcs, setCalcs] = useState<calc[]>([
             "+",
             "-"
-        ]);
-    const packagedCalcMath = () => calcMath(calcs, subtractionCheck, divisionCheck, max, min, itemCount, setMath);
+        ]),
+        packagedCalcMath = () => calcMath(calcs, subtractionCheck, divisionCheck, max, min, itemCount, setMath);
     useEffect(packagedCalcMath, [
         min,
         max,

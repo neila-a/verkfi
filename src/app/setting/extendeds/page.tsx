@@ -60,20 +60,20 @@ import CheckDialog from "../../components/dialog/CheckDialog";
 import DialogInputs from "./DialogInputs";
 export type inputTypes = "modify" | "add";
 export default function ExtendedManager() {
-    var [addDialogOpen, setAddDialogOpen] = useState<boolean>(false),
+    const [addDialogOpen, setAddDialogOpen] = useState<boolean>(false),
         [fileArray, setFileArray] = useState<FilePondFile[]>([]),
         [fileInfo, setFileInfo] = useState<NXTMetadata>(emptyNXTMetadata),
         [files, setFiles] = useState<[string, Uint8Array][]>([]),
         [removeDialogOpen, setRemoveDialogOpen] = useState<boolean>(false),
-        [modifyDialogOpen, setModifyDialogOpen] = useState<boolean>(false);
-    const reset = () => {
-        setAddDialogOpen(false);
-        setModifyDialogOpen(false);
-        setRemoveDialogOpen(false);
-        setFileArray([]);
-        setFiles([]);
-        setFileInfo(emptyNXTMetadata);
-    },
+        [modifyDialogOpen, setModifyDialogOpen] = useState<boolean>(false),
+        reset = () => {
+            setAddDialogOpen(false);
+            setModifyDialogOpen(false);
+            setRemoveDialogOpen(false);
+            setFileArray([]);
+            setFiles([]);
+            setFileInfo(emptyNXTMetadata);
+        },
         extendedTools = useLiveQuery(() => db.extendedTools.toArray()),
         packagedDialogInputs = (type: inputTypes) => <DialogInputs
             type={type}

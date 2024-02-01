@@ -52,7 +52,7 @@ export default function About() {
         port: "",
         protocol: ""
     };
-    var [cacheUsed, setCacheUsed] = useState<number>(1),
+    const [cacheUsed, setCacheUsed] = useState<number>(1),
         [cacheAll, setCacheAll] = useState<number>(2),
         [load, setLoad] = useState<boolean>(false),
         [dialogOpen, setDialogOpen] = useState<boolean>(false),

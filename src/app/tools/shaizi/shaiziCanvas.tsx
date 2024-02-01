@@ -17,15 +17,15 @@ export function ShaiZiCanvas(props: {
     cishu: number;
     setCishu: setState<number>;
 }): JSX.Element {
+    const [lastNum, setLastNum] = useState<number>(0),
+        canvas = useRef();
     var leftX: number = 150,
         topY: number = 100,
         diceX: number = 80,
         diceY: number = 80,
         dotR: number = 4,
         count: number = 0,
-        [lastNum, setLastNum] = useState<number>(0),
-        flag: boolean = false,
-        canvas = useRef();
+        flag: boolean = false;
     function clickMe(): boolean | void {
         logger.log("已开始掷骰子。");
         count = 0;

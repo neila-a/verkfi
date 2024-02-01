@@ -21,7 +21,7 @@ var logger = new LpLogger({
 import table from "./table";
 type numberType = 2 | 8 | 10 | 16;
 function CountLetter(): JSX.Element {
-    var [enterDialogOpen, setEnterDialogOpen] = useState<boolean>(false),
+    const [enterDialogOpen, setEnterDialogOpen] = useState<boolean>(false),
         [alertDialogOpen, setAlertDialogOpen] = useState<boolean>(false),
         [out, setOut] = useState<string>(""),
         [numberType, setNumberType] = useState<numberType>(10);

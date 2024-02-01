@@ -51,11 +51,11 @@ export default function Window(props: WindowOptions): JSX.Element {
         nodeRef = useRef<HTMLDivElement>(null),
         [size, setSize] = useState<[number, number]>([50, 50]), /* height, width */
         [extended, setExtended] = useState<boolean>(false),
-        [type, setType] = useState<"normal" | "min">("normal");
-    const sizeStyle: CSSProperties = {
-        height: `${size[0]}vh`,
-        width: `${size[1]}vw`
-    };
+        [type, setType] = useState<"normal" | "min">("normal"),
+        sizeStyle: CSSProperties = {
+            height: `${size[0]}vh`,
+            width: `${size[1]}vw`
+        };
     return open && (
         <article>
             <Draggable handle={`#title${id}`} cancel={`[class*="context${id}"]`} allowAnyClick nodeRef={nodeRef} defaultClassName={style["top0"]}>

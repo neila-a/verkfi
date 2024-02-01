@@ -58,20 +58,20 @@ import {
     FilePondServerConfigProps
 } from 'filepond';
 export default function Filter(): JSX.Element {
-    var [imageArray, setImageArray] = useState<FilePondFile[]>([]);
-    var [imageFileName, setImageFileName] = useState<string>("libear-only");
-    var [imageBase64, setImageBase64] = useState<string>("/image/libear-only.png");
-    var [imageTypes, setImageTypes] = useState<ImageType[]>(ImageTypesGen);
-    var [scale, setScale] = useState<number>(100);
-    const handleSliderChange = (event: Event, newValue: number) => setScale(newValue);
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => setScale(Number(event.target.value));
-    const handleBlur = () => {
-        if (scale < 0) {
-            setScale(0);
-        } else if (scale > 200) {
-            setScale(200);
-        }
-    };
+    const [imageArray, setImageArray] = useState<FilePondFile[]>([]),
+        [imageFileName, setImageFileName] = useState<string>("libear-only"),
+        [imageBase64, setImageBase64] = useState<string>("/image/libear-only.png"),
+        [imageTypes, setImageTypes] = useState<ImageType[]>(ImageTypesGen),
+        [scale, setScale] = useState<number>(100),
+        handleSliderChange = (event: Event, newValue: number) => setScale(newValue),
+        handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => setScale(Number(event.target.value)),
+        handleBlur = () => {
+            if (scale < 0) {
+                setScale(0);
+            } else if (scale > 200) {
+                setScale(200);
+            }
+        };
     registerPlugin(FilePondPluginFileRename, FilePondPluginImagePreview, FilePondPluginImageResize, FilePondPluginImageEdit, FilePondPluginImageCrop); // Register the plugin
     return (
         <>

@@ -27,7 +27,7 @@ var logger = new LpLogger({
 import destroyer from "../../components/destroyer";
 import CopyButton from '../../components/CopyButton';
 function Reversal(): JSX.Element {
-    var [wordList, setWordList] = useState<[string, number][]>([]),
+    const [wordList, setWordList] = useState<[string, number][]>([]),
         [words, setWords] = useState<string>(""),
         [output, setOutput] = useState<string>(""),
         [showSplitDialog, setShowSplitDialog] = useState<boolean>(false);

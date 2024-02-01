@@ -43,7 +43,7 @@ const PureDialog = dynamic(() => import("../../components/dialog/PureDialog")),
     ghURL = "https://github.com/neila-a/verkfi/";
 export type option = [Context<any>, string];
 export default function Options() {
-    var lang = useContext(langContext),
+    const lang = useContext(langContext),
         [dialogOpen, setDialogOpen] = useState<boolean>(false),
         router = useRouter();
     return (

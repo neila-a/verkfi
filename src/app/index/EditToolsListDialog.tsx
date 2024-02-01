@@ -39,18 +39,17 @@ export default function EditToolsListDialog(props: {
     const {
         dialogTools, setDialogTools, dialogListName, setDialogListName, setDialogOpen
     } = props,
+        [list, setList] = useState<lists>(() => {
+            const defaultList: lists = [],
+                defaultListJSON = JSON.stringify(defaultList),
+                realListJSON = checkOption("lists", "集合列表", defaultListJSON),
+                lists = realListJSON || defaultListJSON;
+            return JSON.parse(lists) as lists;
+        }),
         edit = (forList: lists) => forList.some(single => single[0] === dialogListName),
+        createOrEdit = !edit(list) ? get("category.创建分类") : get("category.编辑分类"),
         [toolsList, setToolsList] = useState(getToolsList(getTools(get)));
-    var [list, setList] = useState<lists>(() => {
-        const defaultList: lists = [],
-            defaultListJSON = JSON.stringify(defaultList),
-            realListJSON = checkOption("lists", "集合列表", defaultListJSON),
-            lists = realListJSON || defaultListJSON;
-        return JSON.parse(lists) as lists;
-    }),
-        right = toolsList.map(atool => atool.name),
-        createOrEdit = !edit(list) ? get("category.创建分类") : get("category.编辑分类");
-    right = right.filter(v => props.left.every(val => val !== v));
+    var right = toolsList.map(atool => atool.name).filter(v => props.left.every(val => val !== v));
     return (
         <PureDialog open={props.open} title={createOrEdit} onClose={() => {
             setDialogTools([]);

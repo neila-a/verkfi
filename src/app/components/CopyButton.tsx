@@ -20,7 +20,9 @@ export default function CopyButton(props: {
     children: string;
     add?: ButtonOwnProps;
 }) {
-    const [showCopyDoneDialog, setShowCopyDoneDialog] = useState<boolean>(false), [copyError, setCopyError] = useState<string>(""), [showCopyErrorDialog, setShowCopyErrorDialog] = useState<boolean>(false);
+    const [showCopyDoneDialog, setShowCopyDoneDialog] = useState<boolean>(false),
+        [copyError, setCopyError] = useState<string>(""),
+        [showCopyErrorDialog, setShowCopyErrorDialog] = useState<boolean>(false);
     return (
         <>
             <Button {...props.add} startIcon={<ContentCopyIcon />} sx={{

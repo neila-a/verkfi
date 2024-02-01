@@ -22,12 +22,8 @@ const nzh = new Nzh({
     m_t: '人民币',
     m_z: '正'
 }); // 数字转汉字这种功能不需要什么国际化
-const logger = new LpLogger({
-    name: "ReadNumber",
-    level: "log", // 空字符串时，不显示任何信息
-});
 export default function ReadNumber(): JSX.Element {
-    var [blur, setBlur] = useState<"number" | "string">("number"),
+    const [blur, setBlur] = useState<"number" | "string">("number"),
         [string, setString] = useState<string>(""),
         [number, setNumber] = useState<string>("0");
     function proc(p: string) {

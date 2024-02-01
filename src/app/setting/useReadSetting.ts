@@ -4,7 +4,7 @@ import {
 } from "react";
 import checkOption from "./checkOption";
 export default function useReadSetting(id: string, name: string, empty: string) {
-    var [set, setSet] = useState<string>(empty);
+    const [set, setSet] = useState<string>(empty);
     useEffect(function () {
         setSet(checkOption(id, name, empty));
     }, []);

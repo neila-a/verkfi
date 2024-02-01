@@ -38,7 +38,7 @@ const Spacing3Stack: FC<{
     {props.children}
 </Stack >;
 export default function Reset() {
-    var [dialogOpen, setDialogOpen] = useState<boolean>(false),
+    const [dialogOpen, setDialogOpen] = useState<boolean>(false),
         [dialogContext, setDialogContext] = useState<string>(""),
         [dialogTitle, setDialogTitle] = useState<string>(""),
         [cacheUsed, setCacheUsed] = useState<number>(1),

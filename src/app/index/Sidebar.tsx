@@ -70,10 +70,10 @@ export default function Sidebar(props: {
         setTools,
         sortingFor,
         setSortingFor
-    } = props;
-    var [editing, setEditing] = useState<boolean>(searchText === ""),
-        clickCount = 0,
+    } = props,
+        [editing, setEditing] = useState<boolean>(searchText === ""),
         [list, setList] = useState<lists>(getList);
+    var clickCount = 0;
     return (
         <Drawer variant="permanent" sx={{
             maxWidth: drawerWidth,

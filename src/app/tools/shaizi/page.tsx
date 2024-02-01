@@ -17,7 +17,7 @@ import {
     ShaiZiCanvas
 } from "./shaiziCanvas";
 function ShaiZi(): JSX.Element {
-    var [useDialogShow, setUseDialogShow] = useState<boolean>(false),
+    const [useDialogShow, setUseDialogShow] = useState<boolean>(false),
         [cishu, setCishu] = useState<number>(1);
     return (
         <div className={style["allWidth"]}>

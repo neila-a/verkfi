@@ -14,8 +14,11 @@ export default function SingleMath(props: {
     math: string;
     showOut: boolean;
 }): JSX.Element {
-    var [isError, setError] = useState<boolean>(false),
-        { math, showOut } = props;
+    const [isError, setError] = useState<boolean>(false),
+        {
+            math,
+            showOut
+        } = props;
     return (
         <div className={style["single"]}>
             <Typography>{math.replace(/=.*/g, "")}</Typography>

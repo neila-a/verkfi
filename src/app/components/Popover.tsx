@@ -13,9 +13,6 @@ import {
     isMobile
 } from 'react-device-detect';
 import lpLogger from "lp-logger";
-import {
-    ThemeHaveZIndex
-} from '../setting/layout';
 var logger = new lpLogger({
     name: "Popover",
     level: "log"
@@ -25,18 +22,18 @@ export default function MouseOverPopover(props: {
     text: string;
     sx?: CSSProperties;
 }) {
-    const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-    const handlePopoverOpen = (event: MouseEvent<HTMLElement>) => {
-        if (isMobile) {
-            logger.log("检测到此设备为手机，停止显示弹出框");
-        } else {
-            setAnchorEl(event.currentTarget);
-        }
-    };
-    const handlePopoverClose = () => {
-        setAnchorEl(null);
-    };
-    const open = Boolean(anchorEl);
+    const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null),
+        handlePopoverOpen = (event: MouseEvent<HTMLElement>) => {
+            if (isMobile) {
+                logger.log("检测到此设备为手机，停止显示弹出框");
+            } else {
+                setAnchorEl(event.currentTarget);
+            }
+        },
+        handlePopoverClose = () => {
+            setAnchorEl(null);
+        },
+        open = Boolean(anchorEl);
     return (
         <Box sx={props.sx ? props.sx : {}}>
             <div

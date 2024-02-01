@@ -33,7 +33,7 @@ var logger = new LpLogger({
 });
 export type status = "recording" | "paused" | "inactive";
 function AudioTools(): JSX.Element {
-    var [loopAudioSrc, setLoopAudioSrc] = useState<string>(""),
+    const [loopAudioSrc, setLoopAudioSrc] = useState<string>(""),
         [loopSpeakAudioSrc, setLoopSpeakAudioSrc] = useState<string>(""),
         [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | "awaqwq">("awaqwq"),
         [status, setStatus] = useState<status>("inactive");

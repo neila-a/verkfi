@@ -1,6 +1,5 @@
 "use client";
 import {
-    Toolbar,
     Box
 } from "@mui/material";
 import {
@@ -8,34 +7,27 @@ import {
 } from "next/navigation";
 import HeadBar from "../components/headBar/HeadBar";
 import {
-    useContext,
     useEffect,
     useState
 } from "react";
-import stringToBoolean from "../setting/stringToBoolean";
 import db, {
     single
 } from "./db";
-import {
-    colorMode
-} from "../layout/layoutClient";
 export default function ExtendedTools() {
     const param = useSearchParams();
-    var toolID = "",
-        [tool, setTool] = useState<single>({
-            name: "",
-            desc: "",
-            to: "",
-            icon: "",
-            color: ["", ""],
-            files: [],
-            main: ""
-        }),
-        colorContext = useContext(colorMode),
-        color = colorContext.value;
-    const {
-        name = ""
-    } = tool;
+    var toolID = "";
+    const [tool, setTool] = useState<single>({
+        name: "",
+        desc: "",
+        to: "",
+        icon: "",
+        color: ["", ""],
+        files: [],
+        main: ""
+    }),
+        {
+            name = ""
+        } = tool;
     if (param.has("id")) {
         toolID = param.get("id");
     }
