@@ -2,9 +2,8 @@
 import {
     get
 } from 'react-intl-universal';
-import React, {
-    useState,
-    useEffect
+import {
+    useState
 } from "react";
 import {
     Typography,
@@ -21,21 +20,17 @@ import {
 import LpLogger from "lp-logger";
 import dynamic from 'next/dynamic';
 const InputDialog = dynamic(() => import("../../components/dialog/InputDialog"));
-const AlertDialog = dynamic(() => import("../../components/dialog/AlertDialog"));
-import Snackbar from "../../components/snackbar/up";
 var logger = new LpLogger({
     name: get('翻转'),
     level: "log", // 空字符串时，不显示任何信息
 });
 import destroyer from "../../components/destroyer";
+import CopyButton from '../../components/CopyButton';
 function Reversal(): JSX.Element {
     var [wordList, setWordList] = useState<[string, number][]>([]),
         [words, setWords] = useState<string>(""),
         [output, setOutput] = useState<string>(""),
-        [showCopyErrorDialog, setShowCopyErrorDialog] = useState<boolean>(false),
-        [copyError, setCopyError] = useState<string>(""),
-        [showSplitDialog, setShowSplitDialog] = useState<boolean>(false),
-        [showCopyDoneDialog, setShowCopyDoneDialog] = useState<boolean>(false);
+        [showSplitDialog, setShowSplitDialog] = useState<boolean>(false);
     return (
         <Box>
             <Box sx={{
@@ -90,22 +85,14 @@ function Reversal(): JSX.Element {
                         setShowSplitDialog(true);
                         logger.log("已打开输入对话框。");
                     }}>{get('拆分')}</Button>
-                    <Button variant="outlined" sx={{
-                        cursor: "copy"
-                    }} onClick={() => {
-                        navigator.clipboard.writeText(output).then(() => {
-                            setShowCopyDoneDialog(true);
-                        }).catch(error => {
-                            setCopyError(`复制结果时出现错误，请报告给开发人员：${error}`);
-                            setShowCopyErrorDialog(true);
-                        });
-                    }}>{get('copy.复制')}</Button>
+                    <CopyButton add={{
+                        variant: "outlined"
+                    }}>
+                        {output}
+                    </CopyButton>
                 </ButtonGroup>
             </Box>
             <Typography variant="body1">{get('结果：')}{output}</Typography>
-            <AlertDialog open={showCopyErrorDialog} onDone={() => {
-                setShowCopyErrorDialog(false);
-            }} title={get('copy.复制出现错误')} description={copyError} />
             <InputDialog open={showSplitDialog} label="" title={get('拆分')} context={get('reversal.请输入拆分的符号，不输入则是逐字拆分')} onDone={context => {
                 setWordList(words.split(context).map(word => {
                     return [
@@ -115,9 +102,6 @@ function Reversal(): JSX.Element {
                 }));
                 logger.log("已拆分。");
                 setShowSplitDialog(false);
-            }} />
-            <Snackbar open={showCopyDoneDialog} message={get('copy.已把结果复制至剪贴板。')} onClose={() => {
-                setShowCopyDoneDialog(false);
             }} />
         </Box>
     );

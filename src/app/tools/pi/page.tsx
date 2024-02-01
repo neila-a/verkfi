@@ -11,20 +11,16 @@ import {
     FormControlLabel,
     Switch,
     TextField,
-    Button,
-    Snackbar
+    Box
 } from "@mui/material";
 import dynamic from 'next/dynamic';
 import calc from './generatePis';
-const AlertDialog = dynamic(() => import("../../components/dialog/AlertDialog"));
-import {
-    logger
-} from './consts';
+import CopyButton from '../../components/CopyButton';
+export const AlertDialog = dynamic(() => import("../../components/dialog/AlertDialog"));
 function PI(): JSX.Element {
-    var [weishu, setWeishu] = useState<number>(1),
+    const [weishu, setWeishu] = useState<number>(1),
         [useAlertShow, setUseAlertShow] = useState<boolean>(false),
         [showInfoDialog, setShowInfoDialog] = useState<boolean>(false),
-        [showCopyDoneDialog, setShowCopyDoneDialog] = useState<boolean>(false),
         [dialogInfo, setDialogInfo] = useState<string>(""),
         [out, setOut] = useState("");
     function proc(ws: number) {
@@ -49,13 +45,13 @@ function PI(): JSX.Element {
                     margin-bottom: 50px;
                 }
             `}</style>
-            <div id="input">
+            <Box id="input">
                 <TextField id="weishu" label={get('pi.π的小数点后位数')} variant="outlined" value={weishu} type="number" onChange={event => {
                     var ws = Number(event.target.value);
                     setWeishu(ws);
                     proc(ws);
                 }} />
-            </div>
+            </Box>
             <FormGroup>
                 <FormControlLabel control={
                     <Switch checked={useAlertShow} onClick={() => {
@@ -67,33 +63,25 @@ function PI(): JSX.Element {
                     }} />
                 } label={get('用提示框显示结果')} />
             </FormGroup>
-            <div id="out" style={{
-                display: useAlertShow ? "none" : "block"
+            <Box id="out" sx={{
+                display: useAlertShow ? "none" : ""
             }}>
-                <Typography variant="h4" style={{
-                    display: "inline-block"
-                }} gutterBottom>{get('结果')}</Typography>
-                <Button variant="contained" style={{
-                    display: "inline-block",
-                    cursor: "copy"
-                }} onClick={() => {
-                    navigator.clipboard.writeText(out).then(() => {
-                        setShowCopyDoneDialog(true);
-                        logger.log("copy.已把结果复制到剪贴板。");
-                    }).catch(error => {
-                        setDialogInfo(`复制结果时出现问题，报错：${error}`);
-                        logger.error(`糟糕！出错了：${error}`);
-                    });
-                }}>{get('copy.复制')}</Button>
+                <Box display="flex">
+                    <Typography variant="h4" style={{
+                        display: "inline-block"
+                    }} gutterBottom>{get('结果')}</Typography>
+                    <CopyButton add={{
+                        variant: "contained"
+                    }}>
+                        {out}
+                    </CopyButton>
+                </Box>
                 <Typography variant="body1" sx={{
                     wordBreak: "break-all"
                 }} gutterBottom>{get('pi.π是：')}{out}</Typography>
-            </div>
+            </Box>
             <AlertDialog open={showInfoDialog} title={get('提示')} description={dialogInfo} onDone={() => {
                 setShowInfoDialog(false);
-            }} />
-            <Snackbar open={showCopyDoneDialog} message={get('copy.已把结果复制至剪贴板。')} onClose={() => {
-                setShowCopyDoneDialog(false);
             }} />
         </>
     );
