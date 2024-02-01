@@ -9,9 +9,6 @@ import {
     Check as CheckIcon
 } from '@mui/icons-material';
 import {
-    capitalize
-} from '@mui/material/utils';
-import {
     get
 } from "react-intl-universal";
 import {
@@ -28,50 +25,14 @@ import {
     Radio,
     Tooltip,
     Typography,
-    Slider,
-    InputLabel
+    Slider
 } from '@mui/material';
 import {
     Switcher
 } from '../Switcher';
-const defaults = {
-    primary: '#2196f3',
-    secondary: '#f50057',
-};
-const hues = [
-    'red',
-    'pink',
-    'purple',
-    'deepPurple',
-    'indigo',
-    'blue',
-    'lightBlue',
-    'cyan',
-    'teal',
-    'green',
-    'lightGreen',
-    'lime',
-    'yellow',
-    'amber',
-    'orange',
-    'deepOrange'
-];
-const shades = [
-    900,
-    800,
-    700,
-    600,
-    500,
-    400,
-    300,
-    200,
-    100,
-    50,
-    'A700',
-    'A400',
-    'A200',
-    'A100',
-];
+import defaults from './defaults';
+import hues from './hues';
+import shades from './shades';
 function ColorTool() {
     const palette = React.useContext(paletteColors);
     const theme = useTheme();
@@ -98,33 +59,6 @@ function ColorTool() {
         palette.set(JSON.stringify(paletteColors));
         return now;
     }, JSON.parse(value));
-    const handleChangeColor = (name) => (event) => {
-        const isRgb = (string) =>
-            /rgb\([0-9]{1,3}\s*,\s*[0-9]{1,3}\s*,\s*[0-9]{1,3}\)/i.test(string);
-        const isHex = (string) => /^#?([0-9a-f]{3})$|^#?([0-9a-f]){6}$/i.test(string);
-        let {
-            target: { value: color },
-        } = event;
-        setState((prevState) => ({
-            ...prevState,
-            [`${name}Input`]: color,
-        }));
-        let isValidColor = false;
-        if (isRgb(color)) {
-            isValidColor = true;
-        } else if (isHex(color)) {
-            isValidColor = true;
-            if (color.indexOf('#') === -1) {
-                color = `#${color}`;
-            }
-        }
-        if (isValidColor) {
-            setState((prevState) => ({
-                ...prevState,
-                [name]: color,
-            }));
-        }
-    };
     const handleChangeHue = (name) => (event) => {
         const hue = event.target.value;
         const color = colors[hue][shades[state[`${name}Shade`]]];
@@ -288,7 +222,7 @@ function ColorTool() {
                 <ColorPicker intent="primary" />
                 <ColorPicker intent="secondary" />
             </Grid>
-            <Button fullWidth variant="contained" onClick={event => {
+            <Button fullWidth variant="contained" onClick={() => {
                 palette.set("__none__");
                 setState(JSON.parse(defaultState));
             }}>

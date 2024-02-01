@@ -7,7 +7,6 @@ import {
     Button,
     ButtonGroup,
     Typography,
-    Paper,
     Box,
     Grid,
     Theme
@@ -22,15 +21,13 @@ import {
     colorMode,
     forkMeOnGitHub,
     lang as langContext,
-    locales,
-    sidebarMode
+    locales
 } from "../../layout/layoutClient";
 import {
     get
 } from "react-intl-universal";
 import {
     Context,
-    ReactNode,
     useContext,
     useState
 } from "react";
@@ -41,29 +38,7 @@ import dynamic from 'next/dynamic';
 import {
     useRouter
 } from "next/navigation";
-function Module(props: {
-    children: ReactNode;
-    mode: sidebarMode;
-}) {
-    const mode = useContext(sidebarMode),
-        isThis = props.mode === mode.value;
-    return (
-        <Grid item>
-            <Paper onClick={event => {
-                mode.set(props.mode);
-            }} sx={{
-                p: 3,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                boxShadow: theme => isThis ? `inset 0 0 0 3px ${theme.palette.primary[theme.palette.mode]}` : "",
-                borderColor: theme => isThis ? theme.palette.primary[theme.palette.mode] : ""
-            }}>
-                {props.children}
-            </Paper>
-        </Grid>
-    );
-}
+import Module from "./Module";
 const PureDialog = dynamic(() => import("../../components/dialog/PureDialog")),
     ghURL = "https://github.com/neila-a/verkfi/";
 export type option = [Context<any>, string];
