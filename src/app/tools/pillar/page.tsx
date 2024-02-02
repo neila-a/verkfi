@@ -1,22 +1,34 @@
 "use client";
 import {
     Box,
+    Button,
     FormControl,
     FormControlLabel,
     FormGroup,
     FormLabel,
     Grid,
+    IconButton,
+    InputLabel,
     List,
+    ListItem,
+    ListItemAvatar,
+    ListItemSecondaryAction,
+    Stack,
+    MenuItem,
+    Paper,
     Radio,
     RadioGroup,
+    Select,
     TextField,
     Typography
 } from "@mui/material";
 import {
-    SyncProblem as SyncProblemIcon
+    FilterList as FilterListIcon,
+    Add as AddIcon,
+    Delete as DeleteIcon,
+    FilterListOff as FilterListOffIcon
 } from "@mui/icons-material";
 import {
-    useMemo,
     useState
 } from "react";
 import {
@@ -24,6 +36,7 @@ import {
 } from "react-intl-universal";
 import SingleCollocation from "./SingleCollocation";
 import calcPillars from "./calcPillars";
+import No from "../../components/No";
 /**
  * 0：只有中间有柱子  
  * 1：一端和中间有柱子  
@@ -42,13 +55,18 @@ const examples: (0 | 1)[][] = [[0, 1, 0], [1, 0, 1, 0], [1, 0, 1]];
  * 3：间隔个数
  */
 export type collocation = [number, number, number, number];
+type filterType = "<" | "=" | ">";
+type filterRule = [0 | 1 | 2 | 3, filterType, number, boolean];
 export default function Pillar(): JSX.Element {
     const [type, setType] = useState<type>(1),
         [length, setLength] = useState<number>(0),
+        [filterRules, setFilterRules] = useState<filterRule[]>([]),
         pillars = calcPillars(type, length);
     return (
         <>
-            <FormGroup>
+            <FormGroup sx={{
+                mb: 2
+            }}>
                 <FormControl sx={{
                     mb: 2
                 }}>
@@ -88,25 +106,100 @@ export default function Pillar(): JSX.Element {
                         ))}
                     </RadioGroup>
                 </FormControl>
+                <FormControl>
+                    <Paper sx={{
+                        pt: 1
+                    }}>
+                        <Button sx={{
+                            ml: 1,
+                            mr: 1,
+                            width: "calc(100% - 16px)"
+                        }} onClick={event => setFilterRules(old => {
+                            const realOld = old.slice(0); // 深复制
+                            realOld.push([0, "<", 1, true]);
+                            return realOld;
+                        })} fullWidth variant="contained" startIcon={<AddIcon />}>
+                            {get("filter.addRule")}
+                        </Button>
+                        {filterRules.length === 0 ? <No>{get("filter.noRule")}</No> : <List sx={{
+                            mt: 1
+                        }}>
+                            {filterRules.map((rule, ruleIndex) => (
+                                <ListItem key={rule.toString()}>
+                                    <ListItemAvatar>
+                                        <IconButton edge="start" onClick={event => setFilterRules(old => {
+                                            var realOld = old.slice(0),
+                                                oldRule = rule.slice(0) as filterRule,
+                                                oldEnabled = oldRule[3];
+                                            oldRule[3] = !oldEnabled;
+                                            realOld[ruleIndex] = oldRule;
+                                            return realOld; // 解决深复制太难了，勉强这样吧，能跑就行
+                                        })}>
+                                            {filterRules[ruleIndex][3] ? <FilterListIcon /> : <FilterListOffIcon />}
+                                        </IconButton>
+                                    </ListItemAvatar>
+                                    <Stack direction="row" spacing={1}>
+                                        {([[[0, 1, 2, 3], "pillar.collocationShow"], [["<", "=", ">"], "filter.type"]] as [any[], string][]).map((select, index) => (
+                                            <FormControl key={index}>
+                                                <InputLabel id={`${select[1]}-select-label`}>{get(`${select[1]}.default`)}</InputLabel>
+                                                <Select
+                                                    labelId={`${select[1]}-select-label`}
+                                                    id={`${select[1]}-select`}
+                                                    value={rule[index]}
+                                                    label={get(`${select[1]}.default`)}
+                                                    onChange={event => setFilterRules(old => {
+                                                        const realOld = old.slice(0); // 深复制
+                                                        realOld[ruleIndex][index] = index === 0 ? Number(event.target.value) : (event.target.value as filterType);
+                                                        return realOld;
+                                                    })}
+                                                >
+                                                    {select[0].map(choose => <MenuItem key={choose} value={choose}>{get(`${select[1]}.${choose}`)}</MenuItem>)}
+                                                </Select>
+                                            </FormControl>
+                                        ))}
+                                        <TextField
+                                            value={rule[2]}
+                                            onChange={event => setFilterRules(old => {
+                                                const realOld = old.slice(0); // 深复制
+                                                realOld[ruleIndex][2] = Number(event.target.value);
+                                                return realOld;
+                                            })}
+                                            label={get("pillar.collocationShow.default")}
+                                            variant="outlined"
+                                            type="number"
+                                        />
+                                    </Stack>
+                                    <ListItemSecondaryAction>
+                                        <IconButton edge="end" aria-label={get("删除")} onClick={event => setFilterRules(old => {
+                                            const realOld = old.slice(0); // 深复制
+                                            realOld.splice(ruleIndex, 1);
+                                            return realOld;
+                                        })}>
+                                            <DeleteIcon />
+                                        </IconButton>
+                                    </ListItemSecondaryAction>
+                                </ListItem>
+                            ))}
+                        </List>}
+                    </Paper>
+                </FormControl>
             </FormGroup>
-            {pillars.length === 0 ? <Box sx={{
-                color: theme => theme.palette.text.disabled,
-                textAlign: "center",
-                cursor: "default",
-                ["*"]: {
-                    cursor: "default"
-                }
-            }}>
-                <SyncProblemIcon sx={{
-                    fontSize: "500%"
-                }} />
-                <Typography>
-                    {get("pillar.no")}
-                </Typography>
-            </Box> : <Grid container spacing={2} component="ul" sx={{
+            {pillars.length === 0 ? <No>{get("pillar.no")}</No> : <Grid container spacing={2} component="ul" sx={{
                 listStyle: "none"
             }}>
-                {pillars.map(single => <SingleCollocation key={single.toString()} collocation={single} />)}
+                {pillars.filter(single => {
+                    const usableFilterRules = filterRules.filter(singleRule => singleRule[3]);
+                    return usableFilterRules.every(singleRule => {
+                        switch (singleRule[1]) {
+                            case "<":
+                                return single[singleRule[0]] < singleRule[2];
+                            case "=":
+                                return single[singleRule[0]] == singleRule[2]; // 别用严格全等
+                            case ">":
+                                return single[singleRule[0]] > singleRule[2];
+                        }
+                    })
+                }).map(single => <SingleCollocation key={single.toString()} collocation={single} />)}
             </Grid>}
         </>
     );

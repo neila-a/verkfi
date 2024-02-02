@@ -103,7 +103,7 @@ export default function Sidebar(props: {
                     ml: 1,
                     flex: 1
                 }} placeholder={get('搜索工具')} inputProps={{
-                    'aria-label': 'searchtools',
+                    'aria-label': get('搜索工具'),
                 }} onChange={event => {
                     setSearchText(event.target.value);
                     searchTools(event.target.value);
