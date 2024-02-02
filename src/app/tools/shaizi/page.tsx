@@ -2,8 +2,7 @@
 import {
     get
 } from 'react-intl-universal';
-import Center from "../../components/center/Center";
-import React, {
+import {
     useState
 } from "react";
 import {

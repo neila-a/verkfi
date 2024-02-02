@@ -13,7 +13,7 @@ import {
     Hex,
     setState
 } from '../declare';
-import React, {
+import {
     useState
 } from 'react';
 import {

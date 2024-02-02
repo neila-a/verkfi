@@ -4,12 +4,16 @@ import {
 import {
     TransitionProps
 } from "@mui/material/transitions";
-import React from "react";
-export const Transition = React.forwardRef(function Transition(
+import {
+    ReactElement,
+    Ref,
+    forwardRef
+} from "react";
+export const Transition = forwardRef(function Transition(
     props: TransitionProps & {
-        children: React.ReactElement<any, any>;
+        children: ReactElement<any, any>;
     },
-    ref: React.Ref<unknown>,
+    ref: Ref<unknown>,
 ) {
     return <Slide direction="down" ref={ref} {...props} />;
 });

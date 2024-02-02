@@ -9,7 +9,6 @@ import {
     DialogActions,
     Button
 } from "@mui/material";
-import React from "react";
 import Transition from "./Transition";
 export default function AlertDialog(props: {
     title: string;

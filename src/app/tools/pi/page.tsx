@@ -2,7 +2,7 @@
 import {
     get
 } from 'react-intl-universal';
-import React, {
+import {
     useState
 } from "react";
 import {

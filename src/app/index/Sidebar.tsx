@@ -26,7 +26,6 @@ import {
     viewMode
 } from './consts';
 import {
-    useEffect,
     useState
 } from 'react';
 import {
