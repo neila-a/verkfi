@@ -5,11 +5,16 @@ import {
     FormControlLabel,
     FormGroup,
     FormLabel,
+    Grid,
+    List,
     Radio,
     RadioGroup,
     TextField,
     Typography
 } from "@mui/material";
+import {
+    SyncProblem as SyncProblemIcon
+} from "@mui/icons-material";
 import {
     useMemo,
     useState
@@ -38,9 +43,9 @@ const examples: (0 | 1)[][] = [[0, 1, 0], [1, 0, 1, 0], [1, 0, 1]];
  */
 export type collocation = [number, number, number, number];
 export default function Pillar(): JSX.Element {
-    const [type, setType] = useState<type>(2),
+    const [type, setType] = useState<type>(1),
         [length, setLength] = useState<number>(0),
-        pillars = useMemo<collocation[]>(() => calcPillars(type, length), [type, length]);
+        pillars = calcPillars(type, length);
     return (
         <>
             <FormGroup>
@@ -84,7 +89,25 @@ export default function Pillar(): JSX.Element {
                     </RadioGroup>
                 </FormControl>
             </FormGroup>
-            {pillars.map(single => <SingleCollocation key={single.toString()} collocation={single} />)}
+            {pillars.length === 0 ? <Box sx={{
+                color: theme => theme.palette.text.disabled,
+                textAlign: "center",
+                cursor: "default",
+                ["*"]: {
+                    cursor: "default"
+                }
+            }}>
+                <SyncProblemIcon sx={{
+                    fontSize: "500%"
+                }} />
+                <Typography>
+                    {get("pillar.no")}
+                </Typography>
+            </Box> : <Grid container spacing={2} component="ul" sx={{
+                listStyle: "none"
+            }}>
+                {pillars.map(single => <SingleCollocation key={single.toString()} collocation={single} />)}
+            </Grid>}
         </>
     );
 };

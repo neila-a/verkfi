@@ -1,6 +1,9 @@
 "use client";
 import {
-    Box,
+    Grid,
+    List,
+    ListItem,
+    ListItemText,
     Paper,
     Typography
 } from "@mui/material";
@@ -19,26 +22,30 @@ export default function SingleCollocation(props: {
 }) {
     const [elevation, setElevation] = useState<number>(2);
     return (
-        <Paper component="section" sx={{
-            p: 2,
-            mb: 2
-        }} elevation={elevation} onMouseEnter={event => {
-            setElevation(8);
-        }} onMouseLeave={event => {
-            setElevation(2); // reset to default
-        }}>
-            {props.collocation.map((value, index) => (
-                <Box key={index} display="flex" alignItems="center">
-                    <Typography sx={{
-                        mb: index === 1 ? 1 : ""
-                    }}>
-                        {get(`pillar.collocationShow.${index}`)}: {value}
-                    </Typography>
-                    <CopyButton onlyIcon>
-                        {value.toString()}
-                    </CopyButton>
-                </Box>
-            ))}
-        </Paper>
+        <Grid item component="li">
+            <Paper sx={{
+                minWidth: "155px" // 经过测量得出的
+            }} elevation={elevation} onMouseEnter={event => {
+                setElevation(8);
+            }} onMouseLeave={event => {
+                setElevation(2); // reset to default
+            }}>
+                <List>
+                    {props.collocation.map((value, index) => (
+                        <ListItem key={index} sx={{
+                            mb: index === 1 ? 1 : "",
+                            pt: 0,
+                            pb: 0
+                        }} secondaryAction={<CopyButton onlyIcon>
+                            {value.toString()}
+                        </CopyButton>}>
+                            <ListItemText>
+                                {get(`pillar.collocationShow.${index}`)}: {value}
+                            </ListItemText>
+                        </ListItem>
+                    ))}
+                </List>
+            </Paper>
+        </Grid>
     );
 }
