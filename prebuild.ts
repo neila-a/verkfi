@@ -3,6 +3,11 @@
  */
 import * as fs from "node:fs";
 import pack from "./package.json";
+import {
+    BuildResult,
+    Message,
+    build
+} from "esbuild";
 import type {
     Manifest
 } from "next/dist/lib/metadata/types/manifest-types";
@@ -11,7 +16,7 @@ import {
     getRepoInfo
 } from "./src/app/components/getRepoInfo";
 const logger = new Logger({
-    name: "ModifyPackage",
+    name: "prebuild",
     level: "log"
 });
 import Logger from "lp-logger";
@@ -51,9 +56,36 @@ async function publicMain() {
     });
     const pagesJSON = JSON.stringify(pages, null, 4);
     fs.writeFileSync("src/app/pages.json", pagesJSON);
-    return pagesJSON
+    const logbuild: <T>(result: BuildResult<T>, filename: string) => void = (result, filename) => {
+        logger.log(`正在编译${filename}……`);
+        const log = (message: [Message[], string]) => {
+            if (message[0].length === 0) {
+                logger.log(`编译${filename}时未出现${message[1]}。`);
+            } else {
+                message[0].forEach(warn => logger.warn(`编译${filename}时出现${message[1]}：${JSON.stringify(warn)}`));
+            }
+        };
+        log([result.errors, "错误"]);
+        log([result.warnings, "警告"]);
+    },
+        NextConfig = await build({
+            entryPoints: ["next.config.ts"],
+            outfile: "next.config.js",
+            bundle: true,
+            minify: true,
+            platform: "node"
+        }),
+        ServiceWorker = await build({
+            entryPoints: ["src/app/service-worker.ts"],
+            outfile: "public/service-worker.js",
+            bundle: true,
+            minify: true
+        });
+    logbuild(NextConfig, "next.config.ts");
+    logbuild(ServiceWorker, "service-worker.ts");
+    return pagesJSON;
 }
-if (process.argv[2] === "dev") {
+if (process.env.VERKFI_ENV === "dev") {
     devMain();
 }
 publicMain();
