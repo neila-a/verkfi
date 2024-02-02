@@ -5,6 +5,7 @@ import {
 import {
     Box,
     Grid,
+    Stack,
     SvgIconTypeMap,
     Typography
 } from "@mui/material";
@@ -84,16 +85,18 @@ export default function About() {
         storage: {
             icon: StorageIcon,
             name: get("infos.存储信息"),
-            context: <Typography>
-                {get("storage.缓存空间已使用容量")}：{cacheUsed.toFixed(5)}MB
-                <br />
-                {get("storage.缓存空间剩余容量")}：{(cacheAll - cacheUsed).toFixed(5)}MB
-                <br />
-                <br />
-                {get("storage.设置空间已使用容量")}：{getSettingsUsed()}KB
-                <br />
-                {get("storage.设置空间剩余容量")}：{getSettingsSur()}KB
-            </Typography>
+            context: <Stack spacing={2}>
+                <Typography>
+                    {get("storage.缓存空间已使用容量")}：{cacheUsed.toFixed(5)}MB
+                    <br />
+                    {get("storage.缓存空间剩余容量")}：{(cacheAll - cacheUsed).toFixed(5)}MB
+                </Typography>
+                <Typography>
+                    {get("storage.设置空间已使用容量")}：{getSettingsUsed()}KB
+                    <br />
+                    {get("storage.设置空间剩余容量")}：{getSettingsSur()}KB
+                </Typography>
+            </Stack>
         },
         statusInfo: {
             icon: ArticleIcon,
@@ -173,7 +176,9 @@ export default function About() {
                 setDialogTitle("");
                 setDialogOpen(false);
             }}>
-                {dialogContext}
+                <Box component="section">
+                    {dialogContext}
+                </Box>
             </PureDialog>
         </ErrorBoundary>
     );

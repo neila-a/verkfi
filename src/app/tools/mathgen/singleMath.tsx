@@ -8,7 +8,8 @@ import {
 import {
     Typography,
     TextField,
-    Box
+    Box,
+    ListItem
 } from "@mui/material";
 import style from "./SingleMath.module.scss";
 export default function SingleMath(props: {
@@ -21,7 +22,7 @@ export default function SingleMath(props: {
             showOut
         } = props;
     return (
-        <Box className={style["single"]}>
+        <ListItem className={style["single"]}>
             <Typography>{math.replace(/=.*/g, "")}</Typography>
             <Box className={style["out"]}>
                 <TextField label={get('结果')} type="number" InputLabelProps={{
@@ -31,6 +32,6 @@ export default function SingleMath(props: {
                 }} />
                 {showOut == true ? <Typography>{get('答案：')}{math.replace(/.*=/g, "")}</Typography> : <Fragment />}
             </Box>
-        </Box>
+        </ListItem>
     );
 }

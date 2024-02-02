@@ -12,7 +12,8 @@ import {
     FormLabel,
     Paper,
     Box,
-    ButtonGroup
+    ButtonGroup,
+    List
 } from "@mui/material";
 import {
     useEffect,
@@ -49,95 +50,90 @@ function MathGen(): JSX.Element {
     ]);
     return (
         <>
-            <Box sx={{
-                p: 1
+            <FormGroup sx={{
+                mb: 2
             }}>
-                <FormGroup>
-                    <TextField label={get('上限')} type="number" InputLabelProps={{
-                        shrink: true,
-                    }} onChange={event => {
-                        setMax(Number(event.currentTarget.value));
-                    }} defaultValue={max} />
-                    <br />
-                    <TextField label={get('下限')} type="number" InputLabelProps={{
-                        shrink: true,
-                    }} onChange={event => {
-                        setMin(Number(event.currentTarget.value));
-                    }} defaultValue={min} />
-                    <br />
-                    <TextField label={get('个数')} type="number" InputLabelProps={{
-                        shrink: true,
-                    }} onChange={event => {
-                        setItemCount(Number(event.currentTarget.value));
-                    }} defaultValue={itemCount} />
-                    <FormControlLabel label={get('mathgen.减数检查')} control={
-                        <Checkbox checked={subtractionCheck} onChange={event => {
-                            setSubtractionCheck(event.currentTarget.checked);
-                        }} />
-                    } />
-                    <FormControlLabel label={get('mathgen.除数检查')} control={
-                        <Checkbox checked={divisionCheck} onChange={event => {
-                            setDivisionCheck(event.currentTarget.checked);
-                        }} />
-                    } />
-                    <Paper sx={{
-                        "> *": {
-                            p: 1
-                        }
-                    }}>
-                        <FormGroup>
-                            <FormLabel component="legend">{get('mathgen.选择计算方法')}</FormLabel>
-                            <FormControlLabel label={get('全选')} control={
-                                <Checkbox checked={calcs == defaultCalcs} onChange={event => {
-                                    switch (event.target.checked) {
-                                        case false:
-                                            setCalcs([]);
-                                            break;
-                                        case true:
-                                            setCalcs(defaultCalcs);
-                                            break;
-                                    }
-                                }} />
-                            } />
-                            {defaultCalcs.map(calc => <FormControlLabel label={calc == "%" ? "%（求余）" : calc} key={calc} control={
-                                <Checkbox checked={calcs.includes(calc)} onChange={event => {
-                                    switch (event.currentTarget.checked) {
-                                        case false:
-                                            setCalcs(destroyer(calcs, calc));
-                                            break;
-                                        case true:
-                                            setCalcs([...calcs, calc]);
-                                            break;
-                                    }
-                                }} />
-                            } />)}
-                        </FormGroup>
-                    </Paper>
-                    <br />
-                    <ButtonGroup fullWidth>
-                        <Button variant="contained" onClick={packagedCalcMath}>
-                            {get('计算')}
-                        </Button>
-                        <Button variant="outlined" onClick={event => {
-                            showOut ? setShowOut(false) : setShowOut(true);
-                        }}>
-                            {showOut ? "隐藏" : "显示"}{get('答案')}
-                        </Button>
-                    </ButtonGroup>
-                    <br />
-                </FormGroup>
-                {maths.toString() === "" ? <Box sx={{
-                    color: theme => theme.palette.text.disabled,
-                    textAlign: "center"
-                }}>
-                    <SyncProblemIcon sx={{
-                        fontSize: "500%"
+                <TextField margin="normal" label={get('上限')} type="number" InputLabelProps={{
+                    shrink: true,
+                }} onChange={event => {
+                    setMax(Number(event.currentTarget.value));
+                }} defaultValue={max} />
+                <TextField margin="normal" label={get('下限')} type="number" InputLabelProps={{
+                    shrink: true,
+                }} onChange={event => {
+                    setMin(Number(event.currentTarget.value));
+                }} defaultValue={min} />
+                <TextField margin="normal" label={get('个数')} type="number" InputLabelProps={{
+                    shrink: true,
+                }} onChange={event => {
+                    setItemCount(Number(event.currentTarget.value));
+                }} defaultValue={itemCount} />
+                <FormControlLabel label={get('mathgen.减数检查')} control={
+                    <Checkbox checked={subtractionCheck} onChange={event => {
+                        setSubtractionCheck(event.currentTarget.checked);
                     }} />
-                    <Typography>
-                        {get("mathgen.没有任何已生成的算式")}
-                    </Typography>
-                </Box> : maths.map(math => <SingleMath math={math} showOut={showOut} key={math} />)}
-            </Box>
+                } />
+                <FormControlLabel label={get('mathgen.除数检查')} control={
+                    <Checkbox checked={divisionCheck} onChange={event => {
+                        setDivisionCheck(event.currentTarget.checked);
+                    }} />
+                } />
+                <Paper sx={{
+                    mb: 2,
+                    "> *": {
+                        p: 1
+                    }
+                }}>
+                    <FormGroup>
+                        <FormLabel component="legend">{get('mathgen.选择计算方法')}</FormLabel>
+                        <FormControlLabel label={get('全选')} control={
+                            <Checkbox checked={calcs == defaultCalcs} onChange={event => {
+                                switch (event.target.checked) {
+                                    case false:
+                                        setCalcs([]);
+                                        break;
+                                    case true:
+                                        setCalcs(defaultCalcs);
+                                        break;
+                                }
+                            }} />
+                        } />
+                        {defaultCalcs.map(calc => <FormControlLabel label={calc == "%" ? "%（求余）" : calc} key={calc} control={
+                            <Checkbox checked={calcs.includes(calc)} onChange={event => {
+                                switch (event.currentTarget.checked) {
+                                    case false:
+                                        setCalcs(destroyer(calcs, calc));
+                                        break;
+                                    case true:
+                                        setCalcs([...calcs, calc]);
+                                        break;
+                                }
+                            }} />
+                        } />)}
+                    </FormGroup>
+                </Paper>
+                <ButtonGroup fullWidth>
+                    <Button variant="contained" onClick={packagedCalcMath}>
+                        {get('计算')}
+                    </Button>
+                    <Button variant="outlined" onClick={event => {
+                        showOut ? setShowOut(false) : setShowOut(true);
+                    }}>
+                        {showOut ? "隐藏" : "显示"}{get('答案')}
+                    </Button>
+                </ButtonGroup>
+            </FormGroup>
+            {maths.toString() === "" ? <Box sx={{
+                color: theme => theme.palette.text.disabled,
+                textAlign: "center"
+            }}>
+                <SyncProblemIcon sx={{
+                    fontSize: "500%"
+                }} />
+                <Typography>
+                    {get("mathgen.没有任何已生成的算式")}
+                </Typography>
+            </Box> : <List>{maths.map(math => <SingleMath math={math} showOut={showOut} key={math} />)}</List>}
         </>
     );
 }

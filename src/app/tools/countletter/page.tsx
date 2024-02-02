@@ -27,7 +27,7 @@ function CountLetter(): JSX.Element {
         [numberType, setNumberType] = useState<numberType>(10);
     return (
         <>
-            <Box>
+            <Box mb={2} component="section">
                 <Button onClick={() => {
                     logger.log("已弹出输入框。");
                     setEnterDialogOpen(true);
@@ -45,8 +45,7 @@ function CountLetter(): JSX.Element {
                     setAlertDialogOpen(false);
                 }} /> {/* 输出对话框容器 */}
             </Box>
-            <br />
-            <FormControl>
+            <FormControl component="section">
                 <FormLabel id="radio-buttons-group-label">数字进制</FormLabel>
                 <RadioGroup
                     aria-labelledby="radio-buttons-group-label"

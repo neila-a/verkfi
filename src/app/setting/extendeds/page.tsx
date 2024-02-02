@@ -116,14 +116,20 @@ export default function ExtendedManager() {
                                     <Typography>
                                         {single.name}
                                     </Typography>
-                                    <Typography>
-                                        <strong>{get("ID")}</strong> {single.to}
-                                    </Typography>
+                                    <Box display="flex" alignItems="center" justifyContent="space-between">
+                                        <Typography variant="h6" fontWeight="700"> {/* <strong>的fontWeight是700 */}
+                                            {get("ID")}
+                                        </Typography>
+                                        <Typography>
+                                            {single.to}
+                                        </Typography>
+                                    </Box>
                                 </Box>
                             </Stack>
                             <Box>
-                                <strong>{get('描述')}</strong>
-                                <br />
+                                <Typography variant="h6" fontWeight="700">
+                                    {get('描述')}
+                                </Typography>
                                 {single.desc}
                             </Box>
                         </Stack>

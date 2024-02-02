@@ -37,14 +37,6 @@ function PI(): JSX.Element {
     };
     return (
         <>
-            <style jsx>{`
-                div#input > *, #isUseAlertShow, #outendwm {
-                    margin-left: 2%;
-                }
-                div#out {
-                    margin-bottom: 50px;
-                }
-            `}</style>
             <Box id="input">
                 <TextField id="weishu" label={get('pi.π的小数点后位数')} variant="outlined" value={weishu} type="number" onChange={event => {
                     var ws = Number(event.target.value);
@@ -54,32 +46,20 @@ function PI(): JSX.Element {
             </Box>
             <FormGroup>
                 <FormControlLabel control={
-                    <Switch checked={useAlertShow} onClick={() => {
-                        if (useAlertShow) {
-                            setUseAlertShow(false);
-                        } else if (!useAlertShow) {
-                            setUseAlertShow(true);
-                        }
-                    }} />
+                    <Switch checked={useAlertShow} onClick={event => setUseAlertShow(old => !old)} />
                 } label={get('用提示框显示结果')} />
             </FormGroup>
-            <Box id="out" sx={{
-                display: useAlertShow ? "none" : ""
-            }}>
-                <Box display="flex">
-                    <Typography variant="h4" style={{
-                        display: "inline-block"
-                    }} gutterBottom>{get('结果')}</Typography>
-                    <CopyButton add={{
-                        variant: "contained"
-                    }}>
-                        {out}
-                    </CopyButton>
-                </Box>
+            {!useAlertShow && <Box id="out">
+                <Typography variant="h4" gutterBottom>{get('结果')}</Typography>
+                <CopyButton add={{
+                    variant: "contained"
+                }}>
+                    {out}
+                </CopyButton>
                 <Typography variant="body1" sx={{
                     wordBreak: "break-all"
                 }} gutterBottom>{get('pi.π是：')}{out}</Typography>
-            </Box>
+            </Box>}
             <AlertDialog open={showInfoDialog} title={get('提示')} description={dialogInfo} onDone={() => {
                 setShowInfoDialog(false);
             }} />

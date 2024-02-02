@@ -1,11 +1,14 @@
+import {
+    Box
+} from "@mui/material";
 import style from "./Center.module.scss";
 /**
  * 居中
  * @returns {JSX.Element}  
  */
 export const Center = props => (
-    <div className={style["center"]}>
+    <Box className={style["center"]}>
         {props.children}
-    </div>
+    </Box>
 );
 export default Center;

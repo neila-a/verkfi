@@ -32,7 +32,8 @@ import {
     FormGroup,
     ImageList,
     ImageListItem,
-    Box
+    Box,
+    ImageListItemBar
 } from "@mui/material";
 import {
     styled
@@ -75,7 +76,6 @@ export default function Filter(): JSX.Element {
     registerPlugin(FilePondPluginFileRename, FilePondPluginImagePreview, FilePondPluginImageResize, FilePondPluginImageEdit, FilePondPluginImageCrop); // Register the plugin
     return (
         <>
-            <br />
             <FilePond
                 files={imageArray as unknown as FilePondServerConfigProps["files"]}
                 onupdatefiles={images => {
@@ -174,7 +174,7 @@ export default function Filter(): JSX.Element {
                 </Typography>
             </Box> : <ImageList>
                 {imageTypes.map((type) => (
-                    <ImageListItem key={type}>
+                    <ImageListItem key={type} component="figure">
                         <img title={type} key={type} className={`${style[type]} ${style["image"]}`} src={imageBase64} id={type} alt={type} style={{
                             transform: `scale(${(Number(scale) / 100).toString()})`
                         }} onClick={event => {
@@ -183,6 +183,9 @@ export default function Filter(): JSX.Element {
                                 saveAs(blob, `${imageFileName}.${type}.png`)
                             })
                         }} />
+                        <Box component="figcaption">
+                            <ImageListItemBar title={type} subtitle={imageFileName} />
+                        </Box>
                     </ImageListItem>
                 ))}
             </ImageList>}
