@@ -4,12 +4,16 @@ import {
 } from 'react-intl-universal';
 import {
     Box,
-    Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup
+    Button,
+    FormControl,
+    FormControlLabel,
+    FormLabel,
+    Radio,
+    RadioGroup
 } from "@mui/material";
 import LpLogger from "lp-logger";
 import {
-    useState,
-    Fragment
+    useState
 } from "react";
 import dynamic from 'next/dynamic';
 const InputDialog = dynamic(() => import("../../components/dialog/InputDialog"));
@@ -46,7 +50,7 @@ function CountLetter(): JSX.Element {
                 }} /> {/* 输出对话框容器 */}
             </Box>
             <FormControl component="section">
-                <FormLabel id="radio-buttons-group-label">数字进制</FormLabel>
+                <FormLabel id="radio-buttons-group-label">{get("countletter.system")}</FormLabel>
                 <RadioGroup
                     aria-labelledby="radio-buttons-group-label"
                     defaultValue="10"
@@ -56,10 +60,9 @@ function CountLetter(): JSX.Element {
                     }}
                     name="radio-buttons-group"
                 >
-                    <FormControlLabel value="16" control={<Radio />} label="十六进制" />
-                    <FormControlLabel value="10" control={<Radio />} label="十进制" />
-                    <FormControlLabel value="8" control={<Radio />} label="八进制" />
-                    <FormControlLabel value="2" control={<Radio />} label="二进制" />
+                    {([2, 8, 10, 16] as numberType[]).map(type => (
+                        <FormControlLabel key={type} value={type.toString()} control={<Radio />} label={get(`countletter.systemName.${type.toString()}`)} />
+                    ))}
                 </RadioGroup>
             </FormControl>
         </>
