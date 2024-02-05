@@ -49,7 +49,7 @@
         "lp-logger": "github:neila-a/lp-logger-no-window",
         "mathjs": "^11.12.0",
         "moment": "^2.30.1",
-        "next": "14.1.1-canary.12",
+        "next": "14.1.1-canary.27",
         "nzh": "^1.0.12",
         "path": "^0.12.7",
         "react": "18.2.0",

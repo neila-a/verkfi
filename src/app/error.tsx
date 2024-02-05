@@ -1,16 +1,28 @@
 "use client";
 import {
     Button,
+    ButtonGroup,
     Typography
 } from "@mui/material";
 import Loading from "./loading";
 import {
     get
 } from "react-intl-universal";
-export default function GlobalError(props: {
-    error: Error;
+import {
+    useEffect
+} from "react";
+import {
+    logger
+} from "./layout/layoutClient"; // 都是全局日志
+export default function Error(props: {
+    error: Error & {
+        digest?: string;
+    };
     reset: () => void;
 }) {
+    useEffect(() => {
+        logger.error(props.error);
+    }, [props.error]); // 官方教程里的
     return (
         <Loading>
             <Typography sx={{
@@ -20,12 +32,26 @@ export default function GlobalError(props: {
                 <br />
                 {String(props.error)}
             </Typography>
-            <br />
-            <Button variant="contained" onClick={event => {
-                props.reset();
-            }}>
-                {get("重试")}
-            </Button>
+            <ButtonGroup>
+                <Button variant="contained" onClick={event => props.reset()}>
+                    {get("重试")}
+                </Button>
+                <Button variant="outlined" onClick={event => {
+                    caches.keys().then(keylist => Promise.all(keylist.map(key => {
+                        logger.log(`已删除缓存“${key}”`);
+                        return caches.delete(key);
+                    })));
+                    props.reset();
+                }}>
+                    {get("error.cache")}
+                </Button>
+                <Button variant="outlined" onClick={event => {
+                    localStorage.clear();
+                    props.reset();
+                }}>
+                    {get("error.setting")}
+                </Button>
+            </ButtonGroup>
         </Loading>
     );
 }
