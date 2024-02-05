@@ -1,6 +1,6 @@
 "use client";
 import {
-    get
+	get
 } from 'react-intl-universal';
 import {
 	Box,
@@ -90,13 +90,12 @@ export default function Settings(props: {
 				<Drawer anchor="top" variant="permanent" sx={{
 					flexShrink: 0,
 					[`& .MuiDrawer-paper`]: {
-						ml: stringToBoolean(showSidebar.show) && `${drawerWidth}px`,
+						ml: sidebarMode.value === "sidebar" && stringToBoolean(showSidebar.show) && `${drawerWidth}px`,
 						boxSizing: 'border-box'
 					},
 				}}>
 					<Toolbar />
 					<Tabs sx={{
-						width: (sidebarMode.value === "sidebar") ? `calc(100% - ${drawerWidth}px)` : "100%",
 						[`& .MuiTab-root`]: {
 							maxWidth: `${100 / sets.length}%`,
 							width: `${100 / sets.length}%`,
