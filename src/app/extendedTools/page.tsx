@@ -48,13 +48,16 @@ export default function ExtendedTools() {
                 </>
             )}
             <Box sx={{
-                p: 3
+                p: 3,
+                pb: 0
             }} component="article" id="container">
                 <iframe style={{
-                    border: "none"
+                    border: "none",
+                    width: "calc(100vw - 48px)",
+                    height: "100vh"
                 }} src={`/extendedfiles/${tool.to}/${tool.main}`} />
             </Box>
-            <Box component="article" id="outside" />
+            <Box component="section" id="outside" />
         </>
     );
 }

@@ -171,9 +171,9 @@ export default function ExtendedManager() {
                         setFileArray(files);
                         const reader = new FileReader();
                         reader.onload = function () {
-                            const fs = new Filesystem(new Uint8Array(reader.result as ArrayBuffer));
-                            const dir = fs.readdirSync("/").filter(item => item !== "package.json");
-                            const main = JSON.parse(fs.readFileSync("package.json", true));
+                            const fs = new Filesystem(new Uint8Array(reader.result as ArrayBuffer)),
+                                dir = fs.readdirSync("/").filter(item => item !== "package.json"),
+                                main = JSON.parse(fs.readFileSync("package.json", true));
                             setFileInfo({
                                 name: main.name,
                                 to: main.to,

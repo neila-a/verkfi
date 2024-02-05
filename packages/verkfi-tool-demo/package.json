@@ -3,9 +3,15 @@
     "to": "demovxt",
     "description": "A demo",
     "icon": "fav.png",
+    "scripts": {
+        "build": "rm -f demo.vxt && asar pack ./ demo.vxt"
+    },
     "color": [
         "114514",
         "191981"
     ],
-    "main": "index.html"
+    "main": "index.html",
+    "dependencies": {
+        "@electron/asar": "^3.2.8"
+    }
 }
