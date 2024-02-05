@@ -132,6 +132,15 @@ export default function ModifiedApp(props: {
                         ...realPalette,
                         mode,
                     },
+                    typography: {
+                        fontFamily: [
+                            "Ubuntu",
+                            "Roboto",
+                            "Helvetica",
+                            "Arial",
+                            "sans-serif"
+                        ].join(",")
+                    }
                 }),
             [mode, palette]
         ),
