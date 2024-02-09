@@ -146,7 +146,6 @@ export default function ModifiedApp(props: {
         ),
         pathname = usePathname(),
         params = useSearchParams(),
-        indexRef = useRef(null),
         [choosedLang, setChoosedLang] = useLang(),
         [initDone, setInitDone] = useState<boolean>(false),
         [expand, setExpand] = useState<boolean>(false),
