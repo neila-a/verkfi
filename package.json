@@ -21,7 +21,7 @@
     "scripts": {
         "dev": "npm run build:pb && VERKFI_ENV=dev node prebuild.js && next dev",
         "prebuild": "npm run build:pb && node prebuild.js",
-        "build": "npm run prebuild && build",
+        "build": "npm run prebuild && next build",
         "build:pb": "esbuild prebuild.ts --bundle --minify --external:esbuild --platform=node --outfile=prebuild.js",
         "lint": "next lint",
         "start": "next start"
