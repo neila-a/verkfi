@@ -12,16 +12,8 @@ import {
     useState
 } from "react";
 import {
-    FilePond,
-    registerPlugin
+    FilePond
 } from 'react-filepond'; // Import React FilePond
-import FilePondPluginFileRename from 'filepond-plugin-file-rename'; // Import the plugin code
-import FilePondPluginImagePreview from 'filepond-plugin-image-preview'; // Import the plugin code
-import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css'; // Import the plugin styles
-import FilePondPluginImageResize from 'filepond-plugin-image-resize'; // Import the plugin code
-import FilePondPluginImageEdit from 'filepond-plugin-image-edit'; // Import the plugin code
-import 'filepond-plugin-image-edit/dist/filepond-plugin-image-edit.css'; // Import the plugin styles
-import FilePondPluginImageCrop from 'filepond-plugin-image-crop'; // Import the plugin code
 import {
     FilePondFile
 } from "filepond";
@@ -37,7 +29,6 @@ function AudioTools(): JSX.Element {
         [loopSpeakAudioSrc, setLoopSpeakAudioSrc] = useState<string>(""),
         [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | "awaqwq">("awaqwq"),
         [status, setStatus] = useState<status>("inactive");
-    registerPlugin(FilePondPluginFileRename, FilePondPluginImagePreview, FilePondPluginImageResize, FilePondPluginImageEdit, FilePondPluginImageCrop); // Register the plugin
     useEffect(function () {
         if (navigator.mediaDevices.getUserMedia && mediaRecorder == "awaqwq") {
             var constraints = { audio: true };
@@ -99,16 +90,14 @@ function AudioTools(): JSX.Element {
     return (
         <Grid container direction="column" spacing={2}>
             <Grid item>
-                <Module id="audioreplay">
+                <Module>
                     <Typography variant="h4" gutterBottom>{get('音频循环播放')}</Typography>
                     <audio controls loop src={loopAudioSrc}>
                         {get('您的浏览器不支持 audio 元素。')}
                     </audio>
                     <FilePond
                         files={[]}
-                        onupdatefiles={(audios: FilePondFile[]) => {
-                            setLoopAudioSrc(window.URL.createObjectURL(audios[0].file));
-                        }}
+                        onupdatefiles={(audios: FilePondFile[]) => audios.forEach(audio => setLoopAudioSrc(window.URL.createObjectURL(audio.file)))}
                         allowMultiple={true}
                         maxFiles={1}
                         name="files"
@@ -117,7 +106,7 @@ function AudioTools(): JSX.Element {
                 </Module>
             </Grid>
             <Grid item>
-                <Module id="audioinput">
+                <Module>
                     <Typography variant="h4" gutterBottom>{get('音频录制并循环')}</Typography>
                     <Button variant="contained" onClick={() => {
                         return controlAudio("recording");

@@ -57,7 +57,6 @@ import '@fontsource/ubuntu/400.css';
 import '@fontsource/ubuntu/500.css';
 import '@fontsource/ubuntu/700.css';
 import 'filepond/dist/filepond.min.css'; // Import FilePond styles
-import style from "./layout/Layout.module.scss";
 import pack from "../../package.json";
 import {
     Box,
@@ -76,7 +75,11 @@ export default async function Layout({
 }) {
     return (
         <html lang="zh-cmn-Hans-CN">
-            <body>
+            <body style={{
+                margin: 0,
+                scrollbarWidth: "none",
+                msOverflowStyle: "none"
+            }}>
                 <noscript>
                     <Loading>
                         <Typography>
@@ -84,7 +87,9 @@ export default async function Layout({
                         </Typography>
                     </Loading>
                 </noscript>
-                <Box className={style["fullHeight"]}>
+                <Box sx={{
+                    minHeight: "100vh"
+                }}>
                     <Suspense fallback={<Loading />}> {/* 阻止整个页面坠落到客户端模式 */}
                         <WindowsProvider>
                             <BaseLayout>

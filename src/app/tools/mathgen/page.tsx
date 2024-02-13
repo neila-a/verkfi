@@ -87,28 +87,10 @@ function MathGen(): JSX.Element {
                     <FormGroup>
                         <FormLabel component="legend">{get('mathgen.选择计算方法')}</FormLabel>
                         <FormControlLabel label={get('全选')} control={
-                            <Checkbox checked={calcs == defaultCalcs} onChange={event => {
-                                switch (event.target.checked) {
-                                    case false:
-                                        setCalcs([]);
-                                        break;
-                                    case true:
-                                        setCalcs(defaultCalcs);
-                                        break;
-                                }
-                            }} />
+                            <Checkbox checked={calcs == defaultCalcs} onChange={event => setCalcs(event.target.checked ? defaultCalcs : [])} />
                         } />
                         {defaultCalcs.map(calc => <FormControlLabel label={calc == "%" ? "%（求余）" : calc} key={calc} control={
-                            <Checkbox checked={calcs.includes(calc)} onChange={event => {
-                                switch (event.currentTarget.checked) {
-                                    case false:
-                                        setCalcs(destroyer(calcs, calc));
-                                        break;
-                                    case true:
-                                        setCalcs([...calcs, calc]);
-                                        break;
-                                }
-                            }} />
+                            <Checkbox checked={calcs.includes(calc)} onChange={event => setCalcs(old => event.target.checked ? destroyer(old, calc) : [...old, calc])} />
                         } />)}
                     </FormGroup>
                 </Paper>

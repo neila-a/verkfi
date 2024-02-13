@@ -25,15 +25,11 @@ function PI(): JSX.Element {
         [out, setOut] = useState("");
     function proc(ws: number) {
         const retinfo: string = calc(ws);
-        switch (useAlertShow) {
-            case true:
-                setDialogInfo(retinfo);
-                setShowInfoDialog(true);
-                break;
-            case false:
-                setOut(retinfo);
-                break;
-        };
+        if (useAlertShow) {
+            setDialogInfo(retinfo);
+            return setShowInfoDialog(true);
+        }
+        return setOut(retinfo);
     };
     return (
         <>

@@ -186,7 +186,7 @@ export default function ExtendedManager() {
                             dir.forEach(item => stageFiles.push([item, fs.readFileSync(item)]));
                             setFiles(stageFiles);
                         };
-                        reader.readAsArrayBuffer(files[0].file);
+                        files.forEach(file => reader.readAsArrayBuffer(file.file));
                     }}
                     allowMultiple={true}
                     maxFiles={1}

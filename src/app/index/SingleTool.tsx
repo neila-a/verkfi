@@ -7,13 +7,13 @@ import {
     Box,
     Card,
     CardContent,
-    Typography
+    Typography,
+    TypographyOwnProps
 } from "@mui/material";
 import {
     ExitToApp as ExitToAppIcon,
     DragIndicator as DragIndicatorIcon
 } from "@mui/icons-material";
-import Style from "./Index.module.scss";
 import {
     tool
 } from "../tools/info";
@@ -30,7 +30,6 @@ import {
 import {
     setState
 } from '../declare';
-import styled from '@emotion/styled';
 import dynamic from 'next/dynamic';
 const CheckDialog = dynamic(() => import("../components/dialog/CheckDialog"));
 import {
@@ -79,11 +78,10 @@ export default function SingleTool(props: {
         [elevation, setElevation] = useState<number>(2),
         [jumpName, setJumpName] = useState<string>(""),
         [jumpDialogOpen, setJumpDialogOpen] = useState<boolean>(false),
-        ToolTypography = styled(Typography)(({
-            theme
-        }) => ({
+        ToolTypography = (props: TypographyOwnProps) => <Typography {...props} sx={{
+            ...props.sx,
             wordBreak: "break-all"
-        })),
+        }} />,
         fullWidth = `100%`,
         buttonOptions = {
             editMode: editMode,
@@ -111,7 +109,7 @@ export default function SingleTool(props: {
         db = <DownButton {...buttonOptions} />,
         ub = <UpButton {...buttonOptions} />;
     return (
-        <Box mb={viewMode === "list" ? 2 : ""} key={tool.to} {...swipeHandler}> {/* 单个工具 */}
+        <Box mb={viewMode === "list" ? 2 : ""} key={tool.to} {...swipeHandler} component="section"> {/* 单个工具 */}
             <windows.Consumer>
                 {value => (
                     <Card elevation={elevation} sx={{
@@ -124,7 +122,16 @@ export default function SingleTool(props: {
                         setElevation(2); // reset to default
                     }}>
                         <CardContent>
-                            <Box className={viewMode == "list" ? Style["singleList"] : ""} onClick={() => {
+                            <Box sx={{
+                                ...(viewMode === "list" ? {
+                                    textAlign: "left",
+                                    position: "relative",
+                                    cursor: "pointer",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "space-between"
+                                } : {})
+                            }} onClick={() => {
                                 logger.info(`点击了${tool.name}`);
                                 if (tool.isGoto) {
                                     if (tool.to.startsWith("/extendedTools")) {
@@ -164,7 +171,7 @@ export default function SingleTool(props: {
                                 }
                             }}>
                                 {viewMode == "grid" ? <Box>
-                                    <Box className={Style["singleGridIcon"]}>
+                                    <Box>
                                         <ToolIcon />
                                     </Box>
                                     <Box>
@@ -179,8 +186,13 @@ export default function SingleTool(props: {
                                         </ToolTypography>
                                     </Box>
                                 </Box> : <>
-                                    <Box className={Style["singleListText"]}>
-                                        <Box className={Style["singleListIcon"]}>
+                                    <Box sx={{
+                                        display: "flex",
+                                        alignItems: "center"
+                                    }}>
+                                        <Box sx={{
+                                            mr: 2
+                                        }}>
                                             <ToolIcon />
                                         </Box>
                                         <Box>

@@ -1,9 +1,10 @@
 "use client";
 import {
-    Paper
+    Paper,
+    PaperOwnProps
 } from "@mui/material";
-import styled from '@emotion/styled';
-const Module = styled(Paper)({
-    padding: "3px"
-});
+const Module = (props: PaperOwnProps) => <Paper {...props} sx={{
+    ...props.sx,
+    p: 1
+}} />;
 export default Module;

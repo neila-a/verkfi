@@ -1,15 +1,14 @@
 import {
-    styled
-} from '@mui/material/styles';
-import {
-    Dialog
+    Dialog,
+    DialogProps
 } from "@mui/material";
-export const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+export const BootstrapDialog = (props: DialogProps) => <Dialog {...props} sx={{
+    ...props.sx,
     '& .MuiDialogContent-root': {
-        padding: theme.spacing(2),
+        p: 2
     },
     '& .MuiDialogActions-root': {
-        padding: theme.spacing(1),
-    },
-}));
+        p: 1
+    }
+}} />;
 export default BootstrapDialog;

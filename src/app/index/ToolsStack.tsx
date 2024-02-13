@@ -1,9 +1,5 @@
 "use client";
 import {
-    get
-} from 'react-intl-universal';
-import {
-    ReactNode,
     useContext
 } from 'react';
 import {
@@ -11,7 +7,6 @@ import {
     Collapse,
     Stack
 } from "@mui/material";
-import style from "./Index.module.scss";
 import {
     tool
 } from "../tools/info";
@@ -125,10 +120,18 @@ export default function ToolsStack(props: {
     var darkModeFormStorage = useContext(darkModeContext).mode,
         darkMode = stringToBoolean(darkModeFormStorage.replace("light", "false").replace("dark", "true"));
     return (
-        <Stack spacing={viewMode == "list" ? 3 : 5} className={style["items"]} sx={{
+        <Stack spacing={viewMode == "list" ? 3 : 5} sx={{
             flexDirection: viewMode == "grid" ? "row" : "",
-            display: viewMode == "grid" ? "flex" : "block",
-            width: "100%"
+            display: viewMode == "grid" ? "flex" : "",
+            width: "100%",
+            flexWrap: "wrap",
+            alignContent: "center",
+            alignItems: "flex-end",
+            justifyContent: "space-evenly",
+            textAlign: "center",
+            ["& *"]: {
+                cursor: "pointer"
+            }
         }}> {/* 工具总览 */}
             {props.paramTool.length === 0 ? <ToolsNotFound /> : ((viewMode === "list" && props.editMode) ? <ListContainer /> : <GridContainer />)}
         </Stack>
