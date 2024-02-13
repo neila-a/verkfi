@@ -35,6 +35,8 @@
         "@mui/material": "^5.15.10",
         "@mui/styled-engine-sc": "^5.14.12",
         "@mui/system": "^5.15.9",
+        "@react-three/drei": "^9.97.5",
+        "@react-three/fiber": "^8.15.16",
         "@tybys/browser-asar": "github:toyobayashi/browser-asar",
         "@types/dom-to-image": "^2.6.7",
         "dexie": "^3.2.5",
@@ -58,7 +60,8 @@
         "react-transition-group": "^4.4.5",
         "sass": "^1.70.0",
         "sharp": "^0.32.6",
-        "styled-components": "^5.3.11"
+        "styled-components": "^5.3.11",
+        "three": "^0.161.0"
     },
     "devDependencies": {
         "@next/bundle-analyzer": "^14.1.0",
