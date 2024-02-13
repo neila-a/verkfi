@@ -10,7 +10,6 @@ import {
     useRef,
     useState
 } from "react";
-import style from "./Window.module.scss";
 import {
     CropDin as CropDinIcon,
     Close as CloseIcon,
@@ -23,6 +22,7 @@ import {
     useRouter
 } from "next/navigation";
 import Draggable from "react-draggable";
+import "./Window.scss"; // 你说的对，但是我懒得用模块
 import {
     useTheme
 } from "@mui/material/styles";
@@ -58,10 +58,31 @@ export default function Window(props: WindowOptions): JSX.Element {
         };
     return open && (
         <Box component="article">
-            <Draggable handle={`#title${id}`} cancel={`[class*="context${id}"]`} allowAnyClick nodeRef={nodeRef} defaultClassName={style["top0"]}>
-                <Box className={style["outer"]} ref={nodeRef} style={sizeStyle}>
-                    <Box className={style["top"]} style={realSx}>
-                        <Box className={style["title"]} id={`title${id}`}>
+            <Draggable handle={`#title${id}`} cancel={`[class*="context${id}"]`} allowAnyClick nodeRef={nodeRef} defaultClassName="top0">
+                <Box sx={{
+                    borderColor: "black",
+                    borderWidth: 1,
+                    borderStyle: "solid",
+                    zindex: 38601,
+                    position: "fixed",
+                    overflow: "auto",
+                    borderRadius: "1em",
+                    ...sizeStyle
+                }} ref={nodeRef}>
+                    <Box sx={{
+                        zindex: 38602,
+                        display: "flex",
+                        position: "sticky",
+                        top: 0,
+                        justifyContent: "center",
+                        alignItems: "center",
+                        ...realSx
+                    }}>
+                        <Box sx={{
+                            cursor: "move",
+                            flex: 1,
+                            textAlign: "center"
+                        }} id={`title${id}`}>
                             <Typography variant="subtitle1">
                                 {props.name}
                             </Typography>

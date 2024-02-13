@@ -11,7 +11,6 @@ import {
     Box,
     ListItem
 } from "@mui/material";
-import style from "./SingleMath.module.scss";
 export default function SingleMath(props: {
     math: string;
     showOut: boolean;
@@ -22,9 +21,14 @@ export default function SingleMath(props: {
             showOut
         } = props;
     return (
-        <ListItem className={style["single"]}>
+        <ListItem sx={{
+            display: "flex"
+        }}>
             <Typography>{math.replace(/=.*/g, "")}</Typography>
-            <Box className={style["out"]}>
+            <Box sx={{
+                flex: 1,
+                textAlign: "right"
+            }}>
                 <TextField label={get('结果')} type="number" InputLabelProps={{
                     shrink: true,
                 }} error={isError} onChange={event => {

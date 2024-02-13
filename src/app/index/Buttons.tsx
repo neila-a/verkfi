@@ -59,7 +59,7 @@ export default function Buttons(props: {
     return (
         <Box sx={{
             position: "absolute",
-            bottom: "0px",
+            bottom: 0,
             width: "100%"
         }}>
             {editMode && <Button onClick={event => {
@@ -75,7 +75,7 @@ export default function Buttons(props: {
                 <SwitchViewMode viewMode={viewMode} setViewMode={setViewMode} />
                 {editing && <SwitchEditMode editMode={editMode} setEditMode={setEditMode} />}
                 {props.isImplant && (<IconButton color="primary" sx={{
-                    p: '10px'
+                    p: 1
                 }} aria-label="directions" onClick={event => {
                     props.setExpand(!props.expand);
                 }}>

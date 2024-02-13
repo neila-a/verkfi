@@ -1,6 +1,7 @@
 "use client";
 import {
-    get, getHTML
+    get,
+    getHTML
 } from 'react-intl-universal';
 import {
     Box,
@@ -15,7 +16,6 @@ import {
     Storage as StorageIcon,
     Article as ArticleIcon
 } from "@mui/icons-material";
-import style from "./About.module.scss";
 import pack from "../../../../package.json";
 import ErrorBoundary from '../../components/ErrorBoundary';
 import {
@@ -137,7 +137,11 @@ export default function About() {
             <Typography variant='h4'>
                 {get('关于')}
             </Typography>
-            <Box className={style["title"]}>
+            <Box sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center"
+            }}>
                 <VerkfiIcon sx={{
                     fontSize: "2.125rem"
                 }} />

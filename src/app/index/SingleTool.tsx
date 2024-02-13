@@ -113,7 +113,7 @@ export default function SingleTool(props: {
             <windows.Consumer>
                 {value => (
                     <Card elevation={elevation} sx={{
-                        width: viewMode == "grid" ? "275px" : fullWidth,
+                        width: viewMode == "grid" ? 275 : fullWidth,
                         maxWidth: fullWidth,
                         backgroundImage: stringToBoolean(color) ? "linear-gradient(45deg, #" + tool.color[0] + ", #" + tool.color[1] + ")" : ""
                     }} onMouseEnter={event => {

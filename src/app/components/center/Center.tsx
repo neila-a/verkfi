@@ -1,13 +1,23 @@
 import {
-    Box
+    Box,
+    Theme
 } from "@mui/material";
-import style from "./Center.module.scss";
+import {
+    BoxOwnProps
+} from "@mui/system";
+import {
+    ReactNode
+} from "react";
 /**
  * 居中
  * @returns {JSX.Element}  
  */
-export const Center = props => (
-    <Box className={style["center"]}>
+export const Center = (props: {
+    children: ReactNode
+} & BoxOwnProps<Theme>) => (
+    <Box {...props} sx={{
+        textAlign: "center"
+    }}>
         {props.children}
     </Box>
 );

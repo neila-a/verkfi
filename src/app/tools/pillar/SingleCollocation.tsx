@@ -24,7 +24,7 @@ export default function SingleCollocation(props: {
     return (
         <Grid item component="li">
             <Paper sx={{
-                minWidth: "155px" // 经过测量得出的
+                minWidth: 155 // 经过测量得出的
             }} elevation={elevation} onMouseEnter={event => {
                 setElevation(8);
             }} onMouseLeave={event => {

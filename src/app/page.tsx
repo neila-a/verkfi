@@ -167,7 +167,7 @@ export default function Index(props: {
                         position: "absolute",
                         left: drawerWidth,
                         maxWidth: `calc(100vw - ${drawerWidth}px)`,
-                        width: `320px`,
+                        width: 320,
                         boxSizing: 'border-box'
                     }
                 }}>

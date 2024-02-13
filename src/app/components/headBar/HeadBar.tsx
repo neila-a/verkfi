@@ -1,5 +1,5 @@
 import {
-    get
+	get
 } from 'react-intl-universal';
 import {
 	AppBar,
@@ -24,7 +24,6 @@ import {
 	Fragment,
 	useContext
 } from "react";
-import style from "./HeadBar.module.scss";
 import LpLogger from "lp-logger";
 import MouseOverPopover from "../Popover";
 import {
@@ -117,7 +116,9 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 					alignItems: "center",
 					...noDrag
 				}}>
-					<Link href="/setting/option" className={style["link"]}>
+					<Link href="/setting/option" style={{
+						color: "inherit"
+					}}>
 						<MouseOverPopover text={get('设置')}>
 							<IconButton size="large" edge="end" color="inherit" aria-label="settings" sx={{
 								mr: 2
@@ -129,22 +130,44 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 				</nav>
 			</Toolbar>
 		</AppBar>
-		{stringToBoolean(forkMeOnGithub.value) ? <Box className={style["github-ribbon"]} sx={{
-			...noDrag,
-			...props.isIndex ? {
-				left: "0px"
-			} : {
-				right: "0px"
-			}
+		{stringToBoolean(forkMeOnGithub.value) ? <Box sx={{
+			position: 'fixed',
+			width: 150,
+			height: 150,
+			overflow: 'hidden',
+			zIndex: 99999,
+			top: 0,
+			[props.isIndex ? "left": "right"]: 0
 		}}>
-			<a href="https://github.com/neila-a/verkfi.git" style={props.isIndex ? {
-				transform: "rotate(-45deg)",
-				left: "-40px"
-			} : {
-				transform: "rotate(45deg)",
-				right: "-40px"
+			<a href="https://github.com/neila-a/verkfi.git" style={{
+				transform: props.isIndex ? "rotate(-45deg)" : "rotate(45deg)",
+				[props.isIndex ? "left" : "right"]: -40,
+				display: 'inline-block',
+				width: 200,
+				overflow: 'hidden',
+				padding: '6px 0px',
+				textAlign: "center",
+				textDecoration: "none",
+				color: 'rgb(255, 255, 255)',
+				position: 'inherit',
+				borderWidth: "1px 0px",
+				borderStyle: "dotted",
+				borderColor: 'rgba(255, 255, 255, 0.7)',
+				fontWeight: 700,
+				fontSize: 13,
+				fontFamily: [
+					"Helvetica Neue",
+					"Helvetica",
+					"Arial",
+					"sans-serif"
+				].join(","),
+				boxShadow: 'rgba(0, 0, 0, 0.5) 0px 2px 3px 0px',
+				backgroundColor: "rgb(170, 0, 0)",
+				backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15))',
+				top: 45
 			}}>Fork me on GitHub</a>
-		</Box> : <Fragment />}
+		</Box > : <Fragment />
+		}
 		<Toolbar />
 	</>;
 };
