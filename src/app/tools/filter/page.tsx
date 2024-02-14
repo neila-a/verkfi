@@ -60,6 +60,7 @@ export default function Filter(): JSX.Element {
                     });
                 }}
                 maxFiles={1}
+                acceptedFileTypes={["image/*"]}
                 name="files"
                 labelIdle={get('drag.拖拽图片到这里')}
             />

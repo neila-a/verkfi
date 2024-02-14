@@ -101,6 +101,7 @@ function AudioTools(): JSX.Element {
                         allowMultiple={true}
                         maxFiles={1}
                         name="files"
+                        acceptedFileTypes={["audio/*"]}
                         labelIdle={get('drag.拖拽音频到这里')}
                     />
                 </Module>

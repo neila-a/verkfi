@@ -18,11 +18,11 @@ import {
 } from "./shaiziCanvas";
 function ShaiZi(): JSX.Element {
     const [useDialogShow, setUseDialogShow] = useState<boolean>(false),
-        [cishu, setCishu] = useState<number>(1);
+        [cishu, setCishu] = useState<number>(10);
     return (
         <>
             <Stack spacing={2} component="section">
-                <ShaiZiCanvas cishu={cishu} setCishu={setCishu} />
+                <ShaiZiCanvas cishu={cishu} />
                 <TextField id="weishu" label={get('shaizi.掷色子的次数')} variant="outlined" value={cishu} type="number" onChange={event => {
                     setCishu(Number(event.target.value));
                 }} />
@@ -32,7 +32,7 @@ function ShaiZi(): JSX.Element {
             </Stack>
             <FullScreenDialog open={useDialogShow} title={get('shaizi.掷色子（全屏模式）')} onDone={() => {
                 setUseDialogShow(false);
-            }} context={<ShaiZiCanvas cishu={cishu} setCishu={setCishu} />} />
+            }} context={<ShaiZiCanvas cishu={cishu} />} />
         </>
     );
 };

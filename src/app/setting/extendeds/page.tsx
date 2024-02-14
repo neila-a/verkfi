@@ -5,7 +5,6 @@ import {
     Stack,
     Typography,
     Divider,
-    TextField,
     IconButton,
     Box
 } from "@mui/material";
@@ -162,9 +161,7 @@ export default function ExtendedManager() {
                 const id = await db.extendedTools.delete(fileInfo.to);
                 reset();
             }} />
-            <PureDialog open={addDialogOpen} onClose={() => {
-                reset();
-            }} title={get("extensions.添加扩展")}>
+            <PureDialog open={addDialogOpen} onClose={() => reset()} title={get("extensions.添加扩展")}>
                 <FilePond
                     files={fileArray as unknown as FilePondServerConfigProps["files"]}
                     onupdatefiles={files => {
@@ -191,6 +188,7 @@ export default function ExtendedManager() {
                     allowMultiple={true}
                     maxFiles={1}
                     name="files"
+                    acceptedFileTypes={[".vxt"]}
                     labelIdle={get('drag.拖拽扩展到这里')}
                 />
                 {packagedDialogInputs("add")}
