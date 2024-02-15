@@ -23,6 +23,7 @@ function Cube(props: {
     const camera = useRef<Camera>(),
         mesh = useRef<Mesh>(),
         stage = useRef<rotateAxis[]>([]),
+        cacheStage = useRef<rotateAxis[]>([]),
         cishu = useRef<number>(0),
         materials = [1, 2, 3, 4, 5, 6].map(item => new MeshPhongMaterial({
             map: new TextureLoader().load(`/image/shaizi/${item}.svg`),
@@ -44,11 +45,22 @@ function Cube(props: {
         <>
             <camera ref={camera} position={[10, 10, 10]} />
             <mesh ref={mesh} args={[cube, materials]} onClick={event => {
-                const oldStage = stage.current.slice(0);
-                for (let step = 0; step < props.cishu; step++) {
-                    oldStage.push(randomAxis());
+                if (stage.current.length === 0) {
+                    var oldStage = [];
+                    while (oldStage.toString() === cacheStage.current.toString())
+                    for (let step = 0; step < props.cishu; step++) {
+                        oldStage.push(randomAxis());
+                    }
+                    if (oldStage.toString() === cacheStage.current.toString()) {
+                        oldStage = [];
+                        for (let step = 0; step < props.cishu; step++) {
+                            oldStage.push(randomAxis());
+                        }
+                    } else {
+                        cacheStage.current = oldStage;
+                    }
+                    stage.current = oldStage;
                 }
-                stage.current = oldStage;
             }}>
             </mesh>
         </>
@@ -63,7 +75,9 @@ export function ShaiZiCanvas(props: {
         canvas.current.setAttribute("height", "200");
     });
     return (
-        <Canvas ref={canvas}>
+        <Canvas style={{
+            cursor: "pointer"
+        }} ref={canvas}>
             <ambientLight position={[9, 9, 9]} />
             <Cube cishu={props.cishu} />
         </Canvas>
