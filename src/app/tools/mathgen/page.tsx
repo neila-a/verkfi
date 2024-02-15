@@ -56,26 +56,26 @@ function MathGen(): JSX.Element {
                 <TextField margin="normal" label={get('上限')} type="number" InputLabelProps={{
                     shrink: true,
                 }} onChange={event => {
-                    setMax(Number(event.currentTarget.value));
+                    setMax(Number(event.target.value));
                 }} defaultValue={max} />
                 <TextField margin="normal" label={get('下限')} type="number" InputLabelProps={{
                     shrink: true,
                 }} onChange={event => {
-                    setMin(Number(event.currentTarget.value));
+                    setMin(Number(event.target.value));
                 }} defaultValue={min} />
                 <TextField margin="normal" label={get('个数')} type="number" InputLabelProps={{
                     shrink: true,
                 }} onChange={event => {
-                    setItemCount(Number(event.currentTarget.value));
+                    setItemCount(Number(event.target.value));
                 }} defaultValue={itemCount} />
                 <FormControlLabel label={get('mathgen.减数检查')} control={
                     <Checkbox checked={subtractionCheck} onChange={event => {
-                        setSubtractionCheck(event.currentTarget.checked);
+                        setSubtractionCheck(event.target.checked);
                     }} />
                 } />
                 <FormControlLabel label={get('mathgen.除数检查')} control={
                     <Checkbox checked={divisionCheck} onChange={event => {
-                        setDivisionCheck(event.currentTarget.checked);
+                        setDivisionCheck(event.target.checked);
                     }} />
                 } />
                 <Paper sx={{

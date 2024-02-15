@@ -27,7 +27,7 @@ export default function MouseOverPopover(props: {
             if (isMobile) {
                 logger.log("检测到此设备为手机，停止显示弹出框");
             } else {
-                setAnchorEl(event.currentTarget);
+                setAnchorEl(event.target);
             }
         },
         handlePopoverClose = () => {
