@@ -1,7 +1,7 @@
 {
     "name": "verkfi",
     "version": "1.6.1",
-    "devVersion": "780",
+    "devVersion": "785",
     "dev": true,
     "description": "Platform for Neila's something useless tools.",
     "private": true,
@@ -26,6 +26,22 @@
         "lint": "next lint",
         "start": "next start"
     },
+    "devDependencies": {
+        "@next/bundle-analyzer": "^14.1.0",
+        "@types/dom-to-image": "^2.6.7",
+        "@types/file-saver": "^2.0.7",
+        "@types/node": "20.11.19",
+        "@types/react": "18.2.57",
+        "@types/react-dom": "18.2.19",
+        "@types/react-transition-group": "^4.4.10",
+        "@types/three": "^0.161.2",
+        "esbuild": "^0.20.1",
+        "eslint": "8.56.0",
+        "eslint-config-next": "14.1.0",
+        "eslint-plugin-react-hooks": "^4.6.0",
+        "typescript": "5.3.3"
+    },
+    "homepage": "https://neila-tools.netlify.app/",
     "dependencies": {
         "@emotion/react": "^11.11.3",
         "@emotion/styled": "^11.11.0",
@@ -43,11 +59,11 @@
         "file-saver": "^2.0.5",
         "filepond": "^4.30.6",
         "lp-logger": "github:neila-a/lp-logger-no-window",
-        "next": "14.1.1-canary.67",
+        "next": "^14.1.0",
         "nzh": "^1.0.12",
-        "react": "18.2.0",
+        "react": "^18.2.0",
         "react-device-detect": "^2.2.3",
-        "react-dom": "18.2.0",
+        "react-dom": "^18.2.0",
         "react-draggable": "^4.4.6",
         "react-filepond": "^7.1.2",
         "react-intl-universal": "^2.10.1",
@@ -55,21 +71,5 @@
         "react-transition-group": "^4.4.5",
         "sass": "^1.71.1",
         "three": "^0.161.0"
-    },
-    "devDependencies": {
-        "@next/bundle-analyzer": "^14.1.0",
-        "@types/dom-to-image": "^2.6.7",
-        "@types/file-saver": "^2.0.7",
-        "@types/node": "20.11.19",
-        "@types/react": "18.2.57",
-        "@types/react-dom": "18.2.19",
-        "@types/react-transition-group": "^4.4.10",
-        "@types/three": "^0.161.2",
-        "esbuild": "^0.20.1",
-        "eslint": "8.56.0",
-        "eslint-config-next": "14.1.0",
-        "eslint-plugin-react-hooks": "^4.6.0",
-        "typescript": "5.3.3"
-    },
-    "homepage": "https://neila-tools.netlify.app/"
+    }
 }
