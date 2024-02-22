@@ -30,10 +30,13 @@ function AudioTools(): JSX.Element {
         [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | "awaqwq">("awaqwq"),
         [status, setStatus] = useState<status>("inactive");
     useEffect(function () {
-        if (navigator.mediaDevices.getUserMedia && mediaRecorder == "awaqwq") {
-            var constraints = { audio: true };
-            navigator.mediaDevices.getUserMedia(constraints).then(
-                stream => {
+        (async () => {
+            if (navigator.mediaDevices.getUserMedia && mediaRecorder == "awaqwq") {
+                const constraints = {
+                    audio: true
+                };
+                try { 
+                    const stream = await navigator.mediaDevices.getUserMedia(constraints);
                     if (mediaRecorder != "awaqwq") {
                         stream.getTracks()[0].stop();
                         logger.log("录音已停止");
@@ -56,14 +59,13 @@ function AudioTools(): JSX.Element {
                         logger.log("录音已继续");
                     }
                     setMediaRecorder(_mediaRecorder);
-                },
-                () => {
-                    logger.error("授权失败。");
+                } catch (error) {
+                    logger.error(`授权失败：`, error);
                 }
-            );
-        } else {
-            logger.error("浏览器不支持 getUserMedia。");
-        }
+            } else {
+                logger.error("浏览器不支持 getUserMedia。");
+            }
+        })();
         return () => {
             logger.log("AudioTools已经被卸载，正在返还录音权限。");
             if (mediaRecorder != "awaqwq") {

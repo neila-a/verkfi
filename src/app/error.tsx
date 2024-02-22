@@ -36,11 +36,12 @@ export default function Error(props: {
                 <Button variant="contained" onClick={event => props.reset()}>
                     {get("重试")}
                 </Button>
-                <Button variant="outlined" onClick={event => {
-                    caches.keys().then(keylist => Promise.all(keylist.map(key => {
+                <Button variant="outlined" onClick={async event => {
+                    const keylist = await caches.keys();
+                    keylist.map(async key => {
                         logger.log(`已删除缓存“${key}”`);
-                        return caches.delete(key);
-                    })));
+                        return await caches.delete(key);
+                    });
                     props.reset();
                 }}>
                     {get("error.cache")}

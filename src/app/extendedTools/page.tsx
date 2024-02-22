@@ -32,11 +32,12 @@ export default function ExtendedTools() {
         toolID = param.get("id");
     }
     useEffect(() => {
-        db.extendedTools.get({
-            to: toolID
-        }).then(real => {
+        (async () => {
+            const real = await db.extendedTools.get({
+                to: toolID
+            })
             setTool(real);
-        });
+        })();
     }, []);
     return (
         <>

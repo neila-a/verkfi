@@ -21,12 +21,12 @@ export const Cache = `Verkfi-${version}-${dev == true ? `dev${devVersion}` : "pr
     log = (text: string) => console.log(`%cServiceWorker`, `background: #52c41a;border-radius: 0.5em;color: white;font-weight: bold;padding: 2px 0.5em`, text),
     clearOldCaches = async () => {
         const keylist = await caches.keys();
-        return await Promise.all(keylist.filter(key => {
+        keylist.filter(key => {
             return key !== Cache;
-        }).map(key_1 => {
+        }).map(async key_1 => {
             log(`已删除缓存“${key_1}”`);
-            return caches.delete(key_1);
-        }));
+            return await caches.delete(key_1);
+        });
     },
     installFilesEssential: string[] = [
         '/index.webmanifest',
@@ -36,22 +36,29 @@ log(`版本为${Cache}`);
 self.addEventListener('install', async event => {
     const installStaticFiles = async () => {
         const cachea = await caches.open(Cache);
-        cachea.addAll(installFilesEssential).catch(console.error);
+        try {
+            await cachea.addAll(installFilesEssential)
+        } catch (error) {
+            console.error(error);
+        }
     };
-    event.waitUntil(installStaticFiles().then(() => self.skipWaiting()));
+    return event.waitUntil((async () => {
+        await installStaticFiles();
+        self.skipWaiting();
+    })());
 });
-self.addEventListener('activate', event => {
-    return event.waitUntil(clearOldCaches().then(() => {
-        return self.clients.claim();
-    }));
-});
+self.addEventListener('activate', event => event.waitUntil((async () => {
+    await clearOldCaches();
+    return self.clients.claim();
+})()));
 self.addEventListener('fetch', event => {
     if (event.request.method !== 'GET') return;
     let requrl = event.request.url;
     let url = String(requrl);
     let path = new URL(url).pathname.split("/");
     path.shift();
-    event.respondWith(caches.open(Cache).then(async cache => {
+    event.respondWith((async () => {
+        const cache = await caches.open(Cache);
         var realReq = event.request.clone();
         var response: Response;
         if (url.includes("_rsc=")) {
@@ -81,6 +88,6 @@ self.addEventListener('fetch', event => {
             console.error(message);
             return message;
         }
-    }));
+    })());
 });
 export default Cache;

@@ -37,13 +37,14 @@ function CopyButton(props: {
     const [showCopyDoneDialog, setShowCopyDoneDialog] = useState<boolean>(false),
         [copyError, setCopyError] = useState<string>(""),
         [showCopyErrorDialog, setShowCopyErrorDialog] = useState<boolean>(false),
-        handleCopy = () => {
-            navigator.clipboard.writeText(props.children).then(() => {
+        handleCopy = async () => {
+            try {
+                await navigator.clipboard.writeText(props.children);
                 setShowCopyDoneDialog(true);
-            }).catch(error => {
+            } catch (error) {
                 setCopyError(`复制结果时出现错误，请报告给开发人员：${error}`);
                 setShowCopyErrorDialog(true);
-            });
+            };
         },
         add = "add" in props ? props.add : {},
         sx: SxProps<Theme> = {

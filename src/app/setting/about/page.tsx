@@ -117,8 +117,12 @@ export default function About() {
     useEffect(() => {
         let mounted = true;
         if (mounted) {
-            getCache("usage").then(value => setCacheUsed(value));
-            getCache("quota").then(value => setCacheAll(value));
+            (async () => {
+                const usageValue = await getCache("usage")
+                setCacheUsed(usageValue);
+                const quotaValue = await getCache("quota");
+                setCacheAll(quotaValue);
+            })();
             setLoad(true);
             setAddressInfo({
                 href: location.href,

@@ -46,8 +46,12 @@ export default function Reset() {
         [load, setLoad] = useState<boolean>(false),
         [dialogOnDone, setDialogOnDone] = useState<() => any>(() => null);
     useEffect(() => {
-        getCache("usage").then(value => setCacheUsed(value));
-        getCache("quota").then(value => setCacheAll(value));
+        (async () => {
+            const usageValue = await getCache("usage")
+            setCacheUsed(usageValue);
+            const quotaValue = await getCache("quota");
+            setCacheAll(quotaValue);
+        })();
         setLoad(true);
     }, []);
     return load && (
@@ -71,10 +75,13 @@ export default function Reset() {
                         setDialogOpen(true);
                         setDialogContext(get("clear.清空缓存吗？此操作不可恢复。"));
                         setDialogTitle(get("clear.清空"));
-                        setDialogOnDone(() => () => caches.keys().then(keylist => Promise.all(keylist.map(key => {
-                            logger.log(`已删除缓存“${key}”`);
-                            return caches.delete(key);
-                        }))));
+                        setDialogOnDone(() => async () => {
+                            const keylist = await caches.keys();
+                            keylist.map(async key => {
+                                logger.log(`已删除缓存“${key}”`);
+                                return await caches.delete(key);
+                            });
+                        });
                     }}>{get('clear.清空所有缓存')}</Button>
                 </Spacing3Stack>
                 <Spacing3Stack>
