@@ -47,7 +47,7 @@ export default function MouseOverPopover(props: {
                 id="mouse-over-popover"
                 sx={{
                     pointerEvents: 'none',
-                    zIndex: 38602
+                    zIndex: "38602"
                 }}
                 open={open}
                 anchorEl={anchorEl}

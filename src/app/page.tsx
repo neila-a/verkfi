@@ -141,7 +141,7 @@ export default function Index(props: {
     return (props.isImplant ? (stringToBoolean(showSidebar.show)) : true) && (
         <Box ref={ref}>
             {props.isImplant !== true && <HeadBar isIndex pageName="Verkfi" sx={{
-                zIndex: theme => (theme as ThemeHaveZIndex).zIndex.drawer + 1
+                zIndex: theme => String((theme as ThemeHaveZIndex).zIndex.drawer + 1)
             }} />}
             <Sidebar
                 setShow={setShow}

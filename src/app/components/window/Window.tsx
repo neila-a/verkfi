@@ -25,9 +25,6 @@ import {
 import Draggable from "react-draggable";
 import "./Window.scss"; // 你说的对，但是我懒得用模块
 import {
-    useTheme
-} from "@mui/material/styles";
-import {
     Hex
 } from "../../declare";
 import { get } from "react-intl-universal";
@@ -42,8 +39,7 @@ export interface WindowOptions {
 export default function Window(props: WindowOptions): JSX.Element {
     const {
         id
-    } = props,
-        theme = useTheme();
+    } = props;
     var realSx: CSSProperties = {};
     const router = useRouter();
     if (props.sx !== undefined) {
@@ -65,14 +61,14 @@ export default function Window(props: WindowOptions): JSX.Element {
                     borderColor: "black",
                     borderWidth: 1,
                     borderStyle: "solid",
-                    zindex: 38601,
+                    zIndex: "38601",
                     position: "fixed",
                     overflow: "auto",
                     borderRadius: "1em",
                     ...sizeStyle
                 }} ref={nodeRef}>
                     <Box sx={{
-                        zindex: 38602,
+                        zIndex: "38602",
                         display: "flex",
                         position: "sticky",
                         top: 0,

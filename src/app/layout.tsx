@@ -34,7 +34,7 @@ export async function generateMetadata() {
                     url: './image/social.png',
                     width: 1280,
                     height: 640,
-                },
+                }
             ],
             locale: 'zh_CN',
             alternateLocale: [
@@ -50,7 +50,7 @@ import {
 export function generateViewport(): Viewport {
     return {
         themeColor: "#1976d2",
-    }
+    };
 }
 import '@fontsource/ubuntu/300.css';
 import '@fontsource/ubuntu/400.css';

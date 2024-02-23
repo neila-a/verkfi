@@ -1,9 +1,10 @@
 "use client";
 import ErrorBoundary from "./components/ErrorBoundary";
-import Window from "./components/window/Window";
+import dynamic from "next/dynamic";
+const Window = dynamic(() => import("./components/window/Window"));
 import {
     colorMode,
-    windows
+    windows as windowsContext
 } from "./layout/layoutClient";
 import stringToBoolean from "./setting/stringToBoolean";
 import {
@@ -13,18 +14,17 @@ import {
     useContext
 } from "react";
 export default function WindowContainer() {
-    var colorContext = useContext(colorMode),
-        color = colorContext.value;
-    const theme = useTheme();
+    const colorContext = useContext(colorMode),
+        windows = useContext(windowsContext).windows,
+        color = colorContext.value,
+        theme = useTheme();
     return (
         <ErrorBoundary>
-            <windows.Consumer>
-                {value => value.windows.map(single => (
-                    <Window {...single} key={single.id} sx={{
-                        background: stringToBoolean(color) ? `linear-gradient(45deg, #${single.color[0]}, #${single.color[1]})` : theme.palette.background.default,
-                    }} />
-                ))}
-            </windows.Consumer>
+            {windows.map(single => (
+                <Window {...single} key={single.id} sx={{
+                    background: stringToBoolean(color) ? `linear-gradient(45deg, #${single.color[0]}, #${single.color[1]})` : theme.palette.background.default,
+                }} />
+            ))}
         </ErrorBoundary>
     );
 }

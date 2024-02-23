@@ -13,12 +13,12 @@ import {
     useState,
     useMemo,
     ReactNode,
-    useRef
+    createElement
 } from 'react';
 import {
     ThemeProvider,
     createTheme
-} from "@mui/material/styles"
+} from "@mui/material/styles";
 import LpLogger from "lp-logger";
 import {
     setState
@@ -29,7 +29,6 @@ export var logger = new LpLogger({
 });
 export type colorMode = 'light' | 'dark';
 export const isBrowser = () => typeof window !== 'undefined'; // The approach recommended by Next.js
-import WindowContainer from "../WindowContainer";
 import {
     createContext
 } from "react";
@@ -46,7 +45,8 @@ import {
     usePathname,
     useSearchParams
 } from "next/navigation";
-import Index from "../page";
+import dynamic from "next/dynamic";
+import WindowContainer from "../WindowContainer"; // 重的Window已经被动态加载，那么WindowContainer是轻的
 import {
     drawerWidth
 } from "../setting/consts";
@@ -54,7 +54,6 @@ import stringToBoolean from "../setting/stringToBoolean";
 import {
     stringifyCheck
 } from "../setting/Switcher";
-import Menu from "../Menu";
 import useLang from "./useLang";
 import registerProtocolHandler from "./registerProtocolHandler";
 import registerServiceWorker from "./registerServiceWorker";
@@ -154,7 +153,11 @@ export default function ModifiedApp(props: {
         [showSidebarState, setShowSidebar] = useStoragedState<stringifyCheck>("sidebar", "边栏", "false"),
         implant = (pathname === "/") || (params.get("only") === "true"),
         ml: string = implant ? "" : (expand ? `calc(min(${`calc(100vw - ${drawerWidth}px)`}, 320px) + ${drawerWidth}px)` : `${drawerWidth}px`),
-        Sidebar = implant ? null : (sidebarModeState === "menu" ? <Menu /> : <Index isImplant expand={expand} setExpand={setExpand} />),
+        Sidebar = implant ? null : (sidebarModeState === "menu" ? createElement(dynamic(() => import("../Menu"))) : createElement(dynamic(() => import("../page")), {
+            isImplant: true,
+            expand: expand,
+            setExpand: setExpand
+        })), // 使用createElement因为dynamic不能直接以JSX方式调用
         [forkMeOnGitHubState, setForkMeOnGithub] = useStoragedState<stringifyCheck>("fork-me-on-github", "Fork me on GitHub", "false"),
         [colorModeState, setColorModeState] = useStoragedState<stringifyCheck>("color", "多彩主页", "true");
     useEffect(() => {

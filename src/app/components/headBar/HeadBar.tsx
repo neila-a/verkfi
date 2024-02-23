@@ -71,7 +71,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 	return props.only ? <Fragment /> : <>
 		<AppBar elevation={4} position="fixed" sx={{
 			WebkitAppRegion: "drag",
-			zIndex: 38600,
+			zIndex: "38600",
 			left: 0,
 			width: "100vw",
 			opacity: 0.95,
@@ -135,7 +135,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 			width: 150,
 			height: 150,
 			overflow: 'hidden',
-			zIndex: 99999,
+			zIndex: "99999",
 			top: 0,
 			[props.isIndex ? "left": "right"]: 0
 		}}>
