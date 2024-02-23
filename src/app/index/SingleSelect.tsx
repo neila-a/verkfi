@@ -28,12 +28,12 @@ export default function SingleSelect(props: {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            bgcolor: theme => props.sortingFor === props.wantSortingFor ? theme.palette.action.active : ""
+            bgcolor: theme => props.sortingFor === props.wantSortingFor && theme.palette.action.active
         }}>
             {props.dragButton}
             <Button aria-label={props.tool} sx={{
                 overflow: "hidden",
-                color: theme => props.sortingFor === props.wantSortingFor ? theme.palette.primary[theme.palette.mode] : ""
+                color: theme => props.sortingFor === props.wantSortingFor && theme.palette.primary[theme.palette.mode]
             }} onClick={event => {
                 if (!props.editMode) {
                     props.setEditing(props.searchText === "");

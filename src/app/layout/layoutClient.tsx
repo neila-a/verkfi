@@ -234,7 +234,7 @@ export default function ModifiedApp(props: {
                                                     <Box component="aside">
                                                         {Sidebar}
                                                     </Box>
-                                                    <Box component="main" ml={(stringToBoolean(showSidebarState) && sidebarModeState === "sidebar") ? ml : ""}>
+                                                    <Box component="main" ml={(stringToBoolean(showSidebarState) && sidebarModeState === "sidebar") && ml}>
                                                         {props.children}
                                                     </Box>
                                                     <WindowContainer />

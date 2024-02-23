@@ -109,13 +109,13 @@ export default function SingleTool(props: {
         db = <DownButton {...buttonOptions} />,
         ub = <UpButton {...buttonOptions} />;
     return (
-        <Box mb={viewMode === "list" ? 2 : ""} key={tool.to} {...swipeHandler} component="section"> {/* 单个工具 */}
+        <Box mb={viewMode === "list" && 2} key={tool.to} {...swipeHandler} component="section"> {/* 单个工具 */}
             <windows.Consumer>
                 {value => (
                     <Card elevation={elevation} sx={{
                         width: viewMode == "grid" ? 275 : fullWidth,
                         maxWidth: fullWidth,
-                        backgroundImage: stringToBoolean(color) ? "linear-gradient(45deg, #" + tool.color[0] + ", #" + tool.color[1] + ")" : ""
+                        backgroundImage: stringToBoolean(color) && `linear-gradient(45deg, #${tool.color[0]}, #${tool.color[1]})`
                     }} onMouseEnter={event => {
                         setElevation(8);
                     }} onMouseLeave={event => {

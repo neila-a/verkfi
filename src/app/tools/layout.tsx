@@ -46,7 +46,7 @@ export default function ToolFinder(props: {
     if (searchParams.has("only")) {
         only = true;
     }
-    const toolColor = stringToBoolean(color) ? getToolColor(toolsInfo, toolID) : "";
+    const toolColor = stringToBoolean(color) && getToolColor(toolsInfo, toolID);
     return (
         <>
             <HeadBar isIndex={false} pageName={(() => {

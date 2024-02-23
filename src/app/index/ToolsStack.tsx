@@ -86,7 +86,9 @@ export default function ToolsStack(props: {
                                 <Box ref={provided.innerRef} {...provided.droppableProps}>
                                     <TransitionGroup>
                                         {props.paramTool.map((tool, index) => (
-                                            <Collapse key={tool.to}>
+                                            <Collapse key={tool.to} sx={{
+                                                width: "100%"
+                                            }}>
                                                 <Draggable draggableId={tool.to} index={index}>
                                                     {provided => (
                                                         <Box ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
@@ -121,8 +123,8 @@ export default function ToolsStack(props: {
         darkMode = stringToBoolean(darkModeFormStorage.replace("light", "false").replace("dark", "true"));
     return (
         <Stack spacing={viewMode == "list" ? 3 : 5} sx={{
-            flexDirection: viewMode == "grid" ? "row" : "",
-            display: viewMode == "grid" ? "flex" : "",
+            flexDirection: viewMode === "grid" && "row",
+            display: viewMode === "grid" && "flex",
             width: "100%",
             flexWrap: "wrap",
             alignContent: "center",
@@ -131,6 +133,9 @@ export default function ToolsStack(props: {
             textAlign: "center",
             ["& *"]: {
                 cursor: "pointer"
+            },
+            ["& > *"]: {
+                width: viewMode === "list" && "100%"
             }
         }}> {/* 工具总览 */}
             {props.paramTool.length === 0 ? <ToolsNotFound /> : ((viewMode === "list" && props.editMode) ? <ListContainer /> : <GridContainer />)}

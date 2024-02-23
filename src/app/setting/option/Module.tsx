@@ -25,8 +25,8 @@ export default function Module(props: {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                boxShadow: theme => isThis ? `inset 0 0 0 3px ${theme.palette.primary[theme.palette.mode]}` : "",
-                borderColor: theme => isThis ? theme.palette.primary[theme.palette.mode] : ""
+                boxShadow: theme => isThis && `inset 0 0 0 3px ${theme.palette.primary[theme.palette.mode]}`,
+                borderColor: theme => isThis && theme.palette.primary[theme.palette.mode]
             }}>
                 {props.children}
             </Paper>

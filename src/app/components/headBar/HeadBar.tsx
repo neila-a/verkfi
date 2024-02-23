@@ -91,7 +91,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 				</nav>
 				<Typography variant="h6" component="div" sx={{
 					flexGrow: 1,
-					textAlign: props.isIndex ? "center" : ""
+					textAlign: props.isIndex && "center"
 				}}>
 					{props.isIndex ? "Verkfi" : props.pageName}
 				</Typography>

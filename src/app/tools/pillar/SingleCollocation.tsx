@@ -33,7 +33,7 @@ export default function SingleCollocation(props: {
                 <List>
                     {props.collocation.map((value, index) => (
                         <ListItem key={index} sx={{
-                            mb: index === 1 ? 1 : "",
+                            mb: index === 1 && 1,
                             pt: 0,
                             pb: 0
                         }} secondaryAction={<CopyButton onlyIcon>
