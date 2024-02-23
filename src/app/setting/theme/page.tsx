@@ -1,5 +1,4 @@
 "use client";
-import * as React from 'react';
 import {
     rgbToHex,
     useTheme
@@ -12,7 +11,7 @@ import {
     get
 } from "react-intl-universal";
 import {
-    darkMode,
+    darkMode as darkModeContext,
     isBrowser,
     paletteColors
 } from '../../layout/layoutClient';
@@ -25,17 +24,19 @@ import {
     Radio,
     Tooltip,
     Typography,
-    Slider
+    Slider,
+    FormControlLabel,
+    Switch
 } from '@mui/material';
-import {
-    Switcher
-} from '../Switcher';
 import defaults from './defaults';
 import hues from './hues';
 import shades from './shades';
+import { useContext, useReducer } from 'react';
+import stringToBoolean from '../stringToBoolean';
 function ColorTool() {
-    const palette = React.useContext(paletteColors);
+    const palette = useContext(paletteColors);
     const theme = useTheme();
+    const darkMode = useContext(darkModeContext);
     const defaultState = JSON.stringify({
         primary: defaults.primary,
         secondary: defaults.secondary,
@@ -50,7 +51,7 @@ function ColorTool() {
     if (isBrowser()) {
         value = checkOption("internalpalette", "内部调色板", defaultState);
     }
-    const [state, setState] = React.useReducer((old, now) => {
+    const [state, setState] = useReducer((old, now) => {
         const paletteColors = {
             primary: { ...colors[now.primaryHue], main: now.primary },
             secondary: { ...colors[now.secondaryHue], main: now.secondary },
@@ -214,7 +215,9 @@ function ColorTool() {
     };
     return (
         <>
-            <Switcher option={[darkMode, "暗色模式"]} />
+            <FormControlLabel control={<Switch checked={darkMode.mode === "dark"} onChange={event => {
+                darkMode.set(darkMode.mode === "light" ? "dark" : "light");
+            }} />} label={get("暗色模式")} />
             <Grid container spacing={5} sx={{
                 p: 0,
                 mb: 2
