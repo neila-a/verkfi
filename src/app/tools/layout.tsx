@@ -8,7 +8,7 @@ import {
     ReactNode,
     useContext
 } from "react";
-import HeadBar from "../components/headBar/HeadBar";
+import HeadBar from "../components/HeadBar";
 import {
     getTools
 } from "./info";

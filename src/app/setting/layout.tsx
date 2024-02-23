@@ -9,7 +9,7 @@ import {
 	Tabs,
 	Toolbar
 } from "@mui/material";
-import HeadBar from "../components/headBar/HeadBar";
+import HeadBar from "../components/HeadBar";
 import {
 	ReactNode,
 	useContext,

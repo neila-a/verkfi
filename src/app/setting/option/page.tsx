@@ -7,9 +7,7 @@ import {
     Button,
     ButtonGroup,
     Typography,
-    Box,
-    Grid,
-    Theme
+    Grid
 } from "@mui/material";
 import {
     CallToActionOutlined,
@@ -21,6 +19,7 @@ import {
     colorMode,
     forkMeOnGitHub,
     lang as langContext,
+    share,
     locales
 } from "../../layout/layoutClient";
 import {
@@ -32,16 +31,20 @@ import {
     useState
 } from "react";
 import {
-    Switcher
+    Switcher, stringifyCheck
 } from "../Switcher";
 import dynamic from 'next/dynamic';
 import {
     useRouter
 } from "next/navigation";
 import Module from "./Module";
+import { setState } from "../../declare";
 const PureDialog = dynamic(() => import("../../components/dialog/PureDialog")),
     ghURL = "https://github.com/neila-a/verkfi/";
-export type option = [Context<any>, string];
+export type option = [Context<{
+    value: stringifyCheck;
+    set: setState<stringifyCheck>;
+}>, string];
 export default function Options() {
     const lang = useContext(langContext),
         [dialogOpen, setDialogOpen] = useState<boolean>(false),
@@ -51,7 +54,7 @@ export default function Options() {
             <Typography variant='h4'>
                 {get('选项')}
             </Typography>
-            {([[forkMeOnGitHub, "Fork me on GitHub"], [colorMode, "多彩主页"]] as option[]).map(options => (
+            {([[forkMeOnGitHub, "Fork me on GitHub"], [colorMode, "多彩主页"], [share, "share.t"]] as option[]).map(options => (
                 <Switcher option={options} key={options[1]} />
             ))}
             <InputLabel>

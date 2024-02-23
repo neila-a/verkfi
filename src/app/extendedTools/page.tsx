@@ -5,7 +5,7 @@ import {
 import {
     useSearchParams
 } from "next/navigation";
-import HeadBar from "../components/headBar/HeadBar";
+import HeadBar from "../components/HeadBar";
 import {
     useEffect,
     useState

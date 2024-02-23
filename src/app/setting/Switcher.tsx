@@ -1,6 +1,6 @@
 import {
+    Alert,
     FormControlLabel,
-    PaletteMode,
     Switch
 } from "@mui/material";
 import {
@@ -10,10 +10,10 @@ import {
     option
 } from "./option/page";
 import {
-    Dispatch,
     useContext
 } from "react";
 import stringToBoolean from "./stringToBoolean";
+import { isBrowser } from "../layout/layoutClient";
 export type stringifyCheck = "false" | "true";
 export function Switcher(props: {
     option: option;
@@ -22,11 +22,17 @@ export function Switcher(props: {
         option
     } = props,
         value = useContext(option[0]),
-        isDarkMode = option[1] === "暗色模式",
+        isShare = option[1] === "share.t",
+        hasShare = "share" in (isBrowser() ? navigator : {}),
         isForkMeOnGitHub = option[1] === "Fork me on GitHub";
     return (
-        <FormControlLabel control={<Switch checked={stringToBoolean(isDarkMode ? (value.mode as PaletteMode).replace("light", "false").replace("dark", "true") : value.value as stringifyCheck)} onChange={event => {
-            (value.set as Dispatch<any>)(isDarkMode ? ((value.mode as PaletteMode) === "dark" ? "light" : "dark") : String((!stringToBoolean(value.value as stringifyCheck))));
-        }} />} label={isForkMeOnGitHub ? option[1] : get(option[1])} />
+        <>
+            {!hasShare && isShare && <Alert severity="warning">
+                {get("share.none")}
+            </Alert>}
+            <FormControlLabel disabled={!hasShare && isShare} control={<Switch checked={stringToBoolean(value.value as stringifyCheck)} onChange={event => {
+                value.set(String((!stringToBoolean(value.value as stringifyCheck))) as stringifyCheck);
+            }} />} label={isForkMeOnGitHub ? option[1] : get(option[1])} />
+        </>
     );
 }

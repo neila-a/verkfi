@@ -71,6 +71,10 @@ export const forkMeOnGitHub = createContext<{
     value: stringifyCheck;
     set: setState<stringifyCheck>;
 }>(null);
+export const share = createContext<{
+    value: stringifyCheck;
+    set: setState<stringifyCheck>;
+}>(null);
 export const first = createContext<{
     value: stringifyCheck;
     set: setState<stringifyCheck>;
@@ -159,6 +163,7 @@ export default function ModifiedApp(props: {
             setExpand: setExpand
         })), // 使用createElement因为dynamic不能直接以JSX方式调用
         [forkMeOnGitHubState, setForkMeOnGithub] = useStoragedState<stringifyCheck>("fork-me-on-github", "Fork me on GitHub", "false"),
+        [shareState, setShare] = useStoragedState<stringifyCheck>("share", "分享", isBrowser() ? String("share" in navigator) as stringifyCheck : "false"),
         [colorModeState, setColorModeState] = useStoragedState<stringifyCheck>("color", "多彩主页", "true");
     useEffect(() => {
         if (isBrowser()) {
@@ -214,34 +219,39 @@ export default function ModifiedApp(props: {
                                     value: choosedLang,
                                     set: setChoosedLang
                                 }}>
-                                    <sidebarMode.Provider value={{
-                                        value: sidebarModeState,
-                                        set: setSidebarMode
+                                    <share.Provider value={{
+                                        value: shareState,
+                                        set: setShare
                                     }}>
-                                        <paletteColors.Provider value={{
-                                            value: palette,
-                                            set: setPalette
+                                        <sidebarMode.Provider value={{
+                                            value: sidebarModeState,
+                                            set: setSidebarMode
                                         }}>
-                                            <recentlyUsed.Provider value={{
-                                                value: recentlyUsedState,
-                                                set: setRecentlyUsed
+                                            <paletteColors.Provider value={{
+                                                value: palette,
+                                                set: setPalette
                                             }}>
-                                                <mostUsed.Provider value={{
-                                                    value: mostUsedState,
-                                                    set: setMostUsed
+                                                <recentlyUsed.Provider value={{
+                                                    value: recentlyUsedState,
+                                                    set: setRecentlyUsed
                                                 }}>
-                                                    <CssBaseline />
-                                                    <Box component="aside">
-                                                        {Sidebar}
-                                                    </Box>
-                                                    <Box component="main" ml={(stringToBoolean(showSidebarState) && sidebarModeState === "sidebar") && ml}>
-                                                        {props.children}
-                                                    </Box>
-                                                    <WindowContainer />
-                                                </mostUsed.Provider>
-                                            </recentlyUsed.Provider>
-                                        </paletteColors.Provider>
-                                    </sidebarMode.Provider>
+                                                    <mostUsed.Provider value={{
+                                                        value: mostUsedState,
+                                                        set: setMostUsed
+                                                    }}>
+                                                        <CssBaseline />
+                                                        <Box component="aside">
+                                                            {Sidebar}
+                                                        </Box>
+                                                        <Box component="main" ml={(stringToBoolean(showSidebarState) && sidebarModeState === "sidebar") && ml}>
+                                                            {props.children}
+                                                        </Box>
+                                                        <WindowContainer />
+                                                    </mostUsed.Provider>
+                                                </recentlyUsed.Provider>
+                                            </paletteColors.Provider>
+                                        </sidebarMode.Provider>
+                                    </share.Provider>
                                 </lang.Provider>
                             </colorMode.Provider>
                         </darkMode.Provider>

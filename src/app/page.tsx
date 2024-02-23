@@ -2,7 +2,7 @@
 import intl, {
     get
 } from 'react-intl-universal';
-import HeadBar from "./components/headBar/HeadBar";
+import HeadBar from "./components/HeadBar";
 import {
     useContext,
     useEffect,
