@@ -253,12 +253,16 @@ export default function Menu() {
                 {sortingFor !== "__home__" && <DialogActions>
                     {get("press")}
                     <Button onClick={handleTab}>
-                        Tab
+                        <kbd>
+                            Tab
+                        </kbd>
                     </Button>
                     {get("switch")}{", "}
                     {get("press")}
                     <Button onClick={handleEnter}>
-                        Enter
+                        <kbd>
+                            Enter
+                        </kbd>
                     </Button>
                     {get("enter")}
                 </DialogActions>}
