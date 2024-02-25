@@ -158,15 +158,12 @@ export default function Pillar(): JSX.Element {
                                                     const realOld = old.slice(0); // 深复制
                                                     realOld[ruleIndex][index] = index === 0 ? Number(event.target.value) : (event.target.value as filterType);
                                                     return realOld;
-                                                })} labelId={`${select[1]}-select-label`} id={`${select[1]}-select`}
-                                                    value={
-                                                        rule[index] as any
-                                                        /*
-                                                         * 此处的类型应为 filterType | 0 | 1 | 2 | 3，但是由于TS的类型自动推断出现了问题，只能省略类型
-                                                        */
-                                                    }
-                                                    label={get(`${select[1]}.default`)}
-                                                >
+                                                })} labelId={`${select[1]}-select-label`} id={`${select[1]}-select`} value={
+                                                    rule[index] as any
+                                                    /*
+                                                     * 此处rule[index]的类型应为 filterType | 0 | 1 | 2 | 3，但是由于TS的类型自动推断出现了问题，只能省略类型
+                                                     */
+                                                } label={get(`${select[1]}.default`)}>
                                                     {select[0].map(choose => <MenuItem key={choose} value={choose}>{get(`${select[1]}.${choose}`)}</MenuItem>)}
                                                 </Select>
                                             </FormControl>

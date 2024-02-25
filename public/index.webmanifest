@@ -7,6 +7,9 @@
     "orientation": "any",
     "background_color": "#2196f3",
     "theme_color": "#2196f3",
+    "launch_handler": {
+        "client_mode": "auto"
+    },
     "icons": [
         {
             "src": "/image/favicon.310x310.png",
