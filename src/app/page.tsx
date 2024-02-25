@@ -86,6 +86,8 @@ export default function Index(props: {
         [expandThis, setExpandThis] = useState<boolean>(false),
         [showTries, setShowTries] = useState<boolean>(false),
         [tools, setTools] = useState(toolsList),
+        [tab, setTab] = useState<number>(0),
+        focusingTo = tools[tab] ? tools[tab].to : "", // 每次渲染会重新执行
         [show, setShow] = useState<"tools" | "home">(props.isImplant ? "tools" : "home"),
         tries = useMemo(() => generateTries(mostUsed, realTools), [mostUsed, realTools]),
         [sortingFor, setSortingFor] = useState<string>(props.isImplant ? "__global__" : "__home__");
@@ -134,6 +136,7 @@ export default function Index(props: {
                     sortingFor={sortingFor}
                     setTools={setTools}
                     editMode={editMode}
+                    focus={focusingTo}
                 />
             </Box>
         );
@@ -144,6 +147,9 @@ export default function Index(props: {
                 zIndex: theme => String((theme as ThemeHaveZIndex).zIndex.drawer + 1)
             }} />}
             <Sidebar
+                tools={tools}
+                focusingTo={focusingTo}
+                setTab={setTab}
                 setShow={setShow}
                 isImplant={props.isImplant}
                 viewMode={viewMode}

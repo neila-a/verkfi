@@ -52,6 +52,9 @@ export default function Sidebar(props: {
      * 搜索工具
      */
     searchTools(search: string): void;
+    tools: tool[];
+    setTab: setState<number>;
+    focusingTo: Lowercase<string>;
     setTools: setState<tool[]>;
     setSortedTools: setState<tool[]>;
     sortingFor: string;
@@ -102,11 +105,30 @@ export default function Sidebar(props: {
                 <InputBase value={searchText} sx={{
                     ml: 1,
                     flex: 1
+                }} onKeyDown={event => {
+                    if (event.key === "Tab" || event.key === "Enter") {
+                        event.preventDefault();
+                    }
+                }} onKeyUp={event => {
+                    if (event.key === "Tab") {
+                        event.preventDefault();
+                        props.setTab(old => (old + 1) % props.tools.length);
+                    } else if (event.key === "Enter") {
+                        event.preventDefault();
+                        const selectool = document.getElementById(`toolAbleToSelect-${props.focusingTo}`) as HTMLDivElement | null;
+                        if (selectool !== null) {
+                            selectool.click();
+                        }
+                    }
                 }} placeholder={get('搜索工具')} inputProps={{
                     'aria-label': get('搜索工具'),
                 }} onChange={event => {
                     setSearchText(event.target.value);
                     searchTools(event.target.value);
+                    if (sortingFor === "__home__") {
+                        setSortingFor("__global__");
+                        props.setShow("tools");
+                    }
                 }} />
             </Paper>
             <Center>

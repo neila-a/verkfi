@@ -54,6 +54,7 @@ export default function SingleTool(props: {
     setTools: setState<tool[]>;
     editMode: boolean;
     sortingFor: string;
+    focus?: boolean;
 }) {
     const {
         tool,
@@ -115,6 +116,7 @@ export default function SingleTool(props: {
                     <Card elevation={elevation} sx={{
                         width: viewMode == "grid" ? 275 : fullWidth,
                         maxWidth: fullWidth,
+                        boxShadow: theme => props.focus && `inset 0 0 0 3px ${theme.palette.primary[theme.palette.mode]}`,
                         backgroundImage: stringToBoolean(color) && `linear-gradient(45deg, #${tool.color[0]}, #${tool.color[1]})`
                     }} onMouseEnter={event => {
                         setElevation(8);
@@ -122,7 +124,7 @@ export default function SingleTool(props: {
                         setElevation(2); // reset to default
                     }}>
                         <CardContent>
-                            <Box sx={{
+                            <Box id={`toolAbleToSelect-${tool.to}`} sx={{
                                 ...(viewMode === "list" ? {
                                     textAlign: "left",
                                     position: "relative",
@@ -210,7 +212,7 @@ export default function SingleTool(props: {
                                     </Box>
                                 </>}
                             </Box>
-                            {props.isFirst && <iframe style={{
+                            {props.focus && <iframe style={{
                                 border: "none",
                                 width: "100%"
                             }} src={tool.isGoto ? (!tool.to.startsWith("/") ? tool.to : `${tool.to}&only=true`) : `/tools/${tool.to}?only=true`} />}

@@ -39,6 +39,10 @@ export default function ToolsStack(props: {
     sortingFor: string;
     setTools: setState<tool[]>;
     editMode: boolean;
+    /**
+     * tool.to
+     */
+    focus?: string;
 }) {
     const {
         viewMode
@@ -56,6 +60,7 @@ export default function ToolsStack(props: {
                 tool={tool}
                 sortingFor={props.sortingFor}
                 key={tool.to}
+                focus={props.focus === tool.to}
                 darkMode={darkMode}
                 viewMode={viewMode}
                 setTools={props.setTools}
@@ -119,7 +124,7 @@ export default function ToolsStack(props: {
             </TransitionGroup>
         );
     }
-    var darkModeFormStorage = useContext(darkModeContext).mode,
+    const darkModeFormStorage = useContext(darkModeContext).mode,
         darkMode = stringToBoolean(darkModeFormStorage.replace("light", "false").replace("dark", "true"));
     return (
         <Stack spacing={viewMode == "list" ? 3 : 5} sx={{

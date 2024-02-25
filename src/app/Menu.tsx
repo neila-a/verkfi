@@ -1,6 +1,7 @@
 "use client";
 import {
     Box,
+    Button,
     Dialog,
     DialogActions,
     DialogContent,
@@ -17,8 +18,9 @@ import {
 } from "react";
 import Transition from "./components/dialog/Transition";
 import MouseOverPopover from "./components/Popover";
-import intl, {
-    get
+import {
+    get,
+    getHTML
 } from "react-intl-universal";
 import {
     ArrowBackIos as ArrowBackIosIcon,
@@ -65,11 +67,13 @@ export default function Menu() {
         [viewMode, setViewMode] = useStoragedState<viewMode>("viewmode", "列表模式", "list"),
         [editMode, setEditMode] = useState<boolean>(false),
         [sortingFor, setSortingFor] = useState<string>("__home__"),
+        [tab, setTab] = useState<number>(0),
         [list, setList] = useState<lists>(getList),
         [searchText, setSearchText] = useState<string>(""),
         router = useRouter(),
         [sortedTools, setSortedTools] = useState(() => getToolsList(realTools)), // 排序完毕，但是不会根据搜索而改动的分类
         [tools, setTools] = useState<tool[]>(() => getToolsList(realTools)), // 经常改动的分类
+        focusingTo = tools[tab] ? tools[tab].to : "", // 每次渲染会重新执行
         [editing, setEditing] = useState<boolean>(searchText === "");
     function searchTools(search: string) {
         if (search !== "") {
@@ -82,9 +86,37 @@ export default function Menu() {
         }
         setTools(searchBase(sortedTools, search));
     }
+    function handleTab() {
+        setTab(old => (old + 1) % tools.length);
+        const selectool = document.getElementById(`toolAbleToSelect-${focusingTo}`) as HTMLDivElement | null;
+        if (selectool !== null) {
+            selectool.scrollIntoView({
+                block: "start",
+                behavior: "smooth"
+            });
+        }
+    }
+    function handleEnter() {
+        const selectool = document.getElementById(`toolAbleToSelect-${focusingTo}`) as HTMLDivElement | null;
+        if (selectool !== null) {
+            selectool.click();
+        }
+    }
     return (
         <>
-            <Dialog fullScreen={fullScreen} onClose={() => {
+            <Dialog onKeyDown={event => {
+                if (event.key === "Tab" || event.key === "Enter") {
+                    event.preventDefault();
+                }
+            }} onKeyUp={event => {
+                if (event.key === "Tab") {
+                    event.preventDefault();
+                    handleTab();
+                } else if (event.key === "Enter") {
+                    event.preventDefault();
+                    handleEnter();
+                }
+            }} fullScreen={fullScreen} onClose={() => {
                 control.set("false");
             }} sx={{
                 ".MuiDialog-paper": {
@@ -123,10 +155,13 @@ export default function Menu() {
                         ml: 1,
                         flex: 1
                     }} placeholder={get('搜索工具')} inputProps={{
-                        'aria-label': 'searchtools',
+                        'aria-label': 'searchtools'
                     }} onChange={event => {
-                        setSearchText(event.target.value);
-                        searchTools(event.target.value);
+                        if (searchText !== event.target.value) {
+                            setSearchText(event.target.value);
+                            searchTools(event.target.value);
+                            setTab(0);
+                        }
                     }} />
                     <IconButton
                         aria-label="close"
@@ -143,6 +178,26 @@ export default function Menu() {
                 </DialogTitle>
                 <DialogContent dividers>
                     {sortingFor === "__home__" ? <>
+                        <Box>
+                            <Typography variant='h4'>
+                                {get('category.分类')}
+                                <Selects
+                                    setEditMode={setEditMode}
+                                    setEditing={setEditing}
+                                    modifyClickCount={value => null}
+                                    list={list}
+                                    setList={setList}
+                                    searchText={searchText}
+                                    sortingFor={sortingFor}
+                                    setSortingFor={setSortingFor}
+                                    searchTools={searchTools}
+                                    editMode={editMode}
+                                    setTools={setTools}
+                                    setSortedTools={setSortedTools}
+                                    setSearchText={setSearchText}
+                                />
+                            </Typography>
+                        </Box>
                         <Box>
                             <Typography variant='h4'>
                                 {get('use.最近使用')}
@@ -183,26 +238,6 @@ export default function Menu() {
                                     paramTool={getParamTools(mostUsed, realTools)} />
                             </Box>
                         </Box>
-                        <Box>
-                            <Typography variant='h4'>
-                                {get('category.分类')}
-                                <Selects
-                                    setEditMode={setEditMode}
-                                    setEditing={setEditing}
-                                    modifyClickCount={value => null}
-                                    list={list}
-                                    setList={setList}
-                                    searchText={searchText}
-                                    sortingFor={sortingFor}
-                                    setSortingFor={setSortingFor}
-                                    searchTools={searchTools}
-                                    editMode={editMode}
-                                    setTools={setTools}
-                                    setSortedTools={setSortedTools}
-                                    setSearchText={setSearchText}
-                                />
-                            </Typography>
-                        </Box>
                     </> : <>
                         <ToolsStack
                             paramTool={tools}
@@ -211,9 +246,22 @@ export default function Menu() {
                             sortingFor={sortingFor}
                             setTools={setTools}
                             editMode={editMode}
+                            focus={focusingTo}
                         />
                     </>}
                 </DialogContent>
+                {sortingFor !== "__home__" && <DialogActions>
+                    {get("press")}
+                    <Button onClick={handleTab}>
+                        Tab
+                    </Button>
+                    {get("switch")}{", "}
+                    {get("press")}
+                    <Button onClick={handleEnter}>
+                        Enter
+                    </Button>
+                    {get("enter")}
+                </DialogActions>}
                 <DialogActions sx={{
                     display: "flex",
                     justifyContent: "space-between"
