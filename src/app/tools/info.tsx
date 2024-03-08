@@ -163,7 +163,7 @@ export const getTools = (get: typeof i18n.get): tool[] => {
 		{
 			name: get('sun.name'),
 			to: "sun",
-			desc: get('sun.description')
+			desc: get('sun.description'),
 			icon: WbSunnyIcon,
 			color: [hex("f6d365"),hex("fda085")]
 		},
