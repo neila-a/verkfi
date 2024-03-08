@@ -273,6 +273,10 @@
 		"distance": "间隔",
 		"no": "未生成任何搭配"
 	},
+	"sun": {
+		"name": "太阳",
+		"description": "计算和查看太阳的一些信息"
+	},
 	"countletter": {
 		"system": "数字进制",
 		"systemName": {
