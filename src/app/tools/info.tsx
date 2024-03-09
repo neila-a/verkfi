@@ -160,13 +160,6 @@ export const getTools = (get: typeof i18n.get): tool[] => {
             icon: AccountBalanceIcon,
             color: [hex("ffe53b"),hex("ff2525")]
         },
-		{
-			name: get('sun.name'),
-			to: "sun",
-			desc: get('sun.description'),
-			icon: WbSunnyIcon,
-			color: [hex("f6d365"),hex("fda085")]
-		},
         {
             name: get('人生倒计时'),
             to: "https://github.neila.ga/countdown.js/",
