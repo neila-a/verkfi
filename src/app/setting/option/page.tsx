@@ -38,7 +38,9 @@ import {
     useRouter
 } from "next/navigation";
 import Module from "./Module";
-import { setState } from "../../declare";
+import {
+    setState
+} from "../../declare";
 const PureDialog = dynamic(() => import("../../components/dialog/PureDialog")),
     ghURL = "https://github.com/neila-a/verkfi/";
 export type option = [Context<{

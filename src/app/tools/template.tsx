@@ -4,6 +4,8 @@ import {
     useEffect
 } from "react";
 import {
+    useRouter,
+    useSearchParams,
     useSelectedLayoutSegment
 } from "next/navigation";
 import Recently from "../components/Recently";
@@ -15,9 +17,11 @@ import {
 export default function Template(props: {
     children: React.ReactNode
 }) {
-    const thisTool = useSelectedLayoutSegment(),
+    const gotThisTool = useSelectedLayoutSegment(),
+        searchParams = useSearchParams(),
         recentlyUsed = useContext(recentlyUsedContext),
-        mostUsedState = useContext(mostUsedContext);
+        mostUsedState = useContext(mostUsedContext),
+        thisTool = gotThisTool === "extended" ? searchParams.get("tool") : gotThisTool;
     useEffect(() => {
         const set = new Recently(3, (JSON.parse(recentlyUsed.value) as string[]).reverse());
         set.add(thisTool);

@@ -54,6 +54,11 @@ import stringToBoolean from './setting/stringToBoolean';
 import getParamTools from './index/getParamTools';
 import VerkfiIcon from './components/verkfiIcon/verkfiIcon';
 import generateTries from './index/generateTries';
+import db, { single } from './tools/extended/db';
+import {
+    useLiveQuery
+} from 'dexie-react-hooks';
+import convertExtendedTools from './index/convertExtendedTools';
 export default function Index(props: {
     /**
      * 是否为嵌入
@@ -69,6 +74,7 @@ export default function Index(props: {
 }): JSX.Element {
     const realTools = getTools(get),
         searchParams = useSearchParams(),
+        extendedTools = useLiveQuery(() => db.extendedTools.toArray(), [], [] as single[]),
         router = useRouter(),
         toolsList = useMemo(() => getToolsList(realTools), []),
         refThis = useRef(),
@@ -90,6 +96,23 @@ export default function Index(props: {
         focusingTo = tools[tab] ? tools[tab].to : "", // 每次渲染会重新执行
         [show, setShow] = useState<"tools" | "home">(props.isImplant ? "tools" : "home"),
         tries = useMemo(() => generateTries(mostUsed, realTools), [mostUsed, realTools]),
+        recentlyTools = (JSON.parse(recentlyUsed) as string[]).map(to => {
+            var tool: tool | 0 = 0;
+            const converted = convertExtendedTools(extendedTools);
+            converted.forEach(single => {
+                if (`/tools/extended?tool=${to}` === single.to) {
+                    tool = single;
+                }
+            });
+            if (tool === 0) {
+                realTools.forEach(single => {
+                    if (single.to === to) {
+                        tool = single;
+                    }
+                });
+            }
+            return tool;
+        }).filter(item => item !== 0) as unknown as tool[],
         [sortingFor, setSortingFor] = useState<string>(props.isImplant ? "__global__" : "__home__");
     if (props.setExpand) {
         var {
@@ -230,15 +253,7 @@ export default function Index(props: {
                                     sortingFor={sortingFor}
                                     setTools={setTools}
                                     editMode={false}
-                                    paramTool={(JSON.parse(recentlyUsed) as string[]).map(to => {
-                                        var tool: tool;
-                                        realTools.forEach(single => {
-                                            if (single.to === to) {
-                                                tool = single;
-                                            }
-                                        });
-                                        return tool;
-                                    })} />
+                                    paramTool={recentlyTools} />
                             </Box>
                         </homeWhere.Provider>
                     </Box>
@@ -256,7 +271,7 @@ export default function Index(props: {
                                     sortingFor={"__home__"}
                                     setTools={setTools}
                                     editMode={false}
-                                    paramTool={getParamTools(mostUsed, realTools)} />
+                                    paramTool={getParamTools(mostUsed, realTools, extendedTools)} />
                             </Box>
                         </homeWhere.Provider>
                     </Box>

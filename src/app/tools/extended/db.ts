@@ -3,7 +3,7 @@ import Dexie, {
 } from 'dexie';
 import {
     NXTMetadata
-} from '../setting/extendeds/page';
+} from '../../setting/extendeds/page';
 const dbName = 'extendedTools';
 export interface single extends NXTMetadata {
     files: [string, Uint8Array][];

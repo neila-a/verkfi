@@ -27,7 +27,9 @@ import "./Window.scss"; // 你说的对，但是我懒得用模块
 import {
     Hex
 } from "../../declare";
-import { get } from "react-intl-universal";
+import {
+    get
+} from "react-intl-universal";
 export interface WindowOptions {
     to: string;
     name: string;

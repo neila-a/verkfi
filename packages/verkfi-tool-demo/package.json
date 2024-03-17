@@ -12,6 +12,6 @@
     ],
     "main": "index.html",
     "dependencies": {
-        "@electron/asar": "^3.2.8"
+        "@electron/asar": "^3.2.9"
     }
 }

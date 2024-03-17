@@ -136,7 +136,7 @@ export default function SingleTool(props: {
                             }} onClick={() => {
                                 logger.info(`点击了${tool.name}`);
                                 if (tool.isGoto) {
-                                    if (tool.to.startsWith("/extendedTools")) {
+                                    if (tool.to.startsWith("/tools/extended")) {
                                         Router.push(tool.to);
                                     } else {
                                         setJumpDialogOpen(true);
@@ -149,7 +149,7 @@ export default function SingleTool(props: {
                             }} onContextMenu={async event => {
                                 event.preventDefault();
                                 if (tool.isGoto) {
-                                    if (tool.to.startsWith("/extendedTools")) {
+                                    if (tool.to.startsWith("/tools/extended")) {
                                         value.set([...value.windows, {
                                             page: `${tool.to}&only=true`,
                                             to: tool.to,
@@ -179,7 +179,7 @@ export default function SingleTool(props: {
                                     <Box>
                                         <ToolTypography variant="h5">
                                             {db}
-                                            {(tool.isGoto && !tool.to.startsWith("/extendedTools")) ? <ExitToAppIcon /> : <></>}
+                                            {(tool.isGoto && !tool.to.startsWith("/tools/extended")) ? <ExitToAppIcon /> : <></>}
                                             {tool.name}
                                             {ub}
                                         </ToolTypography>
@@ -199,7 +199,7 @@ export default function SingleTool(props: {
                                         </Box>
                                         <Box>
                                             <ToolTypography variant="h5">
-                                                {(tool.isGoto && !tool.to.startsWith("/extendedTools")) ? <ExitToAppIcon /> : <></>}
+                                                {(tool.isGoto && !tool.to.startsWith("/tools/extended")) ? <ExitToAppIcon /> : <></>}
                                                 {tool.name}
                                             </ToolTypography>
                                             <ToolTypography {...subStyle} variant="body2">

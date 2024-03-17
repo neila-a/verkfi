@@ -37,7 +37,7 @@ export interface NXTMetadata {
     color: [string, string];
     main: string;
 }
-const emptyNXTMetadata: NXTMetadata = {
+export const emptyNXTMetadata: NXTMetadata = {
     name: "",
     desc: "",
     to: "",
@@ -54,7 +54,7 @@ import {
     useLiveQuery
 } from "dexie-react-hooks";
 import Image from "next/image";
-import db from "../../extendedTools/db";
+import db from "../../tools/extended/db";
 import CheckDialog from "../../components/dialog/CheckDialog";
 import DialogInputs from "./DialogInputs";
 export type inputTypes = "modify" | "add";
@@ -73,7 +73,7 @@ export default function ExtendedManager() {
             setFiles([]);
             setFileInfo(emptyNXTMetadata);
         },
-        extendedTools = useLiveQuery(() => db.extendedTools.toArray()),
+        extendedTools = useLiveQuery(() => db.extendedTools.toArray(), [], []),
         packagedDialogInputs = (type: inputTypes) => <DialogInputs
             type={type}
             fileInfo={fileInfo}

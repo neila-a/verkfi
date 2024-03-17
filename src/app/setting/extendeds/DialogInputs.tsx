@@ -7,7 +7,7 @@ import {
 import {
     get
 } from "react-intl-universal";
-import db from "../../extendedTools/db";
+import db from "../../tools/extended/db";
 import InfoInput from "./infoInput";
 import {
     setState

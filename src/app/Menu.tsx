@@ -57,6 +57,11 @@ import {
 } from "next/navigation";
 import getParamTools from "./index/getParamTools";
 import VerkfiIcon from "./components/verkfiIcon/verkfiIcon";
+import db from "./tools/extended/db";
+import {
+    useLiveQuery
+} from "dexie-react-hooks";
+import convertExtendedTools from "./index/convertExtendedTools";
 export default function Menu() {
     const control = useContext(showSidebar),
         theme = useTheme(),
@@ -70,6 +75,7 @@ export default function Menu() {
         [tab, setTab] = useState<number>(0),
         [list, setList] = useState<lists>(getList),
         [searchText, setSearchText] = useState<string>(""),
+        extendedTools = useLiveQuery(() => db.extendedTools.toArray(), [], []),
         router = useRouter(),
         [sortedTools, setSortedTools] = useState(() => getToolsList(realTools)), // 排序完毕，但是不会根据搜索而改动的分类
         [tools, setTools] = useState<tool[]>(() => getToolsList(realTools)), // 经常改动的分类
@@ -212,14 +218,22 @@ export default function Menu() {
                                     setTools={tools => null}
                                     editMode={false}
                                     paramTool={(JSON.parse(recentlyUsed) as string[]).map(to => {
-                                        var tool: tool;
+                                        var tool: tool | 0 = 0;
                                         realTools.forEach(single => {
                                             if (single.to === to) {
                                                 tool = single;
                                             }
                                         });
+                                        if (typeof tool === "number") {
+                                            // 该工具是扩展工具
+                                            convertExtendedTools(extendedTools).forEach(single => {
+                                                if (`/tools/extended?tool=${to}` === single.to) {
+                                                    tool = single;
+                                                }
+                                            });
+                                        }
                                         return tool;
-                                    })} />
+                                    }).filter(item => item !== 0) as unknown as tool[]} />
                             </Box>
                         </Box>
                         <Box>
@@ -235,7 +249,7 @@ export default function Menu() {
                                     sortingFor={"__home__"}
                                     setTools={tools => null}
                                     editMode={false}
-                                    paramTool={getParamTools(mostUsed, realTools)} />
+                                    paramTool={getParamTools(mostUsed, realTools, extendedTools)} />
                             </Box>
                         </Box>
                     </> : <>

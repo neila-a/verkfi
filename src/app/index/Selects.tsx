@@ -10,7 +10,6 @@ import {
     Edit as EditIcon
 } from "@mui/icons-material";
 import {
-    Hex,
     setState
 } from '../declare';
 import {
@@ -25,11 +24,10 @@ import {
     locales
 } from '../layout/layoutClient';
 import setSetting from '../setting/setSetting';
-import Image from 'next/image';
 import {
     useLiveQuery
 } from 'dexie-react-hooks';
-import db from '../extendedTools/db';
+import db from '../tools/extended/db';
 import SingleSelect from './SingleSelect';
 import dynamic from 'next/dynamic';
 const EditToolsListDialog = dynamic(() => import("./EditToolsListDialog"));
@@ -46,6 +44,7 @@ import reorder from '../components/reorder';
 import {
     DragIndicator as DragIndicatorIcon
 } from "@mui/icons-material";
+import convertExtendedTools from './convertExtendedTools';
 export default function Selects(props: {
     list: lists;
     setList: setState<lists>;
@@ -62,15 +61,8 @@ export default function Selects(props: {
     searchTools(search: string): void;
     modifyClickCount(value: number | "++"): void;
 }) {
-    const extendedTools = useLiveQuery(() => db.extendedTools.toArray()),
-        convertedExtendedTools: tool[] = extendedTools?.map(single => ({
-            name: single.name,
-            to: `/extendedTools?id=${single.to}` as Lowercase<string>,
-            desc: single.desc,
-            icon: () => <Image src={`/extendedfiles/${single.to}/${single.icon}`} alt={single.name} height={24} width={24} />,
-            color: single.color as [Hex.Hex, Hex.Hex],
-            isGoto: true
-        })),
+    const extendedTools = useLiveQuery(() => db.extendedTools.toArray(), [], []),
+        convertedExtendedTools = convertExtendedTools(extendedTools),
         {
             list, setList, setTools, searchTools, searchText, setSearchText, sortingFor, setSortingFor, setEditing
         } = props,

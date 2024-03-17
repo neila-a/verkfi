@@ -24,6 +24,11 @@ import getToolColor from "./getToolColor";
 import {
     colorMode
 } from "../layout/layoutClient";
+import {
+    useLiveQuery
+} from "dexie-react-hooks";
+import db from "./extended/db";
+import convertExtendedTools from "../index/convertExtendedTools";
 var logger = new lpLogger({
     name: "ToolFinder",
     level: "log"
@@ -31,22 +36,19 @@ var logger = new lpLogger({
 export default function ToolFinder(props: {
     children: ReactNode;
 }): JSX.Element {
-    var only = false,
-        toolsInfo = getTools(get),
-        colorContext = useContext(colorMode),
-        color = colorContext.value;
-    const toolID = useSelectedLayoutSegment(),
+    const colorContext = useContext(colorMode),
+        color = colorContext.value,
+        segment = useSelectedLayoutSegment(),
         searchParams = useSearchParams(),
-        router = useRouter();
+        toolID = segment === "extended" ? searchParams.get("tool") : segment,
+        extendedTools = useLiveQuery(() => db.extendedTools.toArray(), [], []),
+        only = searchParams.has("only"),
+        toolsInfo = segment === "extended" ? convertExtendedTools(extendedTools).map(single => ({
+            ...single,
+            to: single.to.replace("/tools/extended?tool=", "") as Lowercase<string>
+        })) : getTools(get),
+        toolColor = stringToBoolean(color) && getToolColor(toolsInfo, toolID);
     logger.info(`toolID为${toolID}`);
-    if (searchParams.has("handle")) {
-        let id = searchParams.get("handle").replace(/web\+verkfi:\/\//g, "");
-        router.push(id);
-    }
-    if (searchParams.has("only")) {
-        only = true;
-    }
-    const toolColor = stringToBoolean(color) && getToolColor(toolsInfo, toolID);
     return (
         <>
             <HeadBar isIndex={false} pageName={(() => {

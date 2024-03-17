@@ -3,7 +3,7 @@ import {
     devVersion,
     dev
 } from "../../package.json";
-import db from "./extendedTools/db";
+import db from "./tools/extended/db";
 import pages from "./pages.json";
 /* const toolsTo = [
     "audiotools",
@@ -52,9 +52,10 @@ self.addEventListener('activate', event => event.waitUntil((async () => {
     return self.clients.claim();
 })()));
 /**
- * 判断顺序：handle -> customRoute -> _rsc  -> fetch -> cache
+ * 判断顺序：handle -> customRoute -> /tools/extended -> _rsc -> fetch -> cache
  * handle：自定义，并且要快
  * customRoute：自定义
+ * /tools/extended：扩展工具加载器
  * _rsc：拦截_rsc
  * cache：缓存模式
  * fetch：网络模式
@@ -65,7 +66,7 @@ self.addEventListener('fetch', event => {
     let url = String(requrl);
     if (url.startsWith("chrome-extension://")) return;
     let urled = new URL(url);
-    let response: Response; // 可能为空的相应
+    let response: Response; // 可能为空的响应
     let path = urled.pathname.split("/");
     path.shift();
     event.respondWith((async () => {
@@ -83,7 +84,13 @@ self.addEventListener('fetch', event => {
                 headers: headers
             });
         } else if (path[0] === "extendedfiles") {
-            return new Response(new Blob([(await db.extendedTools.toArray()).filter(item => item.to === path[1])[0].files.filter(item => item[0] === path[2])[0][1]]));
+            return new Response(new Blob([(await db.extendedTools.get({
+                to: path[1]
+            })).files.filter(item => item[0] === path[2])[0][1]]));
+        } else if (path[0] === "tools" && path[1] === "extended") {
+            response = await cache.match(realReq, {
+                ignoreSearch: true
+            });
         } else if (url.includes("_rsc=")) {
             log(`检测到URL：${url} 中含有searchParam“rsc”，已返回无rsc版本`);
             response = await cache.match(realReq, {

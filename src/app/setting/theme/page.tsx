@@ -31,7 +31,10 @@ import {
 import defaults from './defaults';
 import hues from './hues';
 import shades from './shades';
-import { useContext, useReducer } from 'react';
+import {
+    useContext,
+    useReducer
+} from 'react';
 import stringToBoolean from '../stringToBoolean';
 function ColorTool() {
     const palette = useContext(paletteColors);
