@@ -6,9 +6,12 @@ import {
     Typography,
     Divider,
     IconButton,
-    Box
+    Box,
+    FormControlLabel,
+    Checkbox
 } from "@mui/material";
 import {
+    useContext,
     useState
 } from "react";
 import {
@@ -48,7 +51,8 @@ export const emptyNXTMetadata: NXTMetadata = {
 import {
     Add as AddIcon,
     Edit as EditIcon,
-    SyncProblem as SyncProblemIcon
+    SyncProblem as SyncProblemIcon,
+    RestartAlt as RestartAltIcon
 } from "@mui/icons-material";
 import {
     useLiveQuery
@@ -57,6 +61,10 @@ import Image from "next/image";
 import db from "../../tools/extended/db";
 import CheckDialog from "../../components/dialog/CheckDialog";
 import DialogInputs from "./DialogInputs";
+import {
+    recentlyUsed as recentlyUsedContext
+} from "../../layout/layoutClient";
+import MouseOverPopover from "../../components/Popover";
 export type inputTypes = "modify" | "add";
 export default function ExtendedManager() {
     const [addDialogOpen, setAddDialogOpen] = useState<boolean>(false),
@@ -65,12 +73,15 @@ export default function ExtendedManager() {
         [files, setFiles] = useState<[string, Uint8Array][]>([]),
         [removeDialogOpen, setRemoveDialogOpen] = useState<boolean>(false),
         [modifyDialogOpen, setModifyDialogOpen] = useState<boolean>(false),
+        [clearData, setClearData] = useState<boolean>(false),
+        recentlyUsed = useContext(recentlyUsedContext),
         reset = () => {
             setAddDialogOpen(false);
             setModifyDialogOpen(false);
             setRemoveDialogOpen(false);
             setFileArray([]);
             setFiles([]);
+            setClearData(false);
             setFileInfo(emptyNXTMetadata);
         },
         extendedTools = useLiveQuery(() => db.extendedTools.toArray(), [], []),
@@ -83,12 +94,16 @@ export default function ExtendedManager() {
             setModifyDialogOpen={setModifyDialogOpen}
             setRemoveDialogOpen={setRemoveDialogOpen}
         />
+    function clearExtendedData() {
+        const old = JSON.parse(recentlyUsed.value) as string[];
+        recentlyUsed.set(JSON.stringify(old.filter(item => item !== fileInfo.to)));
+    }
     return (
         <>
             <Typography variant="h4">
                 {get('extensions.扩展')}
             </Typography>
-            <Stack spacing={2}>
+            <Stack spacing={2} mb={2}>
                 {extendedTools?.length === 0 ? <Box sx={{
                     color: theme => theme.palette.text.disabled,
                     textAlign: "center"
@@ -132,19 +147,29 @@ export default function ExtendedManager() {
                                 {single.desc}
                             </Box>
                         </Stack>
-                        <IconButton onClick={event => {
-                            setFiles(single.files);
-                            setFileInfo({
-                                ...single
-                            });
-                            setModifyDialogOpen(true);
-                        }}>
-                            <EditIcon />
-                        </IconButton>
+                        <Box display="flex">
+                            <MouseOverPopover text={get("extensions.clear")}>
+                                <IconButton onClick={event => {
+                                    clearExtendedData();
+                                }}>
+                                    <RestartAltIcon />
+                                </IconButton>
+                            </MouseOverPopover>
+                            <MouseOverPopover text={get("extensions.删除扩展")}>
+                                <IconButton onClick={event => {
+                                    setFiles(single.files);
+                                    setFileInfo({
+                                        ...single
+                                    });
+                                    setModifyDialogOpen(true);
+                                }}>
+                                    <EditIcon />
+                                </IconButton>
+                            </MouseOverPopover>
+                        </Box>
                     </Box>
                 </Paper>)}
             </Stack>
-            <br />
             <Button startIcon={<AddIcon />} fullWidth onClick={event => {
                 setAddDialogOpen(true);
             }} variant="outlined">
@@ -155,19 +180,24 @@ export default function ExtendedManager() {
             }} title={get("extensions.编辑扩展")}>
                 {packagedDialogInputs("modify")}
             </PureDialog>
-            <CheckDialog open={removeDialogOpen} title={get("extensions.删除扩展")} description={`${get("extensions.确定删除扩展")}${fileInfo.name}?`} onFalse={() => {
+            <CheckDialog insert={<FormControlLabel control={<Checkbox value={clearData} onChange={event => {
+                setClearData(event.target.checked);
+            }} />} label={get("extensions.clear")} />} onFalse={() => {
                 reset();
             }} onTrue={async () => {
-                const id = await db.extendedTools.delete(fileInfo.to);
+                await db.extendedTools.delete(fileInfo.to);
+                if (clearData) {
+                    clearExtendedData();
+                }
                 reset();
-            }} />
+            }} open={removeDialogOpen} title={get("extensions.删除扩展")} description={`${get("extensions.确定删除扩展")}${fileInfo.name}?`} />
             <PureDialog open={addDialogOpen} onClose={() => reset()} title={get("extensions.添加扩展")}>
                 <FilePond
                     files={fileArray as unknown as FilePondServerConfigProps["files"]}
                     onupdatefiles={files => {
                         setFileArray(files);
                         const reader = new FileReader();
-                        reader.onload = function () {
+                        reader.onload = async function () {
                             const fs = new Filesystem(new Uint8Array(reader.result as ArrayBuffer)),
                                 dir = fs.readdirSync("/").filter(item => item !== "package.json"),
                                 main = JSON.parse(fs.readFileSync("package.json", true));
@@ -179,9 +209,11 @@ export default function ExtendedManager() {
                                 color: main.color,
                                 main: main.main
                             });
-                            var stageFiles: [string, Uint8Array][] = [];
-                            dir.forEach(item => stageFiles.push([item, fs.readFileSync(item)]));
-                            setFiles(stageFiles);
+                            setFiles(dir.map(item => [item, fs.readFileSync(item)]));
+                            if ((await db.extendedTools.toArray()).some(item => item.to === main.to)) {
+                                setModifyDialogOpen(true);
+                                return setAddDialogOpen(false);
+                            }
                         };
                         files.forEach(file => reader.readAsArrayBuffer(file.file));
                     }}

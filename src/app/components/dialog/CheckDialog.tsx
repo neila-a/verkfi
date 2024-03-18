@@ -10,10 +10,14 @@ import {
     Button
 } from "@mui/material";
 import Transition from "./Transition";
+import {
+    ReactNode
+} from 'react';
 export default function CheckDialog(props: {
     title: string;
     onFalse(): any;
     onTrue(): any;
+    insert?: ReactNode;
     description: string;
     open: boolean
 }) {
@@ -24,6 +28,7 @@ export default function CheckDialog(props: {
                 <DialogContentText id="description">
                     {props.description}
                 </DialogContentText>
+                {props.insert}
             </DialogContent>
             <DialogActions>
                 <Button onClick={() => {

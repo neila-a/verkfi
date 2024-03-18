@@ -15,7 +15,7 @@ import {
 import {
     Box
 } from "@mui/material";
-import intl, {
+import {
     get
 } from "react-intl-universal";
 import lpLogger from "lp-logger";
@@ -29,6 +29,7 @@ import {
 } from "dexie-react-hooks";
 import db from "./extended/db";
 import convertExtendedTools from "../index/convertExtendedTools";
+import { emptyExtended } from "./extended/page";
 var logger = new lpLogger({
     name: "ToolFinder",
     level: "log"
@@ -47,19 +48,15 @@ export default function ToolFinder(props: {
             ...single,
             to: single.to.replace("/tools/extended?tool=", "") as Lowercase<string>
         })) : getTools(get),
-        toolColor = stringToBoolean(color) && getToolColor(toolsInfo, toolID);
+        filteredToolsInfo = toolsInfo.filter(si => si.to === toolID),
+        {
+            name
+        } = filteredToolsInfo.length === 0 ? emptyExtended : filteredToolsInfo[0];
     logger.info(`toolID为${toolID}`);
     return (
         <>
-            <HeadBar isIndex={false} pageName={(() => {
-                var name: string;
-                toolsInfo.forEach(si => {
-                    if (si.to == toolID) name = si.name;
-                });
-                if (name == "") return get("未找到工具");
-                return name;
-            })()} only={only} sx={{
-                backgroundImage: toolColor
+            <HeadBar isIndex={false} pageName={name === "" ? get("未找到工具") : name} only={only} sx={{
+                backgroundImage: stringToBoolean(color) && getToolColor(toolsInfo, toolID)
             }} />
             <Box sx={{
                 p: 3
