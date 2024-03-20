@@ -35,7 +35,6 @@ import {
     useContext,
     useReducer
 } from 'react';
-import stringToBoolean from '../stringToBoolean';
 function ColorTool() {
     const palette = useContext(paletteColors);
     const theme = useTheme();
@@ -100,8 +99,8 @@ function ColorTool() {
                             display: 'flex',
                             justifyContent: 'center',
                             alignItems: 'center',
+                            backgroundColor: background[key]
                         }}
-                        style={{ backgroundColor: background[key] }}
                         key={key}
                     >
                         <Typography

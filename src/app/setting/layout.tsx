@@ -5,8 +5,13 @@ import {
 import {
 	Box,
 	Drawer,
+	FormControlLabel,
+	MenuItem,
+	Select,
+	Switch,
 	Tab,
 	Tabs,
+	TextField,
 	Toolbar
 } from "@mui/material";
 import HeadBar from "../components/HeadBar";
@@ -26,9 +31,10 @@ import type VerkfiIcon from '../components/verkfiIcon/verkfiIcon';
 import {
 	drawerWidth
 } from './consts';
+export type settingPage = "option" | "about" | "reset" | "extendeds" | "theme";
 export interface set {
 	name: string;
-	id: string;
+	id: settingPage;
 	Icon: typeof VerkfiIcon;
 }
 export interface ThemeHaveZIndex {
@@ -46,6 +52,12 @@ import {
 	sidebarMode as sidebarModeContext
 } from '../layout/layoutClient';
 import stringToBoolean from './stringToBoolean';
+import {
+	useLiveQuery
+} from 'dexie-react-hooks';
+import db, {
+	single
+} from '../tools/extended/db';
 export default function Settings(props: {
 	children: ReactNode
 }): JSX.Element {
@@ -77,8 +89,9 @@ export default function Settings(props: {
 		}
 	],
 		router = useRouter(),
-		id = useSelectedLayoutSegment();
-	const [value, setValue] = useState(sets.indexOf(sets.filter(set => set.id === id)[0])),
+		extendedTools = useLiveQuery(() => db.extendedTools.toArray(), [], [] as single[]),
+		id = useSelectedLayoutSegment(),
+		[value, setValue] = useState(sets.indexOf(sets.filter(set => set.id === id)[0])),
 		showSidebar = useContext(showSidebarContext),
 		sidebarMode = useContext(sidebarModeContext);
 	return (
@@ -120,6 +133,41 @@ export default function Settings(props: {
 				<ErrorBoundary>
 					{props.children}
 				</ErrorBoundary>
+				{extendedTools.map(item => item.settings.filter(settingItem => settingItem.page === id).map((settingItem, index) => {
+					switch (settingItem.type) {
+						case "boolean":
+							return <FormControlLabel control={<Switch checked={settingItem.value as boolean} onChange={event => {
+								const modifiedSettings = item.settings.slice(0);
+								modifiedSettings[index].value = !(modifiedSettings[index].value as boolean);
+								db.extendedTools.put({
+									...item,
+									settings: modifiedSettings
+								});
+							}} />} label={settingItem.text} />;
+						case "input":
+							return <TextField value={settingItem.value as string} label={settingItem.text} variant="outlined" onChange={event => {
+								const modifiedSettings = item.settings.slice(0);
+								modifiedSettings[index].value = event.target.value;
+								db.extendedTools.put({
+									...item,
+									settings: modifiedSettings
+								});
+							}} />
+						case "switch":
+							return <Select value={settingItem.value as string} label={settingItem.text} onChange={event => {
+								const modifiedSettings = item.settings.slice(0);
+								modifiedSettings[index].value = event.target.value;
+								db.extendedTools.put({
+									...item,
+									settings: modifiedSettings
+								});
+							}}>
+								{settingItem.switches.map(switching => (
+									<MenuItem key={switching} value={switching}>{switching}</MenuItem>
+								))}
+							</Select>;
+					}
+				}))}
 			</Box>
 		</>
 	);

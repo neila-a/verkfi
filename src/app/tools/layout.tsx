@@ -29,7 +29,9 @@ import {
 } from "dexie-react-hooks";
 import db from "./extended/db";
 import convertExtendedTools from "../index/convertExtendedTools";
-import { emptyExtended } from "./extended/page";
+import {
+    emptyExtended
+} from "./extended/page";
 var logger = new lpLogger({
     name: "ToolFinder",
     level: "log"

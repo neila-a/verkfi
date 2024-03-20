@@ -29,24 +29,27 @@ import {
     FilePondFile,
     FilePondServerConfigProps
 } from 'filepond';
-/**
- * In PluginDevelpmenting.md
- */
-export interface NXTMetadata {
-    name: string;
-    to: Lowercase<string>;
-    desc: string;
+interface setting {
+    type: "boolean" | "switch" | "input",
+    page: settingPage;
+    switches?: string[];
+    text: string;
+    value: boolean | string;
+    defaultValue: boolean | string;
+}
+export interface NXTMetadata extends noIconTool {
     icon: string;
-    color: [string, string];
     main: string;
+    settings: setting[];
 }
 export const emptyNXTMetadata: NXTMetadata = {
     name: "",
     desc: "",
     to: "",
     icon: "",
-    color: ["", ""],
-    main: ""
+    color: [Hex.hex("ffffff"), Hex.hex("ffffff")],
+    main: "",
+    settings: []
 }
 import {
     Add as AddIcon,
@@ -58,13 +61,25 @@ import {
     useLiveQuery
 } from "dexie-react-hooks";
 import Image from "next/image";
-import db from "../../tools/extended/db";
+import db, {
+    single
+} from "../../tools/extended/db";
 import CheckDialog from "../../components/dialog/CheckDialog";
 import DialogInputs from "./DialogInputs";
 import {
+    mostUsed as mostUsedContext,
     recentlyUsed as recentlyUsedContext
 } from "../../layout/layoutClient";
 import MouseOverPopover from "../../components/Popover";
+import {
+    settingPage
+} from "../layout";
+import {
+    noIconTool
+} from "../../tools/info";
+import {
+    Hex
+} from "../../declare";
 export type inputTypes = "modify" | "add";
 export default function ExtendedManager() {
     const [addDialogOpen, setAddDialogOpen] = useState<boolean>(false),
@@ -75,6 +90,7 @@ export default function ExtendedManager() {
         [modifyDialogOpen, setModifyDialogOpen] = useState<boolean>(false),
         [clearData, setClearData] = useState<boolean>(false),
         recentlyUsed = useContext(recentlyUsedContext),
+        mostUsed = useContext(mostUsedContext),
         reset = () => {
             setAddDialogOpen(false);
             setModifyDialogOpen(false);
@@ -84,7 +100,7 @@ export default function ExtendedManager() {
             setClearData(false);
             setFileInfo(emptyNXTMetadata);
         },
-        extendedTools = useLiveQuery(() => db.extendedTools.toArray(), [], []),
+        extendedTools = useLiveQuery(() => db.extendedTools.toArray(), [], [] as single[]),
         packagedDialogInputs = (type: inputTypes) => <DialogInputs
             type={type}
             fileInfo={fileInfo}
@@ -94,9 +110,22 @@ export default function ExtendedManager() {
             setModifyDialogOpen={setModifyDialogOpen}
             setRemoveDialogOpen={setRemoveDialogOpen}
         />
-    function clearExtendedData() {
-        const old = JSON.parse(recentlyUsed.value) as string[];
-        recentlyUsed.set(JSON.stringify(old.filter(item => item !== fileInfo.to)));
+    async function clearExtendedData() {
+        await db.extendedTools.put({
+            ...fileInfo,
+            files: files,
+            settings: fileInfo.settings.map(setting => ({
+                ...setting,
+                value: setting.defaultValue
+            }))
+        });
+        const oldRecently = JSON.parse(recentlyUsed.value) as string[];
+        recentlyUsed.set(JSON.stringify(oldRecently.filter(item => item !== fileInfo.to)));
+        const oldMost = JSON.parse(mostUsed.value) as {
+            [key: string]: number;
+        };
+        Reflect.deleteProperty(oldMost, fileInfo.to);
+        mostUsed.set(JSON.stringify(oldMost));
     }
     return (
         <>
@@ -207,7 +236,11 @@ export default function ExtendedManager() {
                                 desc: main.description,
                                 icon: main.icon,
                                 color: main.color,
-                                main: main.main
+                                main: main.main,
+                                settings: "settings" in main ? (main.settings as setting[]).map(settingItem => ({
+                                    ...settingItem,
+                                    value: settingItem.defaultValue
+                                })) : []
                             });
                             setFiles(dir.map(item => [item, fs.readFileSync(item)]));
                             if ((await db.extendedTools.toArray()).some(item => item.to === main.to)) {

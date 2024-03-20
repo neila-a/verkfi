@@ -13,5 +13,29 @@
     "main": "index.html",
     "dependencies": {
         "@electron/asar": "^3.2.9"
-    }
+    },
+    "settings": [
+        {
+            "type": "boolean",
+            "page": "theme",
+            "text": "炸裂",
+            "defaultValue": true
+        },
+        {
+            "type": "input",
+            "page": "theme",
+            "text": "炸裂",
+            "defaultValue": "炸裂"
+        },
+        {
+            "type": "switch",
+            "page": "theme",
+            "switches": [
+                "boom",
+                "炸裂switch"
+            ],
+            "text": "炸裂",
+            "defaultValue": "boom"
+        }
+    ]
 }

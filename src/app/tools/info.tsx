@@ -27,10 +27,7 @@ import {
     Hex
 } from "../declare";
 const hex = Hex.hex;
-/**
- * Metadata for your tool.
- */
-export interface tool {
+export interface noIconTool {
 
     /** 
      * Name of your tool.
@@ -51,14 +48,6 @@ export interface tool {
     desc: string;
 
     /**
-     * URL for icon of your tool.
-     * @example https://foo.com/bar.png
-     */
-    icon: (OverridableComponent<SvgIconTypeMap<{}, "svg">> & {
-        muiName: string
-    }) | FC;
-
-    /**
      * Background of your tool.  
      * It will display in HeadBar when user set "color" to true.  
      * It should be uppercase.
@@ -73,6 +62,19 @@ export interface tool {
      */
     isGoto?: boolean;
 
+}
+/**
+ * Metadata for your tool.
+ */
+export interface tool extends noIconTool {
+
+    /**
+     * URL for icon of your tool.
+     * @example https://foo.com/bar.png
+     */
+    icon: (OverridableComponent<SvgIconTypeMap<{}, "svg">> & {
+        muiName: string
+    }) | FC;
 }
 export const getTools = (get: typeof i18n.get): tool[] => {
     return [
