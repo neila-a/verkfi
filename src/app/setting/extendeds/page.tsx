@@ -47,7 +47,8 @@ export const emptyNXTMetadata: NXTMetadata = {
     desc: "",
     to: "",
     icon: "",
-    color: [Hex.hex("ffffff"), Hex.hex("ffffff")],
+    // @ts-ignore 空数据，不需要做效验
+    color: ["", ""],
     main: "",
     settings: []
 }
@@ -110,21 +111,21 @@ export default function ExtendedManager() {
             setModifyDialogOpen={setModifyDialogOpen}
             setRemoveDialogOpen={setRemoveDialogOpen}
         />
-    async function clearExtendedData() {
+    async function clearExtendedData(clearingExtended: NXTMetadata, clearingFiles: [string, Uint8Array][]) {
         await db.extendedTools.put({
-            ...fileInfo,
-            files: files,
-            settings: fileInfo.settings.map(setting => ({
+            ...clearingExtended,
+            files: clearingFiles,
+            settings: clearingExtended.settings.map(setting => ({
                 ...setting,
                 value: setting.defaultValue
             }))
         });
         const oldRecently = JSON.parse(recentlyUsed.value) as string[];
-        recentlyUsed.set(JSON.stringify(oldRecently.filter(item => item !== fileInfo.to)));
+        recentlyUsed.set(JSON.stringify(oldRecently.filter(item => item !== clearingExtended.to)));
         const oldMost = JSON.parse(mostUsed.value) as {
             [key: string]: number;
         };
-        Reflect.deleteProperty(oldMost, fileInfo.to);
+        Reflect.deleteProperty(oldMost, clearingExtended.to);
         mostUsed.set(JSON.stringify(oldMost));
     }
     return (
@@ -179,7 +180,11 @@ export default function ExtendedManager() {
                         <Box display="flex">
                             <MouseOverPopover text={get("extensions.clear")}>
                                 <IconButton onClick={event => {
-                                    clearExtendedData();
+                                    const {
+                                        files: thisFiles,
+                                        ...metadata
+                                    } = single;
+                                    clearExtendedData(metadata, thisFiles);
                                 }}>
                                     <RestartAltIcon />
                                 </IconButton>
@@ -216,7 +221,7 @@ export default function ExtendedManager() {
             }} onTrue={async () => {
                 await db.extendedTools.delete(fileInfo.to);
                 if (clearData) {
-                    clearExtendedData();
+                    clearExtendedData(fileInfo, files);
                 }
                 reset();
             }} open={removeDialogOpen} title={get("extensions.删除扩展")} description={`${get("extensions.确定删除扩展")}${fileInfo.name}?`} />
