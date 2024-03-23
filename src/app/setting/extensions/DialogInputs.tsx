@@ -2,7 +2,10 @@
 import {
     Button,
     ButtonGroup,
-    FormGroup
+    FormGroup,
+    MenuItem,
+    Select,
+    TextField
 } from "@mui/material";
 import {
     get
@@ -10,6 +13,7 @@ import {
 import db from "../../tools/extension/db";
 import InfoInput from "./infoInput";
 import {
+    Hex,
     setState
 } from "../../declare";
 import {
@@ -28,31 +32,51 @@ export default function DialogInputs(props: {
     return (
         <>
             <FormGroup>
-                {[["name", "名称"], ["to", "ID"], ["desc", "描述"], ["icon", "图标"], ["color", "背景色"], ["main", "入口"]].map(item => <InfoInput
+                {[["name", "名称"], ["to", "ID"], ["desc", "描述"]].map(item => <InfoInput
                     id={item[0]}
                     key={item[0]}
                     name={item[1]}
                     info={props.fileInfo}
                     setInfo={props.setFileInfo} />)}
             </FormGroup>
-            <ButtonGroup fullWidth>
-                {props.files.length !== 0 && <Button variant="contained" onClick={async (event) => {
-                    const id = await db.extensionTools.put({
-                        ...props.fileInfo,
-                        files: props.files,
-                        color: props.fileInfo.color
-                    });
-                    props.reset();
-                }}>
-                    {props.type === "add" ? get("添加") : get("编辑")}
-                </Button>}
-                {props.type === "modify" && <Button variant="outlined" onClick={async (event) => {
-                    props.setModifyDialogOpen(false);
-                    props.setRemoveDialogOpen(true);
-                }}>
-                    {get("删除")}
-                </Button>}
-            </ButtonGroup>
+            <FormGroup sx={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between"
+            }}>
+                {[0, 1].map(item => (
+                    <TextField sx={{
+                        maxWidth: "49%"
+                    }} key={item} margin="dense" variant="outlined" onChange={event => {
+                        props.setFileInfo(old => {
+                            const realOld = {
+                                ...old
+                            };
+                            realOld.color[item] = Hex.hex(event.target.value as Hex.HexColor<string>);
+                            return realOld;
+                        });
+                    }} value={props.fileInfo.color[item]} label={get("theme.colorSteps") + item} />
+                ))}
+            </FormGroup>
+            <FormGroup>
+                {[["icon", "图标"], ["main", "入口"]].map(item => (
+                    <Select sx={{
+                        mb: 1
+                    }} key={item[0]} value={props.fileInfo[item[0]]} label={get(item[1])} onChange={event => {
+                        props.setFileInfo(old => {
+                            const realOld = {
+                                ...old
+                            };
+                            realOld[item[0]] = event.target.value;
+                            return realOld;
+                        })
+                    }}>
+                        {props.files.map(file => (
+                            <MenuItem key={file[0]} value={file[0]}>{file[0]}</MenuItem>
+                        ))}
+                    </Select>
+                ))}
+            </FormGroup>
         </>
     );
 }

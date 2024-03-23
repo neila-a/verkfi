@@ -15,7 +15,9 @@ import {
 } from "react";
 export default function WindowContainer() {
     const colorContext = useContext(colorMode),
-        windows = useContext(windowsContext).windows,
+        {
+            windows
+        } = useContext(windowsContext),
         color = colorContext.value,
         theme = useTheme();
     return (

@@ -8,7 +8,10 @@ import {
     IconButton,
     Box,
     FormControlLabel,
-    Checkbox
+    Checkbox,
+    useMediaQuery,
+    useTheme,
+    ButtonGroup
 } from "@mui/material";
 import {
     useContext,
@@ -37,7 +40,6 @@ import {
 import {
     useLiveQuery
 } from "dexie-react-hooks";
-import Image from "next/image";
 import db, {
     single
 } from "../../tools/extension/db";
@@ -66,6 +68,25 @@ export default function ExtensionManager() {
         [removeDialogOpen, setRemoveDialogOpen] = useState<boolean>(false),
         [modifyDialogOpen, setModifyDialogOpen] = useState<boolean>(false),
         [clearData, setClearData] = useState<boolean>(false),
+        theme = useTheme(),
+        fullScreen = useMediaQuery(theme.breakpoints.down('sm')),
+        dialogButtons = (type: "modify" | "add") => <ButtonGroup fullWidth>
+            {files.length !== 0 && <Button variant="contained" onClick={async (event) => {
+                const id = await db.extensionTools.put({
+                    ...fileInfo,
+                    files: files
+                });
+                reset();
+            }}>
+                {type === "add" ? get("添加") : get("编辑")}
+            </Button>}
+            {type === "modify" && <Button variant="outlined" onClick={async (event) => {
+                setModifyDialogOpen(false);
+                setRemoveDialogOpen(true);
+            }}>
+                {get("删除")}
+            </Button>}
+        </ButtonGroup>,
         recentlyUsed = useContext(recentlyUsedContext),
         mostUsed = useContext(mostUsedContext),
         reset = () => {
@@ -130,7 +151,8 @@ export default function ExtensionManager() {
                         <Stack direction="row" divider={<Divider orientation="vertical" flexItem />} spacing={2}>
                             <Stack direction="row" spacing={1}>
                                 <Box>
-                                    <Image src={`/extensionfiles/${single.to}/${single.icon}`} alt={single.name} height={24} width={24} />
+                                    {/* 这里的图片是直接从indexedDB加载来的，不需要且不能使用next/image的优化 */}
+                                    <img src={`/extensionfiles/${single.to}/${single.icon}`} alt={single.name} height={24} width={24} />
                                 </Box>
                                 <Box>
                                     <Typography>
@@ -185,7 +207,9 @@ export default function ExtensionManager() {
             }} variant="outlined">
                 {get("extensions.添加扩展")}
             </Button>
-            <PureDialog open={modifyDialogOpen} onClose={event => {
+            <PureDialog action={dialogButtons("modify")} add={{
+                fullScreen: fullScreen
+            }} open={modifyDialogOpen} onClose={event => {
                 setModifyDialogOpen(false);
             }} title={get("extensions.编辑扩展")}>
                 {packagedDialogInputs("modify")}
@@ -201,7 +225,9 @@ export default function ExtensionManager() {
                 }
                 reset();
             }} open={removeDialogOpen} title={get("extensions.删除扩展")} description={`${get("extensions.确定删除扩展")}${fileInfo.name}?`} />
-            <PureDialog open={addDialogOpen} onClose={() => reset()} title={get("extensions.添加扩展")}>
+            <PureDialog action={dialogButtons("add")} add={{
+                fullScreen: fullScreen
+            }} open={addDialogOpen} onClose={() => reset()} title={get("extensions.添加扩展")}>
                 <FilePond
                     files={fileArray as unknown as FilePondServerConfigProps["files"]}
                     onupdatefiles={files => {

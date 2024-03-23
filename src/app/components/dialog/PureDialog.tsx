@@ -1,9 +1,10 @@
 import {
-    DialogContent
+    DialogActions,
+    DialogContent,
+    DialogProps
 } from "@mui/material";
 import {
-    ReactNode,
-    useState
+    ReactNode
 } from "react";
 import BootstrapDialog from "./BootstrapDialog";
 import BootstrapDialogTitle from "./BootstrapDialogTitle";
@@ -17,21 +18,26 @@ export default function PureDialog(props: {
      * 内容
      */
     children: ReactNode;
+    action?: ReactNode;
     /**
      * 关闭后的回调
      */
     onClose: Function;
+    add?: Omit<DialogProps, "open">;
     open: boolean;
 }) {
     const handleClose = () => {
         props.onClose();
     };
     return (
-        <BootstrapDialog onClose={handleClose} open={props.open} TransitionComponent={Transition}>
+        <BootstrapDialog {...props.add} onClose={handleClose} open={props.open} TransitionComponent={Transition}>
             <BootstrapDialogTitle onClose={handleClose}>{props.title}</BootstrapDialogTitle>
             <DialogContent dividers>
                 {props.children}
             </DialogContent>
+            <DialogActions>
+                {props.action}
+            </DialogActions>
         </BootstrapDialog>
     );
 }

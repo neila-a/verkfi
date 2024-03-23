@@ -2,7 +2,7 @@
     "name": "laz_durno_kkehet",
     "to": "demovxt",
     "description": "A demo",
-    "icon": "fav.png",
+    "icon": "icon.jpg",
     "scripts": {
         "build": "rm -f demo.vxt && asar pack ./ demo.vxt"
     },

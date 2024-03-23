@@ -197,6 +197,7 @@
 	},
 	"theme": {
 		"primary": "主要色",
+		"colorSteps": "色标",
 		"secondary": "次要色",
 		"shade": "阴影",
 		"colors": {
