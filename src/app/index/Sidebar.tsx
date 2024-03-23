@@ -31,7 +31,6 @@ import {
 import {
     tool
 } from "../tools/info";
-import Center from '../components/center/Center';
 export type lists = [string, string[]][];
 import getList from './getList';
 import SingleSelect from './SingleSelect';
@@ -131,7 +130,9 @@ export default function Sidebar(props: {
                     }
                 }} />
             </Paper>
-            <Center>
+            <Box sx={{
+                textAlign: "center"
+            }}>
                 {!props.isImplant && <SingleSelect dragButton={<></>} editMode={editMode} isSidebar={true} sortingFor={sortingFor} searchText={searchText} setEditing={setEditing} wantSortingFor="__home__" tool={get("主页")} onClick={event => {
                     props.setShow("home");
                     setSortingFor("__home__");
@@ -167,7 +168,7 @@ export default function Sidebar(props: {
                         }}
                     />
                 </Box>
-            </Center>
+            </Box>
             <Buttons
                 editMode={editMode}
                 viewMode={viewMode}

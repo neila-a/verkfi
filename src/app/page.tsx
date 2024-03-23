@@ -41,7 +41,6 @@ import useStoragedState from './components/useStoragedState';
 import {
     setState
 } from './declare';
-import Center from './components/center/Center';
 import ToolsStack from './index/ToolsStack';
 import searchBase from './index/searchBase';
 import {
@@ -54,7 +53,9 @@ import stringToBoolean from './setting/stringToBoolean';
 import getParamTools from './index/getParamTools';
 import VerkfiIcon from './components/verkfiIcon/verkfiIcon';
 import generateTries from './index/generateTries';
-import db, { single } from './tools/extension/db';
+import db, {
+    single
+} from './tools/extension/db';
 import {
     useLiveQuery
 } from 'dexie-react-hooks';
@@ -210,16 +211,15 @@ export default function Index(props: {
                 }}>
                     <Box sx={{
                         paddingBottom: 3,
-                        width: "100%"
+                        width: "100%",
+                        textAlign: "center"
                     }}>
-                        <Center>
-                            <VerkfiIcon onClick={event => {
-                                setShowTries(old => !old);
-                            }} sx={{
-                                fontSize: "1000%",
-                                cursor: "pointer"
-                            }} />
-                        </Center>
+                        <VerkfiIcon onClick={event => {
+                            setShowTries(old => !old);
+                        }} sx={{
+                            fontSize: "1000%",
+                            cursor: "pointer"
+                        }} />
                     </Box>
                     <Collapse in={showTries}>
                         <Box>
