@@ -27,7 +27,7 @@ import {
 import {
     useLiveQuery
 } from "dexie-react-hooks";
-import db from "./extension/db";
+import db from "../components/db";
 import convertExtensionTools from "../index/convertExtensionTools";
 import {
     emptyExtension

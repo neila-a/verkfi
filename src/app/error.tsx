@@ -14,6 +14,7 @@ import {
 import {
     logger
 } from "./layout/layoutClient"; // 都是全局日志
+import db from "./components/db";
 export default function Error(props: {
     error: Error & {
         digest?: string;
@@ -46,8 +47,8 @@ export default function Error(props: {
                 }}>
                     {get("error.cache")}
                 </Button>
-                <Button variant="outlined" onClick={event => {
-                    localStorage.clear();
+                <Button variant="outlined" onClick={async event => {
+                    await db.options.clear();
                     props.reset();
                 }}>
                     {get("error.setting")}

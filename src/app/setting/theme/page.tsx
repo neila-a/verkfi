@@ -1,6 +1,5 @@
 "use client";
 import {
-    Palette,
     rgbToHex,
     useTheme
 } from '@mui/material/styles';
@@ -14,10 +13,8 @@ import {
 } from "react-intl-universal";
 import {
     darkMode as darkModeContext,
-    isBrowser,
     paletteColors
 } from '../../layout/layoutClient';
-import checkOption from '../checkOption';
 import setSetting from '../setSetting';
 import {
     Button,
@@ -43,6 +40,11 @@ import {
 import {
     OverridableComponent
 } from '@mui/material/OverridableComponent';
+import db from '../../components/db';
+import {
+    useLiveQuery
+} from 'dexie-react-hooks';
+import useReadSetting from '../useReadSetting';
 function ColorTool() {
     const palette = useContext(paletteColors),
         theme = useTheme(),
@@ -56,11 +58,8 @@ function ColorTool() {
             secondaryHue: 'pink',
             primaryShade: 4,
             secondaryShade: 11,
-        });
-    var value = defaultState;
-    if (isBrowser()) {
-        value = checkOption("internalpalette", "内部调色板", defaultState);
-    }
+        }),
+        value = useReadSetting("internalpalette", defaultState);
     const [state, setState] = useReducer((old, now) => {
         const paletteColors = {
             primary: { ...colors[now.primaryHue], main: now.primary },

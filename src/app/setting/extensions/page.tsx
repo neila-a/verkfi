@@ -42,7 +42,7 @@ import {
 } from "dexie-react-hooks";
 import db, {
     single
-} from "../../tools/extension/db";
+} from "../../components/db";
 import CheckDialog from "../../components/dialog/CheckDialog";
 import DialogInputs from "./DialogInputs";
 import {

@@ -23,7 +23,7 @@ import {
     Draggable
 } from "@hello-pangea/dnd";
 import reorder from '../components/reorder';
-import buttonCommonSorting from './buttonCommonSorting';
+import useButtonCommonSorting from './buttonCommonSorting';
 import ToolsNotFound from './ToolsNotFound';
 import {
     TransitionGroup
@@ -42,7 +42,8 @@ export default function ToolsStack(props: {
 }) {
     const {
         viewMode
-    } = props;
+    } = props,
+        buttonCommonSorting = useButtonCommonSorting();
     function Insert({
         index,
         tool

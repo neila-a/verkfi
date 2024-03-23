@@ -1,13 +1,13 @@
 "use client";
-import checkOption from '../setting/checkOption';
 import {
     lists
 } from './Sidebar';
-const getList = () => {
+import useReadSetting from '../setting/useReadSetting';
+const useList = () => {
     const defaultList: lists = [],
         defaultListJSON = JSON.stringify(defaultList),
-        realListJSON = checkOption("lists", "集合列表", defaultListJSON),
+        realListJSON = useReadSetting("lists", defaultListJSON),
         lists = realListJSON || defaultListJSON;
     return JSON.parse(lists) as lists;
 };
-export default getList;
+export default useList;

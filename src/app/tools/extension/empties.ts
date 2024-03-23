@@ -3,7 +3,7 @@ import {
 } from "../../setting/extensions/page";
 import {
     single
-} from "./db";
+} from "../../components/db";
 export const emptyNXTMetadata: NXTMetadata = {
     name: "",
     desc: "",

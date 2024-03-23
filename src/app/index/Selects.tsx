@@ -19,7 +19,7 @@ import {
     getTools,
     tool
 } from "../tools/info";
-import getToolsList from './getToolsList';
+import useToolsList from './getToolsList';
 import {
     locales
 } from '../layout/layoutClient';
@@ -27,7 +27,7 @@ import setSetting from '../setting/setSetting';
 import {
     useLiveQuery
 } from 'dexie-react-hooks';
-import db from '../tools/extension/db';
+import db from '../components/db';
 import SingleSelect from './SingleSelect';
 import dynamic from 'next/dynamic';
 const EditToolsListDialog = dynamic(() => import("./EditToolsListDialog"));
@@ -68,6 +68,7 @@ export default function Selects(props: {
         } = props,
         [dialogOpen, setDialogOpen] = useState<boolean>(false),
         [dialogTools, setDialogTools] = useState<string[]>([]),
+        gotToolsList = useToolsList(getTools(get)),
         [removeDialogOpen, setRemoveDialogOpen] = useState<boolean>(false),
         [dialogListName, setDialogListName] = useState<string>(""),
         realSelect = (single: [string, string[]], isAll: boolean) => (
@@ -88,13 +89,13 @@ export default function Selects(props: {
                         let draft: tool[] = [];
                         props.modifyClickCount("++");
                         if (isAll) {
-                            draft = getToolsList(getTools(get));
+                            draft = gotToolsList;
                             if (sortingFor !== "__global__") {
                                 props.modifyClickCount(0);
                             }
                             setSortingFor("__global__");
                         } else {
-                            draft = single[1].map(toolTo => getToolsList(getTools(get)).filter(one => one.to === toolTo)[0]);
+                            draft = single[1].map(toolTo => gotToolsList.filter(one => one.to === toolTo)[0]);
                             if (sortingFor !== single[0]) {
                                 props.modifyClickCount(0);
                             }
@@ -119,7 +120,7 @@ export default function Selects(props: {
             justifyContent: "space-evenly",
             alignItems: "center"
         }}>
-            {realSelect([get("全部"), getToolsList(getTools(get)).map(atool => atool.to)], true)}
+            {realSelect([get("全部"), gotToolsList.map(atool => atool.to)], true)}
             <DragDropContext onDragEnd={result => {
                 if (!result.destination) {
                     return;
@@ -186,7 +187,7 @@ export default function Selects(props: {
                     list.forEach(single => {
                         if (single[0] === dialogListName) {
                             single[1].forEach(to => {
-                                getToolsList(getTools(get)).forEach(tool => {
+                                gotToolsList.forEach(tool => {
                                     if (tool.to === to) {
                                         realLeft.push(tool.name);
                                     }

@@ -3,19 +3,24 @@ import Dexie, {
 } from 'dexie';
 import {
     NXTMetadata
-} from '../../setting/extensions/page';
-const dbName = 'extensionTools';
+} from '../setting/extensions/page';
 export interface single extends NXTMetadata {
     files: [string, Uint8Array][];
 }
+export interface option {
+    key: string;
+    value: any;
+};
 class ClassedDexie extends Dexie {
     // 'friends' is added by dexie when declaring the stores()
     // We just tell the typing system this is the case
-    [dbName]!: Table<single>;
+    extensionTools!: Table<single>;
+    options!: Table<option>;
     constructor() {
-        super(dbName);
-        this.version(4).stores({
-            [dbName]: 'to, name, desc, to, icon, color, main, files, settings' // Primary key and indexed props
+        super('Verkfi');
+        this.version(5).stores({
+            extensionTools: 'to, name, desc, to, icon, color, main, files, settings', // Primary key and indexed props
+            options: 'key, value'
         });
     }
 }

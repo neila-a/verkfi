@@ -7,7 +7,7 @@ import {
 import {
     setState
 } from '../declare';
-import intl, {
+import {
     get
 } from "react-intl-universal";
 import {
@@ -19,12 +19,16 @@ import TransferList from "../components/TransferList";
 import {
     lists
 } from "./Sidebar";
-import checkOption from "../setting/checkOption";
-import getToolsList from "./getToolsList";
+import useToolsList from "./getToolsList";
 import {
     getTools
 } from "../tools/info";
 import setSetting from "../setting/setSetting";
+import {
+    useLiveQuery
+} from "dexie-react-hooks";
+import db, { option } from "../components/db";
+import useReadSetting from "../setting/useReadSetting";
 export default function EditToolsListDialog(props: {
     dialogTools: string[];
     setDialogTools: setState<string[]>;
@@ -39,16 +43,15 @@ export default function EditToolsListDialog(props: {
     const {
         dialogTools, setDialogTools, dialogListName, setDialogListName, setDialogOpen
     } = props,
+        defaultListJSON = "[]",
+        realListJSON = useReadSetting("lists", defaultListJSON),
         [list, setList] = useState<lists>(() => {
-            const defaultList: lists = [],
-                defaultListJSON = JSON.stringify(defaultList),
-                realListJSON = checkOption("lists", "集合列表", defaultListJSON),
-                lists = realListJSON || defaultListJSON;
+            const lists = realListJSON || defaultListJSON;
             return JSON.parse(lists) as lists;
         }),
         edit = (forList: lists) => forList.some(single => single[0] === dialogListName),
         createOrEdit = !edit(list) ? get("category.创建分类") : get("category.编辑分类"),
-        [toolsList, setToolsList] = useState(getToolsList(getTools(get)));
+        toolsList = useToolsList(getTools(get));
     var right = toolsList.map(atool => atool.name).filter(v => props.left.every(val => val !== v));
     return (
         <PureDialog open={props.open} title={createOrEdit} onClose={() => {

@@ -8,7 +8,7 @@ import {
 import Image from 'next/image';
 import {
     single
-} from '../tools/extension/db';
+} from '../components/db';
 const convertExtensionTools: (extensionTools: single[]) => tool[] = extensionTools => extensionTools?.map(single => ({
     name: single.name,
     to: `/tools/extension?tool=${single.to}` as Lowercase<string>,

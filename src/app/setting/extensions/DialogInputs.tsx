@@ -10,7 +10,7 @@ import {
 import {
     get
 } from "react-intl-universal";
-import db from "../../tools/extension/db";
+import db from "../../components/db";
 import InfoInput from "./infoInput";
 import {
     Hex,

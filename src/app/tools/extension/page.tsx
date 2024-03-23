@@ -4,7 +4,7 @@ import {
 } from "dexie-react-hooks";
 import db, {
     single
-} from "./db";
+} from "../../components/db";
 import {
     useSearchParams
 } from "next/navigation";

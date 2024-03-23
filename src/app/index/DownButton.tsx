@@ -12,13 +12,14 @@ import downGo from "../components/arrayMove/downGo";
 import {
     setState
 } from '../declare';
-import buttonCommonSorting from './buttonCommonSorting';
+import useButtonCommonSorting from './buttonCommonSorting';
 export default function DownButton(props: {
     editMode: boolean;
     setTools: setState<tool[]>;
     tool: tool;
     sortingFor: string;
 }): JSX.Element {
+    const buttonCommonSorting = useButtonCommonSorting();
     if (props.editMode && props.sortingFor !== "__home__") {
         return (
             <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{

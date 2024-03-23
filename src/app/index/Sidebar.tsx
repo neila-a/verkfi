@@ -32,7 +32,7 @@ import {
     tool
 } from "../tools/info";
 export type lists = [string, string[]][];
-import getList from './getList';
+import useList from './getList';
 import SingleSelect from './SingleSelect';
 import Selects from './Selects';
 export default function Sidebar(props: {
@@ -75,7 +75,8 @@ export default function Sidebar(props: {
     } = props,
         [editing, setEditing] = useState<boolean>(searchText === ""),
         [clickCount, setClickCount] = useState<number>(0),
-        [list, setList] = useState<lists>(getList);
+        listFormStorage = useList(),
+        [list, setList] = useState<lists>(listFormStorage);
     return (
         <Drawer variant="permanent" sx={{
             maxWidth: drawerWidth,

@@ -40,9 +40,9 @@ import {
 import useStoragedState from "./components/useStoragedState";
 import SwitchViewMode from "./index/SwitchViewMode";
 import SwitchEditMode from "./index/SwitchEditMode";
-import getToolsList from "./index/getToolsList";
+import useToolsList from "./index/getToolsList";
 import Selects from "./index/Selects";
-import getList from "./index/getList";
+import useList from "./index/getList";
 import {
     lists
 } from "./index/Sidebar";
@@ -57,7 +57,7 @@ import {
 } from "next/navigation";
 import getParamTools from "./index/getParamTools";
 import VerkfiIcon from "./components/verkfiIcon/verkfiIcon";
-import db from "./tools/extension/db";
+import db from "./components/db";
 import {
     useLiveQuery
 } from "dexie-react-hooks";
@@ -73,12 +73,14 @@ export default function Menu() {
         [editMode, setEditMode] = useState<boolean>(false),
         [sortingFor, setSortingFor] = useState<string>("__home__"),
         [tab, setTab] = useState<number>(0),
-        [list, setList] = useState<lists>(getList),
+        listFormStorage = useList(),
+        [list, setList] = useState<lists>(listFormStorage),
         [searchText, setSearchText] = useState<string>(""),
         extensionTools = useLiveQuery(() => db.extensionTools.toArray(), [], []),
         router = useRouter(),
-        [sortedTools, setSortedTools] = useState(() => getToolsList(realTools)), // 排序完毕，但是不会根据搜索而改动的分类
-        [tools, setTools] = useState<tool[]>(() => getToolsList(realTools)), // 经常改动的分类
+        gotToolsList = useToolsList(realTools),
+        [sortedTools, setSortedTools] = useState(gotToolsList), // 排序完毕，但是不会根据搜索而改动的分类
+        [tools, setTools] = useState<tool[]>(gotToolsList), // 经常改动的分类
         focusingTo = tools[tab] ? tools[tab].to : "", // 每次渲染会重新执行
         [editing, setEditing] = useState<boolean>(searchText === "");
     function searchTools(search: string) {
@@ -141,9 +143,9 @@ export default function Menu() {
                         }} aria-label="back" onClick={() => {
                             setSearchText("");
                             setSortingFor("__home__");
-                            setSortedTools(() => getToolsList(realTools));
+                            setSortedTools(gotToolsList);
                             setEditing(true);
-                            setTools(() => getToolsList(realTools));
+                            setTools(gotToolsList);
                         }}>
                             <ArrowBackIosIcon />
                         </IconButton>

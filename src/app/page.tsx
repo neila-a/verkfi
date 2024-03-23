@@ -31,7 +31,7 @@ import {
     useRouter,
     useSearchParams
 } from 'next/navigation';
-import getToolsList from './index/getToolsList';
+import useToolsList from './index/getToolsList';
 import Sidebar from './index/Sidebar';
 import {
     viewMode,
@@ -55,7 +55,7 @@ import VerkfiIcon from './components/verkfiIcon/verkfiIcon';
 import generateTries from './index/generateTries';
 import db, {
     single
-} from './tools/extension/db';
+} from './components/db';
 import {
     useLiveQuery
 } from 'dexie-react-hooks';
@@ -77,7 +77,7 @@ export default function Index(props: {
         searchParams = useSearchParams(),
         extensionTools = useLiveQuery(() => db.extensionTools.toArray(), [], [] as single[]),
         router = useRouter(),
-        toolsList = useMemo(() => getToolsList(realTools), []),
+        toolsList = useToolsList(realTools),
         refThis = useRef(),
         {
             ref = refThis

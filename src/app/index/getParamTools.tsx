@@ -1,7 +1,7 @@
 "use client";
 import {
     single
-} from "../tools/extension/db";
+} from "../components/db";
 import {
     tool
 } from "../tools/info";

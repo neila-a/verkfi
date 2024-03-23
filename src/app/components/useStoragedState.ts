@@ -1,16 +1,10 @@
 import {
     useReducer
 } from "react";
-import {
-    isBrowser
-} from "../layout/layoutClient";
-import checkOption from "../setting/checkOption";
 import setSetting from "../setting/setSetting";
-export default function useStoragedState<T extends string = string>(id: string, name: string, empty: T) {
-    var value = empty;
-    if (isBrowser()) {
-        value = checkOption(id, name, empty);
-    }
+import useReadSetting from "../setting/useReadSetting";
+export default function useStoragedState<T = any>(id: string, name: string, empty: T) {
+    const value = useReadSetting(id, empty);
     return useReducer((old: T, val: T) => {
         setSetting(id, name, val);
         return val;
