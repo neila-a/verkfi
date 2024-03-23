@@ -27,11 +27,11 @@ import {
 import {
     useLiveQuery
 } from "dexie-react-hooks";
-import db from "./extended/db";
-import convertExtendedTools from "../index/convertExtendedTools";
+import db from "./extension/db";
+import convertExtensionTools from "../index/convertExtensionTools";
 import {
-    emptyExtended
-} from "./extended/page";
+    emptyExtension
+} from "./extension/empties";
 var logger = new lpLogger({
     name: "ToolFinder",
     level: "log"
@@ -43,17 +43,17 @@ export default function ToolFinder(props: {
         color = colorContext.value,
         segment = useSelectedLayoutSegment(),
         searchParams = useSearchParams(),
-        toolID = segment === "extended" ? searchParams.get("tool") : segment,
-        extendedTools = useLiveQuery(() => db.extendedTools.toArray(), [], []),
+        toolID = segment === "extension" ? searchParams.get("tool") : segment,
+        extensionTools = useLiveQuery(() => db.extensionTools.toArray(), [], []),
         only = searchParams.has("only"),
-        toolsInfo = segment === "extended" ? convertExtendedTools(extendedTools).map(single => ({
+        toolsInfo = segment === "extension" ? convertExtensionTools(extensionTools).map(single => ({
             ...single,
-            to: single.to.replace("/tools/extended?tool=", "") as Lowercase<string>
+            to: single.to.replace("/tools/extension?tool=", "") as Lowercase<string>
         })) : getTools(get),
         filteredToolsInfo = toolsInfo.filter(si => si.to === toolID),
         {
             name
-        } = filteredToolsInfo.length === 0 ? emptyExtended : filteredToolsInfo[0];
+        } = filteredToolsInfo.length === 0 ? emptyExtension : filteredToolsInfo[0];
     logger.info(`toolID为${toolID}`);
     return (
         <>

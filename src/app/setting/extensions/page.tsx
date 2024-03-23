@@ -28,31 +28,7 @@ const PureDialog = dynamic(() => import("../../components/dialog/PureDialog"));
 import {
     FilePondFile,
     FilePondServerConfigProps
-} from 'filepond';
-interface setting {
-    type: "boolean" | "switch" | "input",
-    page: settingPage;
-    switches?: string[];
-    text: string;
-    value: boolean | string;
-    defaultValue: boolean | string;
-}
-export interface NXTMetadata extends noIconTool {
-    icon: string;
-    main: string;
-    settings: setting[];
-}
-export const emptyNXTMetadata: NXTMetadata = {
-    name: "",
-    desc: "",
-    to: "",
-    icon: "",
-    // @ts-ignore 空数据，不需要做效验
-    color: ["", ""],
-    main: "",
-    settings: []
-}
-import {
+} from 'filepond'; import {
     Add as AddIcon,
     Edit as EditIcon,
     SyncProblem as SyncProblemIcon,
@@ -64,7 +40,7 @@ import {
 import Image from "next/image";
 import db, {
     single
-} from "../../tools/extended/db";
+} from "../../tools/extension/db";
 import CheckDialog from "../../components/dialog/CheckDialog";
 import DialogInputs from "./DialogInputs";
 import {
@@ -79,10 +55,10 @@ import {
     noIconTool
 } from "../../tools/info";
 import {
-    Hex
-} from "../../declare";
+    emptyNXTMetadata
+} from "../../tools/extension/empties";
 export type inputTypes = "modify" | "add";
-export default function ExtendedManager() {
+export default function ExtensionManager() {
     const [addDialogOpen, setAddDialogOpen] = useState<boolean>(false),
         [fileArray, setFileArray] = useState<FilePondFile[]>([]),
         [fileInfo, setFileInfo] = useState<NXTMetadata>(emptyNXTMetadata),
@@ -101,7 +77,7 @@ export default function ExtendedManager() {
             setClearData(false);
             setFileInfo(emptyNXTMetadata);
         },
-        extendedTools = useLiveQuery(() => db.extendedTools.toArray(), [], [] as single[]),
+        extensionTools = useLiveQuery(() => db.extensionTools.toArray(), [], [] as single[]),
         packagedDialogInputs = (type: inputTypes) => <DialogInputs
             type={type}
             fileInfo={fileInfo}
@@ -111,21 +87,21 @@ export default function ExtendedManager() {
             setModifyDialogOpen={setModifyDialogOpen}
             setRemoveDialogOpen={setRemoveDialogOpen}
         />
-    async function clearExtendedData(clearingExtended: NXTMetadata, clearingFiles: [string, Uint8Array][]) {
-        await db.extendedTools.put({
-            ...clearingExtended,
+    async function clearExtensionData(clearingExtension: NXTMetadata, clearingFiles: [string, Uint8Array][]) {
+        await db.extensionTools.put({
+            ...clearingExtension,
             files: clearingFiles,
-            settings: clearingExtended.settings.map(setting => ({
+            settings: clearingExtension.settings.map(setting => ({
                 ...setting,
                 value: setting.defaultValue
             }))
         });
         const oldRecently = JSON.parse(recentlyUsed.value) as string[];
-        recentlyUsed.set(JSON.stringify(oldRecently.filter(item => item !== clearingExtended.to)));
+        recentlyUsed.set(JSON.stringify(oldRecently.filter(item => item !== clearingExtension.to)));
         const oldMost = JSON.parse(mostUsed.value) as {
             [key: string]: number;
         };
-        Reflect.deleteProperty(oldMost, clearingExtended.to);
+        Reflect.deleteProperty(oldMost, clearingExtension.to);
         mostUsed.set(JSON.stringify(oldMost));
     }
     return (
@@ -134,7 +110,7 @@ export default function ExtendedManager() {
                 {get('extensions.扩展')}
             </Typography>
             <Stack spacing={2} mb={2}>
-                {extendedTools?.length === 0 ? <Box sx={{
+                {extensionTools?.length === 0 ? <Box sx={{
                     color: theme => theme.palette.text.disabled,
                     textAlign: "center"
                 }}>
@@ -144,7 +120,7 @@ export default function ExtendedManager() {
                     <Typography>
                         {get("extensions.未找到任何扩展")}
                     </Typography>
-                </Box> : extendedTools?.map(single => <Paper sx={{
+                </Box> : extensionTools?.map(single => <Paper sx={{
                     padding: 2
                 }} key={single.to}>
                     <Box sx={{
@@ -154,7 +130,7 @@ export default function ExtendedManager() {
                         <Stack direction="row" divider={<Divider orientation="vertical" flexItem />} spacing={2}>
                             <Stack direction="row" spacing={1}>
                                 <Box>
-                                    <Image src={`/extendedfiles/${single.to}/${single.icon}`} alt={single.name} height={24} width={24} />
+                                    <Image src={`/extensionfiles/${single.to}/${single.icon}`} alt={single.name} height={24} width={24} />
                                 </Box>
                                 <Box>
                                     <Typography>
@@ -184,7 +160,7 @@ export default function ExtendedManager() {
                                         files: thisFiles,
                                         ...metadata
                                     } = single;
-                                    clearExtendedData(metadata, thisFiles);
+                                    clearExtensionData(metadata, thisFiles);
                                 }}>
                                     <RestartAltIcon />
                                 </IconButton>
@@ -219,9 +195,9 @@ export default function ExtendedManager() {
             }} />} label={get("extensions.clear")} />} onFalse={() => {
                 reset();
             }} onTrue={async () => {
-                await db.extendedTools.delete(fileInfo.to);
+                await db.extensionTools.delete(fileInfo.to);
                 if (clearData) {
-                    clearExtendedData(fileInfo, files);
+                    clearExtensionData(fileInfo, files);
                 }
                 reset();
             }} open={removeDialogOpen} title={get("extensions.删除扩展")} description={`${get("extensions.确定删除扩展")}${fileInfo.name}?`} />
@@ -248,7 +224,7 @@ export default function ExtendedManager() {
                                 })) : []
                             });
                             setFiles(dir.map(item => [item, fs.readFileSync(item)]));
-                            if ((await db.extendedTools.toArray()).some(item => item.to === main.to)) {
+                            if ((await db.extensionTools.toArray()).some(item => item.to === main.to)) {
                                 setModifyDialogOpen(true);
                                 return setAddDialogOpen(false);
                             }
@@ -265,4 +241,17 @@ export default function ExtendedManager() {
             </PureDialog>
         </>
     );
+}
+interface setting {
+    type: "boolean" | "switch" | "input",
+    page: settingPage;
+    switches?: string[];
+    text: string;
+    value: boolean | string;
+    defaultValue: boolean | string;
+}
+export interface NXTMetadata extends noIconTool {
+    icon: string;
+    main: string;
+    settings: setting[];
 }

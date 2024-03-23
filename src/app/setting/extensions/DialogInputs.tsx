@@ -7,7 +7,7 @@ import {
 import {
     get
 } from "react-intl-universal";
-import db from "../../tools/extended/db";
+import db from "../../tools/extension/db";
 import InfoInput from "./infoInput";
 import {
     setState
@@ -37,7 +37,7 @@ export default function DialogInputs(props: {
             </FormGroup>
             <ButtonGroup fullWidth>
                 {props.files.length !== 0 && <Button variant="contained" onClick={async (event) => {
-                    const id = await db.extendedTools.put({
+                    const id = await db.extensionTools.put({
                         ...props.fileInfo,
                         files: props.files,
                         color: props.fileInfo.color

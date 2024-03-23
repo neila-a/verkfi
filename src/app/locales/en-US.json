@@ -186,9 +186,9 @@
 		}
 	},
 	"extensions": {
-		"扩展工具": "Extended Tools",
-		"扩展": "Extended",
-		"添加扩展": "Add Extended",
+		"扩展工具": "Extension Tools",
+		"扩展": "Extension",
+		"添加扩展": "Add Extension",
 		"编辑扩展": "Edit extend",
 		"删除扩展": "Delete extend",
 		"确定删除扩展": "Are you sure you want to delete the extend"

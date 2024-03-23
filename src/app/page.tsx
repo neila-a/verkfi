@@ -54,11 +54,11 @@ import stringToBoolean from './setting/stringToBoolean';
 import getParamTools from './index/getParamTools';
 import VerkfiIcon from './components/verkfiIcon/verkfiIcon';
 import generateTries from './index/generateTries';
-import db, { single } from './tools/extended/db';
+import db, { single } from './tools/extension/db';
 import {
     useLiveQuery
 } from 'dexie-react-hooks';
-import convertExtendedTools from './index/convertExtendedTools';
+import convertExtensionTools from './index/convertExtensionTools';
 export default function Index(props: {
     /**
      * 是否为嵌入
@@ -74,7 +74,7 @@ export default function Index(props: {
 }): JSX.Element {
     const realTools = getTools(get),
         searchParams = useSearchParams(),
-        extendedTools = useLiveQuery(() => db.extendedTools.toArray(), [], [] as single[]),
+        extensionTools = useLiveQuery(() => db.extensionTools.toArray(), [], [] as single[]),
         router = useRouter(),
         toolsList = useMemo(() => getToolsList(realTools), []),
         refThis = useRef(),
@@ -98,9 +98,9 @@ export default function Index(props: {
         tries = useMemo(() => generateTries(mostUsed, realTools), [mostUsed, realTools]),
         recentlyTools = (JSON.parse(recentlyUsed) as string[]).map(to => {
             var tool: tool | 0 = 0;
-            const converted = convertExtendedTools(extendedTools);
+            const converted = convertExtensionTools(extensionTools);
             converted.forEach(single => {
-                if (`/tools/extended?tool=${to}` === single.to) {
+                if (`/tools/extension?tool=${to}` === single.to) {
                     tool = single;
                 }
             });
@@ -271,7 +271,7 @@ export default function Index(props: {
                                     sortingFor={"__home__"}
                                     setTools={setTools}
                                     editMode={false}
-                                    paramTool={getParamTools(mostUsed, realTools, extendedTools)} />
+                                    paramTool={getParamTools(mostUsed, realTools, extensionTools)} />
                             </Box>
                         </homeWhere.Provider>
                     </Box>

@@ -27,7 +27,7 @@ import setSetting from '../setting/setSetting';
 import {
     useLiveQuery
 } from 'dexie-react-hooks';
-import db from '../tools/extended/db';
+import db from '../tools/extension/db';
 import SingleSelect from './SingleSelect';
 import dynamic from 'next/dynamic';
 const EditToolsListDialog = dynamic(() => import("./EditToolsListDialog"));
@@ -44,7 +44,7 @@ import reorder from '../components/reorder';
 import {
     DragIndicator as DragIndicatorIcon
 } from "@mui/icons-material";
-import convertExtendedTools from './convertExtendedTools';
+import convertExtensionTools from './convertExtensionTools';
 export default function Selects(props: {
     list: lists;
     setList: setState<lists>;
@@ -61,8 +61,8 @@ export default function Selects(props: {
     searchTools(search: string): void;
     modifyClickCount(value: number | "++"): void;
 }) {
-    const extendedTools = useLiveQuery(() => db.extendedTools.toArray(), [], []),
-        convertedExtendedTools = convertExtendedTools(extendedTools),
+    const extensionTools = useLiveQuery(() => db.extensionTools.toArray(), [], []),
+        convertedExtensionTools = convertExtensionTools(extensionTools),
         {
             list, setList, setTools, searchTools, searchText, setSearchText, sortingFor, setSortingFor, setEditing
         } = props,
@@ -161,16 +161,16 @@ export default function Selects(props: {
                     }}
                 </Droppable>
             </DragDropContext>
-            <SingleSelect dragButton={<></>} editMode={props.editMode} isSidebar={Boolean(props.isSidebar)} sortingFor={sortingFor} searchText={searchText} setEditing={setEditing} wantSortingFor="__extended__" tool={get("extensions.扩展工具")} onClick={event => {
+            <SingleSelect dragButton={<></>} editMode={props.editMode} isSidebar={Boolean(props.isSidebar)} sortingFor={sortingFor} searchText={searchText} setEditing={setEditing} wantSortingFor="__extension__" tool={get("extensions.扩展工具")} onClick={event => {
                 props.modifyClickCount("++");
-                if (sortingFor !== "__extended__") {
+                if (sortingFor !== "__extension__") {
                     props.modifyClickCount(0);
                 }
-                setSortingFor("__extended__");
+                setSortingFor("__extension__");
                 setEditing(false);
                 props.setEditMode(false);
-                props.setSortedTools(convertedExtendedTools);
-                setTools(convertedExtendedTools);
+                props.setSortedTools(convertedExtensionTools);
+                setTools(convertedExtensionTools);
             }} editButton={<></>} />
             <EditToolsListDialog
                 open={dialogOpen}

@@ -3,8 +3,8 @@ import Dexie, {
 } from 'dexie';
 import {
     NXTMetadata
-} from '../../setting/extendeds/page';
-const dbName = 'extendedTools';
+} from '../../setting/extensions/page';
+const dbName = 'extensionTools';
 export interface single extends NXTMetadata {
     files: [string, Uint8Array][];
 }

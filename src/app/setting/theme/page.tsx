@@ -27,8 +27,6 @@ import {
     Tooltip,
     Typography,
     Slider,
-    FormControlLabel,
-    Switch,
     Paper,
     PaletteMode,
     SvgIconTypeMap,
@@ -42,7 +40,9 @@ import {
     useContext,
     useReducer
 } from 'react';
-import { OverridableComponent } from '@mui/material/OverridableComponent';
+import {
+    OverridableComponent
+} from '@mui/material/OverridableComponent';
 function ColorTool() {
     const palette = useContext(paletteColors),
         theme = useTheme(),

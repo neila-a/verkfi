@@ -57,11 +57,11 @@ import {
 } from "next/navigation";
 import getParamTools from "./index/getParamTools";
 import VerkfiIcon from "./components/verkfiIcon/verkfiIcon";
-import db from "./tools/extended/db";
+import db from "./tools/extension/db";
 import {
     useLiveQuery
 } from "dexie-react-hooks";
-import convertExtendedTools from "./index/convertExtendedTools";
+import convertExtensionTools from "./index/convertExtensionTools";
 export default function Menu() {
     const control = useContext(showSidebar),
         theme = useTheme(),
@@ -75,7 +75,7 @@ export default function Menu() {
         [tab, setTab] = useState<number>(0),
         [list, setList] = useState<lists>(getList),
         [searchText, setSearchText] = useState<string>(""),
-        extendedTools = useLiveQuery(() => db.extendedTools.toArray(), [], []),
+        extensionTools = useLiveQuery(() => db.extensionTools.toArray(), [], []),
         router = useRouter(),
         [sortedTools, setSortedTools] = useState(() => getToolsList(realTools)), // 排序完毕，但是不会根据搜索而改动的分类
         [tools, setTools] = useState<tool[]>(() => getToolsList(realTools)), // 经常改动的分类
@@ -226,8 +226,8 @@ export default function Menu() {
                                         });
                                         if (typeof tool === "number") {
                                             // 该工具是扩展工具
-                                            convertExtendedTools(extendedTools).forEach(single => {
-                                                if (`/tools/extended?tool=${to}` === single.to) {
+                                            convertExtensionTools(extensionTools).forEach(single => {
+                                                if (`/tools/extension?tool=${to}` === single.to) {
                                                     tool = single;
                                                 }
                                             });
@@ -249,7 +249,7 @@ export default function Menu() {
                                     sortingFor={"__home__"}
                                     setTools={tools => null}
                                     editMode={false}
-                                    paramTool={getParamTools(mostUsed, realTools, extendedTools)} />
+                                    paramTool={getParamTools(mostUsed, realTools, extensionTools)} />
                             </Box>
                         </Box>
                     </> : <>
@@ -307,7 +307,7 @@ export default function Menu() {
                             </IconButton>
                         </MouseOverPopover>
                         <SwitchViewMode viewMode={viewMode} setViewMode={setViewMode} />
-                        {(editing && sortingFor !== "__extended__") && <SwitchEditMode editMode={editMode} setEditMode={setEditMode} />}
+                        {(editing && sortingFor !== "__extension__") && <SwitchEditMode editMode={editMode} setEditMode={setEditMode} />}
                     </Box>
                 </DialogActions>
             </Dialog>

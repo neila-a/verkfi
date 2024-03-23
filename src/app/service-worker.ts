@@ -3,7 +3,7 @@ import {
     devVersion,
     dev
 } from "../../package.json";
-import db from "./tools/extended/db";
+import db from "./tools/extension/db";
 import pages from "./pages.json";
 /* const toolsTo = [
     "audiotools",
@@ -52,10 +52,10 @@ self.addEventListener('activate', event => event.waitUntil((async () => {
     return self.clients.claim();
 })()));
 /**
- * 判断顺序：handle -> customRoute -> /tools/extended -> _rsc -> fetch -> cache
+ * 判断顺序：handle -> customRoute -> /tools/extension -> _rsc -> fetch -> cache
  * handle：自定义，并且要快
  * customRoute：自定义
- * /tools/extended：扩展工具加载器
+ * /tools/extension：扩展工具加载器
  * _rsc：拦截_rsc
  * cache：缓存模式
  * fetch：网络模式
@@ -83,11 +83,11 @@ self.addEventListener('fetch', event => {
                 statusText: "Redirected by ServiceWorker because this is a handler page",
                 headers: headers
             });
-        } else if (path[0] === "extendedfiles") {
-            return new Response(new Blob([(await db.extendedTools.get({
+        } else if (path[0] === "extensionfiles") {
+            return new Response(new Blob([(await db.extensionTools.get({
                 to: path[1]
             })).files.filter(item => item[0] === path[2])[0][1]]));
-        } else if (path[0] === "tools" && path[1] === "extended") {
+        } else if (path[0] === "tools" && path[1] === "extension") {
             response = await cache.match(realReq, {
                 ignoreSearch: true
             });

@@ -31,7 +31,7 @@ import type VerkfiIcon from '../components/verkfiIcon/verkfiIcon';
 import {
 	drawerWidth
 } from './consts';
-export type settingPage = "option" | "about" | "reset" | "extendeds" | "theme";
+export type settingPage = "option" | "about" | "reset" | "extensions" | "theme";
 export interface set {
 	name: string;
 	id: settingPage;
@@ -57,7 +57,7 @@ import {
 } from 'dexie-react-hooks';
 import db, {
 	single
-} from '../tools/extended/db';
+} from '../tools/extension/db';
 export default function Settings(props: {
 	children: ReactNode
 }): JSX.Element {
@@ -79,7 +79,7 @@ export default function Settings(props: {
 		},
 		{
 			name: get('extensions.扩展'),
-			id: "extendeds",
+			id: "extensions",
 			Icon: ExtensionIcon
 		},
 		{
@@ -89,7 +89,7 @@ export default function Settings(props: {
 		}
 	],
 		router = useRouter(),
-		extendedTools = useLiveQuery(() => db.extendedTools.toArray(), [], [] as single[]),
+		extensionTools = useLiveQuery(() => db.extensionTools.toArray(), [], [] as single[]),
 		id = useSelectedLayoutSegment(),
 		[value, setValue] = useState(sets.indexOf(sets.filter(set => set.id === id)[0])),
 		showSidebar = useContext(showSidebarContext),
@@ -136,13 +136,13 @@ export default function Settings(props: {
 				<Box sx={{
 					mt: 2
 				}}>
-					{extendedTools.map(item => item.settings.filter(settingItem => settingItem.page === id).map((settingItem, index) => {
+					{extensionTools.map(item => item.settings.filter(settingItem => settingItem.page === id).map((settingItem, index) => {
 						switch (settingItem.type) {
 							case "boolean":
 								return <FormControlLabel control={<Switch checked={settingItem.value as boolean} onChange={event => {
 									const modifiedSettings = item.settings.slice(0);
 									modifiedSettings[index].value = !(modifiedSettings[index].value as boolean);
-									db.extendedTools.put({
+									db.extensionTools.put({
 										...item,
 										settings: modifiedSettings
 									});
@@ -151,7 +151,7 @@ export default function Settings(props: {
 								return <TextField value={settingItem.value as string} label={settingItem.text} variant="outlined" onChange={event => {
 									const modifiedSettings = item.settings.slice(0);
 									modifiedSettings[index].value = event.target.value;
-									db.extendedTools.put({
+									db.extensionTools.put({
 										...item,
 										settings: modifiedSettings
 									});
@@ -160,7 +160,7 @@ export default function Settings(props: {
 								return <Select value={settingItem.value as string} label={settingItem.text} onChange={event => {
 									const modifiedSettings = item.settings.slice(0);
 									modifiedSettings[index].value = event.target.value;
-									db.extendedTools.put({
+									db.extensionTools.put({
 										...item,
 										settings: modifiedSettings
 									});

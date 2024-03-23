@@ -50,7 +50,7 @@ export default function Window(props: WindowOptions): JSX.Element {
     const [open, setOpen] = useState<boolean>(true),
         nodeRef = useRef<HTMLDivElement>(null),
         [size, setSize] = useState<[number, number]>([50, 50]), /* height, width */
-        [extended, setExtended] = useState<boolean>(false),
+        [extension, setExtension] = useState<boolean>(false),
         [type, setType] = useState<"normal" | "min">("normal"),
         sizeStyle: CSSProperties = {
             height: `${size[0]}vh`,
@@ -78,7 +78,7 @@ export default function Window(props: WindowOptions): JSX.Element {
                         alignItems: "center",
                         ...realSx
                     }}>
-                        {extended && <Box sx={{
+                        {extension && <Box sx={{
                             display: "flex"
                         }}>
                             <TextField label={get('height')} type="number" InputLabelProps={{
@@ -101,9 +101,9 @@ export default function Window(props: WindowOptions): JSX.Element {
                                 {props.name}
                             </Typography>
                         </Box>
-                        {extended ? (
+                        {extension ? (
                             <>
-                                <IconButton aria-label="collapse" edge="end" onClick={event => setExtended(false)}>
+                                <IconButton aria-label="collapse" edge="end" onClick={event => setExtension(false)}>
                                     <ArrowForwardIosIcon />
                                 </IconButton>
                                 <IconButton aria-label="change size" edge="end" onClick={event => type === "min" ? setType("normal") : setType("min")}>
@@ -120,7 +120,7 @@ export default function Window(props: WindowOptions): JSX.Element {
                                 </IconButton>
                             </>
                         ) : (
-                            <IconButton aria-label="extend" edge="end" onClick={event => setExtended(true)}>
+                            <IconButton aria-label="extend" edge="end" onClick={event => setExtension(true)}>
                                 <ArrowBackIosIcon />
                             </IconButton>
                         )}

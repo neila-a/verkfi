@@ -21,7 +21,7 @@ export default function Template(props: {
         searchParams = useSearchParams(),
         recentlyUsed = useContext(recentlyUsedContext),
         mostUsedState = useContext(mostUsedContext),
-        thisTool = gotThisTool === "extended" ? searchParams.get("tool") : gotThisTool;
+        thisTool = gotThisTool === "extension" ? searchParams.get("tool") : gotThisTool;
     useEffect(() => {
         const set = new Recently(3, (JSON.parse(recentlyUsed.value) as string[]).reverse());
         set.add(thisTool);

@@ -1,12 +1,12 @@
 "use client";
 import {
     single
-} from "../tools/extended/db";
+} from "../tools/extension/db";
 import {
     tool
 } from "../tools/info";
-import convertExtendedTools from "./convertExtendedTools";
-function getParamTools(mostUsed: string, realTools: tool[], extendedTools: single[]) {
+import convertExtensionTools from "./convertExtensionTools";
+function getParamTools(mostUsed: string, realTools: tool[], extensionTools: single[]) {
     return (Object.entries(JSON.parse(mostUsed)) as [string, number][]).sort((r, g) => {
         if (r[1] < g[1]) {
             return 1;
@@ -24,8 +24,8 @@ function getParamTools(mostUsed: string, realTools: tool[], extendedTools: singl
         });
         if (typeof tool === "number") {
             // 该工具是扩展工具
-            convertExtendedTools(extendedTools).forEach(single => {
-                if (`/tools/extended?tool=${to}` === single.to) {
+            convertExtensionTools(extensionTools).forEach(single => {
+                if (`/tools/extension?tool=${to}` === single.to) {
                     tool = single;
                 }
             });
