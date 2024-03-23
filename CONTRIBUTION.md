@@ -3,18 +3,17 @@
 ## Create a new tool
 
 - Write a TSX file in `/tools/`;
-- Add to `/components/tools/info.tsx`;
-- Add to `/components/tools/component.tsx`.
+- Add to `/tools/info.tsx`.
 
 ## Add a new language
 
 - Write a JSON file in `/locales/`;
-- Add to `/pages/_app.tsx`.
+- Add to `/layout/layoutClient.tsx`.
 
 ## Make a commit
 
 - Do something;
-- `npm run modifyPackage`;
+- `npm run predev`;
 - Push it to GitHub.
 
 ## Criteria
