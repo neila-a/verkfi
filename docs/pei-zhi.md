@@ -52,6 +52,23 @@ color：工具的颜色。当用户开启了“多彩主页”功能时，工具
 
 main: 工具的入口，例如`index.html`（相对于工具自身的根路径）
 
+settings: 非必填，可在Verkfi设置中添加设置项。类型：
+
+&#x20;
+
+{% code title="settings的类型" lineNumbers="true" %}
+```tsx
+interface setting {
+    type: "boolean" | "switch" | "input", // 设置的类型
+    page: settingPage; // 要添加设置项的页面
+    switches?: string[]; // 如果设置的类型为switch，那么切换的种类
+    text: string; // 文本提示
+    defaultValue: boolean | string; // 默认的值
+}
+type settingPage = "option" | "about" | "reset" | "extensions" | "theme";
+```
+{% endcode %}
+
 ### 示例
 
 <figure><img src=".gitbook/assets/tool.png" alt="一张工具的效果图"><figcaption><p>一张工具的效果图</p></figcaption></figure>
