@@ -85,7 +85,3 @@ type settingPage = "option" | "about" | "reset" | "extensions" | "theme";
 }
 ```
 {% endcode %}
-
-#### 注意
-
-* 工具的入口无法定义，只能在index.html
