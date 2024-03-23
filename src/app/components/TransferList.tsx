@@ -130,7 +130,9 @@ export default function TransferList(props: {
             <Grid item>
                 <Grid container direction="column" alignItems="center">
                     <Button
-                        sx={{ my: 0.5 }}
+                        sx={{
+                            my: 0.5
+                        }}
                         variant="outlined"
                         size="small"
                         onClick={handleAllRight}
@@ -140,7 +142,9 @@ export default function TransferList(props: {
                         ≫
                     </Button>
                     <Button
-                        sx={{ my: 0.5 }}
+                        sx={{
+                            my: 0.5
+                        }}
                         variant="outlined"
                         size="small"
                         onClick={handleCheckedRight}
@@ -150,7 +154,9 @@ export default function TransferList(props: {
                         &gt;
                     </Button>
                     <Button
-                        sx={{ my: 0.5 }}
+                        sx={{
+                            my: 0.5
+                        }}
                         variant="outlined"
                         size="small"
                         onClick={handleCheckedLeft}
@@ -160,7 +166,9 @@ export default function TransferList(props: {
                         &lt;
                     </Button>
                     <Button
-                        sx={{ my: 0.5 }}
+                        sx={{
+                            my: 0.5
+                        }}
                         variant="outlined"
                         size="small"
                         onClick={handleAllLeft}

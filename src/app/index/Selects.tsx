@@ -130,7 +130,7 @@ export default function Selects(props: {
                 }
                 if (props.editMode) {
                     const newLists = reorder(props.list, result.source.index, result.destination.index);
-                    setSetting("lists", "集合列表", JSON.stringify(newLists))
+                    setSetting("lists", "集合列表", newLists);
                     props.setList(newLists);
                 }
             }}>
@@ -209,7 +209,7 @@ export default function Selects(props: {
                         }
                     });
                     setList(listDraft);
-                    setSetting("lists", "集合列表", JSON.stringify(listDraft));
+                    setSetting("lists", "集合列表", listDraft);
                     setDialogListName("");
                     return setRemoveDialogOpen(false);
                 }}

@@ -15,7 +15,6 @@ import {
     darkMode as darkModeContext,
     paletteColors
 } from '../../layout/layoutClient';
-import setSetting from '../setSetting';
 import {
     Button,
     Box,
@@ -29,60 +28,88 @@ import {
     SvgIconTypeMap,
     InputLabel
 } from '@mui/material';
-import defaults from './defaults';
 import hues from './hues';
 import shades from './shades';
 import {
+    Dispatch,
     FC,
-    useContext,
-    useReducer
+    useContext
 } from 'react';
 import {
     OverridableComponent
 } from '@mui/material/OverridableComponent';
-import db from '../../components/db';
-import {
-    useLiveQuery
-} from 'dexie-react-hooks';
-import useReadSetting from '../useReadSetting';
+import useStoragedState from '../../components/useStoragedState';
+import defaultInternalPalette from './defaultInternalPalette';
+export const defaultPalette = {
+    // 来自palette的快照
+    "primary": {
+        "50": "#e3f2fd",
+        "100": "#bbdefb",
+        "200": "#90caf9",
+        "300": "#64b5f6",
+        "400": "#42a5f5",
+        "500": "#2196f3",
+        "600": "#1e88e5",
+        "700": "#1976d2",
+        "800": "#1565c0",
+        "900": "#0d47a1",
+        "A100": "#82b1ff",
+        "A200": "#448aff",
+        "A400": "#2979ff",
+        "A700": "#2962ff",
+        "main": "#2196f3"
+    },
+    "secondary": {
+        "50": "#fce4ec",
+        "100": "#f8bbd0",
+        "200": "#f48fb1",
+        "300": "#f06292",
+        "400": "#ec407a",
+        "500": "#e91e63",
+        "600": "#d81b60",
+        "700": "#c2185b",
+        "800": "#ad1457",
+        "900": "#880e4f",
+        "A100": "#ff80ab",
+        "A200": "#ff4081",
+        "A400": "#f50057",
+        "A700": "#c51162",
+        "main": "#f50057"
+    }
+};
 function ColorTool() {
     const palette = useContext(paletteColors),
         theme = useTheme(),
         darkMode = useContext(darkModeContext),
-        defaultState = JSON.stringify({
-            primary: defaults.primary,
-            secondary: defaults.secondary,
-            primaryInput: defaults.primary,
-            secondaryInput: defaults.secondary,
-            primaryHue: 'blue',
-            secondaryHue: 'pink',
-            primaryShade: 4,
-            secondaryShade: 11,
-        }),
-        value = useReadSetting("internalpalette", defaultState);
-    const [state, setState] = useReducer((old, now) => {
-        const paletteColors = {
-            primary: { ...colors[now.primaryHue], main: now.primary },
-            secondary: { ...colors[now.secondaryHue], main: now.secondary },
+        [internalPalette, baseSetInternalPalette] = useStoragedState("internalPalette", "内部调色板", defaultInternalPalette),
+        setInternalPalette: Dispatch<typeof defaultInternalPalette> = now => {
+            baseSetInternalPalette(now);
+            const paletteColors: typeof defaultPalette = {
+                primary: {
+                    ...colors[now.primaryHue],
+                    main: now.primary
+                },
+                secondary: {
+                    ...colors[now.secondaryHue],
+                    main: now.secondary
+                },
+            };
+            palette.set(paletteColors);
         };
-        setSetting("internalpalette", "内部调色板", JSON.stringify(now));
-        palette.set(JSON.stringify(paletteColors));
-        return now;
-    }, JSON.parse(value));
     const handleChangeHue = (name) => (event) => {
         const hue = event.target.value;
-        const color = colors[hue][shades[state[`${name}Shade`]]];
-        setState({
-            ...state,
+        const color = colors[hue][shades[internalPalette[`${name}Shade`]]];
+        setInternalPalette({
+            ...internalPalette,
             [`${name}Hue`]: hue,
             [name]: color,
             [`${name}Input`]: color,
         });
     };
     const handleChangeShade = (name) => (event, shade) => {
-        const color = colors[state[`${name}Hue`]][shades[shade]];
-        setState({
-            ...state,
+        const color = colors[internalPalette[`${name}Hue`]][shades[shade]];
+        setInternalPalette({
+            ...internalPalette,
             [`${name}Shade`]: shade,
             [name]: color,
             [`${name}Input`]: color,
@@ -131,8 +158,8 @@ function ColorTool() {
         const {
             intent
         } = props;
-        const intentShade = state[`${intent}Shade`];
-        const color = state[`${intent}`];
+        const intentShade = internalPalette[`${intent}Shade`];
+        const color = internalPalette[`${intent}`];
         return (
             <Grid item>
                 <Typography component="label" gutterBottom htmlFor={intent} variant="h6">
@@ -168,8 +195,8 @@ function ColorTool() {
                     {hues.map((hue) => {
                         const shade =
                             intent === 'primary'
-                                ? shades[state.primaryShade]
-                                : shades[state.secondaryShade];
+                                ? shades[internalPalette.primaryShade]
+                                : shades[internalPalette.secondaryShade];
                         const backgroundColor = colors[hue][shade];
                         const showHue = get(`theme.colors.${hue}`);
                         return (
@@ -179,7 +206,7 @@ function ColorTool() {
                                         p: 0
                                     }}
                                     color="default"
-                                    checked={state[intent] === backgroundColor}
+                                    checked={internalPalette[intent] === backgroundColor}
                                     onChange={handleChangeHue(intent)}
                                     value={hue}
                                     name={intent}
@@ -266,8 +293,8 @@ function ColorTool() {
                 <ColorPicker intent="secondary" />
             </Grid>
             <Button fullWidth variant="contained" onClick={() => {
-                palette.set("__none__");
-                setState(JSON.parse(defaultState));
+                palette.set(defaultPalette);
+                setInternalPalette(defaultInternalPalette);
             }}>
                 {get("重置")}
             </Button>

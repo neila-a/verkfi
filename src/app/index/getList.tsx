@@ -5,9 +5,7 @@ import {
 import useReadSetting from '../setting/useReadSetting';
 const useList = () => {
     const defaultList: lists = [],
-        defaultListJSON = JSON.stringify(defaultList),
-        realListJSON = useReadSetting("lists", defaultListJSON),
-        lists = realListJSON || defaultListJSON;
-    return JSON.parse(lists) as lists;
+        realList = useReadSetting("lists", defaultList);
+    return realList || defaultList;
 };
 export default useList;

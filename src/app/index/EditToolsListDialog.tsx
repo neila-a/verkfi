@@ -24,10 +24,6 @@ import {
     getTools
 } from "../tools/info";
 import setSetting from "../setting/setSetting";
-import {
-    useLiveQuery
-} from "dexie-react-hooks";
-import db, { option } from "../components/db";
 import useReadSetting from "../setting/useReadSetting";
 export default function EditToolsListDialog(props: {
     dialogTools: string[];
@@ -43,11 +39,11 @@ export default function EditToolsListDialog(props: {
     const {
         dialogTools, setDialogTools, dialogListName, setDialogListName, setDialogOpen
     } = props,
-        defaultListJSON = "[]",
-        realListJSON = useReadSetting("lists", defaultListJSON),
+        defaultList = [],
+        realList = useReadSetting("lists", defaultList),
         [list, setList] = useState<lists>(() => {
-            const lists = realListJSON || defaultListJSON;
-            return JSON.parse(lists) as lists;
+            const lists = realList || defaultList;
+            return lists;
         }),
         edit = (forList: lists) => forList.some(single => single[0] === dialogListName),
         createOrEdit = !edit(list) ? get("category.创建分类") : get("category.编辑分类"),
@@ -75,7 +71,7 @@ export default function EditToolsListDialog(props: {
             }} onRightChange={context => null} />
             <ButtonGroup fullWidth>
                 <Button variant="contained" onClick={event => {
-                    var listDraft: lists = list,
+                    var listDraft: lists = list.slice(0),
                         have: boolean = false;
                     list.forEach((singleList, index) => {
                         if (singleList[0] === dialogListName) {
@@ -88,7 +84,7 @@ export default function EditToolsListDialog(props: {
                     }
                     setList(listDraft);
                     props.setList(listDraft);
-                    setSetting("lists", "集合列表", JSON.stringify(listDraft));
+                    setSetting("lists", "集合列表", listDraft);
                     setDialogListName("");
                     setDialogTools([]);
                     return setDialogOpen(false);

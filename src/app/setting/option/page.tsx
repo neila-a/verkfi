@@ -44,8 +44,8 @@ import {
 const PureDialog = dynamic(() => import("../../components/dialog/PureDialog")),
     ghURL = "https://github.com/neila-a/verkfi/";
 export type option = [Context<{
-    value: stringifyCheck;
-    set: setState<stringifyCheck>;
+    value: boolean;
+    set: setState<boolean>;
 }>, string];
 export default function Options() {
     const lang = useContext(langContext),

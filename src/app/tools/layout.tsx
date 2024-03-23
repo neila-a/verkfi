@@ -19,7 +19,6 @@ import {
     get
 } from "react-intl-universal";
 import lpLogger from "lp-logger";
-import stringToBoolean from "../setting/stringToBoolean";
 import getToolColor from "./getToolColor";
 import {
     colorMode
@@ -58,7 +57,7 @@ export default function ToolFinder(props: {
     return (
         <>
             <HeadBar isIndex={false} pageName={name === "" ? get("未找到工具") : name} only={only} sx={{
-                backgroundImage: stringToBoolean(color) && getToolColor(toolsInfo, toolID)
+                backgroundImage: color && getToolColor(toolsInfo, toolID)
             }} />
             <Box sx={{
                 p: 3

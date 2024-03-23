@@ -50,7 +50,9 @@ export default function ReadNumber(): JSX.Element {
                             shrink: true,
                             "aria-labelledby": "number"
                         }} onChange={event => {
-                            const { value } = event.target;
+                            const {
+                                value
+                            } = event.target;
                             setBlur("number");
                             setNumber(value);
                             proc(value);
@@ -67,7 +69,9 @@ export default function ReadNumber(): JSX.Element {
                         <TextField InputLabelProps={{
                             "aria-labelledby": "string"
                         }} value={string} fullWidth onChange={event => {
-                            const { value } = event.target;
+                            const {
+                                value
+                            } = event.target;
                             setBlur("string");
                             setString(value);
                             proc(value);

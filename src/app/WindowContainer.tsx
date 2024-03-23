@@ -6,7 +6,6 @@ import {
     colorMode,
     windows as windowsContext
 } from "./layout/layoutClient";
-import stringToBoolean from "./setting/stringToBoolean";
 import {
     useTheme
 } from "@mui/material/styles";
@@ -24,7 +23,7 @@ export default function WindowContainer() {
         <ErrorBoundary>
             {windows.map(single => (
                 <Window {...single} key={single.id} sx={{
-                    background: stringToBoolean(color) ? `linear-gradient(45deg, #${single.color[0]}, #${single.color[1]})` : theme.palette.background.default,
+                    background: color ? `linear-gradient(45deg, #${single.color[0]}, #${single.color[1]})` : theme.palette.background.default,
                 }} />
             ))}
         </ErrorBoundary>

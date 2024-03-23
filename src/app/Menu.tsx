@@ -51,7 +51,6 @@ import {
     recentlyUsed as recentlyUsedContext,
     mostUsed as mostUsedContext,
 } from "./layout/layoutClient";
-import stringToBoolean from "./setting/stringToBoolean";
 import {
     useRouter
 } from "next/navigation";
@@ -125,13 +124,13 @@ export default function Menu() {
                     handleEnter();
                 }
             }} fullScreen={fullScreen} onClose={() => {
-                control.set("false");
+                control.set(false);
             }} sx={{
                 ".MuiDialog-paper": {
                     maxWidth: "unset"
                 },
                 zIndex: "38601"
-            }} open={stringToBoolean(control.show)} keepMounted TransitionComponent={Transition}>
+            }} open={control.show} keepMounted TransitionComponent={Transition}>
                 <DialogTitle sx={{
                     m: 0,
                     p: 2,
@@ -174,7 +173,7 @@ export default function Menu() {
                     <IconButton
                         aria-label="close"
                         onClick={event => {
-                            control.set("false");
+                            control.set(false);
                         }}
                         sx={{
                             position: 'absolute',
@@ -219,7 +218,7 @@ export default function Menu() {
                                     sortingFor={"__home__"}
                                     setTools={tools => null}
                                     editMode={false}
-                                    paramTool={(JSON.parse(recentlyUsed) as string[]).map(to => {
+                                    paramTool={recentlyUsed.map(to => {
                                         var tool: tool | 0 = 0;
                                         realTools.forEach(single => {
                                             if (single.to === to) {

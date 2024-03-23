@@ -95,14 +95,14 @@ export default function SingleTool(props: {
             onSwipedRight: data => {
                 switch (homeWhere) {
                     case "most": {
-                        let old = JSON.parse(mostUsed.value);
-                        delete old[tool.to];
-                        mostUsed.set(JSON.stringify(old));
+                        let old = mostUsed.value;
+                        Reflect.deleteProperty(old, tool.to);
+                        mostUsed.set(old);
                         break;
                     }
                     case "recently": {
-                        let old = JSON.parse(recentlyUsed.value) as string[];
-                        recentlyUsed.set(JSON.stringify(destroyer(old, tool.to)));
+                        let old = recentlyUsed.value;
+                        recentlyUsed.set(destroyer(old, tool.to));
                         break;
                     }
                 }
@@ -118,7 +118,7 @@ export default function SingleTool(props: {
                         width: viewMode == "grid" ? 275 : fullWidth,
                         maxWidth: fullWidth,
                         boxShadow: theme => props.focus && `inset 0 0 0 3px ${theme.palette.primary[theme.palette.mode]}`,
-                        backgroundImage: stringToBoolean(color) && `linear-gradient(45deg, #${tool.color[0]}, #${tool.color[1]})`
+                        backgroundImage: color && `linear-gradient(45deg, #${tool.color[0]}, #${tool.color[1]})`
                     }} onMouseEnter={event => {
                         setElevation(8);
                     }} onMouseLeave={event => {

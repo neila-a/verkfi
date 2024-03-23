@@ -35,7 +35,7 @@ function AudioTools(): JSX.Element {
                 const constraints = {
                     audio: true
                 };
-                try { 
+                try {
                     const stream = await navigator.mediaDevices.getUserMedia(constraints);
                     if (mediaRecorder != "awaqwq") {
                         stream.getTracks()[0].stop();

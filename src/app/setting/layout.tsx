@@ -51,7 +51,6 @@ import {
 	showSidebar as showSidebarContext,
 	sidebarMode as sidebarModeContext
 } from '../layout/layoutClient';
-import stringToBoolean from './stringToBoolean';
 import {
 	useLiveQuery
 } from 'dexie-react-hooks';
@@ -103,7 +102,7 @@ export default function Settings(props: {
 				<Drawer anchor="top" variant="permanent" sx={{
 					flexShrink: 0,
 					[`& .MuiDrawer-paper`]: {
-						ml: sidebarMode.value === "sidebar" && stringToBoolean(showSidebar.show) && `${drawerWidth}px`,
+						ml: sidebarMode.value === "sidebar" && showSidebar.show && `${drawerWidth}px`,
 						boxSizing: 'border-box'
 					},
 				}}>

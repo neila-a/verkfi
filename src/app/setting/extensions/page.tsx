@@ -117,13 +117,13 @@ export default function ExtensionManager() {
                 value: setting.defaultValue
             }))
         });
-        const oldRecently = JSON.parse(recentlyUsed.value) as string[];
-        recentlyUsed.set(JSON.stringify(oldRecently.filter(item => item !== clearingExtension.to)));
-        const oldMost = JSON.parse(mostUsed.value) as {
-            [key: string]: number;
+        const oldRecently = recentlyUsed.value;
+        recentlyUsed.set(oldRecently.filter(item => item !== clearingExtension.to));
+        const oldMost = {
+            ...mostUsed.value
         };
         Reflect.deleteProperty(oldMost, clearingExtension.to);
-        mostUsed.set(JSON.stringify(oldMost));
+        mostUsed.set(oldMost);
     }
     return (
         <>

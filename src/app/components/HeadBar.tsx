@@ -37,9 +37,6 @@ import {
 	share as shareContext,
 	showSidebar
 } from '../layout/layoutClient';
-import {
-	stringifyCheck
-} from '../setting/Switcher';
 export interface HeadBarOption {
 	pageName: string;
 	isIndex: boolean;
@@ -56,7 +53,7 @@ export interface HeadBarOption {
 export default function HeadBar(props: HeadBarOption): JSX.Element {
 	const forkMeOnGithub = useContext(forkMeOnGitHubContext),
 		router = useRouter(),
-		share = stringToBoolean(useContext(shareContext).value),
+		share = useContext(shareContext).value,
 		noDrag: CSSProperties = {
 			// @ts-ignore React的CSSProperties中明明有WebkitAppRegion，但是类型中没有
 			WebkitAppRegion: "no-drag",
@@ -91,12 +88,12 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 				<showSidebar.Consumer>
 					{value => !props.isIndex && (
 						<IconButton onClick={event => {
-							value.set((!stringToBoolean(value.show)).toString() as stringifyCheck);
+							value.set(!value.show);
 						}} size="large" edge="end" color="inherit" aria-label="menu" sx={{
 							mr: 1,
 							...noDrag
 						}}>
-							{value.show === "false" ? <MouseOverPopover text={get("menu.打开菜单")}>
+							{value.show === false ? <MouseOverPopover text={get("menu.打开菜单")}>
 								<MenuIcon />
 							</MouseOverPopover> : <MouseOverPopover text={get("menu.关闭菜单")}>
 								<MenuOpen />
@@ -104,7 +101,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 						</IconButton>
 					)}
 				</showSidebar.Consumer>
-				{share && <MouseOverPopover text={get('分享')}>
+				{share && <MouseOverPopover text={get('share.t')}>
 					<IconButton onClick={async event => {
 						if ("share" in navigator) {
 							await navigator.share({
@@ -138,7 +135,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 				</nav>
 			</Toolbar>
 		</AppBar>
-		{stringToBoolean(forkMeOnGithub.value) ? <Box sx={{
+		{forkMeOnGithub.value ? <Box sx={{
 			position: 'fixed',
 			width: 150,
 			height: 150,

@@ -46,6 +46,10 @@ declare global {
          */
         installPWA: () => Promise<void>;
 
+        setted: {
+            [key: string]: boolean;
+        }
+
     }
 }
 
@@ -66,7 +70,9 @@ export namespace Hex {
     /**
      * 六位的小写十六进制字符串
      */
-    export type Hex = string & { __type: "HexColor" };
+    export type Hex = string & {
+        __type: "HexColor"
+    };
     /**
      * 将一个任意字符串的类型锁定为六位的小写十六进制字符串
      * @param string 任意字符串

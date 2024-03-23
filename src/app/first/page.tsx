@@ -111,7 +111,7 @@ export default function First() {
                     <ArrowBack />
                 </IconButton>
                 <Button variant="contained" onClick={event => {
-                    first.set("false");
+                    first.set(false);
                     router.push("/");
                 }}>
                     {get("first.现在开始")}

@@ -3,11 +3,14 @@ import {
     single
 } from "../components/db";
 import {
+    mostUsedMarks
+} from "../layout/layoutClient";
+import {
     tool
 } from "../tools/info";
 import convertExtensionTools from "./convertExtensionTools";
-function getParamTools(mostUsed: string, realTools: tool[], extensionTools: single[]) {
-    return (Object.entries(JSON.parse(mostUsed)) as [string, number][]).sort((r, g) => {
+function getParamTools(mostUsed: mostUsedMarks, realTools: tool[], extensionTools: single[]) {
+    return (Object.entries(mostUsed) as [string, number][]).sort((r, g) => {
         if (r[1] < g[1]) {
             return 1;
         } if (r[1] > g[1]) {

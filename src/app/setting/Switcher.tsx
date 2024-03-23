@@ -32,8 +32,8 @@ export function Switcher(props: {
             {!hasShare && isShare && <Alert severity="warning">
                 {get("share.none")}
             </Alert>}
-            <FormControlLabel disabled={!hasShare && isShare} control={<Switch checked={stringToBoolean(value.value as stringifyCheck)} onChange={event => {
-                value.set(String((!stringToBoolean(value.value as stringifyCheck))) as stringifyCheck);
+            <FormControlLabel disabled={!hasShare && isShare} control={<Switch checked={value.value} onChange={event => {
+                value.set(!value.value);
             }} />} label={isForkMeOnGitHub ? option[1] : get(option[1])} />
         </>
     );

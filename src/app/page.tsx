@@ -49,7 +49,6 @@ import {
     mostUsed as mostUsedContext,
     showSidebar as showSidebarContext
 } from './layout/layoutClient';
-import stringToBoolean from './setting/stringToBoolean';
 import getParamTools from './index/getParamTools';
 import VerkfiIcon from './components/verkfiIcon/verkfiIcon';
 import generateTries from './index/generateTries';
@@ -97,7 +96,7 @@ export default function Index(props: {
         focusingTo = tools[tab] ? tools[tab].to : "", // 每次渲染会重新执行
         [show, setShow] = useState<"tools" | "home">(props.isImplant ? "tools" : "home"),
         tries = useMemo(() => generateTries(mostUsed, realTools), [mostUsed, realTools]),
-        recentlyTools = (JSON.parse(recentlyUsed) as string[]).map(to => {
+        recentlyTools = recentlyUsed.map(to => {
             var tool: tool | 0 = 0;
             const converted = convertExtensionTools(extensionTools);
             converted.forEach(single => {
@@ -132,7 +131,7 @@ export default function Index(props: {
         setExpand(true);
     };
     useEffect(() => {
-        if (stringToBoolean(first.value)) {
+        if (first.value) {
             router.push("/first");
         }
         if (props.isImplant) {
@@ -165,7 +164,7 @@ export default function Index(props: {
             </Box>
         );
     }
-    return (props.isImplant ? (stringToBoolean(showSidebar.show)) : true) && (
+    return (props.isImplant ? showSidebar.show : true) && (
         <Box ref={ref}>
             {props.isImplant !== true && <HeadBar isIndex pageName="Verkfi" sx={{
                 zIndex: theme => String((theme as ThemeHaveZIndex).zIndex.drawer + 1)
