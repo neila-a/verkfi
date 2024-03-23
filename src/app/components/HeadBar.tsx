@@ -33,7 +33,6 @@ import {
 } from '@mui/material/styles';
 import Link from 'next/link';
 import {
-	darkMode as darkModeContext,
 	forkMeOnGitHub as forkMeOnGitHubContext,
 	share as shareContext,
 	showSidebar

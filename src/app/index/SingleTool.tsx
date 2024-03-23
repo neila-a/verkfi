@@ -37,6 +37,7 @@ import {
     windows,
     recentlyUsed as recentlyUsedContext,
     mostUsed as mostUsedContext,
+    useLightMode,
 } from '../layout/layoutClient';
 import stringToBoolean from "../setting/stringToBoolean";
 import {
@@ -49,7 +50,6 @@ import destroyer from '../components/destroyer';
 export default function SingleTool(props: {
     tool: tool;
     isFirst: boolean;
-    darkMode: boolean;
     viewMode: viewMode;
     setTools: setState<tool[]>;
     editMode: boolean;
@@ -63,10 +63,11 @@ export default function SingleTool(props: {
         setTools,
         sortingFor
     } = props,
+        lightMode = useLightMode(),
         ToolIcon = tool.icon,
         subStyle = {
             sx: {
-                color: props.darkMode ? "" : "#999999"
+                color: lightMode ? "" : "#999999"
             }
         },
         Router = useRouter(),

@@ -75,8 +75,8 @@ export default function Sidebar(props: {
         setSortingFor
     } = props,
         [editing, setEditing] = useState<boolean>(searchText === ""),
+        [clickCount, setClickCount] = useState<number>(0),
         [list, setList] = useState<lists>(getList);
-    var clickCount = 0;
     return (
         <Drawer variant="permanent" sx={{
             maxWidth: drawerWidth,
@@ -141,7 +141,7 @@ export default function Sidebar(props: {
                     props.setExpand(true);
                     if (clickCount === 1) {
                         props.setExpand(false);
-                        clickCount = 0;
+                        setClickCount(0);
                     }
                 }}>
                     <Selects
@@ -160,9 +160,9 @@ export default function Sidebar(props: {
                         searchTools={searchTools}
                         modifyClickCount={value => {
                             if (value === "++") {
-                                clickCount++;
+                                setClickCount(old => old + 1);
                             } else {
-                                clickCount = value as number;
+                                setClickCount(value);
                             }
                         }}
                     />

@@ -13,7 +13,8 @@ import {
     useState,
     useMemo,
     ReactNode,
-    createElement
+    createElement,
+    useContext
 } from 'react';
 import {
     ThemeProvider,
@@ -84,9 +85,24 @@ export const paletteColors = createContext<{
     set: setState<string>;
 }>(null);
 export const darkMode = createContext<{
-    mode: PaletteMode;
-    set: setState<PaletteMode>;
+    mode: PaletteMode | "system";
+    set: setState<PaletteMode | "system">;
 }>(null);
+export function useLightMode() {
+    const gotContext = useContext(darkMode).mode;
+    var value: boolean = true;
+    switch (gotContext) {
+        case "dark":
+            value = false;
+            break;
+        case "system":
+            if (isBrowser()) {
+                value = !(window.matchMedia('(prefers-color-scheme: dark)').matches);
+            }
+            break;
+    }
+    return value;
+}
 export const colorMode = createContext<{
     value: stringifyCheck;
     set: setState<stringifyCheck>;
@@ -121,10 +137,46 @@ export function WindowsProvider(props: {
     );
 }
 export default function ModifiedApp(props: {
-    children: ReactNode
+    children: ReactNode;
 }) {
-    const [mode, setMode] = useStoragedState<PaletteMode>("darkmode", "暗色模式", "light"),
-        [palette, setPalette] = useStoragedState<string>("palette", "调色板", "__none__"),
+    const [mode, setMode] = useStoragedState<PaletteMode | "system">("darkmode", "暗色模式", "system"),
+        [palette, setPalette] = useStoragedState<string>("palette", "调色板", JSON.stringify({
+            // 来自theme.tsx中palette的快照
+            "primary": {
+                "50": "#e3f2fd",
+                "100": "#bbdefb",
+                "200": "#90caf9",
+                "300": "#64b5f6",
+                "400": "#42a5f5",
+                "500": "#2196f3",
+                "600": "#1e88e5",
+                "700": "#1976d2",
+                "800": "#1565c0",
+                "900": "#0d47a1",
+                "A100": "#82b1ff",
+                "A200": "#448aff",
+                "A400": "#2979ff",
+                "A700": "#2962ff",
+                "main": "#2196f3"
+            },
+            "secondary": {
+                "50": "#fce4ec",
+                "100": "#f8bbd0",
+                "200": "#f48fb1",
+                "300": "#f06292",
+                "400": "#ec407a",
+                "500": "#e91e63",
+                "600": "#d81b60",
+                "700": "#c2185b",
+                "800": "#ad1457",
+                "900": "#880e4f",
+                "A100": "#ff80ab",
+                "A200": "#ff4081",
+                "A400": "#f50057",
+                "A700": "#c51162",
+                "main": "#f50057"
+            }
+        })),
         [recentlyUsedState, setRecentlyUsed] = useStoragedState<string>("recently-tools", "最近使用的工具", "[]"),
         [mostUsedState, setMostUsed] = useStoragedState<string>("most-tools", "最常使用的工具", "{}"),
         realPalette = useMemo(() => (palette === "__none__" ? {} : JSON.parse(palette)), [palette]),
@@ -133,7 +185,7 @@ export default function ModifiedApp(props: {
                 createTheme({
                     palette: {
                         ...realPalette,
-                        mode,
+                        mode: mode === "system" ? (isBrowser() ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : "light") : "light") : mode,
                     },
                     typography: {
                         fontFamily: [

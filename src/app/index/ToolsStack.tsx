@@ -14,7 +14,6 @@ import SingleTool from './SingleTool';
 import {
     viewMode
 } from './consts';
-import stringToBoolean from '../setting/stringToBoolean';
 import {
     setState
 } from '../declare';
@@ -23,9 +22,6 @@ import {
     Droppable,
     Draggable
 } from "@hello-pangea/dnd";
-import {
-    darkMode as darkModeContext
-} from '../layout/layoutClient';
 import reorder from '../components/reorder';
 import buttonCommonSorting from './buttonCommonSorting';
 import ToolsNotFound from './ToolsNotFound';
@@ -61,7 +57,6 @@ export default function ToolsStack(props: {
                 sortingFor={props.sortingFor}
                 key={tool.to}
                 focus={props.focus === tool.to}
-                darkMode={darkMode}
                 viewMode={viewMode}
                 setTools={props.setTools}
                 editMode={props.editMode} />
@@ -124,8 +119,6 @@ export default function ToolsStack(props: {
             </TransitionGroup>
         );
     }
-    const darkModeFormStorage = useContext(darkModeContext).mode,
-        darkMode = stringToBoolean(darkModeFormStorage.replace("light", "false").replace("dark", "true"));
     return (
         <Stack spacing={viewMode == "list" ? 3 : 5} sx={{
             flexDirection: viewMode === "grid" && "row",

@@ -1,11 +1,13 @@
 "use client";
 import {
+    Palette,
     rgbToHex,
     useTheme
 } from '@mui/material/styles';
 import * as colors from '@mui/material/colors';
 import {
-    Check as CheckIcon
+    BrightnessMedium,
+    Check as CheckIcon, DarkMode, Light, LightMode
 } from '@mui/icons-material';
 import {
     get
@@ -26,29 +28,35 @@ import {
     Typography,
     Slider,
     FormControlLabel,
-    Switch
+    Switch,
+    Paper,
+    PaletteMode,
+    SvgIconTypeMap,
+    InputLabel
 } from '@mui/material';
 import defaults from './defaults';
 import hues from './hues';
 import shades from './shades';
 import {
+    FC,
     useContext,
     useReducer
 } from 'react';
+import { OverridableComponent } from '@mui/material/OverridableComponent';
 function ColorTool() {
-    const palette = useContext(paletteColors);
-    const theme = useTheme();
-    const darkMode = useContext(darkModeContext);
-    const defaultState = JSON.stringify({
-        primary: defaults.primary,
-        secondary: defaults.secondary,
-        primaryInput: defaults.primary,
-        secondaryInput: defaults.secondary,
-        primaryHue: 'blue',
-        secondaryHue: 'pink',
-        primaryShade: 4,
-        secondaryShade: 11,
-    });
+    const palette = useContext(paletteColors),
+        theme = useTheme(),
+        darkMode = useContext(darkModeContext),
+        defaultState = JSON.stringify({
+            primary: defaults.primary,
+            secondary: defaults.secondary,
+            primaryInput: defaults.primary,
+            secondaryInput: defaults.secondary,
+            primaryHue: 'blue',
+            secondaryHue: 'pink',
+            primaryShade: 4,
+            secondaryShade: 11,
+        });
     var value = defaultState;
     if (isBrowser()) {
         value = checkOption("internalpalette", "内部调色板", defaultState);
@@ -81,10 +89,12 @@ function ColorTool() {
             [`${name}Input`]: color,
         });
     };
-    const ColorBar = ({ color }) => {
+    const ColorBar = ({
+        color
+    }) => {
         const background = theme.palette.augmentColor({
             color: {
-                main: color,
+                main: color
             },
         });
         return (
@@ -217,9 +227,38 @@ function ColorTool() {
     };
     return (
         <>
-            <FormControlLabel control={<Switch checked={darkMode.mode === "dark"} onChange={event => {
-                darkMode.set(darkMode.mode === "light" ? "dark" : "light");
-            }} />} label={get("暗色模式")} />
+            <InputLabel>
+                {get('theme.colorMode.text')}
+            </InputLabel>
+            <Grid container direction="row" spacing={1} sx={{
+                justifyContent: "space-evenly",
+                mb: 2
+            }}>
+                {([["light", LightMode], ["dark", DarkMode], ["system", BrightnessMedium]] as [PaletteMode | "system", (OverridableComponent<SvgIconTypeMap<{}, "svg">> & {
+                    muiName: string
+                }) | FC][]).map(item => {
+                    const isThis = darkMode.mode === item[0],
+                        Icon = item[1];
+                    return <Grid item key={item[0]}>
+                        <Paper onClick={event => {
+                            darkMode.set(item[0]);
+                        }} sx={{
+                            p: 2,
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            boxShadow: theme => isThis && `inset 0 0 0 3px ${theme.palette.primary[theme.palette.mode]}`,
+                            borderColor: theme => isThis && theme.palette.primary[theme.palette.mode]
+                        }}>
+                            <Icon sx={{
+                                fontSize: "10vw",
+                                color: theme => theme.palette.primary.main
+                            }} />
+                            {get(`theme.colorMode.${item[0]}`)}
+                        </Paper>
+                    </Grid>;
+                })}
+            </Grid>
             <Grid container spacing={5} sx={{
                 p: 0,
                 mb: 2
