@@ -131,9 +131,6 @@ export default function Index(props: {
         setExpand(true);
     };
     useEffect(() => {
-        if (first.value) {
-            router.push("/first");
-        }
         if (props.isImplant) {
             setSearchText(props.children);
             searchTools(props.children);
@@ -146,6 +143,13 @@ export default function Index(props: {
             setEditMode(false);
         }
     }, []);
+    useEffect(() => {
+        if ("setted" in window) {
+            if (window.setted.first && first.value) {
+                router.push("/first");
+            }
+        }
+    }, [first]);
     function Tools() {
         return (
             <Box sx={{
