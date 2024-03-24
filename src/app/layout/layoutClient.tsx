@@ -51,16 +51,11 @@ import WindowContainer from "../WindowContainer"; // 重的Window已经被动态
 import {
     drawerWidth
 } from "../setting/consts";
-import {
-    stringifyCheck
-} from "../setting/Switcher";
 import useLang from "./useLang";
 import registerProtocolHandler from "./registerProtocolHandler";
 import registerServiceWorker from "./registerServiceWorker";
 import desktopAdder from "./desktopAdder";
-import {
-    defaultPalette
-} from "../setting/theme/page";
+import defaultPalette from '../setting/theme/defaultPalette';
 export const showSidebar = createContext<{
     show: boolean;
     set: setState<boolean>;
