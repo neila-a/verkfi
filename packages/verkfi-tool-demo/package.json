@@ -1,41 +1,44 @@
 {
-    "name": "laz_durno_kkehet",
-    "to": "demovxt",
-    "description": "A demo",
-    "icon": "icon.jpg",
-    "scripts": {
-        "build": "rm -f demo.vxt && asar pack ./ demo.vxt"
+  "name": "laz_durno_kkehet",
+  "to": "demovxt",
+  "description": "A demo",
+  "icon": "icon.jpg",
+  "scripts": {
+    "build": "rm -f demo.vxt && asar pack ./ demo.vxt"
+  },
+  "color": [
+    "114514",
+    "191981"
+  ],
+  "main": "index.html",
+  "dependencies": {
+    "@electron/asar": "^3.2.9"
+  },
+  "settings": [
+    {
+      "type": "boolean",
+      "page": "theme",
+      "text": "炸裂",
+      "id": "bool",
+      "defaultValue": true
     },
-    "color": [
-        "114514",
-        "191981"
-    ],
-    "main": "index.html",
-    "dependencies": {
-        "@electron/asar": "^3.2.9"
+    {
+      "type": "input",
+      "page": "theme",
+      "text": "炸裂",
+      "id": "input",
+      "defaultValue": "炸裂"
     },
-    "settings": [
-        {
-            "type": "boolean",
-            "page": "theme",
-            "text": "炸裂",
-            "defaultValue": true
-        },
-        {
-            "type": "input",
-            "page": "theme",
-            "text": "炸裂",
-            "defaultValue": "炸裂"
-        },
-        {
-            "type": "switch",
-            "page": "theme",
-            "switches": [
-                "boom",
-                "炸裂switch"
-            ],
-            "text": "炸裂",
-            "defaultValue": "boom"
-        }
-    ]
+    {
+      "type": "switch",
+      "page": "theme",
+      "switches": [
+        "boom",
+        "炸裂switch"
+      ],
+      "id": "switch",
+      "text": "炸裂",
+      "defaultValue": "boom"
+    }
+  ]
 }

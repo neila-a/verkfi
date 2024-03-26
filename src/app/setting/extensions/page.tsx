@@ -273,6 +273,7 @@ interface setting {
     page: settingPage;
     switches?: string[];
     text: string;
+    id: string;
     value: boolean | string;
     defaultValue: boolean | string;
 }
