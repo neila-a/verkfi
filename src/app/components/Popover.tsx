@@ -13,7 +13,7 @@ import {
     isMobile
 } from 'react-device-detect';
 import lpLogger from "lp-logger";
-var logger = new lpLogger({
+const logger = new lpLogger({
     name: "Popover",
     level: "log"
 });

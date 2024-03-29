@@ -1,5 +1,5 @@
 import Lplogger from "lp-logger";
-export var logger = new Lplogger({
+export const logger = new Lplogger({
     level: "log",
     name: "useSetting"
 });

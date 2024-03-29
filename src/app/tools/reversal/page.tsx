@@ -20,7 +20,7 @@ import {
 import LpLogger from "lp-logger";
 import dynamic from 'next/dynamic';
 const InputDialog = dynamic(() => import("../../components/dialog/InputDialog"));
-var logger = new LpLogger({
+const logger = new LpLogger({
     name: get('翻转'),
     level: "log", // 空字符串时，不显示任何信息
 });

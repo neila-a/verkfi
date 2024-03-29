@@ -31,7 +31,7 @@ import convertExtensionTools from "../index/convertExtensionTools";
 import {
     emptyExtension
 } from "./extension/empties";
-var logger = new lpLogger({
+const logger = new lpLogger({
     name: "ToolFinder",
     level: "log"
 });

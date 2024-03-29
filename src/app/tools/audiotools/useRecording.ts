@@ -3,12 +3,11 @@ import {
     useEffect,
     useRef
 } from "react";
-import {
-    logger
-} from './page';
-import {
-    isBrowser
-} from "../../layout/layoutClient";
+import LpLogger from "lp-logger";
+const logger = new LpLogger({
+    name: "AudioTools",
+    level: "log", // 空字符串时，不显示任何信息
+});
 export default function useRecording(onStop: (blob: Blob) => any, onDataAvailable?: (blob: Blob) => any) {
     const mediaRecorder = useRef<MediaRecorder | "awaqwq">("awaqwq");
     useEffect(function () {

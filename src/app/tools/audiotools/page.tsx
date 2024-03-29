@@ -16,17 +16,12 @@ import {
 import {
     FilePondFile
 } from "filepond";
-import LpLogger from "lp-logger";
 import Module from './Module';
 import {
     PlayArrow,
     Stop
 } from '@mui/icons-material';
 import useRecording from './useRecording';
-export var logger = new LpLogger({
-    name: "AudioTools",
-    level: "log", // 空字符串时，不显示任何信息
-});
 export type status = "recording" | "paused" | "inactive";
 function AudioTools(): JSX.Element {
     const [loopAudioSrc, setLoopAudioSrc] = useState<string>(""),

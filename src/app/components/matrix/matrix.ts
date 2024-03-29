@@ -4,7 +4,7 @@ import drawMatrixBase from "./base";
 import {
     Palette
 } from "@mui/material";
-export var logger = new LpLogger({
+export const logger = new LpLogger({
     name: "Matrix",
     level: "log"
 });
