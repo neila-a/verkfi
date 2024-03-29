@@ -8,7 +8,6 @@ import {
     Typography
 } from "@mui/material";
 import {
-    useEffect,
     useState
 } from "react";
 import {
@@ -19,7 +18,12 @@ import {
 } from "filepond";
 import LpLogger from "lp-logger";
 import Module from './Module';
-var logger = new LpLogger({
+import {
+    PlayArrow,
+    Stop
+} from '@mui/icons-material';
+import useRecording from './useRecording';
+export var logger = new LpLogger({
     name: "AudioTools",
     level: "log", // 空字符串时，不显示任何信息
 });
@@ -27,65 +31,19 @@ export type status = "recording" | "paused" | "inactive";
 function AudioTools(): JSX.Element {
     const [loopAudioSrc, setLoopAudioSrc] = useState<string>(""),
         [loopSpeakAudioSrc, setLoopSpeakAudioSrc] = useState<string>(""),
-        [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | "awaqwq">("awaqwq"),
+        mediaRecorder = useRecording(blob => setLoopSpeakAudioSrc(URL.createObjectURL(blob))),
         [status, setStatus] = useState<status>("inactive");
-    useEffect(function () {
-        (async () => {
-            if (navigator.mediaDevices.getUserMedia && mediaRecorder == "awaqwq") {
-                const constraints = {
-                    audio: true
-                };
-                try {
-                    const stream = await navigator.mediaDevices.getUserMedia(constraints);
-                    if (mediaRecorder != "awaqwq") {
-                        stream.getTracks()[0].stop();
-                        logger.log("录音已停止");
-                    }
-                    var audio: Blob;
-                    logger.log("授权成功。");
-                    const _mediaRecorder = new MediaRecorder(stream);
-                    _mediaRecorder.ondataavailable = event => audio = event.data;
-                    _mediaRecorder.onstop = event => {
-                        logger.log("录音已停止");
-                        setLoopSpeakAudioSrc(URL.createObjectURL(audio));
-                    };
-                    _mediaRecorder.onpause = event => {
-                        logger.log("录音已暂停");
-                    };
-                    _mediaRecorder.onstart = event => {
-                        logger.log("录音已开始");
-                    }
-                    _mediaRecorder.onresume = event => {
-                        logger.log("录音已继续");
-                    }
-                    setMediaRecorder(_mediaRecorder);
-                } catch (error) {
-                    logger.error(`授权失败：`, error);
-                }
-            } else {
-                logger.error("浏览器不支持 getUserMedia。");
-            }
-        })();
-        return () => {
-            logger.log("AudioTools已经被卸载，正在返还录音权限。");
-            if (mediaRecorder != "awaqwq") {
-                mediaRecorder.stream.getTracks().forEach(track => {
-                    track.stop();
-                })
-            }
-        };
-    }, []);
     function controlAudio(stat: status) {
         setStatus(stat);
         switch (stat) {
             case "inactive":
-                (mediaRecorder as MediaRecorder).stop();
+                (mediaRecorder.current as MediaRecorder).stop();
                 break;
             case "paused":
-                (mediaRecorder as MediaRecorder).pause();
+                (mediaRecorder.current as MediaRecorder).pause();
                 break;
             case "recording":
-                (mediaRecorder as MediaRecorder).start();
+                (mediaRecorder.current as MediaRecorder).start();
                 break;
         }
     }
@@ -111,10 +69,10 @@ function AudioTools(): JSX.Element {
             <Grid item>
                 <Module>
                     <Typography variant="h4" gutterBottom>{get('音频录制并循环')}</Typography>
-                    <Button variant="contained" onClick={() => {
+                    <Button startIcon={<PlayArrow />} variant="contained" onClick={() => {
                         return controlAudio("recording");
                     }} disabled={status == "recording"}>{get('开始')}</Button>
-                    <Button variant="contained" onClick={() => {
+                    <Button startIcon={<Stop />} variant="contained" onClick={() => {
                         return controlAudio("inactive");
                     }} disabled={status == "inactive"}>{get('停止')}</Button>
                     <audio controls loop src={loopSpeakAudioSrc}>
