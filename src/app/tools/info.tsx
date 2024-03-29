@@ -9,8 +9,8 @@ import {
     ViewInAr as ViewInArIcon,
     Adjust as AdjustIcon,
     Calculate as CalculateIcon,
-	WbSunny as WbSunnyIcon,
-    AccountBalance as AccountBalanceIcon
+    AccountBalance as AccountBalanceIcon,
+    KeyboardVoice as KeyboardVoiceIcon
 } from "@mui/icons-material";
 import Image from "next/image";
 import {
@@ -149,9 +149,9 @@ export const getTools = (get: typeof i18n.get): tool[] => {
             color: [hex("37ecba"), hex("72afd3")]
         },
         {
-            name: get('画圆'),
+            name: get('cylinder.name'),
             to: "cylinder",
-            desc: get('根据各种不同的选项画圆'),
+            desc: get('cylinder.description'),
             icon: AdjustIcon,
             color: [hex("fff1eb"), hex("ace0f9")]
         },
@@ -160,7 +160,14 @@ export const getTools = (get: typeof i18n.get): tool[] => {
             to: "pillar",
             desc: get('pillar.description'),
             icon: AccountBalanceIcon,
-            color: [hex("ffe53b"),hex("ff2525")]
+            color: [hex("ffe53b"), hex("ff2525")]
+        },
+        {
+            name: get('speech.name'),
+            to: "speech",
+            desc: get('speech.description'),
+            icon: KeyboardVoiceIcon,
+            color: [hex("d9afd9"), hex("97d9e1")]
         },
         {
             name: get('人生倒计时'),

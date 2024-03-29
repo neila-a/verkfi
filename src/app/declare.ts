@@ -48,7 +48,11 @@ declare global {
 
         setted: {
             [key: string]: boolean;
-        }
+        };
+
+        webkitSpeechRecognition: {
+            new(): SpeechRecognition
+        };
 
     }
 }
@@ -79,4 +83,43 @@ export namespace Hex {
      * @returns 六位的小写十六进制字符串
      */
     export const hex: <T extends string>(string: HexColor<T>) => Hex = string => string;
+}
+interface SpeechRecognitionEvent {
+    isTrusted?: boolean;
+    results: {
+        isFinal: boolean;
+        [key: number]:
+        | undefined
+        | {
+            transcript: string;
+        };
+    }[];
+}
+
+export abstract class SpeechRecognition extends EventTarget {
+    // properties
+    grammars: string;
+    lang: string;
+    continuous: boolean;
+    interimResults: boolean;
+    maxAlternatives: number;
+    serviceURI: string;
+
+    // event handlers
+    onaudiostart: () => void;
+    onaudioend: () => void;
+    onend: () => void;
+    onerror: () => void;
+    onnomatch: () => void;
+    onresult: (event: SpeechRecognitionEvent) => void;
+    onsoundstart: () => void;
+    onsoundend: () => void;
+    onspeechstart: () => void;
+    onspeechend: () => void;
+    onstart: () => void;
+
+    // methods
+    abort: () => void;
+    start: () => void;
+    stop: () => void;
 }

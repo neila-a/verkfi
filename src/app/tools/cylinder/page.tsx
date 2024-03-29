@@ -25,10 +25,6 @@ import {
 import drawMatrix, {
     block
 } from '../../components/matrix/matrix';
-var logger = new LpLogger({
-    name: get('画圆'),
-    level: "log"
-});
 function Cylinder(): JSX.Element {
     const [radiusX, setRadiusX] = useState<number>(50),
         [radiusZ, setRadiusZ] = useState<number>(50),
