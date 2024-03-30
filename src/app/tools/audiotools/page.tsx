@@ -8,6 +8,8 @@ import {
     Typography
 } from "@mui/material";
 import {
+    useEffect,
+    useRef,
     useState
 } from "react";
 import {
@@ -21,13 +23,18 @@ import {
     PlayArrow,
     Stop
 } from '@mui/icons-material';
-import useRecording from './useRecording';
+import getRecording from './getRecording';
 export type status = "recording" | "paused" | "inactive";
 function AudioTools(): JSX.Element {
     const [loopAudioSrc, setLoopAudioSrc] = useState<string>(""),
         [loopSpeakAudioSrc, setLoopSpeakAudioSrc] = useState<string>(""),
-        mediaRecorder = useRecording(blob => setLoopSpeakAudioSrc(URL.createObjectURL(blob))),
-        [status, setStatus] = useState<status>("inactive");
+        [status, setStatus] = useState<status>("inactive"),
+        mediaRecorder = useRef<"awaqwq" | MediaRecorder>("awaqwq");
+    useEffect(() => {
+        getRecording(blob => setLoopSpeakAudioSrc(URL.createObjectURL(blob))).then(recording => {
+            mediaRecorder.current = recording;
+        });
+    }, []);
     function controlAudio(stat: status) {
         setStatus(stat);
         switch (stat) {

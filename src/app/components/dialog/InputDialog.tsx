@@ -8,7 +8,8 @@ import {
     DialogContentText,
     TextField,
     DialogActions,
-    Button
+    Button,
+    TextFieldProps
 } from "@mui/material";
 import {
     useState
@@ -19,11 +20,15 @@ export default function InputDialog(props: {
     context: string | JSX.Element;
     title: string;
     onDone(context: string): any;
+    onCancel?: () => any;
+    inputAdd?: Omit<TextFieldProps, "autoFocus" | "margin" | "label" | "fullWidth" | "variant" | "onChange">;
     open: boolean;
 }) {
     const [input, setInput] = useState<string>(""),
         handleClose = () => {
-            props.onDone(input);
+            if ("onCancel" in props) {
+                props.onCancel();
+            }
         };
     return (
         <Dialog open={props.open} onClose={handleClose} TransitionComponent={Transition} keepMounted>
@@ -37,7 +42,7 @@ export default function InputDialog(props: {
                 }} />
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleClose}>{get('确定')}</Button>
+                <Button onClick={event => props.onDone(input)}>{get('确定')}</Button>
             </DialogActions>
         </Dialog>
     );

@@ -304,6 +304,22 @@
 	"press": "按",
 	"speech": {
 		"name": "说话",
-		"description": "让你的说话不能停止"
+		"description": "让你的说话不能停止",
+		"stop": "停止录制",
+		"start": "开始录制",
+		"download": "下载音频",
+		"vibrate": {
+			"view": "查看超时记录",
+			"time": {
+				"occurrence": "发生时间",
+				"duration": "持续时间"
+			}
+		},
+		"select": {
+			"title": "填写要录制多久",
+			"context": "在下面填写要录制多久",
+			"label": "要录制多久"
+		},
+		"tip": "一共要录制{all}秒，还剩{time}秒。"
 	}
 }
