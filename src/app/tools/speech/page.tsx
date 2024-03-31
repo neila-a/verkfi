@@ -82,6 +82,35 @@ export default function Speech() {
             clearInterval(speechTimeIntervalID.current);
         };
     }, []);
+    function intervaler() {
+        const time = Math.floor((Date.now() - haveTime.current) / 1000);
+        if ("vibrate" in window.navigator) {
+            if (time > SpeechingWatershedWave) {
+                window.navigator.vibrate(Array(4).fill(250));
+                setWarnings(old => {
+                    if (old.some(singleWarning => singleWarning[0] === haveTime.current)) {
+                        return old.slice(0).map(singleWarning => {
+                            if (singleWarning[0] === haveTime.current) {
+                                return [singleWarning[0], time];
+                            }
+                            return singleWarning;
+                        });
+                    }
+                    const realOld = old.slice(0);
+                    realOld.push([haveTime.current, time]);
+                    return realOld;
+                });
+            } else {
+                window.navigator.vibrate(0);
+            }
+        }
+        setCountdown(time);
+    }
+    function timeIntervaler() {
+        if (speechTime > -1) {
+            setSpeechTime(old => old - 1);
+        }
+    }
     return (
         <Container sx={{
             display: "flex",
@@ -90,6 +119,11 @@ export default function Speech() {
             justifyContent: "space-between",
             height: "80vh"
         }}>
+            <Typography variant="subtitle1" sx={{
+                mb: 2
+            }}>
+                {get("speech.noSayTime")}
+            </Typography>
             <Typography variant="h1" component="p" sx={{
                 fontSize: "33vw",
                 color: theme => countdown > SpeechingWatershedWave ? theme.palette.error.main : theme.palette.primary.main
@@ -159,39 +193,12 @@ export default function Speech() {
                 setSpeechTime(Number(context));
                 setAllSpeechTime(Number(context));
                 setStatus("recording");
+                (mediaRecorder.current as MediaRecorder).start(1000);
                 haveTime.current = Date.now();
                 clearInterval(speechTimeIntervalID.current);
-                speechTimeIntervalID.current = setInterval(() => {
-                    if (speechTime > -1) {
-                        setSpeechTime(old => old - 1);
-                    }
-                }, 1000) as unknown as number;
+                speechTimeIntervalID.current = setInterval(timeIntervaler, 1000) as unknown as number;
                 clearInterval(intervalID.current);
-                intervalID.current = setInterval(() => {
-                    const time = Math.floor((Date.now() - haveTime.current) / 1000);
-                    if ("vibrate" in window.navigator) {
-                        if (time > SpeechingWatershedWave) {
-                            window.navigator.vibrate(Array(4).fill(250));
-                            setWarnings(old => {
-                                if (old.some(singleWarning => singleWarning[0] === haveTime.current)) {
-                                    return old.slice(0).map(singleWarning => {
-                                        if (singleWarning[0] === haveTime.current) {
-                                            return [singleWarning[0], time];
-                                        }
-                                        return singleWarning;
-                                    });
-                                }
-                                const realOld = old.slice(0);
-                                realOld.push([haveTime.current, time]);
-                                return realOld;
-                            });
-                        } else {
-                            window.navigator.vibrate(0);
-                        }
-                    }
-                    setCountdown(time);
-                }, 1000) as unknown as number;
-                (mediaRecorder.current as MediaRecorder).start(1000);
+                intervalID.current = setInterval(intervaler, 1000) as unknown as number;
                 return setSelectTime(false);
             }} inputAdd={{
                 type: "number"

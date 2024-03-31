@@ -1,9 +1,5 @@
 "use client";
 import {
-    useLiveQuery
-} from "dexie-react-hooks";
-import db from "../components/db";
-import {
     tool
 } from "../tools/info";
 import useReadSetting from "../setting/useReadSetting";
@@ -12,15 +8,5 @@ import useReadSetting from "../setting/useReadSetting";
  * @param realTools 未排序的工具列表
  * @returns 经过排序的工具列表
  */
-export default function useToolsList(realTools: tool[]) {
-    const id = "toolslist", name = "工具列表", empty = realTools.map(atool => atool.to), value = useReadSetting(id, empty);
-    return value.map((toolTo: string) => {
-        var realTool: tool;
-        realTools.forEach(atool => {
-            if (atool.to == toolTo) {
-                realTool = atool;
-            }
-        });
-        return realTool;
-    });
-}
+const useToolsList = (realTools: tool[]) => useReadSetting("toolslist", realTools.map(atool => atool.to)).map((toolTo: string) => realTools.find(atool => atool.to === toolTo));
+export default useToolsList;

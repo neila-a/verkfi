@@ -14,12 +14,8 @@ export default function useButtonCommonSorting() {
         if (sortingFor === "__global__") {
             setSetting("toolslist", "分类", pd.map(toolp => toolp.to));
         } else {
-            var newRealList: lists = realList;
-            realList.forEach((item, index) => {
-                if (sortingFor === item[0]) {
-                    newRealList[index][1] = pd.map(toolp => toolp.to);
-                }
-            });
+            var newRealList: lists = realList.slice(0);
+            newRealList[realList.findIndex(item => item[0] === sortingFor)][1] = pd.map(toolp => toolp.to);
             setSetting("lists", "集合列表", newRealList);
         }
     };

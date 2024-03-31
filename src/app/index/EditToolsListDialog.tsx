@@ -60,25 +60,17 @@ export default function EditToolsListDialog(props: {
             }} />
             <TransferList left={props.left} right={right} onLeftChange={context => {
                 var tos: string[] = [];
-                context.forEach(name => {
-                    toolsList.forEach(fullTool => {
-                        if (fullTool.name === name) {
-                            tos.push(fullTool.to);
-                        }
-                    });
-                });
+                context.forEach(name => tos.push(toolsList.find(fullTool => fullTool.name === name).to));
                 setDialogTools(tos);
             }} onRightChange={context => null} />
             <ButtonGroup fullWidth>
                 <Button variant="contained" onClick={event => {
                     var listDraft: lists = list.slice(0),
-                        have: boolean = false;
-                    list.forEach((singleList, index) => {
-                        if (singleList[0] === dialogListName) {
-                            listDraft[index] = [singleList[0], dialogTools];
-                            have = true;
-                        }
-                    });
+                        index = list.findIndex(singleList => singleList[0] === dialogListName),
+                        have: boolean = index !== -1;
+                    if (index !== -1) {
+                        listDraft[index] = [list[index][0], dialogTools];
+                    }
                     if (!have) {
                         listDraft.push([dialogListName, dialogTools]);
                     }

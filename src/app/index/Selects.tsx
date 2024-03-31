@@ -182,32 +182,13 @@ export default function Selects(props: {
                 setDialogOpen={setDialogOpen}
                 setRemoveDialogOpen={setRemoveDialogOpen}
                 setList={setList}
-                left={(() => {
-                    var realLeft: string[] = [];
-                    list.forEach(single => {
-                        if (single[0] === dialogListName) {
-                            single[1].forEach(to => {
-                                gotToolsList.forEach(tool => {
-                                    if (tool.to === to) {
-                                        realLeft.push(tool.name);
-                                    }
-                                });
-                            });
-                        }
-                    });
-                    return realLeft;
-                })()} />
+                left={gotToolsList.filter(tool => list.find(single => single[0] === dialogListName)[1].includes(tool.to)).map(tool => tool.name)} />
             <CheckDialog
                 open={removeDialogOpen}
                 title={get("category.删除此分类")}
                 description={get("category.确定删除此分类吗？")}
                 onTrue={() => {
-                    var listDraft: lists = list;
-                    listDraft.forEach(draftSingle => {
-                        if (draftSingle[0] === dialogListName) {
-                            listDraft.splice(listDraft.indexOf(draftSingle), 1);
-                        }
-                    });
+                    var listDraft: lists = list.slice(0).filter(draftSingle => draftSingle[0] !== dialogListName)
                     setList(listDraft);
                     setSetting("lists", "集合列表", listDraft);
                     setDialogListName("");

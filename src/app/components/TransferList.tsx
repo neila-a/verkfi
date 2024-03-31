@@ -87,12 +87,8 @@ export default function TransferList(props: {
                 }}>
                     <List dense component="div" role="list">
                         {items.map(value => {
-                            var Icon: FC = () => <></>;
-                            toolsList.forEach(single => {
-                                if (single.name === value) {
-                                    Icon = single.icon;
-                                }
-                            });
+                            var Icon: FC = (() => <></>)
+                                || toolsList.find(single => single.name === value).icon
                             const labelId = `transfer-list-item-${value}-label`;
                             return (
                                 <ListItem

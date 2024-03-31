@@ -18,21 +18,11 @@ function getParamTools(mostUsed: mostUsedMarks, realTools: tool[], extensionTool
         }
         return 0;
     }).slice(0, 3).map(item => {
-        const to = item[0];
-        var tool: tool | 0 = 0;
-        realTools.forEach(single => {
-            if (single.to === to) {
-                tool = single;
-            }
-        });
-        if (typeof tool === "number") {
-            // 该工具是扩展工具
-            convertExtensionTools(extensionTools).forEach(single => {
-                if (`/tools/extension?tool=${to}` === single.to) {
-                    tool = single;
-                }
-            });
-        }
+        const to = item[0],
+            // 不直接返回tool因为怕自动分毫影响return
+            tool: tool | 0 = 0
+                || realTools.find(single => single.to === to)
+                || convertExtensionTools(extensionTools).find(single => `/tools/extension?tool=${to}` === single.to);
         return tool as tool | 0;
     }).filter(item => item !== 0) as unknown as tool[];
 }

@@ -219,22 +219,11 @@ export default function Menu() {
                                     setTools={tools => null}
                                     editMode={false}
                                     paramTool={recentlyUsed.map(to => {
-                                        var tool: tool | 0 = 0;
-                                        realTools.forEach(single => {
-                                            if (single.to === to) {
-                                                tool = single;
-                                            }
-                                        });
-                                        if (typeof tool === "number") {
-                                            // 该工具是扩展工具
-                                            convertExtensionTools(extensionTools).forEach(single => {
-                                                if (`/tools/extension?tool=${to}` === single.to) {
-                                                    tool = single;
-                                                }
-                                            });
-                                        }
+                                        var tool: tool | 0 = 0
+                                            || realTools.find(single => single.to === to)
+                                            || convertExtensionTools(extensionTools).find(single => `/tools/extension?tool=${to}` === single.to);
                                         return tool;
-                                    }).filter(item => item !== 0) as unknown as tool[]} />
+                                    }).filter((item: tool | 0) => item !== 0) as unknown as tool[]} />
                             </Box>
                         </Box>
                         <Box>

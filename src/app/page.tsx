@@ -97,22 +97,12 @@ export default function Index(props: {
         [show, setShow] = useState<"tools" | "home">(props.isImplant ? "tools" : "home"),
         tries = useMemo(() => generateTries(mostUsed, realTools), [mostUsed, realTools]),
         recentlyTools = recentlyUsed.map(to => {
-            var tool: tool | 0 = 0;
             const converted = convertExtensionTools(extensionTools);
-            converted.forEach(single => {
-                if (`/tools/extension?tool=${to}` === single.to) {
-                    tool = single;
-                }
-            });
-            if (tool === 0) {
-                realTools.forEach(single => {
-                    if (single.to === to) {
-                        tool = single;
-                    }
-                });
-            }
+            var tool: tool | 0 = 0
+                || realTools.find(single => single.to === to)
+                || converted.find(single => `/tools/extension?tool=${to}` === single.to);
             return tool;
-        }).filter(item => item !== 0) as unknown as tool[],
+        }).filter((item: tool | 0) => item !== 0) as unknown as tool[],
         [sortingFor, setSortingFor] = useState<string>(props.isImplant ? "__global__" : "__home__");
     if (props.setExpand) {
         var {
