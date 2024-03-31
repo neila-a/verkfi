@@ -1,5 +1,6 @@
 "use client";
 import {
+    createElement,
     useContext,
     useState
 } from 'react';
@@ -14,7 +15,8 @@ import {
 import {
     ExitToApp as ExitToAppIcon,
     DragIndicator as DragIndicatorIcon,
-    Delete
+    Delete,
+    FolderDelete
 } from "@mui/icons-material";
 import {
     tool
@@ -51,6 +53,7 @@ import {
 import destroyer from '../components/destroyer';
 import MouseOverPopover from '../components/Popover';
 import useStoragedState from '../components/useStoragedState';
+import { NXTMetadata } from '../setting/extensions/page';
 export default function SingleTool(props: {
     tool: tool;
     isFirst: boolean;
@@ -84,6 +87,7 @@ export default function SingleTool(props: {
         color = colorContext.value,
         [jumpto, setJumpTo] = useState<string>(""),
         homeWhere = useContext(homeWhereContext),
+        [removeDialogOpen, setRemoveDialogOpen] = useState<boolean>(false),
         [elevation, setElevation] = useState<number>(2),
         [jumpName, setJumpName] = useState<string>(""),
         [jumpDialogOpen, setJumpDialogOpen] = useState<boolean>(false),
@@ -221,6 +225,29 @@ export default function SingleTool(props: {
                                         display: "flex",
                                         alignItems: "center"
                                     }}>
+                                        {tool.to.startsWith("/tools/extension") && (
+                                            <>
+                                                <MouseOverPopover text={get("singleTool.deleteExtension")}>
+                                                    <IconButton onClick={event => {
+                                                        setRemoveDialogOpen(true);
+                                                    }}>
+                                                        <Delete />
+                                                    </IconButton>
+                                                    </MouseOverPopover>
+                                                    {createElement(dynamic(() => import("../setting/extensions/RemoveExtensionDialog")), {
+                                                        open: removeDialogOpen,
+                                                        reset: () => setRemoveDialogOpen(false),
+                                                        fileInfo: {
+                                                            ...tool,
+                                                            to: tool.to.replace("/tools/extension?tool=", "") as Lowercase<string>,
+                                                            settings: [],
+                                                            main: ""
+                                                        } as unknown as NXTMetadata,
+                                                        files: [],
+                                                        onTrue: () => setTools(old => old.slice(0).filter(atool => atool.to !== tool.to))
+                                                    })}
+                                            </>
+                                        )}
                                         {sortingFor !== "__global__" && sortingFor !== "__home__" && (
                                             <MouseOverPopover text={get("singleTool.deleteFromCategory")}>
                                                 <IconButton onClick={event => {
@@ -232,7 +259,7 @@ export default function SingleTool(props: {
                                                     }));
                                                     setTools(old => old.slice(0).filter(atool => atool.to !== tool.to))
                                                 }}>
-                                                    <Delete />
+                                                    <FolderDelete />
                                                 </IconButton>
                                             </MouseOverPopover>
                                         )}

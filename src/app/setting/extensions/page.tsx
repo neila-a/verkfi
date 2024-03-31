@@ -7,8 +7,6 @@ import {
     Divider,
     IconButton,
     Box,
-    FormControlLabel,
-    Checkbox,
     useMediaQuery,
     useTheme,
     ButtonGroup
@@ -31,7 +29,8 @@ const PureDialog = dynamic(() => import("../../components/dialog/PureDialog"));
 import {
     FilePondFile,
     FilePondServerConfigProps
-} from 'filepond'; import {
+} from 'filepond';
+import {
     Add as AddIcon,
     Edit as EditIcon,
     SyncProblem as SyncProblemIcon,
@@ -41,10 +40,8 @@ import {
     useLiveQuery
 } from "dexie-react-hooks";
 import db, {
-    option,
     single
 } from "../../components/db";
-import CheckDialog from "../../components/dialog/CheckDialog";
 import DialogInputs from "./DialogInputs";
 import {
     lists as listsContext,
@@ -61,9 +58,8 @@ import {
 import {
     emptyNXTMetadata
 } from "../../tools/extension/empties";
-import {
-    lists
-} from "../../index/Sidebar";
+import clearExtensionData from "./clearExtensionData";
+import RemoveExtensionDialog from "./RemoveExtensionDialog";
 export type inputTypes = "modify" | "add";
 export default function ExtensionManager() {
     const [addDialogOpen, setAddDialogOpen] = useState<boolean>(false),
@@ -73,11 +69,10 @@ export default function ExtensionManager() {
         [removeDialogOpen, setRemoveDialogOpen] = useState<boolean>(false),
         [modifyDialogOpen, setModifyDialogOpen] = useState<boolean>(false),
         lists = useContext(listsContext),
-        [clearData, setClearData] = useState<boolean>(false),
         theme = useTheme(),
         fullScreen = useMediaQuery(theme.breakpoints.down('sm')),
         dialogButtons = (type: "modify" | "add") => <ButtonGroup fullWidth>
-            {files.length !== 0 && <Button variant="contained" onClick={async (event) => {
+            {files.length !== 0 && <Button variant="contained" onClick={async event => {
                 await db.extensionTools.put({
                     ...fileInfo,
                     files: files
@@ -85,13 +80,15 @@ export default function ExtensionManager() {
                 if (lists !== undefined) {
                     const index = lists.value.find(list => list[0] === "__global__"),
                         to = `/tools/extension?tool=${fileInfo.to}`;
-                    if (!index[1].includes(to)) {
-                        lists.set(lists.value.map(singleList => {
-                            if (singleList[0] === "__global__") {
-                                return [singleList[0], [...singleList[1], to]]
-                            }
-                            return singleList;
-                        }));
+                    if (index !== undefined) {
+                        if (!index[1].includes(to)) {
+                            lists.set(lists.value.map(singleList => {
+                                if (singleList[0] === "__global__") {
+                                    return [singleList[0], [...singleList[1], to]]
+                                }
+                                return singleList;
+                            }));
+                        }
                     }
                 }
                 reset();
@@ -113,7 +110,6 @@ export default function ExtensionManager() {
             setRemoveDialogOpen(false);
             setFileArray([]);
             setFiles([]);
-            setClearData(false);
             setFileInfo(emptyNXTMetadata);
         },
         extensionTools = useLiveQuery(() => db.extensionTools.toArray(), [], [] as single[]),
@@ -126,23 +122,6 @@ export default function ExtensionManager() {
             setModifyDialogOpen={setModifyDialogOpen}
             setRemoveDialogOpen={setRemoveDialogOpen}
         />
-    async function clearExtensionData(clearingExtension: NXTMetadata, clearingFiles: [string, Uint8Array][]) {
-        await db.extensionTools.put({
-            ...clearingExtension,
-            files: clearingFiles,
-            settings: clearingExtension.settings.map(setting => ({
-                ...setting,
-                value: setting.defaultValue
-            }))
-        });
-        const oldRecently = recentlyUsed.value;
-        recentlyUsed.set(oldRecently.filter(item => item !== clearingExtension.to));
-        const oldMost = {
-            ...mostUsed.value
-        };
-        Reflect.deleteProperty(oldMost, clearingExtension.to);
-        mostUsed.set(oldMost);
-    }
     return (
         <>
             <Typography variant="h4">
@@ -200,7 +179,7 @@ export default function ExtensionManager() {
                                         files: thisFiles,
                                         ...metadata
                                     } = single;
-                                    clearExtensionData(metadata, thisFiles);
+                                    clearExtensionData(metadata, thisFiles, recentlyUsed, mostUsed);
                                 }}>
                                     <RestartAltIcon />
                                 </IconButton>
@@ -232,20 +211,7 @@ export default function ExtensionManager() {
             }} title={get("extensions.编辑扩展")}>
                 {packagedDialogInputs("modify")}
             </PureDialog>
-            <CheckDialog insert={<FormControlLabel control={<Checkbox value={clearData} onChange={event => {
-                setClearData(event.target.checked);
-            }} />} label={get("extensions.clear")} />} onFalse={() => {
-                reset();
-            }} onTrue={async () => {
-                await db.extensionTools.delete(fileInfo.to);
-                if (lists.value !== undefined) {
-                    lists.set(lists.value.map(singleList => [singleList[0], singleList[1].filter(item => item !== `/tools/extension?tool=${fileInfo.to}`)]));
-                }
-                if (clearData) {
-                    clearExtensionData(fileInfo, files);
-                }
-                reset();
-            }} open={removeDialogOpen} title={get("extensions.删除扩展")} description={`${get("extensions.确定删除扩展")}${fileInfo.name}?`} />
+            <RemoveExtensionDialog open={removeDialogOpen} reset={reset} fileInfo={fileInfo} files={files} />
             <PureDialog action={dialogButtons("add")} add={{
                 fullScreen: fullScreen
             }} open={addDialogOpen} onClose={() => reset()} title={get("extensions.添加扩展")}>

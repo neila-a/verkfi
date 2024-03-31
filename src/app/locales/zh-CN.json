@@ -324,6 +324,7 @@
 	},
 	"singleTool": {
 		"jump": "确定离开Verkfi并跳转至",
-		"deleteFromCategory": "从此分类中删除此工具"
+		"deleteFromCategory": "从此分类中删除此工具",
+		"deleteExtension": "删除此扩展工具"
 	}
 }
