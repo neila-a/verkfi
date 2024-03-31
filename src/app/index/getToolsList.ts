@@ -2,11 +2,27 @@
 import {
     tool
 } from "../tools/info";
-import useReadSetting from "../setting/useReadSetting";
+import useList from "./getList";
+import db from "../components/db";
+import convertExtensionTools from "./convertExtensionTools";
+import {
+    useLiveQuery
+} from "dexie-react-hooks";
 /**
  * 排序工具
  * @param realTools 未排序的工具列表
  * @returns 经过排序的工具列表
  */
-const useToolsList = (realTools: tool[]) => useReadSetting("toolslist", realTools.map(atool => atool.to)).map((toolTo: string) => realTools.find(atool => atool.to === toolTo));
+const useToolsList = (realTools: tool[]) => {
+    const lists = useList(),
+        extensionTools = useLiveQuery(() => db.extensionTools.toArray(), [], []),
+        converted = convertExtensionTools(extensionTools),
+        list = lists.find(item => item[0] === "__global__");
+    if (list === undefined) {
+        const newLists = lists.slice(0);
+        newLists.push(["__global__", realTools.concat(converted).map(tool => tool.to)])
+        return realTools.concat(converted);
+    }
+    return list[1].map(to => realTools.concat(converted).find(tool => tool.to === to));
+}
 export default useToolsList;

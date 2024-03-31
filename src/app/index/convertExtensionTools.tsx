@@ -5,7 +5,6 @@ import {
 import {
     tool
 } from "../tools/info";
-import Image from 'next/image';
 import {
     single
 } from '../components/db';

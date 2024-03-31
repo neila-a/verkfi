@@ -6,17 +6,17 @@ import setSetting from "../setting/setSetting";
 import {
     lists
 } from './Sidebar';
-import useReadSetting from "../setting/useReadSetting";
+import useList from "./getList";
 export default function useButtonCommonSorting() {
-    const defaultList: lists = [],
-        realList = useReadSetting("lists", defaultList);
+    const realList = useList();
     return (sortingFor: string, pd: tool[]) => {
-        if (sortingFor === "__global__") {
-            setSetting("toolslist", "分类", pd.map(toolp => toolp.to));
+        const index = realList.findIndex(item => item[0] === sortingFor),
+            newRealList: lists = realList.slice(0);
+        if (index === -1) {
+            newRealList.push(["__global__", pd.map(toolp => toolp.to)])
         } else {
-            var newRealList: lists = realList.slice(0);
-            newRealList[realList.findIndex(item => item[0] === sortingFor)][1] = pd.map(toolp => toolp.to);
-            setSetting("lists", "集合列表", newRealList);
+            newRealList[index][1] = pd.map(toolp => toolp.to);
         }
+        setSetting("lists", "集合列表", newRealList);
     };
 }

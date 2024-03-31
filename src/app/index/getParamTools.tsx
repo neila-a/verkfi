@@ -24,6 +24,6 @@ function getParamTools(mostUsed: mostUsedMarks, realTools: tool[], extensionTool
                 || realTools.find(single => single.to === to)
                 || convertExtensionTools(extensionTools).find(single => `/tools/extension?tool=${to}` === single.to);
         return tool as tool | 0;
-    }).filter(item => item !== 0) as unknown as tool[];
+    }).filter(item => item !== 0 && item !== undefined) as unknown as tool[];
 }
 export default getParamTools;

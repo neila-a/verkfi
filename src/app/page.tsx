@@ -228,7 +228,7 @@ export default function Index(props: {
                                     sortingFor={sortingFor}
                                     setTools={setTools}
                                     editMode={false}
-                                    paramTool={tries} />
+                                    paramTool={tries.filter(item => item !== undefined)} />
                             </Box>
                         </Box>
                     </Collapse>
@@ -246,7 +246,7 @@ export default function Index(props: {
                                     sortingFor={sortingFor}
                                     setTools={setTools}
                                     editMode={false}
-                                    paramTool={recentlyTools} />
+                                    paramTool={recentlyTools.filter(item => item !== undefined)} />
                             </Box>
                         </homeWhere.Provider>
                     </Box>

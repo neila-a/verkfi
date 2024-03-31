@@ -41,6 +41,7 @@ import {
     useLiveQuery
 } from "dexie-react-hooks";
 import db, {
+    option,
     single
 } from "../../components/db";
 import CheckDialog from "../../components/dialog/CheckDialog";
@@ -59,6 +60,7 @@ import {
 import {
     emptyNXTMetadata
 } from "../../tools/extension/empties";
+import { lists } from "../../index/Sidebar";
 export type inputTypes = "modify" | "add";
 export default function ExtensionManager() {
     const [addDialogOpen, setAddDialogOpen] = useState<boolean>(false),
@@ -72,10 +74,31 @@ export default function ExtensionManager() {
         fullScreen = useMediaQuery(theme.breakpoints.down('sm')),
         dialogButtons = (type: "modify" | "add") => <ButtonGroup fullWidth>
             {files.length !== 0 && <Button variant="contained" onClick={async (event) => {
-                const id = await db.extensionTools.put({
+                await db.extensionTools.put({
                     ...fileInfo,
                     files: files
                 });
+                const lists = await db.options.get({
+                    key: "lists"
+                }) as {
+                    key: string;
+                    value: lists;
+                    };
+                if (lists !== undefined) {
+                    const index = lists.value.find(list => list[0] === "__global__"),
+                        to = `/tools/extension?tool=${fileInfo.to}`;
+                    if (!index[1].includes(to)) {
+                        await db.options.put({
+                            key: "lists",
+                            value: lists.value.map(singleList => {
+                                if (singleList[0] === "__global__") {
+                                    return [singleList[0], [...singleList[1], to]]
+                                }
+                                return singleList;
+                            })
+                        });
+                    }
+                }
                 reset();
             }}>
                 {type === "add" ? get("添加") : get("编辑")}
@@ -220,6 +243,18 @@ export default function ExtensionManager() {
                 reset();
             }} onTrue={async () => {
                 await db.extensionTools.delete(fileInfo.to);
+                const old = await db.options.get({
+                    key: "lists"
+                }) as {
+                    key: string;
+                    value: lists
+                };
+                if (old !== undefined) {
+                    await db.options.put({
+                        key: "lists",
+                        value: old.value.map(singleList => [singleList[0], singleList[1].filter(item => item !== `/tools/extension?tool=${fileInfo.to}`)])
+                    });
+                }
                 if (clearData) {
                     clearExtensionData(fileInfo, files);
                 }

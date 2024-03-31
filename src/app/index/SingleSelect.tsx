@@ -1,11 +1,8 @@
 "use client";
 import {
     Box,
-    Button, Paper
+    Button
 } from "@mui/material";
-import {
-    setState
-} from '../declare';
 import {
     MouseEventHandler,
     ReactNode
@@ -20,7 +17,6 @@ export default function SingleSelect(props: {
     searchText: string;
     isSidebar: boolean;
     editMode: boolean;
-    setEditing: setState<boolean>;
 }) {
     const Inner = () => (
         <Box sx={{
@@ -36,7 +32,6 @@ export default function SingleSelect(props: {
                 color: theme => props.sortingFor === props.wantSortingFor && theme.palette.primary[theme.palette.mode]
             }} onClick={event => {
                 if (!props.editMode) {
-                    props.setEditing(props.searchText === "");
                     props.onClick(event);
                 }
             }}>

@@ -25,6 +25,9 @@ import {
 } from "../tools/info";
 import setSetting from "../setting/setSetting";
 import useReadSetting from "../setting/useReadSetting";
+import { useLiveQuery } from "dexie-react-hooks";
+import db from "../components/db";
+import convertExtensionTools from "./convertExtensionTools";
 export default function EditToolsListDialog(props: {
     dialogTools: string[];
     setDialogTools: setState<string[]>;
@@ -47,8 +50,10 @@ export default function EditToolsListDialog(props: {
         }),
         edit = (forList: lists) => forList.some(single => single[0] === dialogListName),
         createOrEdit = !edit(list) ? get("category.创建分类") : get("category.编辑分类"),
+        extensionTools = useLiveQuery(() => db.extensionTools.toArray(), [], []),
+        converted = convertExtensionTools(extensionTools),
         toolsList = useToolsList(getTools(get));
-    var right = toolsList.map(atool => atool.name).filter(v => props.left.every(val => val !== v));
+    var right = toolsList.concat(converted).filter(atool => atool !== undefined).map(atool => atool.name).filter(v => props.left.every(val => val !== v));
     return (
         <PureDialog open={props.open} title={createOrEdit} onClose={() => {
             setDialogTools([]);

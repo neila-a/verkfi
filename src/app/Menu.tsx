@@ -223,7 +223,7 @@ export default function Menu() {
                                             || realTools.find(single => single.to === to)
                                             || convertExtensionTools(extensionTools).find(single => `/tools/extension?tool=${to}` === single.to);
                                         return tool;
-                                    }).filter((item: tool | 0) => item !== 0) as unknown as tool[]} />
+                                    }).filter((item: tool | 0) => item !== 0 && item !== undefined) as unknown as tool[]} />
                             </Box>
                         </Box>
                         <Box>
