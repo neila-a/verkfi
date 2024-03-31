@@ -24,17 +24,20 @@ import {
     Stop
 } from '@mui/icons-material';
 import getRecording from './getRecording';
+import {
+    isBrowser
+} from '../../layout/layoutClient';
 export type status = "recording" | "paused" | "inactive";
 function AudioTools(): JSX.Element {
     const [loopAudioSrc, setLoopAudioSrc] = useState<string>(""),
         [loopSpeakAudioSrc, setLoopSpeakAudioSrc] = useState<string>(""),
         [status, setStatus] = useState<status>("inactive"),
         mediaRecorder = useRef<"awaqwq" | MediaRecorder>("awaqwq");
-    useEffect(() => {
+    if (isBrowser()) {
         getRecording(blob => setLoopSpeakAudioSrc(URL.createObjectURL(blob))).then(recording => {
             mediaRecorder.current = recording;
         });
-    }, []);
+    } // ref不怕重复刷新，可以不用useEffect
     function controlAudio(stat: status) {
         setStatus(stat);
         switch (stat) {

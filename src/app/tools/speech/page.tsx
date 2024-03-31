@@ -33,6 +33,7 @@ import dynamic from "next/dynamic";
 import InputDialog from "../../components/dialog/InputDialog";
 import { context } from "esbuild";
 import { get } from "react-intl-universal";
+import { isBrowser } from "../../layout/layoutClient";
 const PureDialog = dynamic(() => import("../../components/dialog/PureDialog"));
 interface warning {
     /**
@@ -60,7 +61,7 @@ export default function Speech() {
         [allSpeechTime, setAllSpeechTime] = useState<number>(600),
         [warnings, setWarnings] = useState<warning[]>([]),
         audioFile = useRef<Blob>(new Blob(["Why you downloaded this??? Do not do it!!!"]));
-    useEffect(() => {
+    if (isBrowser()) {
         getRecording(blob => {
             audioFile.current = new Blob([blob]);
         }, async blob => {
@@ -75,7 +76,7 @@ export default function Speech() {
         }).then(recording => {
             mediaRecorder.current = recording;
         });
-    }, []);
+    }
     useEffect(() => {
         return () => {
             clearInterval(intervalID.current);

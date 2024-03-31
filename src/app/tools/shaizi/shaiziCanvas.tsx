@@ -73,7 +73,7 @@ export function ShaiZiCanvas(props: {
     const canvas = useRef<HTMLCanvasElement>();
     useEffect(() => {
         canvas.current.setAttribute("height", "200");
-    });
+    }); // 用ifBrowser的话此时canvas.current还没初始化，不行
     return (
         <Canvas style={{
             cursor: "pointer"
