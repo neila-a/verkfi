@@ -7,12 +7,14 @@ import {
     Box,
     Card,
     CardContent,
+    IconButton,
     Typography,
     TypographyOwnProps
 } from "@mui/material";
 import {
     ExitToApp as ExitToAppIcon,
-    DragIndicator as DragIndicatorIcon
+    DragIndicator as DragIndicatorIcon,
+    Delete
 } from "@mui/icons-material";
 import {
     tool
@@ -38,8 +40,8 @@ import {
     recentlyUsed as recentlyUsedContext,
     mostUsed as mostUsedContext,
     useLightMode,
+    lists as listsContext,
 } from '../layout/layoutClient';
-import stringToBoolean from "../setting/stringToBoolean";
 import {
     useSwipeable
 } from "react-swipeable";
@@ -47,6 +49,8 @@ import {
     get
 } from "react-intl-universal";
 import destroyer from '../components/destroyer';
+import MouseOverPopover from '../components/Popover';
+import useStoragedState from '../components/useStoragedState';
 export default function SingleTool(props: {
     tool: tool;
     isFirst: boolean;
@@ -73,6 +77,9 @@ export default function SingleTool(props: {
         Router = useRouter(),
         colorContext = useContext(colorMode),
         recentlyUsed = useContext(recentlyUsedContext),
+        usedLists = useContext(listsContext),
+        lists = usedLists.value,
+        setLists = usedLists.set,
         mostUsed = useContext(mostUsedContext),
         color = colorContext.value,
         [jumpto, setJumpTo] = useState<string>(""),
@@ -208,9 +215,29 @@ export default function SingleTool(props: {
                                             </ToolTypography>
                                         </Box>
                                     </Box>
-                                    <Box>
-                                        {editMode && <DragIndicatorIcon />}
-                                    </Box>
+                                    {editMode && <Box onClick={event => {
+                                        event.stopPropagation();
+                                    }} className="singleTool-editControler" sx={{
+                                        display: "flex",
+                                        alignItems: "center"
+                                    }}>
+                                        {sortingFor !== "__global__" && sortingFor !== "__home__" && (
+                                            <MouseOverPopover text={get("singleTool.deleteFromCategory")}>
+                                                <IconButton onClick={event => {
+                                                    setLists(lists.slice(0).map(list => {
+                                                        if (list[0] === sortingFor) {
+                                                            return [list[0], list[1].filter(singleTool => singleTool !== tool.to)]
+                                                        }
+                                                        return list;
+                                                    }));
+                                                    setTools(old => old.slice(0).filter(atool => atool.to !== tool.to))
+                                                }}>
+                                                    <Delete />
+                                                </IconButton>
+                                            </MouseOverPopover>
+                                        )}
+                                        <DragIndicatorIcon />
+                                    </Box>}
                                 </>}
                             </Box>
                             {props.focus && <iframe style={{
@@ -221,7 +248,7 @@ export default function SingleTool(props: {
                     </Card>
                 )}
             </windows.Consumer>
-            <CheckDialog open={jumpDialogOpen} description={`${get("确定离开Verkfi并跳转至")}${jumpName}？`} title={get('离开Verkfi')} onTrue={() => {
+            <CheckDialog open={jumpDialogOpen} description={`${get("singleTool.jump")}${jumpName}？`} title={get('离开Verkfi')} onTrue={() => {
                 Router.push(jumpto);
                 setJumpDialogOpen(false);
             }} onFalse={() => {

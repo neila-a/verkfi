@@ -42,14 +42,11 @@ import SwitchViewMode from "./index/SwitchViewMode";
 import SwitchEditMode from "./index/SwitchEditMode";
 import useToolsList from "./index/getToolsList";
 import Selects from "./index/Selects";
-import useList from "./index/getList";
-import {
-    lists
-} from "./index/Sidebar";
 import {
     showSidebar,
     recentlyUsed as recentlyUsedContext,
     mostUsed as mostUsedContext,
+    lists as listsContext,
 } from "./layout/layoutClient";
 import {
     useRouter
@@ -72,8 +69,9 @@ export default function Menu() {
         [editMode, setEditMode] = useState<boolean>(false),
         [sortingFor, setSortingFor] = useState<string>("__home__"),
         [tab, setTab] = useState<number>(0),
-        listFormStorage = useList(),
-        [list, setList] = useState<lists>(listFormStorage),
+        listContexted = useContext(listsContext),
+        list = listContexted.value,
+        setList = listContexted.set,
         [searchText, setSearchText] = useState<string>(""),
         extensionTools = useLiveQuery(() => db.extensionTools.toArray(), [], []),
         router = useRouter(),

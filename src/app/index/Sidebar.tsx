@@ -26,15 +26,17 @@ import {
     viewMode
 } from './consts';
 import {
+    useContext,
     useState
 } from 'react';
 import {
     tool
 } from "../tools/info";
 export type lists = [string, string[]][];
-import useList from './getList';
 import SingleSelect from './SingleSelect';
 import Selects from './Selects';
+import useStoragedState from '../components/useStoragedState';
+import { lists } from '../layout/layoutClient';
 export default function Sidebar(props: {
     /**
      * 是否为嵌入
@@ -75,8 +77,9 @@ export default function Sidebar(props: {
     } = props,
         [editing, setEditing] = useState<boolean>(searchText === ""),
         [clickCount, setClickCount] = useState<number>(0),
-        listFormStorage = useList(),
-        [list, setList] = useState<lists>(listFormStorage);
+        usedList = useContext(lists),
+        list = usedList.value,
+        setList = usedList.set;
     return (
         <Drawer variant="permanent" sx={{
             maxWidth: drawerWidth,
@@ -134,10 +137,20 @@ export default function Sidebar(props: {
             <Box sx={{
                 textAlign: "center"
             }}>
-                {!props.isImplant && <SingleSelect dragButton={<></>} editMode={editMode} isSidebar={true} sortingFor={sortingFor} searchText={searchText} setEditing={setEditing} wantSortingFor="__home__" tool={get("主页")} onClick={event => {
-                    props.setShow("home");
-                    setSortingFor("__home__");
-                }} editButton={<></>} />}
+                {!props.isImplant && <SingleSelect
+                    dragButton={<></>}
+                    editMode={editMode}
+                    isSidebar={true}
+                    sortingFor={sortingFor}
+                    searchText={searchText}
+                    wantSortingFor="__home__"
+                    tool={get("主页")}
+                    onClick={event => {
+                        props.setShow("home");
+                        setSortingFor("__home__");
+                    }}
+                    editButton={<></>}
+                />}
                 <Box onClick={event => {
                     props.setShow("tools");
                     props.setExpand(true);

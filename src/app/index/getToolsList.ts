@@ -2,19 +2,24 @@
 import {
     tool
 } from "../tools/info";
-import useList from "./getList";
 import db from "../components/db";
 import convertExtensionTools from "./convertExtensionTools";
 import {
     useLiveQuery
 } from "dexie-react-hooks";
+import {
+    useContext
+} from "react";
+import {
+    lists as listsContext
+} from "../layout/layoutClient";
 /**
  * 排序工具
  * @param realTools 未排序的工具列表
  * @returns 经过排序的工具列表
  */
 const useToolsList = (realTools: tool[]) => {
-    const lists = useList(),
+    const lists = useContext(listsContext).value,
         extensionTools = useLiveQuery(() => db.extensionTools.toArray(), [], []),
         converted = convertExtensionTools(extensionTools),
         list = lists.find(item => item[0] === "__global__");

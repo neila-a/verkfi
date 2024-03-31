@@ -31,9 +31,12 @@ import {
 import getShortTimeEnergy from "./getShortTimeEnergy";
 import dynamic from "next/dynamic";
 import InputDialog from "../../components/dialog/InputDialog";
-import { context } from "esbuild";
-import { get } from "react-intl-universal";
-import { isBrowser } from "../../layout/layoutClient";
+import {
+    get
+} from "react-intl-universal";
+import {
+    isBrowser
+} from "../../layout/layoutClient";
 const PureDialog = dynamic(() => import("../../components/dialog/PureDialog"));
 interface warning {
     /**

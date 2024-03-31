@@ -4,19 +4,25 @@ import {
 } from "../tools/info";
 import setSetting from "../setting/setSetting";
 import {
-    lists
+    lists as listsType
 } from './Sidebar';
-import useList from "./getList";
+import {
+    useContext
+} from "react";
+import {
+    lists
+} from "../layout/layoutClient";
 export default function useButtonCommonSorting() {
-    const realList = useList();
+    const usedLists = useContext(lists),
+        realList = usedLists.value;
     return (sortingFor: string, pd: tool[]) => {
         const index = realList.findIndex(item => item[0] === sortingFor),
-            newRealList: lists = realList.slice(0);
+            newRealList: listsType = realList.slice(0);
         if (index === -1) {
             newRealList.push(["__global__", pd.map(toolp => toolp.to)])
         } else {
             newRealList[index][1] = pd.map(toolp => toolp.to);
         }
-        setSetting("lists", "集合列表", newRealList);
+        usedLists.set(newRealList);
     };
 }

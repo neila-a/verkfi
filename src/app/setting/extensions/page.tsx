@@ -47,6 +47,7 @@ import db, {
 import CheckDialog from "../../components/dialog/CheckDialog";
 import DialogInputs from "./DialogInputs";
 import {
+    lists as listsContext,
     mostUsed as mostUsedContext,
     recentlyUsed as recentlyUsedContext
 } from "../../layout/layoutClient";
@@ -60,7 +61,9 @@ import {
 import {
     emptyNXTMetadata
 } from "../../tools/extension/empties";
-import { lists } from "../../index/Sidebar";
+import {
+    lists
+} from "../../index/Sidebar";
 export type inputTypes = "modify" | "add";
 export default function ExtensionManager() {
     const [addDialogOpen, setAddDialogOpen] = useState<boolean>(false),
@@ -69,6 +72,7 @@ export default function ExtensionManager() {
         [files, setFiles] = useState<[string, Uint8Array][]>([]),
         [removeDialogOpen, setRemoveDialogOpen] = useState<boolean>(false),
         [modifyDialogOpen, setModifyDialogOpen] = useState<boolean>(false),
+        lists = useContext(listsContext),
         [clearData, setClearData] = useState<boolean>(false),
         theme = useTheme(),
         fullScreen = useMediaQuery(theme.breakpoints.down('sm')),
@@ -78,25 +82,16 @@ export default function ExtensionManager() {
                     ...fileInfo,
                     files: files
                 });
-                const lists = await db.options.get({
-                    key: "lists"
-                }) as {
-                    key: string;
-                    value: lists;
-                    };
                 if (lists !== undefined) {
                     const index = lists.value.find(list => list[0] === "__global__"),
                         to = `/tools/extension?tool=${fileInfo.to}`;
                     if (!index[1].includes(to)) {
-                        await db.options.put({
-                            key: "lists",
-                            value: lists.value.map(singleList => {
-                                if (singleList[0] === "__global__") {
-                                    return [singleList[0], [...singleList[1], to]]
-                                }
-                                return singleList;
-                            })
-                        });
+                        lists.set(lists.value.map(singleList => {
+                            if (singleList[0] === "__global__") {
+                                return [singleList[0], [...singleList[1], to]]
+                            }
+                            return singleList;
+                        }));
                     }
                 }
                 reset();
@@ -243,17 +238,8 @@ export default function ExtensionManager() {
                 reset();
             }} onTrue={async () => {
                 await db.extensionTools.delete(fileInfo.to);
-                const old = await db.options.get({
-                    key: "lists"
-                }) as {
-                    key: string;
-                    value: lists
-                };
-                if (old !== undefined) {
-                    await db.options.put({
-                        key: "lists",
-                        value: old.value.map(singleList => [singleList[0], singleList[1].filter(item => item !== `/tools/extension?tool=${fileInfo.to}`)])
-                    });
+                if (lists.value !== undefined) {
+                    lists.set(lists.value.map(singleList => [singleList[0], singleList[1].filter(item => item !== `/tools/extension?tool=${fileInfo.to}`)]));
                 }
                 if (clearData) {
                     clearExtensionData(fileInfo, files);

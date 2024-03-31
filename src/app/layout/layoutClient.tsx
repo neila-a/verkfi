@@ -56,6 +56,9 @@ import registerProtocolHandler from "./registerProtocolHandler";
 import registerServiceWorker from "./registerServiceWorker";
 import desktopAdder from "./desktopAdder";
 import defaultPalette from '../setting/theme/defaultPalette';
+import {
+    lists as listsType
+} from "../index/Sidebar";
 export const showSidebar = createContext<{
     show: boolean;
     set: setState<boolean>;
@@ -111,6 +114,10 @@ export const lang = createContext<{
 export const recentlyUsed = createContext<{
     value: string[];
     set: setState<string[]>;
+}>(null);
+export const lists = createContext<{
+    value: listsType;
+    set: setState<listsType>;
 }>(null);
 export interface mostUsedMarks {
     [key: string]: number;
@@ -170,6 +177,7 @@ export default function ModifiedApp(props: {
         [firstState, setFirst] = useStoragedState<boolean>("first", "第一次使用", true),
         [sidebarModeState, setSidebarMode] = useStoragedState<sidebarMode>("sidebarmode", "边栏模式", "menu"),
         [showSidebarState, setShowSidebar] = useStoragedState<boolean>("sidebar", "边栏", false),
+        [listsState, setLists] = useStoragedState<listsType>("lists", "分类列表", []),
         implant = (pathname === "/") || (params.get("only") === "true"),
         ml: string = implant ? "" : (expand ? `calc(min(${`calc(100vw - ${drawerWidth}px)`}, 320px) + ${drawerWidth}px)` : `${drawerWidth}px`),
         Sidebar = implant ? null : (sidebarModeState === "menu" ? createElement(dynamic(() => import("../Menu"))) : createElement(dynamic(() => import("../page")), {
@@ -238,34 +246,39 @@ export default function ModifiedApp(props: {
                                         value: shareState,
                                         set: setShare
                                     }}>
-                                        <sidebarMode.Provider value={{
-                                            value: sidebarModeState,
-                                            set: setSidebarMode
+                                        <lists.Provider value={{
+                                            value: listsState,
+                                            set: setLists
                                         }}>
-                                            <paletteColors.Provider value={{
-                                                value: palette,
-                                                set: setPalette
+                                            <sidebarMode.Provider value={{
+                                                value: sidebarModeState,
+                                                set: setSidebarMode
                                             }}>
-                                                <recentlyUsed.Provider value={{
-                                                    value: recentlyUsedState,
-                                                    set: setRecentlyUsed
+                                                <paletteColors.Provider value={{
+                                                    value: palette,
+                                                    set: setPalette
                                                 }}>
-                                                    <mostUsed.Provider value={{
-                                                        value: mostUsedState,
-                                                        set: setMostUsed
+                                                    <recentlyUsed.Provider value={{
+                                                        value: recentlyUsedState,
+                                                        set: setRecentlyUsed
                                                     }}>
-                                                        <CssBaseline />
-                                                        <Box component="aside">
-                                                            {Sidebar}
-                                                        </Box>
-                                                        <Box component="main" ml={(showSidebarState && sidebarModeState === "sidebar") && ml}>
-                                                            {props.children}
-                                                        </Box>
-                                                        <WindowContainer />
-                                                    </mostUsed.Provider>
-                                                </recentlyUsed.Provider>
-                                            </paletteColors.Provider>
-                                        </sidebarMode.Provider>
+                                                        <mostUsed.Provider value={{
+                                                            value: mostUsedState,
+                                                            set: setMostUsed
+                                                        }}>
+                                                            <CssBaseline />
+                                                            <Box component="aside">
+                                                                {Sidebar}
+                                                            </Box>
+                                                            <Box component="main" ml={(showSidebarState && sidebarModeState === "sidebar") && ml}>
+                                                                {props.children}
+                                                            </Box>
+                                                            <WindowContainer />
+                                                        </mostUsed.Provider>
+                                                    </recentlyUsed.Provider>
+                                                </paletteColors.Provider>
+                                            </sidebarMode.Provider>
+                                        </lists.Provider>
                                     </share.Provider>
                                 </lang.Provider>
                             </colorMode.Provider>

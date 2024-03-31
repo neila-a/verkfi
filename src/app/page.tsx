@@ -21,7 +21,8 @@ import {
     Box,
     Drawer,
     Toolbar,
-    Collapse
+    Collapse,
+    IconButton
 } from "@mui/material";
 import {
     getTools,
@@ -207,12 +208,13 @@ export default function Index(props: {
                         width: "100%",
                         textAlign: "center"
                     }}>
-                        <VerkfiIcon onClick={event => {
+                        <IconButton onClick={event => {
                             setShowTries(old => !old);
-                        }} sx={{
-                            fontSize: "1000%",
-                            cursor: "pointer"
-                        }} />
+                        }}>
+                            <VerkfiIcon sx={{
+                                fontSize: "1000%"
+                            }} />
+                        </IconButton>
                     </Box>
                     <Collapse in={showTries}>
                         <Box>

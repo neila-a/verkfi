@@ -14,6 +14,7 @@ import {
 } from '../declare';
 import {
     createElement,
+    useContext,
     useState
 } from 'react';
 import {
@@ -40,7 +41,9 @@ import reorder from '../components/reorder';
 import {
     DragIndicator as DragIndicatorIcon
 } from "@mui/icons-material";
-import convertExtensionTools from './convertExtensionTools';
+import {
+    lists as listsContext
+} from '../layout/layoutClient';
 export default function Selects(props: {
     list: lists;
     setList: setState<lists>;
@@ -63,6 +66,7 @@ export default function Selects(props: {
         [dialogOpen, setDialogOpen] = useState<boolean>(false),
         [dialogTools, setDialogTools] = useState<string[]>([]),
         gotToolsList = useToolsList(getTools(get)),
+        lists = useContext(listsContext),
         [removeDialogOpen, setRemoveDialogOpen] = useState<boolean>(false),
         [dialogListName, setDialogListName] = useState<string>(""),
         RealSelect = (aprops: {
@@ -131,7 +135,7 @@ export default function Selects(props: {
                 }
                 if (props.editMode) {
                     const newLists = reorder(props.list, result.source.index, result.destination.index);
-                    setSetting("lists", "集合列表", newLists);
+                    lists.set(newLists);
                     props.setList(newLists);
                 }
             }}>
@@ -140,7 +144,7 @@ export default function Selects(props: {
                         <Box ref={provided.innerRef} {...provided.droppableProps} sx={{
                             display: Boolean(props.isSidebar) ? "" : "flex"
                         }}>
-                            {list.map((value: [string, string[]], index: number) => (
+                            {list.map((value, index) => (
                                 props.editMode ? (
                                     <Draggable draggableId={value[0]} index={index} key={value[0]}>
                                         {provided => (
@@ -181,7 +185,7 @@ export default function Selects(props: {
                     onTrue: () => {
                         var listDraft: lists = list.slice(0).filter(draftSingle => draftSingle[0] !== dialogListName)
                         setList(listDraft);
-                        setSetting("lists", "集合列表", listDraft);
+                        lists.set(listDraft);
                         setDialogListName("");
                         return setRemoveDialogOpen(false);
                     },

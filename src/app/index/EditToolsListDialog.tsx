@@ -11,6 +11,7 @@ import {
     get
 } from "react-intl-universal";
 import {
+    useContext,
     useState
 } from "react";
 import dynamic from 'next/dynamic';
@@ -24,10 +25,14 @@ import {
     getTools
 } from "../tools/info";
 import setSetting from "../setting/setSetting";
-import useReadSetting from "../setting/useReadSetting";
-import { useLiveQuery } from "dexie-react-hooks";
+import {
+    useLiveQuery
+} from "dexie-react-hooks";
 import db from "../components/db";
 import convertExtensionTools from "./convertExtensionTools";
+import {
+    lists as listsContext
+} from "../layout/layoutClient";
 export default function EditToolsListDialog(props: {
     dialogTools: string[];
     setDialogTools: setState<string[]>;
@@ -42,12 +47,8 @@ export default function EditToolsListDialog(props: {
     const {
         dialogTools, setDialogTools, dialogListName, setDialogListName, setDialogOpen
     } = props,
-        defaultList = [],
-        realList = useReadSetting("lists", defaultList),
-        [list, setList] = useState<lists>(() => {
-            const lists = realList || defaultList;
-            return lists;
-        }),
+        usedList = useContext(listsContext),
+        list = usedList.value,
         edit = (forList: lists) => forList.some(single => single[0] === dialogListName),
         createOrEdit = !edit(list) ? get("category.创建分类") : get("category.编辑分类"),
         extensionTools = useLiveQuery(() => db.extensionTools.toArray(), [], []),
@@ -55,19 +56,7 @@ export default function EditToolsListDialog(props: {
         toolsList = useToolsList(getTools(get));
     var right = toolsList.concat(converted).filter(atool => atool !== undefined).map(atool => atool.name).filter(v => props.left.every(val => val !== v));
     return (
-        <PureDialog open={props.open} title={createOrEdit} onClose={() => {
-            setDialogTools([]);
-            setDialogListName("");
-            setDialogOpen(false);
-        }}>
-            <TextField value={dialogListName} autoFocus margin="dense" label={get("category.分类名称")} fullWidth variant="standard" onChange={event => {
-                setDialogListName(event.target.value);
-            }} />
-            <TransferList left={props.left} right={right} onLeftChange={context => {
-                var tos: string[] = [];
-                context.forEach(name => tos.push(toolsList.find(fullTool => fullTool.name === name).to));
-                setDialogTools(tos);
-            }} onRightChange={context => null} />
+        <PureDialog action={
             <ButtonGroup fullWidth>
                 <Button variant="contained" onClick={event => {
                     var listDraft: lists = list.slice(0),
@@ -79,9 +68,8 @@ export default function EditToolsListDialog(props: {
                     if (!have) {
                         listDraft.push([dialogListName, dialogTools]);
                     }
-                    setList(listDraft);
                     props.setList(listDraft);
-                    setSetting("lists", "集合列表", listDraft);
+                    usedList.set(listDraft);
                     setDialogListName("");
                     setDialogTools([]);
                     return setDialogOpen(false);
@@ -95,7 +83,17 @@ export default function EditToolsListDialog(props: {
                 }}>
                     {get("category.删除此分类")}
                 </Button>}
-            </ButtonGroup>
+            </ButtonGroup>} open={props.open} title={createOrEdit} onClose={() => {
+                setDialogTools([]);
+                setDialogListName("");
+                setDialogOpen(false);
+            }}>
+            <TextField value={dialogListName} autoFocus margin="dense" label={get("category.分类名称")} fullWidth variant="standard" onChange={event => {
+                setDialogListName(event.target.value);
+            }} />
+            <TransferList left={props.left} right={right} onLeftChange={context => {
+                setDialogTools(context.map(name => toolsList.concat(converted).find(fullTool => fullTool.name === name).to));
+            }} onRightChange={context => null} />
         </PureDialog>
     );
 }
