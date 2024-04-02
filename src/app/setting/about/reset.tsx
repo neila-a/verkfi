@@ -36,7 +36,7 @@ const Spacing3Stack: FC<{
     children: ReactNode
 }> = props => <Stack spacing={3}>
     {props.children}
-</Stack >;
+</Stack>;
 export default function Reset() {
     const [dialogOpen, setDialogOpen] = useState<boolean>(false),
         [dialogContext, setDialogContext] = useState<string>(""),
@@ -56,13 +56,10 @@ export default function Reset() {
     }, []);
     return load && (
         <ErrorBoundary>
-            <Typography variant='h4'>
-                {get('重置')}
-            </Typography>
             <Stack direction={direction} spacing={{
-                xs: 10,
-                sm: 15,
-                md: 20
+                xs: 2,
+                sm: 3,
+                md: 4
             }} divider={<Divider orientation="vertical" flexItem />}>
                 <Spacing3Stack>
                     <Line

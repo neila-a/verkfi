@@ -31,7 +31,7 @@ import type VerkfiIcon from '../components/verkfiIcon/verkfiIcon';
 import {
 	drawerWidth
 } from './consts';
-export type settingPage = "option" | "about" | "reset" | "extensions" | "theme";
+export type settingPage = "option" | "about" | "extensions" | "theme";
 export interface set {
 	name: string;
 	id: settingPage;
@@ -70,11 +70,6 @@ export default function Settings(props: {
 			name: get('关于'),
 			id: "about",
 			Icon: InfoIcon
-		},
-		{
-			name: get('重置'),
-			id: "reset",
-			Icon: ReplayIcon
 		},
 		{
 			name: get('extensions.扩展'),

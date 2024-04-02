@@ -5,6 +5,7 @@ import {
 } from 'react-intl-universal';
 import {
     Box,
+    Button,
     Grid,
     Stack,
     SvgIconTypeMap,
@@ -14,7 +15,8 @@ import {
     Info as InfoIcon,
     Copyright as CopyrightIcon,
     Storage as StorageIcon,
-    Article as ArticleIcon
+    Article as ArticleIcon,
+    GitHub
 } from "@mui/icons-material";
 import pack from "../../../../package.json";
 import ErrorBoundary from '../../components/ErrorBoundary';
@@ -31,6 +33,8 @@ import getSettingsSur from '../getSettingsSur';
 import getSettingsUsed from '../getSettingsUsed';
 import dynamic from 'next/dynamic';
 import VerkfiIcon from '../../components/verkfiIcon/verkfiIcon';
+import Reset from './reset';
+import Link from 'next/link';
 const PureDialog = dynamic(() => import("../../components/dialog/PureDialog"));
 interface singleAbout {
     icon: OverridableComponent<SvgIconTypeMap<{}, "svg">> & {
@@ -53,76 +57,15 @@ export default function About() {
         port: "",
         protocol: ""
     };
-    const [cacheUsed, setCacheUsed] = useState<number>(1),
-        [cacheAll, setCacheAll] = useState<number>(2),
-        [load, setLoad] = useState<boolean>(false),
+    const [load, setLoad] = useState<boolean>(false),
         [dialogOpen, setDialogOpen] = useState<boolean>(false),
         [dialogContext, setDialogContext] = useState<ReactNode>(""),
         [dialogTitle, setDialogTitle] = useState<string>(""),
         year = new Date().getFullYear(),
         [addressInfo, setAddressInfo] = useState<typeof initialAddressInfo>(initialAddressInfo);
-    const abouts = {
-        law: {
-            icon: CopyrightIcon,
-            name: get("infos.法律信息"),
-            context: <Typography component="p">
-                ©Copyleft ! <time dateTime="2022">2022</time>-<time dateTime={year.toString()}>{year}</time>， Neila
-                <br />
-                {get('copyright.本程序从未提供品质担保。')}
-                <br />
-                {getHTML('copyright.版权')}
-            </Typography>
-        },
-        version: {
-            icon: InfoIcon,
-            name: get("infos.版本信息"),
-            context: <Typography>
-                {get('发行版本：')}{version}
-                <br />
-                {get('内部版本：')}{devVersion}
-            </Typography>
-        },
-        storage: {
-            icon: StorageIcon,
-            name: get("infos.存储信息"),
-            context: <Stack spacing={2}>
-                <Typography>
-                    {get("storage.缓存空间已使用容量")}：{cacheUsed.toFixed(5)}MB
-                    <br />
-                    {get("storage.缓存空间剩余容量")}：{(cacheAll - cacheUsed).toFixed(5)}MB
-                </Typography>
-                <Typography>
-                    {get("storage.设置空间已使用容量")}：{getSettingsUsed()}KB
-                    <br />
-                    {get("storage.设置空间剩余容量")}：{getSettingsSur()}KB
-                </Typography>
-            </Stack>
-        },
-        statusInfo: {
-            icon: ArticleIcon,
-            name: get("infos.状态信息"),
-            context: <Typography>
-                {get("infos.status.完整路径名")}：{addressInfo.href}
-                <br />
-                {get("infos.status.域名")}：{addressInfo.host}
-                <br />
-                {get("infos.status.路径")}：{addressInfo.pathname}
-                <br />
-                {get("infos.status.协议")}：{addressInfo.protocol}
-                <br />
-                {get("infos.status.端口")}：{addressInfo.port}
-            </Typography>
-        }
-    } satisfies abouts;
     useEffect(() => {
         let mounted = true;
         if (mounted) {
-            (async () => {
-                const usageValue = await getCache("usage")
-                setCacheUsed(usageValue);
-                const quotaValue = await getCache("quota");
-                setCacheAll(quotaValue);
-            })();
             setLoad(true);
             setAddressInfo({
                 href: location.href,
@@ -144,41 +87,66 @@ export default function About() {
             <Box sx={{
                 display: "flex",
                 justifyContent: "center",
-                alignItems: "center"
+                alignItems: "center",
+                mb: 4,
+                flexDirection: "column"
             }}>
-                <VerkfiIcon sx={{
-                    fontSize: "2.125rem"
-                }} />
-                <Typography variant="h4" sx={{
-                    fontWeight: 300
-                }}>Verkfi</Typography>
+                <Box sx={{
+                    display: "flex",
+                    alignItems: "center"
+                }}>
+                    <Box sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        mr: 2
+                    }}>
+                        <VerkfiIcon sx={{
+                            fontSize: "300%"
+                        }} />
+                        <Typography variant="h4" sx={{
+                            fontWeight: 300,
+                            fontSize: "300%"
+                        }}>Verkfi</Typography>
+                    </Box>
+                    <Box>
+                        <Typography>
+                            {get('发行版本：')}{version}
+                            <br />
+                            {get('内部版本：')}{devVersion}
+                        </Typography>
+                    </Box>
+                </Box>
+                <Link href="https://github.com/neila-a/verkfi/releases">
+                    <Button startIcon={<GitHub />}>
+                        {get("infos.viewChangelog")}
+                    </Button>
+                </Link>
             </Box>
-            <Grid container spacing={{
-                xs: 2,
-                md: 3
-            }} columns={{
-                xs: 4,
-                sm: 8,
-                md: 12
+            <Typography variant="body1" sx={{
+                p: 2,
+                mb: 4
             }}>
-                {Object.values(abouts).map((item, index) => (
-                    <Grid item xs={2} sm={4} md={4} key={Object.keys(abouts).filter(single => abouts[single] === item)[0]}>
-                        <Box sx={{
-                            cursor: "pointer"
-                        }} onClick={event => {
-                            setDialogContext(item.context);
-                            setDialogTitle(item.name);
-                            setDialogOpen(true);
-                        }}>
-                            <Typography>
-                                <item.icon />
-                                <br />
-                                {item.name}
-                            </Typography>
-                        </Box>
-                    </Grid>
-                ))}
-            </Grid>
+                ©Copyleft ! <time dateTime="2022">2022</time>-<time dateTime={year.toString()}>{year}</time>， Neila
+                <br />
+                {get('copyright.本程序从未提供品质担保。')}
+                <br />
+                {getHTML('copyright.版权')}
+            </Typography>
+            <Reset />
+            <Typography variant="body1" sx={{
+                mt: 4,
+                p: 2
+            }}>
+                {get("infos.status.完整路径名")}：{addressInfo.href}
+                <br />
+                {get("infos.status.域名")}：{addressInfo.host}
+                <br />
+                {get("infos.status.路径")}：{addressInfo.pathname}
+                <br />
+                {get("infos.status.协议")}：{addressInfo.protocol}
+                <br />
+                {get("infos.status.端口")}：{addressInfo.port}
+            </Typography>
             <PureDialog open={dialogOpen} title={dialogTitle} onClose={() => {
                 setDialogContext("");
                 setDialogTitle("");
