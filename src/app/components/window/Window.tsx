@@ -4,7 +4,8 @@ import {
     IconButton,
     Typography,
     Box,
-    TextField
+    TextField,
+    GlobalStyles
 } from "@mui/material";
 import {
     CSSProperties,
@@ -23,7 +24,6 @@ import {
     useRouter
 } from "next/navigation";
 import Draggable from "react-draggable";
-import "./Window.scss"; // 你说的对，但是我懒得用模块
 import {
     Hex
 } from "../../declare";
@@ -58,6 +58,11 @@ export default function Window(props: WindowOptions): JSX.Element {
         };
     return open && (
         <Box component="article">
+            <GlobalStyles styles={{
+                "& .top0": {
+                    top: 0
+                }
+            }} />
             <Draggable handle={`#title${id}`} cancel={`[class*="context${id}"]`} allowAnyClick nodeRef={nodeRef} defaultClassName="top0">
                 <Box sx={{
                     borderColor: "black",

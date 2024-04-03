@@ -60,10 +60,10 @@ import 'filepond/dist/filepond.min.css'; // Import FilePond styles
 import pack from "../../package.json";
 import {
     Box,
+    GlobalStyles,
     Typography
 } from "@mui/material";
 import Loading from "./loading";
-import "./layout/global.scss";
 import BaseLayout, {
     WindowsProvider
 } from "./layout/layoutClient";
@@ -80,6 +80,14 @@ export default async function Layout({
                 scrollbarWidth: "none",
                 msOverflowStyle: "none"
             }}>
+                <GlobalStyles styles={{
+                    ["& *"]: {
+                        "font-family": "Ubuntu !important"
+                    },
+                    ["& ::-webkit-scrollbar"]: {
+                        display: "none"
+                    }
+                }} />
                 <noscript>
                     <Loading>
                         <Typography>
