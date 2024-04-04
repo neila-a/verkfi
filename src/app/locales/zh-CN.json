@@ -84,7 +84,7 @@
 	"drag": {
 		"拖拽音频到这里": "拖拽音频到这里、粘贴或<span class=\"filepond--label-action\">浏览</span>",
 		"拖拽图片到这里": "拖拽图片到这里、粘贴或<span class=\"filepond--label-action\">浏览</span>",
-		"拖拽扩展到这里": "拖拽扩展到这里、粘贴或<span class=\"filepond--label-action\">浏览</span>"
+		"extensionAdd": "拖拽扩展到这里、粘贴或<span class=\"filepond--label-action\">浏览</span>以添加扩展"
 	},
 	"mathgen": {
 		"减数检查": "减数检查",

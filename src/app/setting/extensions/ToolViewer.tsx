@@ -1,0 +1,136 @@
+"use client";
+import {
+    Paper,
+    Stack,
+    Typography,
+    Divider,
+    IconButton,
+    Box,
+    useMediaQuery,
+    useTheme
+} from "@mui/material";
+import {
+    useContext
+} from "react";
+import {
+    get
+} from "react-intl-universal";
+import {
+    Edit as EditIcon,
+    RestartAlt as RestartAltIcon
+} from "@mui/icons-material";
+import {
+    single
+} from "../../components/db";
+import DialogInputs from "./DialogInputs";
+import {
+    mostUsed as mostUsedContext,
+    recentlyUsed as recentlyUsedContext
+} from "../../layout/layoutClient";
+import MouseOverPopover from "../../components/Popover";
+import clearExtensionData from "./clearExtensionData";
+import {
+    setState
+} from "../../declare";
+import DialogButtons from "./DialogButtons";
+import {
+    NXTMetadata,
+    inputTypes,
+    PureDialog
+} from "./page";
+export default function ToolViewer(props: {
+    single: single;
+    fileInfo: NXTMetadata;
+    setFileInfo: setState<NXTMetadata>;
+    modifyDialogOpen: boolean;
+    setModifyDialogOpen: setState<boolean>;
+    setRemoveDialogOpen: setState<boolean>;
+    files: [string, Uint8Array][];
+    setFiles: setState<[string, Uint8Array][]>;
+    reset(): void;
+}) {
+    const {
+        single
+    } = props, recentlyUsed = useContext(recentlyUsedContext), theme = useTheme(), fullScreen = useMediaQuery(theme.breakpoints.down('sm')), packagedDialogInputs = (type: inputTypes) => <DialogInputs
+        type={type}
+        fileInfo={props.fileInfo}
+        setFileInfo={props.setFileInfo}
+        files={props.files}
+        reset={props.reset}
+        setModifyDialogOpen={props.setModifyDialogOpen}
+        setRemoveDialogOpen={props.setRemoveDialogOpen} />, mostUsed = useContext(mostUsedContext);
+    return (
+        <Paper sx={{
+            padding: 2
+        }}>
+            <Box sx={{
+                display: "flex",
+                justifyContent: "space-between"
+            }}>
+                <Stack direction="row" divider={<Divider orientation="vertical" flexItem />} spacing={2}>
+                    <Stack direction="row" spacing={1}>
+                        <Box>
+                            {/* 这里的图片是直接从indexedDB加载来的，不需要且不能使用next/image的优化 */}
+                            <img src={`/extensionfiles/${single.to}/${single.icon}`} alt={single.name} height={24} width={24} />
+                        </Box>
+                        <Box>
+                            <Typography>
+                                {single.name}
+                            </Typography>
+                            <Box display="flex" alignItems="center" justifyContent="space-between">
+                                <Typography variant="h6" fontWeight="700"> {/* <strong>的fontWeight是700 */}
+                                    {get("ID")}
+                                </Typography>
+                                <Typography>
+                                    {single.to}
+                                </Typography>
+                            </Box>
+                        </Box>
+                    </Stack>
+                    <Box>
+                        <Typography variant="h6" fontWeight="700">
+                            {get('描述')}
+                        </Typography>
+                        {single.desc}
+                    </Box>
+                </Stack>
+                <Box display="flex">
+                    <MouseOverPopover text={get("extensions.clear")}>
+                        <IconButton onClick={event => {
+                            const {
+                                files: thisFiles, ...metadata
+                            } = single;
+                            clearExtensionData(metadata, thisFiles, recentlyUsed, mostUsed);
+                        }}>
+                            <RestartAltIcon />
+                        </IconButton>
+                    </MouseOverPopover>
+                    <MouseOverPopover text={get("extensions.删除扩展")}>
+                        <IconButton onClick={event => {
+                            props.setFiles(single.files);
+                            props.setFileInfo({
+                                ...single
+                            });
+                            props.setModifyDialogOpen(true);
+                        }}>
+                            <EditIcon />
+                        </IconButton>
+                    </MouseOverPopover>
+                </Box>
+            </Box>
+            <PureDialog action={<DialogButtons
+                type="modify"
+                fileInfo={props.fileInfo}
+                setModifyDialogOpen={props.setModifyDialogOpen}
+                setRemoveDialogOpen={props.setRemoveDialogOpen}
+                files={props.files}
+                reset={props.reset} />} add={{
+                    fullScreen: fullScreen
+                }} open={props.modifyDialogOpen} onClose={event => {
+                    props.setModifyDialogOpen(false);
+                }} title={get("extensions.编辑扩展")}>
+                {packagedDialogInputs("modify")}
+            </PureDialog>
+        </Paper>
+    );
+}
