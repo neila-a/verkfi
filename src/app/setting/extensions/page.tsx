@@ -1,6 +1,5 @@
 "use client";
 import {
-    Button,
     Stack,
     Typography,
     Box,
@@ -20,13 +19,12 @@ import {
     FilePond
 } from 'react-filepond'; // Import React FilePond
 import dynamic from "next/dynamic";
-export const PureDialog = dynamic(() => import("../../components/dialog/PureDialog"));
+const PureDialog = dynamic(() => import("../../components/dialog/PureDialog"));
 import {
     FilePondFile,
     FilePondServerConfigProps
 } from 'filepond';
 import {
-    Add as AddIcon,
     SyncProblem as SyncProblemIcon
 } from "@mui/icons-material";
 import {

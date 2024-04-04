@@ -19,6 +19,8 @@ import {
     Edit as EditIcon,
     RestartAlt as RestartAltIcon
 } from "@mui/icons-material";
+import dynamic from "next/dynamic";
+const PureDialog = dynamic(() => import("../../components/dialog/PureDialog"));
 import {
     single
 } from "../../components/db";
@@ -35,8 +37,7 @@ import {
 import DialogButtons from "./DialogButtons";
 import {
     NXTMetadata,
-    inputTypes,
-    PureDialog
+    inputTypes
 } from "./page";
 export default function ToolViewer(props: {
     single: single;
