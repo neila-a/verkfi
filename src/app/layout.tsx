@@ -52,10 +52,6 @@ export function generateViewport(): Viewport {
         themeColor: "#1976d2",
     };
 }
-import '@fontsource/ubuntu/300.css';
-import '@fontsource/ubuntu/400.css';
-import '@fontsource/ubuntu/500.css';
-import '@fontsource/ubuntu/700.css';
 import 'filepond/dist/filepond.min.css'; // Import FilePond styles
 import pack from "../../package.json";
 import {
@@ -70,6 +66,10 @@ import BaseLayout, {
 import {
     Suspense
 } from "react";
+import {
+    AppRouterCacheProvider
+} from '@mui/material-nextjs/v13-appRouter';
+import Ubuntu from "./components/fonts";
 export default async function Layout({
     children
 }) {
@@ -80,32 +80,34 @@ export default async function Layout({
                 scrollbarWidth: "none",
                 msOverflowStyle: "none"
             }}>
-                <GlobalStyles styles={{
-                    ["& *"]: {
-                        "font-family": "Ubuntu !important"
-                    },
-                    ["& ::-webkit-scrollbar"]: {
-                        display: "none"
-                    }
-                }} />
-                <noscript>
-                    <Loading>
-                        <Typography>
-                            Error: Unable to execute JavaScript.
-                        </Typography>
-                    </Loading>
-                </noscript>
-                <Box sx={{
-                    minHeight: "100vh"
-                }}>
-                    <Suspense fallback={<Loading />}> {/* 阻止整个页面坠落到客户端模式 */}
-                        <WindowsProvider>
-                            <BaseLayout>
-                                {children}
-                            </BaseLayout>
-                        </WindowsProvider>
-                    </Suspense>
-                </Box>
+                <AppRouterCacheProvider>
+                    <GlobalStyles styles={{
+                        ["& *"]: {
+                            "font-family": Ubuntu.style.fontFamily
+                        },
+                        ["& ::-webkit-scrollbar"]: {
+                            display: "none"
+                        }
+                    }} />
+                    <noscript>
+                        <Loading>
+                            <Typography>
+                                Error: Unable to execute JavaScript.
+                            </Typography>
+                        </Loading>
+                    </noscript>
+                    <Box sx={{
+                        minHeight: "100vh"
+                    }}>
+                        <Suspense fallback={<Loading />}> {/* 阻止整个页面坠落到客户端模式 */}
+                            <WindowsProvider>
+                                <BaseLayout>
+                                    {children}
+                                </BaseLayout>
+                            </WindowsProvider>
+                        </Suspense>
+                    </Box>
+                </AppRouterCacheProvider>
             </body>
         </html>
     )

@@ -59,6 +59,7 @@ import defaultPalette from '../setting/theme/defaultPalette';
 import {
     lists as listsType
 } from "../index/Sidebar";
+import Ubuntu from "../components/fonts";
 export const showSidebar = createContext<{
     show: boolean;
     set: setState<boolean>;
@@ -158,13 +159,7 @@ export default function ModifiedApp(props: {
                         mode: mode === "system" ? (isBrowser() ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : "light") : "light") : mode,
                     },
                     typography: {
-                        fontFamily: [
-                            "Ubuntu",
-                            "Roboto",
-                            "Helvetica",
-                            "Arial",
-                            "sans-serif"
-                        ].join(",")
+                        fontFamily: Ubuntu.style.fontFamily
                     }
                 }),
             [mode, palette]
