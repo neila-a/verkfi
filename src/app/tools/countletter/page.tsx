@@ -22,7 +22,7 @@ const logger = new LpLogger({
     name: "CountLetter",
     level: "log", // 空字符串时，不显示任何信息
 });
-import table from "./table";
+import table from "./table.json";
 type numberType = 2 | 8 | 10 | 16;
 function CountLetter(): JSX.Element {
     const [enterDialogOpen, setEnterDialogOpen] = useState<boolean>(false),

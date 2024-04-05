@@ -29,6 +29,7 @@
     },
     "devDependencies": {
         "@next/bundle-analyzer": "^14.1.4",
+        "@types/d3-array": "^3.2.1",
         "@types/dom-to-image": "^2.6.7",
         "@types/file-saver": "^2.0.7",
         "@types/node": "20.12.3",
@@ -36,11 +37,11 @@
         "@types/react-dom": "18.2.23",
         "@types/react-transition-group": "^4.4.10",
         "@types/three": "^0.163.0",
+        "@types/throttle-debounce": "^5.0.2",
         "esbuild": "^0.20.2",
         "eslint": "8.57.0",
         "eslint-config-next": "14.1.4",
         "eslint-plugin-react-hooks": "^4.6.0",
-        "@types/d3-array": "^3.2.1",
         "typescript": "5.4.3"
     },
     "homepage": "https://neila-tools.netlify.app/",
@@ -49,6 +50,7 @@
         "@emotion/react": "^11.11.4",
         "@emotion/styled": "^11.11.5",
         "@hello-pangea/dnd": "^16.6.0",
+        "@joshyzou/pisolver": "^1.0.4",
         "@mui/icons-material": "^5.15.14",
         "@mui/material": "^5.15.14",
         "@mui/material-nextjs": "^5.15.11",
@@ -73,7 +75,10 @@
         "react-intl-universal": "^2.11.1",
         "react-swipeable": "^7.0.1",
         "react-transition-group": "^4.4.5",
+        "remove-item-from-array": "^1.0.4",
+        "reorder-array": "^1.0.3",
         "sass": "^1.72.0",
-        "three": "^0.163.0"
+        "three": "^0.163.0",
+        "throttle-debounce": "^5.0.0"
     }
 }

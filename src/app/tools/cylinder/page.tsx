@@ -8,7 +8,6 @@ import {
     useMemo,
     useRef
 } from "react";
-import LpLogger from "lp-logger";
 import makeCylinder from "./makeCylinder";
 import {
     Typography,
@@ -18,7 +17,9 @@ import {
     Switch,
     Box
 } from "@mui/material";
-import throttle from '../../components/throttle';
+import {
+    throttle
+} from 'throttle-debounce';
 import {
     useTheme
 } from '@mui/material/styles';
@@ -36,11 +37,11 @@ function Cylinder(): JSX.Element {
         posCache = useRef<block>([1, 1]),
         cache = useRef<block[]>([]),
         blocks = useMemo(() => makeCylinder(radiusX, radiusZ, thickness, filled), [radiusX, radiusZ, thickness, filled]),
-        updatePos = throttle((X: number, Z: number) => {
+        updatePos = throttle(17 /* 1000(ms, = 1s) / 60(60fps) = 17(ms) */, (X: number, Z: number) => {
             drawMatrix(blocks.slice(0), Math.max(radiusX, radiusZ), X, Z, posCache.current, cache.current, theme.palette, true);
             posCache.current = [X, Z];
             cache.current = blocks.slice(0);
-        }, 17 /* 1000(ms, = 1s) / 60(60fps) = 17(ms) */);
+        });
     useEffect(() => {
         const g = Math.max(radiusX, radiusZ);
         drawMatrix(blocks.slice(0), g, g, g, posCache.current, cache.current, theme.palette, false);

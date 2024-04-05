@@ -22,7 +22,7 @@ import {
     Droppable,
     Draggable
 } from "@hello-pangea/dnd";
-import reorder from '../components/reorder';
+import reorderArray from 'reorder-array';
 import useButtonCommonSorting from './buttonCommonSorting';
 import {
     TransitionGroup
@@ -76,7 +76,7 @@ export default function ToolsStack(props: {
                     return;
                 }
                 if (props.editMode) {
-                    const newTools = reorder(props.paramTool, result.source.index, result.destination.index);
+                    const newTools = reorderArray(props.paramTool, result.source.index, result.destination.index);
                     buttonCommonSorting(props.sortingFor, newTools);
                     props.setTools(newTools);
                 }

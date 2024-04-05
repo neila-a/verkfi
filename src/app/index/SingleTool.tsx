@@ -50,12 +50,11 @@ import {
 import {
     get
 } from "react-intl-universal";
-import destroyer from '../components/destroyer';
 import MouseOverPopover from '../components/Popover';
-import useStoragedState from '../components/useStoragedState';
 import {
     NXTMetadata
 } from '../setting/extensions/page';
+import removeArrayItem from "remove-item-from-array";
 export default function SingleTool(props: {
     tool: tool;
     isFirst: boolean;
@@ -115,7 +114,7 @@ export default function SingleTool(props: {
                     }
                     case "recently": {
                         let old = recentlyUsed.value;
-                        recentlyUsed.set(destroyer(old, tool.to));
+                        recentlyUsed.set(removeArrayItem(old, tool.to));
                         break;
                     }
                 }

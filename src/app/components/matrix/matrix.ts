@@ -1,5 +1,4 @@
 import LpLogger from "lp-logger";
-import removeIn2 from '../removeIn';
 import drawMatrixBase from "./base";
 import {
     Palette

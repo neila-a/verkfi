@@ -15,16 +15,16 @@ import {
 } from "@mui/material";
 import dynamic from 'next/dynamic';
 const AlertDialog = dynamic(() => import("../../components/dialog/AlertDialog"));
-import calc from './generatePis';
+import calc from "@joshyzou/pisolver";
 import CopyButton from '../../components/CopyButton';
 function PI(): JSX.Element {
-    const [weishu, setWeishu] = useState<number>(1),
+    const [digits, setDigits] = useState<number>(1),
         [useAlertShow, setUseAlertShow] = useState<boolean>(false),
         [showInfoDialog, setShowInfoDialog] = useState<boolean>(false),
         [dialogInfo, setDialogInfo] = useState<string>(""),
         [out, setOut] = useState("");
-    function proc(ws: number) {
-        const retinfo: string = calc(ws);
+    function proc() {
+        const retinfo: string = calc(digits);
         if (useAlertShow) {
             setDialogInfo(retinfo);
             return setShowInfoDialog(true);
@@ -34,10 +34,10 @@ function PI(): JSX.Element {
     return (
         <>
             <Box id="input">
-                <TextField id="weishu" label={get('pi.π的小数点后位数')} variant="outlined" value={weishu} type="number" onChange={event => {
-                    var ws = Number(event.target.value);
-                    setWeishu(ws);
-                    proc(ws);
+                <TextField id="weishu" label={get('pi.π的小数点后位数')} variant="outlined" value={digits} type="number" onChange={event => {
+                    const digit = Number(event.target.value);
+                    setDigits(digit);
+                    proc();
                 }} />
             </Box>
             <FormGroup>

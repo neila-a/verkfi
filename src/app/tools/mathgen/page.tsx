@@ -8,10 +8,8 @@ import {
     FormGroup,
     TextField,
     Button,
-    Typography,
     FormLabel,
     Paper,
-    Box,
     ButtonGroup,
     List
 } from "@mui/material";
@@ -19,17 +17,14 @@ import {
     useEffect,
     useState
 } from "react";
-import destroyer from "../../components/destroyer";
 import SingleMath from "./singleMath";
 import {
     calc,
     defaultCalcs
 } from "./consts";
 import calcMath from "./calcMath";
-import {
-    SyncProblem as SyncProblemIcon
-} from '@mui/icons-material';
 import No from '../../components/No';
+import removeArrayItem from "remove-item-from-array";
 function MathGen(): JSX.Element {
     const [min, setMin] = useState<number>(0),
         [max, setMax] = useState<number>(10),
@@ -91,7 +86,9 @@ function MathGen(): JSX.Element {
                             <Checkbox checked={calcs == defaultCalcs} onChange={event => setCalcs(event.target.checked ? defaultCalcs : [])} />
                         } />
                         {defaultCalcs.map(calc => <FormControlLabel label={calc == "%" ? "%（求余）" : calc} key={calc} control={
-                            <Checkbox checked={calcs.includes(calc)} onChange={event => setCalcs(old => event.target.checked ? destroyer(old, calc) : [...old, calc])} />
+                            <Checkbox checked={calcs.includes(calc)} onChange={event => {
+                                setCalcs(old => event.target.checked ? removeArrayItem(old, calc) : [...old, calc]);
+                            }} />
                         } />)}
                     </FormGroup>
                 </Paper>

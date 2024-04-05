@@ -14,6 +14,7 @@ import {
     ButtonGroup,
     Box
 } from "@mui/material";
+import removeArrayItem from "remove-item-from-array";
 import {
     Close
 } from "@mui/icons-material";
@@ -24,7 +25,6 @@ const logger = new LpLogger({
     name: get('翻转'),
     level: "log", // 空字符串时，不显示任何信息
 });
-import destroyer from "../../components/destroyer";
 import CopyButton from '../../components/CopyButton';
 function Reversal(): JSX.Element {
     const [wordList, setWordList] = useState<[string, number][]>([]),
@@ -58,7 +58,7 @@ function Reversal(): JSX.Element {
                 {wordList.map(wordArray => {
                     return (
                         <Chip key={wordArray[1]} label={wordArray[0]} onDelete={() => {
-                            setWordList(oldWordList => destroyer(oldWordList, wordArray));
+                            setWordList(oldWordList => removeArrayItem(oldWordList, wordArray));
                         }} deleteIcon={<Close />} />
                     );
                 })}

@@ -1,4 +1,4 @@
-export const table: string[] = [
+[
     "A",
     "B",
     "C",
@@ -25,5 +25,4 @@ export const table: string[] = [
     "X",
     "Y",
     "Z"
-];
-export default table;
+]

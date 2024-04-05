@@ -20,10 +20,7 @@ import {
     ImageList,
     Box
 } from "@mui/material";
-import {
-    SyncProblem as SyncProblemIcon
-} from '@mui/icons-material';
-import destroyer from "../../components/destroyer";
+import removeArrayItem from "remove-item-from-array";
 import {
     ImageType,
     ImageTypesGen
@@ -80,7 +77,9 @@ export default function Filter(): JSX.Element {
                         />
                     } />
                     {ImageTypesGen.map(type => <FormControlLabel control={
-                        <Checkbox defaultChecked checked={imageTypes.includes(type)} onChange={event => setImageTypes(event.target.checked ? [...imageTypes, type] : destroyer(imageTypes, type))} />
+                        <Checkbox defaultChecked checked={imageTypes.includes(type)} onChange={event => {
+                            setImageTypes(event.target.checked ? [...imageTypes, type] : removeArrayItem(imageTypes, type))
+                        }} />
                     } label={type} key={type} />)}
                 </FormGroup>
             </Box>

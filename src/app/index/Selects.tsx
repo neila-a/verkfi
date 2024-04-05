@@ -37,7 +37,7 @@ import {
     Draggable,
     Droppable
 } from '@hello-pangea/dnd';
-import reorder from '../components/reorder';
+import reorderArray from 'reorder-array';
 import {
     DragIndicator as DragIndicatorIcon
 } from "@mui/icons-material";
@@ -134,7 +134,7 @@ export default function Selects(props: {
                     return;
                 }
                 if (props.editMode) {
-                    const newLists = reorder(props.list, result.source.index, result.destination.index);
+                    const newLists = reorderArray(props.list, result.source.index, result.destination.index);
                     lists.set(newLists);
                     props.setList(newLists);
                 }
