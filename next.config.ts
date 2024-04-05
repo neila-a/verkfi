@@ -1,10 +1,10 @@
 import type {
 	NextConfig
 } from "next";
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
+import bundleAnalyzer from "@next/bundle-analyzer";
+const nextConfig: NextConfig = bundleAnalyzer({
 	enabled: process.env.ANALYZE === 'true'
-});
-const nextConfig: NextConfig = withBundleAnalyzer({
+})({
 	reactStrictMode: true,
 	devIndicators: {
 		buildActivityPosition: 'bottom-right',
