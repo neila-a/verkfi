@@ -60,6 +60,7 @@ import {
     useLiveQuery
 } from 'dexie-react-hooks';
 import convertExtensionTools from './index/convertExtensionTools';
+import MouseOverPopover from './components/Popover';
 export default function Index(props: {
     /**
      * 是否为嵌入
@@ -207,14 +208,16 @@ export default function Index(props: {
                         paddingBottom: 3,
                         width: "100%",
                         textAlign: "center"
-                    }}>
-                        <IconButton onClick={event => {
-                            setShowTries(old => !old);
                         }}>
-                            <VerkfiIcon sx={{
-                                fontSize: "1000%"
-                            }} />
-                        </IconButton>
+                            <MouseOverPopover text={get("index.generateTry")}>
+                                <IconButton aria-label={get("index.generateTry")} onClick={event => {
+                                    setShowTries(old => !old);
+                                }}>
+                                    <VerkfiIcon sx={{
+                                        fontSize: "1000%"
+                                    }} />
+                                </IconButton>
+                            </MouseOverPopover>
                     </Box>
                     <Collapse in={showTries}>
                         <Box>

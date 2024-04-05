@@ -135,22 +135,24 @@ export default function Menu() {
                     display: "flex"
                 }}>
                     {sortingFor !== "__home__" && (
-                        <IconButton type="button" sx={{
-                            p: '10px 5px'
-                        }} aria-label="back" onClick={() => {
-                            setSearchText("");
-                            setSortingFor("__home__");
-                            setSortedTools(gotToolsList);
-                            setEditing(true);
-                            setTools(gotToolsList);
-                        }}>
-                            <ArrowBackIosIcon />
-                        </IconButton>
+                        <MouseOverPopover text={get("back")}>
+                            <IconButton type="button" sx={{
+                                p: '10px 5px'
+                            }} aria-label={get("back")} onClick={() => {
+                                setSearchText("");
+                                setSortingFor("__home__");
+                                setSortedTools(gotToolsList);
+                                setEditing(true);
+                                setTools(gotToolsList);
+                            }}>
+                                <ArrowBackIosIcon />
+                            </IconButton>
+                        </MouseOverPopover>
                     )}
                     <MouseOverPopover text={get('搜索')}>
                         <IconButton type="button" sx={{
                             p: '10px 5px'
-                        }} aria-label="search" onClick={() => {
+                        }} aria-label={get('搜索')} onClick={() => {
                             searchTools(searchText);
                         }}>
                             <SearchIcon />
@@ -167,19 +169,21 @@ export default function Menu() {
                             searchTools(event.target.value);
                             setTab(0);
                         }
-                    }} />
-                    <IconButton
-                        aria-label="close"
-                        onClick={event => {
-                            control.set(false);
-                        }}
-                        sx={{
-                            position: 'absolute',
-                            right: 8
-                        }}
-                    >
-                        <CloseIcon />
-                    </IconButton>
+                        }} />
+                    <MouseOverPopover text={get("close")}>
+                        <IconButton
+                            aria-label={get("close")}
+                            onClick={event => {
+                                control.set(false);
+                            }}
+                            sx={{
+                                position: 'absolute',
+                                right: 8
+                            }}
+                        >
+                            <CloseIcon />
+                        </IconButton>
+                    </MouseOverPopover>
                 </DialogTitle>
                 <DialogContent dividers>
                     {sortingFor === "__home__" ? <>

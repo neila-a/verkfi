@@ -13,6 +13,8 @@ import {
     Close as CloseIcon
 } from "@mui/icons-material"
 import Transition from "./Transition";
+import { get } from "react-intl-universal";
+import MouseOverPopover from "../Popover";
 export default function FullScreenDialog(props: {
     title: string;
     context: ReactNode;
@@ -35,9 +37,11 @@ export default function FullScreenDialog(props: {
                         }} variant="h6" component="div">
                             {props.title}
                         </Typography>
-                        <IconButton edge="end" color="inherit" onClick={handleClose} aria-label="close">
-                            <CloseIcon />
-                        </IconButton>
+                        <MouseOverPopover text={get("close")}>
+                            <IconButton edge="end" color="inherit" onClick={handleClose} aria-label={get("close")}>
+                                <CloseIcon />
+                            </IconButton>
+                        </MouseOverPopover>
                     </Toolbar>
                 </AppBar>
                 {props.context}

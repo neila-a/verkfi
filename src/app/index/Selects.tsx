@@ -44,6 +44,7 @@ import {
 import {
     lists as listsContext
 } from '../layout/layoutClient';
+import MouseOverPopover from '../components/Popover';
 export default function Selects(props: {
     list: lists;
     setList: setState<lists>;
@@ -109,12 +110,16 @@ export default function Selects(props: {
                             }
                         }
                     }} editButton={(
-                        (props.editMode && !aprops.isAll) ? <IconButton onClick={event => {
-                            setDialogOpen(true);
-                            setDialogListName(aprops.single[0]);
-                        }}>
-                            <EditIcon />
-                        </IconButton> : <></>
+                        (props.editMode && !aprops.isAll) ? (
+                            <MouseOverPopover text={get("index.editCategory")}>
+                                <IconButton onClick={event => {
+                                    setDialogOpen(true);
+                                    setDialogListName(aprops.single[0]);
+                                }} aria-label={get("index.editCategory")}>
+                                    <EditIcon />
+                                </IconButton>
+                            </MouseOverPopover>
+                        ) : <></>
                     )} wantSortingFor={aprops.isAll ? "__global__" : aprops.single[0]} />
             </Box>
         );

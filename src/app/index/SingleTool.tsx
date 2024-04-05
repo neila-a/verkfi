@@ -231,22 +231,22 @@ export default function SingleTool(props: {
                                                 <MouseOverPopover text={get("singleTool.deleteExtension")}>
                                                     <IconButton onClick={event => {
                                                         setRemoveDialogOpen(true);
-                                                    }}>
+                                                    }} aria-label={get("singleTool.deleteExtension")}>
                                                         <Delete />
                                                     </IconButton>
-                                                    </MouseOverPopover>
-                                                    {createElement(dynamic(() => import("../setting/extensions/RemoveExtensionDialog")), {
-                                                        open: removeDialogOpen,
-                                                        reset: () => setRemoveDialogOpen(false),
-                                                        fileInfo: {
-                                                            ...tool,
-                                                            to: tool.to.replace("/tools/extension?tool=", "") as Lowercase<string>,
-                                                            settings: [],
-                                                            main: ""
-                                                        } as unknown as NXTMetadata,
-                                                        files: [],
-                                                        onTrue: () => setTools(old => old.slice(0).filter(atool => atool.to !== tool.to))
-                                                    })}
+                                                </MouseOverPopover>
+                                                {createElement(dynamic(() => import("../setting/extensions/RemoveExtensionDialog")), {
+                                                    open: removeDialogOpen,
+                                                    reset: () => setRemoveDialogOpen(false),
+                                                    fileInfo: {
+                                                        ...tool,
+                                                        to: tool.to.replace("/tools/extension?tool=", "") as Lowercase<string>,
+                                                        settings: [],
+                                                        main: ""
+                                                    } as unknown as NXTMetadata,
+                                                    files: [],
+                                                    onTrue: () => setTools(old => old.slice(0).filter(atool => atool.to !== tool.to))
+                                                })}
                                             </>
                                         )}
                                         {sortingFor !== "__global__" && sortingFor !== "__home__" && (
@@ -259,7 +259,7 @@ export default function SingleTool(props: {
                                                         return list;
                                                     }));
                                                     setTools(old => old.slice(0).filter(atool => atool.to !== tool.to))
-                                                }}>
+                                                }} aria-label={get("singleTool.deleteFromCategory")}>
                                                     <FolderDelete />
                                                 </IconButton>
                                             </MouseOverPopover>

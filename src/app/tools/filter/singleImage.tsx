@@ -15,6 +15,8 @@ import filters from "./filters";
 import {
     ImageType
 } from "./consts";
+import MouseOverPopover from "../../components/Popover";
+import { get } from "react-intl-universal";
 export default function SingleImage(props: {
     type: ImageType;
     imageURL: string;
@@ -31,13 +33,17 @@ export default function SingleImage(props: {
                 filter: filters[type]
             }} />
             <Box component="figcaption">
-                <ImageListItemBar title={type} subtitle={props.imageFileName} actionIcon={<IconButton onClick={async event => {
-                    const blob = await domtoimage.toBlob(document.getElementById(type));
-                    // 调用file-save方法 直接保存图片
-                    saveAs(blob, `${props.imageFileName}.${type}.png`)
-                }}>
-                    <DownloadIcon />
-                </IconButton>} />
+                <ImageListItemBar title={type} subtitle={props.imageFileName} actionIcon={(
+                   <MouseOverPopover text={get("filter.save")}>
+                        <IconButton onClick={async event => {
+                            const blob = await domtoimage.toBlob(document.getElementById(type));
+                            // 调用file-save方法 直接保存图片
+                            saveAs(blob, `${props.imageFileName}.${type}.png`)
+                        }} aria-label={get("filter.save")}>
+                            <DownloadIcon />
+                        </IconButton>
+                   </MouseOverPopover>
+                )} />
             </Box>
         </ImageListItem>
     );

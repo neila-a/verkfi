@@ -31,6 +31,7 @@ import {
     lists
 } from "./Sidebar";
 import dynamic from 'next/dynamic';
+import MouseOverPopover from "../components/Popover";
 const EditToolsListDialog = dynamic(() => import("./EditToolsListDialog"));
 export default function Buttons(props: {
     /**
@@ -70,17 +71,21 @@ export default function Buttons(props: {
             <Divider />
             <ButtonGroup variant="outlined" sx={{
                 display: "flex",
-                justifyContent: "center",
+                justifyContent: "center"
             }}>
                 <SwitchViewMode viewMode={viewMode} setViewMode={setViewMode} />
                 {editing && <SwitchEditMode editMode={editMode} setEditMode={setEditMode} />}
-                {props.isImplant && (<IconButton color="primary" sx={{
-                    p: 1
-                }} aria-label="directions" onClick={event => {
-                    props.setExpand(!props.expand);
-                }}>
-                    {props.expand ? <ArrowBackIosIcon /> : <ArrowForwardIosIcon />}
-                </IconButton>)}
+                {props.isImplant && (
+                    <MouseOverPopover text={props.expand ? get("window.collapse") : get("window.expand")}>
+                        <IconButton color="primary" sx={{
+                            p: 1
+                        }} onClick={event => {
+                            props.setExpand(!props.expand);
+                        }} aria-label={props.expand ? get("window.collapse") : get("window.expand")}>
+                            {props.expand ? <ArrowBackIosIcon /> : <ArrowForwardIosIcon />}
+                        </IconButton>
+                    </MouseOverPopover>
+                )}
             </ButtonGroup>
             <EditToolsListDialog
                 open={dialogOpen}

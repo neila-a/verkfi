@@ -70,7 +70,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 			<Toolbar>
 				<nav>
 					{!props.isIndex && <MouseOverPopover text={get('上一页')} sx={noDrag}>
-						<IconButton size="large" edge="start" color="inherit" aria-label="homepage" sx={{
+						<IconButton size="large" edge="start" color="inherit" aria-label={get('上一页')} sx={{
 							mr: 2
 						}} onClick={event => {
 							router.back();
@@ -87,18 +87,25 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 				</Typography>
 				<showSidebar.Consumer>
 					{value => !props.isIndex && (
-						<IconButton onClick={event => {
-							value.set(!value.show);
-						}} size="large" edge="end" color="inherit" aria-label="menu" sx={{
-							mr: 1,
-							...noDrag
-						}}>
-							{value.show === false ? <MouseOverPopover text={get("menu.打开菜单")}>
+						value.show === false ? <MouseOverPopover text={get("menu.打开菜单")}>
+							<IconButton onClick={event => {
+								value.set(!value.show);
+							}} size="large" edge="end" color="inherit" aria-label={get("menu.打开菜单")} sx={{
+								mr: 1,
+								...noDrag
+							}}>
 								<MenuIcon />
-							</MouseOverPopover> : <MouseOverPopover text={get("menu.关闭菜单")}>
+							</IconButton>
+						</MouseOverPopover> : <MouseOverPopover text={get("menu.关闭菜单")}>
+							<IconButton onClick={event => {
+								value.set(!value.show);
+							}} size="large" edge="end" color="inherit" aria-label={get("menu.关闭菜单")} sx={{
+								mr: 1,
+								...noDrag
+							}}>
 								<MenuOpen />
-							</MouseOverPopover>}
-						</IconButton>
+							</IconButton>
+						</MouseOverPopover>
 					)}
 				</showSidebar.Consumer>
 				{share && <MouseOverPopover text={get('share.t')}>
@@ -110,7 +117,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 								url: location.href
 							});
 						}
-					}} size="large" edge="end" color="inherit" aria-label="settings" sx={{
+					}} size="large" edge="end" color="inherit" aria-label={get('share.t')} sx={{
 						mr: 1
 					}}>
 						<ShareIcon />
@@ -125,7 +132,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 						color: "inherit"
 					}}>
 						<MouseOverPopover text={get('设置')}>
-							<IconButton size="large" edge="end" color="inherit" aria-label="settings" sx={{
+							<IconButton size="large" edge="end" color="inherit" aria-label={get('设置')} sx={{
 								mr: 1
 							}}>
 								<SettingsIcon />
@@ -134,44 +141,46 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 					</Link>
 				</nav>
 			</Toolbar>
-		</AppBar>
-		{forkMeOnGithub.value ? <Box sx={{
-			position: 'fixed',
-			width: 150,
-			height: 150,
-			overflow: 'hidden',
-			zIndex: "99999",
-			top: 0,
-			[props.isIndex ? "left" : "right"]: 0
-		}}>
-			<a href="https://github.com/neila-a/verkfi.git" style={{
-				transform: props.isIndex ? "rotate(-45deg)" : "rotate(45deg)",
-				[props.isIndex ? "left" : "right"]: -40,
-				display: 'inline-block',
-				width: 200,
+		</AppBar >
+		{
+			forkMeOnGithub.value ? <Box sx={{
+				position: 'fixed',
+				width: 150,
+				height: 150,
 				overflow: 'hidden',
-				padding: '6px 0px',
-				textAlign: "center",
-				textDecoration: "none",
-				color: 'rgb(255, 255, 255)',
-				position: 'inherit',
-				borderWidth: "1px 0px",
-				borderStyle: "dotted",
-				borderColor: 'rgba(255, 255, 255, 0.7)',
-				fontWeight: 700,
-				fontSize: 13,
-				fontFamily: [
-					"Helvetica Neue",
-					"Helvetica",
-					"Arial",
-					"sans-serif"
-				].join(","),
-				boxShadow: 'rgba(0, 0, 0, 0.5) 0px 2px 3px 0px',
-				backgroundColor: "rgb(170, 0, 0)",
-				backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15))',
-				top: 45
-			}}>Fork me on GitHub</a>
-		</Box > : <Fragment />}
-		<Toolbar />
+				zIndex: "99999",
+				top: 0,
+				[props.isIndex ? "left" : "right"]: 0
+			}}>
+				<a href="https://github.com/neila-a/verkfi.git" style={{
+					transform: props.isIndex ? "rotate(-45deg)" : "rotate(45deg)",
+					[props.isIndex ? "left" : "right"]: -40,
+					display: 'inline-block',
+					width: 200,
+					overflow: 'hidden',
+					padding: '6px 0px',
+					textAlign: "center",
+					textDecoration: "none",
+					color: 'rgb(255, 255, 255)',
+					position: 'inherit',
+					borderWidth: "1px 0px",
+					borderStyle: "dotted",
+					borderColor: 'rgba(255, 255, 255, 0.7)',
+					fontWeight: 700,
+					fontSize: 13,
+					fontFamily: [
+						"Helvetica Neue",
+						"Helvetica",
+						"Arial",
+						"sans-serif"
+					].join(","),
+					boxShadow: 'rgba(0, 0, 0, 0.5) 0px 2px 3px 0px',
+					backgroundColor: "rgb(170, 0, 0)",
+					backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15))',
+					top: 45
+				}}>Fork me on GitHub</a>
+			</Box > : <Fragment />
+		}
+		< Toolbar />
 	</>;
 };

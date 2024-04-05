@@ -60,6 +60,7 @@ export default function MouseOverPopover(props: {
                     horizontal: 'left',
                 }}
                 onClose={handlePopoverClose}
+                aria-label={props.text}
                 disableRestoreFocus
             >
                 <Typography sx={{

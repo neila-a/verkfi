@@ -37,6 +37,7 @@ import {
 import SingleCollocation from "./SingleCollocation";
 import calcPillars from "./calcPillars";
 import No from "../../components/No";
+import MouseOverPopover from "../../components/Popover";
 /**
  * 0：只有中间有柱子  
  * 1：一端和中间有柱子  
@@ -127,16 +128,20 @@ export default function Pillar(): JSX.Element {
                             {filterRules.map((rule, ruleIndex) => (
                                 <ListItem key={rule.toString()}>
                                     <ListItemAvatar>
-                                        <IconButton edge="start" onClick={event => setFilterRules(old => {
-                                            var realOld = old.slice(0),
-                                                oldRule = rule.slice(0) as filterRule,
-                                                oldEnabled = oldRule[3];
-                                            oldRule[3] = !oldEnabled;
-                                            realOld[ruleIndex] = oldRule;
-                                            return realOld; // 解决深复制太难了，勉强这样吧，能跑就行
-                                        })}>
-                                            {filterRules[ruleIndex][3] ? <FilterListIcon /> : <FilterListOffIcon />}
-                                        </IconButton>
+                                        <MouseOverPopover text={filterRules[ruleIndex][3] ? get("filter.disableRule") : get("filter.enableRule")}>
+                                            <IconButton edge="start" onClick={event => {
+                                                setFilterRules(old => {
+                                                    var realOld = old.slice(0),
+                                                        oldRule = rule.slice(0) as filterRule,
+                                                        oldEnabled = oldRule[3];
+                                                    oldRule[3] = !oldEnabled;
+                                                    realOld[ruleIndex] = oldRule;
+                                                    return realOld; // 解决深复制太难了，勉强这样吧，能跑就行
+                                                })
+                                            }} aria-label={filterRules[ruleIndex][3] ? get("filter.disableRule") : get("filter.enableRule")}>
+                                                {filterRules[ruleIndex][3] ? <FilterListIcon /> : <FilterListOffIcon />}
+                                            </IconButton>
+                                        </MouseOverPopover>
                                     </ListItemAvatar>
                                     <Stack direction="row" spacing={1}>
                                         {([

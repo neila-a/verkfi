@@ -30,6 +30,7 @@ import {
 import {
     get
 } from "react-intl-universal";
+import MouseOverPopover from "../Popover";
 export interface WindowOptions {
     to: string;
     name: string;
@@ -108,26 +109,36 @@ export default function Window(props: WindowOptions): JSX.Element {
                         </Box>
                         {extension ? (
                             <>
-                                <IconButton aria-label="collapse" edge="end" onClick={event => setExtension(false)}>
-                                    <ArrowForwardIosIcon />
-                                </IconButton>
-                                <IconButton aria-label="change size" edge="end" onClick={event => type === "min" ? setType("normal") : setType("min")}>
-                                    {type === "min" ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />}
-                                </IconButton>
-                                <IconButton aria-label="maxmize" edge="end" onClick={event => {
-                                    router.push(props.to);
-                                    setOpen(false);
-                                }}>
-                                    <CropDinIcon />
-                                </IconButton>
-                                <IconButton aria-label="close" edge="end" onClick={event => setOpen(false)}>
-                                    <CloseIcon />
-                                </IconButton>
+                                <MouseOverPopover text={get("window.collapse")}>
+                                    <IconButton aria-label={get("window.collapse")} edge="end" onClick={event => setExtension(false)}>
+                                        <ArrowForwardIosIcon />
+                                    </IconButton>
+                                </MouseOverPopover>
+                                <MouseOverPopover text={get("window.changeSize")}>
+                                    <IconButton aria-label={get("window.changeSize")} edge="end" onClick={event => type === "min" ? setType("normal") : setType("min")}>
+                                        {type === "min" ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />}
+                                    </IconButton>
+                                </MouseOverPopover>
+                                <MouseOverPopover text={get("window.maxmize")}>
+                                    <IconButton aria-label={get("window.maxmize")} edge="end" onClick={event => {
+                                        router.push(props.to);
+                                        setOpen(false);
+                                    }}>
+                                        <CropDinIcon />
+                                    </IconButton>
+                                </MouseOverPopover>
+                                <MouseOverPopover text={get("close")}>
+                                    <IconButton aria-label={get("close")} edge="end" onClick={event => setOpen(false)}>
+                                        <CloseIcon />
+                                    </IconButton>
+                                </MouseOverPopover>
                             </>
                         ) : (
-                            <IconButton aria-label="extend" edge="end" onClick={event => setExtension(true)}>
-                                <ArrowBackIosIcon />
-                            </IconButton>
+                            <MouseOverPopover text={get("expand")}>
+                                <IconButton aria-label={get("expand")} edge="end" onClick={event => setExtension(true)}>
+                                    <ArrowBackIosIcon />
+                                </IconButton>
+                            </MouseOverPopover>
                         )}
                     </Box>
                     <Divider />

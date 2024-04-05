@@ -8,6 +8,10 @@ import {
 import {
     Close as CloseIcon
 } from "@mui/icons-material";
+import {
+    get
+} from "react-intl-universal";
+import MouseOverPopover from "../Popover";
 export default function BootstrapDialogTitle(props: {
     children: ReactNode;
     onClose: () => void;
@@ -23,18 +27,20 @@ export default function BootstrapDialogTitle(props: {
         }}>
             {children}
             {onClose ? (
-                <IconButton
-                    aria-label="close"
-                    onClick={onClose}
-                    sx={{
-                        position: 'absolute',
-                        right: 8,
-                        top: 8,
-                        color: theme => theme.palette.grey[500],
-                    }}
-                >
-                    <CloseIcon />
-                </IconButton>
+                <MouseOverPopover text={get("close")}>
+                    <IconButton
+                        aria-label={get("close")}
+                        onClick={onClose}
+                        sx={{
+                            position: 'absolute',
+                            right: 8,
+                            top: 8,
+                            color: theme => theme.palette.grey[500],
+                        }}
+                    >
+                        <CloseIcon />
+                    </IconButton>
+                </MouseOverPopover>
             ) : null}
         </DialogTitle>
     );

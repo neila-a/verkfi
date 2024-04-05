@@ -100,7 +100,7 @@ export default function Sidebar(props: {
                 <MouseOverPopover text={get('搜索')}>
                     <IconButton type="button" sx={{
                         p: '10px 5px'
-                    }} aria-label="search" onClick={() => {
+                    }} aria-label={get('搜索')} onClick={() => {
                         searchTools(searchText);
                     }}>
                         <SearchIcon />

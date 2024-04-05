@@ -13,6 +13,8 @@ import {
     setState
 } from '../declare';
 import useButtonCommonSorting from './buttonCommonSorting';
+import MouseOverPopover from "../components/Popover";
+import { get } from "react-intl-universal";
 export default function DownButton(props: {
     editMode: boolean;
     setTools: setState<tool[]>;
@@ -22,19 +24,21 @@ export default function DownButton(props: {
     const buttonCommonSorting = useButtonCommonSorting();
     if (props.editMode && props.sortingFor !== "__home__") {
         return (
-            <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{
-                mr: 2
-            }} onClick={event => {
-                event.stopPropagation();
-                props.setTools(draft => {
-                    var pd = draft.slice(0);
-                    downGo(pd, pd.indexOf(props.tool));
-                    buttonCommonSorting(props.sortingFor, pd);
-                    return pd;
-                });
-            }}>
-                <ArrowDownwardIcon />
-            </IconButton>
+            <MouseOverPopover text={get("index.movedown")}>
+                <IconButton size="large" edge="start" color="inherit" aria-label={get("index.movedown")} sx={{
+                    mr: 2
+                }} onClick={event => {
+                    event.stopPropagation();
+                    props.setTools(draft => {
+                        var pd = draft.slice(0);
+                        downGo(pd, pd.indexOf(props.tool));
+                        buttonCommonSorting(props.sortingFor, pd);
+                        return pd;
+                    });
+                }}>
+                    <ArrowDownwardIcon />
+                </IconButton>
+            </MouseOverPopover>
         );
     } else {
         return <></>;

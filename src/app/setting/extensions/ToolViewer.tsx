@@ -102,7 +102,7 @@ export default function ToolViewer(props: {
                                 files: thisFiles, ...metadata
                             } = single;
                             clearExtensionData(metadata, thisFiles, recentlyUsed, mostUsed);
-                        }}>
+                        }} aria-label={get("extensions.clear")}>
                             <RestartAltIcon />
                         </IconButton>
                     </MouseOverPopover>
@@ -113,7 +113,7 @@ export default function ToolViewer(props: {
                                 ...single
                             });
                             props.setModifyDialogOpen(true);
-                        }}>
+                        }} aria-label={get("extensions.删除扩展")}>
                             <EditIcon />
                         </IconButton>
                     </MouseOverPopover>

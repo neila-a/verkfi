@@ -29,6 +29,7 @@ import {
     useRouter
 } from "next/navigation";
 import VerkfiIcon from "../components/verkfiIcon/verkfiIcon";
+import MouseOverPopover from "../components/Popover";
 export default function First() {
     const first = useContext(firstContext),
         [step, setStep] = useState<number>(0),
@@ -72,7 +73,6 @@ export default function First() {
                 alignItems: "center"
             }} id="context-container" onClick={event => {
                 const leftInstance = event.screenX,
-                    rightInstance = event.screenY,
                     elementWidth = Number(window.getComputedStyle(document.getElementById("context-container")).width.replace("px", ""));
                 if (leftInstance < (elementWidth / 2)) {
                     setStep(old => Math.max(0, old - 1));
@@ -103,26 +103,30 @@ export default function First() {
                 display: "flex",
                 justifyContent: "space-between"
             }}>
-                <IconButton size="large" edge="start" color="inherit" aria-label="back" sx={{
-                    ml: 2
-                }} disabled={step === 0} onClick={event => {
-                    setStep(old => old - 1);
-                }}>
-                    <ArrowBack />
-                </IconButton>
+                <MouseOverPopover text={get("first.up")}>
+                    <IconButton size="large" edge="start" color="inherit" aria-label={get("first.up")} sx={{
+                        ml: 2
+                    }} disabled={step === 0} onClick={event => {
+                        setStep(old => old - 1);
+                    }}>
+                        <ArrowBack />
+                    </IconButton>
+                </MouseOverPopover>
                 <Button variant="contained" onClick={event => {
                     first.set(false);
                     router.push("/");
                 }}>
                     {get("first.现在开始")}
                 </Button>
-                <IconButton size="large" edge="end" color="inherit" aria-label="forward" sx={{
-                    mr: 2
-                }} disabled={step + 1 === infos.length} onClick={event => {
-                    setStep(old => old + 1);
-                }}>
-                    <ArrowForward />
-                </IconButton>
+                <MouseOverPopover text={get("first.down")}>
+                    <IconButton size="large" edge="end" color="inherit" aria-label={get("first.down")} sx={{
+                        mr: 2
+                    }} disabled={step + 1 === infos.length} onClick={event => {
+                        setStep(old => old + 1);
+                    }}>
+                        <ArrowForward />
+                    </IconButton>
+                </MouseOverPopover>
             </Box>
         </>
     );

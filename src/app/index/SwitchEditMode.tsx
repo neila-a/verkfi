@@ -17,13 +17,15 @@ export default function SwitchEditMode(props: {
     const {
         editMode, setEditMode
     } = props;
-    return <MouseOverPopover text={editMode ? "关闭编辑模式" : "切换编辑模式"}>
-        <IconButton color="primary" sx={{
-            p: 1
-        }} aria-label={editMode ? "关闭编辑模式" : "切换编辑模式"} onClick={event => {
-            setEditMode(old => !old);
-        }}>
-            {editMode ? <EditOffIcon /> : <EditIcon />}
-        </IconButton>
-    </MouseOverPopover>;
+    return (
+        <MouseOverPopover text={editMode ? "关闭编辑模式" : "切换编辑模式"}>
+            <IconButton color="primary" sx={{
+                p: 1
+            }} aria-label={editMode ? "关闭编辑模式" : "切换编辑模式"} onClick={event => {
+                setEditMode(old => !old);
+            }}>
+                {editMode ? <EditOffIcon /> : <EditIcon />}
+            </IconButton>
+        </MouseOverPopover>
+    );
 }

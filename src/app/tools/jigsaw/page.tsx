@@ -45,6 +45,7 @@ import {
 } from "d3-array";
 import canvasToBlob from "./canvasToBlob";
 import No from "../../components/No";
+import MouseOverPopover from "../../components/Popover";
 type block = Blob & {
     rotation: number;
 };
@@ -213,30 +214,36 @@ export default function JigsawEntry(): JSX.Element {
                             {get("jigsaw.split.height")}: {jigsaw.rightBlocks.length}
                             <br />
                             {get("jigsaw.split.width")}: {jigsaw.rightBlocks[0].length}
-                        </>} actionIcon={<Box sx={{
-                            ["& button"]: {
-                                color: theme => `${theme.palette.primary.main} !important`
-                            }
-                        }}>
-                            <IconButton onClick={async event => {
-                                jigsaws.forEach(async (singleOld, index) => {
-                                    if (await blobToInt8Array(singleOld.all) === await blobToInt8Array(jigsaw.all)) {
-                                        setJigsaws(jigsaws.toSpliced(index, 1));
-                                    }
-                                });
+                        </>} actionIcon={(
+                            <Box sx={{
+                                ["& button"]: {
+                                    color: theme => `${theme.palette.primary.main} !important`
+                                }
                             }}>
-                                <Delete />
-                            </IconButton>
-                            <IconButton onClick={event => {
-                                setWidth(jigsaw.rightBlocks[0].length);
-                                setHeight(jigsaw.rightBlocks.length);
-                                setImageFile(jigsaw.all);
-                                setImageFileName(jigsaw.fileName);
-                                setDialogOpen(true);
-                            }}>
-                                <PlayArrow />
-                            </IconButton>
-                        </Box>} />
+                                <MouseOverPopover text={get("jigsaw.delete")}>
+                                    <IconButton onClick={async event => {
+                                        jigsaws.forEach(async (singleOld, index) => {
+                                            if (await blobToInt8Array(singleOld.all) === await blobToInt8Array(jigsaw.all)) {
+                                                setJigsaws(jigsaws.toSpliced(index, 1));
+                                            }
+                                        });
+                                    }} aria-label={get("jigsaw.delete")}>
+                                        <Delete />
+                                    </IconButton>
+                                </MouseOverPopover>
+                                <MouseOverPopover text={get("jigsaw.start")}>
+                                    <IconButton onClick={event => {
+                                        setWidth(jigsaw.rightBlocks[0].length);
+                                        setHeight(jigsaw.rightBlocks.length);
+                                        setImageFile(jigsaw.all);
+                                        setImageFileName(jigsaw.fileName);
+                                        setDialogOpen(true);
+                                    }} aria-label={get("jigsaw.start")}>
+                                        <PlayArrow />
+                                    </IconButton>
+                                </MouseOverPopover>
+                            </Box>
+                        )} />
                     </ImageListItem>
                 ))}
             </Box>
@@ -254,18 +261,22 @@ export default function JigsawEntry(): JSX.Element {
                         }} variant="h6" component="div">
                             {imageFileName}
                         </Typography>
-                        <IconButton sx={{
-                            mr: 1
-                        }} edge="end" color="inherit" onClick={async event => {
-                            setResetDialogOpen(true);
-                        }} aria-label="reset">
-                            <Replay />
-                        </IconButton>
-                        <IconButton edge="end" color="inherit" onClick={event => {
-                            setDialogOpen(false);
-                        }} aria-label="close">
-                            <Close />
-                        </IconButton>
+                        <MouseOverPopover text={get("jigsaw.reset")}>
+                            <IconButton sx={{
+                                mr: 1
+                            }} edge="end" color="inherit" onClick={async event => {
+                                setResetDialogOpen(true);
+                            }} aria-label={get("jigsaw.reset")}>
+                                <Replay />
+                            </IconButton>
+                        </MouseOverPopover>
+                        <MouseOverPopover text={get("close")}>
+                            <IconButton edge="end" color="inherit" onClick={event => {
+                                setDialogOpen(false);
+                            }} aria-label={get("close")}>
+                                <Close />
+                            </IconButton>
+                        </MouseOverPopover>
                     </Toolbar>
                 </AppBar>
                 <DialogContent sx={{

@@ -81,6 +81,8 @@
 	"主页": "主页",
 	"主题": "主题",
 	"入口": "入口",
+	"back": "返回",
+	"close": "关闭",
 	"drag": {
 		"拖拽音频到这里": "拖拽音频到这里、粘贴或<span class=\"filepond--label-action\">浏览</span>",
 		"拖拽图片到这里": "拖拽图片到这里、粘贴或<span class=\"filepond--label-action\">浏览</span>",
@@ -238,11 +240,17 @@
 			"end": {
 				"context": "在不同设备和平台上使用工具"
 			}
-		}
+		},
+		"up": "上一页",
+		"down": "下一页"
 	},
 	"index": {
 		"trythese": "试试这些",
-		"notfound": "未找到任何工具"
+		"generateTry": "生成推荐工具",
+		"notfound": "未找到任何工具",
+		"movedown": "移动到下一个",
+		"moveup": "移动到上一个",
+		"editCategory": "编辑此分类"
 	},
 	"filter": {
 		"没有任何已生成的图片": "没有任何已生成的图片",
@@ -254,7 +262,10 @@
 			"=": "等于",
 			">": "大于"
 		},
-		"noRule": "未添加任何筛选规则"
+		"noRule": "未添加任何筛选规则",
+		"save": "保存这张图片",
+		"disableRule": "禁用此筛选规则",
+		"enableRule": "启用此筛选规则"
 	},
 	"pillar": {
 		"name": "柱子",
@@ -335,6 +346,13 @@
 		"reset": "重新开始",
 		"resetDescription": "重新开始拼图。",
 		"allDone": "已完成此拼图。",
-		"noRecent": "你以前没有拼过拼图。"
+		"noRecent": "你以前没有拼过拼图。",
+		"delete": "删除这个拼图"
+	},
+	"window": {
+		"collapse": "收起",
+		"changeSize": "更改窗口大小",
+		"maxmize": "最大化",
+		"expand": "展开"
 	}
 }
