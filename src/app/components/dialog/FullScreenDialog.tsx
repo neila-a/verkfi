@@ -6,14 +6,15 @@ import {
     IconButton
 } from "@mui/material";
 import {
-    ReactNode,
-    useState
+    ReactNode
 } from "react";
 import {
     Close as CloseIcon
 } from "@mui/icons-material"
 import Transition from "./Transition";
-import { get } from "react-intl-universal";
+import {
+    get
+} from "react-intl-universal";
 import MouseOverPopover from "../Popover";
 export default function FullScreenDialog(props: {
     title: string;

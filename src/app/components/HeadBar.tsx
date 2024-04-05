@@ -1,6 +1,7 @@
 import {
 	get
 } from 'react-intl-universal';
+import pack from "../../../package.json";
 import {
 	AppBar,
 	Toolbar,
@@ -27,7 +28,6 @@ import MouseOverPopover from "./Popover";
 import {
 	Theme
 } from "@emotion/react";
-import stringToBoolean from "../setting/stringToBoolean";
 import {
 	SxProps
 } from '@mui/material/styles';
@@ -53,6 +53,7 @@ export interface HeadBarOption {
 export default function HeadBar(props: HeadBarOption): JSX.Element {
 	const forkMeOnGithub = useContext(forkMeOnGitHubContext),
 		router = useRouter(),
+		upper = pack.name.charAt(0).toUpperCase() + pack.name.slice(1),
 		share = useContext(shareContext).value,
 		noDrag: CSSProperties = {
 			// @ts-ignore React的CSSProperties中明明有WebkitAppRegion，但是类型中没有
@@ -108,12 +109,15 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 						</MouseOverPopover>
 					)}
 				</showSidebar.Consumer>
+				<title>
+					{props.isIndex ? upper : `${props.pageName} | ${upper}`}
+				</title>
 				{share && <MouseOverPopover text={get('share.t')}>
 					<IconButton onClick={async event => {
 						if ("share" in navigator) {
 							await navigator.share({
-								title: props.isIndex ? "Verkfi" : props.pageName,
-								text: props.isIndex ? "Verkfi" : `${props.pageName} | Verkfi`,
+								title: props.isIndex ? upper : props.pageName,
+								text: document.title,
 								url: location.href
 							});
 						}

@@ -41,7 +41,8 @@ export async function generateMetadata() {
                 "zh_TW",
                 "en_US"
             ]
-        }
+        },
+        authors: pack.author
     }) as Metadata;
 }
 import {

@@ -16,7 +16,9 @@ import {
     ImageType
 } from "./consts";
 import MouseOverPopover from "../../components/Popover";
-import { get } from "react-intl-universal";
+import {
+    get
+} from "react-intl-universal";
 export default function SingleImage(props: {
     type: ImageType;
     imageURL: string;

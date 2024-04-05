@@ -14,7 +14,9 @@ import {
 } from '../declare';
 import useButtonCommonSorting from './buttonCommonSorting';
 import MouseOverPopover from "../components/Popover";
-import { get } from "react-intl-universal";
+import {
+    get
+} from "react-intl-universal";
 export default function UpButton(props: {
     editMode: boolean;
     setTools: setState<tool[]>;
