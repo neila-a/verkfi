@@ -29,6 +29,7 @@ import calcMath from "./calcMath";
 import {
     SyncProblem as SyncProblemIcon
 } from '@mui/icons-material';
+import No from '../../components/No';
 function MathGen(): JSX.Element {
     const [min, setMin] = useState<number>(0),
         [max, setMax] = useState<number>(10),
@@ -105,17 +106,9 @@ function MathGen(): JSX.Element {
                     </Button>
                 </ButtonGroup>
             </FormGroup>
-            {maths.toString() === "" ? <Box sx={{
-                color: theme => theme.palette.text.disabled,
-                textAlign: "center"
-            }}>
-                <SyncProblemIcon sx={{
-                    fontSize: "500%"
-                }} />
-                <Typography>
-                    {get("mathgen.没有任何已生成的算式")}
-                </Typography>
-            </Box> : <List>{maths.map(math => <SingleMath math={math} showOut={showOut} key={math} />)}</List>}
+            {maths.toString() === "" ? <No>
+                {get("mathgen.没有任何已生成的算式")}
+            </No> : <List>{maths.map(math => <SingleMath math={math} showOut={showOut} key={math} />)}</List>}
         </>
     );
 }

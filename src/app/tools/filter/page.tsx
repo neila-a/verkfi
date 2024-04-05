@@ -33,6 +33,7 @@ import {
     FilePondServerConfigProps
 } from 'filepond';
 import SingleImage from './singleImage';
+import No from '../../components/No';
 export default function Filter(): JSX.Element {
     const [imageArray, setImageArray] = useState<FilePondFile[]>([]),
         [imageFileName, setImageFileName] = useState<string>("libear-only"),
@@ -115,17 +116,9 @@ export default function Filter(): JSX.Element {
                     </Grid>
                 </Grid>
             </Box>
-            {imageTypes.length === 0 ? <Box sx={{
-                color: theme => theme.palette.text.disabled,
-                textAlign: "center"
-            }}>
-                <SyncProblemIcon sx={{
-                    fontSize: "500%"
-                }} />
-                <Typography>
-                    {get("filter.没有任何已生成的图片")}
-                </Typography>
-            </Box> : <ImageList>
+            {imageTypes.length === 0 ? <No>
+                {get("filter.没有任何已生成的图片")}
+            </No> : <ImageList>
                 {imageTypes.map(type => <SingleImage scale={scale} imageURL={imageURL} imageFileName={imageFileName} type={type} key={type} />)}
             </ImageList>}
         </>

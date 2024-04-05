@@ -58,7 +58,7 @@ function AudioTools(): JSX.Element {
                 <Module>
                     <Typography variant="h4" gutterBottom>{get('音频循环播放')}</Typography>
                     <audio controls loop src={loopAudioSrc}>
-                        {get('您的浏览器不支持 audio 元素。')}
+                        {get('你的浏览器不支持 audio 元素。')}
                     </audio>
                     <FilePond
                         files={[]}
@@ -81,7 +81,7 @@ function AudioTools(): JSX.Element {
                         return controlAudio("inactive");
                     }} disabled={status == "inactive"}>{get('停止')}</Button>
                     <audio controls loop src={loopSpeakAudioSrc}>
-                        {get('您的浏览器不支持 audio 元素。')}
+                        {get('你的浏览器不支持 audio 元素。')}
                     </audio>
                 </Module>
             </Grid>

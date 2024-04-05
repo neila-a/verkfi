@@ -24,10 +24,13 @@ import {
 } from "@hello-pangea/dnd";
 import reorder from '../components/reorder';
 import useButtonCommonSorting from './buttonCommonSorting';
-import ToolsNotFound from './ToolsNotFound';
 import {
     TransitionGroup
 } from 'react-transition-group';
+import No from '../components/No';
+import {
+    get
+} from 'react-intl-universal';
 export default function ToolsStack(props: {
     paramTool: tool[];
     viewMode: viewMode;
@@ -137,7 +140,9 @@ export default function ToolsStack(props: {
                 width: viewMode === "list" && "100%"
             }
         }}> {/* 工具总览 */}
-            {props.paramTool.length === 0 ? <ToolsNotFound /> : ((viewMode === "list" && props.editMode) ? <ListContainer /> : <GridContainer />)}
+            {props.paramTool.length === 0 ? <No>
+                {get("index.notfound")}
+            </No> : ((viewMode === "list" && props.editMode) ? <ListContainer /> : <GridContainer />)}
         </Stack>
     );
 }

@@ -46,6 +46,7 @@ import {
 import RemoveExtensionDialog from "./RemoveExtensionDialog";
 import DialogButtons from "./DialogButtons";
 import ToolViewer from "./ToolViewer";
+import No from "../../components/No";
 export type inputTypes = "modify" | "add";
 export default function ExtensionManager() {
     const [addDialogOpen, setAddDialogOpen] = useState<boolean>(false),
@@ -80,17 +81,9 @@ export default function ExtensionManager() {
                 {get('extensions.扩展')}
             </Typography>
             <Stack spacing={2} mb={2}>
-                {extensionTools?.length === 0 ? <Box sx={{
-                    color: theme => theme.palette.text.disabled,
-                    textAlign: "center"
-                }}>
-                    <SyncProblemIcon sx={{
-                        fontSize: "500%"
-                    }} />
-                    <Typography>
-                        {get("extensions.未找到任何扩展")}
-                    </Typography>
-                </Box> : extensionTools?.map(single => (
+                {extensionTools?.length === 0 ? <No>
+                    {get("extensions.未找到任何扩展")}
+                </No> : extensionTools?.map(single => (
                     <ToolViewer
                         key={single.to}
                         single={single}

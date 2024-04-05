@@ -43,6 +43,8 @@ import useStoragedState from "../../components/useStoragedState";
 import {
     shuffle
 } from "d3-array";
+import canvasToBlob from "./canvasToBlob";
+import No from "../../components/No";
 type block = Blob & {
     rotation: number;
 };
@@ -57,11 +59,6 @@ interface jigsaw {
      */
     all: Blob;
     fileName: string;
-}
-function canvasToBlob(canvas: HTMLCanvasElement): Promise<Blob> {
-    return new Promise((resolve, reject) => {
-        canvas.toBlob(value => resolve(value));
-    });
 }
 const blobToInt8Array = async (blob: Blob) => new Int8Array(await blob.arrayBuffer()).join("");
 export default function JigsawEntry(): JSX.Element {
@@ -203,7 +200,9 @@ export default function JigsawEntry(): JSX.Element {
                         {get("jigsaw.recent")}
                     </Typography>
                 </ImageListItem>
-                {jigsaws.map(jigsaw => (
+                {jigsaws.length === 0 ? <No>
+                    {get("jigsaw.noRecent")}
+                </No> : jigsaws.map(jigsaw => (
                     <ImageListItem key={`${jigsaw.all.size}@${jigsaw.fileName}`}>
                         <img
                             src={URL.createObjectURL(jigsaw.all)}

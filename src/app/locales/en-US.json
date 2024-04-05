@@ -36,7 +36,7 @@
 	"关于": "About",
 	"重置": "Reset",
 	"音频循环播放": "Audio loop",
-	"您的浏览器不支持 audio 元素。": "Your browser does not support audio element.",
+	"你的浏览器不支持 audio 元素。": "Your browser does not support audio element.",
 	"音频录制并循环": "Audio recording and loop",
 	"开始": "Start",
 	"停止": "Stop",

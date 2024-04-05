@@ -35,8 +35,9 @@ import {
 export type lists = [string, string[]][];
 import SingleSelect from './SingleSelect';
 import Selects from './Selects';
-import useStoragedState from '../components/useStoragedState';
-import { lists } from '../layout/layoutClient';
+import {
+    lists
+} from '../layout/layoutClient';
 export default function Sidebar(props: {
     /**
      * 是否为嵌入

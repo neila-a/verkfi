@@ -53,7 +53,9 @@ import {
 import destroyer from '../components/destroyer';
 import MouseOverPopover from '../components/Popover';
 import useStoragedState from '../components/useStoragedState';
-import { NXTMetadata } from '../setting/extensions/page';
+import {
+    NXTMetadata
+} from '../setting/extensions/page';
 export default function SingleTool(props: {
     tool: tool;
     isFirst: boolean;
