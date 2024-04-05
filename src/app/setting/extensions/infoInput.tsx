@@ -19,5 +19,5 @@ const InfoInput = (props: {
     const bufferInfo: NXTMetadata = JSON.parse(JSON.stringify(old));
     bufferInfo[props.id] = event.target.value;
     return bufferInfo;
-})} />
+})} />;
 export default InfoInput;

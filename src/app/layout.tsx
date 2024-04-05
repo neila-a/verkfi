@@ -87,6 +87,9 @@ export default async function Layout({
                         },
                         ["& ::-webkit-scrollbar"]: {
                             display: "none"
+                        },
+                        [".filepond--root .filepond--credits"]: {
+                            display: "none"
                         }
                     }} />
                     <noscript>

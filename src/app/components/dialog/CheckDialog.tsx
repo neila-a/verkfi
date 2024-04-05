@@ -7,7 +7,9 @@ import {
     DialogContent,
     DialogContentText,
     DialogActions,
-    Button
+    Button,
+    SxProps,
+    Theme
 } from "@mui/material";
 import Transition from "./Transition";
 import {
@@ -19,10 +21,11 @@ export default function CheckDialog(props: {
     onTrue(): any;
     insert?: ReactNode;
     description: string;
-    open: boolean
+    open: boolean;
+    sx?: SxProps<Theme>;
 }) {
     return (
-        <Dialog open={props.open} TransitionComponent={Transition} aria-describedby="description">
+        <Dialog sx={props.sx} open={props.open} TransitionComponent={Transition} aria-describedby="description">
             <DialogTitle>{props.title}</DialogTitle>
             <DialogContent>
                 <DialogContentText id="description">

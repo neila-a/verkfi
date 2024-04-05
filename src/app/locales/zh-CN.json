@@ -323,5 +323,17 @@
 		"jump": "确定离开Verkfi并跳转至",
 		"deleteFromCategory": "从此分类中删除此工具",
 		"deleteExtension": "删除此扩展工具"
+	},
+	"jigsaw": {
+		"split": {
+			"height": "竖方向分割的块数",
+			"width": "横方向分割的块数"
+		},
+		"new": "创建新的拼图",
+		"start": "开始拼拼图",
+		"recent": "最近拼的拼图",
+		"reset": "重新开始",
+		"resetDescription": "重新开始拼图。",
+		"allDone": "已完成此拼图。"
 	}
 }
