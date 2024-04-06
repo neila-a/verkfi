@@ -38,7 +38,7 @@ import {
 import {
     OverridableComponent
 } from '@mui/material/OverridableComponent';
-import useStoragedState from 'components/useStoragedState';
+import useStoragedState from 'useStoragedState';
 import defaultInternalPalette from './defaultInternalPalette';
 import defaultPalette from './defaultPalette';
 function ColorTool() {

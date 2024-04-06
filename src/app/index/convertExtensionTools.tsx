@@ -7,7 +7,7 @@ import {
 } from "tools/info";
 import {
     single
-} from 'components/db';
+} from 'db';
 const convertExtensionTools: (extensionTools: single[]) => tool[] = extensionTools => extensionTools?.map(single => ({
     name: single.name,
     to: `/tools/extension?tool=${single.to}` as Lowercase<string>,

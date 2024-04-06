@@ -28,7 +28,7 @@ import {
 } from "dexie-react-hooks";
 import db, {
     single
-} from "components/db";
+} from "db";
 import DialogInputs from "./DialogInputs";
 import {
     settingPage
@@ -42,7 +42,7 @@ import {
 import RemoveExtensionDialog from "./RemoveExtensionDialog";
 import DialogButtons from "./DialogButtons";
 import ToolViewer from "./ToolViewer";
-import No from "components/No";
+import No from "No";
 export type inputTypes = "modify" | "add";
 export default function ExtensionManager() {
     const [addDialogOpen, setAddDialogOpen] = useState<boolean>(false),

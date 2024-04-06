@@ -9,7 +9,7 @@ import {
 import {
     get
 } from "react-intl-universal";
-import db from "components/db";
+import db from "db";
 import {
     lists as listsContext
 } from "layout/layoutClient";

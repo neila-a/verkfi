@@ -3,7 +3,7 @@ import {
     devVersion,
     dev
 } from "../../package.json";
-import db from "./components/db";
+import db from "db";
 import pages from "./pages.json";
 /* const toolsTo = [
     "audiotools",

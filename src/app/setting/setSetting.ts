@@ -1,4 +1,4 @@
-import db from "components/db";
+import db from "db";
 import logger from "./logger";
 export default function setSetting<T = any>(id: string, name: string, value: T) {
     db.options.put({

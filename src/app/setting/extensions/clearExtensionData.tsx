@@ -1,5 +1,5 @@
 "use client";
-import db from "components/db";
+import db from "db";
 import {
     mostUsedMarks
 } from "layout/layoutClient";

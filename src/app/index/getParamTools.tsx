@@ -1,7 +1,7 @@
 "use client";
 import {
     single
-} from "components/db";
+} from "db";
 import {
     mostUsedMarks
 } from "layout/layoutClient";

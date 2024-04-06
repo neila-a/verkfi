@@ -27,7 +27,7 @@ import useButtonCommonSorting from './buttonCommonSorting';
 import {
     TransitionGroup
 } from 'react-transition-group';
-import No from 'components/No';
+import No from 'No';
 import {
     get
 } from 'react-intl-universal';

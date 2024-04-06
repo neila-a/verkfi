@@ -26,7 +26,10 @@
         ],
         "baseUrl": "src/app",
         "paths": {
-            "dialog/*": ["components/dialog/*Dialog"]
+            "dialog/*": ["components/dialog/*Dialog"],
+            "No": ["components/No"],
+            "useStoragedState": ["components/useStoragedState"],
+            "db": ["components/db"]
         }
     },
     "include": [

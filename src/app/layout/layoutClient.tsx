@@ -36,7 +36,7 @@ import {
 import {
     WindowOptions
 } from "components/window/Window";
-import useStoragedState from "components/useStoragedState";
+import useStoragedState from "useStoragedState";
 import {
     Box,
     CssBaseline,

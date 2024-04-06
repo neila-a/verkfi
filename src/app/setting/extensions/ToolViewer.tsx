@@ -23,7 +23,7 @@ import dynamic from "next/dynamic";
 const PureDialog = dynamic(() => import("dialog/Pure"));
 import {
     single
-} from "components/db";
+} from "db";
 import DialogInputs from "./DialogInputs";
 import {
     mostUsed as mostUsedContext,

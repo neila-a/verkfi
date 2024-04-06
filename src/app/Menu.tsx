@@ -36,7 +36,7 @@ import {
 import {
     viewMode
 } from "index/consts";
-import useStoragedState from "components/useStoragedState";
+import useStoragedState from "useStoragedState";
 import SwitchViewMode from "index/SwitchViewMode";
 import SwitchEditMode from "index/SwitchEditMode";
 import useToolsList from "index/getToolsList";
@@ -52,7 +52,7 @@ import {
 } from "next/navigation";
 import getParamTools from "index/getParamTools";
 import VerkfiIcon from "components/verkfiIcon/verkfiIcon";
-import db from "components/db";
+import db from "db";
 import {
     useLiveQuery
 } from "dexie-react-hooks";

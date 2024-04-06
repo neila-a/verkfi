@@ -23,7 +23,7 @@ import {
     defaultCalcs
 } from "./consts";
 import calcMath from "./calcMath";
-import No from 'components/No';
+import No from 'No';
 import removeArrayItem from "remove-item-from-array";
 function MathGen(): JSX.Element {
     const [min, setMin] = useState<number>(0),

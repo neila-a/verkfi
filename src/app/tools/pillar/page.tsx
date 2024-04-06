@@ -36,7 +36,7 @@ import {
 } from "react-intl-universal";
 import SingleCollocation from "./SingleCollocation";
 import calcPillars from "./calcPillars";
-import No from "components/No";
+import No from "No";
 import MouseOverPopover from "components/Popover";
 /**
  * 0：只有中间有柱子  

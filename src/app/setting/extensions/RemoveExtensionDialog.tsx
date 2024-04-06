@@ -10,7 +10,7 @@ import {
 import {
     get
 } from "react-intl-universal";
-import db from "components/db";
+import db from "db";
 import CheckDialog from "dialog/Check";
 import {
     lists as listsContext,

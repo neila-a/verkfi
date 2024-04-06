@@ -38,7 +38,7 @@ import {
     viewMode,
     homeWhere
 } from 'index/consts';
-import useStoragedState from 'components/useStoragedState';
+import useStoragedState from 'useStoragedState';
 import {
     setState
 } from 'declare';
@@ -55,7 +55,7 @@ import VerkfiIcon from 'components/verkfiIcon/verkfiIcon';
 import generateTries from 'index/generateTries';
 import db, {
     single
-} from 'components/db';
+} from 'db';
 import {
     useLiveQuery
 } from 'dexie-react-hooks';

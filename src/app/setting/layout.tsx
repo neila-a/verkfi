@@ -55,7 +55,7 @@ import {
 } from 'dexie-react-hooks';
 import db, {
 	single
-} from 'components/db';
+} from 'db';
 export default function Settings(props: {
 	children: ReactNode
 }): JSX.Element {

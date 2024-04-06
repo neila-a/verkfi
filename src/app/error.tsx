@@ -14,7 +14,7 @@ import {
 import {
     logger
 } from "layout/layoutClient"; // 都是全局日志
-import db from "components/db";
+import db from "db";
 export default function Error(props: {
     error: Error & {
         digest?: string;

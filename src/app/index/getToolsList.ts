@@ -2,7 +2,7 @@
 import {
     tool
 } from "tools/info";
-import db from "components/db";
+import db from "db";
 import convertExtensionTools from "./convertExtensionTools";
 import {
     useLiveQuery
