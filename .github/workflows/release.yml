@@ -19,3 +19,5 @@ jobs:
           generate_release_notes: true
           draft: true
           prerelease: false
+          name: ${{ github.ref_name }} \"\"
+          body_path: ${{ github.workspace }}/.github/release_template.md
