@@ -1,7 +1,7 @@
 {
     "name": "verkfi",
     "version": "1.7.0",
-    "devVersion": "842",
+    "devVersion": "843",
     "dev": true,
     "description": "Platform for Neila's something useless tools.",
     "private": true,
@@ -20,7 +20,7 @@
     },
     "scripts": {
         "predev": "npm run build:pb && VERKFI_ENV=dev node prebuild.js",
-        "dev": "npm run predev && next dev",
+        "dev": "npm run predev && VERKFI_URL=localhost:3000 next dev",
         "prebuild": "npm run build:pb && node prebuild.js",
         "build": "npm run prebuild && next build",
         "build:pb": "esbuild prebuild.ts --bundle --minify --external:esbuild --platform=node --outfile=prebuild.js",

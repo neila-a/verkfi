@@ -9,6 +9,7 @@ export async function generateMetadata() {
         upperName = repoInfo.name.charAt(0).toUpperCase() + repoInfo.name.slice(1);
     return ({
         manifest: "/index.webmanifest",
+        metadataBase: new URL(process.env.VERKFI_URL),
         description: repoInfo.description,
         applicationName: upperName,
         other: {
@@ -84,7 +85,7 @@ export default async function Layout({
                 <AppRouterCacheProvider>
                     <GlobalStyles styles={{
                         ["& *"]: {
-                            "font-family": Ubuntu.style.fontFamily
+                            fontFamily: Ubuntu.style.fontFamily
                         },
                         ["& ::-webkit-scrollbar"]: {
                             display: "none"
