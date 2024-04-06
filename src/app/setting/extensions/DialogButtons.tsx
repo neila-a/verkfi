@@ -9,13 +9,13 @@ import {
 import {
     get
 } from "react-intl-universal";
-import db from "../../components/db";
+import db from "components/db";
 import {
     lists as listsContext
-} from "../../layout/layoutClient";
+} from "layout/layoutClient";
 import {
     setState
-} from "../../declare";
+} from "declare";
 import {
     NXTMetadata
 } from "./page";

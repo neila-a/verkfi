@@ -6,33 +6,31 @@ import {
 } from "@mui/material";
 import {
     setState
-} from '../declare';
+} from 'declare';
 import {
     get
 } from "react-intl-universal";
 import {
-    useContext,
-    useState
+    useContext
 } from "react";
 import dynamic from 'next/dynamic';
-const PureDialog = dynamic(() => import("../components/dialog/PureDialog"));
-import TransferList from "../components/TransferList";
+const PureDialog = dynamic(() => import("dialog/Pure"));
+import TransferList from "components/TransferList";
 import {
     lists
 } from "./Sidebar";
 import useToolsList from "./getToolsList";
 import {
     getTools
-} from "../tools/info";
-import setSetting from "../setting/setSetting";
+} from "tools/info";
 import {
     useLiveQuery
 } from "dexie-react-hooks";
-import db from "../components/db";
+import db from "components/db";
 import convertExtensionTools from "./convertExtensionTools";
 import {
     lists as listsContext
-} from "../layout/layoutClient";
+} from "layout/layoutClient";
 export default function EditToolsListDialog(props: {
     dialogTools: string[];
     setDialogTools: setState<string[]>;

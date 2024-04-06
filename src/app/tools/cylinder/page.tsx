@@ -25,7 +25,7 @@ import {
 } from '@mui/material/styles';
 import drawMatrix, {
     block
-} from '../../components/matrix/matrix';
+} from 'components/matrix/matrix';
 function Cylinder(): JSX.Element {
     const [radiusX, setRadiusX] = useState<number>(50),
         [radiusZ, setRadiusZ] = useState<number>(50),

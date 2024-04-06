@@ -20,20 +20,20 @@ import {
     RestartAlt as RestartAltIcon
 } from "@mui/icons-material";
 import dynamic from "next/dynamic";
-const PureDialog = dynamic(() => import("../../components/dialog/PureDialog"));
+const PureDialog = dynamic(() => import("dialog/Pure"));
 import {
     single
-} from "../../components/db";
+} from "components/db";
 import DialogInputs from "./DialogInputs";
 import {
     mostUsed as mostUsedContext,
     recentlyUsed as recentlyUsedContext
-} from "../../layout/layoutClient";
-import MouseOverPopover from "../../components/Popover";
+} from "layout/layoutClient";
+import MouseOverPopover from "components/Popover";
 import clearExtensionData from "./clearExtensionData";
 import {
     setState
-} from "../../declare";
+} from "declare";
 import DialogButtons from "./DialogButtons";
 import {
     NXTMetadata,

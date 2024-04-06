@@ -20,12 +20,12 @@ import {
 } from "@mui/icons-material";
 import LpLogger from "lp-logger";
 import dynamic from 'next/dynamic';
-const InputDialog = dynamic(() => import("../../components/dialog/InputDialog"));
+const InputDialog = dynamic(() => import("dialog/Input"));
 const logger = new LpLogger({
     name: get('翻转'),
     level: "log", // 空字符串时，不显示任何信息
 });
-import CopyButton from '../../components/CopyButton';
+import CopyButton from 'components/CopyButton';
 function Reversal(): JSX.Element {
     const [wordList, setWordList] = useState<[string, number][]>([]),
         [words, setWords] = useState<string>(""),

@@ -2,7 +2,7 @@
 import LpLogger from "lp-logger";
 import {
     isBrowser
-} from "../../layout/layoutClient";
+} from "layout/layoutClient";
 export default async function getRecording(onStop: (blob: Blob) => any, onDataAvailable?: (blob: Blob) => any, log = true) {
     var mediaRecorder: MediaRecorder;
     class logger {

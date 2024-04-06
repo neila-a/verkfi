@@ -21,7 +21,7 @@ import {
     lang as langContext,
     share,
     locales
-} from "../../layout/layoutClient";
+} from "layout/layoutClient";
 import {
     get
 } from "react-intl-universal";
@@ -31,7 +31,7 @@ import {
     useState
 } from "react";
 import {
-    Switcher, stringifyCheck
+    Switcher
 } from "../Switcher";
 import dynamic from 'next/dynamic';
 import {
@@ -40,8 +40,8 @@ import {
 import Module from "./Module";
 import {
     setState
-} from "../../declare";
-const PureDialog = dynamic(() => import("../../components/dialog/PureDialog")),
+} from "declare";
+const PureDialog = dynamic(() => import("dialog/Pure")),
     ghURL = "https://github.com/neila-a/verkfi/";
 export type option = [Context<{
     value: boolean;

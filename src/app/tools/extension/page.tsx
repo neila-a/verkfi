@@ -4,7 +4,7 @@ import {
 } from "dexie-react-hooks";
 import db, {
     single
-} from "../../components/db";
+} from "components/db";
 import {
     useSearchParams
 } from "next/navigation";
@@ -13,7 +13,7 @@ import {
 } from "./empties";
 import {
     isBrowser
-} from "../../layout/layoutClient";
+} from "layout/layoutClient";
 export default function ExtensionLoader() {
     const searchParams = useSearchParams(),
         toolID = searchParams.get("tool"),

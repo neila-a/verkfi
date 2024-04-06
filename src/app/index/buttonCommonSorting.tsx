@@ -1,8 +1,7 @@
 "use client";
 import {
     tool
-} from "../tools/info";
-import setSetting from "../setting/setSetting";
+} from "tools/info";
 import {
     lists as listsType
 } from './Sidebar';
@@ -11,7 +10,7 @@ import {
 } from "react";
 import {
     lists
-} from "../layout/layoutClient";
+} from "layout/layoutClient";
 export default function useButtonCommonSorting() {
     const usedLists = useContext(lists),
         realList = usedLists.value;

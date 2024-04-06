@@ -1,8 +1,8 @@
 "use client";
-import intl, {
+import {
     get
 } from 'react-intl-universal';
-import HeadBar from "./components/HeadBar";
+import HeadBar from "components/HeadBar";
 import {
     useContext,
     useEffect,
@@ -12,10 +12,10 @@ import {
 } from 'react';
 import type {
     ThemeHaveZIndex
-} from './setting/layout';
+} from 'setting/layout';
 import {
     drawerWidth
-} from './setting/consts';
+} from 'setting/consts';
 import {
     Typography,
     Box,
@@ -27,40 +27,40 @@ import {
 import {
     getTools,
     tool
-} from "./tools/info";
+} from "tools/info";
 import {
     useRouter,
     useSearchParams
 } from 'next/navigation';
-import useToolsList from './index/getToolsList';
-import Sidebar from './index/Sidebar';
+import useToolsList from 'index/getToolsList';
+import Sidebar from 'index/Sidebar';
 import {
     viewMode,
     homeWhere
-} from './index/consts';
-import useStoragedState from './components/useStoragedState';
+} from 'index/consts';
+import useStoragedState from 'components/useStoragedState';
 import {
     setState
-} from './declare';
-import ToolsStack from './index/ToolsStack';
-import searchBase from './index/searchBase';
+} from 'declare';
+import ToolsStack from 'index/ToolsStack';
+import searchBase from 'index/searchBase';
 import {
     first as firstContext,
     recentlyUsed as recentlyUsedContext,
     mostUsed as mostUsedContext,
     showSidebar as showSidebarContext
-} from './layout/layoutClient';
-import getParamTools from './index/getParamTools';
-import VerkfiIcon from './components/verkfiIcon/verkfiIcon';
-import generateTries from './index/generateTries';
+} from 'layout/layoutClient';
+import getParamTools from 'index/getParamTools';
+import VerkfiIcon from 'components/verkfiIcon/verkfiIcon';
+import generateTries from 'index/generateTries';
 import db, {
     single
-} from './components/db';
+} from 'components/db';
 import {
     useLiveQuery
 } from 'dexie-react-hooks';
-import convertExtensionTools from './index/convertExtensionTools';
-import MouseOverPopover from './components/Popover';
+import convertExtensionTools from 'index/convertExtensionTools';
+import MouseOverPopover from 'components/Popover';
 export default function Index(props: {
     /**
      * 是否为嵌入
@@ -208,16 +208,16 @@ export default function Index(props: {
                         paddingBottom: 3,
                         width: "100%",
                         textAlign: "center"
-                        }}>
-                            <MouseOverPopover text={get("index.generateTry")}>
-                                <IconButton aria-label={get("index.generateTry")} onClick={event => {
-                                    setShowTries(old => !old);
-                                }}>
-                                    <VerkfiIcon sx={{
-                                        fontSize: "1000%"
-                                    }} />
-                                </IconButton>
-                            </MouseOverPopover>
+                    }}>
+                        <MouseOverPopover text={get("index.generateTry")}>
+                            <IconButton aria-label={get("index.generateTry")} onClick={event => {
+                                setShowTries(old => !old);
+                            }}>
+                                <VerkfiIcon sx={{
+                                    fontSize: "1000%"
+                                }} />
+                            </IconButton>
+                        </MouseOverPopover>
                     </Box>
                     <Collapse in={showTries}>
                         <Box>

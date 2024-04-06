@@ -36,7 +36,7 @@ import {
 	forkMeOnGitHub as forkMeOnGitHubContext,
 	share as shareContext,
 	showSidebar
-} from '../layout/layoutClient';
+} from 'layout/layoutClient';
 export interface HeadBarOption {
 	pageName: string;
 	isIndex: boolean;

@@ -23,7 +23,11 @@
             {
                 "name": "next"
             }
-        ]
+        ],
+        "baseUrl": "src/app",
+        "paths": {
+            "dialog/*": ["components/dialog/*Dialog"]
+        }
     },
     "include": [
         "**/*.ts",

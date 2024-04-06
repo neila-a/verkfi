@@ -19,7 +19,7 @@ import {
     GitHub
 } from "@mui/icons-material";
 import pack from "../../../../package.json";
-import ErrorBoundary from '../../components/ErrorBoundary';
+import ErrorBoundary from 'components/ErrorBoundary';
 import {
     OverridableComponent
 } from '@mui/material/OverridableComponent';
@@ -28,14 +28,11 @@ import {
     useState,
     useEffect
 } from 'react';
-import getCache from '../getCache';
-import getSettingsSur from '../getSettingsSur';
-import getSettingsUsed from '../getSettingsUsed';
 import dynamic from 'next/dynamic';
-import VerkfiIcon from '../../components/verkfiIcon/verkfiIcon';
+import VerkfiIcon from 'components/verkfiIcon/verkfiIcon';
 import Reset from './reset';
 import Link from 'next/link';
-const PureDialog = dynamic(() => import("../../components/dialog/PureDialog"));
+const PureDialog = dynamic(() => import("dialog/Pure"));
 interface singleAbout {
     icon: OverridableComponent<SvgIconTypeMap<{}, "svg">> & {
         muiName: string

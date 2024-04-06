@@ -8,7 +8,7 @@ import {
     ReactNode,
     useContext
 } from "react";
-import HeadBar from "../components/HeadBar";
+import HeadBar from "components/HeadBar";
 import {
     getTools
 } from "./info";
@@ -22,12 +22,12 @@ import lpLogger from "lp-logger";
 import getToolColor from "./getToolColor";
 import {
     colorMode
-} from "../layout/layoutClient";
+} from "layout/layoutClient";
 import {
     useLiveQuery
 } from "dexie-react-hooks";
-import db from "../components/db";
-import convertExtensionTools from "../index/convertExtensionTools";
+import db from "components/db";
+import convertExtensionTools from "index/convertExtensionTools";
 import {
     emptyExtension
 } from "./extension/empties";

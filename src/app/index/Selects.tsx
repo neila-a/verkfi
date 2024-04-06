@@ -1,5 +1,5 @@
 "use client";
-import intl, {
+import {
     get
 } from 'react-intl-universal';
 import {
@@ -11,7 +11,7 @@ import {
 } from "@mui/icons-material";
 import {
     setState
-} from '../declare';
+} from 'declare';
 import {
     createElement,
     useContext,
@@ -20,18 +20,8 @@ import {
 import {
     getTools,
     tool
-} from "../tools/info";
+} from "tools/info";
 import useToolsList from './getToolsList';
-import setSetting from '../setting/setSetting';
-import {
-    useLiveQuery
-} from 'dexie-react-hooks';
-import db from '../components/db';
-import SingleSelect from './SingleSelect';
-import dynamic from 'next/dynamic';
-import {
-    lists
-} from './Sidebar';
 import {
     DragDropContext,
     Draggable,
@@ -43,8 +33,13 @@ import {
 } from "@mui/icons-material";
 import {
     lists as listsContext
-} from '../layout/layoutClient';
-import MouseOverPopover from '../components/Popover';
+} from 'layout/layoutClient';
+import MouseOverPopover from 'components/Popover';
+import {
+    lists
+} from './Sidebar';
+import SingleSelect from './SingleSelect';
+import dynamic from 'next/dynamic';
 export default function Selects(props: {
     list: lists;
     setList: setState<lists>;
@@ -183,7 +178,7 @@ export default function Selects(props: {
                         return false;
                     }).map(tool => tool.name)
                 })}
-                {createElement(dynamic(() => import("../components/dialog/CheckDialog")), {
+                {createElement(dynamic(() => import("dialog/Check")), {
                     open: removeDialogOpen,
                     title: get("category.删除此分类"),
                     description: get("category.确定删除此分类吗？"),

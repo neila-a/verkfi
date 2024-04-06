@@ -15,13 +15,13 @@ import {
     ReactNode
 } from "react";
 import dynamic from 'next/dynamic';
-const CheckDialog = dynamic(() => import("../../components/dialog/CheckDialog"));
+const CheckDialog = dynamic(() => import("dialog/Check"));
 import getSettingsSur from "../getSettingsSur";
 import getSettingsUsed from "../getSettingsUsed";
 import {
     logger
 } from "../consts";
-import ErrorBoundary from '../../components/ErrorBoundary';
+import ErrorBoundary from 'components/ErrorBoundary';
 import getCache from '../getCache';
 import Line from './Line';
 import {

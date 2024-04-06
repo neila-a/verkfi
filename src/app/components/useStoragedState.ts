@@ -1,13 +1,13 @@
 import {
     useReducer
 } from "react";
-import setSetting from "../setting/setSetting";
+import setSetting from "setting/setSetting";
 import {
     internalSettingReader
-} from "../setting/useReadSetting";
+} from "setting/useReadSetting";
 import {
     isBrowser
-} from "../layout/layoutClient";
+} from "layout/layoutClient";
 export default function useStoragedState<T = any>(id: string, name: string, empty: T) {
     const reduce = useReducer((old: T, val: T) => {
         setSetting(id, name, val);

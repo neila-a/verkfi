@@ -26,7 +26,7 @@ import {
 import getRecording from './getRecording';
 import {
     isBrowser
-} from '../../layout/layoutClient';
+} from 'layout/layoutClient';
 export type status = "recording" | "paused" | "inactive";
 function AudioTools(): JSX.Element {
     const [loopAudioSrc, setLoopAudioSrc] = useState<string>(""),

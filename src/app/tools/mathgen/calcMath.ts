@@ -7,7 +7,7 @@ import {
 } from './consts';
 import {
     setState
-} from "../../declare";
+} from "declare";
 export default function calcMath(calcs: calc[], subtractionCheck: boolean, divisionCheck: boolean, max: number, min: number, itemCount: number, setMath: setState<string[]>) {
     var calcMaths: string[] = [];
     calcs.forEach(function (mode) {

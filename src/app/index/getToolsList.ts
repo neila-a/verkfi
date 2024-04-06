@@ -1,8 +1,8 @@
 "use client";
 import {
     tool
-} from "../tools/info";
-import db from "../components/db";
+} from "tools/info";
+import db from "components/db";
 import convertExtensionTools from "./convertExtensionTools";
 import {
     useLiveQuery
@@ -12,7 +12,7 @@ import {
 } from "react";
 import {
     lists as listsContext
-} from "../layout/layoutClient";
+} from "layout/layoutClient";
 /**
  * 排序工具
  * @param realTools 未排序的工具列表

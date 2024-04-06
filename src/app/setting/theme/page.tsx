@@ -6,7 +6,7 @@ import {
 import * as colors from '@mui/material/colors';
 import {
     BrightnessMedium,
-    Check as CheckIcon, DarkMode, Light, LightMode
+    Check as CheckIcon, DarkMode, LightMode
 } from '@mui/icons-material';
 import {
     get
@@ -14,7 +14,7 @@ import {
 import {
     darkMode as darkModeContext,
     paletteColors
-} from '../../layout/layoutClient';
+} from 'layout/layoutClient';
 import {
     Button,
     Box,
@@ -38,7 +38,7 @@ import {
 import {
     OverridableComponent
 } from '@mui/material/OverridableComponent';
-import useStoragedState from '../../components/useStoragedState';
+import useStoragedState from 'components/useStoragedState';
 import defaultInternalPalette from './defaultInternalPalette';
 import defaultPalette from './defaultPalette';
 function ColorTool() {

@@ -16,8 +16,8 @@ import {
     useState
 } from "react";
 import dynamic from 'next/dynamic';
-const InputDialog = dynamic(() => import("../../components/dialog/InputDialog"));
-const AlertDialog = dynamic(() => import("../../components/dialog/AlertDialog"));
+const InputDialog = dynamic(() => import("dialog/Input"));
+const AlertDialog = dynamic(() => import("dialog/Alert"));
 const logger = new LpLogger({
     name: "CountLetter",
     level: "log", // 空字符串时，不显示任何信息

@@ -1,6 +1,6 @@
 import {
     block
-} from '../../components/matrix/matrix';
+} from 'components/matrix/matrix';
 /**
  * 返回一个圆。
  * ![cylinder](./cylinder.png)

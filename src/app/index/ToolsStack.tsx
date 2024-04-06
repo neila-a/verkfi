@@ -9,14 +9,14 @@ import {
 } from "@mui/material";
 import {
     tool
-} from "../tools/info";
+} from "tools/info";
 import SingleTool from './SingleTool';
 import {
     viewMode
 } from './consts';
 import {
     setState
-} from '../declare';
+} from 'declare';
 import {
     DragDropContext,
     Droppable,
@@ -27,7 +27,7 @@ import useButtonCommonSorting from './buttonCommonSorting';
 import {
     TransitionGroup
 } from 'react-transition-group';
-import No from '../components/No';
+import No from 'components/No';
 import {
     get
 } from 'react-intl-universal';

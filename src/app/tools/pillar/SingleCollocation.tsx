@@ -16,7 +16,7 @@ import {
 import {
     collocation
 } from "./page";
-import CopyButton from "../../components/CopyButton";
+import CopyButton from "components/CopyButton";
 export default function SingleCollocation(props: {
     collocation: collocation;
 }) {

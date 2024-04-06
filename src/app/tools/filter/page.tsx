@@ -30,7 +30,7 @@ import {
     FilePondServerConfigProps
 } from 'filepond';
 import SingleImage from './singleImage';
-import No from '../../components/No';
+import No from 'components/No';
 export default function Filter(): JSX.Element {
     const [imageArray, setImageArray] = useState<FilePondFile[]>([]),
         [imageFileName, setImageFileName] = useState<string>("libear-only"),

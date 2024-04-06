@@ -10,13 +10,13 @@ import {
 import {
     get
 } from "react-intl-universal";
-import db from "../../components/db";
-import CheckDialog from "../../components/dialog/CheckDialog";
+import db from "components/db";
+import CheckDialog from "dialog/Check";
 import {
     lists as listsContext,
     mostUsed as mostUsedContext,
     recentlyUsed as recentlyUsedContext
-} from "../../layout/layoutClient";
+} from "layout/layoutClient";
 import clearExtensionData from "./clearExtensionData";
 import {
     NXTMetadata

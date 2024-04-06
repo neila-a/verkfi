@@ -1,7 +1,7 @@
 "use client";
 import {
     Hex
-} from "../declare";
+} from "declare";
 import {
     tool
 } from "./info";

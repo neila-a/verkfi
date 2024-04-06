@@ -3,7 +3,7 @@ import {
 } from "dexie-react-hooks";
 import db, {
     option
-} from "../components/db";
+} from "components/db";
 export async function internalSettingReader<T>(id: string, empty: T): Promise<option> {
     const got = await db.options.get({
         key: id

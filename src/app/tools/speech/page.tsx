@@ -30,14 +30,14 @@ import {
 } from "file-saver";
 import getShortTimeEnergy from "./getShortTimeEnergy";
 import dynamic from "next/dynamic";
-import InputDialog from "../../components/dialog/InputDialog";
+import InputDialog from "dialog/Input";
 import {
     get
 } from "react-intl-universal";
 import {
     isBrowser
-} from "../../layout/layoutClient";
-const PureDialog = dynamic(() => import("../../components/dialog/PureDialog"));
+} from "layout/layoutClient";
+const PureDialog = dynamic(() => import("dialog/Pure"));
 interface warning {
     /**
      * 发生时间

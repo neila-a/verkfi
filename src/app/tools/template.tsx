@@ -4,15 +4,14 @@ import {
     useEffect
 } from "react";
 import {
-    useRouter,
     useSearchParams,
     useSelectedLayoutSegment
 } from "next/navigation";
-import Recently from "../components/Recently";
+import Recently from "components/Recently";
 import {
     recentlyUsed as recentlyUsedContext,
     mostUsed as mostUsedContext
-} from "../layout/layoutClient";
+} from "layout/layoutClient";
 // 每个3格最多显示
 export default function Template(props: {
     children: React.ReactNode

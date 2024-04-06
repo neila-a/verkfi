@@ -17,7 +17,7 @@ import intl, {
 } from "react-intl-universal";
 import {
     getTools
-} from "../tools/info";
+} from "tools/info";
 export function not<T>(a: T[], b: T[]) {
     return a.filter(value => b.indexOf(value) === -1);
 }

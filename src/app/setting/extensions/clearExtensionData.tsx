@@ -1,11 +1,11 @@
 "use client";
-import db from "../../components/db";
+import db from "components/db";
 import {
     mostUsedMarks
-} from "../../layout/layoutClient";
+} from "layout/layoutClient";
 import {
     setState
-} from "../../declare";
+} from "declare";
 import {
     NXTMetadata
 } from "./page";

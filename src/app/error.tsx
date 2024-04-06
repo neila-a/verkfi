@@ -4,7 +4,7 @@ import {
     ButtonGroup,
     Typography
 } from "@mui/material";
-import Loading from "./loading";
+import Loading from "loading";
 import {
     get
 } from "react-intl-universal";
@@ -13,8 +13,8 @@ import {
 } from "react";
 import {
     logger
-} from "./layout/layoutClient"; // 都是全局日志
-import db from "./components/db";
+} from "layout/layoutClient"; // 都是全局日志
+import db from "components/db";
 export default function Error(props: {
     error: Error & {
         digest?: string;

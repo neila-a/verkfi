@@ -3,12 +3,12 @@ import intl from 'react-intl-universal';
 import {
     useReducer
 } from 'react';
-import setSetting from "../setting/setSetting";
+import setSetting from "setting/setSetting";
 import {
     isBrowser,
     locales
 } from "./layoutClient";
-import useReadSetting from '../setting/useReadSetting';
+import useReadSetting from 'setting/useReadSetting';
 const useLang = () => {
     var browserLang: string = "zhCN";
     if (isBrowser()) {

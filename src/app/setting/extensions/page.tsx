@@ -2,7 +2,6 @@
 import {
     Stack,
     Typography,
-    Box,
     useMediaQuery,
     useTheme
 } from "@mui/material";
@@ -19,34 +18,31 @@ import {
     FilePond
 } from 'react-filepond'; // Import React FilePond
 import dynamic from "next/dynamic";
-const PureDialog = dynamic(() => import("../../components/dialog/PureDialog"));
+const PureDialog = dynamic(() => import("dialog/Pure"));
 import {
     FilePondFile,
     FilePondServerConfigProps
 } from 'filepond';
 import {
-    SyncProblem as SyncProblemIcon
-} from "@mui/icons-material";
-import {
     useLiveQuery
 } from "dexie-react-hooks";
 import db, {
     single
-} from "../../components/db";
+} from "components/db";
 import DialogInputs from "./DialogInputs";
 import {
     settingPage
 } from "../layout";
 import {
     noIconTool
-} from "../../tools/info";
+} from "tools/info";
 import {
     emptyNXTMetadata
-} from "../../tools/extension/empties";
+} from "tools/extension/empties";
 import RemoveExtensionDialog from "./RemoveExtensionDialog";
 import DialogButtons from "./DialogButtons";
 import ToolViewer from "./ToolViewer";
-import No from "../../components/No";
+import No from "components/No";
 export type inputTypes = "modify" | "add";
 export default function ExtensionManager() {
     const [addDialogOpen, setAddDialogOpen] = useState<boolean>(false),

@@ -5,7 +5,7 @@ import {
 } from "@mui/material";
 import {
     sidebarMode
-} from "../../layout/layoutClient";
+} from "layout/layoutClient";
 import {
     ReactNode,
     useContext

@@ -1,13 +1,13 @@
 "use client";
 import {
     tool
-} from "../tools/info";
+} from "tools/info";
 import {
     not
-} from '../components/TransferList';
+} from 'components/TransferList';
 import {
     mostUsedMarks
-} from "../layout/layoutClient";
+} from "layout/layoutClient";
 const generateTries = (mostUsed: mostUsedMarks, realTools: tool[]) => {
     const unUsed = not(realTools.map(single => single.to), Object.keys(mostUsed)).slice(0, 3),
         isUnFull = unUsed.length < 3, // 判断没用过的工具有没有三个

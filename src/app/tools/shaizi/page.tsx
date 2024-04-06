@@ -11,7 +11,7 @@ import {
     TextField
 } from "@mui/material";
 import dynamic from 'next/dynamic';
-const FullScreenDialog = dynamic(() => import("../../components/dialog/FullScreenDialog"));
+const FullScreenDialog = dynamic(() => import("dialog/FullScreen"));
 import {
     ShaiZiCanvas
 } from "./shaiziCanvas";

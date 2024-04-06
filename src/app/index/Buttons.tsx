@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import {
     setState
-} from '../declare';
+} from 'declare';
 import {
     viewMode
 } from './consts';
@@ -31,7 +31,7 @@ import {
     lists
 } from "./Sidebar";
 import dynamic from 'next/dynamic';
-import MouseOverPopover from "../components/Popover";
+import MouseOverPopover from "components/Popover";
 const EditToolsListDialog = dynamic(() => import("./EditToolsListDialog"));
 export default function Buttons(props: {
     /**

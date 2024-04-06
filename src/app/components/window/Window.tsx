@@ -26,7 +26,7 @@ import {
 import Draggable from "react-draggable";
 import {
     Hex
-} from "../../declare";
+} from "declare";
 import {
     get
 } from "react-intl-universal";

@@ -6,10 +6,10 @@ import {
     ViewModule as ViewModuleIcon,
     ViewList as ViewListIcon
 } from "@mui/icons-material";
-import MouseOverPopover from "../components/Popover";
+import MouseOverPopover from "components/Popover";
 import {
     setState
-} from '../declare';
+} from 'declare';
 import {
     viewMode
 } from './consts';

@@ -4,7 +4,7 @@ import {
 } from 'react-intl-universal';
 import {
     drawerWidth
-} from '../setting/consts';
+} from 'setting/consts';
 import {
     IconButton,
     InputBase,
@@ -17,11 +17,11 @@ import {
 import {
     Search as SearchIcon
 } from "@mui/icons-material";
-import MouseOverPopover from "../components/Popover";
+import MouseOverPopover from "components/Popover";
 import Buttons from './Buttons';
 import {
     setState
-} from '../declare';
+} from 'declare';
 import {
     viewMode
 } from './consts';
@@ -31,13 +31,13 @@ import {
 } from 'react';
 import {
     tool
-} from "../tools/info";
+} from "tools/info";
 export type lists = [string, string[]][];
 import SingleSelect from './SingleSelect';
 import Selects from './Selects';
 import {
     lists
-} from '../layout/layoutClient';
+} from 'layout/layoutClient';
 export default function Sidebar(props: {
     /**
      * 是否为嵌入

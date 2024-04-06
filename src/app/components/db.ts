@@ -3,7 +3,7 @@ import Dexie, {
 } from 'dexie';
 import {
     NXTMetadata
-} from '../setting/extensions/page';
+} from 'setting/extensions/page';
 export interface single extends NXTMetadata {
     files: [string, Uint8Array][];
 }

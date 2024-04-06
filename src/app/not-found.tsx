@@ -4,7 +4,7 @@ import {
 } from "next/navigation";
 import {
     default as ErrorElement
-} from "./error";
+} from "error";
 class NotFoundError extends Error {
     constructor(message = '404') {
         super(message);

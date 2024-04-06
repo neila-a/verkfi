@@ -1,11 +1,11 @@
 "use client";
-import ErrorBoundary from "./components/ErrorBoundary";
+import ErrorBoundary from "components/ErrorBoundary";
 import dynamic from "next/dynamic";
-const Window = dynamic(() => import("./components/window/Window"));
+const Window = dynamic(() => import("components/window/Window"));
 import {
     colorMode,
     windows as windowsContext
-} from "./layout/layoutClient";
+} from "layout/layoutClient";
 import {
     useTheme
 } from "@mui/material/styles";

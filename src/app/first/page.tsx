@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import {
     first as firstContext
-} from "../layout/layoutClient";
+} from "layout/layoutClient";
 import type info from "./info";
 import {
     ArrowBack,
@@ -28,8 +28,8 @@ import DevicesIcon from "./devicesIcon";
 import {
     useRouter
 } from "next/navigation";
-import VerkfiIcon from "../components/verkfiIcon/verkfiIcon";
-import MouseOverPopover from "../components/Popover";
+import VerkfiIcon from "components/verkfiIcon/verkfiIcon";
+import MouseOverPopover from "components/Popover";
 export default function First() {
     const first = useContext(firstContext),
         [step, setStep] = useState<number>(0),

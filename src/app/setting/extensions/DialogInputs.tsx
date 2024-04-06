@@ -1,7 +1,5 @@
 "use client";
 import {
-    Button,
-    ButtonGroup,
     FormGroup,
     MenuItem,
     Select,
@@ -10,12 +8,11 @@ import {
 import {
     get
 } from "react-intl-universal";
-import db from "../../components/db";
 import InfoInput from "./infoInput";
 import {
     Hex,
     setState
-} from "../../declare";
+} from "declare";
 import {
     inputTypes,
     NXTMetadata

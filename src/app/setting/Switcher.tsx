@@ -15,7 +15,7 @@ import {
 import stringToBoolean from "./stringToBoolean";
 import {
     isBrowser
-} from "../layout/layoutClient";
+} from "layout/layoutClient";
 export type stringifyCheck = "false" | "true";
 export function Switcher(props: {
     option: option;

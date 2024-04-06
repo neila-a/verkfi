@@ -7,13 +7,13 @@ import {
 } from "@mui/icons-material";
 import {
     tool
-} from "../tools/info";
-import downGo from "../components/arrayMove/downGo";
+} from "tools/info";
+import downGo from "components/arrayMove/downGo";
 import {
     setState
-} from '../declare';
+} from 'declare';
 import useButtonCommonSorting from './buttonCommonSorting';
-import MouseOverPopover from "../components/Popover";
+import MouseOverPopover from "components/Popover";
 import {
     get
 } from "react-intl-universal";

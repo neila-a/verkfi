@@ -28,7 +28,6 @@ import {
     FilePondServerConfigProps
 } from "filepond";
 import {
-    Fragment,
     useState
 } from "react";
 import {
@@ -37,15 +36,15 @@ import {
 import {
     get
 } from "react-intl-universal";
-import Transition from "../../components/dialog/Transition";
-import CheckDialog from "../../components/dialog/CheckDialog";
-import useStoragedState from "../../components/useStoragedState";
+import Transition from "components/dialog/Transition";
+import CheckDialog from "dialog/Check";
+import useStoragedState from "components/useStoragedState";
 import {
     shuffle
 } from "d3-array";
 import canvasToBlob from "./canvasToBlob";
-import No from "../../components/No";
-import MouseOverPopover from "../../components/Popover";
+import No from "components/No";
+import MouseOverPopover from "components/Popover";
 type block = Blob & {
     rotation: number;
 };

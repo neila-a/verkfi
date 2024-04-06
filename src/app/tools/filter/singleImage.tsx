@@ -15,7 +15,7 @@ import filters from "./filters";
 import {
     ImageType
 } from "./consts";
-import MouseOverPopover from "../../components/Popover";
+import MouseOverPopover from "components/Popover";
 import {
     get
 } from "react-intl-universal";

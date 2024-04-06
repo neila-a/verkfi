@@ -23,7 +23,7 @@ import {
 import LpLogger from "lp-logger";
 import {
     setState
-} from "../declare";
+} from "declare";
 export const logger = new LpLogger({
     name: "Verkfi",
     level: "log", // 空字符串时，不显示任何信息
@@ -35,8 +35,8 @@ import {
 } from "react";
 import {
     WindowOptions
-} from "../components/window/Window";
-import useStoragedState from "../components/useStoragedState";
+} from "components/window/Window";
+import useStoragedState from "components/useStoragedState";
 import {
     Box,
     CssBaseline,
@@ -47,19 +47,19 @@ import {
     useSearchParams
 } from "next/navigation";
 import dynamic from "next/dynamic";
-import WindowContainer from "../WindowContainer"; // 重的Window已经被动态加载，那么WindowContainer是轻的
+import WindowContainer from "WindowContainer"; // 重的Window已经被动态加载，那么WindowContainer是轻的
 import {
     drawerWidth
-} from "../setting/consts";
+} from "setting/consts";
 import useLang from "./useLang";
 import registerProtocolHandler from "./registerProtocolHandler";
 import registerServiceWorker from "./registerServiceWorker";
 import desktopAdder from "./desktopAdder";
-import defaultPalette from '../setting/theme/defaultPalette';
+import defaultPalette from 'setting/theme/defaultPalette';
 import {
     lists as listsType
-} from "../index/Sidebar";
-import Ubuntu from "../components/fonts";
+} from "index/Sidebar";
+import Ubuntu from "components/fonts";
 export const showSidebar = createContext<{
     show: boolean;
     set: setState<boolean>;
@@ -175,7 +175,7 @@ export default function ModifiedApp(props: {
         [listsState, setLists] = useStoragedState<listsType>("lists", "分类列表", []),
         implant = (pathname === "/") || (params.get("only") === "true"),
         ml: string = implant ? "" : (expand ? `calc(min(${`calc(100vw - ${drawerWidth}px)`}, 320px) + ${drawerWidth}px)` : `${drawerWidth}px`),
-        Sidebar = implant ? null : (sidebarModeState === "menu" ? createElement(dynamic(() => import("../Menu"))) : createElement(dynamic(() => import("../page")), {
+        Sidebar = implant ? null : (sidebarModeState === "menu" ? createElement(dynamic(() => import("Menu"))) : createElement(dynamic(() => import("page")), {
             isImplant: true,
             expand: expand,
             setExpand: setExpand

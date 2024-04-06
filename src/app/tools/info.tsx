@@ -25,7 +25,7 @@ import {
 } from "react";
 import {
     Hex
-} from "../declare";
+} from "declare";
 const hex = Hex.hex;
 export interface noIconTool {
 

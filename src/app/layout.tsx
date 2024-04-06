@@ -3,7 +3,7 @@ import {
 } from "next";
 import {
     getRepoInfo
-} from "./components/getRepoInfo";
+} from "components/getRepoInfo";
 export async function generateMetadata() {
     const repoInfo = await getRepoInfo(),
         upperName = repoInfo.name.charAt(0).toUpperCase() + repoInfo.name.slice(1);
@@ -60,17 +60,17 @@ import {
     GlobalStyles,
     Typography
 } from "@mui/material";
-import Loading from "./loading";
+import Loading from "loading";
 import BaseLayout, {
     WindowsProvider
-} from "./layout/layoutClient";
+} from "layout/layoutClient";
 import {
     Suspense
 } from "react";
 import {
     AppRouterCacheProvider
 } from '@mui/material-nextjs/v13-appRouter';
-import Ubuntu from "./components/fonts";
+import Ubuntu from "components/fonts";
 export default async function Layout({
     children
 }) {

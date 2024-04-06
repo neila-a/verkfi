@@ -16,11 +16,10 @@ import {
     useContext,
     useState
 } from "react";
-import Transition from "./components/dialog/Transition";
-import MouseOverPopover from "./components/Popover";
+import Transition from "components/dialog/Transition";
+import MouseOverPopover from "components/Popover";
 import {
-    get,
-    getHTML
+    get
 } from "react-intl-universal";
 import {
     ArrowBackIos as ArrowBackIosIcon,
@@ -28,36 +27,36 @@ import {
     Search as SearchIcon,
     Home as HomeIcon
 } from "@mui/icons-material";
-import searchBase from './index/searchBase';
-import ToolsStack from "./index/ToolsStack";
+import searchBase from 'index/searchBase';
+import ToolsStack from "index/ToolsStack";
 import {
     getTools,
     tool
-} from "./tools/info";
+} from "tools/info";
 import {
     viewMode
-} from "./index/consts";
-import useStoragedState from "./components/useStoragedState";
-import SwitchViewMode from "./index/SwitchViewMode";
-import SwitchEditMode from "./index/SwitchEditMode";
-import useToolsList from "./index/getToolsList";
-import Selects from "./index/Selects";
+} from "index/consts";
+import useStoragedState from "components/useStoragedState";
+import SwitchViewMode from "index/SwitchViewMode";
+import SwitchEditMode from "index/SwitchEditMode";
+import useToolsList from "index/getToolsList";
+import Selects from "index/Selects";
 import {
     showSidebar,
     recentlyUsed as recentlyUsedContext,
     mostUsed as mostUsedContext,
     lists as listsContext,
-} from "./layout/layoutClient";
+} from "layout/layoutClient";
 import {
     useRouter
 } from "next/navigation";
-import getParamTools from "./index/getParamTools";
-import VerkfiIcon from "./components/verkfiIcon/verkfiIcon";
-import db from "./components/db";
+import getParamTools from "index/getParamTools";
+import VerkfiIcon from "components/verkfiIcon/verkfiIcon";
+import db from "components/db";
 import {
     useLiveQuery
 } from "dexie-react-hooks";
-import convertExtensionTools from "./index/convertExtensionTools";
+import convertExtensionTools from "index/convertExtensionTools";
 export default function Menu() {
     const control = useContext(showSidebar),
         theme = useTheme(),

@@ -20,7 +20,7 @@ import {
 } from "@mui/icons-material";
 import {
     tool
-} from "../tools/info";
+} from "tools/info";
 import {
     useRouter
 } from 'next/navigation';
@@ -33,9 +33,9 @@ import {
 } from './consts';
 import {
     setState
-} from '../declare';
+} from 'declare';
 import dynamic from 'next/dynamic';
-const CheckDialog = dynamic(() => import("../components/dialog/CheckDialog"));
+const CheckDialog = dynamic(() => import("dialog/Check"));
 import {
     colorMode,
     windows,
@@ -43,17 +43,17 @@ import {
     mostUsed as mostUsedContext,
     useLightMode,
     lists as listsContext,
-} from '../layout/layoutClient';
+} from 'layout/layoutClient';
 import {
     useSwipeable
 } from "react-swipeable";
 import {
     get
 } from "react-intl-universal";
-import MouseOverPopover from '../components/Popover';
+import MouseOverPopover from 'components/Popover';
 import {
     NXTMetadata
-} from '../setting/extensions/page';
+} from 'setting/extensions/page';
 import removeArrayItem from "remove-item-from-array";
 export default function SingleTool(props: {
     tool: tool;
@@ -235,7 +235,7 @@ export default function SingleTool(props: {
                                                         <Delete />
                                                     </IconButton>
                                                 </MouseOverPopover>
-                                                {createElement(dynamic(() => import("../setting/extensions/RemoveExtensionDialog")), {
+                                                {createElement(dynamic(() => import("setting/extensions/RemoveExtensionDialog")), {
                                                     open: removeDialogOpen,
                                                     reset: () => setRemoveDialogOpen(false),
                                                     fileInfo: {

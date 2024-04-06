@@ -1,7 +1,7 @@
 "use client";
 import {
     BeforeInstallPromptEvent
-} from "../declare";
+} from "declare";
 import {
     logger
 } from "./layoutClient";

@@ -14,7 +14,7 @@ import {
 	TextField,
 	Toolbar
 } from "@mui/material";
-import HeadBar from "../components/HeadBar";
+import HeadBar from "components/HeadBar";
 import {
 	ReactNode,
 	useContext,
@@ -23,11 +23,10 @@ import {
 import {
 	Settings as SettingsIcon,
 	Info as InfoIcon,
-	Replay as ReplayIcon,
 	Extension as ExtensionIcon,
 	Palette as PaletteIcon
 } from "@mui/icons-material";
-import type VerkfiIcon from '../components/verkfiIcon/verkfiIcon';
+import type VerkfiIcon from 'components/verkfiIcon/verkfiIcon';
 import {
 	drawerWidth
 } from './consts';
@@ -42,7 +41,7 @@ export interface ThemeHaveZIndex {
 		drawer: number;
 	}
 }
-import ErrorBoundary from '../components/ErrorBoundary';
+import ErrorBoundary from 'components/ErrorBoundary';
 import {
 	useRouter,
 	useSelectedLayoutSegment
@@ -50,13 +49,13 @@ import {
 import {
 	showSidebar as showSidebarContext,
 	sidebarMode as sidebarModeContext
-} from '../layout/layoutClient';
+} from 'layout/layoutClient';
 import {
 	useLiveQuery
 } from 'dexie-react-hooks';
 import db, {
 	single
-} from '../components/db';
+} from 'components/db';
 export default function Settings(props: {
 	children: ReactNode
 }): JSX.Element {

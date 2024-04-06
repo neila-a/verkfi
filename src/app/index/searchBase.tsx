@@ -1,7 +1,7 @@
 "use client";
 import {
     tool
-} from "../tools/info";
+} from "tools/info";
 export default function searchBase(sortedTools: tool[], search: string) {
     var calcTools: tool[] = [];
     const lower = String(search).toLowerCase();

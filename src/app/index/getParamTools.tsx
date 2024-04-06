@@ -1,13 +1,13 @@
 "use client";
 import {
     single
-} from "../components/db";
+} from "components/db";
 import {
     mostUsedMarks
-} from "../layout/layoutClient";
+} from "layout/layoutClient";
 import {
     tool
-} from "../tools/info";
+} from "tools/info";
 import convertExtensionTools from "./convertExtensionTools";
 function getParamTools(mostUsed: mostUsedMarks, realTools: tool[], extensionTools: single[]) {
     return (Object.entries(mostUsed) as [string, number][]).sort((r, g) => {

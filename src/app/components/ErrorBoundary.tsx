@@ -1,7 +1,7 @@
 import {
     Component
 } from "react";
-import Error from "../error";
+import Error from "error";
 interface prop {
     hasError?: boolean;
     error?: Error;

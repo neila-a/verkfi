@@ -1,5 +1,5 @@
 'use client'
-import Error from "./error";
+import Error from "error";
 export default function GlobalError(props: {
     error: Error & {
         digest?: string;

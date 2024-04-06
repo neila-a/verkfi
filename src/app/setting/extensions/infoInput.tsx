@@ -9,7 +9,7 @@ import {
 } from "./page";
 import {
     setState
-} from "../../declare";
+} from "declare";
 const InfoInput = (props: {
     id: string;
     name: string;
