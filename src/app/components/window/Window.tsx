@@ -42,13 +42,10 @@ export interface WindowOptions {
 export default function Window(props: WindowOptions): JSX.Element {
     const {
         id
-    } = props;
-    var realSx: CSSProperties = {};
-    const router = useRouter();
-    if (props.sx !== undefined) {
-        realSx = props.sx;
-    }
-    const [open, setOpen] = useState<boolean>(true),
+    } = props,
+        realSx: CSSProperties = props?.sx === undefined ? {} : props?.sx,
+        router = useRouter(),
+        [open, setOpen] = useState<boolean>(true),
         nodeRef = useRef<HTMLDivElement>(null),
         [size, setSize] = useState<[number, number]>([50, 50]), /* height, width */
         [extension, setExtension] = useState<boolean>(false),

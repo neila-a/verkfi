@@ -300,12 +300,8 @@ export default function JigsawEntry(): JSX.Element {
                                             });
                                             return old;
                                         }
-                                        if (n.blocks[indexb1] !== null && n.blocks[indexb1] !== undefined) {
-                                            if (n.blocks[indexb1][indexc1] !== null) {
-                                                return n.blocks[indexb1][indexc1];
-                                            }
-                                        }
-                                    }))
+                                        return n.blocks?.[indexb1]?.[indexc1];
+                                    })).filter(item => item !== undefined)
                                 },
                                     booleans = await Promise.all(jigsaws.map(async jigsaw => await blobToInt8Array(jigsaw.all) === await blobToInt8Array(imageFile))),
                                     index = booleans.indexOf(true);

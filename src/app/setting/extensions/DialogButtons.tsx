@@ -35,18 +35,14 @@ export default function DialogButtons(props: {
                     ...props.fileInfo,
                     files: props.files
                 });
-                if (lists !== undefined) {
-                    const index = lists.value.find(list => list[0] === "__global__"), to = `/tools/extension?tool=${props.fileInfo.to}`;
-                    if (index !== undefined) {
-                        if (!index[1].includes(to)) {
-                            lists.set(lists.value.map(singleList => {
-                                if (singleList[0] === "__global__") {
-                                    return [singleList[0], [...singleList[1], to]];
-                                }
-                                return singleList;
-                            }));
+                const index = lists?.value.find(list => list[0] === "__global__"), to = `/tools/extension?tool=${props.fileInfo.to}`;
+                if (!index?.[1].includes(to)) {
+                    lists.set(lists.value.map(singleList => {
+                        if (singleList[0] === "__global__") {
+                            return [singleList[0], [...singleList[1], to]];
                         }
-                    }
+                        return singleList;
+                    }));
                 }
                 props.reset();
             }}>

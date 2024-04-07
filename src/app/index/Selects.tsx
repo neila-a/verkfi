@@ -171,11 +171,7 @@ export default function Selects(props: {
                     setRemoveDialogOpen,
                     setList,
                     left: gotToolsList.filter(tool => {
-                        const found = list.find(single => single[0] === dialogListName);
-                        if (found !== undefined) {
-                            return found[1].includes(tool.to);
-                        }
-                        return false;
+                        return list.find(single => single[0] === dialogListName)?.[1]?.includes(tool.to);
                     }).map(tool => tool.name)
                 })}
                 {createElement(dynamic(() => import("dialog/Check")), {

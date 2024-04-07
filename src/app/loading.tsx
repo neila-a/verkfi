@@ -9,7 +9,7 @@ import Image from "next/image";
 export default function Loading(props: {
     children?: ReactNode;
 }) {
-    var isLoading = props.children === undefined;
+    const isLoading = props.children === undefined;
     return (
         <Box sx={{
             display: "flex",
