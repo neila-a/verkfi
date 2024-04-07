@@ -168,7 +168,7 @@ export default function Menu() {
                             searchTools(event.target.value);
                             setTab(0);
                         }
-                        }} />
+                    }} />
                     <MouseOverPopover text={get("close")}>
                         <IconButton
                             aria-label={get("close")}
@@ -185,65 +185,67 @@ export default function Menu() {
                     </MouseOverPopover>
                 </DialogTitle>
                 <DialogContent dividers>
-                    {sortingFor === "__home__" ? <>
-                        <Box>
-                            <Typography variant='h4'>
-                                {get('category.分类')}
-                                <Selects
-                                    setEditMode={setEditMode}
-                                    setEditing={setEditing}
-                                    modifyClickCount={value => null}
-                                    list={list}
-                                    setList={setList}
-                                    searchText={searchText}
-                                    sortingFor={sortingFor}
-                                    setSortingFor={setSortingFor}
-                                    searchTools={searchTools}
-                                    editMode={editMode}
-                                    setTools={setTools}
-                                    setSortedTools={setSortedTools}
-                                    setSearchText={setSearchText}
-                                />
-                            </Typography>
-                        </Box>
-                        <Box>
-                            <Typography variant='h4'>
-                                {get('use.最近使用')}
-                            </Typography>
-                            <Box sx={{
-                                p: 1
-                            }}>
-                                <ToolsStack
-                                    viewMode={viewMode}
-                                    searchText=""
-                                    sortingFor={"__home__"}
-                                    setTools={tools => null}
-                                    editMode={false}
-                                    paramTool={recentlyUsed.map(to => {
-                                        var tool: tool | 0 = 0
-                                            || realTools.find(single => single.to === to)
-                                            || convertExtensionTools(extensionTools).find(single => `/tools/extension?tool=${to}` === single.to);
-                                        return tool;
-                                    }).filter((item: tool | 0) => item !== 0 && item !== undefined) as unknown as tool[]} />
+                    {sortingFor === "__home__" ? (
+                        <>
+                            <Box>
+                                <Typography variant='h4'>
+                                    {get('category.分类')}
+                                    <Selects
+                                        setEditMode={setEditMode}
+                                        setEditing={setEditing}
+                                        modifyClickCount={value => null}
+                                        list={list}
+                                        setList={setList}
+                                        searchText={searchText}
+                                        sortingFor={sortingFor}
+                                        setSortingFor={setSortingFor}
+                                        searchTools={searchTools}
+                                        editMode={editMode}
+                                        setTools={setTools}
+                                        setSortedTools={setSortedTools}
+                                        setSearchText={setSearchText}
+                                    />
+                                </Typography>
                             </Box>
-                        </Box>
-                        <Box>
-                            <Typography variant='h4'>
-                                {get('use.最常使用')}
-                            </Typography>
-                            <Box sx={{
-                                p: 1
-                            }}>
-                                <ToolsStack
-                                    viewMode={viewMode}
-                                    searchText=""
-                                    sortingFor={"__home__"}
-                                    setTools={tools => null}
-                                    editMode={false}
-                                    paramTool={getParamTools(mostUsed, realTools, extensionTools)} />
+                            <Box>
+                                <Typography variant='h4'>
+                                    {get('use.最近使用')}
+                                </Typography>
+                                <Box sx={{
+                                    p: 1
+                                }}>
+                                    <ToolsStack
+                                        viewMode={viewMode}
+                                        searchText=""
+                                        sortingFor={"__home__"}
+                                        setTools={tools => null}
+                                        editMode={false}
+                                        paramTool={recentlyUsed.map(to => {
+                                            var tool: tool | 0 = 0
+                                                || realTools.find(single => single.to === to)
+                                                || convertExtensionTools(extensionTools).find(single => `/tools/extension?tool=${to}` === single.to);
+                                            return tool;
+                                        }).filter((item: tool | 0) => item !== 0 && item !== undefined) as unknown as tool[]} />
+                                </Box>
                             </Box>
-                        </Box>
-                    </> : <>
+                            <Box>
+                                <Typography variant='h4'>
+                                    {get('use.最常使用')}
+                                </Typography>
+                                <Box sx={{
+                                    p: 1
+                                }}>
+                                    <ToolsStack
+                                        viewMode={viewMode}
+                                        searchText=""
+                                        sortingFor={"__home__"}
+                                        setTools={tools => null}
+                                        editMode={false}
+                                        paramTool={getParamTools(mostUsed, realTools, extensionTools)} />
+                                </Box>
+                            </Box>
+                        </>
+                    ) : (
                         <ToolsStack
                             paramTool={tools}
                             viewMode={viewMode}
@@ -253,24 +255,26 @@ export default function Menu() {
                             editMode={editMode}
                             focus={focusingTo}
                         />
-                    </>}
+                    )}
                 </DialogContent>
-                {sortingFor !== "__home__" && <DialogActions>
-                    {get("press")}
-                    <Button onClick={handleTab}>
-                        <kbd>
-                            Tab
-                        </kbd>
-                    </Button>
-                    {get("switch")}{", "}
-                    {get("press")}
-                    <Button onClick={handleEnter}>
-                        <kbd>
-                            Enter
-                        </kbd>
-                    </Button>
-                    {get("enter")}
-                </DialogActions>}
+                {sortingFor !== "__home__" && (
+                    <DialogActions>
+                        {get("press")}
+                        <Button onClick={handleTab}>
+                            <kbd>
+                                Tab
+                            </kbd>
+                        </Button>
+                        {get("switch")}{", "}
+                        {get("press")}
+                        <Button onClick={handleEnter}>
+                            <kbd>
+                                Enter
+                            </kbd>
+                        </Button>
+                        {get("enter")}
+                    </DialogActions>
+                )}
                 <DialogActions sx={{
                     display: "flex",
                     justifyContent: "space-between"
@@ -298,7 +302,9 @@ export default function Menu() {
                             </IconButton>
                         </MouseOverPopover>
                         <SwitchViewMode viewMode={viewMode} setViewMode={setViewMode} />
-                        {(editing && sortingFor !== "__extension__") && <SwitchEditMode editMode={editMode} setEditMode={setEditMode} />}
+                        {(editing && sortingFor !== "__extension__") && (
+                            <SwitchEditMode editMode={editMode} setEditMode={setEditMode} />
+                        )}
                     </Box>
                 </DialogActions>
             </Dialog>

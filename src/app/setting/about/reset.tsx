@@ -33,10 +33,12 @@ const direction: ResponsiveStyleValue<'row' | 'row-reverse' | 'column' | 'column
     md: "row"
 };
 const Spacing3Stack: FC<{
-    children: ReactNode
-}> = props => <Stack spacing={3}>
-    {props.children}
-</Stack>;
+    children: ReactNode;
+}> = props => (
+    <Stack spacing={3}>
+        {props.children}
+    </Stack>
+);
 export default function Reset() {
     const [dialogOpen, setDialogOpen] = useState<boolean>(false),
         [dialogContext, setDialogContext] = useState<string>(""),

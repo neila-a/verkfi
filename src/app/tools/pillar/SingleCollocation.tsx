@@ -36,9 +36,11 @@ export default function SingleCollocation(props: {
                             mb: index === 1 && 1,
                             pt: 0,
                             pb: 0
-                        }} secondaryAction={<CopyButton onlyIcon>
-                            {value.toString()}
-                        </CopyButton>}>
+                        }} secondaryAction={(
+                            <CopyButton onlyIcon>
+                                {value.toString()}
+                            </CopyButton>
+                        )}>
                             <ListItemText>
                                 {get(`pillar.collocationShow.${index}`)}: {value}
                             </ListItemText>

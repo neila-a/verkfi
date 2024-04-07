@@ -81,20 +81,22 @@ export default function Window(props: WindowOptions): JSX.Element {
                         alignItems: "center",
                         ...realSx
                     }}>
-                        {extension && <Box sx={{
-                            display: "flex"
-                        }}>
-                            <TextField label={get('height')} type="number" InputLabelProps={{
-                                shrink: true,
-                            }} onChange={event => {
-                                setSize(old => [Number(event.target.value), old[1]]);
-                            }} value={size[0]} />
-                            <TextField label={get('width')} type="number" InputLabelProps={{
-                                shrink: true,
-                            }} onChange={event => {
-                                setSize(old => [old[0], Number(event.target.value)]);
-                            }} value={size[1]} />
-                        </Box>}
+                        {extension && (
+                            <Box sx={{
+                                display: "flex"
+                            }}>
+                                <TextField label={get('height')} type="number" InputLabelProps={{
+                                    shrink: true,
+                                }} onChange={event => {
+                                    setSize(old => [Number(event.target.value), old[1]]);
+                                }} value={size[0]} />
+                                <TextField label={get('width')} type="number" InputLabelProps={{
+                                    shrink: true,
+                                }} onChange={event => {
+                                    setSize(old => [old[0], Number(event.target.value)]);
+                                }} value={size[1]} />
+                            </Box>
+                        )}
                         <Box sx={{
                             cursor: "move",
                             flex: 1,

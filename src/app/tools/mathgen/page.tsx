@@ -103,9 +103,15 @@ function MathGen(): JSX.Element {
                     </Button>
                 </ButtonGroup>
             </FormGroup>
-            {maths.toString() === "" ? <No>
-                {get("mathgen.没有任何已生成的算式")}
-            </No> : <List>{maths.map(math => <SingleMath math={math} showOut={showOut} key={math} />)}</List>}
+            {maths.toString() === "" ? (
+                <No>
+                    {get("mathgen.没有任何已生成的算式")}
+                </No>
+            ) : (
+                <List>
+                    {maths.map(math => <SingleMath math={math} showOut={showOut} key={math} />)}
+                </List>
+            )}
         </>
     );
 }

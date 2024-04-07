@@ -162,9 +162,11 @@ export default function Index(props: {
     }
     return (props.isImplant ? showSidebar.show : true) && (
         <Box ref={ref}>
-            {props.isImplant !== true && <HeadBar isIndex pageName="Verkfi" sx={{
-                zIndex: theme => String((theme as ThemeHaveZIndex).zIndex.drawer + 1)
-            }} />}
+            {props.isImplant !== true && (
+                <HeadBar isIndex pageName="Verkfi" sx={{
+                    zIndex: theme => String((theme as ThemeHaveZIndex).zIndex.drawer + 1)
+                }} />
+            )}
             <Sidebar
                 tools={tools}
                 focusingTo={focusingTo}
@@ -185,21 +187,25 @@ export default function Index(props: {
                 expand={expand}
                 setExpand={setExpand}
             />
-            {show === "tools" ? (props.isImplant ? (
-                expand && <Drawer anchor='left' variant="permanent" sx={{
-                    flexShrink: 0,
-                    [`& .MuiDrawer-paper`]: {
-                        position: "absolute",
-                        left: drawerWidth,
-                        maxWidth: `calc(100vw - ${drawerWidth}px)`,
-                        width: 320,
-                        boxSizing: 'border-box'
-                    }
-                }}>
-                    <Toolbar />
-                    <Tools />
-                </Drawer>
-            ) : <Tools />) : (
+            {show === "tools" ? (
+                props.isImplant ? (
+                    expand && (
+                        <Drawer anchor='left' variant="permanent" sx={{
+                            flexShrink: 0,
+                            [`& .MuiDrawer-paper`]: {
+                                position: "absolute",
+                                left: drawerWidth,
+                                maxWidth: `calc(100vw - ${drawerWidth}px)`,
+                                width: 320,
+                                boxSizing: 'border-box'
+                            }
+                        }}>
+                            <Toolbar />
+                            <Tools />
+                        </Drawer>
+                    )
+                ) : <Tools />
+            ) : (
                 <Box sx={{
                     p: 3,
                     ml: props.isImplant ? "" : `${drawerWidth}px`

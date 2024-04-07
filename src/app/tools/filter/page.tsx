@@ -115,11 +115,15 @@ export default function Filter(): JSX.Element {
                     </Grid>
                 </Grid>
             </Box>
-            {imageTypes.length === 0 ? <No>
-                {get("filter.没有任何已生成的图片")}
-            </No> : <ImageList>
-                {imageTypes.map(type => <SingleImage scale={scale} imageURL={imageURL} imageFileName={imageFileName} type={type} key={type} />)}
-            </ImageList>}
+            {imageTypes.length === 0 ? (
+                <No>
+                    {get("filter.没有任何已生成的图片")}
+                </No>
+            ) : (
+                <ImageList>
+                    {imageTypes.map(type => <SingleImage scale={scale} imageURL={imageURL} imageFileName={imageFileName} type={type} key={type} />)}
+                </ImageList>
+            )}
         </>
     );
 };

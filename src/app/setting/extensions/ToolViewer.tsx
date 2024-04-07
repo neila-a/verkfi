@@ -119,17 +119,20 @@ export default function ToolViewer(props: {
                     </MouseOverPopover>
                 </Box>
             </Box>
-            <PureDialog action={<DialogButtons
-                type="modify"
-                fileInfo={props.fileInfo}
-                setModifyDialogOpen={props.setModifyDialogOpen}
-                setRemoveDialogOpen={props.setRemoveDialogOpen}
-                files={props.files}
-                reset={props.reset} />} add={{
-                    fullScreen: fullScreen
-                }} open={props.modifyDialogOpen} onClose={event => {
-                    props.setModifyDialogOpen(false);
-                }} title={get("extensions.编辑扩展")}>
+            <PureDialog action={(
+                <DialogButtons
+                    type="modify"
+                    fileInfo={props.fileInfo}
+                    setModifyDialogOpen={props.setModifyDialogOpen}
+                    setRemoveDialogOpen={props.setRemoveDialogOpen}
+                    files={props.files}
+                    reset={props.reset}
+                />
+            )} add={{
+                fullScreen: fullScreen
+            }} open={props.modifyDialogOpen} onClose={event => {
+                props.setModifyDialogOpen(false);
+            }} title={get("extensions.编辑扩展")}>
                 {packagedDialogInputs("modify")}
             </PureDialog>
         </Paper>

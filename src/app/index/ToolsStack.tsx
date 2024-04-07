@@ -140,9 +140,11 @@ export default function ToolsStack(props: {
                 width: viewMode === "list" && "100%"
             }
         }}> {/* 工具总览 */}
-            {props.paramTool.length === 0 ? <No>
-                {get("index.notfound")}
-            </No> : ((viewMode === "list" && props.editMode) ? <ListContainer /> : <GridContainer />)}
+            {props.paramTool.length === 0 ? (
+                <No>
+                    {get("index.notfound")}
+                </No>
+            ) : ((viewMode === "list" && props.editMode) ? <ListContainer /> : <GridContainer />)}
         </Stack>
     );
 }

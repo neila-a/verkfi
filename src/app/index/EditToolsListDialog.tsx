@@ -54,7 +54,7 @@ export default function EditToolsListDialog(props: {
         toolsList = useToolsList(getTools(get));
     var right = toolsList.concat(converted).filter(atool => atool !== undefined).map(atool => atool.name).filter(v => props.left.every(val => val !== v));
     return (
-        <PureDialog action={
+        <PureDialog action={(
             <ButtonGroup fullWidth>
                 <Button variant="contained" onClick={event => {
                     var listDraft: lists = list.slice(0),
@@ -74,18 +74,21 @@ export default function EditToolsListDialog(props: {
                 }}>
                     {createOrEdit}
                 </Button>
-                {edit(list) && <Button variant="outlined" onClick={event => {
-                    props.setRemoveDialogOpen(true);
-                    setDialogTools([]);
-                    return setDialogOpen(false);
-                }}>
-                    {get("category.删除此分类")}
-                </Button>}
-            </ButtonGroup>} open={props.open} title={createOrEdit} onClose={() => {
-                setDialogTools([]);
-                setDialogListName("");
-                setDialogOpen(false);
-            }}>
+                {edit(list) && (
+                    <Button variant="outlined" onClick={event => {
+                        props.setRemoveDialogOpen(true);
+                        setDialogTools([]);
+                        return setDialogOpen(false);
+                    }}>
+                        {get("category.删除此分类")}
+                    </Button>
+                )}
+            </ButtonGroup>
+        )} open={props.open} title={createOrEdit} onClose={() => {
+            setDialogTools([]);
+            setDialogListName("");
+            setDialogOpen(false);
+        }}>
             <TextField value={dialogListName} autoFocus margin="dense" label={get("category.分类名称")} fullWidth variant="standard" onChange={event => {
                 setDialogListName(event.target.value);
             }} />

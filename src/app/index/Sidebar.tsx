@@ -138,20 +138,22 @@ export default function Sidebar(props: {
             <Box sx={{
                 textAlign: "center"
             }}>
-                {!props.isImplant && <SingleSelect
-                    dragButton={<></>}
-                    editMode={editMode}
-                    isSidebar={true}
-                    sortingFor={sortingFor}
-                    searchText={searchText}
-                    wantSortingFor="__home__"
-                    tool={get("主页")}
-                    onClick={event => {
-                        props.setShow("home");
-                        setSortingFor("__home__");
-                    }}
-                    editButton={<></>}
-                />}
+                {!props.isImplant && (
+                    <SingleSelect
+                        dragButton={<></>}
+                        editMode={editMode}
+                        isSidebar={true}
+                        sortingFor={sortingFor}
+                        searchText={searchText}
+                        wantSortingFor="__home__"
+                        tool={get("主页")}
+                        onClick={event => {
+                            props.setShow("home");
+                            setSortingFor("__home__");
+                        }}
+                        editButton={<></>}
+                    />
+                )}
                 <Box onClick={event => {
                     props.setShow("tools");
                     props.setExpand(true);

@@ -132,36 +132,44 @@ export default function Settings(props: {
 					{extensionTools.map(item => item.settings.filter(settingItem => settingItem.page === id).map((settingItem, index) => {
 						switch (settingItem.type) {
 							case "boolean":
-								return <FormControlLabel control={<Switch checked={settingItem.value as boolean} onChange={event => {
-									const modifiedSettings = item.settings.slice(0);
-									modifiedSettings[index].value = !(modifiedSettings[index].value as boolean);
-									db.extensionTools.put({
-										...item,
-										settings: modifiedSettings
-									});
-								}} />} label={settingItem.text} />;
+								return (
+									<FormControlLabel control={(
+										<Switch checked={settingItem.value as boolean} onChange={event => {
+											const modifiedSettings = item.settings.slice(0);
+											modifiedSettings[index].value = !(modifiedSettings[index].value as boolean);
+											db.extensionTools.put({
+												...item,
+												settings: modifiedSettings
+											});
+										}} />
+									)} label={settingItem.text} />
+								);
 							case "input":
-								return <TextField value={settingItem.value as string} label={settingItem.text} variant="outlined" onChange={event => {
-									const modifiedSettings = item.settings.slice(0);
-									modifiedSettings[index].value = event.target.value;
-									db.extensionTools.put({
-										...item,
-										settings: modifiedSettings
-									});
-								}} />
+								return (
+									<TextField value={settingItem.value as string} label={settingItem.text} variant="outlined" onChange={event => {
+										const modifiedSettings = item.settings.slice(0);
+										modifiedSettings[index].value = event.target.value;
+										db.extensionTools.put({
+											...item,
+											settings: modifiedSettings
+										});
+									}} />
+								);
 							case "switch":
-								return <Select value={settingItem.value as string} label={settingItem.text} onChange={event => {
-									const modifiedSettings = item.settings.slice(0);
-									modifiedSettings[index].value = event.target.value;
-									db.extensionTools.put({
-										...item,
-										settings: modifiedSettings
-									});
-								}}>
-									{settingItem.switches.map(switching => (
-										<MenuItem key={switching} value={switching}>{switching}</MenuItem>
-									))}
-								</Select>;
+								return (
+									<Select value={settingItem.value as string} label={settingItem.text} onChange={event => {
+										const modifiedSettings = item.settings.slice(0);
+										modifiedSettings[index].value = event.target.value;
+										db.extensionTools.put({
+											...item,
+											settings: modifiedSettings
+										});
+									}}>
+										{settingItem.switches.map(switching => (
+											<MenuItem key={switching} value={switching}>{switching}</MenuItem>
+										))}
+									</Select>
+								);
 						}
 					}))}
 				</Box>

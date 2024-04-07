@@ -200,20 +200,24 @@ export default function JigsawEntry(): JSX.Element {
                         {get("jigsaw.recent")}
                     </Typography>
                 </ImageListItem>
-                {jigsaws.length === 0 ? <No>
-                    {get("jigsaw.noRecent")}
-                </No> : jigsaws.map(jigsaw => (
+                {jigsaws.length === 0 ? (
+                    <No>
+                        {get("jigsaw.noRecent")}
+                    </No>
+                ) : jigsaws.map(jigsaw => (
                     <ImageListItem key={`${jigsaw.all.size}@${jigsaw.fileName}`}>
                         <img
                             src={URL.createObjectURL(jigsaw.all)}
                             alt={jigsaw.fileName}
                             loading="lazy"
                         />
-                        <ImageListItemBar title={jigsaw.fileName} subtitle={<>
-                            {get("jigsaw.split.height")}: {jigsaw.rightBlocks.length}
-                            <br />
-                            {get("jigsaw.split.width")}: {jigsaw.rightBlocks[0].length}
-                        </>} actionIcon={(
+                        <ImageListItemBar title={jigsaw.fileName} subtitle={(
+                            <>
+                                {get("jigsaw.split.height")}: {jigsaw.rightBlocks.length}
+                                <br />
+                                {get("jigsaw.split.width")}: {jigsaw.rightBlocks[0].length}
+                            </>
+                        )} actionIcon={(
                             <Box sx={{
                                 ["& button"]: {
                                     color: theme => `${theme.palette.primary.main} !important`

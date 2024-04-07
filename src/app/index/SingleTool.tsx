@@ -1,5 +1,6 @@
 "use client";
 import {
+    Fragment,
     createElement,
     useContext,
     useState
@@ -185,93 +186,101 @@ export default function SingleTool(props: {
                                     }]);
                                 }
                             }}>
-                                {viewMode == "grid" ? <Box>
+                                {viewMode == "grid" ? (
                                     <Box>
-                                        <ToolIcon />
-                                    </Box>
-                                    <Box>
-                                        <ToolTypography variant="h5">
-                                            {db}
-                                            {(tool.isGoto && !tool.to.startsWith("/tools/extension")) ? <ExitToAppIcon /> : <></>}
-                                            {tool.name}
-                                            {ub}
-                                        </ToolTypography>
-                                        <ToolTypography {...subStyle} variant="body2">
-                                            {tool.desc}
-                                        </ToolTypography>
-                                    </Box>
-                                </Box> : <>
-                                    <Box sx={{
-                                        display: "flex",
-                                        alignItems: "center"
-                                    }}>
-                                        <Box sx={{
-                                            mr: 2
-                                        }}>
+                                        <Box>
                                             <ToolIcon />
                                         </Box>
                                         <Box>
                                             <ToolTypography variant="h5">
-                                                {(tool.isGoto && !tool.to.startsWith("/tools/extension")) ? <ExitToAppIcon /> : <></>}
+                                                {db}
+                                                {(tool.isGoto && !tool.to.startsWith("/tools/extension")) ? <ExitToAppIcon /> : <Fragment />}
                                                 {tool.name}
+                                                {ub}
                                             </ToolTypography>
                                             <ToolTypography {...subStyle} variant="body2">
                                                 {tool.desc}
                                             </ToolTypography>
                                         </Box>
                                     </Box>
-                                    {editMode && <Box onClick={event => {
-                                        event.stopPropagation();
-                                    }} className="singleTool-editControler" sx={{
-                                        display: "flex",
-                                        alignItems: "center"
-                                    }}>
-                                        {tool.to.startsWith("/tools/extension") && (
-                                            <>
-                                                <MouseOverPopover text={get("singleTool.deleteExtension")}>
-                                                    <IconButton onClick={event => {
-                                                        setRemoveDialogOpen(true);
-                                                    }} aria-label={get("singleTool.deleteExtension")}>
-                                                        <Delete />
-                                                    </IconButton>
-                                                </MouseOverPopover>
-                                                {createElement(dynamic(() => import("setting/extensions/RemoveExtensionDialog")), {
-                                                    open: removeDialogOpen,
-                                                    reset: () => setRemoveDialogOpen(false),
-                                                    fileInfo: {
-                                                        ...tool,
-                                                        to: tool.to.replace("/tools/extension?tool=", "") as Lowercase<string>,
-                                                        settings: [],
-                                                        main: ""
-                                                    } as unknown as NXTMetadata,
-                                                    files: [],
-                                                    onTrue: () => setTools(old => old.slice(0).filter(atool => atool.to !== tool.to))
-                                                })}
-                                            </>
+                                ) : (
+                                    <>
+                                        <Box sx={{
+                                            display: "flex",
+                                            alignItems: "center"
+                                        }}>
+                                            <Box sx={{
+                                                mr: 2
+                                            }}>
+                                                <ToolIcon />
+                                            </Box>
+                                            <Box>
+                                                <ToolTypography variant="h5">
+                                                    {(tool.isGoto && !tool.to.startsWith("/tools/extension")) ? <ExitToAppIcon /> : <Fragment />}
+                                                    {tool.name}
+                                                </ToolTypography>
+                                                <ToolTypography {...subStyle} variant="body2">
+                                                    {tool.desc}
+                                                </ToolTypography>
+                                            </Box>
+                                        </Box>
+                                        {editMode && (
+                                            <Box onClick={event => {
+                                                event.stopPropagation();
+                                            }} className="singleTool-editControler" sx={{
+                                                display: "flex",
+                                                alignItems: "center"
+                                            }}>
+                                                {tool.to.startsWith("/tools/extension") && (
+                                                    <>
+                                                        <MouseOverPopover text={get("singleTool.deleteExtension")}>
+                                                            <IconButton onClick={event => {
+                                                                setRemoveDialogOpen(true);
+                                                            }} aria-label={get("singleTool.deleteExtension")}>
+                                                                <Delete />
+                                                            </IconButton>
+                                                        </MouseOverPopover>
+                                                        {createElement(dynamic(() => import("setting/extensions/RemoveExtensionDialog")), {
+                                                            open: removeDialogOpen,
+                                                            reset: () => setRemoveDialogOpen(false),
+                                                            fileInfo: {
+                                                                ...tool,
+                                                                to: tool.to.replace("/tools/extension?tool=", "") as Lowercase<string>,
+                                                                settings: [],
+                                                                main: ""
+                                                            } as unknown as NXTMetadata,
+                                                            files: [],
+                                                            onTrue: () => setTools(old => old.slice(0).filter(atool => atool.to !== tool.to))
+                                                        })}
+                                                    </>
+                                                )}
+                                                {sortingFor !== "__global__" && sortingFor !== "__home__" && (
+                                                    <MouseOverPopover text={get("singleTool.deleteFromCategory")}>
+                                                        <IconButton onClick={event => {
+                                                            setLists(lists.slice(0).map(list => {
+                                                                if (list[0] === sortingFor) {
+                                                                    return [list[0], list[1].filter(singleTool => singleTool !== tool.to)]
+                                                                }
+                                                                return list;
+                                                            }));
+                                                            setTools(old => old.slice(0).filter(atool => atool.to !== tool.to))
+                                                        }} aria-label={get("singleTool.deleteFromCategory")}>
+                                                            <FolderDelete />
+                                                        </IconButton>
+                                                    </MouseOverPopover>
+                                                )}
+                                                <DragIndicatorIcon />
+                                            </Box>
                                         )}
-                                        {sortingFor !== "__global__" && sortingFor !== "__home__" && (
-                                            <MouseOverPopover text={get("singleTool.deleteFromCategory")}>
-                                                <IconButton onClick={event => {
-                                                    setLists(lists.slice(0).map(list => {
-                                                        if (list[0] === sortingFor) {
-                                                            return [list[0], list[1].filter(singleTool => singleTool !== tool.to)]
-                                                        }
-                                                        return list;
-                                                    }));
-                                                    setTools(old => old.slice(0).filter(atool => atool.to !== tool.to))
-                                                }} aria-label={get("singleTool.deleteFromCategory")}>
-                                                    <FolderDelete />
-                                                </IconButton>
-                                            </MouseOverPopover>
-                                        )}
-                                        <DragIndicatorIcon />
-                                    </Box>}
-                                </>}
+                                    </>
+                                )}
                             </Box>
-                            {props.focus && <iframe style={{
-                                border: "none",
-                                width: "100%"
-                            }} src={tool.isGoto ? (!tool.to.startsWith("/") ? tool.to : `${tool.to}&only=true`) : `/tools/${tool.to}?only=true`} />}
+                            {props.focus && (
+                                <iframe style={{
+                                    border: "none",
+                                    width: "100%"
+                                }} src={tool.isGoto ? (!tool.to.startsWith("/") ? tool.to : `${tool.to}&only=true`) : `/tools/${tool.to}?only=true`} />
+                            )}
                         </CardContent>
                     </Card>
                 )}

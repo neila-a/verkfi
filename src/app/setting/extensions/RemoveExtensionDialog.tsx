@@ -33,9 +33,11 @@ export default function RemoveExtensionDialog(props: {
         mostUsed = useContext(mostUsedContext),
         lists = useContext(listsContext);
     return (
-        <CheckDialog insert={<FormControlLabel control={<Checkbox value={clearData} onChange={event => {
-            setClearData(event.target.checked);
-        }} />} label={get("extensions.clear")} />} onFalse={() => {
+        <CheckDialog insert={<FormControlLabel control={(
+            <Checkbox value={clearData} onChange={event => {
+                setClearData(event.target.checked);
+            }} />
+        )} label={get("extensions.clear")} />} onFalse={() => {
             props.reset();
             setClearData(false);
         }} onTrue={async () => {

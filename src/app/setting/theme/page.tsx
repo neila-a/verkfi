@@ -229,24 +229,26 @@ function ColorTool() {
                 }) | FC][]).map(item => {
                     const isThis = darkMode.mode === item[0],
                         Icon = item[1];
-                    return <Grid item key={item[0]}>
-                        <Paper onClick={event => {
-                            darkMode.set(item[0]);
-                        }} sx={{
-                            p: 2,
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center",
-                            boxShadow: theme => isThis && `inset 0 0 0 3px ${theme.palette.primary[theme.palette.mode]}`,
-                            borderColor: theme => isThis && theme.palette.primary[theme.palette.mode]
-                        }}>
-                            <Icon sx={{
-                                fontSize: "10vw",
-                                color: theme => theme.palette.primary.main
-                            }} />
-                            {get(`theme.colorMode.${item[0]}`)}
-                        </Paper>
-                    </Grid>;
+                    return (
+                        <Grid item key={item[0]}>
+                            <Paper onClick={event => {
+                                darkMode.set(item[0]);
+                            }} sx={{
+                                p: 2,
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                boxShadow: theme => isThis && `inset 0 0 0 3px ${theme.palette.primary[theme.palette.mode]}`,
+                                borderColor: theme => isThis && theme.palette.primary[theme.palette.mode]
+                            }}>
+                                <Icon sx={{
+                                    fontSize: "10vw",
+                                    color: theme => theme.palette.primary.main
+                                }} />
+                                {get(`theme.colorMode.${item[0]}`)}
+                            </Paper>
+                        </Grid>
+                    );
                 })}
             </Grid>
             <Grid container spacing={5} sx={{

@@ -13,6 +13,7 @@ import {
     setState
 } from 'declare';
 import {
+    Fragment,
     createElement,
     useContext,
     useState
@@ -114,7 +115,7 @@ export default function Selects(props: {
                                     <EditIcon />
                                 </IconButton>
                             </MouseOverPopover>
-                        ) : <></>
+                        ) : <Fragment />
                     )} wantSortingFor={aprops.isAll ? "__global__" : aprops.single[0]} />
             </Box>
         );
@@ -160,37 +161,39 @@ export default function Selects(props: {
                     )}
                 </Droppable>
             </DragDropContext>
-            {props.editMode && <> {/* 只有editMode时才会启用，可以用dynamic */}
-                {createElement(dynamic(() => import("./EditToolsListDialog")), {
-                    open: dialogOpen,
-                    dialogTools,
-                    setDialogTools,
-                    dialogListName,
-                    setDialogListName,
-                    setDialogOpen,
-                    setRemoveDialogOpen,
-                    setList,
-                    left: gotToolsList.filter(tool => {
-                        return list.find(single => single[0] === dialogListName)?.[1]?.includes(tool.to);
-                    }).map(tool => tool.name)
-                })}
-                {createElement(dynamic(() => import("dialog/Check")), {
-                    open: removeDialogOpen,
-                    title: get("category.删除此分类"),
-                    description: get("category.确定删除此分类吗？"),
-                    onTrue: () => {
-                        var listDraft: lists = list.slice(0).filter(draftSingle => draftSingle[0] !== dialogListName)
-                        setList(listDraft);
-                        lists.set(listDraft);
-                        setDialogListName("");
-                        return setRemoveDialogOpen(false);
-                    },
-                    onFalse: () => {
-                        setDialogListName("");
-                        return setRemoveDialogOpen(false);
-                    }
-                })}
-            </>}
+            {props.editMode && (
+                <> {/* 只有editMode时才会启用，可以用dynamic */}
+                    {createElement(dynamic(() => import("./EditToolsListDialog")), {
+                        open: dialogOpen,
+                        dialogTools,
+                        setDialogTools,
+                        dialogListName,
+                        setDialogListName,
+                        setDialogOpen,
+                        setRemoveDialogOpen,
+                        setList,
+                        left: gotToolsList.filter(tool => {
+                            return list.find(single => single[0] === dialogListName)?.[1]?.includes(tool.to);
+                        }).map(tool => tool.name)
+                    })}
+                    {createElement(dynamic(() => import("dialog/Check")), {
+                        open: removeDialogOpen,
+                        title: get("category.删除此分类"),
+                        description: get("category.确定删除此分类吗？"),
+                        onTrue: () => {
+                            var listDraft: lists = list.slice(0).filter(draftSingle => draftSingle[0] !== dialogListName)
+                            setList(listDraft);
+                            lists.set(listDraft);
+                            setDialogListName("");
+                            return setRemoveDialogOpen(false);
+                        },
+                        onFalse: () => {
+                            setDialogListName("");
+                            return setRemoveDialogOpen(false);
+                        }
+                    })}
+                </>
+            )}
         </Box>
     );
 }

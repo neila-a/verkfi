@@ -77,9 +77,11 @@ export default function ExtensionManager() {
                 {get('extensions.扩展')}
             </Typography>
             <Stack spacing={2} mb={2}>
-                {extensionTools?.length === 0 ? <No>
-                    {get("extensions.未找到任何扩展")}
-                </No> : extensionTools?.map(single => (
+                {extensionTools?.length === 0 ? (
+                    <No>
+                        {get("extensions.未找到任何扩展")}
+                    </No>
+                ) : extensionTools?.map(single => (
                     <ToolViewer
                         key={single.to}
                         single={single}
@@ -133,14 +135,16 @@ export default function ExtensionManager() {
                 labelIdle={get('drag.extensionAdd')}
             />
             <RemoveExtensionDialog open={removeDialogOpen} reset={reset} fileInfo={fileInfo} files={files} />
-            <PureDialog action={<DialogButtons
-                type="add"
-                fileInfo={fileInfo}
-                setModifyDialogOpen={setModifyDialogOpen}
-                setRemoveDialogOpen={setRemoveDialogOpen}
-                files={files}
-                reset={reset}
-            />} add={{
+            <PureDialog action={(
+                <DialogButtons
+                    type="add"
+                    fileInfo={fileInfo}
+                    setModifyDialogOpen={setModifyDialogOpen}
+                    setRemoveDialogOpen={setRemoveDialogOpen}
+                    files={files}
+                    reset={reset}
+                />
+            )} add={{
                 fullScreen: fullScreen
             }} open={addDialogOpen} onClose={() => reset()} title={get("extensions.添加扩展")}>
                 {packagedDialogInputs("add")}

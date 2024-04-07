@@ -63,18 +63,22 @@ export default function Buttons(props: {
             bottom: 0,
             width: "100%"
         }}>
-            {editMode && <Button onClick={event => {
-                setDialogOpen(true);
-            }} startIcon={<AddIcon />}>
-                {get("category.添加分类")}
-            </Button>}
+            {editMode && (
+                <Button onClick={event => {
+                    setDialogOpen(true);
+                }} startIcon={<AddIcon />}>
+                    {get("category.添加分类")}
+                </Button>
+            )}
             <Divider />
             <ButtonGroup variant="outlined" sx={{
                 display: "flex",
                 justifyContent: "center"
             }}>
                 <SwitchViewMode viewMode={viewMode} setViewMode={setViewMode} />
-                {editing && <SwitchEditMode editMode={editMode} setEditMode={setEditMode} />}
+                {editing && (
+                    <SwitchEditMode editMode={editMode} setEditMode={setEditMode} />
+                )}
                 {props.isImplant && (
                     <MouseOverPopover text={props.expand ? get("window.collapse") : get("window.expand")}>
                         <IconButton color="primary" sx={{

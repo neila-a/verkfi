@@ -88,9 +88,11 @@ export default function First() {
                 <Stack onClick={preventer} spacing={3} sx={{
                     textAlign: "center"
                 }}>
-                    {step === 0 && <Typography variant="h3">
-                        {currentInfo.title}
-                    </Typography>}
+                    {step === 0 && (
+                        <Typography variant="h3">
+                            {currentInfo.title}
+                        </Typography>
+                    )}
                     <Typography variant="h6">
                         {currentInfo.context}
                     </Typography>
