@@ -111,7 +111,9 @@ export default function Filter(): JSX.Element {
                         />
                     </Grid>
                     <Grid item>
-                        <Typography>%</Typography>
+                        <Typography>
+                            %
+                        </Typography>
                     </Grid>
                 </Grid>
             </Box>
