@@ -1,21 +1,21 @@
 "use client";
 import db from "db";
 import {
-    mostUsedMarks
+    mostUsed,
+    recentlyUsed
 } from "layout/layoutClient";
-import {
-    setState
-} from "declare";
 import {
     NXTMetadata
 } from "./page";
-export default async function clearExtensionData(clearingExtension: NXTMetadata, clearingFiles: [string, Uint8Array][], recentlyUsed: {
-    value: string[];
-    set: setState<string[]>;
-}, mostUsed: {
-    value: mostUsedMarks;
-    set: setState<mostUsedMarks>;
-}) {
+import {
+    Context
+} from "react";
+type recentlyUsed = typeof recentlyUsed extends Context<infer P> ? P : never;
+type mostUsed = typeof mostUsed extends Context<infer P> ? P : never;
+export default async function clearExtensionData(clearingExtension: NXTMetadata, clearingFiles: [
+    string,
+    Uint8Array
+][], recentlyUsed: recentlyUsed, mostUsed: mostUsed) {
     await db.extensionTools.put({
         ...clearingExtension,
         files: clearingFiles,

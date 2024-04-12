@@ -52,14 +52,21 @@ export default function ToolViewer(props: {
 }) {
     const {
         single
-    } = props, recentlyUsed = useContext(recentlyUsedContext), theme = useTheme(), fullScreen = useMediaQuery(theme.breakpoints.down('sm')), packagedDialogInputs = (type: inputTypes) => <DialogInputs
-        type={type}
-        fileInfo={props.fileInfo}
-        setFileInfo={props.setFileInfo}
-        files={props.files}
-        reset={props.reset}
-        setModifyDialogOpen={props.setModifyDialogOpen}
-        setRemoveDialogOpen={props.setRemoveDialogOpen} />, mostUsed = useContext(mostUsedContext);
+    } = props, recentlyUsed = useContext(recentlyUsedContext),
+        theme = useTheme(),
+        fullScreen = useMediaQuery(theme.breakpoints.down('sm')),
+        packagedDialogInputs = (type: inputTypes) => (
+            <DialogInputs
+                type={type}
+                fileInfo={props.fileInfo}
+                setFileInfo={props.setFileInfo}
+                files={props.files}
+                reset={props.reset}
+                setModifyDialogOpen={props.setModifyDialogOpen}
+                setRemoveDialogOpen={props.setRemoveDialogOpen}
+            />
+        ),
+        mostUsed = useContext(mostUsedContext);
     return (
         <Paper sx={{
             padding: 2
