@@ -35,10 +35,8 @@ import {
 import useToolsList from 'index/getToolsList';
 import Sidebar from 'index/Sidebar';
 import {
-    viewMode,
     homeWhere
 } from 'index/consts';
-import useStoragedState from 'useStoragedState';
 import {
     setState
 } from 'declare';
@@ -48,7 +46,8 @@ import {
     first as firstContext,
     recentlyUsed as recentlyUsedContext,
     mostUsed as mostUsedContext,
-    showSidebar as showSidebarContext
+    showSidebar as showSidebarContext,
+    viewMode as viewModeContext
 } from 'layout/layoutClient';
 import getParamTools from 'index/getParamTools';
 import VerkfiIcon from 'components/verkfiIcon/verkfiIcon';
@@ -89,7 +88,9 @@ export default function Index(props: {
         mostUsed = useContext(mostUsedContext).value,
         [sortedTools, setSortedTools] = useState(toolsList),
         [searchText, setSearchText] = useState<string>(""),
-        [viewMode, setViewMode] = useStoragedState<viewMode>("viewmode", "列表模式", "list"),
+        usedViewMode = useContext(viewModeContext),
+        viewMode = usedViewMode.value,
+        setViewMode = usedViewMode.set,
         [editMode, setEditMode] = useState<boolean>(false),
         [expandThis, setExpandThis] = useState<boolean>(false),
         [showTries, setShowTries] = useState<boolean>(false),
@@ -136,10 +137,8 @@ export default function Index(props: {
         }
     }, []);
     useEffect(() => {
-        if ("setted" in window) {
-            if (window.setted.first && first.value) {
-                router.push("/first");
-            }
+        if (first.value) {
+            router.push("/first");
         }
     }, [first]);
     function Tools() {

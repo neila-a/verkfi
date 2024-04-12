@@ -28,8 +28,8 @@
         "paths": {
             "dialog/*": ["components/dialog/*Dialog"],
             "No": ["components/No"],
-            "useStoragedState": ["components/useStoragedState"],
-            "db": ["components/db"]
+            "useStoragedState": ["setting/useStoragedState"],
+            "db": ["setting/db"]
         }
     },
     "include": [

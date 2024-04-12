@@ -46,12 +46,8 @@ declare global {
          */
         installPWA: () => Promise<void>;
 
-        setted: {
-            [key: string]: boolean;
-        };
-
         webkitSpeechRecognition: {
-            new(): SpeechRecognition
+            new(): SpeechRecognition;
         };
 
     }

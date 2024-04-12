@@ -1,11 +1,11 @@
 "use client";
 import {
-    useRouter,
     useSearchParams,
     useSelectedLayoutSegment
 } from "next/navigation";
 import {
     ReactNode,
+    Suspense,
     useContext
 } from "react";
 import HeadBar from "components/HeadBar";
@@ -31,6 +31,7 @@ import convertExtensionTools from "index/convertExtensionTools";
 import {
     emptyExtension
 } from "./extension/empties";
+import Loading from "loading";
 const logger = new lpLogger({
     name: "ToolFinder",
     level: "log"
@@ -62,7 +63,9 @@ export default function ToolFinder(props: {
             <Box sx={{
                 p: 3
             }} component="article" id="container">
-                {props.children}
+                <Suspense fallback={<Loading />}>
+                    {props.children}
+                </Suspense>
             </Box>
             <Box component="section" id="outside" />
         </>

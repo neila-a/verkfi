@@ -62,9 +62,7 @@ import {
     Typography
 } from "@mui/material";
 import Loading from "loading";
-import BaseLayout, {
-    WindowsProvider
-} from "layout/layoutClient";
+import BaseLayout from "layout/layoutClient";
 import {
     Suspense
 } from "react";
@@ -84,13 +82,13 @@ export default async function Layout({
             }}>
                 <AppRouterCacheProvider>
                     <GlobalStyles styles={{
-                        ["& *"]: {
+                        "& *": {
                             fontFamily: Ubuntu.style.fontFamily
                         },
-                        ["& ::-webkit-scrollbar"]: {
+                        "& ::-webkit-scrollbar": {
                             display: "none"
                         },
-                        [".filepond--root .filepond--credits"]: {
+                        ".filepond--root .filepond--credits": {
                             display: "none"
                         }
                     }} />
@@ -104,13 +102,9 @@ export default async function Layout({
                     <Box sx={{
                         minHeight: "100vh"
                     }}>
-                        <Suspense fallback={<Loading />}> {/* 阻止整个页面坠落到客户端模式 */}
-                            <WindowsProvider>
-                                <BaseLayout>
-                                    {children}
-                                </BaseLayout>
-                            </WindowsProvider>
-                        </Suspense>
+                        <BaseLayout>
+                            {children}
+                        </BaseLayout>
                     </Box>
                 </AppRouterCacheProvider>
             </body>

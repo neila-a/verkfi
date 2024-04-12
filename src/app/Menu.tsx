@@ -33,10 +33,6 @@ import {
     getTools,
     tool
 } from "tools/info";
-import {
-    viewMode
-} from "index/consts";
-import useStoragedState from "useStoragedState";
 import SwitchViewMode from "index/SwitchViewMode";
 import SwitchEditMode from "index/SwitchEditMode";
 import useToolsList from "index/getToolsList";
@@ -46,6 +42,7 @@ import {
     recentlyUsed as recentlyUsedContext,
     mostUsed as mostUsedContext,
     lists as listsContext,
+    viewMode as viewModeContext,
 } from "layout/layoutClient";
 import {
     useRouter
@@ -64,7 +61,9 @@ export default function Menu() {
         realTools = getTools(get), // 硬编码的分类
         recentlyUsed = useContext(recentlyUsedContext).value,
         mostUsed = useContext(mostUsedContext).value,
-        [viewMode, setViewMode] = useStoragedState<viewMode>("viewmode", "列表模式", "list"),
+        usedViewMode = useContext(viewModeContext),
+        viewMode = usedViewMode.value,
+        setViewMode = usedViewMode.set,
         [editMode, setEditMode] = useState<boolean>(false),
         [sortingFor, setSortingFor] = useState<string>("__home__"),
         [tab, setTab] = useState<number>(0),

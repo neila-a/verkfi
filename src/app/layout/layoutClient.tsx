@@ -60,6 +60,9 @@ import {
     lists as listsType
 } from "index/Sidebar";
 import Ubuntu from "components/fonts";
+import {
+    viewMode as viewModeType
+} from "index/consts";
 export const showSidebar = createContext<{
     show: boolean;
     set: setState<boolean>;
@@ -84,6 +87,10 @@ export const first = createContext<{
 export const paletteColors = createContext<{
     value: typeof defaultPalette;
     set: setState<typeof defaultPalette>;
+}>(null);
+export const viewMode = createContext<{
+    value: viewModeType;
+    set: setState<viewModeType>;
 }>(null);
 export const darkMode = createContext<{
     mode: PaletteMode | "system";
@@ -131,37 +138,24 @@ export const windows = createContext<{
     windows: WindowOptions[];
     set: setState<WindowOptions[]>;
 }>(null);
-export function WindowsProvider(props: {
-    children: ReactNode;
-}) {
-    const [realWindows, setRealWindows] = useState<WindowOptions[]>([]);
-    return (
-        <windows.Provider value={{
-            windows: realWindows,
-            set: setRealWindows
-        }}>
-            {props.children}
-        </windows.Provider>
-    );
-}
 export default function ModifiedApp(props: {
     children: ReactNode;
 }) {
     const [mode, setMode] = useStoragedState<PaletteMode | "system">("darkmode", "暗色模式", "system"),
+        [realWindows, setRealWindows] = useState<WindowOptions[]>([]),
         [palette, setPalette] = useStoragedState<typeof defaultPalette>("palette", "调色板", defaultPalette),
         [recentlyUsedState, setRecentlyUsed] = useStoragedState<string[]>("recently-tools", "最近使用的工具", []),
         [mostUsedState, setMostUsed] = useStoragedState<mostUsedMarks>("most-tools", "最常使用的工具", {}),
         theme = useMemo(
-            () =>
-                createTheme({
-                    palette: {
-                        ...palette,
-                        mode: mode === "system" ? (isBrowser() ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : "light") : "light") : mode,
-                    },
-                    typography: {
-                        fontFamily: Ubuntu.style.fontFamily
-                    }
-                }),
+            () => createTheme({
+                palette: {
+                    ...palette,
+                    mode: mode === "system" ? (isBrowser() ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : "light") : "light") : mode,
+                },
+                typography: {
+                    fontFamily: Ubuntu.style.fontFamily
+                }
+            }),
             [mode, palette]
         ),
         pathname = usePathname(),
@@ -173,6 +167,7 @@ export default function ModifiedApp(props: {
         [sidebarModeState, setSidebarMode] = useStoragedState<sidebarMode>("sidebarmode", "边栏模式", "menu"),
         [showSidebarState, setShowSidebar] = useStoragedState<boolean>("sidebar", "边栏", false),
         [listsState, setLists] = useStoragedState<listsType>("lists", "分类列表", []),
+        [viewModeState, setViewMode] = useStoragedState<viewModeType>("viewmode", "列表模式", "list"),
         implant = (pathname === "/") || (params.get("only") === "true"),
         ml: string = implant ? "" : (expand ? `calc(min(${`calc(100vw - ${drawerWidth}px)`}, 320px) + ${drawerWidth}px)` : `${drawerWidth}px`),
         Sidebar = implant ? null : (sidebarModeState === "menu" ? createElement(dynamic(() => import("Menu"))) : createElement(dynamic(() => import("page")), {
@@ -253,24 +248,35 @@ export default function ModifiedApp(props: {
                                                     value: palette,
                                                     set: setPalette
                                                 }}>
-                                                    <recentlyUsed.Provider value={{
-                                                        value: recentlyUsedState,
-                                                        set: setRecentlyUsed
+                                                    <viewMode.Provider value={{
+                                                        value: viewModeState,
+                                                        set: setViewMode
                                                     }}>
-                                                        <mostUsed.Provider value={{
-                                                            value: mostUsedState,
-                                                            set: setMostUsed
+
+                                                        <windows.Provider value={{
+                                                            windows: realWindows,
+                                                            set: setRealWindows
                                                         }}>
-                                                            <CssBaseline />
-                                                            <Box component="aside">
-                                                                {Sidebar}
-                                                            </Box>
-                                                            <Box component="main" ml={(showSidebarState && sidebarModeState === "sidebar") && ml}>
-                                                                {props.children}
-                                                            </Box>
-                                                            <WindowContainer />
-                                                        </mostUsed.Provider>
-                                                    </recentlyUsed.Provider>
+                                                            <recentlyUsed.Provider value={{
+                                                                value: recentlyUsedState,
+                                                                set: setRecentlyUsed
+                                                            }}>
+                                                                <mostUsed.Provider value={{
+                                                                    value: mostUsedState,
+                                                                    set: setMostUsed
+                                                                }}>
+                                                                    <CssBaseline />
+                                                                    <Box component="aside">
+                                                                        {Sidebar}
+                                                                    </Box>
+                                                                    <Box component="main" ml={(showSidebarState && sidebarModeState === "sidebar") && ml}>
+                                                                        {props.children}
+                                                                    </Box>
+                                                                    <WindowContainer />
+                                                                </mostUsed.Provider>
+                                                            </recentlyUsed.Provider>
+                                                        </windows.Provider>
+                                                    </viewMode.Provider>
                                                 </paletteColors.Provider>
                                             </sidebarMode.Provider>
                                         </lists.Provider>
