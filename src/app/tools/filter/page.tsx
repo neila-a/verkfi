@@ -2,8 +2,8 @@
 import {
     get
 } from 'react-intl-universal';
-import * as React from "react";
 import {
+    useId,
     useState
 } from "react";
 import {
@@ -37,6 +37,7 @@ export default function Filter(): JSX.Element {
         [imageURL, setImageURL] = useState<string>("/image/libear-only.png"),
         [imageTypes, setImageTypes] = useState<ImageType[]>(ImageTypesGen),
         [scale, setScale] = useState<number>(100),
+        sizeId = useId(),
         handleSliderChange = (event: Event, newValue: number) => setScale(newValue),
         handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => setScale(Number(event.target.value)),
         handleBlur = () => {
@@ -84,7 +85,7 @@ export default function Filter(): JSX.Element {
                 </FormGroup>
             </Box>
             <Box component="section">
-                <Typography id="input-slider" gutterBottom>
+                <Typography id={sizeId} gutterBottom>
                     {get('图片大小')}
                 </Typography>
                 <Grid container spacing={1} alignItems="center">
@@ -92,7 +93,7 @@ export default function Filter(): JSX.Element {
                         <Slider
                             value={typeof scale === 'number' ? scale : 0}
                             onChange={handleSliderChange}
-                            aria-labelledby="input-slider"
+                            aria-labelledby={sizeId}
                         />
                     </Grid>
                     <Grid item>

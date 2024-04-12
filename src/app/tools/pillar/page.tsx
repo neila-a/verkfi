@@ -29,6 +29,7 @@ import {
     FilterListOff as FilterListOffIcon
 } from "@mui/icons-material";
 import {
+    useId,
     useState
 } from "react";
 import {
@@ -62,6 +63,7 @@ export default function Pillar(): JSX.Element {
     const [type, setType] = useState<type>(1),
         [length, setLength] = useState<number>(0),
         [filterRules, setFilterRules] = useState<filterRule[]>([]),
+        choosesId = useId(),
         pillars = calcPillars(type, length);
     return (
         <>
@@ -80,8 +82,10 @@ export default function Pillar(): JSX.Element {
                     />
                 </FormControl>
                 <FormControl>
-                    <FormLabel id="chooses-label">{get("pillar.position")}</FormLabel>
-                    <RadioGroup aria-labelledby="chooses-label" value={type} onChange={(event, value) => setType(Number(value) as type)} name="chooses-group">
+                    <FormLabel id={choosesId}>
+                        {get("pillar.position")}
+                    </FormLabel>
+                    <RadioGroup aria-labelledby={choosesId} value={type} onChange={(event, value) => setType(Number(value) as type)} name="chooses-group">
                         {[0, 1, 2].map((single) => (
                             <Box key={single} sx={{
                                 display: "flex"

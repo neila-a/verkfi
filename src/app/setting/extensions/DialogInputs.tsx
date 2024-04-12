@@ -34,7 +34,8 @@ export default function DialogInputs(props: {
                     key={item[0]}
                     name={item[1]}
                     info={props.fileInfo}
-                    setInfo={props.setFileInfo} />)}
+                    setInfo={props.setFileInfo}
+                />)}
             </FormGroup>
             <FormGroup sx={{
                 display: "flex",

@@ -33,7 +33,8 @@ import shades from './shades';
 import {
     Dispatch,
     FC,
-    useContext
+    useContext,
+    useId
 } from 'react';
 import {
     OverridableComponent
@@ -116,14 +117,16 @@ function ColorTool() {
             </Grid>
         );
     };
-    const ColorPicker = (props: {
-        intent: string
-    }) => {
+    function ColorPicker(props: {
+        intent: string;
+    }) {
         const {
             intent
-        } = props;
-        const intentShade = internalPalette[`${intent}Shade`];
-        const color = internalPalette[`${intent}`];
+        } = props,
+            intentShade = internalPalette[`${intent}Shade`],
+            startId = useId(),
+            realId = `${intent}ShadeSliderLabel`,
+            color = internalPalette[`${intent}`];
         return (
             <Grid item>
                 <Typography component="label" gutterBottom htmlFor={intent} variant="h6">
@@ -135,7 +138,7 @@ function ColorTool() {
                     mt: 2,
                     mb: 2
                 }}>
-                    <Typography id={`${intent}ShadeSliderLabel`} sx={{
+                    <Typography id={realId} sx={{
                         width: 60
                     }}>{`${get("theme.shade")}:`}</Typography>
                     <Slider
@@ -149,18 +152,16 @@ function ColorTool() {
                         max={13}
                         step={1}
                         onChange={handleChangeShade(intent)}
-                        aria-labelledby={`${intent}ShadeSliderLabel`}
-                    />
+                        aria-labelledby={realId} />
                     <Typography>{shades[intentShade]}</Typography>
                 </Box>
                 <Box sx={{
                     width: 192
                 }}>
                     {hues.map((hue) => {
-                        const shade =
-                            intent === 'primary'
-                                ? shades[internalPalette.primaryShade]
-                                : shades[internalPalette.secondaryShade];
+                        const shade = intent === 'primary'
+                            ? shades[internalPalette.primaryShade]
+                            : shades[internalPalette.secondaryShade];
                         const backgroundColor = colors[hue][shade];
                         const showHue = get(`theme.colors.${hue}`);
                         return (
@@ -174,39 +175,33 @@ function ColorTool() {
                                     onChange={handleChangeHue(intent)}
                                     value={hue}
                                     name={intent}
-                                    icon={
-                                        <Box
-                                            sx={{
-                                                width: 48,
-                                                height: 48
-                                            }}
-                                            style={{
-                                                backgroundColor
-                                            }}
-                                        />
-                                    }
-                                    checkedIcon={
-                                        <Box
-                                            sx={{
-                                                width: 48,
-                                                height: 48,
-                                                border: 1,
-                                                borderColor: 'white',
-                                                color: 'common.white',
-                                                display: 'flex',
-                                                justifyContent: 'center',
-                                                alignItems: 'center',
-                                            }}
-                                            style={{
-                                                backgroundColor
-                                            }}
-                                        >
-                                            <CheckIcon style={{
-                                                fontSize: 30
-                                            }} />
-                                        </Box>
-                                    }
-                                />
+                                    icon={<Box
+                                        sx={{
+                                            width: 48,
+                                            height: 48
+                                        }}
+                                        style={{
+                                            backgroundColor
+                                        }} />}
+                                    checkedIcon={<Box
+                                        sx={{
+                                            width: 48,
+                                            height: 48,
+                                            border: 1,
+                                            borderColor: 'white',
+                                            color: 'common.white',
+                                            display: 'flex',
+                                            justifyContent: 'center',
+                                            alignItems: 'center',
+                                        }}
+                                        style={{
+                                            backgroundColor
+                                        }}
+                                    >
+                                        <CheckIcon style={{
+                                            fontSize: 30
+                                        }} />
+                                    </Box>} />
                             </Tooltip>
                         );
                     })}
@@ -214,7 +209,7 @@ function ColorTool() {
                 <ColorBar color={color} />
             </Grid>
         );
-    };
+    }
     return (
         <>
             <InputLabel>

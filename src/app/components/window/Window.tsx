@@ -101,7 +101,7 @@ export default function Window(props: WindowOptions): JSX.Element {
                             cursor: "move",
                             flex: 1,
                             textAlign: "center"
-                        }} id={`title${id}`}>
+                        }} id={`window-title-${id}`} /* id暂时没用 */> 
                             <Typography variant="subtitle1">
                                 {props.name}
                             </Typography>

@@ -28,6 +28,7 @@ import {
 import {
     Context,
     useContext,
+    useId,
     useState
 } from "react";
 import {
@@ -50,7 +51,8 @@ export type option = [Context<{
 export default function Options() {
     const lang = useContext(langContext),
         [dialogOpen, setDialogOpen] = useState<boolean>(false),
-        router = useRouter();
+        router = useRouter(),
+        langId = useId();
     return (
         <FormGroup>
             <Typography variant='h4'>
@@ -80,10 +82,10 @@ export default function Options() {
                     {get("option.menuModes.侧边栏")}
                 </Module>
             </Grid>
-            <InputLabel id="lang">
+            <InputLabel id={langId}>
                 {get("选择语言")}
             </InputLabel>
-            <Select labelId="lang" value={lang.value} label={get("选择语言")} onChange={event => {
+            <Select labelId={langId} value={lang.value} label={get("选择语言")} onChange={event => {
                 const plang = event.target.value;
                 lang.set(plang);
             }}>

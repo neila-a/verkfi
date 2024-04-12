@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import LpLogger from "lp-logger";
 import {
+    useId,
     useState
 } from "react";
 import dynamic from 'next/dynamic';
@@ -28,6 +29,7 @@ function CountLetter(): JSX.Element {
     const [enterDialogOpen, setEnterDialogOpen] = useState<boolean>(false),
         [alertDialogOpen, setAlertDialogOpen] = useState<boolean>(false),
         [out, setOut] = useState<string>(""),
+        systemId = useId(),
         [numberType, setNumberType] = useState<numberType>(10);
     return (
         <>
@@ -50,9 +52,9 @@ function CountLetter(): JSX.Element {
                 }} /> {/* 输出对话框容器 */}
             </Box>
             <FormControl component="section">
-                <FormLabel id="radio-buttons-group-label">{get("countletter.system")}</FormLabel>
+                <FormLabel id={systemId}>{get("countletter.system")}</FormLabel>
                 <RadioGroup
-                    aria-labelledby="radio-buttons-group-label"
+                    aria-labelledby={systemId}
                     defaultValue="10"
                     value={numberType}
                     onChange={event => {

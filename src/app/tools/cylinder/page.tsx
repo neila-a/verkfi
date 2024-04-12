@@ -53,7 +53,7 @@ function Cylinder(): JSX.Element {
             <FormGroup>
                 <Grid container spacing={1} alignItems="center">
                     <Grid item>
-                        <Typography id="radiusX" gutterBottom>
+                        <Typography gutterBottom>
                             {get('cylinder.上下半径')}
                         </Typography>
                     </Grid>
@@ -67,7 +67,7 @@ function Cylinder(): JSX.Element {
                 </Grid>
                 <Grid container spacing={1} alignItems="center">
                     <Grid item>
-                        <Typography id="radiusZ" gutterBottom>
+                        <Typography gutterBottom>
                             {get('cylinder.左右半径')}
                         </Typography>
                     </Grid>
@@ -81,7 +81,7 @@ function Cylinder(): JSX.Element {
                 </Grid>
                 <Grid container spacing={1} alignItems="center">
                     <Grid item>
-                        <Typography id="thickness" gutterBottom>
+                        <Typography gutterBottom>
                             {get('cylinder.线条厚度')}
                         </Typography>
                     </Grid>
@@ -95,7 +95,7 @@ function Cylinder(): JSX.Element {
                 </Grid>
                 <Grid container spacing={1} alignItems="center">
                     <Grid item>
-                        <Typography id="filled" gutterBottom>
+                        <Typography gutterBottom>
                             {get('cylinder.填充（线条厚度为0时填满圆心）')}
                         </Typography>
                     </Grid>
@@ -105,7 +105,7 @@ function Cylinder(): JSX.Element {
                 </Grid>
                 <Grid direction="row" container spacing={1} alignItems="center">
                     <Grid item>
-                        <Typography id="position" gutterBottom>
+                        <Typography gutterBottom>
                             {get('cylinder.位置')}
                         </Typography>
                     </Grid>

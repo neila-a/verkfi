@@ -2,6 +2,7 @@
 import {
     MouseEventHandler,
     useContext,
+    useRef,
     useState
 } from "react";
 import {
@@ -33,6 +34,7 @@ import MouseOverPopover from "components/Popover";
 export default function First() {
     const first = useContext(firstContext),
         [step, setStep] = useState<number>(0),
+        ref = useRef<HTMLDivElement>(),
         router = useRouter(),
         infos: info[] = [
             {
@@ -71,9 +73,9 @@ export default function First() {
                 backgroundColor: "#1976d2",
                 justifyContent: "space-evenly",
                 alignItems: "center"
-            }} id="context-container" onClick={event => {
+            }} ref={ref} onClick={event => {
                 const leftInstance = event.screenX,
-                    elementWidth = Number(window.getComputedStyle(document.getElementById("context-container")).width.replace("px", ""));
+                    elementWidth = Number(window.getComputedStyle(ref.current).width.replace("px", ""));
                 if (leftInstance < (elementWidth / 2)) {
                     setStep(old => Math.max(0, old - 1));
                 } else {
