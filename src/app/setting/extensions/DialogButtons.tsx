@@ -11,6 +11,7 @@ import {
 } from "react-intl-universal";
 import db from "db";
 import {
+    extensions,
     lists as listsContext
 } from "layout/layoutClient";
 import {
@@ -27,12 +28,13 @@ export default function DialogButtons(props: {
     files: [string, Uint8Array][];
     reset(): void;
 }) {
-    const lists = useContext(listsContext);
+    const lists = useContext(listsContext),
+        usedExtensions = useContext(extensions);
     return (
         <ButtonGroup fullWidth>
             {props.files.length !== 0 && (
                 <Button variant="contained" onClick={async (event) => {
-                    await db.extensionTools.put({
+                    usedExtensions.set({
                         ...props.fileInfo,
                         files: props.files
                     });

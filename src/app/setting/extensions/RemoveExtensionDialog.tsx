@@ -13,11 +13,10 @@ import {
 import db from "db";
 import CheckDialog from "dialog/Check";
 import {
-    lists as listsContext,
-    mostUsed as mostUsedContext,
-    recentlyUsed as recentlyUsedContext
+    extensions,
+    lists as listsContext
 } from "layout/layoutClient";
-import clearExtensionData from "./clearExtensionData";
+import useClearExtensionData from "./clearExtensionData";
 import {
     NXTMetadata
 } from "./page";
@@ -29,8 +28,8 @@ export default function RemoveExtensionDialog(props: {
     files: [string, Uint8Array][];
 }) {
     const [clearData, setClearData] = useState<boolean>(false),
-        recentlyUsed = useContext(recentlyUsedContext),
-        mostUsed = useContext(mostUsedContext),
+        clearExtensionData = useClearExtensionData(),
+        extensionsTools = useContext(extensions),
         lists = useContext(listsContext);
     return (
         <CheckDialog insert={<FormControlLabel control={(
@@ -41,14 +40,17 @@ export default function RemoveExtensionDialog(props: {
             props.reset();
             setClearData(false);
         }} onTrue={async () => {
-            debugger
             if (lists.value !== undefined) {
                 lists.set(lists.value.map(singleList => [singleList[0], singleList[1].filter(item => item !== `/tools/extension?tool=${props.fileInfo.to}`)]));
             }
             if (clearData) {
-                clearExtensionData(props.fileInfo, props.files, recentlyUsed, mostUsed);
+                clearExtensionData(props.fileInfo, props.files);
             }
-            await db.extensionTools.delete(props.fileInfo.to);
+            extensionsTools.set({
+                ...props.fileInfo,
+                files: props.files,
+                action: "delete"
+            });
             setClearData(false);
             if ("onTrue" in props) {
                 props.onTrue();

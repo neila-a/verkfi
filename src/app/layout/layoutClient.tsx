@@ -14,7 +14,9 @@ import {
     useMemo,
     ReactNode,
     createElement,
-    useContext
+    useContext,
+    useReducer,
+    Dispatch
 } from 'react';
 import {
     ThemeProvider,
@@ -63,38 +65,42 @@ import Ubuntu from "components/fonts";
 import {
     viewMode as viewModeType
 } from "index/consts";
+import useSWR from "swr";
+import db, {
+    single
+} from "db";
 export const showSidebar = createContext<{
     show: boolean;
-    set: setState<boolean>;
+    set: Dispatch<boolean>;
 }>(null);
 export type sidebarMode = "menu" | "sidebar";
 export const sidebarMode = createContext<{
     value: sidebarMode;
-    set: setState<sidebarMode>;
+    set: Dispatch<sidebarMode>;
 }>(null);
 export const forkMeOnGitHub = createContext<{
     value: boolean;
-    set: setState<boolean>;
+    set: Dispatch<boolean>;
 }>(null);
 export const share = createContext<{
     value: boolean;
-    set: setState<boolean>;
+    set: Dispatch<boolean>;
 }>(null);
 export const first = createContext<{
     value: boolean;
-    set: setState<boolean>;
+    set: Dispatch<boolean>;
 }>(null);
 export const paletteColors = createContext<{
     value: typeof defaultPalette;
-    set: setState<typeof defaultPalette>;
+    set: Dispatch<typeof defaultPalette>;
 }>(null);
 export const viewMode = createContext<{
     value: viewModeType;
-    set: setState<viewModeType>;
+    set: Dispatch<viewModeType>;
 }>(null);
 export const darkMode = createContext<{
     mode: PaletteMode | "system";
-    set: setState<PaletteMode | "system">;
+    set: Dispatch<PaletteMode | "system">;
 }>(null);
 export function useLightMode() {
     const gotContext = useContext(darkMode).mode;
@@ -113,30 +119,37 @@ export function useLightMode() {
 }
 export const colorMode = createContext<{
     value: boolean;
-    set: setState<boolean>;
+    set: Dispatch<boolean>;
 }>(null);
 export const lang = createContext<{
     value: string;
-    set: setState<string>;
+    set: Dispatch<string>;
 }>(null);
 export const recentlyUsed = createContext<{
     value: string[];
-    set: setState<string[]>;
+    set: Dispatch<string[]>;
 }>(null);
 export const lists = createContext<{
     value: listsType;
-    set: setState<listsType>;
+    set: Dispatch<listsType>;
 }>(null);
 export interface mostUsedMarks {
     [key: string]: number;
 }
 export const mostUsed = createContext<{
     value: mostUsedMarks;
-    set: setState<mostUsedMarks>;
+    set: Dispatch<mostUsedMarks>;
 }>(null);
 export const windows = createContext<{
     windows: WindowOptions[];
     set: setState<WindowOptions[]>;
+}>(null);
+interface extensionsDispatch extends single {
+    action?: "delete"
+}
+export const extensions = createContext<{
+    value: single[];
+    set: Dispatch<extensionsDispatch>;
 }>(null);
 export default function ModifiedApp(props: {
     children: ReactNode;
@@ -146,6 +159,30 @@ export default function ModifiedApp(props: {
         [palette, setPalette] = useStoragedState<typeof defaultPalette>("palette", "调色板", defaultPalette),
         [recentlyUsedState, setRecentlyUsed] = useStoragedState<string[]>("recently-tools", "最近使用的工具", []),
         [mostUsedState, setMostUsed] = useStoragedState<mostUsedMarks>("most-tools", "最常使用的工具", {}),
+        {
+            data: extensionsData
+        } = useSWR("db.extensions", () => db.extensionTools.toArray(), {
+            suspense: true
+        }),
+        [extensionsState, setExtensions] = useReducer((old: single[], val: extensionsDispatch) => {
+            if (val?.action === "delete") {
+                db.extensionTools.delete(val.to);
+                return old.filter(a => a.to !== val.to);
+            } else {
+                db.extensionTools.put(val);
+                const realOld = old.slice(0),
+                    index = old.findIndex(a => a.to === val.to);
+                if (index === -1) {
+                    realOld.push(val);
+                    return realOld;
+                } else {
+                    return realOld.map(a => {
+                        if (a.to === val.to) return val;
+                        return a;
+                    });
+                }
+            }
+        }, extensionsData),
         theme = useMemo(
             () => createTheme({
                 palette: {
@@ -252,30 +289,34 @@ export default function ModifiedApp(props: {
                                                         value: viewModeState,
                                                         set: setViewMode
                                                     }}>
-
-                                                        <windows.Provider value={{
-                                                            windows: realWindows,
-                                                            set: setRealWindows
+                                                        <extensions.Provider value={{
+                                                            value: extensionsState,
+                                                            set: setExtensions
                                                         }}>
-                                                            <recentlyUsed.Provider value={{
-                                                                value: recentlyUsedState,
-                                                                set: setRecentlyUsed
+                                                            <windows.Provider value={{
+                                                                windows: realWindows,
+                                                                set: setRealWindows
                                                             }}>
-                                                                <mostUsed.Provider value={{
-                                                                    value: mostUsedState,
-                                                                    set: setMostUsed
+                                                                <recentlyUsed.Provider value={{
+                                                                    value: recentlyUsedState,
+                                                                    set: setRecentlyUsed
                                                                 }}>
-                                                                    <CssBaseline />
-                                                                    <Box component="aside">
-                                                                        {Sidebar}
-                                                                    </Box>
-                                                                    <Box component="main" ml={(showSidebarState && sidebarModeState === "sidebar") && ml}>
-                                                                        {props.children}
-                                                                    </Box>
-                                                                    <WindowContainer />
-                                                                </mostUsed.Provider>
-                                                            </recentlyUsed.Provider>
-                                                        </windows.Provider>
+                                                                    <mostUsed.Provider value={{
+                                                                        value: mostUsedState,
+                                                                        set: setMostUsed
+                                                                    }}>
+                                                                        <CssBaseline />
+                                                                        <Box component="aside">
+                                                                            {Sidebar}
+                                                                        </Box>
+                                                                        <Box component="main" ml={(showSidebarState && sidebarModeState === "sidebar") && ml}>
+                                                                            {props.children}
+                                                                        </Box>
+                                                                        <WindowContainer />
+                                                                    </mostUsed.Provider>
+                                                                </recentlyUsed.Provider>
+                                                            </windows.Provider>
+                                                        </extensions.Provider>
                                                     </viewMode.Provider>
                                                 </paletteColors.Provider>
                                             </sidebarMode.Provider>

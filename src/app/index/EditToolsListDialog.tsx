@@ -29,6 +29,7 @@ import {
 import db from "db";
 import convertExtensionTools from "./convertExtensionTools";
 import {
+    extensions,
     lists as listsContext
 } from "layout/layoutClient";
 export default function EditToolsListDialog(props: {
@@ -49,7 +50,7 @@ export default function EditToolsListDialog(props: {
         list = usedList.value,
         edit = (forList: lists) => forList.some(single => single[0] === dialogListName),
         createOrEdit = !edit(list) ? get("category.创建分类") : get("category.编辑分类"),
-        extensionTools = useLiveQuery(() => db.extensionTools.toArray(), [], []),
+        extensionTools = useContext(extensions).value,
         converted = convertExtensionTools(extensionTools),
         toolsList = useToolsList(getTools(get));
     var right = toolsList.concat(converted).filter(atool => atool !== undefined).map(atool => atool.name).filter(v => props.left.every(val => val !== v));

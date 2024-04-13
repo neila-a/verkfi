@@ -11,6 +11,7 @@ import {
     useContext
 } from "react";
 import {
+    extensions,
     lists as listsContext
 } from "layout/layoutClient";
 /**
@@ -20,7 +21,7 @@ import {
  */
 const useToolsList = (realTools: tool[]) => {
     const lists = useContext(listsContext).value,
-        extensionTools = useLiveQuery(() => db.extensionTools.toArray(), [], []),
+        extensionTools = useContext(extensions).value,
         converted = convertExtensionTools(extensionTools),
         list = lists.find(item => item[0] === "__global__");
     if (list === undefined) {

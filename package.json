@@ -1,7 +1,7 @@
 {
     "name": "verkfi",
     "version": "1.7.0",
-    "devVersion": "849",
+    "devVersion": "851",
     "dev": true,
     "description": "Platform for Neila's something useless tools.",
     "private": true,

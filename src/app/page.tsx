@@ -47,7 +47,8 @@ import {
     recentlyUsed as recentlyUsedContext,
     mostUsed as mostUsedContext,
     showSidebar as showSidebarContext,
-    viewMode as viewModeContext
+    viewMode as viewModeContext,
+    extensions
 } from 'layout/layoutClient';
 import getParamTools from 'index/getParamTools';
 import VerkfiIcon from 'components/verkfiIcon/verkfiIcon';
@@ -75,7 +76,7 @@ export default function Index(props: {
 }): JSX.Element {
     const realTools = getTools(get),
         searchParams = useSearchParams(),
-        extensionTools = useLiveQuery(() => db.extensionTools.toArray(), [], [] as single[]),
+        extensionTools = useContext(extensions).value,
         router = useRouter(),
         toolsList = useToolsList(realTools),
         refThis = useRef(),

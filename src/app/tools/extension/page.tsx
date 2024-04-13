@@ -9,18 +9,18 @@ import {
     useSearchParams
 } from "next/navigation";
 import {
-    emptyExtension
-} from "./empties";
-import {
+    extensions,
     isBrowser
 } from "layout/layoutClient";
+import {
+    useContext
+} from "react";
 export default function ExtensionLoader() {
     const searchParams = useSearchParams(),
         toolID = searchParams.get("tool"),
-        tool: single = useLiveQuery(() => db.extensionTools.get({
-            to: toolID
-        }), [], emptyExtension),
-            src = `/extensionfiles/${tool.to}/${tool.main}`;
+        usedExtensions = useContext(extensions),
+        tool: single = usedExtensions.value.find(a => a.to === toolID),
+        src = `/extensionfiles/${tool.to}/${tool.main}`;
     if (isBrowser()) {
         window.addEventListener("message", (event: MessageEvent<{
             action: string;
@@ -30,7 +30,7 @@ export default function ExtensionLoader() {
             if (event.origin === location.origin) {
                 switch (event.data.action) {
                     case "setSetting":
-                        db.extensionTools.put({
+                        usedExtensions.set({
                             ...tool,
                             settings: tool.settings.map(set => {
                                 if (set.id === event.data.id) {
@@ -46,7 +46,7 @@ export default function ExtensionLoader() {
                     case "getSetting":
                         (document.getElementById("iframe") as HTMLIFrameElement).contentWindow.postMessage({
                             value: tool.settings.find(set => set.id === event.data.id).value
-                        }, location.origin); 
+                        }, location.origin);
                 }
             }
         });

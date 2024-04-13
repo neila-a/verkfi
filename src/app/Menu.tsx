@@ -43,6 +43,7 @@ import {
     mostUsed as mostUsedContext,
     lists as listsContext,
     viewMode as viewModeContext,
+    extensions,
 } from "layout/layoutClient";
 import {
     useRouter
@@ -71,7 +72,7 @@ export default function Menu() {
         list = listContexted.value,
         setList = listContexted.set,
         [searchText, setSearchText] = useState<string>(""),
-        extensionTools = useLiveQuery(() => db.extensionTools.toArray(), [], []),
+        extensionTools = useContext(extensions).value,
         router = useRouter(),
         gotToolsList = useToolsList(realTools),
         [sortedTools, setSortedTools] = useState(gotToolsList), // 排序完毕，但是不会根据搜索而改动的分类

@@ -30,7 +30,7 @@ import {
     recentlyUsed as recentlyUsedContext
 } from "layout/layoutClient";
 import MouseOverPopover from "components/Popover";
-import clearExtensionData from "./clearExtensionData";
+import useClearExtensionData from "./clearExtensionData";
 import {
     setState
 } from "declare";
@@ -52,14 +52,21 @@ export default function ToolViewer(props: {
 }) {
     const {
         single
-    } = props, recentlyUsed = useContext(recentlyUsedContext), theme = useTheme(), fullScreen = useMediaQuery(theme.breakpoints.down('sm')), packagedDialogInputs = (type: inputTypes) => <DialogInputs
-        type={type}
-        fileInfo={props.fileInfo}
-        setFileInfo={props.setFileInfo}
-        files={props.files}
-        reset={props.reset}
-        setModifyDialogOpen={props.setModifyDialogOpen}
-        setRemoveDialogOpen={props.setRemoveDialogOpen} />, mostUsed = useContext(mostUsedContext);
+    } = props,
+        clearExtensionData = useClearExtensionData(),
+        theme = useTheme(),
+        fullScreen = useMediaQuery(theme.breakpoints.down('sm')),
+        packagedDialogInputs = (type: inputTypes) => (
+            <DialogInputs
+                type={type}
+                fileInfo={props.fileInfo}
+                setFileInfo={props.setFileInfo}
+                files={props.files}
+                reset={props.reset}
+                setModifyDialogOpen={props.setModifyDialogOpen}
+                setRemoveDialogOpen={props.setRemoveDialogOpen}
+            />
+        );
     return (
         <Paper sx={{
             padding: 2
@@ -101,7 +108,7 @@ export default function ToolViewer(props: {
                             const {
                                 files: thisFiles, ...metadata
                             } = single;
-                            clearExtensionData(metadata, thisFiles, recentlyUsed, mostUsed);
+                            clearExtensionData(metadata, thisFiles);
                         }} aria-label={get("extensions.clear")}>
                             <RestartAltIcon />
                         </IconButton>

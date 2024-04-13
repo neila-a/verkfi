@@ -21,7 +21,8 @@ import {
 import lpLogger from "lp-logger";
 import getToolColor from "./getToolColor";
 import {
-    colorMode
+    colorMode,
+    extensions
 } from "layout/layoutClient";
 import {
     useLiveQuery
@@ -44,7 +45,7 @@ export default function ToolFinder(props: {
         segment = useSelectedLayoutSegment(),
         searchParams = useSearchParams(),
         toolID = segment === "extension" ? searchParams.get("tool") : segment,
-        extensionTools = useLiveQuery(() => db.extensionTools.toArray(), [], []),
+        extensionTools = useContext(extensions).value,
         only = searchParams.has("only"),
         toolsInfo = segment === "extension" ? convertExtensionTools(extensionTools).map(single => ({
             ...single,

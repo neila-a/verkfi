@@ -47,6 +47,7 @@ import {
 	useSelectedLayoutSegment
 } from 'next/navigation';
 import {
+	extensions,
 	showSidebar as showSidebarContext,
 	sidebarMode as sidebarModeContext
 } from 'layout/layoutClient';
@@ -82,7 +83,8 @@ export default function Settings(props: {
 		}
 	],
 		router = useRouter(),
-		extensionTools = useLiveQuery(() => db.extensionTools.toArray(), [], [] as single[]),
+		usedExtensions = useContext(extensions),
+		extensionTools = usedExtensions.value,
 		id = useSelectedLayoutSegment(),
 		[value, setValue] = useState(sets.indexOf(sets.filter(set => set.id === id)[0])),
 		showSidebar = useContext(showSidebarContext),
@@ -137,7 +139,7 @@ export default function Settings(props: {
 										<Switch checked={settingItem.value as boolean} onChange={event => {
 											const modifiedSettings = item.settings.slice(0);
 											modifiedSettings[index].value = !(modifiedSettings[index].value as boolean);
-											db.extensionTools.put({
+											usedExtensions.set({
 												...item,
 												settings: modifiedSettings
 											});
@@ -149,7 +151,7 @@ export default function Settings(props: {
 									<TextField value={settingItem.value as string} label={settingItem.text} variant="outlined" onChange={event => {
 										const modifiedSettings = item.settings.slice(0);
 										modifiedSettings[index].value = event.target.value;
-										db.extensionTools.put({
+										usedExtensions.set({
 											...item,
 											settings: modifiedSettings
 										});
@@ -160,7 +162,7 @@ export default function Settings(props: {
 									<Select value={settingItem.value as string} label={settingItem.text} onChange={event => {
 										const modifiedSettings = item.settings.slice(0);
 										modifiedSettings[index].value = event.target.value;
-										db.extensionTools.put({
+										usedExtensions.set({
 											...item,
 											settings: modifiedSettings
 										});

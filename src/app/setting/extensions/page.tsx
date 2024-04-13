@@ -6,6 +6,7 @@ import {
     useTheme
 } from "@mui/material";
 import {
+    useContext,
     useState
 } from "react";
 import {
@@ -43,6 +44,7 @@ import RemoveExtensionDialog from "./RemoveExtensionDialog";
 import DialogButtons from "./DialogButtons";
 import ToolViewer from "./ToolViewer";
 import No from "No";
+import { extensions } from "layout/layoutClient";
 export type inputTypes = "modify" | "add";
 export default function ExtensionManager() {
     const [addDialogOpen, setAddDialogOpen] = useState<boolean>(false),
@@ -61,7 +63,7 @@ export default function ExtensionManager() {
             setFiles([]);
             setFileInfo(emptyNXTMetadata);
         },
-        extensionTools = useLiveQuery(() => db.extensionTools.toArray(), [], [] as single[]),
+        extensionTools = useContext(extensions).value,
         packagedDialogInputs = (type: inputTypes) => <DialogInputs
             type={type}
             fileInfo={fileInfo}
@@ -101,7 +103,7 @@ export default function ExtensionManager() {
                 onupdatefiles={files => {
                     setFileArray(files);
                     const reader = new FileReader();
-                    reader.onload = async function () {
+                    reader.onload = function () {
                         const fs = new Filesystem(new Uint8Array(reader.result as ArrayBuffer)),
                             dir = fs.readdirSync("/").filter(item => item !== "package.json"),
                             main = JSON.parse(fs.readFileSync("package.json", true));
@@ -118,7 +120,7 @@ export default function ExtensionManager() {
                             })) : []
                         });
                         setFiles(dir.map(item => [item, fs.readFileSync(item)]));
-                        if ((await db.extensionTools.toArray()).some(item => item.to === main.to)) {
+                        if (extensionTools.some(item => item.to === main.to)) {
                             setModifyDialogOpen(true);
                             return setAddDialogOpen(false);
                         }
