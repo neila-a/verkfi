@@ -64,9 +64,6 @@ import {
 import Loading from "loading";
 import BaseLayout from "layout/layoutClient";
 import {
-    Suspense
-} from "react";
-import {
     AppRouterCacheProvider
 } from '@mui/material-nextjs/v13-appRouter';
 import Ubuntu from "components/fonts";

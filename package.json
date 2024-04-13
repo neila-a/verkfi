@@ -28,7 +28,7 @@
         "start": "next start"
     },
     "devDependencies": {
-        "@next/bundle-analyzer": "^14.2.0",
+        "@next/bundle-analyzer": "^14.2.1",
         "@types/d3-array": "^3.2.1",
         "@types/dom-to-image": "^2.6.7",
         "@types/file-saver": "^2.0.7",
@@ -40,7 +40,7 @@
         "@types/throttle-debounce": "^5.0.2",
         "esbuild": "^0.20.2",
         "eslint": "9.0.0",
-        "eslint-config-next": "14.2.0",
+        "eslint-config-next": "14.2.1",
         "eslint-plugin-react-hooks": "^4.6.0",
         "typescript": "5.4.5"
     },
@@ -55,7 +55,7 @@
         "@mui/material": "^5.15.15",
         "@mui/material-nextjs": "^5.15.11",
         "@mui/system": "^5.15.15",
-        "@react-three/drei": "^9.105.3",
+        "@react-three/drei": "^9.105.4",
         "@react-three/fiber": "^8.16.1",
         "@tybys/browser-asar": "github:toyobayashi/browser-asar",
         "d3-array": "^3.2.4",
@@ -63,9 +63,9 @@
         "dexie-react-hooks": "^1.1.7",
         "dom-to-image": "^2.6.0",
         "file-saver": "^2.0.5",
-        "filepond": "^4.30.6",
+        "filepond": "^4.31.1",
         "lp-logger": "github:neila-a/lp-logger-no-window",
-        "next": "^14.2.0",
+        "next": "^14.2.1",
         "nzh": "^1.0.12",
         "react": "^18.2.0",
         "react-device-detect": "^2.2.3",
@@ -78,6 +78,7 @@
         "remove-item-from-array": "^1.0.4",
         "reorder-array": "^1.0.3",
         "sass": "^1.75.0",
+        "swr": "^2.2.5",
         "three": "^0.163.0",
         "throttle-debounce": "^5.0.0"
     }

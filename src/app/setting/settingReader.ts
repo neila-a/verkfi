@@ -4,7 +4,7 @@ import db, {
 import {
     isBrowser
 } from "layout/layoutClient";
-export async function settingReader<T>(id: string, empty: T): Promise<option<T>> {
+export default async function settingReader<T>(id: string, empty: T): Promise<option<T>> {
     if (isBrowser()) {
         const got = await db.options.get({
             key: id

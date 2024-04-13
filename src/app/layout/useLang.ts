@@ -9,9 +9,8 @@ import {
     isBrowser,
     locales
 } from "./layoutClient";
-import {
-    settingReader
-} from 'setting/settingReader';
+import settingReader from 'setting/settingReader';
+import useSWR from 'swr';
 const useLang = () => {
     var browserLang: string = "zhCN";
     if (isBrowser()) {
@@ -20,7 +19,9 @@ const useLang = () => {
         }
     }
     const detailedLang = Object.keys(locales).includes(browserLang) ? browserLang : "zhCN",
-        gotSetting = use(settingReader("lang", detailedLang)),
+        gotSetting = useSWR("lang", () => settingReader("lang", detailedLang), {
+            suspense: true
+        }).data,
         chooseOption = gotSetting.value,
         real = chooseOption || "zhCN";
     return useReducer((old: string, val: string) => {
