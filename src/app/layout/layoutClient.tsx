@@ -162,7 +162,10 @@ export default function ModifiedApp(props: {
         {
             data: extensionsData
         } = useSWR("db.extensions", () => db.extensionTools.toArray(), {
-            suspense: true
+            suspense: true,
+            fallback: {
+                "db.extensions": []
+            }
         }),
         [extensionsState, setExtensions] = useReducer((old: single[], val: extensionsDispatch) => {
             if (val?.action === "delete") {

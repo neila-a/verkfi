@@ -73,6 +73,8 @@ import {
     AppRouterCacheProvider
 } from '@mui/material-nextjs/v13-appRouter';
 import Ubuntu from "components/fonts";
+import { SWRConfig } from "swr";
+import { Suspense } from "react";
 export default async function Layout({
     children
 }) {
@@ -105,9 +107,11 @@ export default async function Layout({
                     <Box sx={{
                         minHeight: "100vh"
                     }}>
-                        <BaseLayout>
-                            {children}
-                        </BaseLayout>
+                        <Suspense fallback={<Loading />}>
+                            <BaseLayout>
+                                {children}
+                            </BaseLayout>
+                        </Suspense>
                     </Box>
                 </AppRouterCacheProvider>
             </body>
