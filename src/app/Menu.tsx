@@ -216,12 +216,11 @@ export default function Menu() {
                                         sortingFor={"__home__"}
                                         setTools={tools => null}
                                         editMode={false}
-                                        paramTool={recentlyUsed.map(to => {
-                                            var tool: tool | 0 = 0
-                                                || realTools.find(single => single.to === to)
-                                                || convertExtensionTools(extensionTools).find(single => `/tools/extension?tool=${to}` === single.to);
-                                            return tool;
-                                        }).filter((item: tool | 0) => item !== 0 && item !== undefined) as unknown as tool[]} />
+                                        paramTool={recentlyUsed.map(to => (
+                                            0
+                                            || realTools.find(single => single.to === to)
+                                            || convertExtensionTools(extensionTools).find(single => `/tools/extension?tool=${to}` === single.to))
+                                        ).filter((item: tool | 0) => item !== 0 && item !== undefined) as unknown as tool[]} />
                                 </Box>
                             </Box>
                             <Box>

@@ -32,7 +32,7 @@ export default function UpButton(props: {
                 }} size="large" edge="end" onClick={event => {
                     event.stopPropagation();
                     props.setTools(draft => {
-                        var pd = draft.slice(0);
+                        const pd = draft.slice(0);
                         upGo(pd, pd.indexOf(props.tool));
                         buttonCommonSorting(props.sortingFor, pd);
                         return pd;

@@ -52,13 +52,13 @@ export default function EditToolsListDialog(props: {
         createOrEdit = !edit(list) ? get("category.创建分类") : get("category.编辑分类"),
         extensionTools = useContext(extensions).value,
         converted = convertExtensionTools(extensionTools),
-        toolsList = useToolsList(getTools(get));
-    var right = toolsList.concat(converted).filter(atool => atool !== undefined).map(atool => atool.name).filter(v => props.left.every(val => val !== v));
+        toolsList = useToolsList(getTools(get)),
+        right = toolsList.concat(converted).filter(atool => atool !== undefined).map(atool => atool.name).filter(v => props.left.every(val => val !== v));
     return (
         <PureDialog action={(
             <ButtonGroup fullWidth>
                 <Button variant="contained" onClick={event => {
-                    var listDraft: lists = list.slice(0),
+                    const listDraft: lists = list.slice(0),
                         index = list.findIndex(singleList => singleList[0] === dialogListName),
                         have: boolean = index !== -1;
                     if (index !== -1) {

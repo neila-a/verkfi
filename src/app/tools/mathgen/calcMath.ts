@@ -9,12 +9,12 @@ import {
     setState
 } from "declare";
 export default function calcMath(calcs: calc[], subtractionCheck: boolean, divisionCheck: boolean, max: number, min: number, itemCount: number, setMath: setState<string[]>) {
-    var calcMaths: string[] = [];
+    const calcMaths: string[] = [];
     calcs.forEach(function (mode) {
         const modeS = mode.replace("×", "*").replace("÷", "/")
         function genMathS(): [number, number, number] {
-            var one: number = genNumber(max, min),
-                two: number = genNumber(max, min);
+            const one = genNumber(max, min);
+            let two = genNumber(max, min);
             if (subtractionCheck || divisionCheck) {
                 switch (mode) {
                     case "-":
@@ -29,8 +29,8 @@ export default function calcMath(calcs: calc[], subtractionCheck: boolean, divis
             }
             return [one, two, eval(`${one} ${modeS} ${two}`)];
         }
-        for (var step = 1; step < (itemCount / (calcs.length)); step++) {
-            var [one, two, out] = genMathS(),
+        for (let step = 1; step < (itemCount / (calcs.length)); step++) {
+            let [one, two, out] = genMathS(),
                 math = `${one}${mode}${two}=${out}`;
             function reGenMath() {
                 [one, two, out] = genMathS();

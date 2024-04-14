@@ -53,12 +53,6 @@ import {
 import getParamTools from 'index/getParamTools';
 import VerkfiIcon from 'components/verkfiIcon/verkfiIcon';
 import generateTries from 'index/generateTries';
-import db, {
-    single
-} from 'db';
-import {
-    useLiveQuery
-} from 'dexie-react-hooks';
 import convertExtensionTools from 'index/convertExtensionTools';
 import MouseOverPopover from 'components/Popover';
 export default function Index(props: {
@@ -70,7 +64,6 @@ export default function Index(props: {
      * 搜索内容
      */
     children?: string;
-    ref?;
     expand?: boolean;
     setExpand?: setState<boolean>;
 }): JSX.Element {
@@ -79,10 +72,6 @@ export default function Index(props: {
         extensionTools = useContext(extensions).value,
         router = useRouter(),
         toolsList = useToolsList(realTools),
-        refThis = useRef(),
-        {
-            ref = refThis
-        } = props,
         showSidebar = useContext(showSidebarContext),
         first = useContext(firstContext),
         recentlyUsed = useContext(recentlyUsedContext).value,
@@ -102,20 +91,16 @@ export default function Index(props: {
         tries = useMemo(() => generateTries(mostUsed, realTools), [mostUsed, realTools]),
         recentlyTools = recentlyUsed.map(to => {
             const converted = convertExtensionTools(extensionTools);
-            var tool: tool | 0 = 0
+            return 0
                 || realTools.find(single => single.to === to)
                 || converted.find(single => `/tools/extension?tool=${to}` === single.to);
-            return tool;
         }).filter((item: tool | 0) => item !== 0) as unknown as tool[],
         [sortingFor, setSortingFor] = useState<string>(props.isImplant ? "__global__" : "__home__");
+    let expand = expandThis,
+        setExpand = setExpandThis;
     if (props.setExpand) {
-        var {
-            expand,
-            setExpand
-        } = props;
-    } else {
-        var expand = expandThis,
-            setExpand = setExpandThis;
+        expand = props.expand;
+        setExpand = props.setExpand;
     }
     /**
      * 搜索工具
@@ -161,7 +146,7 @@ export default function Index(props: {
         );
     }
     return (props.isImplant ? showSidebar.show : true) && (
-        <Box ref={ref}>
+        <Box>
             {props.isImplant !== true && (
                 <HeadBar isIndex pageName="Verkfi" sx={{
                     zIndex: theme => String((theme as ThemeHaveZIndex).zIndex.drawer + 1)

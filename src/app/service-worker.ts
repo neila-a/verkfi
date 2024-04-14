@@ -16,7 +16,7 @@ import pages from "./pages.json";
     "keycode",
     "readnumber",
 ]; */
-declare let self: ServiceWorkerGlobalScope;
+declare const self: ServiceWorkerGlobalScope;
 export const Cache = `Verkfi-${version}-${dev == true ? `dev${devVersion}` : "prod"}`, // C
     log = (text: string) => console.log(`%cServiceWorker`, `background: #52c41a;border-radius: 0.5em;color: white;font-weight: bold;padding: 2px 0.5em`, text),
     clearOldCaches = async () => {
@@ -62,16 +62,16 @@ self.addEventListener('activate', event => event.waitUntil((async () => {
  */
 self.addEventListener('fetch', event => {
     if (event.request.method !== 'GET') return;
-    let requrl = event.request.url;
-    let url = String(requrl);
+    const requrl = event.request.url,
+        url = String(requrl),
+        urled = new URL(url),
+        path = urled.pathname.split("/");
     if (url.startsWith("chrome-extension://")) return;
-    let urled = new URL(url);
     let response: Response; // 可能为空的响应
-    let path = urled.pathname.split("/");
     path.shift();
     event.respondWith((async () => {
-        const cache = await caches.open(Cache);
-        var realReq = event.request.clone();
+        const cache = await caches.open(Cache),
+            realReq = event.request.clone();
         log(`抓取: ${url}`);
         if (path[0] === "handle") {
             const toPath = `/tools/${urled.searchParams.get("handle").replace(/web\+verkfi:\/\//g, "")}`;

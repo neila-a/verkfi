@@ -12,7 +12,7 @@ import {
 import settingReader from 'setting/settingReader';
 import useSWR from 'swr';
 const useLang = () => {
-    var browserLang: string = "zhCN";
+    let browserLang: string = "zhCN";
     if (isBrowser()) {
         if (window.navigator.language || window.navigator.languages) {
             browserLang = ((window.navigator.languages && window.navigator.languages[0]) || window.navigator.language).split("-").join("") || "zhCN";

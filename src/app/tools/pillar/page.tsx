@@ -140,7 +140,7 @@ export default function Pillar(): JSX.Element {
                                             <MouseOverPopover text={filterRules[ruleIndex][3] ? get("filter.disableRule") : get("filter.enableRule")}>
                                                 <IconButton edge="start" onClick={event => {
                                                     setFilterRules(old => {
-                                                        var realOld = old.slice(0),
+                                                        const realOld = old.slice(0),
                                                             oldRule = rule.slice(0) as filterRule,
                                                             oldEnabled = oldRule[3];
                                                         oldRule[3] = !oldEnabled;

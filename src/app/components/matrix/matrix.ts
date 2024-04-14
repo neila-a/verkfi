@@ -9,7 +9,7 @@ export const logger = new LpLogger({
 });
 export type block = [number, number];
 export default function drawMatrix(blocks: block[], g: number, posX: number, posZ: number, posCache: block, cache: block[], palette: Palette, onlyPos: boolean) {
-    var e = Number(window.getComputedStyle(document.getElementById("canvascontainer").parentElement.children[0]).width.replace("px", "")), // Decrepated: Math.max(w, h),
+    const e = Number(window.getComputedStyle(document.getElementById("canvascontainer").parentElement.children[0]).width.replace("px", "")), // Decrepated: Math.max(w, h),
         nowPos: block = [posX, posZ],
         cachePosBlock: block[] = [],
         posBlock: block[] = [];

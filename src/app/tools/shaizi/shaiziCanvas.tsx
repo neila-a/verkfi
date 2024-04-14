@@ -46,13 +46,13 @@ function Cube(props: {
             <camera ref={camera} position={[10, 10, 10]} />
             <mesh ref={mesh} args={[cube, materials]} onClick={event => {
                 if (stage.current.length === 0) {
-                    var oldStage = [];
+                    const oldStage = [];
                     while (oldStage.toString() === cacheStage.current.toString())
                     for (let step = 0; step < props.cishu; step++) {
                         oldStage.push(randomAxis());
                     }
                     if (oldStage.toString() === cacheStage.current.toString()) {
-                        oldStage = [];
+                        oldStage.splice(0, oldStage.length)
                         for (let step = 0; step < props.cishu; step++) {
                             oldStage.push(randomAxis());
                         }

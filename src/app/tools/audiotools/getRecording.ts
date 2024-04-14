@@ -4,18 +4,21 @@ import {
     isBrowser
 } from "layout/layoutClient";
 export default async function getRecording(onStop: (blob: Blob) => any, onDataAvailable?: (blob: Blob) => any, log = true) {
-    var mediaRecorder: MediaRecorder;
-    class logger {
-        private static lpLogger = new LpLogger({
-            name: "AudioTools",
-            level: "log", // 空字符串时，不显示任何信息
-        });
-        static log(...a) {
+    let mediaRecorder: MediaRecorder;
+    class Logger extends LpLogger {
+        constructor() {
+            super({
+                name: "AudioTools",
+                level: "log", // 空字符串时，不显示任何信息
+            });
+        }
+        log(...a) {
             if (log) {
-                this.lpLogger.log(...a);
+                super.log(...a);
             }
         };
     }
+    const logger = new Logger();
     if (isBrowser() && navigator.mediaDevices.getUserMedia) {
         const constraints = {
             audio: true
@@ -27,7 +30,7 @@ export default async function getRecording(onStop: (blob: Blob) => any, onDataAv
                 "audio/mpeg",
             ].find(a => MediaRecorder.isTypeSupported(a));
         const stream = await navigator.mediaDevices.getUserMedia(constraints);
-        var chunks: Blob[] = [];
+        const chunks: Blob[] = [];
         logger.log("授权成功。");
         mediaRecorder = new MediaRecorder(stream, {
             mimeType
@@ -43,7 +46,7 @@ export default async function getRecording(onStop: (blob: Blob) => any, onDataAv
             onStop(new Blob(chunks, {
                 type: mimeType
             }));
-            chunks = [];
+            chunks.splice(0, chunks.length)
         };
         mediaRecorder.onpause = event => {
             logger.log("录音已暂停");

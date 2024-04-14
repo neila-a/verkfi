@@ -12,7 +12,7 @@ const desktopAdder = () => {
         },
     };
     //@ts-ignore 不是，你不能安装PWA还强行安装，指定没好果汁吃奥
-    var deferredPrompt: BeforeInstallPromptEvent = defaultPrompt;
+    let deferredPrompt: BeforeInstallPromptEvent = defaultPrompt;
     // 监听beforeinstallprompt事件，该事件在网站满足PWA安装条件时触发，保存安装事件
     window.addEventListener("beforeinstallprompt", (event: BeforeInstallPromptEvent) => {
         event.preventDefault();

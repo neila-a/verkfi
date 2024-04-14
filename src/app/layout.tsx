@@ -5,7 +5,7 @@ import {
     getRepoInfo
 } from "components/getRepoInfo";
 export async function generateMetadata() {
-    var url = new URL(pack.homepage);
+    let url = new URL(pack.homepage);
     try {
         url = new URL(process.env.VERKFI_URL)
     } catch {

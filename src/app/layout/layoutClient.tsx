@@ -106,7 +106,7 @@ export const darkMode = createContext<{
 }>(null);
 export function useLightMode() {
     const gotContext = useContext(darkMode).mode;
-    var value: boolean = true;
+    let value = true;
     switch (gotContext) {
         case "dark":
             value = false;

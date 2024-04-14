@@ -22,14 +22,14 @@ const logger = new Logger({
 import Logger from "lp-logger";
 async function devMain() {
     const repoInfo = await getRepoInfo();
-    let commits = Number(ChildProcess.execSync("git log --oneline | wc -l").toString().replace(/\n/g, "")),
-        oldPackage = <typeof pack>JSON.parse(fs.readFileSync("package.json").toString());
+    let commits = Number(ChildProcess.execSync("git log --oneline | wc -l").toString().replace(/\n/g, ""));
+    const oldPackage = <typeof pack>JSON.parse(fs.readFileSync("package.json").toString());
     commits++;
     oldPackage.description = repoInfo.description;
     oldPackage.devVersion = commits.toString();
     logger.log(`计算出devVersion为${commits}`);
     fs.writeFileSync("package.json", JSON.stringify(oldPackage, null, 4));
-    let oldManifest = <Manifest>JSON.parse(fs.readFileSync("public/index.webmanifest").toString());
+    const oldManifest = <Manifest>JSON.parse(fs.readFileSync("public/index.webmanifest").toString());
     oldManifest.description = repoInfo.description;
     oldManifest.short_name = repoInfo.name;
     oldManifest.name = repoInfo.name;

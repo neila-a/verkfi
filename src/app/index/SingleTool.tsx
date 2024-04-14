@@ -108,13 +108,13 @@ export default function SingleTool(props: {
             onSwipedRight: data => {
                 switch (homeWhere) {
                     case "most": {
-                        let old = mostUsed.value;
+                        const old = mostUsed.value;
                         Reflect.deleteProperty(old, tool.to);
                         mostUsed.set(old);
                         break;
                     }
                     case "recently": {
-                        let old = recentlyUsed.value;
+                        const old = recentlyUsed.value;
                         recentlyUsed.set(removeArrayItem(old, tool.to));
                         break;
                     }

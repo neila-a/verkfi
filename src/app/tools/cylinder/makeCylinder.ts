@@ -12,8 +12,7 @@ export default function makeCylinder(
     thickness: number,
     filled: boolean
 ): block[] {
-    var blocks: block[] = [];
-    const height = 1;
+    const blocks: block[] = [];
     function setBlock(x: number, z: number) {
         const pushOne = (a: number, b: number) => blocks.push([Number(a.toFixed(0)) - 1, Number(b.toFixed(0)) - 1]);
         pushOne(radiusX + x, radiusZ + z);
@@ -23,29 +22,29 @@ export default function makeCylinder(
     }
     radiusX += 0.5;
     radiusZ += 0.5;
-    var invRadiusX = 1 / radiusX;
-    var invRadiusZ = 1 / radiusZ;
-    var ceilRadiusX = Math.ceil(radiusX);
-    var ceilRadiusZ = Math.ceil(radiusZ);
-    var xSqr: number;
-    var zSqr: number;
-    var distanceSq: number;
-    var nextXn = 0;
+    const invRadiusX = 1 / radiusX,
+        invRadiusZ = 1 / radiusZ,
+        ceilRadiusX = Math.ceil(radiusX),
+        ceilRadiusZ = Math.ceil(radiusZ);
+    let xSqr: number,
+        zSqr: number,
+        distanceSq: number,
+        nextXn = 0;
     if (thickness != 0) {
-        var nextMinXn = 0;
-        var minInvRadiusX = 1 / (radiusX - thickness);
-        var minInvRadiusZ = 1 / (radiusZ - thickness);
-        forX: for (var x = 0; x <= ceilRadiusX; ++x) {
-            var xn = nextXn;
-            var dx2 = nextMinXn * nextMinXn;
+        let nextMinXn = 0;
+        const minInvRadiusX = 1 / (radiusX - thickness),
+            minInvRadiusZ = 1 / (radiusZ - thickness);
+        forX: for (let x = 0; x <= ceilRadiusX; ++x) {
+            const xn = nextXn,
+                dx2 = nextMinXn * nextMinXn;
             nextXn = (x + 1) * invRadiusX;
             nextMinXn = (x + 1) * minInvRadiusX;
-            var nextZn = 0;
-            var nextMinZn = 0;
+            let nextZn = 0,
+                nextMinZn = 0;
             xSqr = xn * xn;
-            forZ: for (var z = 0; z <= ceilRadiusZ; ++z) {
-                var zn = nextZn;
-                var dz2 = nextMinZn * nextMinZn;
+            forZ: for (let z = 0; z <= ceilRadiusZ; ++z) {
+                const zn = nextZn,
+                    dz2 = nextMinZn * nextMinZn;
                 nextZn = (z + 1) * invRadiusZ;
                 nextMinZn = (z + 1) * minInvRadiusZ;
                 zSqr = zn * zn;
@@ -63,13 +62,13 @@ export default function makeCylinder(
             }
         }
     } else {
-        forX: for (var x = 0; x <= ceilRadiusX; ++x) {
-            var xn = nextXn;
+        forX: for (let x = 0; x <= ceilRadiusX; ++x) {
+            const xn = nextXn;
             nextXn = (x + 1) * invRadiusX;
-            var nextZn = 0;
+            let nextZn = 0;
             xSqr = xn * xn;
-            forZ: for (var z = 0; z <= ceilRadiusZ; ++z) {
-                var zn = nextZn;
+            forZ: for (let z = 0; z <= ceilRadiusZ; ++z) {
+                const zn = nextZn;
                 nextZn = (z + 1) * invRadiusZ;
                 zSqr = zn * zn;
                 distanceSq = xSqr + zSqr;

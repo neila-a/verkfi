@@ -181,7 +181,7 @@ export default function Selects(props: {
                         title: get("category.删除此分类"),
                         description: get("category.确定删除此分类吗？"),
                         onTrue: () => {
-                            var listDraft: lists = list.slice(0).filter(draftSingle => draftSingle[0] !== dialogListName)
+                            const listDraft: lists = list.slice(0).filter(draftSingle => draftSingle[0] !== dialogListName)
                             setList(listDraft);
                             lists.set(listDraft);
                             setDialogListName("");

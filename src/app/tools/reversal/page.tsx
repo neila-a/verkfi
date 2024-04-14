@@ -66,7 +66,7 @@ function Reversal(): JSX.Element {
                     mt: 1
                 }}>
                     <Button variant="contained" onClick={() => {
-                        var stageOutput: [string, number][] = wordList;
+                        const stageOutput: [string, number][] = wordList;
                         stageOutput.sort(() => {
                             return Math.random() - 0.5;
                         });
