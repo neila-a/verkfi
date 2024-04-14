@@ -50,10 +50,6 @@ import {
 } from "next/navigation";
 import getParamTools from "index/getParamTools";
 import VerkfiIcon from "components/verkfiIcon/verkfiIcon";
-import db from "db";
-import {
-    useLiveQuery
-} from "dexie-react-hooks";
 import convertExtensionTools from "index/convertExtensionTools";
 export default function Menu() {
     const control = useContext(showSidebar),

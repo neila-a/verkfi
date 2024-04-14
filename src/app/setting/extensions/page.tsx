@@ -24,12 +24,6 @@ import {
     FilePondFile,
     FilePondServerConfigProps
 } from 'filepond';
-import {
-    useLiveQuery
-} from "dexie-react-hooks";
-import db, {
-    single
-} from "db";
 import DialogInputs from "./DialogInputs";
 import {
     settingPage
@@ -44,7 +38,9 @@ import RemoveExtensionDialog from "./RemoveExtensionDialog";
 import DialogButtons from "./DialogButtons";
 import ToolViewer from "./ToolViewer";
 import No from "No";
-import { extensions } from "layout/layoutClient";
+import {
+    extensions
+} from "layout/layoutClient";
 export type inputTypes = "modify" | "add";
 export default function ExtensionManager() {
     const [addDialogOpen, setAddDialogOpen] = useState<boolean>(false),

@@ -18,7 +18,7 @@ import {
     ContentCopy as ContentCopyIcon
 } from '@mui/icons-material';
 import dynamic from 'next/dynamic';
-const AlertDialog = dynamic(() => import("./dialog/AlertDialog"));
+const AlertDialog = dynamic(() => import("dialog/Alert"));
 import MouseOverPopover from './Popover';
 function CopyButton(props: {
     children: string;

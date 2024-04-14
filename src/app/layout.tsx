@@ -5,11 +5,17 @@ import {
     getRepoInfo
 } from "components/getRepoInfo";
 export async function generateMetadata() {
+    var url = new URL(pack.homepage);
+    try {
+        url = new URL(process.env.VERKFI_URL)
+    } catch {
+        console.error(`URL build failed. Using ${url} from homepage in package.json.`);
+    }
     const repoInfo = await getRepoInfo(),
         upperName = repoInfo.name.charAt(0).toUpperCase() + repoInfo.name.slice(1);
     return ({
         manifest: "/index.webmanifest",
-        metadataBase: new URL(process.env.VERKFI_URL),
+        metadataBase: url,
         description: repoInfo.description,
         applicationName: upperName,
         other: {
