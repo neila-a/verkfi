@@ -19,13 +19,9 @@ const useLang = () => {
         }
     }
     const detailedLang = Object.keys(locales).includes(browserLang) ? browserLang : "zhCN",
-        gotSetting = useSWR("lang", () => settingReader("lang", detailedLang), {
-            suspense: true,
-            fallback: {
-                "lang": browserLang
-            }
+        chooseOption = useSWR("lang", () => settingReader("lang", detailedLang), {
+            suspense: true
         }).data,
-        chooseOption = gotSetting.value,
         real = chooseOption || "zhCN";
     return useReducer((old: string, val: string) => {
         intl.init({

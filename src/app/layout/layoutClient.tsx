@@ -65,7 +65,9 @@ import Ubuntu from "components/fonts";
 import {
     viewMode as viewModeType
 } from "index/consts";
-import useSWR from "swr";
+import useSWR, {
+    SWRConfig
+} from "swr";
 import db, {
     single
 } from "db";
@@ -161,11 +163,11 @@ export default function ModifiedApp(props: {
         [mostUsedState, setMostUsed] = useStoragedState<mostUsedMarks>("most-tools", "最常使用的工具", {}),
         {
             data: extensionsData
-        } = useSWR("db.extensions", () => db.extensionTools.toArray(), {
-            suspense: true,
-            fallback: {
-                "db.extensions": []
-            }
+        } = useSWR("db.extensions", () => {
+            if (isBrowser()) return db.extensionTools.toArray();
+            return [];
+        }, {
+            suspense: true
         }),
         [extensionsState, setExtensions] = useReducer((old: single[], val: extensionsDispatch) => {
             if (val?.action === "delete") {
@@ -308,14 +310,18 @@ export default function ModifiedApp(props: {
                                                                         value: mostUsedState,
                                                                         set: setMostUsed
                                                                     }}>
-                                                                        <CssBaseline />
-                                                                        <Box component="aside">
-                                                                            {Sidebar}
-                                                                        </Box>
-                                                                        <Box component="main" ml={(showSidebarState && sidebarModeState === "sidebar") && ml}>
-                                                                            {props.children}
-                                                                        </Box>
-                                                                        <WindowContainer />
+                                                                        <SWRConfig value={{
+                                                                            suspense: true
+                                                                        }}>
+                                                                            <CssBaseline />
+                                                                            <Box component="aside">
+                                                                                {Sidebar}
+                                                                            </Box>
+                                                                            <Box component="main" ml={(showSidebarState && sidebarModeState === "sidebar") && ml}>
+                                                                                {props.children}
+                                                                            </Box>
+                                                                            <WindowContainer />
+                                                                        </SWRConfig>
                                                                     </mostUsed.Provider>
                                                                 </recentlyUsed.Provider>
                                                             </windows.Provider>

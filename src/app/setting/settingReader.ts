@@ -4,7 +4,7 @@ import db, {
 import {
     isBrowser
 } from "layout/layoutClient";
-export default async function settingReader<T>(id: string, empty: T): Promise<option<T>> {
+export default async function settingReader<T>(id: string, empty: T): Promise<T> {
     if (isBrowser()) {
         const got = await db.options.get({
             key: id
@@ -14,15 +14,9 @@ export default async function settingReader<T>(id: string, empty: T): Promise<op
                 key: id,
                 value: empty
             });
-            return {
-                key: id,
-                value: empty
-            };
+            return empty;
         }
-        return got;
+        return got.value;
     }
-    return {
-        key: id,
-        value: empty
-    };
+    return empty;
 }
