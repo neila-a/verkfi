@@ -65,7 +65,7 @@
         "file-saver": "^2.0.5",
         "filepond": "^4.30.6",
         "lp-logger": "github:neila-a/lp-logger-no-window",
-        "next": "^14.1.4",
+        "next": "14.1.4",
         "nzh": "^1.0.12",
         "react": "^18.2.0",
         "react-device-detect": "^2.2.3",
@@ -78,7 +78,7 @@
         "remove-item-from-array": "^1.0.4",
         "reorder-array": "^1.0.3",
         "sass": "^1.72.0",
-        "swr": "^1.3.0",
+        "swr": "<2.0.0-beta.0",
         "three": "^0.163.0",
         "throttle-debounce": "^5.0.0"
     }
