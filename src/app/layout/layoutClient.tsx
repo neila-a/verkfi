@@ -49,7 +49,7 @@ import {
     useSearchParams
 } from "next/navigation";
 import dynamic from "next/dynamic";
-import WindowContainer from "WindowContainer"; // 重的Window已经被动态加载，那么WindowContainer是轻的
+import WindowContainer from "./WindowContainer"; // 重的Window已经被动态加载，那么WindowContainer是轻的
 import {
     drawerWidth
 } from "setting/consts";
@@ -65,12 +65,15 @@ import Ubuntu from "components/fonts";
 import {
     viewMode as viewModeType
 } from "index/consts";
-import useSWR, {
+import {
     SWRConfig
 } from "swr";
-import db, {
+import {
     single
 } from "db";
+import useExtensions, {
+    extensionsDispatch
+} from "./useExtensions";
 export const showSidebar = createContext<{
     show: boolean;
     set: Dispatch<boolean>;
@@ -146,9 +149,6 @@ export const windows = createContext<{
     windows: WindowOptions[];
     set: setState<WindowOptions[]>;
 }>(null);
-interface extensionsDispatch extends single {
-    action?: "delete"
-}
 export const extensions = createContext<{
     value: single[];
     set: Dispatch<extensionsDispatch>;
@@ -161,33 +161,7 @@ export default function ModifiedApp(props: {
         [palette, setPalette] = useStoragedState<typeof defaultPalette>("palette", "调色板", defaultPalette),
         [recentlyUsedState, setRecentlyUsed] = useStoragedState<string[]>("recently-tools", "最近使用的工具", []),
         [mostUsedState, setMostUsed] = useStoragedState<mostUsedMarks>("most-tools", "最常使用的工具", {}),
-        {
-            data: extensionsData
-        } = useSWR("db.extensions", () => {
-            if (isBrowser()) return db.extensionTools.toArray();
-            return [];
-        }, {
-            suspense: true
-        }),
-        [extensionsState, setExtensions] = useReducer((old: single[], val: extensionsDispatch) => {
-            if (val?.action === "delete") {
-                db.extensionTools.delete(val.to);
-                return old.filter(a => a.to !== val.to);
-            } else {
-                db.extensionTools.put(val);
-                const realOld = old.slice(0),
-                    index = old.findIndex(a => a.to === val.to);
-                if (index === -1) {
-                    realOld.push(val);
-                    return realOld;
-                } else {
-                    return realOld.map(a => {
-                        if (a.to === val.to) return val;
-                        return a;
-                    });
-                }
-            }
-        }, extensionsData),
+        [extensionsState, setExtensions] = useExtensions(),
         theme = useMemo(
             () => createTheme({
                 palette: {
@@ -212,7 +186,7 @@ export default function ModifiedApp(props: {
         [viewModeState, setViewMode] = useStoragedState<viewModeType>("viewmode", "列表模式", "list"),
         implant = (pathname === "/") || (params.get("only") === "true"),
         ml: string = implant ? "" : (expand ? `calc(min(${`calc(100vw - ${drawerWidth}px)`}, 320px) + ${drawerWidth}px)` : `${drawerWidth}px`),
-        Sidebar = implant ? null : (sidebarModeState === "menu" ? createElement(dynamic(() => import("Menu"))) : createElement(dynamic(() => import("page")), {
+        Sidebar = implant ? null : (sidebarModeState === "menu" ? createElement(dynamic(() => import("./Menu"))) : createElement(dynamic(() => import("page")), {
             isImplant: true,
             expand: expand,
             setExpand: setExpand

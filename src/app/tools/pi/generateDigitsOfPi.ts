@@ -1,9 +1,9 @@
 "use client";
 export default function* generateDigitsOfPi() {
-    let q = 1n;
-    let r = 180n;
-    let t = 60n;
-    let i = 2n;
+    let q = 1n,
+        r = 180n,
+        t = 60n,
+        i = 2n;
     while (true) {
         let digit = ((i * 27n - 12n) * q + r * 5n) / (t * 5n);
         yield Number(digit);

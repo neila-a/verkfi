@@ -73,8 +73,9 @@ import {
     AppRouterCacheProvider
 } from '@mui/material-nextjs/v13-appRouter';
 import Ubuntu from "components/fonts";
-import { SWRConfig } from "swr";
-import { Suspense } from "react";
+import {
+    Suspense
+} from "react";
 export default async function Layout({
     children
 }) {
