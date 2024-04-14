@@ -13,14 +13,16 @@ import {
     isBrowser
 } from "layout/layoutClient";
 import {
-    useContext
+    useContext,
+    useRef
 } from "react";
 export default function ExtensionLoader() {
     const searchParams = useSearchParams(),
         toolID = searchParams.get("tool"),
         usedExtensions = useContext(extensions),
         tool: single = usedExtensions.value.find(a => a.to === toolID),
-        src = `/extensionfiles/${tool.to}/${tool.main}`;
+        src = `/extensionfiles/${tool.to}/${tool.main}`,
+        ref = useRef<HTMLIFrameElement>();
     if (isBrowser()) {
         window.addEventListener("message", (event: MessageEvent<{
             action: string;
@@ -44,7 +46,7 @@ export default function ExtensionLoader() {
                         });
                         break;
                     case "getSetting":
-                        (document.getElementById("iframe") as HTMLIFrameElement).contentWindow.postMessage({
+                        ref.current?.contentWindow?.postMessage({
                             value: tool.settings.find(set => set.id === event.data.id).value
                         }, location.origin);
                 }
@@ -53,7 +55,7 @@ export default function ExtensionLoader() {
     }
     return (
         <>
-            <iframe id="iframe" style={{
+            <iframe ref={ref} id="iframe" style={{
                 border: "none",
                 width: "calc(100vw - 48px)",
                 height: "100vh"

@@ -11,6 +11,7 @@ import {
 import LpLogger from "lp-logger";
 import Nzh from "nzh";
 import {
+    useId,
     useState
 } from "react";
 const nzh = new Nzh({
@@ -25,7 +26,9 @@ const nzh = new Nzh({
 export default function ReadNumber(): JSX.Element {
     const [blur, setBlur] = useState<"number" | "string">("number"),
         [string, setString] = useState<string>(""),
-        [number, setNumber] = useState<string>("0");
+        [number, setNumber] = useState<string>("0"),
+        stringId = useId(),
+        numberId = useId();
     function proc(p: string) {
         switch (blur) {
             case "number":
@@ -41,14 +44,14 @@ export default function ReadNumber(): JSX.Element {
             <FormGroup>
                 <Grid container spacing={1} alignItems="center">
                     <Grid item>
-                        <Typography id="number" gutterBottom>
+                        <Typography id={numberId} gutterBottom>
                             {get('数字')}
                         </Typography>
                     </Grid>
                     <Grid item>
                         <TextField value={number} type="number" fullWidth InputLabelProps={{
                             shrink: true,
-                            "aria-labelledby": "number"
+                            "aria-labelledby": numberId
                         }} onChange={event => {
                             const {
                                 value
@@ -61,13 +64,13 @@ export default function ReadNumber(): JSX.Element {
                 </Grid>
                 <Grid container spacing={1} alignItems="center">
                     <Grid item>
-                        <Typography id="string" gutterBottom>
+                        <Typography id={stringId} gutterBottom>
                             {get('汉字')}
                         </Typography>
                     </Grid>
                     <Grid item>
                         <TextField InputLabelProps={{
-                            "aria-labelledby": "string"
+                            "aria-labelledby": stringId
                         }} value={string} fullWidth onChange={event => {
                             const {
                                 value

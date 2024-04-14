@@ -35,7 +35,7 @@ export default function MouseOverPopover(props: {
         },
         open = Boolean(anchorEl);
     return (
-        <Box sx={props.sx ? props.sx : {}}>
+        <Box sx={props?.sx ? props.sx : {}}>
             <Box
                 aria-haspopup="true"
                 onMouseEnter={handlePopoverOpen}
@@ -44,7 +44,7 @@ export default function MouseOverPopover(props: {
                 {props.children}
             </Box>
             <Popover
-                id="mouse-over-popover"
+                className="mouse-over-popover" /* 暂时没用，仅作为标记 */
                 sx={{
                     pointerEvents: 'none',
                     zIndex: "38602"

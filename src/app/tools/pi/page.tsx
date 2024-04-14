@@ -23,21 +23,19 @@ function PI(): JSX.Element {
         [showInfoDialog, setShowInfoDialog] = useState<boolean>(false),
         [dialogInfo, setDialogInfo] = useState<string>(""),
         [out, setOut] = useState("");
-    function proc() {
-        const retinfo: string = calc(digits);
-        if (useAlertShow) {
-            setDialogInfo(retinfo);
-            return setShowInfoDialog(true);
-        }
-        return setOut(retinfo);
-    };
     return (
         <>
             <Box id="input">
                 <TextField id="weishu" label={get('pi.π的小数点后位数')} variant="outlined" value={digits} type="number" onChange={event => {
-                    const digit = Number(event.target.value);
+                    const digit = Math.round(Number(event.target.value));
                     setDigits(digit);
-                    proc();
+                    debugger
+                    const retinfo: string = (calc(digit) as BigInt).toString();
+                    if (useAlertShow) {
+                        setDialogInfo(retinfo);
+                        return setShowInfoDialog(true);
+                    }
+                    return setOut(retinfo);
                 }} />
             </Box>
             <FormGroup>

@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import Transition from "./Transition";
 import {
-    ReactNode
+    ReactNode, useId
 } from 'react';
 export default function CheckDialog(props: {
     title: string;
@@ -24,11 +24,13 @@ export default function CheckDialog(props: {
     open: boolean;
     sx?: SxProps<Theme>;
 }) {
+    const startId = useId(),
+        descriptionId = `${startId}-check-dialog-description`;
     return (
-        <Dialog sx={props.sx} open={props.open} TransitionComponent={Transition} aria-describedby="description">
+        <Dialog sx={props.sx} open={props.open} TransitionComponent={Transition} aria-describedby={descriptionId}>
             <DialogTitle>{props.title}</DialogTitle>
             <DialogContent>
-                <DialogContentText id="description">
+                <DialogContentText id={descriptionId}>
                     {props.description}
                 </DialogContentText>
                 {props.insert}

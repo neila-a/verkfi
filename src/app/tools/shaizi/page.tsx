@@ -22,7 +22,7 @@ function ShaiZi(): JSX.Element {
         <>
             <Stack spacing={2} component="section">
                 <ShaiZiCanvas cishu={cishu} />
-                <TextField id="weishu" label={get('shaizi.掷色子的次数')} variant="outlined" value={cishu} type="number" onChange={event => {
+                <TextField label={get('shaizi.掷色子的次数')} variant="outlined" value={cishu} type="number" onChange={event => {
                     setCishu(Number(event.target.value));
                 }} />
                 <Button variant="contained" onClick={event => {

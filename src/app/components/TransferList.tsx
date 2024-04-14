@@ -1,5 +1,6 @@
 import {
     FC,
+    useId,
     useState
 } from "react"
 import {
@@ -36,6 +37,7 @@ export default function TransferList(props: {
         [right, setRight] = useState<string[]>(props.right),
         leftChecked = intersection(checked, left),
         rightChecked = intersection(checked, right),
+        startId = useId(),
         handleToggle = (value: string) => () => {
             const currentIndex = checked.indexOf(value);
             const newChecked = [...checked];
@@ -89,7 +91,7 @@ export default function TransferList(props: {
                         {items.map(value => {
                             const Icon: FC = (() => <></>)
                                 || toolsList.find(single => single.name === value).icon,
-                                labelId = `transfer-list-item-${value}-label`;
+                                labelId = `${startId}-transfer-list-item-${value}-label`;
                             return (
                                 <ListItem
                                     key={value}
