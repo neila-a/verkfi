@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import dynamic from 'next/dynamic';
 const AlertDialog = dynamic(() => import("dialog/Alert"));
-import calc from "@joshyzou/pisolver";
+import generatePis from './generatePis';
 import CopyButton from 'components/CopyButton';
 function PI(): JSX.Element {
     const [digits, setDigits] = useState<number>(1),
@@ -26,11 +26,10 @@ function PI(): JSX.Element {
     return (
         <>
             <Box id="input">
-                <TextField id="weishu" label={get('pi.π的小数点后位数')} variant="outlined" value={digits} type="number" onChange={event => {
+                <TextField id="digit" label={get('pi.π的小数点后位数')} variant="outlined" value={digits} type="number" onChange={event => {
                     const digit = Math.round(Number(event.target.value));
                     setDigits(digit);
-                    debugger
-                    const retinfo: string = (calc(digit) as BigInt).toString();
+                    const retinfo: string = generatePis(digit);
                     if (useAlertShow) {
                         setDialogInfo(retinfo);
                         return setShowInfoDialog(true);

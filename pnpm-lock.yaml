@@ -20,9 +20,6 @@ importers:
       '@hello-pangea/dnd':
         specifier: ^16.6.0
         version: 16.6.0(@types/react-dom@18.2.25)(@types/react@18.2.78)(react-dom@18.2.0)(react@18.2.0)
-      '@joshyzou/pisolver':
-        specifier: ^1.0.4
-        version: 1.0.4
       '@mui/icons-material':
         specifier: ^5.15.14
         version: 5.15.15(@mui/material@5.15.15)(@types/react@18.2.78)(react@18.2.0)
@@ -690,10 +687,6 @@ packages:
       wrap-ansi: 8.1.0
       wrap-ansi-cjs: /wrap-ansi@7.0.0
     dev: true
-
-  /@joshyzou/pisolver@1.0.4:
-    resolution: {integrity: sha512-mauuMrAHAqzQ7t1GaJ9BGhm1aLZ6pW14Miaz/QkbdVoJ7T0HndROVGRt/ZL0Tmcjn1WoV/o5CPOMwo/bKNmKwg==}
-    dev: false
 
   /@mediapipe/tasks-vision@0.10.8:
     resolution: {integrity: sha512-Rp7ll8BHrKB3wXaRFKhrltwZl1CiXGdibPxuWXvqGnKTnv8fqa/nvftYNuSbf+pbJWKYCXdBtYTITdAUTGGh0Q==}
