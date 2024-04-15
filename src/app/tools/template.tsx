@@ -32,8 +32,13 @@ export default function Template(props: {
         } else {
             mostUsed[thisTool] = 0;
         }
-        recentlyUsed.set(set.get().reverse());
-        mostUsedState.set(mostUsed);
+        const tempRecently = set.get().reverse();
+        if (JSON.stringify(tempRecently.sort()) !== JSON.stringify(recentlyUsed.value.sort())) {
+            recentlyUsed.set(tempRecently.sort());
+        }
+        if (JSON.stringify(mostUsed) === JSON.stringify(mostUsedState.value)) {
+            mostUsedState.set(mostUsed);
+        }
     }, []); // 不放在副作用里会导致无限循环
     return (
         <>
