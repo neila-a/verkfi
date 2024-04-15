@@ -74,6 +74,7 @@ import {
 import useExtensions, {
     extensionsDispatch
 } from "./useExtensions";
+import composeProviders from "./providerCompose";
 export const showSidebar = createContext<{
     show: boolean;
     set: Dispatch<boolean>;
@@ -193,7 +194,53 @@ export default function ModifiedApp(props: {
         })), // 使用createElement因为dynamic不能直接以JSX方式调用
         [forkMeOnGitHubState, setForkMeOnGithub] = useStoragedState<boolean>("fork-me-on-github", "Fork me on GitHub", false),
         [shareState, setShare] = useStoragedState<boolean>("share", "分享", isBrowser() ? "share" in navigator : false),
-        [colorModeState, setColorModeState] = useStoragedState<boolean>("color", "多彩主页", true);
+        [colorModeState, setColorModeState] = useStoragedState<boolean>("color", "多彩主页", true),
+        Provider = composeProviders([first, {
+            value: firstState,
+            set: setFirst
+        }], [forkMeOnGitHub, {
+            value: forkMeOnGitHubState,
+            set: setForkMeOnGithub
+        }], [showSidebar, {
+            show: showSidebarState,
+            set: setShowSidebar
+        }], [darkMode, {
+            mode: mode,
+            set: setMode
+        }], [colorMode, {
+            value: colorModeState,
+            set: setColorModeState
+        }], [lang, {
+            value: choosedLang,
+            set: setChoosedLang
+        }], [share, {
+            value: shareState,
+            set: setShare
+        }], [lists, {
+            value: listsState,
+            set: setLists
+        }], [sidebarMode, {
+            value: sidebarModeState,
+            set: setSidebarMode
+        }], [paletteColors, {
+            value: palette,
+            set: setPalette
+        }], [viewMode, {
+            value: viewModeState,
+            set: setViewMode
+        }], [extensions, {
+            value: extensionsState,
+            set: setExtensions
+        }], [windows, {
+            windows: realWindows,
+            set: setRealWindows
+        }], [recentlyUsed, {
+            value: recentlyUsedState,
+            set: setRecentlyUsed
+        }], [mostUsed, {
+            value: mostUsedState,
+            set: setMostUsed
+        }]);
     useEffect(() => {
         if (isBrowser()) {
             registerProtocolHandler();
@@ -223,94 +270,21 @@ export default function ModifiedApp(props: {
         }
     }, []);
     return initDone && (
-        <first.Provider value={{
-            value: firstState,
-            set: setFirst
-        }}>
-            <forkMeOnGitHub.Provider value={{
-                value: forkMeOnGitHubState,
-                set: setForkMeOnGithub
-            }}>
-                <ThemeProvider theme={theme}>
-                    <showSidebar.Provider value={{
-                        show: showSidebarState,
-                        set: setShowSidebar
-                    }}>
-                        <darkMode.Provider value={{
-                            mode: mode,
-                            set: setMode
-                        }}>
-                            <colorMode.Provider value={{
-                                value: colorModeState,
-                                set: setColorModeState
-                            }}>
-                                <lang.Provider value={{
-                                    value: choosedLang,
-                                    set: setChoosedLang
-                                }}>
-                                    <share.Provider value={{
-                                        value: shareState,
-                                        set: setShare
-                                    }}>
-                                        <lists.Provider value={{
-                                            value: listsState,
-                                            set: setLists
-                                        }}>
-                                            <sidebarMode.Provider value={{
-                                                value: sidebarModeState,
-                                                set: setSidebarMode
-                                            }}>
-                                                <paletteColors.Provider value={{
-                                                    value: palette,
-                                                    set: setPalette
-                                                }}>
-                                                    <viewMode.Provider value={{
-                                                        value: viewModeState,
-                                                        set: setViewMode
-                                                    }}>
-                                                        <extensions.Provider value={{
-                                                            value: extensionsState,
-                                                            set: setExtensions
-                                                        }}>
-                                                            <windows.Provider value={{
-                                                                windows: realWindows,
-                                                                set: setRealWindows
-                                                            }}>
-                                                                <recentlyUsed.Provider value={{
-                                                                    value: recentlyUsedState,
-                                                                    set: setRecentlyUsed
-                                                                }}>
-                                                                    <mostUsed.Provider value={{
-                                                                        value: mostUsedState,
-                                                                        set: setMostUsed
-                                                                    }}>
-                                                                        <SWRConfig value={{
-                                                                            suspense: true
-                                                                        }}>
-                                                                            <CssBaseline />
-                                                                            <Box component="aside">
-                                                                                {Sidebar}
-                                                                            </Box>
-                                                                            <Box component="main" ml={(showSidebarState && sidebarModeState === "sidebar") && ml}>
-                                                                                {props.children}
-                                                                            </Box>
-                                                                            <WindowContainer />
-                                                                        </SWRConfig>
-                                                                    </mostUsed.Provider>
-                                                                </recentlyUsed.Provider>
-                                                            </windows.Provider>
-                                                        </extensions.Provider>
-                                                    </viewMode.Provider>
-                                                </paletteColors.Provider>
-                                            </sidebarMode.Provider>
-                                        </lists.Provider>
-                                    </share.Provider>
-                                </lang.Provider>
-                            </colorMode.Provider>
-                        </darkMode.Provider>
-                    </showSidebar.Provider>
-                </ThemeProvider>
-            </forkMeOnGitHub.Provider>
-        </first.Provider>
+        <Provider>
+            <ThemeProvider theme={theme}>
+                <SWRConfig value={{
+                    suspense: true
+                }}>
+                    <CssBaseline />
+                    <Box component="aside">
+                        {Sidebar}
+                    </Box>
+                    <Box component="main" ml={(showSidebarState && sidebarModeState === "sidebar") && ml}>
+                        {props.children}
+                    </Box>
+                    <WindowContainer />
+                </SWRConfig>
+            </ThemeProvider>
+        </Provider>
     );
 }
