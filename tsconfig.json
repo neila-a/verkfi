@@ -24,7 +24,7 @@
                 "name": "next"
             }
         ],
-        "baseUrl": "src/app",
+        "baseUrl": "app",
         "paths": {
             "dialog/*": ["components/dialog/*Dialog"],
             "No": ["components/No"],

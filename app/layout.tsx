@@ -61,7 +61,7 @@ export function generateViewport(): Viewport {
     };
 }
 import 'filepond/dist/filepond.min.css'; // Import FilePond styles
-import pack from "../../package.json";
+import pack from "../package.json";
 import {
     Box,
     GlobalStyles,

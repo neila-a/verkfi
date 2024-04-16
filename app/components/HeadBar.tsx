@@ -1,7 +1,7 @@
 import {
 	get
 } from 'react-intl-universal';
-import pack from "../../../package.json";
+import pack from "../../package.json";
 import {
 	AppBar,
 	Toolbar,

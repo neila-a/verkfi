@@ -6,19 +6,13 @@ import {
 import {
     Box,
     Button,
-    Grid,
-    Stack,
     SvgIconTypeMap,
     Typography
 } from "@mui/material";
 import {
-    Info as InfoIcon,
-    Copyright as CopyrightIcon,
-    Storage as StorageIcon,
-    Article as ArticleIcon,
     GitHub
 } from "@mui/icons-material";
-import pack from "../../../../package.json";
+import pack from "../../../package.json";
 import ErrorBoundary from 'components/ErrorBoundary';
 import {
     OverridableComponent

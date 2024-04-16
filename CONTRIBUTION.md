@@ -1,30 +1,33 @@
-# Contribution
+# 贡献
 
-## Create a new tool
+## 创建一个新工具
 
-- Write a TSX file in `/tools/`;
-- Add to `/tools/info.tsx`.
+- 在`/packages/`中创建一个包；
+- 添加到核心包里的`/tools`。
 
-## Add a new language
+## 添加新语言
 
-- Write a JSON file in `/locales/`;
-- Add to `/layout/layoutClient.tsx`.
+- 在`/locales/`中写入一个JSON文件；
+- 添加到 `/layout/layoutClient.tsx`。
 
-## Make a commit
+## 标准
 
-- Do something;
-- `npm run predev`;
-- Push it to GitHub.
+- 不要使用 JavaScript 代替 TypeScript。
+- 如果您的提交涉及大型或重大更改，请创建一个新分支并创建拉取请求。
+   即使您拥有此存储库的写入权限，也不要直接修改 main。
+   如果只有一些小的改变，你可以改变main。
+- 必须使用缩进，缩进为4个空格。
+- 多个声明需要换行符。
+- 不要使用“any”（除非作为类型参数的默认值）。
+- 您必须使用最新的依赖项。 如果它们不兼容，请修复它们。
 
-## Criteria
+## 存储库结构
 
-- Don't use JavaScript instead of TypeScript.
-- If your commit involves large or breaking changes, create a new branch and create a pull request.  
-  Even if you have write access to this repository, do not modify main directly.  
-  If there are only some minor changes, you can change main.
-- Indentation must be used, and the indentation is 4 spaces.
-- Multiple declarations require newlines.
-- Do not use "any" (except as a default value for a type parameter).
-- You must use the latest dependencies. If they are incompatible, fix them.
+此存储库是一个monorepo存储库。
 
-## zIndexes
+- app（核心包）
+- packages
+  - verkfi-build（构建扩展的工具的包）
+  - verkfi-tool-\*（工具\*的包）
+
+## zIndex

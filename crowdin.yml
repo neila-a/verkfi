@@ -7,8 +7,8 @@
     "files":
         [
             {
-                "source": "/src/app/locales/zh-CN.json",
-                "translation": "/src/app/locales/%locale%.json",
+                "source": "/app/locales/zh-CN.json",
+                "translation": "/app/locales/%locale%.json",
             },
         ],
 }

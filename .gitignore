@@ -14,7 +14,7 @@ pids
 *.pid
 *.seed
 *.pid.lock
-src/app/pages.json
+app/pages.json
 prebuild.js
 prebuild.mjs
 

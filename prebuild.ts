@@ -14,7 +14,7 @@ import type {
 import ChildProcess from "node:child_process";
 import {
     getRepoInfo
-} from "./src/app/components/getRepoInfo";
+} from "components/getRepoInfo";
 const logger = new Logger({
     name: "prebuild",
     level: "log"
@@ -38,7 +38,7 @@ async function devMain() {
     return [oldPackage, oldManifest];
 }
 async function publicMain() {
-    const pages = ChildProcess.execSync(`find ./src/app -name '*page.tsx'`).toString().replaceAll("./src/app", "").replaceAll("page.tsx", "").split("\n");
+    const pages = ChildProcess.execSync(`find ./app -name '*page.tsx'`).toString().replaceAll("./app", "").replaceAll("page.tsx", "").split("\n");
     pages.forEach((single, index) => {
         if (single !== "/") {
             pages[index] = pages[index].substr(0, pages[index].length - 1);
@@ -55,7 +55,7 @@ async function publicMain() {
         }
     });
     const pagesJSON = JSON.stringify(pages, null, 4);
-    fs.writeFileSync("src/app/pages.json", pagesJSON);
+    fs.writeFileSync("./app/pages.json", pagesJSON);
     const logbuild: <T>(result: BuildResult<T>, filename: string) => void = (result, filename) => {
         logger.log(`正在编译${filename}……`);
         const log = (message: [Message[], string]) => {
@@ -76,7 +76,7 @@ async function publicMain() {
             platform: "node"
         }),
         ServiceWorker = await build({
-            entryPoints: ["src/app/service-worker.ts"],
+            entryPoints: ["./app/service-worker.ts"],
             outfile: "public/service-worker.js",
             bundle: true,
             minify: true

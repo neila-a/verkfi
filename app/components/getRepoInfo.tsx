@@ -1,4 +1,4 @@
-import pack from "../../../package.json";
+import pack from "../../package.json";
 export async function getRepoInfo() {
     const repoInfo: {
         name: string;
