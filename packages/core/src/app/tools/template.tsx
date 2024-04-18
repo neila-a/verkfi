@@ -1,5 +1,6 @@
 "use client";
 import {
+    ReactNode,
     useContext,
     useEffect
 } from "react";
@@ -14,7 +15,7 @@ import {
 } from "layout/layoutClient";
 // 每个3格最多显示
 export default function Template(props: {
-    children: React.ReactNode
+    children: ReactNode;
 }) {
     const gotThisTool = useSelectedLayoutSegment(),
         searchParams = useSearchParams(),

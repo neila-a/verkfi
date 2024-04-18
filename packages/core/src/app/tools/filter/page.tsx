@@ -3,6 +3,7 @@ import {
     get
 } from 'react-intl-universal';
 import {
+    ChangeEvent,
     useId,
     useState
 } from "react";
@@ -39,7 +40,7 @@ export default function Filter(): JSX.Element {
         [scale, setScale] = useState<number>(100),
         sizeId = useId(),
         handleSliderChange = (event: Event, newValue: number) => setScale(newValue),
-        handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => setScale(Number(event.target.value)),
+        handleInputChange = (event: ChangeEvent<HTMLInputElement>) => setScale(Number(event.target.value)),
         handleBlur = () => {
             if (scale < 0) {
                 setScale(0);
