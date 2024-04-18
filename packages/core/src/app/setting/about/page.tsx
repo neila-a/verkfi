@@ -12,7 +12,7 @@ import {
 import {
     GitHub
 } from "@mui/icons-material";
-import pack from "../../../package.json";
+import pack from "../../../../package.json";
 import ErrorBoundary from 'components/ErrorBoundary';
 import {
     OverridableComponent

@@ -1,5 +1,5 @@
 {
-    "name": "verkfi",
+    "name": "@verkfi/core",
     "version": "1.7.0",
     "devVersion": "866",
     "dev": true,
@@ -33,7 +33,7 @@
         "@types/dom-to-image": "^2.6.7",
         "@types/file-saver": "^2.0.7",
         "@types/node": "20.12.7",
-        "@types/react": "18.2.78",
+        "@types/react": "18.2.79",
         "@types/react-dom": "18.2.25",
         "@types/react-transition-group": "^4.4.10",
         "@types/three": "^0.163.0",

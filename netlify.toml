@@ -1,0 +1,5 @@
+[build.environment]
+  VERKFI_URL = "https://verkfi.netlify.app"
+
+[build]
+  package = "/packages/core"

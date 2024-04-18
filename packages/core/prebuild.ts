@@ -1,25 +1,25 @@
 /**
  * This is a dev-tool only, not for prodcution!
  */
-import * as fs from "node:fs";
-import pack from "./package.json";
+import {
+    getRepoInfo
+} from "components/getRepoInfo";
 import {
     BuildResult,
     Message,
     build
 } from "esbuild";
+import Logger from "lp-logger";
 import type {
     Manifest
 } from "next/dist/lib/metadata/types/manifest-types";
 import ChildProcess from "node:child_process";
-import {
-    getRepoInfo
-} from "components/getRepoInfo";
+import * as fs from "node:fs";
+import pack from "./package.json";
 const logger = new Logger({
     name: "prebuild",
     level: "log"
 });
-import Logger from "lp-logger";
 async function devMain() {
     const repoInfo = await getRepoInfo();
     let commits = Number(ChildProcess.execSync("git log --oneline | wc -l").toString().replace(/\n/g, ""));
@@ -38,7 +38,7 @@ async function devMain() {
     return [oldPackage, oldManifest];
 }
 async function publicMain() {
-    const pages = ChildProcess.execSync(`find ./app -name '*page.tsx'`).toString().replaceAll("./app", "").replaceAll("page.tsx", "").split("\n");
+    const pages = ChildProcess.execSync(`find ./src/app -name '*page.tsx'`).toString().replaceAll("./src/app", "").replaceAll("page.tsx", "").split("\n");
     pages.forEach((single, index) => {
         if (single !== "/") {
             pages[index] = pages[index].substr(0, pages[index].length - 1);
@@ -55,7 +55,7 @@ async function publicMain() {
         }
     });
     const pagesJSON = JSON.stringify(pages, null, 4);
-    fs.writeFileSync("./app/pages.json", pagesJSON);
+    fs.writeFileSync("./src/app/pages.json", pagesJSON);
     const logbuild: <T>(result: BuildResult<T>, filename: string) => void = (result, filename) => {
         logger.log(`正在编译${filename}……`);
         const log = (message: [Message[], string]) => {
@@ -76,7 +76,7 @@ async function publicMain() {
             platform: "node"
         }),
         ServiceWorker = await build({
-            entryPoints: ["./app/service-worker.ts"],
+            entryPoints: ["./src/app/service-worker.ts"],
             outfile: "public/service-worker.js",
             bundle: true,
             minify: true

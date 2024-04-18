@@ -24,12 +24,20 @@
                 "name": "next"
             }
         ],
-        "baseUrl": "app",
+        "baseUrl": "src/app",
         "paths": {
-            "dialog/*": ["components/dialog/*Dialog"],
-            "No": ["components/No"],
-            "useStoragedState": ["setting/useStoragedState"],
-            "db": ["setting/db"]
+            "dialog/*": [
+                "components/dialog/*Dialog"
+            ],
+            "No": [
+                "components/No"
+            ],
+            "useStoragedState": [
+                "setting/useStoragedState"
+            ],
+            "db": [
+                "setting/db"
+            ]
         }
     },
     "include": [

@@ -2,7 +2,7 @@ import {
     version,
     devVersion,
     dev
-} from "../package.json";
+} from "../../package.json";
 import db from "db";
 import pages from "./pages.json";
 /* const toolsTo = [

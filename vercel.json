@@ -1,0 +1,5 @@
+{
+    "env": {
+        "VERKFI_URL": "https://verkfi.vercel.app"
+    }
+}

@@ -25,9 +25,9 @@
 
 此存储库是一个monorepo存储库。
 
-- app（核心包）
 - packages
-  - verkfi-build（构建扩展的工具的包）
+  - core（核心包）
+  - init-tool（创建扩展的工具的包）
   - verkfi-tool-\*（工具\*的包）
 
 ## zIndex
