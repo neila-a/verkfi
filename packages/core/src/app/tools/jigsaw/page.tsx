@@ -322,7 +322,7 @@ export default function JigsawEntry(): JSX.Element {
                                     event.preventDefault();
                                 }} onDrop={async event => {
                                     event.preventDefault();
-                                    const parsed = JSON.parse(event.dataTransfer.getData("application/json")) as typeof selecting;
+                                    const parsed = JSON.parse(event.dataTransfer.getData("application/json")) satisfies typeof selecting;
                                     if (parsed[0] === rowIndex && parsed[1] === columnIndex) {
                                         await publicMoving();
                                     }

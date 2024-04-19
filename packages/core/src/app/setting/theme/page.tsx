@@ -219,9 +219,11 @@ function ColorTool() {
                 justifyContent: "space-evenly",
                 mb: 2
             }}>
-                {([["light", LightMode], ["dark", DarkMode], ["system", BrightnessMedium]] as [PaletteMode | "system", (OverridableComponent<SvgIconTypeMap<{}, "svg">> & {
-                    muiName: string
-                }) | FC][]).map(item => {
+                {([["light", LightMode], ["dark", DarkMode], ["system", BrightnessMedium]] satisfies [PaletteMode | "system", (
+                    OverridableComponent<SvgIconTypeMap<{}, "svg">> & {
+                        muiName: string
+                    }
+                ) | FC][]).map(item => {
                     const isThis = darkMode.mode === item[0],
                         Icon = item[1];
                     return (

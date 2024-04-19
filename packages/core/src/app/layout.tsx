@@ -50,7 +50,7 @@ export async function generateMetadata() {
             ]
         },
         authors: pack.author
-    }) as Metadata;
+    }) satisfies Metadata;
 }
 import {
     Viewport

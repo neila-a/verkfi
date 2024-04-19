@@ -13,7 +13,7 @@ export default class ErrorBoundary extends Component {
         this.state = {
             hasError: false,
             error: new globalThis.Error()
-        } as prop;
+        } satisfies prop;
     }
     static getDerivedStateFromError(error) {
         // 更新 state 使下一次渲染能够显示降级后的 UI

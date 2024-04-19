@@ -10,7 +10,7 @@ import {
 } from "tools/info";
 import convertExtensionTools from "./convertExtensionTools";
 function getParamTools(mostUsed: mostUsedMarks, realTools: tool[], extensionTools: single[]) {
-    return (Object.entries(mostUsed) as [string, number][]).sort((r, g) => {
+    return (Object.entries(mostUsed) satisfies [string, number][]).sort((r, g) => {
         if (r[1] < g[1]) {
             return 1;
         } if (r[1] > g[1]) {
@@ -19,7 +19,7 @@ function getParamTools(mostUsed: mostUsedMarks, realTools: tool[], extensionTool
         return 0;
     }).slice(0, 3).map(item => {
         const to = item[0],
-            // 不直接返回tool因为怕自动分毫影响return
+            // 不直接返回tool因为怕自动分号影响return
             tool: tool | 0 = 0
                 || realTools.find(single => single.to === to)
                 || convertExtensionTools(extensionTools).find(single => `/tools/extension?tool=${to}` === single.to);

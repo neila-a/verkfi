@@ -11,7 +11,7 @@ import {
 const generateTries = (mostUsed: mostUsedMarks, realTools: tool[]) => {
     const unUsed = not(realTools.map(single => single.to), Object.keys(mostUsed)).slice(0, 3),
         isUnFull = unUsed.length < 3, // 判断没用过的工具有没有三个
-        toFill = (Object.entries(mostUsed) as [string, number][]).sort((r, g) => {
+        toFill = (Object.entries(mostUsed) satisfies [string, number][]).sort((r, g) => {
             if (r[1] < g[1]) {
                 return -1;
             } if (r[1] > g[1]) {

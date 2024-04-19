@@ -110,7 +110,7 @@ export default function ExtensionManager() {
                             icon: main.icon,
                             color: main.color,
                             main: main.main,
-                            settings: "settings" in main ? (main.settings as setting[]).map(settingItem => ({
+                            settings: "settings" in main ? (main.settings satisfies setting[]).map(settingItem => ({
                                 ...settingItem,
                                 value: settingItem.defaultValue
                             })) : []

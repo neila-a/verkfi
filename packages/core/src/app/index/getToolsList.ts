@@ -2,11 +2,7 @@
 import {
     tool
 } from "tools/info";
-import db from "db";
 import convertExtensionTools from "./convertExtensionTools";
-import {
-    useLiveQuery
-} from "dexie-react-hooks";
 import {
     useContext
 } from "react";

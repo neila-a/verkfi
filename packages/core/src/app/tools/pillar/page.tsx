@@ -162,7 +162,7 @@ export default function Pillar(): JSX.Element {
                                                     ["<", "=", ">"],
                                                     "filter.type"
                                                 ]
-                                            ] as [
+                                            ] satisfies [
                                                 (number | string)[],
                                                 string
                                             ][]).map((select, index) => (

@@ -9,7 +9,6 @@ import {
 import {
     get
 } from "react-intl-universal";
-import db from "db";
 import {
     extensions,
     lists as listsContext

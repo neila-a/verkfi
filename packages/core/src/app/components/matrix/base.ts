@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 export default function drawMatrixBase(edge: number, n: number, blocks: block[], cache: block[], posBlock: block[], posCache: block[], palette: Palette, onlyPos: boolean) {
     if (!onlyPos) console.time("渲染圆");
-    const canvas = (document.getElementsByTagName("canvas")[0] as HTMLCanvasElement) || document.createElement("canvas"),
+    const canvas = document.getElementsByTagName("canvas")[0] || document.createElement("canvas"),
         size = edge / n,
         cxt = canvas.getContext('2d');
     ["height", "width"].forEach(attr => {

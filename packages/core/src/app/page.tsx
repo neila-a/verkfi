@@ -94,7 +94,7 @@ export default function Index(props: {
             return 0
                 || realTools.find(single => single.to === to)
                 || converted.find(single => `/tools/extension?tool=${to}` === single.to);
-        }).filter((item: tool | 0) => item !== 0) as unknown as tool[],
+        }).filter((item: tool | 0) => item !== 0) satisfies unknown satisfies tool[],
         [sortingFor, setSortingFor] = useState<string>(props.isImplant ? "__global__" : "__home__");
     let expand = expandThis,
         setExpand = setExpandThis;

@@ -58,7 +58,7 @@ export default function Options() {
             <Typography variant='h4'>
                 {get('选项')}
             </Typography>
-            {([[forkMeOnGitHub, "Fork me on GitHub"], [colorMode, "多彩主页"], [share, "share.t"]] as option[]).map(options => (
+            {([[forkMeOnGitHub, "Fork me on GitHub"], [colorMode, "多彩主页"], [share, "share.t"]] satisfies option[]).map(options => (
                 <Switcher option={options} key={options[1]} />
             ))}
             <InputLabel>
