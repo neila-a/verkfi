@@ -75,6 +75,9 @@ import useExtensions, {
     extensionsDispatch
 } from "./useExtensions";
 import composeProviders from "./providerCompose";
+import {
+    repoInfo as repoInfoType
+ } from "components/getRepoInfo";
 export const showSidebar = createContext<{
     show: boolean;
     set: Dispatch<boolean>;
@@ -154,8 +157,10 @@ export const extensions = createContext<{
     value: single[];
     set: Dispatch<extensionsDispatch>;
 }>(null);
+export const repoInfo = createContext<repoInfoType>(null);
 export default function ModifiedApp(props: {
     children: ReactNode;
+    repoInfo: repoInfoType;
 }) {
     const [mode, setMode] = useStoragedState<PaletteMode | "system">("darkmode", "暗色模式", "system"),
         [realWindows, setRealWindows] = useState<WindowOptions[]>([]),
@@ -195,7 +200,7 @@ export default function ModifiedApp(props: {
         [forkMeOnGitHubState, setForkMeOnGithub] = useStoragedState<boolean>("fork-me-on-github", "Fork me on GitHub", false),
         [shareState, setShare] = useStoragedState<boolean>("share", "分享", isBrowser() ? "share" in navigator : false),
         [colorModeState, setColorModeState] = useStoragedState<boolean>("color", "多彩主页", true),
-        Provider = composeProviders([first, {
+        Provider = composeProviders([repoInfo, props.repoInfo],[first, {
             value: firstState,
             set: setFirst
         }], [forkMeOnGitHub, {

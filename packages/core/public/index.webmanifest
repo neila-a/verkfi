@@ -44,7 +44,7 @@
             "url": "/handle?handle=%s"
         }
     ],
-    "id": "verkfi",
+    "id": "@verkfi/core",
     "display_override": [
         "window-controls-overlay",
         "fullscreen",

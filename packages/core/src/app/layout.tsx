@@ -79,6 +79,7 @@ import {
 export default async function Layout({
     children
 }) {
+    const repoInfo = await getRepoInfo();
     return (
         <html lang="zh-cmn-Hans-CN">
             <body style={{
@@ -109,7 +110,7 @@ export default async function Layout({
                         minHeight: "100vh"
                     }}>
                         <Suspense fallback={<Loading />}>
-                            <BaseLayout>
+                            <BaseLayout repoInfo={repoInfo}>
                                 {children}
                             </BaseLayout>
                         </Suspense>

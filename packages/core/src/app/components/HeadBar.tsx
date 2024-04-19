@@ -34,6 +34,7 @@ import {
 import Link from 'next/link';
 import {
 	forkMeOnGitHub as forkMeOnGitHubContext,
+	repoInfo,
 	share as shareContext,
 	showSidebar
 } from 'layout/layoutClient';
@@ -53,7 +54,7 @@ export interface HeadBarOption {
 export default function HeadBar(props: HeadBarOption): JSX.Element {
 	const forkMeOnGithub = useContext(forkMeOnGitHubContext),
 		router = useRouter(),
-		upper = pack.name.charAt(0).toUpperCase() + pack.name.slice(1),
+		upper = useContext(repoInfo).name.charAt(0).toUpperCase() + useContext(repoInfo).name.slice(1),
 		share = useContext(shareContext).value,
 		noDrag: CSSProperties = {
 			// @ts-ignore React的CSSProperties中明明有WebkitAppRegion，但是类型中没有
