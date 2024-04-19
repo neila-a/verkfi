@@ -56,6 +56,9 @@ import {
     NXTMetadata
 } from 'setting/extensions/page';
 import removeArrayItem from "remove-item-from-array";
+import {
+    Route
+} from 'next';
 export default function SingleTool(props: {
     tool: tool;
     isFirst: boolean;

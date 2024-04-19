@@ -80,6 +80,7 @@ export namespace Hex {
      */
     export const hex: <hexString extends string>(string: HexColor<hexString>) => Hex = string => string;
 }
+
 interface SpeechRecognitionEvent {
     isTrusted?: boolean;
     results: {

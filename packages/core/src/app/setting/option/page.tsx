@@ -42,6 +42,9 @@ import Module from "./Module";
 import {
     setState
 } from "declare";
+import {
+    Route
+} from "next";
 const PureDialog = dynamic(() => import("dialog/Pure")),
     ghURL = "https://github.com/neila-a/verkfi/";
 export type option = [Context<{
