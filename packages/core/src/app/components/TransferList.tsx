@@ -13,16 +13,16 @@ import {
     Button,
     Paper
 } from "@mui/material"
-import intl, {
+import {
     get
 } from "react-intl-universal";
 import {
     getTools
 } from "tools/info";
-export function not<T>(a: T[], b: T[]) {
+export function not<value>(a: value[], b: value[]) {
     return a.filter(value => b.indexOf(value) === -1);
 }
-export function intersection<T>(a: T[], b: T[]) {
+export function intersection<value>(a: value[], b: value[]) {
     return a.filter(value => b.indexOf(value) !== -1);
 }
 export default function TransferList(props: {

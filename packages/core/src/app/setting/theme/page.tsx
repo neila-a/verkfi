@@ -6,7 +6,9 @@ import {
 import * as colors from '@mui/material/colors';
 import {
     BrightnessMedium,
-    Check as CheckIcon, DarkMode, LightMode
+    Check as CheckIcon,
+    DarkMode,
+    LightMode
 } from '@mui/icons-material';
 import {
     get

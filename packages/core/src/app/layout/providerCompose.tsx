@@ -2,7 +2,7 @@ import {
     Context,
     ReactNode
 } from "react";
-type providerAndValue<T = any> = [Context<T>, T];
+type providerAndValue<value = any> = [Context<value>, value];
 const composeProviders = (...providers: providerAndValue[]) => providers.reduce<(props: {
     children: ReactNode;
 }) => JSX.Element>((Previous, current) => props => {

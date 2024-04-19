@@ -7,9 +7,9 @@ import {
 export interface single extends NXTMetadata {
     files: [string, Uint8Array][];
 }
-export interface option<T = any> {
+export interface option<value = any> {
     key: string;
-    value: T;
+    value: value;
 };
 class ClassedDexie extends Dexie {
     // 'friends' is added by dexie when declaring the stores()

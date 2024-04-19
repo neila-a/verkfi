@@ -1,6 +1,6 @@
 import db from "db";
 import logger from "./logger";
-export default function setSetting<T = any>(id: string, name: string, value: T) {
+export default function setSetting<setting = any>(id: string, name: string, value: setting) {
     db.options.put({
         key: id,
         value: value

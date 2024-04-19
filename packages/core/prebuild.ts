@@ -56,7 +56,7 @@ async function publicMain() {
     });
     const pagesJSON = JSON.stringify(pages, null, 4);
     fs.writeFileSync("./src/app/pages.json", pagesJSON);
-    const logbuild: <T>(result: BuildResult<T>, filename: string) => void = (result, filename) => {
+    const logbuild: <BuildOptions>(result: BuildResult<BuildOptions>, filename: string) => void = (result, filename) => {
         logger.log(`正在编译${filename}……`);
         const log = (message: [Message[], string]) => {
             if (message[0].length === 0) {

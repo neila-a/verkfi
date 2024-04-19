@@ -56,14 +56,14 @@ declare global {
 /**
  * React的useState()产生的第二个变量
  */
-export type setState<T> = Dispatch<SetStateAction<T>>;
+export type setState<stateType> = Dispatch<SetStateAction<stateType>>;
 
 export namespace Hex {
     type HexDigit = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f';
-    export type HexColor<T extends string> =
-        T extends `${HexDigit}${HexDigit}${HexDigit}${infer Rest1}`
+    export type HexColor<hexString extends string> =
+        hexString extends `${HexDigit}${HexDigit}${HexDigit}${infer Rest1}`
         ? (Rest1 extends `${HexDigit}${HexDigit}${HexDigit}`
-            ? T  // six-digit hex color
+            ? hexString  // six-digit hex color
             : never
         )
         : never;
@@ -78,7 +78,7 @@ export namespace Hex {
      * @param string 任意字符串
      * @returns 六位的小写十六进制字符串
      */
-    export const hex: <T extends string>(string: HexColor<T>) => Hex = string => string;
+    export const hex: <hexString extends string>(string: HexColor<hexString>) => Hex = string => string;
 }
 interface SpeechRecognitionEvent {
     isTrusted?: boolean;

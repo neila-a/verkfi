@@ -1,9 +1,8 @@
-export default class Recently {
+export default class Recently extends Set<string> {
     /**
      * 创建时指定的最大个数
      */
     max = 0;
-    private set: Set<string>;
     constructor(
         /**
          * 最大个数
@@ -15,25 +14,26 @@ export default class Recently {
          */
         old: Iterable<string>
     ) {
+        super(old);
         this.max = max;
-        this.set = new Set<string>(old);
     };
     get() {
-        return [...this.set.entries()].map(item => item[1]);
+        return [...super.entries()].map(item => item[1]);
     }
     add(name: string) {
-        this.set.add(name);
-        if (this.get()[this.set.size - 1] !== name) {
-            this.set.delete(name);
-            this.set.add(name);
+        super.add(name);
+        if (this.get()[super.size - 1] !== name) {
+            super.delete(name);
+            super.add(name);
         }
-        if (this.set.size > this.max) {
+        if (super.size > this.max) {
             this.get().forEach((item, index) => {
                 if (index === 0) {
-                    this.set.delete(item);
+                    super.delete(item);
                 }
             })
-            this.set.delete(this.get()[0]);
+            super.delete(this.get()[0]);
         }
+        return this;
     }
 }

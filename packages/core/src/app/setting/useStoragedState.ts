@@ -5,9 +5,9 @@ import {
 import setSetting from "setting/setSetting";
 import settingReader from "setting/settingReader";
 import useSWR from "swr";
-export default function useStoragedState<T = any>(id: string, name: string, empty: T) {
+export default function useStoragedState<setting = any>(id: string, name: string, empty: setting) {
     const promise = settingReader(id, empty),
-        reduce = useReducer((old: T, val: T) => {
+        reduce = useReducer((old: setting, val: setting) => {
             setSetting(id, name, val);
             return val;
         }, useSWR(id, () => promise, {
