@@ -151,14 +151,14 @@ export default function SingleTool(props: {
                                 logger.info(`点击了${tool.name}`);
                                 if (tool.isGoto) {
                                     if (tool.to.startsWith("/tools/extension")) {
-                                        Router.push(tool.to);
+                                        Router.push(tool.to satisfies Route);
                                     } else {
                                         setJumpDialogOpen(true);
                                         setJumpTo(tool.to);
                                         setJumpName(tool.name);
                                     }
                                 } else {
-                                    Router.push(`/tools/${tool.to}`);
+                                    Router.push(`/tools/${tool.to}` satisfies Route);
                                 }
                             }} onContextMenu={async event => {
                                 event.preventDefault();
@@ -286,7 +286,7 @@ export default function SingleTool(props: {
                 )}
             </windows.Consumer>
             <CheckDialog open={jumpDialogOpen} description={`${get("singleTool.jump")}${jumpName}？`} title={get('离开Verkfi')} onTrue={() => {
-                Router.push(jumpto);
+                Router.push(jumpto satisfies Route);
                 setJumpDialogOpen(false);
             }} onFalse={() => {
                 setJumpDialogOpen(false);

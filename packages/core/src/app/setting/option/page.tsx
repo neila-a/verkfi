@@ -107,7 +107,7 @@ export default function Options() {
                     {get("download.下载本应用")}
                 </Button>
                 <Button variant="outlined" startIcon={<HelpIcon />} onClick={event => {
-                    router.push("https://neila.gitbook.io/verkfi/");
+                    router.push("https://neila.gitbook.io/verkfi/" satisfies Route);
                 }}>
                     {get("帮助")}
                 </Button>
@@ -122,7 +122,7 @@ export default function Options() {
                         {get("download.将本应用通过浏览器添加至桌面")}
                     </Button>
                     <Button onClick={event => {
-                        router.push(`${ghURL}releases`);
+                        router.push(`${ghURL}releases` satisfies Route);
                     }}>
                         {get("download.下载单独安装包")}
                     </Button>

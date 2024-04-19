@@ -29,7 +29,7 @@ import {
 const hex = Hex.hex;
 export interface noIconTool {
 
-    /** 
+    /**
      * Name of your tool.
      * @example FooBar
      */

@@ -52,11 +52,8 @@ import {
 	sidebarMode as sidebarModeContext
 } from 'layout/layoutClient';
 import {
-	useLiveQuery
-} from 'dexie-react-hooks';
-import db, {
-	single
-} from 'db';
+	Route
+} from 'next';
 export default function Settings(props: {
 	children: ReactNode
 }): JSX.Element {
@@ -114,7 +111,7 @@ export default function Settings(props: {
 					}}>
 						{sets.map(Set => (
 							<Tab icon={<Set.Icon />} iconPosition="start" label={Set.name} key={Set.id} onClick={event => {
-								router.push(`/setting/${Set.id}`);
+								router.push(`/setting/${Set.id}` satisfies Route);
 							}} />
 						))}
 					</Tabs>

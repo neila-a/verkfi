@@ -31,6 +31,9 @@ import {
 } from "next/navigation";
 import VerkfiIcon from "components/verkfiIcon/verkfiIcon";
 import MouseOverPopover from "components/Popover";
+import {
+    Route
+} from "next";
 export default function First() {
     const first = useContext(firstContext),
         [step, setStep] = useState<number>(0),
@@ -118,7 +121,7 @@ export default function First() {
                 </MouseOverPopover>
                 <Button variant="contained" onClick={event => {
                     first.set(false);
-                    router.push("/");
+                    router.push("/" satisfies Route);
                 }}>
                     {get("first.现在开始")}
                 </Button>

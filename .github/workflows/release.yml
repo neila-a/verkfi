@@ -7,7 +7,7 @@ name: Create Release
 run-name: Create Release
 
 jobs:
-  Create-Release: 
+  Create-Release:
     name: Create Release
     runs-on: ubuntu-latest
     steps:

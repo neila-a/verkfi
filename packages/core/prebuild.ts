@@ -71,7 +71,7 @@ async function publicMain() {
         NextConfig = await build({
             entryPoints: ["next.config.ts"],
             outfile: "next.config.js",
-            bundle: true,
+            format: "cjs",
             minify: true,
             platform: "node"
         }),

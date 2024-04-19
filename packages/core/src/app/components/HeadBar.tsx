@@ -88,7 +88,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 						flexGrow: 1,
 						textAlign: props.isIndex && "center"
 					}}>
-						{props.isIndex ? "Verkfi" : props.pageName}
+						{props.isIndex ? upper : props.pageName}
 					</Typography>
 					<showSidebar.Consumer>
 						{value => !props.isIndex && value.show === false ? (

@@ -9,6 +9,9 @@ const nextConfig: NextConfig = bundleAnalyzer({
 	devIndicators: {
 		buildActivityPosition: 'bottom-right',
 	},
-	compress: true
+	compress: true,
+	experimental: {
+		typedRoutes: true
+	}
 });
 module.exports = nextConfig;

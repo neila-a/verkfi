@@ -55,6 +55,9 @@ import VerkfiIcon from 'components/verkfiIcon/verkfiIcon';
 import generateTries from 'index/generateTries';
 import convertExtensionTools from 'index/convertExtensionTools';
 import MouseOverPopover from 'components/Popover';
+import {
+    Route
+} from 'next';
 export default function Index(props: {
     /**
      * 是否为嵌入
@@ -124,7 +127,7 @@ export default function Index(props: {
     }, []);
     useEffect(() => {
         if (first.value) {
-            router.push("/first");
+            router.push("/first" satisfies Route);
         }
     }, [first]);
     function Tools() {

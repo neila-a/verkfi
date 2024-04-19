@@ -31,6 +31,9 @@ import {
     get
 } from "react-intl-universal";
 import MouseOverPopover from "../Popover";
+import {
+    Route
+} from "next";
 export interface WindowOptions {
     to: string;
     name: string;
@@ -101,7 +104,7 @@ export default function Window(props: WindowOptions): JSX.Element {
                             cursor: "move",
                             flex: 1,
                             textAlign: "center"
-                        }} id={`window-title-${id}`} /* id暂时没用 */> 
+                        }} id={`window-title-${id}`} /* id暂时没用 */>
                             <Typography variant="subtitle1">
                                 {props.name}
                             </Typography>
@@ -120,7 +123,7 @@ export default function Window(props: WindowOptions): JSX.Element {
                                 </MouseOverPopover>
                                 <MouseOverPopover text={get("window.maxmize")}>
                                     <IconButton aria-label={get("window.maxmize")} edge="end" onClick={event => {
-                                        router.push(props.to);
+                                        router.push(props.to satisfies Route);
                                         setOpen(false);
                                     }}>
                                         <CropDinIcon />

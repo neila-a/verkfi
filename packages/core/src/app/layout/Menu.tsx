@@ -44,6 +44,7 @@ import {
     lists as listsContext,
     viewMode as viewModeContext,
     extensions,
+    repoInfo,
 } from "layout/layoutClient";
 import {
     useRouter
@@ -51,6 +52,9 @@ import {
 import getParamTools from "index/getParamTools";
 import VerkfiIcon from "components/verkfiIcon/verkfiIcon";
 import convertExtensionTools from "index/convertExtensionTools";
+import {
+    Route
+} from "next";
 export default function Menu() {
     const control = useContext(showSidebar),
         theme = useTheme(),
@@ -74,6 +78,7 @@ export default function Menu() {
         [sortedTools, setSortedTools] = useState(gotToolsList), // 排序完毕，但是不会根据搜索而改动的分类
         [tools, setTools] = useState<tool[]>(gotToolsList), // 经常改动的分类
         focusingTo = tools[tab] ? tools[tab].to : "", // 每次渲染会重新执行
+        upper = useContext(repoInfo).name.charAt(0).toUpperCase() + useContext(repoInfo).name.slice(1),
         [editing, setEditing] = useState<boolean>(searchText === "");
     function searchTools(search: string) {
         if (search !== "") {
@@ -109,12 +114,15 @@ export default function Menu() {
                     event.preventDefault();
                 }
             }} onKeyUp={event => {
-                if (event.key === "Tab") {
-                    event.preventDefault();
-                    handleTab();
-                } else if (event.key === "Enter") {
-                    event.preventDefault();
-                    handleEnter();
+                switch (event.key) {
+                    case "Tab":
+                        event.preventDefault();
+                        handleTab();
+                        break;
+                    case "Enter":
+                        event.preventDefault();
+                        handleEnter();
+                        break;
                 }
             }} fullScreen={fullScreen} onClose={() => {
                 control.set(false);
@@ -281,7 +289,7 @@ export default function Menu() {
                         <Typography sx={{
                             ml: 1
                         }}>
-                            Verkfi
+                            {upper}
                         </Typography>
                     </Box>
                     <Box sx={{
@@ -291,7 +299,7 @@ export default function Menu() {
                             <IconButton color="primary" sx={{
                                 p: '10px'
                             }} aria-label={get("主页")} onClick={_event => {
-                                router.push("/");
+                                router.push("/" satisfies Route);
                             }}>
                                 <HomeIcon />
                             </IconButton>
