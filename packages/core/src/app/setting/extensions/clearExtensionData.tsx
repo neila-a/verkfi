@@ -1,7 +1,7 @@
 "use client";
-import db from "db";
 import {
-    NXTMetadata
+    NXTMetadata,
+    setting
 } from "./page";
 import {
     useContext
@@ -26,7 +26,7 @@ export default function useClearExtensionData() {
             settings: clearingExtension.settings.map(setting => ({
                 ...setting,
                 value: setting.defaultValue
-            }))
+            }) as setting)
         });
         recentlyUsed.set(oldRecently.filter(item => item !== clearingExtension.to));
         Reflect.deleteProperty(oldMost, clearingExtension.to);

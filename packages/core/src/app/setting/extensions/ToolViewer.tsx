@@ -25,10 +25,6 @@ import {
     single
 } from "db";
 import DialogInputs from "./DialogInputs";
-import {
-    mostUsed as mostUsedContext,
-    recentlyUsed as recentlyUsedContext
-} from "layout/layoutClient";
 import MouseOverPopover from "components/Popover";
 import useClearExtensionData from "./clearExtensionData";
 import {

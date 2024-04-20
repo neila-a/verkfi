@@ -175,7 +175,7 @@ interface inputSetting {
     value: string;
     defaultValue: string;
 }
-type setting = booleanSetting | switchSetting | inputSetting;
+export type setting = booleanSetting | switchSetting | inputSetting;
 export interface NXTMetadata extends noIconTool {
     icon: string;
     main: string;
