@@ -91,28 +91,30 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 						{props.isIndex ? upper : props.pageName}
 					</Typography>
 					<showSidebar.Consumer>
-						{value => !props.isIndex && value.show === false ? (
-							<MouseOverPopover text={get("menu.打开菜单")}>
-								<IconButton onClick={event => {
-									value.set(!value.show);
-								}} size="large" edge="end" color="inherit" aria-label={get("menu.打开菜单")} sx={{
-									mr: 1,
-									...noDrag
-								}}>
-									<MenuIcon />
-								</IconButton>
-							</MouseOverPopover>
-						) : (
-							<MouseOverPopover text={get("menu.关闭菜单")}>
-								<IconButton onClick={event => {
-									value.set(!value.show);
-								}} size="large" edge="end" color="inherit" aria-label={get("menu.关闭菜单")} sx={{
-									mr: 1,
-									...noDrag
-								}}>
-									<MenuOpen />
-								</IconButton>
-							</MouseOverPopover>
+						{value => !props.isIndex && (
+							value.show === false ? (
+								<MouseOverPopover text={get("menu.打开菜单")}>
+									<IconButton onClick={event => {
+										value.set(!value.show);
+									}} size="large" edge="end" color="inherit" aria-label={get("menu.打开菜单")} sx={{
+										mr: 1,
+										...noDrag
+									}}>
+										<MenuIcon />
+									</IconButton>
+								</MouseOverPopover>
+							) : (
+								<MouseOverPopover text={get("menu.关闭菜单")}>
+									<IconButton onClick={event => {
+										value.set(!value.show);
+									}} size="large" edge="end" color="inherit" aria-label={get("menu.关闭菜单")} sx={{
+										mr: 1,
+										...noDrag
+									}}>
+										<MenuOpen />
+									</IconButton>
+								</MouseOverPopover>
+							)
 						)}
 					</showSidebar.Consumer>
 					<title>

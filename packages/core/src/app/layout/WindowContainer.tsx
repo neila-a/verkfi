@@ -20,7 +20,7 @@ export default function WindowContainer() {
             {windows.map(single => (
                 <Window {...single} key={single.id} sx={{
                     backgroundImage: color && `linear-gradient(45deg, #${single.color[0]}, #${single.color[1]})`,
-                    backgroundColor: !color && single.color[0],
+                    backgroundColor: !color && `#${single.color[0]}`,
                 }} />
             ))}
         </ErrorBoundary>

@@ -91,15 +91,12 @@ export default function Sidebar(props: {
             }
         }}>
             <Toolbar />
-            <Paper sx={{
-                margin: '2px 4px',
-                p: '2px 4px',
-                display: 'flex',
-                alignItems: 'center'
+            <Box sx={{
+                display: "flex"
             }}>
                 <MouseOverPopover text={get('搜索')}>
                     <IconButton type="button" sx={{
-                        p: '10px 5px'
+                        p: 1
                     }} aria-label={get('搜索')} onClick={() => {
                         searchTools(searchText);
                     }}>
@@ -134,7 +131,7 @@ export default function Sidebar(props: {
                         props.setShow("tools");
                     }
                 }} />
-            </Paper>
+            </Box>
             <Box sx={{
                 textAlign: "center"
             }}>

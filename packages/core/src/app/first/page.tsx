@@ -73,7 +73,7 @@ export default function First() {
                 width: "100vw",
                 height: "100vh",
                 flexDirection: "column",
-                backgroundColor: "#1976d2",
+                backgroundColor: theme => theme.palette.primary.main,
                 justifyContent: "space-evenly",
                 alignItems: "center"
             }} ref={ref} onClick={event => {

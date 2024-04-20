@@ -140,7 +140,7 @@ export default function Menu() {
                     {sortingFor !== "__home__" && (
                         <MouseOverPopover text={get("back")}>
                             <IconButton type="button" sx={{
-                                p: '10px 5px'
+                                p: 1
                             }} aria-label={get("back")} onClick={() => {
                                 setSearchText("");
                                 setSortingFor("__home__");
@@ -154,7 +154,7 @@ export default function Menu() {
                     )}
                     <MouseOverPopover text={get('搜索')}>
                         <IconButton type="button" sx={{
-                            p: '10px 5px'
+                            p: 1
                         }} aria-label={get('搜索')} onClick={() => {
                             searchTools(searchText);
                         }}>
@@ -165,7 +165,7 @@ export default function Menu() {
                         ml: 1,
                         flex: 1
                     }} placeholder={get('搜索工具')} inputProps={{
-                        'aria-label': 'searchtools'
+                        'aria-label': get('搜索工具')
                     }} onChange={event => {
                         if (searchText !== event.target.value) {
                             setSearchText(event.target.value);
@@ -297,7 +297,7 @@ export default function Menu() {
                     }}>
                         <MouseOverPopover text={get("主页")}>
                             <IconButton color="primary" sx={{
-                                p: '10px'
+                                p: 1
                             }} aria-label={get("主页")} onClick={_event => {
                                 router.push("/" satisfies Route);
                             }}>

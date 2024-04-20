@@ -56,7 +56,7 @@ export default function ToolFinder(props: {
         <>
             <HeadBar isIndex={false} pageName={name === "" ? get("未找到工具") : name} only={only} sx={tool !== undefined && {
                 backgroundImage: color && `linear-gradient(45deg, #${tool.color[0]}, #${tool.color[1]})`,
-                backgroundColor: !color && tool.color[0]
+                backgroundColor: !color && `#${tool.color[0]}`
             }} />
             <Box sx={{
                 p: 3

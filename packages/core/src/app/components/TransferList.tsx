@@ -122,7 +122,7 @@ export default function TransferList(props: {
         }
     return (
         <Grid container spacing={2} justifyContent="center" alignItems="center" sx={{
-            p: "10px 0px"
+            p: "8px 0px"
         }}>
             <Grid item>{customList(left)}</Grid>
             <Grid item>

@@ -132,7 +132,7 @@ export default function SingleTool(props: {
                     <Card elevation={elevation} sx={{
                         width: viewMode == "grid" ? 275 : fullWidth,
                         maxWidth: fullWidth,
-                        boxShadow: theme => props.focus && `inset 0 0 0 3px ${theme.palette.primary[theme.palette.mode]}`,
+                        boxShadow: theme => props.focus && `inset 0 0 0 8px ${theme.palette.primary[theme.palette.mode]}`,
                         backgroundColor: !gradientTool && `#${tool.color[0]}`,
                         backgroundImage: gradientTool && `linear-gradient(45deg, #${tool.color[0]}, #${tool.color[1]})`
                     }} onMouseEnter={event => {

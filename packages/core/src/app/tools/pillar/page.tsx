@@ -111,7 +111,7 @@ export default function Pillar(): JSX.Element {
                                             display: "inline-flex",
                                             alignItems: "center",
                                             justifyContent: "center",
-                                            boxShadow: theme => `inset 0 0 0 3px ${theme.palette[pillar ? "primary" : "secondary"][theme.palette.mode]}`,
+                                            boxShadow: theme => `inset 0 0 0 8px ${theme.palette[pillar ? "primary" : "secondary"][theme.palette.mode]}`,
                                         }}>
                                             <Typography>{pillar ? get("pillar.name") : get("pillar.distance")}</Typography>
                                         </Box>
