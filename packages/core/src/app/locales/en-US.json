@@ -293,7 +293,7 @@
 			"2": "binary",
 			"8": "Octal",
 			"10": "decimal",
-			"16": "hexadecimal"
+			"16": "Hex"
 		}
 	},
 	"error": {
