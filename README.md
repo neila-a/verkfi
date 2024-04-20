@@ -26,6 +26,8 @@
 
 Neila的一些没用工具的平台。
 
+Verkfi这个名字来源于冰岛语的*verkfaeri*，工具。
+
 ### Features - 特性
 
 - 全部采用响应式布局。
