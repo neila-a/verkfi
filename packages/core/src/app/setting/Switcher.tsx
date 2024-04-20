@@ -12,7 +12,6 @@ import {
 import {
     useContext
 } from "react";
-import stringToBoolean from "./stringToBoolean";
 import {
     isBrowser
 } from "layout/layoutClient";

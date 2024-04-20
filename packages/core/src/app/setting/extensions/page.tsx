@@ -110,7 +110,7 @@ export default function ExtensionManager() {
                             icon: main.icon,
                             color: main.color,
                             main: main.main,
-                            settings: "settings" in main ? (main.settings satisfies setting[]).map(settingItem => ({
+                            settings: "settings" in main ? (main.settings satisfies setting[]).map((settingItem: setting) => ({
                                 ...settingItem,
                                 value: settingItem.defaultValue
                             })) : []
@@ -150,15 +150,32 @@ export default function ExtensionManager() {
         </>
     );
 }
-interface setting {
-    type: "boolean" | "switch" | "input",
+interface booleanSetting {
+    type: "boolean",
     page: settingPage;
-    switches?: string[];
     text: string;
     id: string;
-    value: boolean | string;
-    defaultValue: boolean | string;
+    value: boolean;
+    defaultValue: boolean;
 }
+interface switchSetting {
+    type: "switch",
+    page: settingPage;
+    switches: string[];
+    text: string;
+    id: string;
+    value: string;
+    defaultValue: string;
+}
+interface inputSetting {
+    type: "input",
+    page: settingPage;
+    text: string;
+    id: string;
+    value: string;
+    defaultValue: string;
+}
+type setting = booleanSetting | switchSetting | inputSetting;
 export interface NXTMetadata extends noIconTool {
     icon: string;
     main: string;
