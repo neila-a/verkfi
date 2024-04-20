@@ -1,8 +1,5 @@
 "use client";
 import {
-    useLiveQuery
-} from "dexie-react-hooks";
-import db, {
     single
 } from "db";
 import {
@@ -16,6 +13,9 @@ import {
     useContext,
     useRef
 } from "react";
+import {
+    setting
+} from "setting/extensions/page";
 export default function ExtensionLoader() {
     const searchParams = useSearchParams(),
         toolID = searchParams.get("tool"),
@@ -39,7 +39,7 @@ export default function ExtensionLoader() {
                                     return {
                                         ...set,
                                         value: event.data.value
-                                    };
+                                    } as setting;
                                 }
                                 return set;
                             })
