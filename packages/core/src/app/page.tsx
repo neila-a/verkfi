@@ -208,7 +208,7 @@ export default function Index(props: {
                                 setShowTries(old => !old);
                             }}>
                                 <VerkfiIcon sx={{
-                                    fontSize: "1000%"
+                                    fontSize: "40vw"
                                 }} />
                             </IconButton>
                         </MouseOverPopover>

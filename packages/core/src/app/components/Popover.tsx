@@ -9,14 +9,6 @@ import {
     Popover,
     Typography
 } from '@mui/material';
-import {
-    isMobile
-} from 'react-device-detect';
-import lpLogger from "lp-logger";
-const logger = new lpLogger({
-    name: "Popover",
-    level: "log"
-});
 export default function MouseOverPopover(props: {
     children: ReactNode;
     text: string;
@@ -24,11 +16,7 @@ export default function MouseOverPopover(props: {
 }) {
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null),
         handlePopoverOpen = (event: MouseEvent<HTMLElement>) => {
-            if (isMobile) {
-                logger.log("检测到此设备为手机，停止显示弹出框");
-            } else {
-                setAnchorEl(event.currentTarget);
-            }
+            setAnchorEl(event.currentTarget);
         },
         handlePopoverClose = () => {
             setAnchorEl(null);

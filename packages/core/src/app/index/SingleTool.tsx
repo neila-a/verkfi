@@ -10,6 +10,7 @@ import {
     ButtonBase,
     Card,
     CardContent,
+    Collapse,
     IconButton,
     Typography,
     TypographyOwnProps
@@ -278,12 +279,26 @@ export default function SingleTool(props: {
                             </>
                         )}
                     </Box>
-                    {props.focus && (
-                        <iframe style={{
-                            border: "none",
+                    <Collapse in={props.focus} sx={{
+                        width: "100%",
+                        ["& .MuiCollapse-wrapperInner"]: {
                             width: "100%"
-                        }} src={tool.isGoto ? (!tool.to.startsWith("/") ? tool.to : `${tool.to}&only=true`) : `/tools/${tool.to}?only=true`} />
-                    )}
+                        }
+                    }}>
+                        {!props.focus && (
+                            <Box className="iframe-placeholder" sx={{
+                                height: "150px"
+                            }} />
+                        )}
+                        {props.focus && (
+                            <iframe style={{
+                                border: "none",
+                                width: "100%",
+                                height: "150px",
+                                //transition: "height 0.225s ease-out" // 0.225s = 225ms = https://www.mdui.org/design/motion/duration-easing.html#duration-easing-dynamic-durations
+                            }} src={tool.isGoto ? (!tool.to.startsWith("/") ? tool.to : `${tool.to}&only=true`) : `/tools/${tool.to}?only=true`} />
+                        )}
+                    </Collapse>
                 </CardContent>
             </Card>
             <CheckDialog open={jumpDialogOpen} description={`${get("singleTool.jump")}${jumpName}？`} title={get('离开Verkfi')} onTrue={() => {
