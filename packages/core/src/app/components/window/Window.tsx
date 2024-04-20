@@ -123,7 +123,7 @@ export default function Window(props: WindowOptions): JSX.Element {
                                 </MouseOverPopover>
                                 <MouseOverPopover text={get("window.maxmize")}>
                                     <IconButton aria-label={get("window.maxmize")} edge="end" onClick={event => {
-                                        router.push(props.to satisfies Route);
+                                        router.push(props.to as Route);
                                         setOpen(false);
                                     }}>
                                         <CropDinIcon />
