@@ -1,8 +1,5 @@
 "use client";
 import {
-    useContext
-} from 'react';
-import {
     Box,
     Collapse,
     Stack
@@ -113,15 +110,9 @@ export default function ToolsStack(props: {
         );
     }
     function GridContainer() {
-        return (
-            <TransitionGroup>
-                {props.paramTool.map((tool, index) => (
-                    <Collapse key={tool.to}>
-                        <Insert key={tool.to} tool={tool} index={index} />
-                    </Collapse>
-                ))}
-            </TransitionGroup>
-        );
+        return props.paramTool.map((tool, index) => (
+            <Insert key={tool.to} tool={tool} index={index} />
+        ));
     }
     return (
         <Stack spacing={viewMode == "list" ? 3 : 5} sx={{
@@ -137,7 +128,7 @@ export default function ToolsStack(props: {
                 cursor: "pointer"
             },
             ["& > *"]: {
-                width: viewMode === "list" && "100%"
+                width: viewMode === "list" ? "100%" : "unset"
             }
         }}> {/* 工具总览 */}
             {props.paramTool.length === 0 ? (
