@@ -273,16 +273,16 @@
 		"length": "Length",
 		"position": "Position of the Pillar",
 		"types": {
-			"0": "Only Middle Pillar",
-			"1": "One end and Middle Pillar",
-			"2": "Two-end and Middle Pillar"
+			"onlyMiddle": "Only Middle Pillar",
+			"oneEndAndMiddle": "One end and Middle Pillar",
+			"twoEndAndMiddle": "Two-end and Middle Pillar"
 		},
 		"collocationShow": {
 			"default": "Amount",
-			"0": "Pillar length",
-			"1": "Number of Pillar",
-			"2": "Spacing length",
-			"3": "Number of spacing"
+			"pillarLength": "Pillar length",
+			"pillarCount": "Number of Pillar",
+			"distanceLength": "Spacing length",
+			"distanceCount": "Number of spacing"
 		},
 		"distance": "Spacing",
 		"no": "No collocations generated"

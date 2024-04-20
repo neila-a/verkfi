@@ -1,10 +1,11 @@
 "use client";
 import {
-    type,
+    pillarPositions,
     collocation
 } from "./page";
-export default function calcPillars(type: type, length: number) {
-    const collocations: collocation[] = [], validateDistanceLength = (distanceLength: number) => (distanceLength > 0) && (Math.ceil(distanceLength) === distanceLength);
+const validateDistanceLength = (distanceLength: number) => (distanceLength > 0) && (Math.ceil(distanceLength) === distanceLength);
+export default function calcPillars(type: pillarPositions, length: number) {
+    const collocations: collocation[] = [];
     for (let count = 1; count < length; count++) {
         for (let pillarLength = 1; pillarLength < length; pillarLength++) {
             /*
@@ -12,22 +13,37 @@ export default function calcPillars(type: type, length: number) {
              * 除法要求是整数
              */
             switch (type) {
-                case 0: {
+                case "onlyMiddle": {
                     const distanceLength = (length - count * pillarLength) / (count + 1);
                     if (((count + 1) * distanceLength + count * pillarLength === length) && validateDistanceLength(distanceLength)) {
-                        collocations.push([pillarLength, count, distanceLength, count + 1]);
+                        collocations.push({
+                            pillarLength,
+                            pillarCount: count,
+                            distanceLength,
+                            distanceCount: count + 1
+                        });
                     }
                     break;
-                } case 1: {
+                } case "oneEndAndMiddle": {
                     const distanceLength = length / count - pillarLength;
                     if ((count * (pillarLength + distanceLength) === length) && validateDistanceLength(distanceLength)) {
-                        collocations.push([pillarLength, count, distanceLength, count]);
+                        collocations.push({
+                            pillarLength,
+                            pillarCount: count,
+                            distanceLength,
+                            distanceCount: count
+                        });
                     }
                     break;
-                } case 2: {
+                } case "twoEndAndMiddle": {
                     const distanceLength = (length - pillarLength) / count - pillarLength;
                     if ((count * distanceLength + (count + 1) * pillarLength === length) && validateDistanceLength(distanceLength)) {
-                        collocations.push([pillarLength, count + 1, distanceLength, count]);
+                        collocations.push({
+                            pillarLength,
+                            pillarCount: count + 1, 
+                            distanceLength,
+                            distanceCount: count
+                        });
                     }
                     break;
                 } // 使用中括号制造块作用域，从而声明三种distanceLength

@@ -273,16 +273,16 @@
 		"length": "长度",
 		"position": "柱子的位置",
 		"types": {
-			"0": "只有中间有柱子",
-			"1": "一端和中间有柱子",
-			"2": "两端和中间有柱子"
+			"onlyMiddle": "只有中间有柱子",
+			"oneEndAndMiddle": "一端和中间有柱子",
+			"twoEndAndMiddle": "两端和中间有柱子"
 		},
 		"collocationShow": {
 			"default": "数量",
-			"0": "柱子长度",
-			"1": "柱子个数",
-			"2": "间隔长度",
-			"3": "间隔个数"
+			"pillarLength": "柱子长度",
+			"pillarCount": "柱子个数",
+			"distanceLength": "间隔长度",
+			"distanceCount": "间隔个数"
 		},
 		"distance": "间隔",
 		"no": "未生成任何搭配"

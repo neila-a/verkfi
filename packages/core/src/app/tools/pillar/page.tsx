@@ -39,28 +39,38 @@ import SingleCollocation from "./SingleCollocation";
 import calcPillars from "./calcPillars";
 import No from "No";
 import MouseOverPopover from "components/Popover";
-/**
- * 0：只有中间有柱子  
- * 1：一端和中间有柱子  
- * 2：两端和中间有柱子
- */
-export type type = 0 | 1 | 2;
+export type pillarPositions = "onlyMiddle" | "oneEndAndMiddle" | "twoEndAndMiddle";
 /**
  * 0：间隔  
  * 1：柱子
  */
-const examples: (0 | 1)[][] = [[0, 1, 0], [1, 0, 1, 0], [1, 0, 1]];
+const examples = {
+    "onlyMiddle": [0, 1, 0],
+    "oneEndAndMiddle": [1, 0, 1, 0],
+    "twoEndAndMiddle": [1, 0, 1]
+} satisfies ({
+    [key in pillarPositions]: (0 | 1)[];
+});
+type filterType = "<" | "=" | ">";
+type values = "pillarLength" | "pillarCount" | "distanceLength" | "distanceCount";
+const values = ["pillarLength", "pillarCount", "distanceLength", "distanceCount"];
 /**
  * 0：柱子长度  
  * 1：柱子个数  
  * 2：间隔长度  
  * 3：间隔个数
  */
-export type collocation = [number, number, number, number];
-type filterType = "<" | "=" | ">";
-type filterRule = [0 | 1 | 2 | 3, filterType, number, boolean];
+export type collocation = {
+    [key in values]: number;
+};
+interface filterRule {
+    value: values;
+    type: filterType;
+    filter: number;
+    enabled: boolean;
+};
 export default function Pillar(): JSX.Element {
-    const [type, setType] = useState<type>(1),
+    const [type, setType] = useState<pillarPositions>("oneEndAndMiddle"),
         [length, setLength] = useState<number>(0),
         [filterRules, setFilterRules] = useState<filterRule[]>([]),
         choosesId = useId(),
@@ -85,8 +95,8 @@ export default function Pillar(): JSX.Element {
                     <FormLabel id={choosesId}>
                         {get("pillar.position")}
                     </FormLabel>
-                    <RadioGroup aria-labelledby={choosesId} value={type} onChange={(event, value) => setType(Number(value) as type)} name="chooses-group">
-                        {[0, 1, 2].map((single) => (
+                    <RadioGroup aria-labelledby={choosesId} value={type} onChange={(event, value: pillarPositions) => setType(value)} name="chooses-group">
+                        {Object.keys(examples).map(single => (
                             <Box key={single} sx={{
                                 display: "flex"
                             }}>
@@ -121,7 +131,12 @@ export default function Pillar(): JSX.Element {
                             width: "calc(100% - 16px)"
                         }} onClick={event => setFilterRules(old => {
                             const realOld = old.slice(0); // 深复制
-                            realOld.push([0, "<", 1, true]);
+                            realOld.push({
+                                value: "pillarLength",
+                                type: "<",
+                                filter: 1,
+                                enabled: true
+                            });
                             return realOld;
                         })} fullWidth variant="contained" startIcon={<AddIcon />}>
                             {get("filter.addRule")}
@@ -135,60 +150,58 @@ export default function Pillar(): JSX.Element {
                                 mt: 1
                             }}>
                                 {filterRules.map((rule, ruleIndex) => (
-                                    <ListItem key={rule.toString()}>
+                                    <ListItem key={JSON.stringify(rule)}>
                                         <ListItemAvatar>
-                                            <MouseOverPopover text={filterRules[ruleIndex][3] ? get("filter.disableRule") : get("filter.enableRule")}>
+                                            <MouseOverPopover text={rule.enabled ? get("filter.disableRule") : get("filter.enableRule")}>
                                                 <IconButton edge="start" onClick={event => {
                                                     setFilterRules(old => {
                                                         const realOld = old.slice(0),
-                                                            oldRule = rule.slice(0) as filterRule,
-                                                            oldEnabled = oldRule[3];
-                                                        oldRule[3] = !oldEnabled;
+                                                            oldRule = {
+                                                                ...rule
+                                                            },
+                                                            oldEnabled = oldRule.enabled;
+                                                        oldRule.enabled = !oldEnabled;
                                                         realOld[ruleIndex] = oldRule;
                                                         return realOld; // 解决深复制太难了，勉强这样吧，能跑就行
                                                     })
-                                                }} aria-label={filterRules[ruleIndex][3] ? get("filter.disableRule") : get("filter.enableRule")}>
-                                                    {filterRules[ruleIndex][3] ? <FilterListIcon /> : <FilterListOffIcon />}
+                                                }} aria-label={rule.enabled ? get("filter.disableRule") : get("filter.enableRule")}>
+                                                    {rule.enabled ? <FilterListIcon /> : <FilterListOffIcon />}
                                                 </IconButton>
                                             </MouseOverPopover>
                                         </ListItemAvatar>
                                         <Stack direction="row" spacing={1}>
-                                            {([
-                                                [
-                                                    [0, 1, 2, 3],
+                                            {Object.entries({
+                                                value: [
+                                                    values,
                                                     "pillar.collocationShow"
                                                 ],
-                                                [
+                                                type: [
                                                     ["<", "=", ">"],
                                                     "filter.type"
                                                 ]
-                                            ] satisfies [
-                                                (number | string)[],
-                                                string
-                                            ][]).map((select, index) => (
-                                                <FormControl key={index}>
-                                                    <InputLabel id={`${select[1]}-select-label`}>{get(`${select[1]}.default`)}</InputLabel>
-                                                    <Select onChange={event => setFilterRules(old => {
+                                            }).map((select: [string, [string[], string]], index) => (
+                                                <FormControl key={select[0]}>
+                                                    <InputLabel id={`${select[0]}-select-label`}>
+                                                        {get(`${select[1][1]}.default`)}
+                                                    </InputLabel>
+                                                    <Select value={rule[select[0]]} onChange={event => setFilterRules(old => {
                                                         const realOld = old.slice(0); // 深复制
-                                                        realOld[ruleIndex][index] = index === 0 ? Number(event.target.value) : (event.target.value as filterType);
+                                                        realOld[ruleIndex][select[0]] = event.target.value;
                                                         return realOld;
-                                                    })} labelId={`${select[1]}-select-label`} id={`${select[1]}-select`} value={
-                                                        rule[index] as any
-                                                        /*
-                                                         * 此处rule[index]的类型应为 filterType | 0 | 1 | 2 | 3，但是由于TS的类型自动推断出现了问题，只能省略类型
-                                                         */
-                                                    } label={get(`${select[1]}.default`)}>
-                                                        {select[0].map((choose: string | number) => (
-                                                            <MenuItem key={choose} value={choose}>{get(`${select[1]}.${choose}`)}</MenuItem>
+                                                    })} labelId={`${select[0]}-select-label`} id={`${select[0]}-select`} label={get(`${select[1][1]}.default`)}>
+                                                        {select[1][0].map(choose => (
+                                                            <MenuItem key={choose} value={choose}>
+                                                                {get(`${select[1][1]}.${choose}`)}
+                                                            </MenuItem>
                                                         ))}
                                                     </Select>
                                                 </FormControl>
                                             ))}
                                             <TextField
-                                                value={rule[2]}
+                                                value={rule.filter}
                                                 onChange={event => setFilterRules(old => {
                                                     const realOld = old.slice(0); // 深复制
-                                                    realOld[ruleIndex][2] = Number(event.target.value);
+                                                    realOld[ruleIndex].filter = Number(event.target.value);
                                                     return realOld;
                                                 })}
                                                 label={get("pillar.collocationShow.default")}
@@ -221,18 +234,18 @@ export default function Pillar(): JSX.Element {
                     listStyle: "none"
                 }}>
                     {pillars.filter(single => {
-                        const usableFilterRules = filterRules.filter(singleRule => singleRule[3]);
+                        const usableFilterRules = filterRules.filter(singleRule => singleRule.enabled);
                         return usableFilterRules.every(singleRule => {
-                            switch (singleRule[1]) {
+                            switch (singleRule.type) {
                                 case "<":
-                                    return single[singleRule[0]] < singleRule[2];
+                                    return single[singleRule.value] < singleRule.filter;
                                 case "=":
-                                    return single[singleRule[0]] == singleRule[2]; // 别用严格全等
+                                    return single[singleRule.value] == singleRule.filter; // 别用严格全等
                                 case ">":
-                                    return single[singleRule[0]] > singleRule[2];
+                                    return single[singleRule.value] > singleRule.filter;
                             }
                         })
-                    }).map(single => <SingleCollocation key={single.toString()} collocation={single} />)}
+                    }).map(single => <SingleCollocation key={JSON.stringify(single)} collocation={single} />)}
                 </Grid>
             )}
         </>
