@@ -46,7 +46,7 @@ export default function ExtensionLoader() {
                         });
                         break;
                     case "getSetting":
-                        ref.current?.contentWindow?.postMessage({
+                        ref.current?.contentWindow?.postMessage?.({
                             value: tool.settings.find(set => set.id === event.data.id).value
                         }, location.origin);
                 }

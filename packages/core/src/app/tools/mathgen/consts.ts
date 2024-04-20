@@ -1,5 +1,5 @@
-export type calc = "+" | "-" | "×" | "÷" | "%";
-export const defaultCalcs: calc[] = [
+export type calc = typeof defaultCalcs[number];
+export const defaultCalcs = [
     "+",
     "-",
     "×",

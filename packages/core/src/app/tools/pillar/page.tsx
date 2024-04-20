@@ -178,7 +178,9 @@ export default function Pillar(): JSX.Element {
                                                          * 此处rule[index]的类型应为 filterType | 0 | 1 | 2 | 3，但是由于TS的类型自动推断出现了问题，只能省略类型
                                                          */
                                                     } label={get(`${select[1]}.default`)}>
-                                                        {select[0].map(choose => <MenuItem key={choose} value={choose}>{get(`${select[1]}.${choose}`)}</MenuItem>)}
+                                                        {select[0].map((choose: string | number) => (
+                                                            <MenuItem key={choose} value={choose}>{get(`${select[1]}.${choose}`)}</MenuItem>
+                                                        ))}
                                                     </Select>
                                                 </FormControl>
                                             ))}
