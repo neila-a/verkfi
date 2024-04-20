@@ -19,15 +19,10 @@ import {
     get
 } from "react-intl-universal";
 import lpLogger from "lp-logger";
-import getToolColor from "./getToolColor";
 import {
-    colorMode,
+    gradientTool,
     extensions
 } from "layout/layoutClient";
-import {
-    useLiveQuery
-} from "dexie-react-hooks";
-import db from "db";
 import convertExtensionTools from "index/convertExtensionTools";
 import {
     emptyExtension
@@ -40,7 +35,7 @@ const logger = new lpLogger({
 export default function ToolFinder(props: {
     children: ReactNode;
 }): JSX.Element {
-    const colorContext = useContext(colorMode),
+    const colorContext = useContext(gradientTool),
         color = colorContext.value,
         segment = useSelectedLayoutSegment(),
         searchParams = useSearchParams(),
@@ -54,12 +49,14 @@ export default function ToolFinder(props: {
         filteredToolsInfo = toolsInfo.filter(si => si.to === toolID),
         {
             name
-        } = filteredToolsInfo.length === 0 ? emptyExtension : filteredToolsInfo[0];
+        } = filteredToolsInfo.length === 0 ? emptyExtension : filteredToolsInfo[0],
+        tool = toolsInfo.find(si => si.to === toolID);
     logger.info(`toolID为${toolID}`);
     return (
         <>
-            <HeadBar isIndex={false} pageName={name === "" ? get("未找到工具") : name} only={only} sx={{
-                backgroundImage: color && getToolColor(toolsInfo, toolID)
+            <HeadBar isIndex={false} pageName={name === "" ? get("未找到工具") : name} only={only} sx={tool !== undefined && {
+                backgroundImage: color && `linear-gradient(45deg, #${tool.color[0]}, #${tool.color[1]})`,
+                backgroundColor: !color && tool.color[0]
             }} />
             <Box sx={{
                 p: 3

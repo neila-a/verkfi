@@ -126,7 +126,7 @@ export function useLightMode() {
     }
     return value;
 }
-export const colorMode = createContext<{
+export const gradientTool = createContext<{
     value: boolean;
     set: Dispatch<boolean>;
 }>(null);
@@ -199,7 +199,7 @@ export default function ModifiedApp(props: {
         })), // 使用createElement因为dynamic不能直接以JSX方式调用
         [forkMeOnGitHubState, setForkMeOnGithub] = useStoragedState<boolean>("fork-me-on-github", "Fork me on GitHub", false),
         [shareState, setShare] = useStoragedState<boolean>("share", "分享", isBrowser() ? "share" in navigator : false),
-        [colorModeState, setColorModeState] = useStoragedState<boolean>("color", "多彩主页", true),
+        [gradientToolState, setGradientTool] = useStoragedState<boolean>("gradient-tool", "工具渐变", false),
         Provider = composeProviders([repoInfo, props.repoInfo],[first, {
             value: firstState,
             set: setFirst
@@ -212,9 +212,9 @@ export default function ModifiedApp(props: {
         }], [darkMode, {
             mode: mode,
             set: setMode
-        }], [colorMode, {
-            value: colorModeState,
-            set: setColorModeState
+        }], [gradientTool, {
+            value: gradientToolState,
+            set: setGradientTool
         }], [lang, {
             value: choosedLang,
             set: setChoosedLang

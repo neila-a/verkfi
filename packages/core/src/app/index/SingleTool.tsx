@@ -38,7 +38,7 @@ import {
 import dynamic from 'next/dynamic';
 const CheckDialog = dynamic(() => import("dialog/Check"));
 import {
-    colorMode,
+    gradientTool as gradientToolContext,
     windows,
     recentlyUsed as recentlyUsedContext,
     mostUsed as mostUsedContext,
@@ -83,13 +83,12 @@ export default function SingleTool(props: {
             }
         },
         Router = useRouter(),
-        colorContext = useContext(colorMode),
         recentlyUsed = useContext(recentlyUsedContext),
         usedLists = useContext(listsContext),
         lists = usedLists.value,
         setLists = usedLists.set,
         mostUsed = useContext(mostUsedContext),
-        color = colorContext.value,
+        gradientTool = useContext(gradientToolContext).value,
         [jumpto, setJumpTo] = useState<string>(""),
         homeWhere = useContext(homeWhereContext),
         [removeDialogOpen, setRemoveDialogOpen] = useState<boolean>(false),
@@ -134,7 +133,8 @@ export default function SingleTool(props: {
                         width: viewMode == "grid" ? 275 : fullWidth,
                         maxWidth: fullWidth,
                         boxShadow: theme => props.focus && `inset 0 0 0 3px ${theme.palette.primary[theme.palette.mode]}`,
-                        backgroundImage: color && `linear-gradient(45deg, #${tool.color[0]}, #${tool.color[1]})`
+                        backgroundColor: !gradientTool && `#${tool.color[0]}`,
+                        backgroundImage: gradientTool && `linear-gradient(45deg, #${tool.color[0]}, #${tool.color[1]})`
                     }} onMouseEnter={event => {
                         setElevation(8);
                     }} onMouseLeave={event => {
@@ -154,14 +154,14 @@ export default function SingleTool(props: {
                                 logger.info(`点击了${tool.name}`);
                                 if (tool.isGoto) {
                                     if (tool.to.startsWith("/tools/extension")) {
-                                        Router.push(tool.to satisfies Route);
+                                        Router.push(tool.to as Route);
                                     } else {
                                         setJumpDialogOpen(true);
                                         setJumpTo(tool.to);
                                         setJumpName(tool.name);
                                     }
                                 } else {
-                                    Router.push(`/tools/${tool.to}` satisfies Route);
+                                    Router.push(`/tools/${tool.to}` as Route);
                                 }
                             }} onContextMenu={async event => {
                                 event.preventDefault();
@@ -289,7 +289,7 @@ export default function SingleTool(props: {
                 )}
             </windows.Consumer>
             <CheckDialog open={jumpDialogOpen} description={`${get("singleTool.jump")}${jumpName}？`} title={get('离开Verkfi')} onTrue={() => {
-                Router.push(jumpto satisfies Route);
+                Router.push(jumpto as Route);
                 setJumpDialogOpen(false);
             }} onFalse={() => {
                 setJumpDialogOpen(false);

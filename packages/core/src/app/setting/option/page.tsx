@@ -16,7 +16,7 @@ import {
     ViewSidebar as ViewSidebarIcon
 } from "@mui/icons-material";
 import {
-    colorMode,
+    gradientTool,
     forkMeOnGitHub,
     lang as langContext,
     share,
@@ -61,7 +61,7 @@ export default function Options() {
             <Typography variant='h4'>
                 {get('选项')}
             </Typography>
-            {([[forkMeOnGitHub, "Fork me on GitHub"], [colorMode, "多彩主页"], [share, "share.t"]] satisfies option[]).map(options => (
+            {([[forkMeOnGitHub, "Fork me on GitHub"], [gradientTool, "渐变工具"], [share, "share.t"]] satisfies option[]).map(options => (
                 <Switcher option={options} key={options[1]} />
             ))}
             <InputLabel>
