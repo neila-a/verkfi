@@ -22,6 +22,12 @@
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "any"
+        },
+        {
+            "src": "/image/maskable_icon.png",
+            "sizes": "731x731",
+            "type": "image/png",
+            "purpose": "maskable"
         }
     ],
     "shortcuts": [
