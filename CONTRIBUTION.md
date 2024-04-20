@@ -36,3 +36,14 @@
   - verkfi-tool-\*（工具\*的包）
 
 ## zIndex
+
+| 组件                  | zIndex      |
+| --------------------- | ----------- |
+| 主页、设置中的HeadBar | 比drawer多1 |
+| HeadBar默认           | 38600       |
+| Window窗体            | 38601       |
+| 菜单、拼图编辑界面    | 38601       |
+| Window标题栏          | 38602       |
+| Popover               | 38602       |
+| 拼图重置界面          | 38602       |
+| Fork me on Github     | 99999       |
