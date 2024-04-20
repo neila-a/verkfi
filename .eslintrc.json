@@ -6,6 +6,18 @@
     "rules": {
         "@next/next/no-img-element": "off",
         "react-hooks/rules-of-hooks": "error", // 检查 Hook 的规则
-        "react-hooks/exhaustive-deps": "off"
+        "react-hooks/exhaustive-deps": "off",
+        "semi": [
+            "warn",
+            "always"
+        ],
+        "jsx-quotes": [
+            "warn",
+            "prefer-double"
+        ],
+        "quotes": [
+            "warn",
+            "double"
+        ]
     }
 }

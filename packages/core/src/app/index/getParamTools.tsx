@@ -18,12 +18,10 @@ function getParamTools(mostUsed: mostUsedMarks, realTools: tool[], extensionTool
         }
         return 0;
     }).slice(0, 3).map(item => {
-        const to = item[0],
-            // 不直接返回tool因为怕自动分号影响return
-            tool: tool | 0 = 0
-                || realTools.find(single => single.to === to)
-                || convertExtensionTools(extensionTools).find(single => `/tools/extension?tool=${to}` === single.to);
-        return tool as tool | 0;
+        const to = item[0];
+        return 0
+            || realTools.find(single => single.to === to)
+            || convertExtensionTools(extensionTools).find(single => `/tools/extension?tool=${to}` === single.to) as tool | 0;
     }).filter(item => item !== 0 && item !== undefined) as unknown as tool[];
 }
 export default getParamTools;

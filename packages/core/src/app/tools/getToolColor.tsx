@@ -1,8 +1,5 @@
 "use client";
 import {
-    Hex
-} from "declare";
-import {
     tool
 } from "./info";
 export default function getToolColor(toolsInfo: tool[], toolID: string) {
