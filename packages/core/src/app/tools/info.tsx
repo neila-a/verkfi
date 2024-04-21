@@ -10,9 +10,9 @@ import {
     Adjust as AdjustIcon,
     Calculate as CalculateIcon,
     AccountBalance as AccountBalanceIcon,
-    KeyboardVoice as KeyboardVoiceIcon
+    KeyboardVoice as KeyboardVoiceIcon,
+    Casino
 } from "@mui/icons-material";
-import Image from "next/image";
 import {
     OverridableComponent
 } from "@mui/material/OverridableComponent";
@@ -26,6 +26,7 @@ import {
 import {
     Hex
 } from "declare";
+import PiIcon from "./piIcon";
 const hex = Hex.hex;
 export interface noIconTool {
 
@@ -96,7 +97,7 @@ export const getTools = (get: typeof i18n.get): tool[] => {
             name: get('pi.π计算器'),
             to: "pi",
             desc: get('pi.计算π的小数点后任意位'),
-            icon: () => <Image src="/image/pi.466x393.png" alt={get('圆周率图标')} height={24} width={24} />,
+            icon: PiIcon,
             color: [hex("4facfe"), hex("00f2fe")]
         },
         {
@@ -110,7 +111,7 @@ export const getTools = (get: typeof i18n.get): tool[] => {
             name: get('shaizi.掷色子'),
             to: "shaizi",
             desc: get('shaizi.随机掷色子'),
-            icon: () => <Image src="/image/shaizi.24x24.svg" alt={get('shaizi.色子图标')} height={24} width={24} />,
+            icon: Casino,
             color: [hex("a8edea"), hex("fed6e3")]
         },
         {
@@ -171,7 +172,7 @@ export const getTools = (get: typeof i18n.get): tool[] => {
         },
         {
             name: get('人生倒计时'),
-            to: "https://github.neila.ga/countdown.js/",
+            to: "https://github.neila.vip/countdown.js/",
             desc: get('显示时间过去了多少'),
             icon: AccessTimeIcon,
             color: [hex("c1dfc4"), hex("deecdd")],

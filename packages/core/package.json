@@ -44,7 +44,7 @@
         "eslint-plugin-react-hooks": "^4.6.0",
         "typescript": "5.4.5"
     },
-    "homepage": "https://verkfi.netlify.app/",
+    "homepage": "https://netlify.verkfi.neila.vip/",
     "dependencies": {
         "@emotion/cache": "^11.11.0",
         "@emotion/react": "^11.11.4",

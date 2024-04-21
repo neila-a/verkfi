@@ -36,7 +36,7 @@ Verkfi这个名字来源于冰岛语的*verkfaeri*，工具。
 
 ## Contact - 联系
 
-- [Neila的电子邮件](mailto:neila@neila.ga)
+- [Neila的电子邮件](mailto:neila@neila.vip)
 
 ## Authors - 贡献者
 

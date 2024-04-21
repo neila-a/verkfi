@@ -1,7 +1,7 @@
 import {
     createSvgIcon
 } from "@mui/material";
-const FeatureIcon = createSvgIcon(
+const FeatureIcon = createSvgIcon((
     <svg id="Layer_1" data-name="Layer 1"
         xmlns="http://www.w3.org/2000/svg"
         xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 273.96 231.89" data-imageid="settings-monochromatic">
@@ -58,7 +58,6 @@ const FeatureIcon = createSvgIcon(
         <polygon points="145.45 119.86 135.15 124.77 131.6 144.26 133.19 145.61 141.22 139.87 145.45 119.86" fill="#68e1fd" />
         <polygon points="145.45 119.86 135.15 124.77 131.6 144.26 133.19 145.61 141.22 139.87 145.45 119.86" fill="url(#linear-gradient-2)" />
         <polygon points="124.43 141.2 127.2 140.9 124.64 143.92 121.76 144.04 124.43 141.2" fill="#68e1fd" />
-    </svg>,
-    "Feature"
-);
+    </svg>
+), "Feature");
 export default FeatureIcon;
