@@ -19,15 +19,16 @@ import {
 import {
     SvgIconTypeMap
 } from "@mui/material";
-import i18n from "react-intl-universal";
+import type i18n from "react-intl-universal";
 import {
     FC
 } from "react";
 import {
-    Hex
+    Hex as hexNamespace
 } from "declare";
+import Hex = hexNamespace.Hex;
+import hex = hexNamespace.hex;
 import PiIcon from "./piIcon";
-const hex = Hex.hex;
 export interface noIconTool {
 
     /**
@@ -54,7 +55,7 @@ export interface noIconTool {
      * It should be uppercase.
      * @example ["000000", "FFFFFF"]
      */
-    color: [Hex.Hex, Hex.Hex];
+    color: [Hex, Hex];
 
     /**
      * If your tool is in the outside, set this.  
@@ -76,6 +77,7 @@ export interface tool extends noIconTool {
     icon: (OverridableComponent<SvgIconTypeMap<{}, "svg">> & {
         muiName: string
     }) | FC;
+    
 }
 export const getTools = (get: typeof i18n.get): tool[] => {
     return [

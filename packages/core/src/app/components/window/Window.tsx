@@ -25,8 +25,9 @@ import {
 } from "next/navigation";
 import Draggable from "react-draggable";
 import {
-    Hex
+    Hex as hexNamespace
 } from "declare";
+import Hex = hexNamespace.Hex;
 import {
     get
 } from "react-intl-universal";
@@ -39,7 +40,7 @@ export interface WindowOptions {
     name: string;
     page: string;
     id: string;
-    color: [Hex.Hex, Hex.Hex]
+    color: [Hex, Hex]
     sx?: CSSProperties;
 }
 export default function Window(props: WindowOptions): JSX.Element {

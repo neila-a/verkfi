@@ -20,7 +20,7 @@ export default class Recently extends Set<string> {
     get() {
         return [...super.entries()].map(item => item[1]);
     }
-    add(name: string) {
+    override add(name: string) {
         super.add(name);
         if (this.get()[super.size - 1] !== name) {
             super.delete(name);
