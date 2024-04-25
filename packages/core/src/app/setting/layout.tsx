@@ -30,7 +30,7 @@ import type VerkfiIcon from 'components/verkfiIcon/verkfiIcon';
 import {
 	drawerWidth
 } from './consts';
-export type settingPage = "option" | "about" | "extensions" | "theme";
+export type settingPage = "option" | "about" | "extensions" | "appearance";
 export interface set {
 	name: string;
 	id: settingPage;
@@ -74,8 +74,8 @@ export default function Settings(props: {
 			Icon: ExtensionIcon
 		},
 		{
-			name: get("主题"),
-			id: "theme",
+			name: get("外观"),
+			id: "appearance",
 			Icon: PaletteIcon
 		}
 	],

@@ -53,7 +53,7 @@ export default function DialogInputs(props: {
                             realOld.color[item] = hex(event.target.value as hex.HexColor<string>);
                             return realOld;
                         });
-                    }} value={props.fileInfo.color[item]} label={get("theme.colorSteps") + item} />
+                    }} value={props.fileInfo.color[item]} label={get("appearance.colorSteps") + item} />
                 ))}
             </FormGroup>
             <FormGroup>

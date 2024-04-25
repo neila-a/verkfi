@@ -57,7 +57,7 @@ import useLang from "./useLang";
 import registerProtocolHandler from "./registerProtocolHandler";
 import registerServiceWorker from "./registerServiceWorker";
 import desktopAdder from "./desktopAdder";
-import defaultPalette from 'setting/theme/defaultPalette';
+import defaultPalette from 'setting/appearance/defaultPalette';
 import {
     lists as listsType
 } from "index/Sidebar";

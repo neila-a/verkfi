@@ -15,6 +15,7 @@ import {
 } from "react-intl-universal";
 import {
     darkMode as darkModeContext,
+    gradientTool,
     paletteColors
 } from 'layout/layoutClient';
 import {
@@ -44,6 +45,7 @@ import {
 import useStoragedState from 'useStoragedState';
 import defaultInternalPalette from './defaultInternalPalette';
 import defaultPalette from './defaultPalette';
+import { Switcher } from 'setting/Switcher';
 function ColorTool() {
     const palette = useContext(paletteColors),
         theme = useTheme(),
@@ -142,7 +144,7 @@ function ColorTool() {
                 }}>
                     <Typography id={realId} sx={{
                         width: 60
-                    }}>{`${get("theme.shade")}:`}</Typography>
+                    }}>{`${get("appearance.shade")}:`}</Typography>
                     <Slider
                         sx={{
                             width: 'calc(100% - 80px)',
@@ -214,42 +216,45 @@ function ColorTool() {
     }
     return (
         <>
-            <InputLabel>
-                {get('theme.colorMode.text')}
-            </InputLabel>
-            <Grid container direction="row" spacing={1} sx={{
-                justifyContent: "space-evenly",
-                mb: 2
-            }}>
-                {([["light", LightMode], ["dark", DarkMode], ["system", BrightnessMedium]] satisfies [PaletteMode | "system", (
-                    OverridableComponent<SvgIconTypeMap<{}, "svg">> & {
-                        muiName: string
-                    }
-                ) | FC][]).map(item => {
-                    const isThis = darkMode.mode === item[0],
-                        Icon = item[1];
-                    return (
-                        <Grid item key={item[0]}>
-                            <Paper onClick={event => {
-                                darkMode.set(item[0]);
-                            }} sx={{
-                                p: 2,
-                                display: "flex",
-                                flexDirection: "column",
-                                alignItems: "center",
-                                boxShadow: theme => isThis && `inset 0 0 0 3px ${theme.palette.primary[theme.palette.mode]}`,
-                                borderColor: theme => isThis && theme.palette.primary[theme.palette.mode]
-                            }}>
-                                <Icon sx={{
-                                    fontSize: "10vw",
-                                    color: theme => theme.palette.primary.main
-                                }} />
-                                {get(`theme.colorMode.${item[0]}`)}
-                            </Paper>
-                        </Grid>
-                    );
-                })}
-            </Grid>
+            <Switcher option={[gradientTool, "渐变工具"]} key="gradientTool" />
+            <Box>
+                <InputLabel>
+                    {get('appearance.colorMode.text')}
+                </InputLabel>
+                <Grid container direction="row" spacing={1} sx={{
+                    justifyContent: "space-evenly",
+                    mb: 2
+                }}>
+                    {([["light", LightMode], ["dark", DarkMode], ["system", BrightnessMedium]] satisfies [PaletteMode | "system", (
+                        OverridableComponent<SvgIconTypeMap<{}, "svg">> & {
+                            muiName: string
+                        }
+                    ) | FC][]).map(item => {
+                        const isThis = darkMode.mode === item[0],
+                            Icon = item[1];
+                        return (
+                            <Grid item key={item[0]}>
+                                <Paper onClick={event => {
+                                    darkMode.set(item[0]);
+                                }} sx={{
+                                    p: 2,
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    alignItems: "center",
+                                    boxShadow: theme => isThis && `inset 0 0 0 3px ${theme.palette.primary[theme.palette.mode]}`,
+                                    borderColor: theme => isThis && theme.palette.primary[theme.palette.mode]
+                                }}>
+                                    <Icon sx={{
+                                        fontSize: "10vw",
+                                        color: theme => theme.palette.primary.main
+                                    }} />
+                                    {get(`theme.colorMode.${item[0]}`)}
+                                </Paper>
+                            </Grid>
+                        );
+                    })}
+                </Grid>
+            </Box>
             <Grid container spacing={5} sx={{
                 p: 0,
                 mb: 2
