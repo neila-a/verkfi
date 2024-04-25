@@ -28,24 +28,21 @@ import {
     Slider,
     Paper,
     PaletteMode,
-    SvgIconTypeMap,
     InputLabel
 } from '@mui/material';
 import hues from './hues';
 import shades from './shades';
 import {
     Dispatch,
-    FC,
     useContext,
     useId
 } from 'react';
-import {
-    OverridableComponent
-} from '@mui/material/OverridableComponent';
 import useStoragedState from 'useStoragedState';
 import defaultInternalPalette from './defaultInternalPalette';
 import defaultPalette from './defaultPalette';
-import { Switcher } from 'setting/Switcher';
+import {
+    Switcher
+} from 'setting/Switcher';
 function ColorTool() {
     const palette = useContext(paletteColors),
         theme = useTheme(),
@@ -225,11 +222,7 @@ function ColorTool() {
                     justifyContent: "space-evenly",
                     mb: 2
                 }}>
-                    {([["light", LightMode], ["dark", DarkMode], ["system", BrightnessMedium]] satisfies [PaletteMode | "system", (
-                        OverridableComponent<SvgIconTypeMap<{}, "svg">> & {
-                            muiName: string
-                        }
-                    ) | FC][]).map(item => {
+                    {([["light", LightMode], ["dark", DarkMode], ["system", BrightnessMedium]] satisfies [PaletteMode | "system", typeof LightMode][]).map(item => {
                         const isThis = darkMode.mode === item[0],
                             Icon = item[1];
                         return (

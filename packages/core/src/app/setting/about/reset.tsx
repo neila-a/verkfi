@@ -12,7 +12,8 @@ import {
     useState,
     useEffect,
     FC,
-    ReactNode
+    ReactNode,
+    use
 } from "react";
 import dynamic from 'next/dynamic';
 const CheckDialog = dynamic(() => import("dialog/Check"));
@@ -43,20 +44,10 @@ export default function Reset() {
     const [dialogOpen, setDialogOpen] = useState<boolean>(false),
         [dialogContext, setDialogContext] = useState<string>(""),
         [dialogTitle, setDialogTitle] = useState<string>(""),
-        [cacheUsed, setCacheUsed] = useState<number>(1),
-        [cacheAll, setCacheAll] = useState<number>(2),
-        [load, setLoad] = useState<boolean>(false),
+        cacheUsed = use(getCache("usage")),
+        cacheAll = use(getCache("quota")),
         [dialogOnDone, setDialogOnDone] = useState<() => any>(() => null);
-    useEffect(() => {
-        (async () => {
-            const usageValue = await getCache("usage")
-            setCacheUsed(usageValue);
-            const quotaValue = await getCache("quota");
-            setCacheAll(quotaValue);
-        })();
-        setLoad(true);
-    }, []);
-    return load && (
+    return (
         <ErrorBoundary>
             <Stack direction={direction} spacing={{
                 xs: 2,

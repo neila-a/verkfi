@@ -35,9 +35,9 @@ export const Cache = `Verkfi-${version}-${dev == true ? `dev${devVersion}` : "pr
 log(`版本为${Cache}`);
 self.addEventListener('install', async event => {
     const installStaticFiles = async () => {
-        const cachea = await caches.open(Cache);
+        const openedCache = await caches.open(Cache);
         try {
-            await cachea.addAll(installFilesEssential)
+            await openedCache.addAll(installFilesEssential);
         } catch (error) {
             console.error(error);
         }
