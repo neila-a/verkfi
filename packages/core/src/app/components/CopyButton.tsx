@@ -42,7 +42,9 @@ function CopyButton(props: {
                 await navigator.clipboard.writeText(props.children);
                 setShowCopyDoneDialog(true);
             } catch (error) {
-                setCopyError(`复制结果时出现错误，请报告给开发人员：${error}`);
+                setCopyError(get("copy.errorInfo", {
+                    error: error
+                }));
                 setShowCopyErrorDialog(true);
             };
         },

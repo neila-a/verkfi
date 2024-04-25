@@ -5,12 +5,10 @@ import {
 import {
     Button,
     Divider,
-    Stack,
-    Typography
+    Stack
 } from "@mui/material";
 import {
     useState,
-    useEffect,
     FC,
     ReactNode,
     use
