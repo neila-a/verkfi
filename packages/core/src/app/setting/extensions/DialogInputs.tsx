@@ -10,7 +10,7 @@ import {
 } from "react-intl-universal";
 import InfoInput from "./infoInput";
 import {
-    Hex,
+    hex,
     setState
 } from "declare";
 import {
@@ -50,7 +50,7 @@ export default function DialogInputs(props: {
                             const realOld = {
                                 ...old
                             };
-                            realOld.color[item] = Hex.hex(event.target.value as Hex.HexColor<string>);
+                            realOld.color[item] = hex(event.target.value as hex.HexColor<string>);
                             return realOld;
                         });
                     }} value={props.fileInfo.color[item]} label={get("theme.colorSteps") + item} />

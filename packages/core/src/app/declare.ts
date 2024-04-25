@@ -58,7 +58,7 @@ declare global {
  */
 export type setState<stateType> = Dispatch<SetStateAction<stateType>>;
 
-export namespace Hex {
+export namespace hex {
     type HexDigit = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f';
     export type HexColor<hexString extends string> =
         hexString extends `${HexDigit}${HexDigit}${HexDigit}${infer Rest1}`
@@ -73,13 +73,13 @@ export namespace Hex {
     export type Hex = string & {
         __type: "HexColor"
     };
-    /**
-     * 将一个任意字符串的类型锁定为六位的小写十六进制字符串
-     * @param string 任意字符串
-     * @returns 六位的小写十六进制字符串
-     */
-    export const hex: <hexString extends string>(string: HexColor<hexString>) => Hex = string => string;
 }
+/**
+ * 将一个任意字符串的类型锁定为六位的小写十六进制字符串
+ * @param string 任意字符串
+ * @returns 六位的小写十六进制字符串
+ */
+export const hex: <hexString extends string>(string: hex.HexColor<hexString>) => hex.Hex = string => string;
 
 interface SpeechRecognitionEvent {
     isTrusted?: boolean;

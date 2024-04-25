@@ -24,10 +24,9 @@ import {
     FC
 } from "react";
 import {
-    Hex as hexNamespace
+    hex
 } from "declare";
-import Hex = hexNamespace.Hex;
-import hex = hexNamespace.hex;
+import Hex = hex.Hex;
 import PiIcon from "./piIcon";
 export interface noIconTool {
 
@@ -77,7 +76,7 @@ export interface tool extends noIconTool {
     icon: (OverridableComponent<SvgIconTypeMap<{}, "svg">> & {
         muiName: string
     }) | FC;
-    
+
 }
 export const getTools = (get: typeof i18n.get): tool[] => {
     return [

@@ -25,7 +25,7 @@ import {
 } from "next/navigation";
 import Draggable from "react-draggable";
 import {
-    Hex as hexNamespace
+    hex as hexNamespace
 } from "declare";
 import Hex = hexNamespace.Hex;
 import {
