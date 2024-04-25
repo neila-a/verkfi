@@ -7,7 +7,8 @@ import {
     OrbitControls
 } from '@react-three/drei'
 import {
-    useRef, useState
+    useRef,
+    useState
 } from "react";
 import {
     BoxGeometry,
@@ -17,11 +18,19 @@ import {
     MeshPhongMaterial
 } from "three";
 import getTextCanvas from "./getTextCanvas";
+import {
+    FormGroup,
+    TextField
+} from "@mui/material";
+import {
+    get
+} from "react-intl-universal";
+type text = [string, string, string, string, string, string];
 export default function Cubic(): JSX.Element {
     const canvas = useRef<HTMLCanvasElement>(),
         camera = useRef<Camera>(),
         mesh = useRef<Mesh>(),
-        [text, setText] = useState<[string, string, string, string, string, string]>(["A", "B", "C", "D", "E", "F"]),
+        [text, setText] = useState<text>(["A", "B", "C", "D", "E", "F"]),
         materials = [1, 2, 3, 4, 5, 6].map((item, index) => new MeshPhongMaterial({
             map: new CanvasTexture(getTextCanvas(text[index])),
             color: 0xffffff
@@ -37,6 +46,20 @@ export default function Cubic(): JSX.Element {
                 <OrbitControls />
                 <Stats />
             </Canvas>
+            <FormGroup>
+                {text.map((a, index) => (
+                    <TextField value={a} margin="dense" label={get("cubic.face", {
+                        face: index + 1
+                    })} fullWidth onChange={event => {
+                        setText(old => old.map((value, searchingIndex) => {
+                            if (searchingIndex === index) {
+                                return event.target.value;
+                            }
+                            return value;
+                        }) as text);
+                    }} />
+                ))}
+            </FormGroup>
         </>
     );
 };

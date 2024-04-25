@@ -23,10 +23,6 @@ import useToolsList from "./getToolsList";
 import {
     getTools
 } from "tools/info";
-import {
-    useLiveQuery
-} from "dexie-react-hooks";
-import db from "db";
 import convertExtensionTools from "./convertExtensionTools";
 import {
     extensions,
@@ -90,7 +86,7 @@ export default function EditToolsListDialog(props: {
             setDialogListName("");
             setDialogOpen(false);
         }}>
-            <TextField value={dialogListName} autoFocus margin="dense" label={get("category.分类名称")} fullWidth variant="standard" onChange={event => {
+            <TextField value={dialogListName} autoFocus margin="dense" label={get("category.分类名称")} fullWidth onChange={event => {
                 setDialogListName(event.target.value);
             }} />
             <TransferList left={props.left} right={right} onLeftChange={context => {
