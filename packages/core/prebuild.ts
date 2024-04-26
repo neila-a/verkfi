@@ -29,13 +29,7 @@ async function devMain() {
     oldPackage.devVersion = commits.toString();
     logger.log(`计算出devVersion为${commits}`);
     fs.writeFileSync("package.json", JSON.stringify(oldPackage, null, 4));
-    const oldManifest = <Manifest>JSON.parse(fs.readFileSync("public/index.webmanifest").toString());
-    oldManifest.description = repoInfo.description;
-    oldManifest.short_name = repoInfo.name;
-    oldManifest.name = repoInfo.name;
-    oldManifest.id = pack.name;
-    fs.writeFileSync("public/index.webmanifest", JSON.stringify(oldManifest, null, 4));
-    return [oldPackage, oldManifest];
+    return oldPackage;
 }
 async function publicMain() {
     const pages = ChildProcess.execSync(`find ./src/app -name '*page.tsx'`).toString().replaceAll("./src/app", "").replaceAll("page.tsx", "").split("\n");
