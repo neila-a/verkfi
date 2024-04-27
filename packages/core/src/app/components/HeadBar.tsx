@@ -62,7 +62,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 		};
 	return !props.only && (
 		<>
-			<AppBar elevation={4} position="fixed" sx={{
+			<AppBar position="fixed" sx={{
 				WebkitAppRegion: "drag",
 				zIndex: "38600",
 				left: 0,
@@ -155,48 +155,50 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 						</Link>
 					</nav>
 				</Toolbar>
-			</AppBar>
-			{forkMeOnGithub.value ? (
-				<Box sx={{
-					position: 'fixed',
-					width: 150,
-					height: 150,
-					overflow: 'hidden',
-					zIndex: "99999",
-					top: 0,
-					[props.isIndex ? "left" : "right"]: 0
-				}}>
-					<a href="https://github.com/neila-a/verkfi.git" style={{
-						transform: props.isIndex ? "rotate(-45deg)" : "rotate(45deg)",
-						[props.isIndex ? "left" : "right"]: -40,
-						display: 'inline-block',
-						width: 200,
+			</AppBar >
+			{
+				forkMeOnGithub.value ? (
+					<Box sx={{
+						position: 'fixed',
+						width: 150,
+						height: 150,
 						overflow: 'hidden',
-						padding: '6px 0px',
-						textAlign: "center",
-						textDecoration: "none",
-						color: 'rgb(255, 255, 255)',
-						position: 'inherit',
-						borderWidth: "1px 0px",
-						borderStyle: "dotted",
-						borderColor: 'rgba(255, 255, 255, 0.7)',
-						fontWeight: 700,
-						fontSize: 13,
-						fontFamily: [
-							"Helvetica Neue",
-							"Helvetica",
-							"Arial",
-							"sans-serif"
-						].join(","),
-						boxShadow: 'rgba(0, 0, 0, 0.5) 0px 2px 3px 0px',
-						backgroundColor: "rgb(170, 0, 0)",
-						backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15))',
-						top: 45
-					}}>Fork me on GitHub</a>
-				</Box>
-			) : <Fragment />}
+						zIndex: "99999",
+						top: 0,
+						[props.isIndex ? "left" : "right"]: 0
+					}}>
+						<a href="https://github.com/neila-a/verkfi.git" style={{
+							transform: props.isIndex ? "rotate(-45deg)" : "rotate(45deg)",
+							[props.isIndex ? "left" : "right"]: -40,
+							display: 'inline-block',
+							width: 200,
+							overflow: 'hidden',
+							padding: '6px 0px',
+							textAlign: "center",
+							textDecoration: "none",
+							color: 'rgb(255, 255, 255)',
+							position: 'inherit',
+							borderWidth: "1px 0px",
+							borderStyle: "dotted",
+							borderColor: 'rgba(255, 255, 255, 0.7)',
+							fontWeight: 700,
+							fontSize: 13,
+							fontFamily: [
+								"Helvetica Neue",
+								"Helvetica",
+								"Arial",
+								"sans-serif"
+							].join(","),
+							boxShadow: 'rgba(0, 0, 0, 0.5) 0px 2px 3px 0px',
+							backgroundColor: "rgb(170, 0, 0)",
+							backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15))',
+							top: 45
+						}}>Fork me on GitHub</a>
+					</Box>
+				) : <Fragment />
+			}
 
-			<Toolbar />
+			< Toolbar />
 		</>
 	);
 };
