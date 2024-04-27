@@ -1,6 +1,5 @@
 import {
-    block,
-    logger
+    block
 } from "./matrix";
 import {
     Palette
@@ -19,9 +18,6 @@ export default function drawMatrixBase(edge: number, n: number, blocks: block[],
     if (!onlyPos) {
         const w = canvas.getAttribute("width");
         canvas.setAttribute("width", w); // 刷新
-        console.groupCollapsed("blocks的值");
-        logger.log(`blocks为`, blocks);
-        logger.groupEnd("blocks的值");
     }
     cxt.strokeStyle = palette.text.primary;
     const dos: [block[], string][] = [[posCache, palette.background.default], [blocks, "#FF0000"], [posBlock, palette.primary[palette.mode]]];

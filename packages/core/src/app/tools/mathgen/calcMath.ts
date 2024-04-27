@@ -3,9 +3,6 @@ import {
 } from "./consts";
 import genNumber from "./genNumber";
 import {
-    logger
-} from './consts';
-import {
     setState
 } from "declare";
 export default function calcMath(calcs: calc[], subtractionCheck: boolean, divisionCheck: boolean, max: number, min: number, itemCount: number, setMath: setState<string[]>) {
@@ -42,6 +39,5 @@ export default function calcMath(calcs: calc[], subtractionCheck: boolean, divis
             calcMaths.push(math);
         }
     });
-    logger.log("maths为", calcMaths);
     return setMath(calcMaths);
 };

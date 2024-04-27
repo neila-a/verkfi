@@ -7,9 +7,9 @@ const registerServiceWorker = async () => {
         try {
             // register service worker
             const registration = await window.navigator.serviceWorker.register("/service-worker.js");
-            logger.log(`Service worker for UWA register success:`, registration);
+            logger.log(`Service worker注册完成：`, registration);
         } catch (reason) {
-            logger.error(`Service worker for UWA register fail: ${reason}`);
+            logger.error("Service worker注册失败：", reason);
         }
     } else {
         logger.warn("此设备没有ServiceWorker");

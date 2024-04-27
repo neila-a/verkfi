@@ -10,9 +10,6 @@ import {
     build
 } from "esbuild";
 import Logger from "lp-logger";
-import type {
-    Manifest
-} from "next/dist/lib/metadata/types/manifest-types";
 import ChildProcess from "node:child_process";
 import * as fs from "node:fs";
 import pack from "./package.json";
