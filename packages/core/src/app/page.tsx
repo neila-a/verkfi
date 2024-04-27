@@ -28,14 +28,10 @@ import {
     tool
 } from "tools/info";
 import {
-    useRouter,
     useSearchParams
 } from 'next/navigation';
 import useToolsList from 'index/getToolsList';
 import Sidebar from 'index/Sidebar';
-import {
-    homeWhere
-} from 'index/consts';
 import {
     setState
 } from 'declare';
@@ -220,40 +216,36 @@ export default function Index(props: {
                         </Box>
                     </Collapse>
                     <Box>
-                        <homeWhere.Provider value="recently">
-                            <Typography variant='h4'>
-                                {get('use.最近使用')}
-                            </Typography>
-                            <Box sx={{
-                                p: 1
-                            }}>
-                                <ToolsStack
-                                    viewMode={viewMode}
-                                    searchText=""
-                                    sortingFor={sortingFor}
-                                    setTools={setTools}
-                                    editMode={false}
-                                    paramTool={recentlyTools.filter(item => item !== undefined)} />
-                            </Box>
-                        </homeWhere.Provider>
+                        <Typography variant='h4'>
+                            {get('use.最近使用')}
+                        </Typography>
+                        <Box sx={{
+                            p: 1
+                        }}>
+                            <ToolsStack
+                                viewMode={viewMode}
+                                searchText=""
+                                sortingFor={sortingFor}
+                                setTools={setTools}
+                                editMode={false}
+                                paramTool={recentlyTools.filter(item => item !== undefined)} />
+                        </Box>
                     </Box>
                     <Box>
-                        <homeWhere.Provider value="most">
-                            <Typography variant='h4'>
-                                {get('use.最常使用')}
-                            </Typography>
-                            <Box sx={{
-                                p: 1
-                            }}>
-                                <ToolsStack
-                                    viewMode={viewMode}
-                                    searchText=""
-                                    sortingFor={"__home__"}
-                                    setTools={setTools}
-                                    editMode={false}
-                                    paramTool={getParamTools(mostUsed, realTools, extensionTools)} />
-                            </Box>
-                        </homeWhere.Provider>
+                        <Typography variant='h4'>
+                            {get('use.最常使用')}
+                        </Typography>
+                        <Box sx={{
+                            p: 1
+                        }}>
+                            <ToolsStack
+                                viewMode={viewMode}
+                                searchText=""
+                                sortingFor={"__home__"}
+                                setTools={setTools}
+                                editMode={false}
+                                paramTool={getParamTools(mostUsed, realTools, extensionTools)} />
+                        </Box>
                     </Box>
                 </Box>
             )}

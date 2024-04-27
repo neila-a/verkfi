@@ -30,9 +30,7 @@ import {
 import DownButton from './DownButton';
 import UpButton from './UpButton';
 import {
-    viewMode,
-    logger,
-    homeWhere as homeWhereContext
+    viewMode
 } from './consts';
 import {
     setState
@@ -42,14 +40,9 @@ const CheckDialog = dynamic(() => import("dialog/Check"));
 import {
     gradientTool as gradientToolContext,
     windows as windowsContext,
-    recentlyUsed as recentlyUsedContext,
-    mostUsed as mostUsedContext,
     useLightMode,
     lists as listsContext,
 } from 'layout/layoutClient';
-import {
-    useSwipeable
-} from "react-swipeable";
 import {
     get
 } from "react-intl-universal";
@@ -57,7 +50,6 @@ import MouseOverPopover from 'components/Popover';
 import {
     NXTMetadata
 } from 'setting/extensions/page';
-import removeArrayItem from "remove-item-from-array";
 import {
     Route
 } from 'next';
@@ -85,15 +77,12 @@ export default function SingleTool(props: {
             }
         },
         Router = useRouter(),
-        recentlyUsed = useContext(recentlyUsedContext),
         usedLists = useContext(listsContext),
         windows = useContext(windowsContext),
         lists = usedLists.value,
         setLists = usedLists.set,
-        mostUsed = useContext(mostUsedContext),
         gradientTool = useContext(gradientToolContext).value,
         [jumpto, setJumpTo] = useState<string>(""),
-        homeWhere = useContext(homeWhereContext),
         [removeDialogOpen, setRemoveDialogOpen] = useState<boolean>(false),
         [elevation, setElevation] = useState<number>(2),
         [jumpName, setJumpName] = useState<string>(""),
@@ -109,27 +98,10 @@ export default function SingleTool(props: {
             tool: tool,
             sortingFor: sortingFor
         },
-        swipeHandler = useSwipeable({
-            onSwipedRight: data => {
-                switch (homeWhere) {
-                    case "most": {
-                        const old = mostUsed.value;
-                        Reflect.deleteProperty(old, tool.to);
-                        mostUsed.set(old);
-                        break;
-                    }
-                    case "recently": {
-                        const old = recentlyUsed.value;
-                        recentlyUsed.set(removeArrayItem(old, tool.to));
-                        break;
-                    }
-                }
-            }
-        }),
         db = <DownButton {...buttonOptions} />,
         ub = <UpButton {...buttonOptions} />;
     return (
-        <ButtonBase key={tool.to} {...swipeHandler} component="section">
+        <ButtonBase key={tool.to} component="section">
             <Card elevation={elevation} sx={{
                 width: viewMode == "grid" ? 275 : fullWidth,
                 maxWidth: fullWidth,
@@ -152,7 +124,6 @@ export default function SingleTool(props: {
                             justifyContent: "space-between"
                         } : {})
                     }} onClick={() => {
-                        logger.info(`点击了${tool.name}`);
                         if (tool.isGoto) {
                             if (tool.to.startsWith("/tools/extension")) {
                                 Router.push(tool.to as Route);
