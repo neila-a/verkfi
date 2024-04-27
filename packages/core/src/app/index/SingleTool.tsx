@@ -109,6 +109,13 @@ export default function SingleTool(props: {
                 backgroundColor: !gradientTool && `#${tool.color[0]}`,
                 backgroundImage: gradientTool && `linear-gradient(45deg, #${tool.color[0]}, #${tool.color[1]})`
             }} onMouseEnter={event => {
+                if (tool.isGoto) {
+                    if (tool.to.startsWith("/tools/extension")) {
+                        Router.prefetch(tool.to as Route);
+                    }
+                } else {
+                    Router.prefetch(`/tools/${tool.to}` as Route);
+                }
                 setElevation(8);
             }} onMouseLeave={event => {
                 setElevation(2); // reset to default

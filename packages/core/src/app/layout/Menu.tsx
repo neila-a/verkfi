@@ -7,7 +7,6 @@ import {
     DialogContent,
     DialogTitle,
     IconButton,
-    InputBase,
     TextField,
     Typography,
     useMediaQuery,
@@ -269,7 +268,7 @@ export default function Menu() {
                                 Tab
                             </kbd>
                         </Button>
-                        {get("switch")}{", "}
+                        {get("switch")}，
                         {get("press")}
                         <Button onClick={handleEnter}>
                             <kbd>

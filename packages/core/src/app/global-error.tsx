@@ -1,15 +1,18 @@
 'use client';
 import Error from "error";
-export default function GlobalError(props: {
+export default function GlobalError({
+    error,
+    reset
+}: {
     error: Error & {
         digest?: string;
-    }
-    reset: () => void
+    };
+    reset: () => void;
 }) {
     return (
         <html lang="zh-cmn-Hans-CN">
             <body>
-                <Error error={props.error} reset={props.reset} />
+                <Error error={error} reset={reset} />
             </body>
         </html>
     );
