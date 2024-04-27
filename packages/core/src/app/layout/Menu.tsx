@@ -8,6 +8,7 @@ import {
     DialogTitle,
     IconButton,
     InputBase,
+    TextField,
     Typography,
     useMediaQuery,
     useTheme
@@ -161,7 +162,7 @@ export default function Menu() {
                             <SearchIcon />
                         </IconButton>
                     </MouseOverPopover>
-                    <InputBase value={searchText} sx={{
+                    <TextField autoFocus value={searchText} sx={{
                         ml: 1,
                         flex: 1
                     }} placeholder={get('搜索工具')} inputProps={{

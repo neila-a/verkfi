@@ -8,11 +8,10 @@ import {
 import {
     IconButton,
     InputBase,
-    Paper,
     Drawer,
     Toolbar,
-    useTheme,
-    Box
+    Box,
+    TextField
 } from "@mui/material";
 import {
     Search as SearchIcon
@@ -103,7 +102,7 @@ export default function Sidebar(props: {
                         <SearchIcon />
                     </IconButton>
                 </MouseOverPopover>
-                <InputBase value={searchText} sx={{
+                <TextField value={searchText} sx={{
                     ml: 1,
                     flex: 1
                 }} onKeyDown={event => {

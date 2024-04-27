@@ -36,7 +36,7 @@ export default function AlertDialog(props: {
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleClose} autoFocus>
+                <Button onClick={handleClose}>
                     {get('确定')}
                 </Button>
             </DialogActions>
