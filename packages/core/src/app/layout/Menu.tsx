@@ -7,6 +7,7 @@ import {
     DialogContent,
     DialogTitle,
     IconButton,
+    InputAdornment,
     TextField,
     Typography,
     useMediaQuery,
@@ -134,35 +135,47 @@ export default function Menu() {
             }} open={control.show} keepMounted TransitionComponent={Transition}>
                 <DialogTitle sx={{
                     m: 0,
-                    p: 2,
-                    display: "flex"
+                    p: 0,
+                    display: "flex",
+                    alignItems: "center"
                 }}>
-                    {sortingFor !== "__home__" && (
-                        <MouseOverPopover text={get("back")}>
-                            <IconButton type="button" sx={{
-                                p: 1
-                            }} aria-label={get("back")} onClick={() => {
-                                setSearchText("");
-                                setSortingFor("__home__");
-                                setSortedTools(gotToolsList);
-                                setEditing(true);
-                                setTools(gotToolsList);
-                            }}>
-                                <ArrowBackIosIcon />
-                            </IconButton>
-                        </MouseOverPopover>
-                    )}
-                    <MouseOverPopover text={get('搜索')}>
-                        <IconButton type="button" sx={{
-                            p: 1
-                        }} aria-label={get('搜索')} onClick={() => {
-                            searchTools(searchText);
-                        }}>
-                            <SearchIcon />
-                        </IconButton>
-                    </MouseOverPopover>
-                    <TextField autoFocus value={searchText} sx={{
-                        ml: 1,
+                    <TextField InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                {sortingFor !== "__home__" && (
+                                    <MouseOverPopover text={get("back")}>
+                                        <IconButton type="button" aria-label={get("back")} onClick={() => {
+                                            setSearchText("");
+                                            setSortingFor("__home__");
+                                            setSortedTools(gotToolsList);
+                                            setEditing(true);
+                                            setTools(gotToolsList);
+                                        }}>
+                                            <ArrowBackIosIcon />
+                                        </IconButton>
+                                    </MouseOverPopover>
+                                )}
+                                <MouseOverPopover text={get('搜索')}>
+                                    <IconButton type="button" aria-label={get('搜索')} onClick={() => {
+                                        searchTools(searchText);
+                                    }}>
+                                        <SearchIcon />
+                                    </IconButton>
+                                </MouseOverPopover>
+                            </InputAdornment>
+                        ),
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                <MouseOverPopover text={get("close")}>
+                                    <IconButton aria-label={get("close")} onClick={event => {
+                                        control.set(false);
+                                    }}>
+                                        <CloseIcon />
+                                    </IconButton>
+                                </MouseOverPopover>
+                            </InputAdornment>
+                        )
+                    }} fullWidth autoFocus value={searchText} sx={{
                         flex: 1
                     }} placeholder={get('搜索工具')} inputProps={{
                         'aria-label': get('搜索工具')
@@ -173,20 +186,6 @@ export default function Menu() {
                             setTab(0);
                         }
                     }} />
-                    <MouseOverPopover text={get("close")}>
-                        <IconButton
-                            aria-label={get("close")}
-                            onClick={event => {
-                                control.set(false);
-                            }}
-                            sx={{
-                                position: 'absolute',
-                                right: 8
-                            }}
-                        >
-                            <CloseIcon />
-                        </IconButton>
-                    </MouseOverPopover>
                 </DialogTitle>
                 <DialogContent dividers>
                     {sortingFor === "__home__" ? (

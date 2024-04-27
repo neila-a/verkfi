@@ -7,11 +7,11 @@ import {
 } from 'setting/consts';
 import {
     IconButton,
-    InputBase,
     Drawer,
     Toolbar,
     Box,
-    TextField
+    TextField,
+    InputAdornment
 } from "@mui/material";
 import {
     Search as SearchIcon
@@ -90,47 +90,45 @@ export default function Sidebar(props: {
             }
         }}>
             <Toolbar />
-            <Box sx={{
-                display: "flex"
-            }}>
-                <MouseOverPopover text={get('搜索')}>
-                    <IconButton type="button" sx={{
-                        p: 1
-                    }} aria-label={get('搜索')} onClick={() => {
-                        searchTools(searchText);
-                    }}>
-                        <SearchIcon />
-                    </IconButton>
-                </MouseOverPopover>
-                <TextField value={searchText} sx={{
-                    ml: 1,
-                    flex: 1
-                }} onKeyDown={event => {
-                    if (event.key === "Tab" || event.key === "Enter") {
-                        event.preventDefault();
+            <TextField InputProps={{
+                startAdornment: (
+                    <InputAdornment position='start'>
+                        <MouseOverPopover text={get('搜索')}>
+                            <IconButton sx={{
+                                p: 0
+                            }} type="button" aria-label={get('搜索')} onClick={() => {
+                                searchTools(searchText);
+                            }}>
+                                <SearchIcon />
+                            </IconButton>
+                        </MouseOverPopover>
+                    </InputAdornment>
+                )
+            }} value={searchText} onKeyDown={event => {
+                if (event.key === "Tab" || event.key === "Enter") {
+                    event.preventDefault();
+                }
+            }} onKeyUp={event => {
+                if (event.key === "Tab") {
+                    event.preventDefault();
+                    props.setTab(old => (old + 1) % props.tools.length);
+                } else if (event.key === "Enter") {
+                    event.preventDefault();
+                    const selectool = document.getElementById(`toolAbleToSelect-${props.focusingTo}`) as HTMLDivElement | null;
+                    if (selectool !== null) {
+                        selectool.click();
                     }
-                }} onKeyUp={event => {
-                    if (event.key === "Tab") {
-                        event.preventDefault();
-                        props.setTab(old => (old + 1) % props.tools.length);
-                    } else if (event.key === "Enter") {
-                        event.preventDefault();
-                        const selectool = document.getElementById(`toolAbleToSelect-${props.focusingTo}`) as HTMLDivElement | null;
-                        if (selectool !== null) {
-                            selectool.click();
-                        }
-                    }
-                }} placeholder={get('搜索工具')} inputProps={{
-                    'aria-label': get('搜索工具'),
-                }} onChange={event => {
-                    setSearchText(event.target.value);
-                    searchTools(event.target.value);
-                    if (sortingFor === "__home__") {
-                        setSortingFor("__global__");
-                        props.setShow("tools");
-                    }
-                }} />
-            </Box>
+                }
+            }} placeholder={get('搜索工具')} inputProps={{
+                'aria-label': get('搜索工具'),
+            }} onChange={event => {
+                setSearchText(event.target.value);
+                searchTools(event.target.value);
+                if (sortingFor === "__home__") {
+                    setSortingFor("__global__");
+                    props.setShow("tools");
+                }
+            }} />
             <Box sx={{
                 textAlign: "center"
             }}>
