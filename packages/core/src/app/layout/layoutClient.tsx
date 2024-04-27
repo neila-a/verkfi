@@ -76,7 +76,7 @@ import useExtensions, {
 import composeProviders from "./providerCompose";
 import {
     repoInfo as repoInfoType
- } from "components/getRepoInfo";
+} from "components/getRepoInfo";
 export const showSidebar = createContext<{
     show: boolean;
     set: Dispatch<boolean>;
@@ -91,10 +91,6 @@ export const forkMeOnGitHub = createContext<{
     set: Dispatch<boolean>;
 }>(null);
 export const share = createContext<{
-    value: boolean;
-    set: Dispatch<boolean>;
-}>(null);
-export const first = createContext<{
     value: boolean;
     set: Dispatch<boolean>;
 }>(null);
@@ -199,10 +195,7 @@ export default function ModifiedApp(props: {
         [forkMeOnGitHubState, setForkMeOnGithub] = useStoragedState<boolean>("fork-me-on-github", "Fork me on GitHub", false),
         [shareState, setShare] = useStoragedState<boolean>("share", "分享", isBrowser() ? "share" in navigator : false),
         [gradientToolState, setGradientTool] = useStoragedState<boolean>("gradient-tool", "工具渐变", false),
-        Provider = composeProviders([repoInfo, props.repoInfo],[first, {
-            value: firstState,
-            set: setFirst
-        }], [forkMeOnGitHub, {
+        Provider = composeProviders([repoInfo, props.repoInfo], [forkMeOnGitHub, {
             value: forkMeOnGitHubState,
             set: setForkMeOnGithub
         }], [showSidebar, {

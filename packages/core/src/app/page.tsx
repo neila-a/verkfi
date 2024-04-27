@@ -42,7 +42,6 @@ import {
 import ToolsStack from 'index/ToolsStack';
 import searchBase from 'index/searchBase';
 import {
-    first as firstContext,
     recentlyUsed as recentlyUsedContext,
     mostUsed as mostUsedContext,
     showSidebar as showSidebarContext,
@@ -54,9 +53,6 @@ import VerkfiIcon from 'components/verkfiIcon/verkfiIcon';
 import generateTries from 'index/generateTries';
 import convertExtensionTools from 'index/convertExtensionTools';
 import MouseOverPopover from 'components/Popover';
-import {
-    Route
-} from 'next';
 export default function Index(props: {
     /**
      * 是否为嵌入
@@ -72,10 +68,8 @@ export default function Index(props: {
     const realTools = getTools(get),
         searchParams = useSearchParams(),
         extensionTools = useContext(extensions).value,
-        router = useRouter(),
         toolsList = useToolsList(realTools),
         showSidebar = useContext(showSidebarContext),
-        first = useContext(firstContext),
         recentlyUsed = useContext(recentlyUsedContext).value,
         mostUsed = useContext(mostUsedContext).value,
         [sortedTools, setSortedTools] = useState(toolsList),
@@ -124,11 +118,6 @@ export default function Index(props: {
             setEditMode(false);
         }
     }, []);
-    useEffect(() => {
-        if (first.value) {
-            router.push("/first" satisfies Route);
-        }
-    }, [first]);
     function Tools() {
         return (
             <Box sx={{
