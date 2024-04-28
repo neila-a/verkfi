@@ -27,9 +27,7 @@ export default function UpButton(props: {
     if (props.editMode && props.sortingFor !== "__home__") {
         return (
             <MouseOverPopover text={get("index.moveup")}>
-                <IconButton color="inherit" sx={{
-                    mr: 2
-                }} size="large" edge="end" onClick={event => {
+                <IconButton color="inherit" size="large" edge="end" onClick={event => {
                     event.stopPropagation();
                     props.setTools(draft => {
                         const pd = draft.slice(0);

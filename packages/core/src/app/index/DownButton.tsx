@@ -27,9 +27,7 @@ export default function DownButton(props: {
     if (props.editMode && props.sortingFor !== "__home__") {
         return (
             <MouseOverPopover text={get("index.movedown")}>
-                <IconButton size="large" edge="start" color="inherit" aria-label={get("index.movedown")} sx={{
-                    mr: 2
-                }} onClick={event => {
+                <IconButton size="large" edge="start" color="inherit" aria-label={get("index.movedown")} onClick={event => {
                     event.stopPropagation();
                     props.setTools(draft => {
                         const pd = draft.slice(0);
