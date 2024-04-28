@@ -6,7 +6,6 @@ import {
 import {
     Box,
     Button,
-    SvgIconTypeMap,
     Typography
 } from "@mui/material";
 import {
@@ -15,30 +14,20 @@ import {
 import pack from "../../../../package.json";
 import ErrorBoundary from 'components/ErrorBoundary';
 import {
-    OverridableComponent
-} from '@mui/material/OverridableComponent';
-import {
     ReactNode,
-    useState,
-    useEffect
+    useState
 } from 'react';
 import dynamic from 'next/dynamic';
 import VerkfiIcon from 'components/verkfiIcon/verkfiIcon';
 import Reset from './reset';
 import Link from 'next/link';
+import {
+    isBrowser
+} from 'layout/layoutClient';
 const PureDialog = dynamic(() => import("dialog/Pure"));
-interface singleAbout {
-    icon: OverridableComponent<SvgIconTypeMap<{}, "svg">> & {
-        muiName: string
-    };
-    name: ReactNode;
-    context: ReactNode;
-}
-interface abouts {
-    [key: string]: singleAbout;
-}
 const {
-    version, devVersion
+    version,
+    devVersion
 } = pack;
 export default function About() {
     const initialAddressInfo = {
@@ -48,29 +37,21 @@ export default function About() {
         port: "",
         protocol: ""
     };
-    const [load, setLoad] = useState<boolean>(false),
-        [dialogOpen, setDialogOpen] = useState<boolean>(false),
+    const [dialogOpen, setDialogOpen] = useState<boolean>(false),
         [dialogContext, setDialogContext] = useState<ReactNode>(""),
         [dialogTitle, setDialogTitle] = useState<string>(""),
-        year = new Date().getFullYear(),
-        [addressInfo, setAddressInfo] = useState<typeof initialAddressInfo>(initialAddressInfo);
-    useEffect(() => {
-        let mounted = true;
-        if (mounted) {
-            setLoad(true);
-            setAddressInfo({
-                href: location.href,
-                host: location.hostname,
-                pathname: location.pathname,
-                protocol: location.protocol,
-                port: location.port
-            });
-        }
-        return () => {
-            mounted = false;
+        year = new Date().getFullYear();
+    var addressInfo = initialAddressInfo;
+    if (isBrowser()) {
+        addressInfo = {
+            href: location.href,
+            host: location.hostname,
+            pathname: location.pathname,
+            protocol: location.protocol,
+            port: location.port
         };
-    }, []);
-    return load && (
+    }
+    return (
         <ErrorBoundary>
             <Typography variant='h4'>
                 {get('关于')}

@@ -101,7 +101,9 @@ export default function SingleTool(props: {
         db = <DownButton {...buttonOptions} />,
         ub = <UpButton {...buttonOptions} />;
     return (
-        <ButtonBase key={tool.to} component="section">
+        <ButtonBase key={tool.to} component="section" sx={{
+            width: viewMode == "grid" ? 275 : fullWidth
+        }}>
             <Card elevation={elevation} sx={{
                 width: viewMode == "grid" ? 275 : fullWidth,
                 maxWidth: fullWidth,

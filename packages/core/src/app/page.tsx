@@ -69,7 +69,7 @@ export default function Index(props: {
         recentlyUsed = useContext(recentlyUsedContext).value,
         mostUsed = useContext(mostUsedContext).value,
         [sortedTools, setSortedTools] = useState(toolsList),
-        [searchText, setSearchText] = useState<string>(""),
+        [searchText, setSearchText] = useState<string>(props.isImplant ? props.children : ""),
         usedViewMode = useContext(viewModeContext),
         viewMode = usedViewMode.value,
         setViewMode = usedViewMode.set,
@@ -103,15 +103,7 @@ export default function Index(props: {
     };
     useEffect(() => {
         if (props.isImplant) {
-            setSearchText(props.children);
             searchTools(props.children);
-        } else if (searchParams.has("searchText")) {
-            const paramText = searchParams.get("searchText");
-            setSearchText(paramText);
-            searchTools(paramText);
-        }
-        if (searchText != "") {
-            setEditMode(false);
         }
     }, []);
     function Tools() {

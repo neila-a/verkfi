@@ -192,7 +192,6 @@ export default function Menu() {
                                 <Typography variant='h4'>
                                     {get('category.分类')}
                                     <Selects
-                                        setEditMode={setEditMode}
                                         setEditing={setEditing}
                                         modifyClickCount={value => null}
                                         list={list}

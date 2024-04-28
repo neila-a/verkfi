@@ -52,7 +52,6 @@ export default function Selects(props: {
     setSortedTools: setState<tool[]>;
     setTools: setState<tool[]>;
     editMode: boolean;
-    setEditMode: setState<boolean>;
     isSidebar?: boolean;
     searchTools(search: string): void;
     modifyClickCount(value: number | "++"): void;
@@ -145,7 +144,7 @@ export default function Selects(props: {
                         <Box ref={provided.innerRef} {...provided.droppableProps} sx={{
                             display: Boolean(props.isSidebar) ? "" : "flex"
                         }}>
-                            {list.map((value, index) => (
+                            {list.filter(value => value[0] !== "__global__").map((value, index) => (
                                 props.editMode ? (
                                     <Draggable draggableId={value[0]} index={index} key={value[0]}>
                                         {provided => (
