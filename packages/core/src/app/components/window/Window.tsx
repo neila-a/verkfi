@@ -35,6 +35,7 @@ import MouseOverPopover from "../Popover";
 import {
     Route
 } from "next";
+import Link from "next/link";
 export interface WindowOptions {
     to: string;
     name: string;
@@ -48,7 +49,6 @@ export default function Window(props: WindowOptions): JSX.Element {
         id
     } = props,
         realSx: CSSProperties = props?.sx === undefined ? {} : props?.sx,
-        router = useRouter(),
         [open, setOpen] = useState<boolean>(true),
         nodeRef = useRef<HTMLDivElement>(null),
         [size, setSize] = useState<[number, number]>([50, 50]), /* height, width */
@@ -122,14 +122,15 @@ export default function Window(props: WindowOptions): JSX.Element {
                                         {type === "min" ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />}
                                     </IconButton>
                                 </MouseOverPopover>
-                                <MouseOverPopover text={get("window.maxmize")}>
-                                    <IconButton aria-label={get("window.maxmize")} edge="end" onClick={event => {
-                                        router.push(props.to as Route);
-                                        setOpen(false);
-                                    }}>
-                                        <CropDinIcon />
-                                    </IconButton>
-                                </MouseOverPopover>
+                                <Link href={props.to as Route}>
+                                    <MouseOverPopover text={get("window.maxmize")}>
+                                        <IconButton aria-label={get("window.maxmize")} edge="end" onClick={event => {
+                                            setOpen(false);
+                                        }}>
+                                            <CropDinIcon />
+                                        </IconButton>
+                                    </MouseOverPopover>
+                                </Link>
                                 <MouseOverPopover text={get("close")}>
                                     <IconButton aria-label={get("close")} edge="end" onClick={event => setOpen(false)}>
                                         <CloseIcon />

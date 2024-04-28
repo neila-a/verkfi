@@ -110,7 +110,7 @@ export default function Settings(props: {
 						setValue(newValue);
 					}}>
 						{sets.map(Set => (
-							<Tab icon={<Set.Icon />} iconPosition="start" label={Set.name} key={Set.id} onClick={event => {
+							<Tab icon={<Set.Icon />} title={`/setting/${Set.id}`} iconPosition="start" label={Set.name} key={Set.id} onClick={event => {
 								router.push(`/setting/${Set.id}` satisfies Route);
 							}} />
 						))}

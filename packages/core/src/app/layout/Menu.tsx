@@ -53,9 +53,7 @@ import {
 import getParamTools from "index/getParamTools";
 import VerkfiIcon from "components/verkfiIcon/verkfiIcon";
 import convertExtensionTools from "index/convertExtensionTools";
-import {
-    Route
-} from "next";
+import Link from "next/link";
 export default function Menu() {
     const control = useContext(showSidebar),
         theme = useTheme(),
@@ -294,15 +292,15 @@ export default function Menu() {
                     <Box sx={{
                         display: "flex"
                     }}>
-                        <MouseOverPopover text={get("主页")}>
-                            <IconButton color="primary" sx={{
-                                p: 1
-                            }} aria-label={get("主页")} onClick={_event => {
-                                router.push("/" satisfies Route);
-                            }}>
-                                <HomeIcon />
-                            </IconButton>
-                        </MouseOverPopover>
+                        <Link href="/">
+                            <MouseOverPopover text={get("主页")}>
+                                <IconButton color="primary" sx={{
+                                    p: 1
+                                }} aria-label={get("主页")}>
+                                    <HomeIcon />
+                                </IconButton>
+                            </MouseOverPopover>
+                        </Link>
                         <SwitchViewMode viewMode={viewMode} setViewMode={setViewMode} />
                         {(editing && sortingFor !== "__extension__") && (
                             <SwitchEditMode editMode={editMode} setEditMode={setEditMode} />
