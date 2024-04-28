@@ -1,9 +1,9 @@
 "use client";
 import {
-    tool
+    type tool
 } from "tools/info";
 import {
-    lists as listsType
+    type lists as listsType
 } from './Sidebar';
 import {
     useContext

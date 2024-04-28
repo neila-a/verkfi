@@ -26,7 +26,9 @@ import {
 	Extension as ExtensionIcon,
 	Palette as PaletteIcon
 } from "@mui/icons-material";
-import type VerkfiIcon from 'components/verkfiIcon/verkfiIcon';
+import {
+	type default as VerkfiIcon
+} from 'components/verkfiIcon/verkfiIcon';
 import {
 	drawerWidth
 } from './consts';

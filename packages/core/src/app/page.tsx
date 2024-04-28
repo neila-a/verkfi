@@ -9,8 +9,8 @@ import {
     useMemo,
     useState
 } from 'react';
-import type {
-    ThemeHaveZIndex
+import {
+    type ThemeHaveZIndex
 } from 'setting/layout';
 import {
     drawerWidth
@@ -62,7 +62,6 @@ export default function Index(props: {
     setExpand?: setState<boolean>;
 }): JSX.Element {
     const realTools = getTools(get),
-        searchParams = useSearchParams(),
         extensionTools = useContext(extensions).value,
         toolsList = useToolsList(realTools),
         showSidebar = useContext(showSidebarContext),

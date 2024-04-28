@@ -19,7 +19,9 @@ import {
 import {
     SvgIconTypeMap
 } from "@mui/material";
-import type i18n from "react-intl-universal";
+import {
+    type get as intlGet
+} from "react-intl-universal";
 import {
     FC
 } from "react";
@@ -78,7 +80,7 @@ export interface tool extends noIconTool {
     }) | FC;
 
 }
-export const getTools = (get: typeof i18n.get): tool[] => {
+export const getTools = (get: typeof intlGet): tool[] => {
     return [
         {
             name: "AudioTools",
