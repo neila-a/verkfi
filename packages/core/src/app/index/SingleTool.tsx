@@ -100,8 +100,6 @@ export default function SingleTool(props: {
             tool: tool,
             sortingFor: sortingFor
         },
-        db = <DownButton {...buttonOptions} />,
-        ub = <UpButton {...buttonOptions} />,
         iframe = (
             <Collapse in={props.focus} sx={{
                 width: "100%",
@@ -246,8 +244,8 @@ export default function SingleTool(props: {
                     }} classes={{
                         root: "singleTool-editControler"
                     }}>
-                        {db}
-                        {ub}
+                        <DownButton {...buttonOptions} />
+                        <UpButton {...buttonOptions} />
                         {deleteButtons}
                     </CardActions>
                 )}
