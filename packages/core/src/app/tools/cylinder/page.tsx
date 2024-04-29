@@ -6,7 +6,8 @@ import {
     useEffect,
     useState,
     useMemo,
-    useRef
+    useRef,
+    useId
 } from "react";
 import Cylinder from "./makeCylinder";
 import {
@@ -33,6 +34,9 @@ function CylinderPage(): JSX.Element {
         [filled, setFilled] = useState<boolean>(true),
         [posX, setPosX] = useState<number>(1),
         [posZ, setPosZ] = useState<number>(1),
+        radiusXID = useId(),
+        radiusZID = useId(),
+        thicknessID = useId(),
         theme = useTheme(),
         posCache = useRef<block>([1, 1]),
         cache = useRef<block[]>([]),
@@ -53,43 +57,40 @@ function CylinderPage(): JSX.Element {
             <FormGroup>
                 <Grid container spacing={1} alignItems="center">
                     <Grid item>
-                        <Typography gutterBottom>
+                        <Typography gutterBottom id={radiusXID}>
                             {get('cylinder.上下半径')}
                         </Typography>
                     </Grid>
                     <Grid item>
-                        <TextField value={radiusX} type="number" InputLabelProps={{
+                        <TextField aria-labelledby={radiusXID} value={radiusX} type="number" InputLabelProps={{
                             shrink: true,
-                            inputMode: 'numeric',
-                            'aria-labelledby': 'radiusX',
+                            inputMode: 'numeric'
                         }} onChange={event => setRadiusX(Number(event.target.value))} />
                     </Grid>
                 </Grid>
                 <Grid container spacing={1} alignItems="center">
                     <Grid item>
-                        <Typography gutterBottom>
+                        <Typography gutterBottom id={radiusZID}>
                             {get('cylinder.左右半径')}
                         </Typography>
                     </Grid>
                     <Grid item>
-                        <TextField value={radiusZ} type="number" InputLabelProps={{
+                        <TextField aria-labelledby={radiusZID} value={radiusZ} type="number" InputLabelProps={{
                             shrink: true,
-                            inputMode: 'numeric',
-                            'aria-labelledby': 'radiusZ',
+                            inputMode: 'numeric'
                         }} onChange={event => setRadiusZ(Number(event.target.value))} />
                     </Grid>
                 </Grid>
                 <Grid container spacing={1} alignItems="center">
                     <Grid item>
-                        <Typography gutterBottom>
+                        <Typography gutterBottom id={thicknessID}>
                             {get('cylinder.线条厚度')}
                         </Typography>
                     </Grid>
                     <Grid item>
-                        <TextField value={thickness} type="number" InputLabelProps={{
+                        <TextField aria-labelledby={thicknessID} value={thickness} type="number" InputLabelProps={{
                             shrink: true,
-                            inputMode: 'numeric',
-                            'aria-labelledby': 'thickness',
+                            inputMode: 'numeric'
                         }} onChange={event => setThickness(Number(event.target.value))} />
                     </Grid>
                 </Grid>
