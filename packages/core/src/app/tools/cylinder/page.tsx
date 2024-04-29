@@ -8,7 +8,7 @@ import {
     useMemo,
     useRef
 } from "react";
-import makeCylinder from "./makeCylinder";
+import Cylinder from "./makeCylinder";
 import {
     Typography,
     Grid,
@@ -26,7 +26,7 @@ import {
 import drawMatrix, {
     block
 } from 'components/matrix/matrix';
-function Cylinder(): JSX.Element {
+function CylinderPage(): JSX.Element {
     const [radiusX, setRadiusX] = useState<number>(50),
         [radiusZ, setRadiusZ] = useState<number>(50),
         [thickness, setThickness] = useState<number>(1),
@@ -36,7 +36,7 @@ function Cylinder(): JSX.Element {
         theme = useTheme(),
         posCache = useRef<block>([1, 1]),
         cache = useRef<block[]>([]),
-        blocks = useMemo(() => makeCylinder(radiusX, radiusZ, thickness, filled), [radiusX, radiusZ, thickness, filled]),
+        blocks = useMemo(() => new Cylinder(radiusX, radiusZ, thickness, filled), [radiusX, radiusZ, thickness, filled]),
         updatePos = throttle(17 /* 1000(ms, = 1s) / 60(60fps) = 17(ms) */, (X: number, Z: number) => {
             drawMatrix(blocks.slice(0), Math.max(radiusX, radiusZ), X, Z, posCache.current, cache.current, theme.palette, true);
             posCache.current = [X, Z];
@@ -151,4 +151,4 @@ function Cylinder(): JSX.Element {
         </>
     );
 }
-export default Cylinder;
+export default CylinderPage;
