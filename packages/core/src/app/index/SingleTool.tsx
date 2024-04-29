@@ -78,7 +78,7 @@ export default function SingleTool(props: {
                 color: lightMode ? "" : "#999999"
             }
         },
-        Router = useRouter(),
+        router = useRouter(),
         usedLists = useContext(listsContext),
         windows = useContext(windowsContext),
         lists = usedLists.value,
@@ -150,23 +150,23 @@ export default function SingleTool(props: {
         handleClick = event => {
             if (tool.isGoto) {
                 if (tool.to.startsWith("/tools/extension")) {
-                    Router.push(tool.to as Route);
+                    router.push(tool.to as Route);
                 } else {
                     setJumpDialogOpen(true);
                     setJumpTo(tool.to);
                     setJumpName(tool.name);
                 }
             } else {
-                Router.push(`/tools/${tool.to}` as Route);
+                router.push(`/tools/${tool.to}` as Route);
             }
         },
         handleMouseEnter = event => {
             if (tool.isGoto) {
                 if (tool.to.startsWith("/tools/extension")) {
-                    Router.prefetch(tool.to as Route);
+                    router.prefetch(tool.to as Route);
                 }
             } else {
-                Router.prefetch(`/tools/${tool.to}` as Route);
+                router.prefetch(`/tools/${tool.to}` as Route);
             }
             setElevation(8);
         },
@@ -325,7 +325,7 @@ export default function SingleTool(props: {
         }}>
             {viewMode === "grid" ? grid : list}
             <CheckDialog open={jumpDialogOpen} description={`${get("singleTool.jump")}${jumpName}？`} title={get('离开Verkfi')} onTrue={() => {
-                Router.push(jumpto as Route);
+                router.push(jumpto as Route);
                 setJumpDialogOpen(false);
             }} onFalse={() => {
                 setJumpDialogOpen(false);
