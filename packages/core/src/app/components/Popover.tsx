@@ -27,7 +27,9 @@ export default function MouseOverPopover(props: {
             <Box aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose} title={props.text}>
                 {props.children}
             </Box>
-            <Popover className="mouse-over-popover" /* 暂时没用，仅作为标记 */ sx={{
+            <Popover classes={{
+                root: "mouse-over-popover" /* 暂时没用，仅作为标记 */
+            }} sx={{
                 pointerEvents: 'none',
                 zIndex: "38602"
             }} open={open} anchorEl={anchorEl} anchorOrigin={{

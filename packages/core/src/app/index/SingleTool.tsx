@@ -243,7 +243,9 @@ export default function SingleTool(props: {
                         alignItems: "center"
                     }} onClick={event => {
                         event.stopPropagation();
-                    }} className="singleTool-editControler">
+                    }} classes={{
+                        root: "singleTool-editControler"
+                    }}>
                         {db}
                         {ub}
                         {deleteButtons}
@@ -301,7 +303,9 @@ export default function SingleTool(props: {
                     {editMode && (
                         <CardActions onClick={event => {
                             event.stopPropagation();
-                        }} className="singleTool-editControler" sx={{
+                        }} classes={{
+                            root: "singleTool-editControler"
+                        }} sx={{
                             display: "flex",
                             alignItems: "center"
                         }}>
