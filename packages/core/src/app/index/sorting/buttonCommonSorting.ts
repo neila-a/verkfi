@@ -4,7 +4,7 @@ import {
 } from "tools/info";
 import {
     type lists as listsType
-} from './Sidebar';
+} from '../sidebar';
 import {
     useContext
 } from "react";

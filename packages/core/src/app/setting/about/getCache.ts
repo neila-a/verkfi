@@ -3,7 +3,7 @@ import {
 } from "layout/layoutClient";
 import {
     MB
-} from "./consts";
+} from "../consts";
 export default async function getCache(type: "usage" | "quota") {
     if (isBrowser()) {
         const estimate = await navigator.storage.estimate();

@@ -11,7 +11,7 @@ import {
 } from 'declare';
 import {
     viewMode
-} from './consts';
+} from '../../consts';
 import SwitchEditMode from "./SwitchEditMode";
 import SwitchViewMode from "./SwitchViewMode";
 import {
@@ -29,10 +29,10 @@ import {
 } from "react";
 import {
     lists
-} from "./Sidebar";
+} from "..";
 import dynamic from 'next/dynamic';
 import MouseOverPopover from "components/Popover";
-const EditToolsListDialog = dynamic(() => import("./EditToolsListDialog"));
+const EditToolsListDialog = dynamic(() => import("../selects/EditToolsListDialog"));
 export default function Buttons(props: {
     /**
      * 是否为嵌入

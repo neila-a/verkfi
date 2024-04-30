@@ -12,7 +12,9 @@ const convertExtensionTools: (extensionTools: single[]) => tool[] = extensionToo
     /**
      * 这里的图片是直接从indexedDB加载来的，不需要且不能使用next/image的优化
      */
-    icon: () => <img src={`/extensionfiles/${single.to}/${single.icon}`} alt={single.name} height={24} width={24} />,
+    icon: () => (
+        <img src={`/extensionfiles/${single.to}/${single.icon}`} alt={single.name} height={24} width={24} />
+    ),
     color: single.color,
     isGoto: true
 }));

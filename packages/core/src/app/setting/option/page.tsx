@@ -33,7 +33,7 @@ import {
 } from "react";
 import {
     Switcher
-} from "../Switcher";
+} from "./Switcher";
 import dynamic from 'next/dynamic';
 import {
     useRouter

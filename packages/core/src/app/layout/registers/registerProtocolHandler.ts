@@ -1,7 +1,7 @@
 "use client";
 import {
     logger
-} from "./layoutClient";
+} from "../layoutClient";
 const registerProtocolHandler = () => {
     const url = `${location.origin}/handle?handle=%s`;
     if ("registerProtocolHandler" in window.navigator) {

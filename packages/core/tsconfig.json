@@ -33,10 +33,10 @@
                 "components/No"
             ],
             "useStoragedState": [
-                "setting/useStoragedState"
+                "setting/reader/useStoragedState"
             ],
             "db": [
-                "setting/db"
+                "setting/reader/db"
             ]
         }
     },

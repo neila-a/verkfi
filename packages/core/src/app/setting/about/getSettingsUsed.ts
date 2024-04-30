@@ -1,6 +1,6 @@
 import {
     KB
-} from "./consts";
+} from "../consts";
 export default function getSettingsUsed() {
     let cache = 0;
     for (let key in localStorage) {

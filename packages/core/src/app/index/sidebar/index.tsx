@@ -17,13 +17,13 @@ import {
     Search as SearchIcon
 } from "@mui/icons-material";
 import MouseOverPopover from "components/Popover";
-import Buttons from './Buttons';
+import Buttons from './buttons';
 import {
     setState
 } from 'declare';
 import {
     viewMode
-} from './consts';
+} from '../consts';
 import {
     useContext,
     useState
@@ -32,8 +32,8 @@ import {
     tool
 } from "tools/info";
 export type lists = [string, string[]][];
-import SingleSelect from './SingleSelect';
-import Selects from './Selects';
+import SingleSelect from './selects/SingleSelect';
+import Selects from './selects';
 import {
     lists
 } from 'layout/layoutClient';

@@ -42,7 +42,7 @@ import defaultInternalPalette from './defaultInternalPalette';
 import defaultPalette from './defaultPalette';
 import {
     Switcher
-} from 'setting/Switcher';
+} from 'setting/option/Switcher';
 function ColorTool() {
     const palette = useContext(paletteColors),
         theme = useTheme(),

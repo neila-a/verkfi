@@ -29,11 +29,11 @@ import {
 import {
     useRouter
 } from 'next/navigation';
-import DownButton from './DownButton';
-import UpButton from './UpButton';
+import DownButton from '../sorting/DownButton';
+import UpButton from '../sorting/UpButton';
 import {
     viewMode
-} from './consts';
+} from '../consts';
 import {
     setState
 } from 'declare';

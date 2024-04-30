@@ -8,7 +8,7 @@ import {
 } from "react-intl-universal";
 import {
     option
-} from "./option/page";
+} from "./page";
 import {
     useContext
 } from "react";

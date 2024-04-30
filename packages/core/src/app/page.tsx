@@ -27,16 +27,13 @@ import {
     getTools,
     tool
 } from "tools/info";
-import {
-    useSearchParams
-} from 'next/navigation';
-import useToolsList from 'index/getToolsList';
-import Sidebar from 'index/Sidebar';
+import useToolsList from 'index/sidebar/selects/useToolsList';
+import Sidebar from 'index/sidebar';
 import {
     setState
 } from 'declare';
-import ToolsStack from 'index/ToolsStack';
-import searchBase from 'index/searchBase';
+import ToolsStack from 'index/showTool';
+import searchBase from 'index/sidebar/searchBase';
 import {
     recentlyUsed as recentlyUsedContext,
     mostUsed as mostUsedContext,
@@ -44,7 +41,7 @@ import {
     viewMode as viewModeContext,
     extensions
 } from 'layout/layoutClient';
-import getParamTools from 'index/getParamTools';
+import getParamTools from 'index/getMostUsedTools';
 import VerkfiIcon from 'components/verkfiIcon/verkfiIcon';
 import generateTries from 'index/generateTries';
 import convertExtensionTools from 'index/convertExtensionTools';

@@ -15,13 +15,13 @@ import {
 } from "react";
 import dynamic from 'next/dynamic';
 const CheckDialog = dynamic(() => import("dialog/Check"));
-import getSettingsSur from "../getSettingsSur";
-import getSettingsUsed from "../getSettingsUsed";
+import getSettingsSur from "./getSettingsSur";
+import getSettingsUsed from "./getSettingsUsed";
 import {
     logger
-} from "../consts";
+} from "../logger";
 import ErrorBoundary from 'components/ErrorBoundary';
-import getCache from '../getCache';
+import getCache from './getCache';
 import Line from './Line';
 import {
     ResponsiveStyleValue

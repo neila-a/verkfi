@@ -53,13 +53,13 @@ import {
     drawerWidth
 } from "setting/consts";
 import useLang from "./useLang";
-import registerProtocolHandler from "./registerProtocolHandler";
-import registerServiceWorker from "./registerServiceWorker";
-import desktopAdder from "./desktopAdder";
+import registerProtocolHandler from "./registers/registerProtocolHandler";
+import registerServiceWorker from "./registers/registerServiceWorker";
+import desktopAdder from "./registers/desktopAdder";
 import defaultPalette from 'setting/appearance/defaultPalette';
 import {
     lists as listsType
-} from "index/Sidebar";
+} from "index/sidebar";
 import Ubuntu from "components/fonts";
 import {
     viewMode as viewModeType
@@ -180,7 +180,6 @@ export default function ModifiedApp(props: {
         [choosedLang, setChoosedLang] = useLang(),
         [initDone, setInitDone] = useState<boolean>(false),
         [expand, setExpand] = useState<boolean>(false),
-        [firstState, setFirst] = useStoragedState<boolean>("first", "第一次使用", true),
         [sidebarModeState, setSidebarMode] = useStoragedState<sidebarMode>("sidebarmode", "边栏模式", "menu"),
         [showSidebarState, setShowSidebar] = useStoragedState<boolean>("sidebar", "边栏", false),
         [listsState, setLists] = useStoragedState<listsType>("lists", "分类列表", []),

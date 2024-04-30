@@ -4,7 +4,7 @@ import {
 } from "declare";
 import {
     logger
-} from "./layoutClient";
+} from "../layoutClient";
 const desktopAdder = () => {
     const defaultPrompt = {
         prompt() {

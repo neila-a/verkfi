@@ -18,12 +18,12 @@ const PureDialog = dynamic(() => import("dialog/Pure"));
 import TransferList from "components/TransferList";
 import {
     lists
-} from "./Sidebar";
-import useToolsList from "./getToolsList";
+} from "..";
+import useToolsList from "./useToolsList";
 import {
     getTools
 } from "tools/info";
-import convertExtensionTools from "./convertExtensionTools";
+import convertExtensionTools from "../../convertExtensionTools";
 import {
     extensions,
     lists as listsContext

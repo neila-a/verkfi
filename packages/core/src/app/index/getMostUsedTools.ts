@@ -9,7 +9,7 @@ import {
     tool
 } from "tools/info";
 import convertExtensionTools from "./convertExtensionTools";
-function getParamTools(mostUsed: mostUsedMarks, realTools: tool[], extensionTools: single[]) {
+function getMostUsedTools(mostUsed: mostUsedMarks, realTools: tool[], extensionTools: single[]) {
     return (Object.entries(mostUsed) satisfies [string, number][]).sort((r, g) => {
         if (r[1] < g[1]) {
             return 1;
@@ -24,4 +24,4 @@ function getParamTools(mostUsed: mostUsedMarks, realTools: tool[], extensionTool
             || convertExtensionTools(extensionTools).find(single => `/tools/extension?tool=${to}` === single.to) as tool | 0;
     }).filter(item => item !== 0 && item !== undefined) as unknown as tool[];
 }
-export default getParamTools;
+export default getMostUsedTools;

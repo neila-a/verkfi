@@ -1,7 +1,7 @@
 "use client";
 import {
     logger
-} from "./layoutClient";
+} from "../layoutClient";
 const registerServiceWorker = async () => {
     if ('serviceWorker' in window.navigator) {
         try {

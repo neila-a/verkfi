@@ -28,16 +28,16 @@ import {
     Search as SearchIcon,
     Home as HomeIcon
 } from "@mui/icons-material";
-import searchBase from 'index/searchBase';
-import ToolsStack from "index/ToolsStack";
+import searchBase from 'index/sidebar/searchBase';
+import ToolsStack from "index/showTool";
 import {
     getTools,
     tool
 } from "tools/info";
-import SwitchViewMode from "index/SwitchViewMode";
-import SwitchEditMode from "index/SwitchEditMode";
-import useToolsList from "index/getToolsList";
-import Selects from "index/Selects";
+import SwitchViewMode from "index/sidebar/buttons/SwitchViewMode";
+import SwitchEditMode from "index/sidebar/buttons/SwitchEditMode";
+import useToolsList from "index/sidebar/selects/useToolsList";
+import Selects from "index/sidebar/selects";
 import {
     showSidebar,
     recentlyUsed as recentlyUsedContext,
@@ -50,7 +50,7 @@ import {
 import {
     useRouter
 } from "next/navigation";
-import getParamTools from "index/getParamTools";
+import getParamTools from "index/getMostUsedTools";
 import VerkfiIcon from "components/verkfiIcon/verkfiIcon";
 import convertExtensionTools from "index/convertExtensionTools";
 import Link from "next/link";

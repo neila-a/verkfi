@@ -1,15 +1,14 @@
 "use client";
 import intl from 'react-intl-universal';
 import {
-    use,
     useReducer
 } from 'react';
-import setSetting from "setting/setSetting";
+import setSetting from "setting/reader/setSetting";
 import {
     isBrowser,
     locales
 } from "./layoutClient";
-import settingReader from 'setting/settingReader';
+import settingReader from 'setting/reader/settingReader';
 import useSWR from 'swr';
 const useLang = () => {
     let browserLang: string = "zhCN";

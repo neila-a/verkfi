@@ -10,7 +10,7 @@ import {
 import SingleTool from './SingleTool';
 import {
     viewMode
-} from './consts';
+} from '../consts';
 import {
     setState
 } from 'declare';
@@ -20,7 +20,7 @@ import {
     Draggable
 } from "@hello-pangea/dnd";
 import reorderArray from 'reorder-array';
-import useButtonCommonSorting from './buttonCommonSorting';
+import useButtonCommonSorting from '../sorting/buttonCommonSorting';
 import {
     TransitionGroup
 } from 'react-transition-group';

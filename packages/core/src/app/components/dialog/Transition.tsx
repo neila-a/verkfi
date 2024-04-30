@@ -15,6 +15,8 @@ export const Transition = forwardRef(function Transition(
     },
     ref: Ref<unknown>,
 ) {
-    return <Slide direction="down" ref={ref} {...props} />;
+    return (
+        <Slide direction="down" ref={ref} {...props} />
+    );
 });
 export default Transition;

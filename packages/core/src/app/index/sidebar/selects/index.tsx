@@ -22,7 +22,7 @@ import {
     getTools,
     tool
 } from "tools/info";
-import useToolsList from './getToolsList';
+import useToolsList from './useToolsList';
 import {
     DragDropContext,
     Draggable,
@@ -38,7 +38,7 @@ import {
 import MouseOverPopover from 'components/Popover';
 import {
     lists
-} from './Sidebar';
+} from '..';
 import SingleSelect from './SingleSelect';
 import dynamic from 'next/dynamic';
 export default function Selects(props: {

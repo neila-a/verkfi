@@ -2,7 +2,7 @@
 import {
     tool
 } from "tools/info";
-import convertExtensionTools from "./convertExtensionTools";
+import convertExtensionTools from "../../convertExtensionTools";
 import {
     useContext
 } from "react";
