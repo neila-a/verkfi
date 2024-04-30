@@ -15,7 +15,7 @@ export default function Loading(props: {
             display: "flex",
             flexWrap: "wrap",
             alignContent: "center",
-            width: "100vw",
+            width: "100%",
             height: "100vh",
             flexDirection: "column",
             backgroundColor: "#1976d2",
