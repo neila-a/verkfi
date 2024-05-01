@@ -13,8 +13,8 @@ export default async function manifest() {
         start_url: "/",
         display: "fullscreen",
         orientation: "any",
-        background_color: defaultPalette.primary.main,
-        theme_color: defaultPalette.primary.main,
+        background_color: defaultPalette.primary?.main,
+        theme_color: defaultPalette.primary?.main,
         launch_handler: {
             client_mode: "auto"
         },

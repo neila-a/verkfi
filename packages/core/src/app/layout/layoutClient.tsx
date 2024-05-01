@@ -45,9 +45,6 @@ import {
     drawerWidth
 } from "setting/consts";
 import atomWithStorage from "setting/reader/atomWithStorage";
-import {
-    SWRConfig
-} from "swr";
 import enUS from "../locales/en-US.json";
 import zhCN from "../locales/zh-CN.json";
 import zhTW from "../locales/zh-TW.json";
@@ -164,9 +161,6 @@ export default function ModifiedApp(props: {
     return initDone && (
         <Provider>
             <ThemeProvider theme={theme}>
-                <SWRConfig value={{
-                    suspense: true
-                }}>
                     <CssBaseline />
                     <Box component="aside">
                         {Sidebar}
@@ -175,7 +169,6 @@ export default function ModifiedApp(props: {
                         {props.children}
                     </Box>
                     <WindowContainer />
-                </SWRConfig>
             </ThemeProvider>
         </Provider>
     );

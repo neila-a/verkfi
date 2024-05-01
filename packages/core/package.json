@@ -39,10 +39,8 @@
         "@types/three": "^0.164.0",
         "@types/throttle-debounce": "^5.0.2",
         "esbuild": "^0.20.2",
-        "eslint": "9.1.1",
-        "eslint-config-next": "14.2.3",
-        "eslint-plugin-react-hooks": "^4.6.2",
-        "typescript": "5.4.5"
+        "eslint-config-next": "^14.2.3",
+        "eslint-plugin-react-hooks": "^4.6.2"
     },
     "homepage": "https://netlify.verkfi.neila.vip/",
     "dependencies": {
@@ -55,11 +53,10 @@
         "@mui/material-nextjs": "^5.15.11",
         "@mui/system": "^5.15.14",
         "@react-three/drei": "^9.105.5",
-        "@react-three/fiber": "^8.16.1",
+        "@react-three/fiber": "^8.16.3",
         "@tybys/browser-asar": "github:toyobayashi/browser-asar",
         "d3-array": "^3.2.4",
         "dexie": "^4.0.1",
-        "dexie-react-hooks": "^1.1.7",
         "dom-to-image": "^2.6.0",
         "file-saver": "^2.0.5",
         "filepond": "^4.30.6",
@@ -68,18 +65,17 @@
         "next": "14.1.4",
         "nzh": "^1.0.12",
         "react": "^18.3.1",
-        "react-device-detect": "^2.2.3",
         "react-dom": "^18.3.1",
         "react-draggable": "^4.4.6",
         "react-filepond": "^7.1.2",
         "react-intl-universal": "^2.11.1",
-        "react-swipeable": "^7.0.1",
         "react-transition-group": "^4.4.5",
         "remove-item-from-array": "^1.0.4",
         "reorder-array": "^1.0.3",
-        "sass": "^1.72.0",
+        "sass": "^1.76.0",
         "swr": "<2.0.0-beta.0",
         "three": "^0.164.1",
-        "throttle-debounce": "^5.0.0"
+        "throttle-debounce": "^5.0.0",
+        "typescript": "^5.4.5"
     }
 }
