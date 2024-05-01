@@ -9,10 +9,10 @@ import {
 } from "@mui/material";
 import {
     useTheme
-} from '@mui/material/styles';
+} from "@mui/material/styles";
 import drawMatrix, {
     block
-} from 'components/matrix/matrix';
+} from "components/matrix/matrix";
 import {
     useEffect,
     useId,
@@ -22,10 +22,10 @@ import {
 } from "react";
 import {
     get
-} from 'react-intl-universal';
+} from "react-intl-universal";
 import {
     throttle
-} from 'throttle-debounce';
+} from "throttle-debounce";
 import Cylinder from "./makeCylinder";
 function CylinderPage(): JSX.Element {
     const [radiusX, setRadiusX] = useState<number>(50),
@@ -58,46 +58,46 @@ function CylinderPage(): JSX.Element {
                 <Grid container spacing={1} alignItems="center">
                     <Grid item>
                         <Typography gutterBottom id={radiusXID}>
-                            {get('cylinder.上下半径')}
+                            {get("cylinder.上下半径")}
                         </Typography>
                     </Grid>
                     <Grid item>
                         <TextField aria-labelledby={radiusXID} value={radiusX} type="number" InputLabelProps={{
                             shrink: true,
-                            inputMode: 'numeric'
+                            inputMode: "numeric"
                         }} onChange={event => setRadiusX(Number(event.target.value))} />
                     </Grid>
                 </Grid>
                 <Grid container spacing={1} alignItems="center">
                     <Grid item>
                         <Typography gutterBottom id={radiusZID}>
-                            {get('cylinder.左右半径')}
+                            {get("cylinder.左右半径")}
                         </Typography>
                     </Grid>
                     <Grid item>
                         <TextField aria-labelledby={radiusZID} value={radiusZ} type="number" InputLabelProps={{
                             shrink: true,
-                            inputMode: 'numeric'
+                            inputMode: "numeric"
                         }} onChange={event => setRadiusZ(Number(event.target.value))} />
                     </Grid>
                 </Grid>
                 <Grid container spacing={1} alignItems="center">
                     <Grid item>
                         <Typography gutterBottom id={thicknessID}>
-                            {get('cylinder.线条厚度')}
+                            {get("cylinder.线条厚度")}
                         </Typography>
                     </Grid>
                     <Grid item>
                         <TextField aria-labelledby={thicknessID} value={thickness} type="number" InputLabelProps={{
                             shrink: true,
-                            inputMode: 'numeric'
+                            inputMode: "numeric"
                         }} onChange={event => setThickness(Number(event.target.value))} />
                     </Grid>
                 </Grid>
                 <Grid container spacing={1} alignItems="center">
                     <Grid item>
                         <Typography gutterBottom>
-                            {get('cylinder.填充（线条厚度为0时填满圆心）')}
+                            {get("cylinder.填充（线条厚度为0时填满圆心）")}
                         </Typography>
                     </Grid>
                     <Grid item>
@@ -107,13 +107,13 @@ function CylinderPage(): JSX.Element {
                 <Grid direction="row" container spacing={1} alignItems="center">
                     <Grid item>
                         <Typography gutterBottom>
-                            {get('cylinder.位置')}
+                            {get("cylinder.位置")}
                         </Typography>
                     </Grid>
                     <Grid item container spacing={1}>
                         <TextField label="X" value={posX} type="number" InputLabelProps={{
                             shrink: true,
-                            inputMode: 'numeric'
+                            inputMode: "numeric"
                         }} onChange={event => {
                             const value = Number(event.target.value);
                             setPosX(value);
@@ -121,7 +121,7 @@ function CylinderPage(): JSX.Element {
                         }} />
                         <TextField label="Y" value={posZ} type="number" InputLabelProps={{
                             shrink: true,
-                            inputMode: 'numeric'
+                            inputMode: "numeric"
                         }} onChange={event => {
                             const value = Number(event.target.value);
                             setPosZ(value);

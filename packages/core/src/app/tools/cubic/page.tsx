@@ -6,7 +6,7 @@ import {
 import {
     OrbitControls,
     Stats
-} from '@react-three/drei';
+} from "@react-three/drei";
 import {
     Canvas
 } from "@react-three/fiber";
@@ -48,7 +48,7 @@ export default function Cubic(): JSX.Element {
             </Canvas>
             <FormGroup>
                 {text.map((a, index) => (
-                    <TextField value={a} margin="dense" label={get("cubic.face", {
+                    <TextField key={index} value={a} margin="dense" label={get("cubic.face", {
                         face: index + 1
                     })} fullWidth onChange={event => {
                         setText(old => old.map((value, searchingIndex) => {
@@ -62,4 +62,4 @@ export default function Cubic(): JSX.Element {
             </FormGroup>
         </>
     );
-};
+}

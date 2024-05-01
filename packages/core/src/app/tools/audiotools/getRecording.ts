@@ -9,25 +9,25 @@ export default async function getRecording(onStop: (blob: Blob) => any, onDataAv
         constructor() {
             super({
                 name: "AudioTools",
-                level: "log", // 空字符串时，不显示任何信息
+                level: "log" // 空字符串时，不显示任何信息
             });
         }
         log(...a) {
             if (log) {
                 super.log(...a);
             }
-        };
+        }
     }
     const logger = new Logger();
     if (isBrowser() && navigator.mediaDevices.getUserMedia) {
         const constraints = {
-            audio: true
-        },
+                audio: true
+            },
             mimeType = [
                 "audio/ogg",
                 "audio/webm",
                 "audio/webm;codecs=opus",
-                "audio/mpeg",
+                "audio/mpeg"
             ].find(a => MediaRecorder.isTypeSupported(a));
         const stream = await navigator.mediaDevices.getUserMedia(constraints);
         const chunks: Blob[] = [];
@@ -46,7 +46,7 @@ export default async function getRecording(onStop: (blob: Blob) => any, onDataAv
             onStop(new Blob(chunks, {
                 type: mimeType
             }));
-            chunks.splice(0, chunks.length)
+            chunks.splice(0, chunks.length);
         };
         mediaRecorder.onpause = event => {
             logger.log("录音已暂停");

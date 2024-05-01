@@ -12,15 +12,15 @@ import {
 } from "react";
 import {
     get
-} from 'react-intl-universal';
+} from "react-intl-universal";
 const nzh = new Nzh({
-    ch: '零一二三四五六七八九',
-    ch_u: '个十百千万亿兆京垓姊穰沟涧正载极',
-    ch_f: '负',
-    ch_d: '点',
-    m_u: '元角分厘',
-    m_t: '人民币',
-    m_z: '正'
+    ch: "零一二三四五六七八九",
+    ch_u: "个十百千万亿兆京垓姊穰沟涧正载极",
+    ch_f: "负",
+    ch_d: "点",
+    m_u: "元角分厘",
+    m_t: "人民币",
+    m_z: "正"
 }); // 数字转汉字这种功能不需要什么国际化
 export default function ReadNumber(): JSX.Element {
     const [blur, setBlur] = useState<"number" | "string">("number"),
@@ -44,7 +44,7 @@ export default function ReadNumber(): JSX.Element {
                 <Grid container spacing={1} alignItems="center">
                     <Grid item>
                         <Typography id={numberId} gutterBottom>
-                            {get('数字')}
+                            {get("数字")}
                         </Typography>
                     </Grid>
                     <Grid item>
@@ -64,7 +64,7 @@ export default function ReadNumber(): JSX.Element {
                 <Grid container spacing={1} alignItems="center">
                     <Grid item>
                         <Typography id={stringId} gutterBottom>
-                            {get('汉字')}
+                            {get("汉字")}
                         </Typography>
                     </Grid>
                     <Grid item>
@@ -83,4 +83,4 @@ export default function ReadNumber(): JSX.Element {
             </FormGroup>
         </>
     );
-};
+}

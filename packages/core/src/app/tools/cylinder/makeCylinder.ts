@@ -1,6 +1,6 @@
 import {
     block
-} from 'components/matrix/matrix';
+} from "components/matrix/matrix";
 /**
  * 生成一个圆。
  * ![cylinder](./cylinder.png)
@@ -31,7 +31,7 @@ export default class Cylinder extends Array<block> {
             zSqr: number,
             distanceSq: number,
             nextXn = 0;
-        if (thickness != 0) {
+        if (thickness !== 0) {
             let nextMinXn = 0;
             const minInvRadiusX = 1 / (radiusX - thickness),
                 minInvRadiusZ = 1 / (radiusZ - thickness);
@@ -51,10 +51,10 @@ export default class Cylinder extends Array<block> {
                     zSqr = zn * zn;
                     distanceSq = xSqr + zSqr;
                     if (distanceSq > 1) {
-                        if (z == 0) {
+                        if (z === 0) {
                             break forX;
                         }
-                        break forZ;
+                        break;
                     }
                     if ((dz2 + nextMinXn * nextMinXn <= 1) && (nextMinZn * nextMinZn + dx2 <= 1)) {
                         continue;
@@ -74,10 +74,10 @@ export default class Cylinder extends Array<block> {
                     zSqr = zn * zn;
                     distanceSq = xSqr + zSqr;
                     if (distanceSq > 1) {
-                        if (z == 0) {
+                        if (z === 0) {
                             break forX;
                         }
-                        break forZ;
+                        break;
                     }
                     if (!filled) {
                         if ((zSqr + nextXn * nextXn <= 1) && (nextZn * nextZn + xSqr <= 1)) {

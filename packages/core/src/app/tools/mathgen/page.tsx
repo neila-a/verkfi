@@ -10,14 +10,14 @@ import {
     Paper,
     TextField
 } from "@mui/material";
-import No from 'No';
+import No from "No";
 import {
     useEffect,
     useState
 } from "react";
 import {
     get
-} from 'react-intl-universal';
+} from "react-intl-universal";
 import removeArrayItem from "remove-item-from-array";
 import calcMath from "./calcMath";
 import {
@@ -49,27 +49,27 @@ function MathGen(): JSX.Element {
             <FormGroup sx={{
                 mb: 2
             }}>
-                <TextField margin="normal" label={get('上限')} type="number" InputLabelProps={{
-                    shrink: true,
+                <TextField margin="normal" label={get("上限")} type="number" InputLabelProps={{
+                    shrink: true
                 }} onChange={event => {
                     setMax(Number(event.target.value));
                 }} defaultValue={max} />
-                <TextField margin="normal" label={get('下限')} type="number" InputLabelProps={{
-                    shrink: true,
+                <TextField margin="normal" label={get("下限")} type="number" InputLabelProps={{
+                    shrink: true
                 }} onChange={event => {
                     setMin(Number(event.target.value));
                 }} defaultValue={min} />
-                <TextField margin="normal" label={get('个数')} type="number" InputLabelProps={{
-                    shrink: true,
+                <TextField margin="normal" label={get("个数")} type="number" InputLabelProps={{
+                    shrink: true
                 }} onChange={event => {
                     setItemCount(Number(event.target.value));
                 }} defaultValue={itemCount} />
-                <FormControlLabel label={get('mathgen.减数检查')} control={
+                <FormControlLabel label={get("mathgen.减数检查")} control={
                     <Checkbox checked={subtractionCheck} onChange={event => {
                         setSubtractionCheck(event.target.checked);
                     }} />
                 } />
-                <FormControlLabel label={get('mathgen.除数检查')} control={
+                <FormControlLabel label={get("mathgen.除数检查")} control={
                     <Checkbox checked={divisionCheck} onChange={event => {
                         setDivisionCheck(event.target.checked);
                     }} />
@@ -81,11 +81,11 @@ function MathGen(): JSX.Element {
                     }
                 }}>
                     <FormGroup>
-                        <FormLabel component="legend">{get('mathgen.选择计算方法')}</FormLabel>
-                        <FormControlLabel label={get('全选')} control={
-                            <Checkbox checked={calcs == defaultCalcs} onChange={event => setCalcs(event.target.checked ? defaultCalcs : [])} />
+                        <FormLabel component="legend">{get("mathgen.选择计算方法")}</FormLabel>
+                        <FormControlLabel label={get("全选")} control={
+                            <Checkbox checked={calcs === defaultCalcs} onChange={event => setCalcs(event.target.checked ? defaultCalcs : [])} />
                         } />
-                        {defaultCalcs.map(calc => <FormControlLabel label={calc == "%" ? "%（求余）" : calc} key={calc} control={
+                        {defaultCalcs.map(calc => <FormControlLabel label={calc === "%" ? "%（求余）" : calc} key={calc} control={
                             <Checkbox checked={calcs.includes(calc)} onChange={event => {
                                 setCalcs(old => event.target.checked ? removeArrayItem(old, calc) : [...old, calc]);
                             }} />
@@ -94,12 +94,12 @@ function MathGen(): JSX.Element {
                 </Paper>
                 <ButtonGroup fullWidth>
                     <Button variant="contained" onClick={packagedCalcMath}>
-                        {get('计算')}
+                        {get("计算")}
                     </Button>
                     <Button variant="outlined" onClick={event => {
                         showOut ? setShowOut(false) : setShowOut(true);
                     }}>
-                        {showOut ? "隐藏" : "显示"}{get('答案')}
+                        {showOut ? "隐藏" : "显示"}{get("答案")}
                     </Button>
                 </ButtonGroup>
             </FormGroup>

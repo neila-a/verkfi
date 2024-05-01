@@ -32,7 +32,7 @@ export default function DialogButtons(props: {
     return (
         <ButtonGroup fullWidth>
             {props.files.length !== 0 && (
-                <Button variant="contained" onClick={async (event) => {
+                <Button variant="contained" onClick={async event => {
                     setExtensions({
                         ...props.fileInfo,
                         files: props.files
@@ -52,7 +52,7 @@ export default function DialogButtons(props: {
                 </Button>
             )}
             {props.type === "modify" && (
-                <Button variant="outlined" onClick={async (event) => {
+                <Button variant="outlined" onClick={async event => {
                     props.setModifyDialogOpen(false);
                     props.setRemoveDialogOpen(true);
                 }}>

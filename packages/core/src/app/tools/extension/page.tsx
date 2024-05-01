@@ -64,4 +64,4 @@ export default function ExtensionLoader() {
             }} src={src} />
         </>
     );
-};
+}

@@ -13,31 +13,31 @@ import {
 import MouseOverPopover from "components/Popover";
 import {
     setState
-} from 'declare';
+} from "declare";
 import {
     useAtom
-} from 'jotai';
+} from "jotai";
 import {
     lists
-} from 'layout/layoutClient';
+} from "layout/layoutClient";
 import {
     useState
-} from 'react';
+} from "react";
 import {
     get
-} from 'react-intl-universal';
+} from "react-intl-universal";
 import {
     drawerWidth
-} from 'setting/consts';
+} from "setting/consts";
 import {
     tool
 } from "tools/info";
 import {
     viewMode as viewModeAtom
 } from "layout/layoutClient";
-import Buttons from './buttons';
-import Selects from './selects';
-import SingleSelect from './selects/SingleSelect';
+import Buttons from "./buttons";
+import Selects from "./selects";
+import SingleSelect from "./selects/SingleSelect";
 export type lists = [string, string[]][];
 export default function Sidebar(props: {
     /**
@@ -64,15 +64,15 @@ export default function Sidebar(props: {
     setExpand: setState<boolean>;
 }) {
     const {
-        editMode,
-        setEditMode,
-        searchText,
-        setSearchText,
-        searchTools,
-        setTools,
-        sortingFor,
-        setSortingFor
-    } = props,
+            editMode,
+            setEditMode,
+            searchText,
+            setSearchText,
+            searchTools,
+            setTools,
+            sortingFor,
+            setSortingFor
+        } = props,
         [viewMode, setViewMode] = useAtom(viewModeAtom),
         [editing, setEditing] = useState<boolean>(searchText === ""),
         [clickCount, setClickCount] = useState<number>(0),
@@ -83,17 +83,17 @@ export default function Sidebar(props: {
             flexShrink: 0,
             [`& .MuiDrawer-paper`]: {
                 maxWidth: drawerWidth,
-                boxSizing: 'border-box'
+                boxSizing: "border-box"
             }
         }}>
             <Toolbar />
             <TextField InputProps={{
                 startAdornment: (
-                    <InputAdornment position='start'>
-                        <MouseOverPopover text={get('搜索')}>
+                    <InputAdornment position="start">
+                        <MouseOverPopover text={get("搜索")}>
                             <IconButton sx={{
                                 p: 0
-                            }} type="button" aria-label={get('搜索')} onClick={() => {
+                            }} type="button" aria-label={get("搜索")} onClick={() => {
                                 searchTools(searchText);
                             }}>
                                 <SearchIcon />
@@ -116,8 +116,8 @@ export default function Sidebar(props: {
                         selectool.click();
                     }
                 }
-            }} placeholder={get('搜索工具')} inputProps={{
-                'aria-label': get('搜索工具'),
+            }} placeholder={get("搜索工具")} inputProps={{
+                "aria-label": get("搜索工具")
             }} onChange={event => {
                 setSearchText(event.target.value);
                 searchTools(event.target.value);

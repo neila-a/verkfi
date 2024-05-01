@@ -10,14 +10,14 @@ import {
 } from "tools/info";
 import {
     type lists as listsType
-} from '../sidebar';
+} from "../sidebar";
 export default function useButtonCommonSorting() {
     const [realList, setList] = useAtom(lists);
     return (sortingFor: string, pd: tool[]) => {
         const index = realList.findIndex(item => item[0] === sortingFor),
             newRealList: listsType = realList.slice(0);
         if (index === -1) {
-            newRealList.push(["__global__", pd.map(toolp => toolp.to)])
+            newRealList.push(["__global__", pd.map(toolp => toolp.to)]);
         } else {
             newRealList[index][1] = pd.map(toolp => toolp.to);
         }

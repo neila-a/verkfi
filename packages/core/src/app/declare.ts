@@ -23,7 +23,7 @@ export interface BeforeInstallPromptEvent extends Event {
      * Returns a Promise that resolves to a DOMString containing either "accepted" or "dismissed".
      */
     readonly userChoice: Promise<{
-        outcome: 'accepted' | 'dismissed',
+        outcome: "accepted" | "dismissed",
         platform: string
     }>;
 
@@ -59,11 +59,11 @@ declare global {
 export type setState<stateType> = Dispatch<SetStateAction<stateType>>;
 
 export namespace hex {
-    type HexDigit = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f';
+    type HexDigit = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "a" | "b" | "c" | "d" | "e" | "f";
     export type HexColor<hexString extends string> =
         hexString extends `${HexDigit}${HexDigit}${HexDigit}${infer Rest1}`
         ? (Rest1 extends `${HexDigit}${HexDigit}${HexDigit}`
-            ? hexString  // six-digit hex color
+            ? hexString // six-digit hex color
             : never
         )
         : never;

@@ -5,10 +5,13 @@ import {
     calc
 } from "./consts";
 import genNumber from "./genNumber";
+import {
+    evaluate
+} from "mathjs";
 export default function calcMath(calcs: calc[], subtractionCheck: boolean, divisionCheck: boolean, max: number, min: number, itemCount: number, setMath: setState<string[]>) {
     const calcMaths: string[] = [];
     calcs.forEach(function (mode) {
-        const modeS = mode.replace("×", "*").replace("÷", "/")
+        const modeS = mode.replace("×", "*").replace("÷", "/");
         function genMathS(): [number, number, number] {
             const one = genNumber(max, min);
             let two = genNumber(max, min);
@@ -24,7 +27,7 @@ export default function calcMath(calcs: calc[], subtractionCheck: boolean, divis
                         break;
                 }
             }
-            return [one, two, eval(`${one} ${modeS} ${two}`)];
+            return [one, two, evaluate(`${one} ${modeS} ${two}`)];
         }
         for (let step = 1; step < (itemCount / (calcs.length)); step++) {
             let [one, two, out] = genMathS(),
@@ -33,11 +36,11 @@ export default function calcMath(calcs: calc[], subtractionCheck: boolean, divis
                 [one, two, out] = genMathS();
                 math = `${one}${mode}${two}=${out}`;
             }
-            while (out > max || calcMaths.includes(math) || (mode == "%" && two == 0)) {
+            while (out > max || calcMaths.includes(math) || (mode === "%" && two === 0)) {
                 reGenMath();
             }
             calcMaths.push(math);
         }
     });
     return setMath(calcMaths);
-};
+}

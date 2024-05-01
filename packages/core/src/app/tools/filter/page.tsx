@@ -10,11 +10,11 @@ import {
     Slider,
     Typography
 } from "@mui/material";
-import No from 'No';
+import No from "No";
 import {
     FilePondFile,
     FilePondServerConfigProps
-} from 'filepond';
+} from "filepond";
 import {
     ChangeEvent,
     useId,
@@ -22,16 +22,16 @@ import {
 } from "react";
 import {
     FilePond
-} from 'react-filepond'; // Import React FilePond
+} from "react-filepond"; // Import React FilePond
 import {
     get
-} from 'react-intl-universal';
+} from "react-intl-universal";
 import removeArrayItem from "remove-item-from-array";
 import {
     ImageType,
     ImageTypesGen
 } from "./consts";
-import SingleImage from './singleImage';
+import SingleImage from "./singleImage";
 export default function Filter(): JSX.Element {
     const [imageArray, setImageArray] = useState<FilePondFile[]>([]),
         [imageFileName, setImageFileName] = useState<string>("libear-only"),
@@ -62,37 +62,37 @@ export default function Filter(): JSX.Element {
                 maxFiles={1}
                 acceptedFileTypes={["image/*"]}
                 name="files"
-                labelIdle={get('drag.拖拽图片到这里')}
+                labelIdle={get("drag.拖拽图片到这里")}
             />
             <Box component="section">
                 <Typography gutterBottom>
-                    {get('滤镜类型')}
+                    {get("滤镜类型")}
                 </Typography>
                 <FormGroup sx={{
                     display: "block"
                 }}>
-                    <FormControlLabel label={get('全部')} control={
+                    <FormControlLabel label={get("全部")} control={
                         <Checkbox
-                            checked={imageTypes == ImageTypesGen}
-                            indeterminate={(imageTypes != ImageTypesGen) && (imageTypes.toString() !== "")}
+                            checked={imageTypes === ImageTypesGen}
+                            indeterminate={(imageTypes !== ImageTypesGen) && (imageTypes.toString() !== "")}
                             onChange={event => setImageTypes(event.target.checked ? ImageTypesGen : [])}
                         />
                     } />
                     {ImageTypesGen.map(type => <FormControlLabel control={
                         <Checkbox defaultChecked checked={imageTypes.includes(type)} onChange={event => {
-                            setImageTypes(event.target.checked ? [...imageTypes, type] : removeArrayItem(imageTypes, type))
+                            setImageTypes(event.target.checked ? [...imageTypes, type] : removeArrayItem(imageTypes, type));
                         }} />
                     } label={type} key={type} />)}
                 </FormGroup>
             </Box>
             <Box component="section">
                 <Typography id={sizeId} gutterBottom>
-                    {get('图片大小')}
+                    {get("图片大小")}
                 </Typography>
                 <Grid container spacing={1} alignItems="center">
                     <Grid item xs>
                         <Slider
-                            value={typeof scale === 'number' ? scale : 0}
+                            value={typeof scale === "number" ? scale : 0}
                             onChange={handleSliderChange}
                             aria-labelledby={sizeId}
                         />
@@ -107,8 +107,8 @@ export default function Filter(): JSX.Element {
                                 step: 10,
                                 min: 0,
                                 max: 200,
-                                type: 'number',
-                                'aria-labelledby': 'input-slider',
+                                type: "number",
+                                "aria-labelledby": "input-slider"
                             }}
                         />
                     </Grid>
@@ -130,4 +130,4 @@ export default function Filter(): JSX.Element {
             )}
         </>
     );
-};
+}

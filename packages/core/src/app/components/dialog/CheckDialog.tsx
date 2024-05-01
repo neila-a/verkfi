@@ -10,10 +10,10 @@ import {
 } from "@mui/material";
 import {
     ReactNode, useId
-} from 'react';
+} from "react";
 import {
     get
-} from 'react-intl-universal';
+} from "react-intl-universal";
 import Transition from "./Transition";
 export default function CheckDialog(props: {
     title: string;
@@ -38,10 +38,10 @@ export default function CheckDialog(props: {
             <DialogActions>
                 <Button onClick={() => {
                     props.onFalse();
-                }}>{get('取消')}</Button>
+                }}>{get("取消")}</Button>
                 <Button onClick={() => {
                     props.onTrue();
-                }}>{get('确定')}</Button>
+                }}>{get("确定")}</Button>
             </DialogActions>
         </Dialog>
     );

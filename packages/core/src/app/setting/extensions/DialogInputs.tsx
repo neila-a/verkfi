@@ -67,7 +67,7 @@ export default function DialogInputs(props: {
                             };
                             realOld[item[0]] = event.target.value;
                             return realOld;
-                        })
+                        });
                     }}>
                         {props.files.map(file => (
                             <MenuItem key={file[0]} value={file[0]}>{file[0]}</MenuItem>

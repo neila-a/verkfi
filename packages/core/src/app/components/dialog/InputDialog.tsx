@@ -13,7 +13,7 @@ import {
 } from "react";
 import {
     get
-} from 'react-intl-universal';
+} from "react-intl-universal";
 import Transition from "./Transition";
 export default function InputDialog(props: {
     label: string;
@@ -42,7 +42,7 @@ export default function InputDialog(props: {
                 }} />
             </DialogContent>
             <DialogActions>
-                <Button onClick={event => props.onDone(input)}>{get('确定')}</Button>
+                <Button onClick={event => props.onDone(input)}>{get("确定")}</Button>
             </DialogActions>
         </Dialog>
     );

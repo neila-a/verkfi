@@ -10,7 +10,7 @@ import {
     Box
 } from "@mui/system";
 import MouseOverPopover from "components/Popover";
-import domtoimage from 'dom-to-image';
+import domtoimage from "dom-to-image";
 import saveAs from "file-saver";
 import {
     get
@@ -36,15 +36,15 @@ export default function SingleImage(props: {
             }} />
             <Box component="figcaption">
                 <ImageListItemBar title={type} subtitle={props.imageFileName} actionIcon={(
-                   <MouseOverPopover text={get("filter.save")}>
+                    <MouseOverPopover text={get("filter.save")}>
                         <IconButton onClick={async event => {
                             const blob = await domtoimage.toBlob(document.getElementById(type));
                             // 调用file-save方法 直接保存图片
-                            saveAs(blob, `${props.imageFileName}.${type}.png`)
+                            saveAs(blob, `${props.imageFileName}.${type}.png`);
                         }} aria-label={get("filter.save")}>
                             <DownloadIcon />
                         </IconButton>
-                   </MouseOverPopover>
+                    </MouseOverPopover>
                 )} />
             </Box>
         </ImageListItem>

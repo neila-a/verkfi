@@ -14,11 +14,11 @@ import {
 import MouseOverPopover from "components/Popover";
 import {
     setState
-} from 'declare';
+} from "declare";
 import {
     viewMode as viewModeAtom
 } from "layout/layoutClient";
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 import {
     useState
 } from "react";
@@ -40,10 +40,10 @@ export default function Buttons(props: {
     setExpand: setState<boolean>;
 }) {
     const {
-        editMode,
-        setEditMode,
-        editing
-    } = props,
+            editMode,
+            setEditMode,
+            editing
+        } = props,
         [dialogOpen, setDialogOpen] = useState<boolean>(false),
         [dialogTools, setDialogTools] = useState<string[]>([]),
         [dialogListName, setDialogListName] = useState<string>("");

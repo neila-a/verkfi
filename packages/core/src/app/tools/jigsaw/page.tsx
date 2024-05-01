@@ -39,7 +39,7 @@ import {
 } from "react";
 import {
     FilePond
-} from 'react-filepond'; // Import React FilePond
+} from "react-filepond"; // Import React FilePond
 import {
     get
 } from "react-intl-universal";
@@ -73,7 +73,7 @@ export default function JigsawEntry(): JSX.Element {
         portrait = useMediaQuery("(orientation: portrait)"),
         widtha = portrait ? `calc(100vw / ${width})` : `calc(100vw / (${width} + 1))`,
         heighta = portrait ? `calc((100vh - 56px) / (${height} + 1))` : `calc((100vh - 64px) / ${height})`,
-        column = useMediaQuery(theme.breakpoints.down('sm')),
+        column = useMediaQuery(theme.breakpoints.down("sm")),
         splitInputs = (
             <>
                 <TextField margin="dense" value={width} variant="outlined" onChange={event => {
@@ -111,8 +111,8 @@ export default function JigsawEntry(): JSX.Element {
         const img = new Image();
         img.src = URL.createObjectURL(imageFile);
         img.onload = async event => {
-            const canvas = document.createElement('canvas'),
-                context = canvas.getContext('2d'),
+            const canvas = document.createElement("canvas"),
+                context = canvas.getContext("2d"),
                 splited: Blob[][] = [];
             canvas.width = img.width / width;
             canvas.height = img.height / height;
@@ -127,11 +127,11 @@ export default function JigsawEntry(): JSX.Element {
             }
             URL.revokeObjectURL(img.src);
             const addingJigsaw = {
-                rightBlocks: splited,
-                blocks: [],
-                all: imageFile,
-                fileName: imageFileName
-            },
+                    rightBlocks: splited,
+                    blocks: [],
+                    all: imageFile,
+                    fileName: imageFileName
+                },
                 booleans = await Promise.all(jigsaws.map(async jigsaw => await blobToInt8Array(jigsaw.all) === await blobToInt8Array(imageFile))),
                 index = booleans.indexOf(true);
             if (index > -1) {
@@ -143,7 +143,7 @@ export default function JigsawEntry(): JSX.Element {
                 old.push(addingJigsaw);
                 setJigsaws(old);
             }
-        }
+        };
     }
     return (
         <>
@@ -177,7 +177,7 @@ export default function JigsawEntry(): JSX.Element {
                             maxFiles={1}
                             acceptedFileTypes={["image/*"]}
                             name="files"
-                            labelIdle={get('drag.拖拽图片到这里')}
+                            labelIdle={get("drag.拖拽图片到这里")}
                         />
                     </Box>
                     <Box sx={{
@@ -344,7 +344,7 @@ export default function JigsawEntry(): JSX.Element {
                     <Drawer sx={{
                         width: portrait ? "100vw" : widtha,
                         flexShrink: 0,
-                        '& .MuiDrawer-paper': {
+                        "& .MuiDrawer-paper": {
                             width: portrait ? "100vw" : widtha,
                             flexDirection: portrait ? "row" : "column"
                         }
@@ -379,4 +379,4 @@ export default function JigsawEntry(): JSX.Element {
             }} />
         </>
     );
-};
+}

@@ -6,9 +6,9 @@ import {
 } from "@mui/material";
 import {
     ResponsiveStyleValue
-} from '@mui/system';
-import ErrorBoundary from 'components/ErrorBoundary';
-import dynamic from 'next/dynamic';
+} from "@mui/system";
+import ErrorBoundary from "components/ErrorBoundary";
+import dynamic from "next/dynamic";
 import {
     FC,
     ReactNode,
@@ -17,16 +17,16 @@ import {
 } from "react";
 import {
     get
-} from 'react-intl-universal';
+} from "react-intl-universal";
 import {
     logger
 } from "../logger";
-import Line from './Line';
-import getCache from './getCache';
+import Line from "./Line";
+import getCache from "./getCache";
 import getSettingsSur from "./getSettingsSur";
 import getSettingsUsed from "./getSettingsUsed";
 const CheckDialog = dynamic(() => import("dialog/Check"));
-const direction: ResponsiveStyleValue<'row' | 'row-reverse' | 'column' | 'column-reverse'> = {
+const direction: ResponsiveStyleValue<"row" | "row-reverse" | "column" | "column-reverse"> = {
     xs: "column",
     sm: "row",
     md: "row"
@@ -70,7 +70,7 @@ export default function Reset() {
                                 return await caches.delete(key);
                             });
                         });
-                    }}>{get('clear.清空所有缓存')}</Button>
+                    }}>{get("clear.清空所有缓存")}</Button>
                 </Spacing3Stack>
                 <Spacing3Stack>
                     <Line
@@ -84,7 +84,7 @@ export default function Reset() {
                         setDialogContext(get("clear.清空设置吗？此操作不可恢复。"));
                         setDialogTitle(get("clear.清空"));
                         setDialogOnDone(() => () => localStorage.clear());
-                    }}>{get('clear.清空所有设置')}</Button>
+                    }}>{get("clear.清空所有设置")}</Button>
                     <CheckDialog open={dialogOpen} title={dialogTitle} onFalse={() => {
                         setDialogOpen(false);
                     }} onTrue={() => {

@@ -12,7 +12,7 @@ export default function drawMatrix(blocks: block[], g: number, posX: number, pos
         let i: number = 0;
         while (i < (g * 2 + 1)) {
             const calcBlock: block[] = [[i, item[0] - 1], [item[1] - 1, i]];
-            index == 0 /* 判断是否为当前位置 */ ? posBlock.push(...calcBlock) : cachePosBlock.push(...calcBlock);
+            index === 0 /* 判断是否为当前位置 */ ? posBlock.push(...calcBlock) : cachePosBlock.push(...calcBlock);
             i++;
         }
     });

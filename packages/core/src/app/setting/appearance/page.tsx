@@ -4,7 +4,7 @@ import {
     Check as CheckIcon,
     DarkMode,
     LightMode
-} from '@mui/icons-material';
+} from "@mui/icons-material";
 import {
     Box,
     Button,
@@ -16,35 +16,35 @@ import {
     Slider,
     Tooltip,
     Typography
-} from '@mui/material';
-import * as colors from '@mui/material/colors';
+} from "@mui/material";
+import * as colors from "@mui/material/colors";
 import {
     rgbToHex,
     useTheme
-} from '@mui/material/styles';
+} from "@mui/material/styles";
 import {
     useAtom
-} from 'jotai';
+} from "jotai";
 import {
     darkMode as darkModeAtom,
     gradientTool,
     paletteColors
-} from 'layout/layoutClient';
+} from "layout/layoutClient";
 import {
     Dispatch,
     useId
-} from 'react';
+} from "react";
 import {
     get
 } from "react-intl-universal";
 import {
     Switcher
-} from 'setting/option/Switcher';
-import useStoragedState from 'useStoragedState';
-import defaultInternalPalette from './defaultInternalPalette';
-import defaultPalette from './defaultPalette';
-import hues from './hues';
-import shades from './shades';
+} from "setting/option/Switcher";
+import useStoragedState from "useStoragedState";
+import defaultInternalPalette from "./defaultInternalPalette";
+import defaultPalette from "./defaultPalette";
+import hues from "./hues";
+import shades from "./shades";
 function ColorTool() {
     const [palette, setPalette] = useAtom(paletteColors),
         theme = useTheme(),
@@ -60,27 +60,27 @@ function ColorTool() {
                 secondary: {
                     ...colors[now.secondaryHue],
                     main: now.secondary
-                },
+                }
             };
             setPalette(paletteColors);
         };
-    const handleChangeHue = (name) => (event) => {
+    const handleChangeHue = name => event => {
         const hue = event.target.value;
         const color = colors[hue][shades[internalPalette[`${name}Shade`]]];
         setInternalPalette({
             ...internalPalette,
             [`${name}Hue`]: hue,
             [name]: color,
-            [`${name}Input`]: color,
+            [`${name}Input`]: color
         });
     };
-    const handleChangeShade = (name) => (event, shade) => {
+    const handleChangeShade = name => (event, shade) => {
         const color = colors[internalPalette[`${name}Hue`]][shades[shade]];
         setInternalPalette({
             ...internalPalette,
             [`${name}Shade`]: shade,
             [name]: color,
-            [`${name}Input`]: color,
+            [`${name}Input`]: color
         });
     };
     const ColorBar = ({
@@ -89,20 +89,20 @@ function ColorTool() {
         const background = theme.palette.augmentColor({
             color: {
                 main: color
-            },
+            }
         });
         return (
             <Grid container sx={{
                 mt: 2
             }}>
-                {['dark', 'main', 'light'].map((key) => (
+                {["dark", "main", "light"].map(key => (
                     <Box
                         sx={{
                             width: 64,
                             height: 64,
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
                             backgroundColor: background[key]
                         }}
                         key={key}
@@ -110,7 +110,7 @@ function ColorTool() {
                         <Typography
                             variant="caption"
                             style={{
-                                color: theme.palette.getContrastText(background[key]),
+                                color: theme.palette.getContrastText(background[key])
                             }}
                         >
                             {rgbToHex(background[key])}
@@ -124,8 +124,8 @@ function ColorTool() {
         intent: string;
     }) {
         const {
-            intent
-        } = props,
+                intent
+            } = props,
             intentShade = internalPalette[`${intent}Shade`],
             realId = `${intent}ShadeSliderLabel`,
             color = internalPalette[`${intent}`];
@@ -135,8 +135,8 @@ function ColorTool() {
                     {get(`theme.${intent}`)}
                 </Typography>
                 <Box sx={{
-                    display: 'flex',
-                    alignItems: 'center',
+                    display: "flex",
+                    alignItems: "center",
                     mt: 2,
                     mb: 2
                 }}>
@@ -145,7 +145,7 @@ function ColorTool() {
                     }}>{`${get("appearance.shade")}:`}</Typography>
                     <Slider
                         sx={{
-                            width: 'calc(100% - 80px)',
+                            width: "calc(100% - 80px)",
                             ml: 3,
                             mr: 3
                         }}
@@ -160,10 +160,8 @@ function ColorTool() {
                 <Box sx={{
                     width: 192
                 }}>
-                    {hues.map((hue) => {
-                        const shade = intent === 'primary'
-                            ? shades[internalPalette.primaryShade]
-                            : shades[internalPalette.secondaryShade];
+                    {hues.map(hue => {
+                        const shade = intent === "primary" ? shades[internalPalette.primaryShade] : shades[internalPalette.secondaryShade];
                         const backgroundColor = colors[hue][shade];
                         const showHue = get(`theme.colors.${hue}`);
                         return (
@@ -190,11 +188,11 @@ function ColorTool() {
                                             width: 48,
                                             height: 48,
                                             border: 1,
-                                            borderColor: 'white',
-                                            color: 'common.white',
-                                            display: 'flex',
-                                            justifyContent: 'center',
-                                            alignItems: 'center',
+                                            borderColor: "white",
+                                            color: "common.white",
+                                            display: "flex",
+                                            justifyContent: "center",
+                                            alignItems: "center"
                                         }}
                                         style={{
                                             backgroundColor
@@ -217,7 +215,7 @@ function ColorTool() {
             <Switcher option={[gradientTool, "渐变工具"]} key="gradientTool" />
             <Box>
                 <InputLabel>
-                    {get('appearance.colorMode.text')}
+                    {get("appearance.colorMode.text")}
                 </InputLabel>
                 <Grid container direction="row" spacing={1} sx={{
                     justifyContent: "space-evenly",

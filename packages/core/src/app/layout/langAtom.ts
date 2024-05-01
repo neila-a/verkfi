@@ -1,9 +1,9 @@
 "use client";
 import {
     atom
-} from 'jotai';
+} from "jotai";
 import setSetting from "setting/reader/setSetting";
-import settingReader from 'setting/reader/settingReader';
+import settingReader from "setting/reader/settingReader";
 import {
     isBrowser,
     locales

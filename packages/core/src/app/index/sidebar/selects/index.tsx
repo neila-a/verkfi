@@ -3,7 +3,7 @@ import {
     DragDropContext,
     Draggable,
     Droppable
-} from '@hello-pangea/dnd';
+} from "@hello-pangea/dnd";
 import {
     DragIndicator as DragIndicatorIcon,
     Edit as EditIcon
@@ -12,35 +12,35 @@ import {
     Box,
     IconButton
 } from "@mui/material";
-import MouseOverPopover from 'components/Popover';
+import MouseOverPopover from "components/Popover";
 import {
     setState
-} from 'declare';
+} from "declare";
 import {
     useAtom
-} from 'jotai';
+} from "jotai";
 import {
     lists as listsAtom
-} from 'layout/layoutClient';
-import dynamic from 'next/dynamic';
+} from "layout/layoutClient";
+import dynamic from "next/dynamic";
 import {
     Fragment,
     createElement,
     useState
-} from 'react';
+} from "react";
 import {
     get
-} from 'react-intl-universal';
-import reorderArray from 'reorder-array';
+} from "react-intl-universal";
+import reorderArray from "reorder-array";
 import {
     getTools,
     tool
 } from "tools/info";
 import {
     lists
-} from '..';
-import SingleSelect from './SingleSelect';
-import toolsListAtom from './toolsListAtom';
+} from "..";
+import SingleSelect from "./SingleSelect";
+import toolsListAtom from "./toolsListAtom";
 export default function Selects(props: {
     setEditing: setState<boolean>;
     sortingFor: string;
@@ -55,8 +55,8 @@ export default function Selects(props: {
     modifyClickCount(value: number | "++"): void;
 }) {
     const {
-        setTools, searchTools, searchText, setSearchText, sortingFor, setSortingFor, setEditing
-    } = props,
+            setTools, searchTools, searchText, setSearchText, sortingFor, setSortingFor, setEditing
+        } = props,
         [list, setList] = useAtom(listsAtom),
         [dialogOpen, setDialogOpen] = useState<boolean>(false),
         [dialogTools, setDialogTools] = useState<string[]>([]),
@@ -84,7 +84,7 @@ export default function Selects(props: {
                             props.modifyClickCount("++");
                             props.setSortedTools(draft);
                             setTools(draft);
-                        }
+                        };
                         if (aprops.isAll) {
                             if (sortingFor !== "__global__") {
                                 const draft = gotToolsList;
@@ -176,7 +176,7 @@ export default function Selects(props: {
                         title: get("category.删除此分类"),
                         description: get("category.确定删除此分类吗？"),
                         onTrue: () => {
-                            const listDraft: lists = list.slice(0).filter(draftSingle => draftSingle[0] !== dialogListName)
+                            const listDraft: lists = list.slice(0).filter(draftSingle => draftSingle[0] !== dialogListName);
                             setList(listDraft);
                             setDialogListName("");
                             return setRemoveDialogOpen(false);

@@ -9,9 +9,9 @@ import {
     useRouter
 } from "next/navigation";
 class NotFoundError extends Error {
-    constructor(message = '404') {
+    constructor(message = "404") {
         super(message);
-        this.name = 'NotFoundError';
+        this.name = "NotFoundError";
     }
 }
 export default function NotFound() {

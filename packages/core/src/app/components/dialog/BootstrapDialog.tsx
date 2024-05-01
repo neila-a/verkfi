@@ -4,10 +4,10 @@ import {
 } from "@mui/material";
 export const BootstrapDialog = (props: DialogProps) => <Dialog {...props} sx={{
     ...props.sx,
-    '& .MuiDialogContent-root': {
+    "& .MuiDialogContent-root": {
         p: 2
     },
-    '& .MuiDialogActions-root': {
+    "& .MuiDialogActions-root": {
         p: 1
     }
 }} />;

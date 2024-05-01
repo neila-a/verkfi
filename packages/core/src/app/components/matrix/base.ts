@@ -8,10 +8,10 @@ export default function drawMatrixBase(edge: number, n: number, blocks: block[],
     if (!onlyPos) console.time("渲染圆");
     const canvas = document.getElementsByTagName("canvas")[0] || document.createElement("canvas"),
         size = edge / n,
-        cxt = canvas.getContext('2d');
+        cxt = canvas.getContext("2d");
     ["height", "width"].forEach(attr => {
         const edgeStr = edge.toString();
-        if (canvas.getAttribute(attr) != edgeStr) {
+        if (canvas.getAttribute(attr) !== edgeStr) {
             canvas.setAttribute(attr, edgeStr);
         }
     }); // 如果canvas不等于edge则设为edge

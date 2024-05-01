@@ -1,7 +1,7 @@
 import {
     getRepoInfo
-} from 'components/getRepoInfo';
-import defaultPalette from 'setting/appearance/defaultPalette';
+} from "components/getRepoInfo";
+import defaultPalette from "setting/appearance/defaultPalette";
 import pack from "../../package.json";
 export default async function manifest() {
     const repoInfo = await getRepoInfo(),

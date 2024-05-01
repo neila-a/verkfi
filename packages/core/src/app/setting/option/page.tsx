@@ -28,7 +28,7 @@ import {
 import {
     Route
 } from "next";
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 import {
     useRouter
 } from "next/navigation";
@@ -53,14 +53,14 @@ export default function Options() {
         langId = useId();
     return (
         <FormGroup>
-            <Typography variant='h4'>
-                {get('选项')}
+            <Typography variant="h4">
+                {get("选项")}
             </Typography>
             {([[forkMeOnGitHub, "Fork me on GitHub"], [share, "share.t"]] satisfies option[]).map(options => (
                 <Switcher option={options} key={options[1]} />
             ))}
             <InputLabel>
-                {get('option.菜单模式')}
+                {get("option.菜单模式")}
             </InputLabel>
             <Grid container direction="row" spacing={1} sx={{
                 justifyContent: "space-evenly"
@@ -89,12 +89,12 @@ export default function Options() {
             }}>
                 {Object.values(locales).map(ilang => {
                     const {
-                        langName
-                    } = ilang,
-                        langId = Object.keys(locales).find(key => locales[key] == ilang);
+                            langName
+                        } = ilang,
+                        langId = Object.keys(locales).find(key => locales[key] === ilang);
                     return (
                         <MenuItem key={langName} value={langId}>{langName}</MenuItem>
-                    )
+                    );
                 })}
             </Select>
             <br />

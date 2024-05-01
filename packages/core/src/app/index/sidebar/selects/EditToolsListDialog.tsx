@@ -7,7 +7,7 @@ import {
 import TransferList from "components/TransferList";
 import {
     setState
-} from 'declare';
+} from "declare";
 import {
     useAtom
 } from "jotai";
@@ -15,7 +15,7 @@ import extensionsAtom from "layout/extensionsAtom";
 import {
     lists as listsAtom
 } from "layout/layoutClient";
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 import {
     get
 } from "react-intl-universal";
@@ -39,8 +39,8 @@ export default function EditToolsListDialog(props: {
     open: boolean;
 }) {
     const {
-        dialogTools, setDialogTools, dialogListName, setDialogListName, setDialogOpen
-    } = props,
+            dialogTools, setDialogTools, dialogListName, setDialogListName, setDialogOpen
+        } = props,
         [list, setList] = useAtom(listsAtom),
         edit = (forList: lists) => forList.some(single => single[0] === dialogListName),
         createOrEdit = !edit(list) ? get("category.创建分类") : get("category.编辑分类"),

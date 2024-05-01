@@ -44,11 +44,11 @@ export default function ToolViewer(props: {
     reset(): void;
 }) {
     const {
-        single
-    } = props,
+            single
+        } = props,
         clearExtensionData = useClearExtensionData(),
         theme = useTheme(),
-        fullScreen = useMediaQuery(theme.breakpoints.down('sm')),
+        fullScreen = useMediaQuery(theme.breakpoints.down("sm")),
         packagedDialogInputs = (type: inputTypes) => (
             <DialogInputs
                 type={type}
@@ -90,7 +90,7 @@ export default function ToolViewer(props: {
                     </Stack>
                     <Box>
                         <Typography variant="h6" fontWeight="700">
-                            {get('描述')}
+                            {get("描述")}
                         </Typography>
                         {single.desc}
                     </Box>

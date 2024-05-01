@@ -9,7 +9,7 @@ import {
 import MouseOverPopover from "components/Popover";
 import {
     setState
-} from 'declare';
+} from "declare";
 export default function SwitchEditMode(props: {
     editMode: boolean;
     setEditMode: setState<boolean>;

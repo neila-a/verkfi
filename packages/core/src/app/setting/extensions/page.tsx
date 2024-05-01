@@ -12,7 +12,7 @@ import No from "No";
 import {
     FilePondFile,
     FilePondServerConfigProps
-} from 'filepond';
+} from "filepond";
 import {
     useAtom
 } from "jotai";
@@ -23,7 +23,7 @@ import {
 } from "react";
 import {
     FilePond
-} from 'react-filepond'; // Import React FilePond
+} from "react-filepond"; // Import React FilePond
 import {
     get
 } from "react-intl-universal";
@@ -50,7 +50,7 @@ export default function ExtensionManager() {
         [removeDialogOpen, setRemoveDialogOpen] = useState<boolean>(false),
         [modifyDialogOpen, setModifyDialogOpen] = useState<boolean>(false),
         theme = useTheme(),
-        fullScreen = useMediaQuery(theme.breakpoints.down('sm')),
+        fullScreen = useMediaQuery(theme.breakpoints.down("sm")),
         reset = () => {
             setAddDialogOpen(false);
             setModifyDialogOpen(false);
@@ -72,7 +72,7 @@ export default function ExtensionManager() {
     return (
         <>
             <Typography variant="h4">
-                {get('extensions.扩展')}
+                {get("extensions.扩展")}
             </Typography>
             <Stack spacing={2} mb={2}>
                 {extensionTools?.length === 0 ? (
@@ -130,7 +130,7 @@ export default function ExtensionManager() {
                 maxFiles={1}
                 name="files"
                 acceptedFileTypes={[".vxt"]}
-                labelIdle={get('drag.extensionAdd')}
+                labelIdle={get("drag.extensionAdd")}
             />
             <RemoveExtensionDialog open={removeDialogOpen} reset={reset} fileInfo={fileInfo} files={files} />
             <PureDialog action={(

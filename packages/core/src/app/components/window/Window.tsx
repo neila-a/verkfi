@@ -43,9 +43,10 @@ export interface WindowOptions {
 }
 export default function Window(props: WindowOptions): JSX.Element {
     const {
-        id
-    } = props,
-        realSx: CSSProperties = props?.sx === undefined ? {} : props?.sx,
+            id
+        } = props,
+        realSx: CSSProperties = props?.sx === undefined ? {
+        } : props?.sx,
         [open, setOpen] = useState<boolean>(true),
         nodeRef = useRef<HTMLDivElement>(null),
         [size, setSize] = useState<[number, number]>([50, 50]), /* height, width */
@@ -86,13 +87,13 @@ export default function Window(props: WindowOptions): JSX.Element {
                             <Box sx={{
                                 display: "flex"
                             }}>
-                                <TextField label={get('height')} type="number" InputLabelProps={{
-                                    shrink: true,
+                                <TextField label={get("height")} type="number" InputLabelProps={{
+                                    shrink: true
                                 }} onChange={event => {
                                     setSize(old => [Number(event.target.value), old[1]]);
                                 }} value={size[0]} />
-                                <TextField label={get('width')} type="number" InputLabelProps={{
-                                    shrink: true,
+                                <TextField label={get("width")} type="number" InputLabelProps={{
+                                    shrink: true
                                 }} onChange={event => {
                                     setSize(old => [old[0], Number(event.target.value)]);
                                 }} value={size[1]} />

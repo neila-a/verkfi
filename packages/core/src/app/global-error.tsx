@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import Error from "error";
 export default function GlobalError({
     error,

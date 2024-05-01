@@ -85,7 +85,7 @@ export default function TransferList(props: {
                 <Paper sx={{
                     width: 200,
                     height: 230,
-                    overflow: 'auto'
+                    overflow: "auto"
                 }}>
                     <List dense component="div" role="list">
                         {items.map(value => {
@@ -107,7 +107,7 @@ export default function TransferList(props: {
                                             tabIndex={-1}
                                             disableRipple
                                             inputProps={{
-                                                'aria-labelledby': labelId,
+                                                "aria-labelledby": labelId
                                             }}
                                         />
                                         <Icon />
@@ -119,7 +119,7 @@ export default function TransferList(props: {
                     </List>
                 </Paper>
             );
-        }
+        };
     return (
         <Grid container spacing={2} justifyContent="center" alignItems="center" sx={{
             p: theme => theme.spacing(1, 0)

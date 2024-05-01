@@ -6,7 +6,7 @@ import {
 import {
     MouseEventHandler,
     ReactNode
-} from 'react';
+} from "react";
 export default function SingleSelect(props: {
     tool: string;
     onClick: MouseEventHandler<HTMLButtonElement>;
@@ -39,7 +39,7 @@ export default function SingleSelect(props: {
             </Button>
             {props.editButton}
         </Box>
-    )
+    );
     return props.isSidebar ? (
         <Box sx={{
             width: "100%",

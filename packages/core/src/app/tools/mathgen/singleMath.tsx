@@ -10,7 +10,7 @@ import {
 } from "react";
 import {
     get
-} from 'react-intl-universal';
+} from "react-intl-universal";
 export default function SingleMath(props: {
     math: string;
     showOut: boolean;
@@ -29,13 +29,13 @@ export default function SingleMath(props: {
                 flex: 1,
                 textAlign: "right"
             }}>
-                <TextField label={get('结果')} type="number" InputLabelProps={{
-                    shrink: true,
+                <TextField label={get("结果")} type="number" InputLabelProps={{
+                    shrink: true
                 }} error={isError} onChange={event => {
-                    setError((event.target.value == math.replace(/.*=/g, "")) ? false : true);
+                    setError((event.target.value === math.replace(/.*=/g, "")) ? false : true);
                 }} />
-                {showOut == true ? (
-                    <Typography>{get('答案：')}{math.replace(/.*=/g, "")}</Typography>
+                {showOut === true ? (
+                    <Typography>{get("答案：")}{math.replace(/.*=/g, "")}</Typography>
                 ) : <Fragment />}
             </Box>
         </ListItem>

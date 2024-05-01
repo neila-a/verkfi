@@ -17,7 +17,187 @@
         ],
         "quotes": [
             "warn",
-            "double"
+            "double",
+            {
+                "allowTemplateLiterals": true
+            }
+        ],
+        "eqeqeq": [
+            "error",
+            "always"
+        ],
+        "no-delete-var": "error",
+        "no-else-return": "warn",
+        "no-eval": "error",
+        "no-extra-label": "warn",
+        "no-extra-semi": "warn",
+        "no-proto": "error",
+        "no-script-url": "error",
+        "no-var": "error",
+        "no-with": "error",
+        "array-bracket-spacing": [
+            "error",
+            "never"
+        ],
+        "arrow-parens": [
+            "error",
+            "as-needed"
+        ],
+        "arrow-spacing": [
+            "warn",
+            {
+                "before": true,
+                "after": true
+            }
+        ],
+        "block-spacing": "error",
+        "brace-style": "error",
+        "comma-dangle": [
+            "error",
+            "never"
+        ],
+        "comma-spacing": [
+            "error",
+            {
+                "before": false,
+                "after": true
+            }
+        ],
+        "comma-style": [
+            "error",
+            "last"
+        ],
+        "dot-location": [
+            "error",
+            "object"
+        ],
+        "eol-last": [
+            "error",
+            "always"
+        ],
+        "func-call-spacing": [
+            "error",
+            "never"
+        ],
+        "generator-star-spacing": [
+            "error",
+            {
+                "before": false,
+                "after": true
+            }
+        ],
+        "implicit-arrow-linebreak": [
+            "error"
+        ],
+        "indent": [
+            "error",
+            4,
+            {
+                "SwitchCase": 1
+            }
+        ],
+        "key-spacing": [
+            "error"
+            // 全部使用默认
+        ],
+        "keyword-spacing": "error",
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "max-statements-per-line": [
+            "error",
+            {
+                "max": 2
+            }
+        ],
+        "multiline-ternary": [
+            "error",
+            "never"
+        ],
+        "new-parens": "error",
+        "no-multi-spaces": "error",
+        "no-multiple-empty-lines": "error",
+        "no-trailing-spaces": "error",
+        "no-whitespace-before-property": "error",
+        "nonblock-statement-body-position": "error",
+        "object-curly-newline": [
+            "error",
+            "always"
+        ],
+        "object-curly-spacing": [
+            "error",
+            "never"
+        ],
+        "object-property-newline": "error",
+        "operator-linebreak": [
+            "error",
+            "before"
+        ],
+        "padded-blocks": [
+            "error",
+            "never"
+        ],
+        "rest-spread-spacing": [
+            "error",
+            "never"
+        ],
+        "semi-spacing": [
+            "error",
+            {
+                "before": false,
+                "after": true
+            }
+        ],
+        "semi-style": [
+            "error",
+            "last"
+        ],
+        "space-before-blocks": [
+            "error",
+            "always"
+        ],
+        "space-before-function-paren": [
+            "error",
+            {
+                "anonymous": "always",
+                "named": "never",
+                "asyncArrow": "always"
+            }
+        ],
+        "space-in-parens": [
+            "error",
+            "never"
+        ],
+        "space-infix-ops": [
+            "error"
+        ],
+        "space-unary-ops": [
+            "error",
+            {
+                "words": true,
+                "nonwords": false
+            }
+        ],
+        "switch-colon-spacing": [
+            "error"
+        ],
+        "template-curly-spacing": [
+            "error",
+            "never"
+        ],
+        "template-tag-spacing": [
+            "error",
+            "never"
+        ],
+        "unicode-bom": "error",
+        "wrap-iife": [
+            "error",
+            "inside"
+        ],
+        "yield-star-spacing": [
+            "error",
+            "after"
         ]
     }
 }

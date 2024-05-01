@@ -1,7 +1,7 @@
 "use client";
 import {
     single
-} from 'db';
+} from "db";
 import {
     tool
 } from "tools/info";

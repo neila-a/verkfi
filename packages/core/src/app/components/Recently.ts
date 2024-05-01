@@ -16,7 +16,7 @@ export default class Recently extends Set<string> {
     ) {
         super(old);
         this.max = max;
-    };
+    }
     get() {
         return [...super.entries()].map(item => item[1]);
     }
@@ -31,7 +31,7 @@ export default class Recently extends Set<string> {
                 if (index === 0) {
                     super.delete(item);
                 }
-            })
+            });
             super.delete(this.get()[0]);
         }
         return this;

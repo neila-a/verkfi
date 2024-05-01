@@ -18,7 +18,7 @@ const extensionsAtom = atom(get => get(valueAtom), (get, set, update: extensions
     const old = get(valueAtom);
     if (update?.action === "delete") {
         db.extensionTools.delete(update.to);
-        set(valueAtom, old.filter(a => a.to !== update.to))
+        set(valueAtom, old.filter(a => a.to !== update.to));
     } else {
         db.extensionTools.put(update);
         const realOld = old.slice(0),

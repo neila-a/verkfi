@@ -2,7 +2,7 @@
 import {
     PlayArrow,
     Stop
-} from '@mui/icons-material';
+} from "@mui/icons-material";
 import {
     Button,
     Grid,
@@ -13,19 +13,19 @@ import {
 } from "filepond";
 import {
     isBrowser
-} from 'layout/layoutClient';
+} from "layout/layoutClient";
 import {
     useRef,
     useState
 } from "react";
 import {
     FilePond
-} from 'react-filepond'; // Import React FilePond
+} from "react-filepond"; // Import React FilePond
 import {
     get
-} from 'react-intl-universal';
-import Module from './Module';
-import getRecording from './getRecording';
+} from "react-intl-universal";
+import Module from "./Module";
+import getRecording from "./getRecording";
 export type status = "recording" | "paused" | "inactive";
 function AudioTools(): JSX.Element {
     const [loopAudioSrc, setLoopAudioSrc] = useState<string>(""),
@@ -55,9 +55,9 @@ function AudioTools(): JSX.Element {
         <Grid container direction="column" spacing={2}>
             <Grid item>
                 <Module>
-                    <Typography variant="h4" gutterBottom>{get('音频循环播放')}</Typography>
+                    <Typography variant="h4" gutterBottom>{get("音频循环播放")}</Typography>
                     <audio controls loop src={loopAudioSrc}>
-                        {get('你的浏览器不支持 audio 元素。')}
+                        {get("你的浏览器不支持 audio 元素。")}
                     </audio>
                     <FilePond
                         files={[]}
@@ -66,25 +66,25 @@ function AudioTools(): JSX.Element {
                         maxFiles={1}
                         name="files"
                         acceptedFileTypes={["audio/*"]}
-                        labelIdle={get('drag.拖拽音频到这里')}
+                        labelIdle={get("drag.拖拽音频到这里")}
                     />
                 </Module>
             </Grid>
             <Grid item>
                 <Module>
-                    <Typography variant="h4" gutterBottom>{get('音频录制并循环')}</Typography>
+                    <Typography variant="h4" gutterBottom>{get("音频录制并循环")}</Typography>
                     <Button startIcon={<PlayArrow />} variant="contained" onClick={() => {
                         return controlAudio("recording");
-                    }} disabled={status == "recording"}>{get('开始')}</Button>
+                    }} disabled={status === "recording"}>{get("开始")}</Button>
                     <Button startIcon={<Stop />} variant="contained" onClick={() => {
                         return controlAudio("inactive");
-                    }} disabled={status == "inactive"}>{get('停止')}</Button>
+                    }} disabled={status === "inactive"}>{get("停止")}</Button>
                     <audio controls loop src={loopSpeakAudioSrc}>
-                        {get('你的浏览器不支持 audio 元素。')}
+                        {get("你的浏览器不支持 audio 元素。")}
                     </audio>
                 </Module>
             </Grid>
         </Grid>
     );
-};
+}
 export default AudioTools;

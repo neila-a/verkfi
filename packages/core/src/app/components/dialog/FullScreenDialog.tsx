@@ -29,7 +29,7 @@ export default function FullScreenDialog(props: {
         <>
             <Dialog fullScreen open={props.open} onClose={handleClose} TransitionComponent={Transition}>
                 <AppBar sx={{
-                    position: 'relative'
+                    position: "relative"
                 }}>
                     <Toolbar>
                         <Typography sx={{

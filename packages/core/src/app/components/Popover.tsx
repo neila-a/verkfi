@@ -2,13 +2,13 @@ import {
     Box,
     Popover,
     Typography
-} from '@mui/material';
+} from "@mui/material";
 import {
     CSSProperties,
     MouseEvent,
     ReactNode,
     useState
-} from 'react';
+} from "react";
 export default function MouseOverPopover(props: {
     children: ReactNode;
     text: string;
@@ -23,21 +23,22 @@ export default function MouseOverPopover(props: {
         },
         open = Boolean(anchorEl);
     return (
-        <Box sx={props?.sx ? props.sx : {}}>
+        <Box sx={props?.sx ? props.sx : {
+        }}>
             <Box aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose} title={props.text}>
                 {props.children}
             </Box>
             <Popover classes={{
                 root: "mouse-over-popover" /* 暂时没用，仅作为标记 */
             }} sx={{
-                pointerEvents: 'none',
+                pointerEvents: "none",
                 zIndex: "38602"
             }} open={open} anchorEl={anchorEl} anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
+                vertical: "bottom",
+                horizontal: "left"
             }} transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
+                vertical: "top",
+                horizontal: "left"
             }} onClose={handlePopoverClose} aria-label={props.text} disableRestoreFocus>
                 <Typography sx={{
                     p: 1

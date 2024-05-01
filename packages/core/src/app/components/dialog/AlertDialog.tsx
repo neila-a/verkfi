@@ -8,10 +8,10 @@ import {
 } from "@mui/material";
 import {
     useId
-} from 'react';
+} from "react";
 import {
     get
-} from 'react-intl-universal';
+} from "react-intl-universal";
 import Transition from "./Transition";
 export default function AlertDialog(props: {
     title: string;
@@ -20,8 +20,8 @@ export default function AlertDialog(props: {
     open: boolean;
 }) {
     const handleClose = () => {
-        props.onDone();
-    },
+            props.onDone();
+        },
         thisDialogStartId = useId(),
         titleId = `${thisDialogStartId}-alert-dialog-title`,
         descriptionId = `${thisDialogStartId}-alert-dialog-description`;
@@ -37,7 +37,7 @@ export default function AlertDialog(props: {
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleClose}>
-                    {get('确定')}
+                    {get("确定")}
                 </Button>
             </DialogActions>
         </Dialog>

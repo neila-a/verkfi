@@ -40,7 +40,7 @@ export default function calcPillars(type: pillarPositions, length: number) {
                     if ((count * distanceLength + (count + 1) * pillarLength === length) && validateDistanceLength(distanceLength)) {
                         collocations.push({
                             pillarLength,
-                            pillarCount: count + 1, 
+                            pillarCount: count + 1,
                             distanceLength,
                             distanceCount: count
                         });

@@ -10,9 +10,9 @@ const shades = [
     200,
     100,
     50,
-    'A700',
-    'A400',
-    'A200',
-    'A100',
+    "A700",
+    "A400",
+    "A200",
+    "A100"
 ];
 export default shades;

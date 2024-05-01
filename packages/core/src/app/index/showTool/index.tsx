@@ -9,10 +9,10 @@ import {
     Collapse,
     Stack
 } from "@mui/material";
-import No from 'No';
+import No from "No";
 import {
     setState
-} from 'declare';
+} from "declare";
 import {
     useAtom
 } from "jotai";
@@ -21,16 +21,16 @@ import {
 } from "layout/layoutClient";
 import {
     get
-} from 'react-intl-universal';
+} from "react-intl-universal";
 import {
     TransitionGroup
-} from 'react-transition-group';
-import reorderArray from 'reorder-array';
+} from "react-transition-group";
+import reorderArray from "reorder-array";
 import {
     tool
 } from "tools/info";
-import useButtonCommonSorting from '../sorting/buttonCommonSorting';
-import SingleTool from './SingleTool';
+import useButtonCommonSorting from "../sorting/buttonCommonSorting";
+import SingleTool from "./SingleTool";
 export default function ToolsStack(props: {
     paramTool: tool[];
     searchText: string;
@@ -114,7 +114,7 @@ export default function ToolsStack(props: {
         ));
     }
     return (
-        <Stack spacing={viewMode == "list" ? 3 : 5} sx={{
+        <Stack spacing={viewMode === "list" ? 3 : 5} sx={{
             flexDirection: viewMode === "grid" && "row",
             display: viewMode === "grid" && "flex",
             width: "100%",

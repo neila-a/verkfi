@@ -24,10 +24,10 @@ const toolsListAtom = atom(get => {
     return (realTools: tool[]) => {
         if (list === undefined) {
             const newLists = lists.slice(0);
-            newLists.push(["__global__", realTools.concat(converted).map(tool => tool.to)])
+            newLists.push(["__global__", realTools.concat(converted).map(tool => tool.to)]);
             return realTools.concat(converted);
         }
         return list[1].map(to => realTools.concat(converted).find(tool => tool.to === to));
-    }
+    };
 });
 export default toolsListAtom;

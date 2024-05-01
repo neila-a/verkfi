@@ -41,7 +41,7 @@ import SingleCollocation from "./SingleCollocation";
 import calcPillars from "./calcPillars";
 export type pillarPositions = "onlyMiddle" | "oneEndAndMiddle" | "twoEndAndMiddle";
 /**
- * 0：间隔  
+ * 0：间隔
  * 1：柱子
  */
 const examples = {
@@ -55,9 +55,9 @@ type filterType = "<" | "=" | ">";
 type values = "pillarLength" | "pillarCount" | "distanceLength" | "distanceCount";
 const values = ["pillarLength", "pillarCount", "distanceLength", "distanceCount"];
 /**
- * 0：柱子长度  
- * 1：柱子个数  
- * 2：间隔长度  
+ * 0：柱子长度
+ * 1：柱子个数
+ * 2：间隔长度
  * 3：间隔个数
  */
 export type collocation = {
@@ -68,7 +68,7 @@ interface filterRule {
     type: filterType;
     filter: number;
     enabled: boolean;
-};
+}
 export default function Pillar(): JSX.Element {
     const [type, setType] = useState<pillarPositions>("oneEndAndMiddle"),
         [length, setLength] = useState<number>(0),
@@ -111,7 +111,7 @@ export default function Pillar(): JSX.Element {
                                             display: "inline-flex",
                                             alignItems: "center",
                                             justifyContent: "center",
-                                            boxShadow: theme => `inset 0 0 0 ${theme.spacing(1)} ${theme.palette[pillar ? "primary" : "secondary"][theme.palette.mode]}`,
+                                            boxShadow: theme => `inset 0 0 0 ${theme.spacing(1)} ${theme.palette[pillar ? "primary" : "secondary"][theme.palette.mode]}`
                                         }}>
                                             <Typography>{pillar ? get("pillar.name") : get("pillar.distance")}</Typography>
                                         </Box>
@@ -163,7 +163,7 @@ export default function Pillar(): JSX.Element {
                                                         oldRule.enabled = !oldEnabled;
                                                         realOld[ruleIndex] = oldRule;
                                                         return realOld; // 解决深复制太难了，勉强这样吧，能跑就行
-                                                    })
+                                                    });
                                                 }} aria-label={rule.enabled ? get("filter.disableRule") : get("filter.enableRule")}>
                                                     {rule.enabled ? <FilterListIcon /> : <FilterListOffIcon />}
                                                 </IconButton>
@@ -240,14 +240,14 @@ export default function Pillar(): JSX.Element {
                                 case "<":
                                     return single[singleRule.value] < singleRule.filter;
                                 case "=":
-                                    return single[singleRule.value] == singleRule.filter; // 别用严格全等
+                                    return single[singleRule.value] === singleRule.filter; // 别用严格全等
                                 case ">":
                                     return single[singleRule.value] > singleRule.filter;
                             }
-                        })
+                        });
                     }).map(single => <SingleCollocation key={JSON.stringify(single)} collocation={single} />)}
                 </Grid>
             )}
         </>
     );
-};
+}

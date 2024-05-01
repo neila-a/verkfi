@@ -7,23 +7,23 @@ import {
     Button,
     Typography
 } from "@mui/material";
-import ErrorBoundary from 'components/ErrorBoundary';
-import VerkfiIcon from 'components/verkfiIcon/verkfiIcon';
+import ErrorBoundary from "components/ErrorBoundary";
+import VerkfiIcon from "components/verkfiIcon/verkfiIcon";
 import {
     isBrowser
-} from 'layout/layoutClient';
-import dynamic from 'next/dynamic';
-import Link from 'next/link';
+} from "layout/layoutClient";
+import dynamic from "next/dynamic";
+import Link from "next/link";
 import {
     ReactNode,
     useState
-} from 'react';
+} from "react";
 import {
     get,
     getHTML
-} from 'react-intl-universal';
+} from "react-intl-universal";
 import pack from "../../../../package.json";
-import Reset from './reset';
+import Reset from "./reset";
 const PureDialog = dynamic(() => import("dialog/Pure"));
 const {
     version,
@@ -41,7 +41,7 @@ export default function About() {
         [dialogContext, setDialogContext] = useState<ReactNode>(""),
         [dialogTitle, setDialogTitle] = useState<string>(""),
         year = new Date().getFullYear();
-    var addressInfo = initialAddressInfo;
+    let addressInfo = initialAddressInfo;
     if (isBrowser()) {
         addressInfo = {
             href: location.href,
@@ -53,8 +53,8 @@ export default function About() {
     }
     return (
         <ErrorBoundary>
-            <Typography variant='h4'>
-                {get('关于')}
+            <Typography variant="h4">
+                {get("关于")}
             </Typography>
             <Box sx={{
                 display: "flex",
@@ -82,9 +82,9 @@ export default function About() {
                     </Box>
                     <Box>
                         <Typography>
-                            {get('发行版本：')}{version}
+                            {get("发行版本：")}{version}
                             <br />
-                            {get('内部版本：')}{devVersion}
+                            {get("内部版本：")}{devVersion}
                         </Typography>
                     </Box>
                 </Box>
@@ -100,9 +100,9 @@ export default function About() {
             }}>
                 ©Copyleft ! <time dateTime="2022">2022</time>-<time dateTime={year.toString()}>{year}</time>， Neila
                 <br />
-                {get('copyright.本程序从未提供品质担保。')}
+                {get("copyright.本程序从未提供品质担保。")}
                 <br />
-                {getHTML('copyright.版权')}
+                {getHTML("copyright.版权")}
             </Typography>
             <Reset />
             <Typography variant="body1" sx={{

@@ -9,14 +9,14 @@ import MouseOverPopover from "components/Popover";
 import downGo from "components/arrayMove/downGo";
 import {
     setState
-} from 'declare';
+} from "declare";
 import {
     get
 } from "react-intl-universal";
 import {
     tool
 } from "tools/info";
-import useButtonCommonSorting from './buttonCommonSorting';
+import useButtonCommonSorting from "./buttonCommonSorting";
 export default function DownButton(props: {
     editMode: boolean;
     setTools: setState<tool[]>;
@@ -40,7 +40,6 @@ export default function DownButton(props: {
                 </IconButton>
             </MouseOverPopover>
         );
-    } else {
-        return <></>;
     }
+    return <></>;
 }

@@ -32,10 +32,10 @@ export default function BootstrapDialogTitle(props: {
                         aria-label={get("close")}
                         onClick={onClose}
                         sx={{
-                            position: 'absolute',
+                            position: "absolute",
                             right: 8,
                             top: 8,
-                            color: theme => theme.palette.grey[500],
+                            color: theme => theme.palette.grey[500]
                         }}
                     >
                         <CloseIcon />

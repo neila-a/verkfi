@@ -8,39 +8,39 @@ import {
     Typography
 } from "@mui/material";
 import HeadBar from "components/HeadBar";
-import MouseOverPopover from 'components/Popover';
-import VerkfiIcon from 'components/verkfiIcon/verkfiIcon';
+import MouseOverPopover from "components/Popover";
+import VerkfiIcon from "components/verkfiIcon/verkfiIcon";
 import {
     setState
-} from 'declare';
-import convertExtensionTools from 'index/convertExtensionTools';
-import ToolsStack from 'index/showTool';
-import Sidebar from 'index/sidebar';
-import searchBase from 'index/sidebar/searchBase';
-import toolsListAtom from 'index/sidebar/selects/toolsListAtom';
+} from "declare";
+import convertExtensionTools from "index/convertExtensionTools";
+import ToolsStack from "index/showTool";
+import Sidebar from "index/sidebar";
+import searchBase from "index/sidebar/searchBase";
+import toolsListAtom from "index/sidebar/selects/toolsListAtom";
 import useMostUsedTools from "index/useMostUsedTools";
 import triesAtom from "index/triesAtom";
 import {
     useAtom
-} from 'jotai';
+} from "jotai";
 import extensionsAtom from "layout/extensionsAtom";
 import {
     recentlyUsed as recentlyUsedAtom,
     showSidebar as showSidebarAtom
-} from 'layout/layoutClient';
+} from "layout/layoutClient";
 import {
     useEffect,
     useState
-} from 'react';
+} from "react";
 import {
     get
-} from 'react-intl-universal';
+} from "react-intl-universal";
 import {
     drawerWidth
-} from 'setting/consts';
+} from "setting/consts";
 import {
     type ThemeHaveZIndex
-} from 'setting/layout';
+} from "setting/layout";
 import {
     getTools,
     tool
@@ -92,7 +92,7 @@ export default function Index(props: {
     function searchTools(search: string) {
         setTools(searchBase(sortedTools, search));
         setExpand(true);
-    };
+    }
     useEffect(() => {
         if (props.isImplant) {
             searchTools(props.children);
@@ -143,14 +143,14 @@ export default function Index(props: {
             {show === "tools" ? (
                 props.isImplant ? (
                     expand && (
-                        <Drawer anchor='left' variant="permanent" sx={{
+                        <Drawer anchor="left" variant="permanent" sx={{
                             flexShrink: 0,
                             [`& .MuiDrawer-paper`]: {
                                 position: "absolute",
                                 left: drawerWidth,
                                 maxWidth: `calc(100vw - ${drawerWidth}px)`,
                                 width: 320,
-                                boxSizing: 'border-box'
+                                boxSizing: "border-box"
                             }
                         }}>
                             <Toolbar />
@@ -180,8 +180,8 @@ export default function Index(props: {
                     </Box>
                     <Collapse in={showTries}>
                         <Box>
-                            <Typography variant='h4'>
-                                {get('index.trythese')}
+                            <Typography variant="h4">
+                                {get("index.trythese")}
                             </Typography>
                             <Box sx={{
                                 p: 1
@@ -196,8 +196,8 @@ export default function Index(props: {
                         </Box>
                     </Collapse>
                     <Box>
-                        <Typography variant='h4'>
-                            {get('use.最近使用')}
+                        <Typography variant="h4">
+                            {get("use.最近使用")}
                         </Typography>
                         <Box sx={{
                             p: 1
@@ -211,8 +211,8 @@ export default function Index(props: {
                         </Box>
                     </Box>
                     <Box>
-                        <Typography variant='h4'>
-                            {get('use.最常使用')}
+                        <Typography variant="h4">
+                            {get("use.最常使用")}
                         </Typography>
                         <Box sx={{
                             p: 1
@@ -229,4 +229,4 @@ export default function Index(props: {
             )}
         </Box>
     );
-};
+}

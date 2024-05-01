@@ -17,7 +17,7 @@ import pages from "./pages.json";
     "readnumber",
 ]; */
 declare const self: ServiceWorkerGlobalScope;
-export const Cache = `Verkfi-${version}-${dev == true ? `dev${devVersion}` : "prod"}`, // C
+export const Cache = `Verkfi-${version}-${dev === true ? `dev${devVersion}` : "prod"}`, // C
     log = (text: string) => console.log(`%cServiceWorker`, `background: #52c41a;border-radius: 0.5em;color: white;font-weight: bold;padding: 2px 0.5em`, text),
     clearOldCaches = async () => {
         const keylist = await caches.keys();
@@ -29,11 +29,11 @@ export const Cache = `Verkfi-${version}-${dev == true ? `dev${devVersion}` : "pr
         });
     },
     installFilesEssential: string[] = [
-        '/index.webmanifest',
-        '/image/favicon.png'
+        "/index.webmanifest",
+        "/image/favicon.png"
     ].concat(pages);
 log(`版本为${Cache}`);
-self.addEventListener('install', async event => {
+self.addEventListener("install", async event => {
     const installStaticFiles = async () => {
         const openedCache = await caches.open(Cache);
         try {
@@ -47,7 +47,7 @@ self.addEventListener('install', async event => {
         self.skipWaiting();
     })());
 });
-self.addEventListener('activate', event => event.waitUntil((async () => {
+self.addEventListener("activate", event => event.waitUntil((async () => {
     await clearOldCaches();
     return self.clients.claim();
 })()));
@@ -60,8 +60,8 @@ self.addEventListener('activate', event => event.waitUntil((async () => {
  * cache：缓存模式
  * fetch：网络模式
  */
-self.addEventListener('fetch', event => {
-    if (event.request.method !== 'GET') return;
+self.addEventListener("fetch", event => {
+    if (event.request.method !== "GET") return;
     const requrl = event.request.url,
         url = String(requrl),
         urled = new URL(url),

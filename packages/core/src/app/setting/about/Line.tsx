@@ -24,14 +24,14 @@ export default function Line(props: {
                 {props.mainLabel}
             </Typography>
             <Box sx={{
-                width: '100%',
+                width: "100%",
                 mr: 1
             }}>
                 <LinearProgress variant="determinate" {...props} />
             </Box>
             <Box sx={{
-                display: 'flex',
-                alignItems: 'center',
+                display: "flex",
+                alignItems: "center",
                 justifyContent: "space-between"
             }}>
                 <Box sx={{

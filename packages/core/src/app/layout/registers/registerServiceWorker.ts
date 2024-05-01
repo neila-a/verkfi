@@ -3,7 +3,7 @@ import {
     logger
 } from "../layoutClient";
 const registerServiceWorker = async () => {
-    if ('serviceWorker' in window.navigator) {
+    if ("serviceWorker" in window.navigator) {
         try {
             // register service worker
             const registration = await window.navigator.serviceWorker.register("/service-worker.js");

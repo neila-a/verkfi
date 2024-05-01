@@ -38,9 +38,9 @@ import {
     useEffect,
     useMemo,
     useState
-} from 'react';
-import intl from 'react-intl-universal';
-import defaultPalette from 'setting/appearance/defaultPalette';
+} from "react";
+import intl from "react-intl-universal";
+import defaultPalette from "setting/appearance/defaultPalette";
 import {
     drawerWidth
 } from "setting/consts";
@@ -61,10 +61,10 @@ export const locales = {
 };
 export const logger = new LpLogger({
     name: "Verkfi",
-    level: "log", // 空字符串时，不显示任何信息
+    level: "log" // 空字符串时，不显示任何信息
 });
-export type colorMode = 'light' | 'dark';
-export const isBrowser = () => typeof window !== 'undefined'; // The approach recommended by Next.js
+export type colorMode = "light" | "dark";
+export const isBrowser = () => typeof window !== "undefined"; // The approach recommended by Next.js
 export type sidebarMode = "menu" | "sidebar";
 export interface mostUsedMarks {
     [key: string]: number;
@@ -85,7 +85,7 @@ export const sidebarMode = atomWithStorage<sidebarMode>("sidebarmode", "边栏�
                 break;
             case "system":
                 if (isBrowser()) {
-                    value = !(window.matchMedia('(prefers-color-scheme: dark)').matches);
+                    value = !(window.matchMedia("(prefers-color-scheme: dark)").matches);
                 }
                 break;
         }
@@ -93,7 +93,8 @@ export const sidebarMode = atomWithStorage<sidebarMode>("sidebarmode", "边栏�
     }),
     gradientTool = atomWithStorage<boolean>("gradient-tool", "工具渐变", false),
     recentlyUsed = atomWithStorage<string[]>("recently-tools", "最近使用的工具", []),
-    mostUsed = atomWithStorage<mostUsedMarks>("most-tools", "最常使用的工具", {}),
+    mostUsed = atomWithStorage<mostUsedMarks>("most-tools", "最常使用的工具", {
+    }),
     lists = atomWithStorage<listsType>("lists", "分类列表", []),
     windows = atom<WindowOptions[]>([]);
 export const repoInfo = createContext<repoInfoType>(null);
@@ -107,7 +108,7 @@ export default function ModifiedApp(props: {
             () => createTheme({
                 palette: {
                     ...palette,
-                    mode: mode === "system" ? (isBrowser() ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : "light") : "light") : mode,
+                    mode: mode === "system" ? (isBrowser() ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") : "light") : mode
                 },
                 typography: {
                     fontFamily: Ubuntu.style.fontFamily
@@ -156,19 +157,19 @@ export default function ModifiedApp(props: {
         loadLang();
         return () => {
             isMounted = false;
-        }
+        };
     }, []);
     return initDone && (
         <Provider>
             <ThemeProvider theme={theme}>
-                    <CssBaseline />
-                    <Box component="aside">
-                        {Sidebar}
-                    </Box>
-                    <Box component="main" ml={(showSidebarValue && sidebarModeValue === "sidebar") && ml}>
-                        {props.children}
-                    </Box>
-                    <WindowContainer />
+                <CssBaseline />
+                <Box component="aside">
+                    {Sidebar}
+                </Box>
+                <Box component="main" ml={(showSidebarValue && sidebarModeValue === "sidebar") && ml}>
+                    {props.children}
+                </Box>
+                <WindowContainer />
             </ThemeProvider>
         </Provider>
     );

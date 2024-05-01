@@ -17,42 +17,42 @@ import {
     Typography,
     TypographyOwnProps
 } from "@mui/material";
-import MouseOverPopover from 'components/Popover';
+import MouseOverPopover from "components/Popover";
 import {
     setState
-} from 'declare';
+} from "declare";
 import {
     useAtom
-} from 'jotai';
+} from "jotai";
 import {
     booleanifyDarkMode,
     gradientTool as gradientToolAtom,
     lists as listsAtom,
-    windows as windowsAtom,
-} from 'layout/layoutClient';
+    windows as windowsAtom
+} from "layout/layoutClient";
 import {
     Route
-} from 'next';
-import dynamic from 'next/dynamic';
+} from "next";
+import dynamic from "next/dynamic";
 import {
     useRouter
-} from 'next/navigation';
+} from "next/navigation";
 import {
     Fragment,
     createElement,
     useState
-} from 'react';
+} from "react";
 import {
     get
 } from "react-intl-universal";
 import {
     NXTMetadata
-} from 'setting/extensions/page';
+} from "setting/extensions/page";
 import {
     tool
 } from "tools/info";
-import DownButton from '../sorting/DownButton';
-import UpButton from '../sorting/UpButton';
+import DownButton from "../sorting/DownButton";
+import UpButton from "../sorting/UpButton";
 const CheckDialog = dynamic(() => import("dialog/Check"));
 import {
     viewMode as viewModeAtom
@@ -66,11 +66,11 @@ export default function SingleTool(props: {
     focus?: boolean;
 }) {
     const {
-        tool,
-        editMode,
-        setTools,
-        sortingFor
-    } = props,
+            tool,
+            editMode,
+            setTools,
+            sortingFor
+        } = props,
         [viewMode] = useAtom(viewModeAtom),
         lightMode = useAtom(booleanifyDarkMode),
         ToolIcon = tool.icon,
@@ -202,11 +202,11 @@ export default function SingleTool(props: {
                         <IconButton onClick={event => {
                             setLists(lists.slice(0).map(list => {
                                 if (list[0] === sortingFor) {
-                                    return [list[0], list[1].filter(singleTool => singleTool !== tool.to)]
+                                    return [list[0], list[1].filter(singleTool => singleTool !== tool.to)];
                                 }
                                 return list;
                             }));
-                            setTools(old => old.slice(0).filter(atool => atool.to !== tool.to))
+                            setTools(old => old.slice(0).filter(atool => atool.to !== tool.to));
                         }} aria-label={get("singleTool.deleteFromCategory")}>
                             <FolderDelete />
                         </IconButton>
@@ -276,7 +276,7 @@ export default function SingleTool(props: {
                         position: "relative",
                         cursor: "pointer",
                         display: "flex",
-                        alignItems: "center",
+                        alignItems: "center"
                     }}>
                         <CardHeader avatar={(
                             <ToolIcon />
@@ -320,10 +320,10 @@ export default function SingleTool(props: {
         );
     return (
         <ButtonBase key={tool.to} component="section" sx={{
-            width: viewMode == "grid" ? 275 : fullWidth
+            width: viewMode === "grid" ? 275 : fullWidth
         }}>
             {viewMode === "grid" ? grid : list}
-            <CheckDialog open={jumpDialogOpen} description={`${get("singleTool.jump")}${jumpName}？`} title={get('离开Verkfi')} onTrue={() => {
+            <CheckDialog open={jumpDialogOpen} description={`${get("singleTool.jump")}${jumpName}？`} title={get("离开Verkfi")} onTrue={() => {
                 router.push(jumpto as Route);
                 setJumpDialogOpen(false);
             }} onFalse={() => {

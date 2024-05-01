@@ -47,12 +47,11 @@ function Cube(props: {
             <mesh ref={mesh} args={[cube, materials]} onClick={event => {
                 if (stage.current.length === 0) {
                     const oldStage = [];
-                    while (oldStage.toString() === cacheStage.current.toString())
-                    for (let step = 0; step < props.cishu; step++) {
+                    while (oldStage.toString() === cacheStage.current.toString()) for (let step = 0; step < props.cishu; step++) {
                         oldStage.push(randomAxis());
                     }
                     if (oldStage.toString() === cacheStage.current.toString()) {
-                        oldStage.splice(0, oldStage.length)
+                        oldStage.splice(0, oldStage.length);
                         for (let step = 0; step < props.cishu; step++) {
                             oldStage.push(randomAxis());
                         }

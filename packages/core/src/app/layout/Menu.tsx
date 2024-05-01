@@ -26,7 +26,7 @@ import convertExtensionTools from "index/convertExtensionTools";
 import ToolsStack from "index/showTool";
 import SwitchEditMode from "index/sidebar/buttons/SwitchEditMode";
 import SwitchViewMode from "index/sidebar/buttons/SwitchViewMode";
-import searchBase from 'index/sidebar/searchBase';
+import searchBase from "index/sidebar/searchBase";
 import Selects from "index/sidebar/selects";
 import toolsListAtom from "index/sidebar/selects/toolsListAtom";
 import useMostUsedTools from "index/useMostUsedTools";
@@ -54,7 +54,7 @@ import extensionsAtom from "./extensionsAtom";
 export default function Menu() {
     const [control, setControl] = useAtom(showSidebar),
         theme = useTheme(),
-        fullScreen = useMediaQuery(theme.breakpoints.down('sm')),
+        fullScreen = useMediaQuery(theme.breakpoints.down("sm")),
         realTools = getTools(get), // 硬编码的分类
         [recentlyUsed] = useAtom(recentlyUsedAtom),
         [editMode, setEditMode] = useState<boolean>(false),
@@ -143,8 +143,8 @@ export default function Menu() {
                                         </IconButton>
                                     </MouseOverPopover>
                                 )}
-                                <MouseOverPopover text={get('搜索')}>
-                                    <IconButton type="button" aria-label={get('搜索')} onClick={() => {
+                                <MouseOverPopover text={get("搜索")}>
+                                    <IconButton type="button" aria-label={get("搜索")} onClick={() => {
                                         searchTools(searchText);
                                     }}>
                                         <SearchIcon />
@@ -165,8 +165,8 @@ export default function Menu() {
                         )
                     }} fullWidth autoFocus value={searchText} sx={{
                         flex: 1
-                    }} placeholder={get('搜索工具')} inputProps={{
-                        'aria-label': get('搜索工具')
+                    }} placeholder={get("搜索工具")} inputProps={{
+                        "aria-label": get("搜索工具")
                     }} onChange={event => {
                         if (searchText !== event.target.value) {
                             setSearchText(event.target.value);
@@ -179,8 +179,8 @@ export default function Menu() {
                     {sortingFor === "__home__" ? (
                         <>
                             <Box>
-                                <Typography variant='h4'>
-                                    {get('category.分类')}
+                                <Typography variant="h4">
+                                    {get("category.分类")}
                                     <Selects
                                         setEditing={setEditing}
                                         modifyClickCount={value => null}
@@ -196,8 +196,8 @@ export default function Menu() {
                                 </Typography>
                             </Box>
                             <Box>
-                                <Typography variant='h4'>
-                                    {get('use.最近使用')}
+                                <Typography variant="h4">
+                                    {get("use.最近使用")}
                                 </Typography>
                                 <Box sx={{
                                     p: 1
@@ -215,8 +215,8 @@ export default function Menu() {
                                 </Box>
                             </Box>
                             <Box>
-                                <Typography variant='h4'>
-                                    {get('use.最常使用')}
+                                <Typography variant="h4">
+                                    {get("use.最常使用")}
                                 </Typography>
                                 <Box sx={{
                                     p: 1

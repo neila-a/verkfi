@@ -5,12 +5,12 @@ import {
 } from "@mui/material";
 import {
     AppRouterCacheProvider
-} from '@mui/material-nextjs/v13-appRouter';
+} from "@mui/material-nextjs/v13-appRouter";
 import Ubuntu from "components/fonts";
 import {
     getRepoInfo
 } from "components/getRepoInfo";
-import 'filepond/dist/filepond.min.css'; // Import FilePond styles
+import "filepond/dist/filepond.min.css"; // Import FilePond styles
 import {
     Provider
 } from "jotai";
@@ -27,7 +27,7 @@ import pack from "../../package.json";
 export async function generateMetadata() {
     let url = new URL(pack.homepage);
     try {
-        url = new URL(process.env.VERKFI_URL)
+        url = new URL(process.env.VERKFI_URL);
     } catch {
         console.error(`URL build failed. Using ${url} from homepage in package.json.`);
     }
@@ -41,7 +41,7 @@ export async function generateMetadata() {
         other: {
             "msapplication-tooltip": upperName,
             "msapplication-navbutton-color": "#1976d2",
-            "msapplication-starturl": "/",
+            "msapplication-starturl": "/"
         },
         icons: "/image/favicon.png",
         appleWebApp: {
@@ -58,12 +58,12 @@ export async function generateMetadata() {
             siteName: upperName,
             images: [
                 {
-                    url: './image/social.png',
+                    url: "./image/social.png",
                     width: 1280,
-                    height: 640,
+                    height: 640
                 }
             ],
-            locale: 'zh_CN',
+            locale: "zh_CN",
             alternateLocale: [
                 "zh_TW",
                 "en_US"
@@ -74,7 +74,7 @@ export async function generateMetadata() {
 }
 export function generateViewport(): Viewport {
     return {
-        themeColor: "#1976d2",
+        themeColor: "#1976d2"
     };
 }
 export default async function Layout({
@@ -121,5 +121,5 @@ export default async function Layout({
                 </AppRouterCacheProvider>
             </body>
         </html>
-    )
-};
+    );
+}

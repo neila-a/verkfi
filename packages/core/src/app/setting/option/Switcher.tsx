@@ -20,11 +20,12 @@ export function Switcher(props: {
     option: option;
 }) {
     const {
-        option
-    } = props,
+            option
+        } = props,
         [value, setValue] = useAtom(option[0]),
         isShare = option[1] === "share.t",
-        hasShare = "share" in (isBrowser() ? navigator : {}),
+        hasShare = "share" in (isBrowser() ? navigator : {
+        }),
         isForkMeOnGitHub = option[1] === "Fork me on GitHub";
     return (
         <>

@@ -1,21 +1,21 @@
 "use client";
 import {
     not
-} from 'components/TransferList';
+} from "components/TransferList";
 import {
     atom,
     useAtom
-} from 'jotai';
+} from "jotai";
 import {
     mostUsed as mostUsedAtom
 } from "layout/layoutClient";
 import {
     get
-} from 'react-intl-universal';
+} from "react-intl-universal";
 import {
     getTools,
     tool
-} from 'tools/info';
+} from "tools/info";
 const triesAtom = atom(get => {
     const mostUsed = get(mostUsedAtom);
     return (realTools: tool[]) => {
