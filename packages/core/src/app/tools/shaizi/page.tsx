@@ -1,20 +1,20 @@
 "use client";
 import {
-    get
-} from 'react-intl-universal';
-import {
-    useState
-} from "react";
-import {
     Button,
     Stack,
     TextField
 } from "@mui/material";
 import dynamic from 'next/dynamic';
-const FullScreenDialog = dynamic(() => import("dialog/FullScreen"));
+import {
+    useState
+} from "react";
+import {
+    get
+} from 'react-intl-universal';
 import {
     ShaiZiCanvas
 } from "./shaiziCanvas";
+const FullScreenDialog = dynamic(() => import("dialog/FullScreen"));
 function ShaiZi(): JSX.Element {
     const [useDialogShow, setUseDialogShow] = useState<boolean>(false),
         [cishu, setCishu] = useState<number>(10);

@@ -1,13 +1,13 @@
 import {
+    Close as CloseIcon
+} from "@mui/icons-material";
+import {
     DialogTitle,
     IconButton
 } from "@mui/material";
 import {
     ReactNode
 } from "react";
-import {
-    Close as CloseIcon
-} from "@mui/icons-material";
 import {
     get
 } from "react-intl-universal";

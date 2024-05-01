@@ -1,10 +1,10 @@
 "use client";
 import {
-    Fragment,
-    createElement,
-    useContext,
-    useState
-} from 'react';
+    Delete,
+    DragIndicator as DragIndicatorIcon,
+    ExitToApp as ExitToAppIcon,
+    FolderDelete
+} from "@mui/icons-material";
 import {
     Box,
     ButtonBase,
@@ -17,44 +17,46 @@ import {
     Typography,
     TypographyOwnProps
 } from "@mui/material";
-import {
-    ExitToApp as ExitToAppIcon,
-    DragIndicator as DragIndicatorIcon,
-    Delete,
-    FolderDelete
-} from "@mui/icons-material";
-import {
-    tool
-} from "tools/info";
-import {
-    useRouter
-} from 'next/navigation';
-import DownButton from '../sorting/DownButton';
-import UpButton from '../sorting/UpButton';
-import {
-    viewMode
-} from '../consts';
+import MouseOverPopover from 'components/Popover';
 import {
     setState
 } from 'declare';
-import dynamic from 'next/dynamic';
-const CheckDialog = dynamic(() => import("dialog/Check"));
 import {
-    gradientTool as gradientToolContext,
-    windows as windowsContext,
-    useLightMode,
-    lists as listsContext,
+    useAtom
+} from 'jotai';
+import {
+    booleanifyDarkMode,
+    gradientTool as gradientToolAtom,
+    lists as listsAtom,
+    windows as windowsAtom,
 } from 'layout/layoutClient';
+import {
+    Route
+} from 'next';
+import dynamic from 'next/dynamic';
+import {
+    useRouter
+} from 'next/navigation';
+import {
+    Fragment,
+    createElement,
+    useState
+} from 'react';
 import {
     get
 } from "react-intl-universal";
-import MouseOverPopover from 'components/Popover';
 import {
     NXTMetadata
 } from 'setting/extensions/page';
 import {
-    Route
-} from 'next';
+    tool
+} from "tools/info";
+import {
+    viewMode
+} from '../consts';
+import DownButton from '../sorting/DownButton';
+import UpButton from '../sorting/UpButton';
+const CheckDialog = dynamic(() => import("dialog/Check"));
 export default function SingleTool(props: {
     tool: tool;
     isFirst: boolean;
@@ -71,7 +73,7 @@ export default function SingleTool(props: {
         setTools,
         sortingFor
     } = props,
-        lightMode = useLightMode(),
+        lightMode = useAtom(booleanifyDarkMode),
         ToolIcon = tool.icon,
         subStyle = {
             sx: {
@@ -79,11 +81,9 @@ export default function SingleTool(props: {
             }
         },
         router = useRouter(),
-        usedLists = useContext(listsContext),
-        windows = useContext(windowsContext),
-        lists = usedLists.value,
-        setLists = usedLists.set,
-        gradientTool = useContext(gradientToolContext).value,
+        [lists, setLists] = useAtom(listsAtom),
+        [windows, setWindows] = useAtom(windowsAtom),
+        [gradientTool] = useAtom(gradientToolAtom),
         [jumpto, setJumpTo] = useState<string>(""),
         [removeDialogOpen, setRemoveDialogOpen] = useState<boolean>(false),
         [elevation, setElevation] = useState<number>(2),
@@ -125,7 +125,7 @@ export default function SingleTool(props: {
             event.preventDefault();
             if (tool.isGoto) {
                 if (tool.to.startsWith("/tools/extension")) {
-                    windows.set([...windows.windows, {
+                    setWindows([...windows, {
                         page: `${tool.to}&only=true`,
                         to: tool.to,
                         name: tool.name,
@@ -138,7 +138,7 @@ export default function SingleTool(props: {
                     setJumpName(tool.name);
                 }
             } else {
-                windows.set([...windows.windows, {
+                setWindows([...windows, {
                     page: `/tools/${tool.to}?only=true`,
                     to: `/tools/${tool.to}`,
                     color: tool.color,

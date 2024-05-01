@@ -1,29 +1,29 @@
 "use client";
 import {
-    get,
-    getHTML
-} from 'react-intl-universal';
+    GitHub
+} from "@mui/icons-material";
 import {
     Box,
     Button,
     Typography
 } from "@mui/material";
-import {
-    GitHub
-} from "@mui/icons-material";
-import pack from "../../../../package.json";
 import ErrorBoundary from 'components/ErrorBoundary';
+import VerkfiIcon from 'components/verkfiIcon/verkfiIcon';
+import {
+    isBrowser
+} from 'layout/layoutClient';
+import dynamic from 'next/dynamic';
+import Link from 'next/link';
 import {
     ReactNode,
     useState
 } from 'react';
-import dynamic from 'next/dynamic';
-import VerkfiIcon from 'components/verkfiIcon/verkfiIcon';
-import Reset from './reset';
-import Link from 'next/link';
 import {
-    isBrowser
-} from 'layout/layoutClient';
+    get,
+    getHTML
+} from 'react-intl-universal';
+import pack from "../../../../package.json";
+import Reset from './reset';
 const PureDialog = dynamic(() => import("dialog/Pure"));
 const {
     version,

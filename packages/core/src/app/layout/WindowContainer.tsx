@@ -1,20 +1,17 @@
 "use client";
 import ErrorBoundary from "components/ErrorBoundary";
-import dynamic from "next/dynamic";
-const Window = dynamic(() => import("components/window/Window"));
+import {
+    useAtom
+} from "jotai";
 import {
     gradientTool,
-    windows as windowsContext
+    windows as windowsAtom
 } from "layout/layoutClient";
-import {
-    useContext
-} from "react";
+import dynamic from "next/dynamic";
+const Window = dynamic(() => import("components/window/Window"));
 export default function WindowContainer() {
-    const colorContext = useContext(gradientTool),
-        {
-            windows
-        } = useContext(windowsContext),
-        color = colorContext.value;
+    const [color] = useAtom(gradientTool),
+        [windows] = useAtom(windowsAtom);
     return (
         <ErrorBoundary>
             {windows.map(single => (

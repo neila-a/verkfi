@@ -1,51 +1,53 @@
 "use client";
 import {
-    get
-} from 'react-intl-universal';
+    Box,
+    Collapse,
+    Drawer,
+    IconButton,
+    Toolbar,
+    Typography
+} from "@mui/material";
 import HeadBar from "components/HeadBar";
+import MouseOverPopover from 'components/Popover';
+import VerkfiIcon from 'components/verkfiIcon/verkfiIcon';
 import {
-    useContext,
+    setState
+} from 'declare';
+import convertExtensionTools from 'index/convertExtensionTools';
+import generateTries from 'index/generateTries';
+import getParamTools from 'index/getMostUsedTools';
+import ToolsStack from 'index/showTool';
+import Sidebar from 'index/sidebar';
+import searchBase from 'index/sidebar/searchBase';
+import useToolsList from 'index/sidebar/selects/useToolsList';
+import {
+    useAtom
+} from 'jotai';
+import extensionsAtom from "layout/extensionsAtom";
+import {
+    mostUsed as mostUsedAtom,
+    recentlyUsed as recentlyUsedAtom,
+    showSidebar as showSidebarAtom,
+    viewMode as viewModeAtom
+} from 'layout/layoutClient';
+import {
     useEffect,
     useMemo,
     useState
 } from 'react';
 import {
-    type ThemeHaveZIndex
-} from 'setting/layout';
+    get
+} from 'react-intl-universal';
 import {
     drawerWidth
 } from 'setting/consts';
 import {
-    Typography,
-    Box,
-    Drawer,
-    Toolbar,
-    Collapse,
-    IconButton
-} from "@mui/material";
+    type ThemeHaveZIndex
+} from 'setting/layout';
 import {
     getTools,
     tool
 } from "tools/info";
-import useToolsList from 'index/sidebar/selects/useToolsList';
-import Sidebar from 'index/sidebar';
-import {
-    setState
-} from 'declare';
-import ToolsStack from 'index/showTool';
-import searchBase from 'index/sidebar/searchBase';
-import {
-    recentlyUsed as recentlyUsedContext,
-    mostUsed as mostUsedContext,
-    showSidebar as showSidebarContext,
-    viewMode as viewModeContext,
-    extensions
-} from 'layout/layoutClient';
-import getParamTools from 'index/getMostUsedTools';
-import VerkfiIcon from 'components/verkfiIcon/verkfiIcon';
-import generateTries from 'index/generateTries';
-import convertExtensionTools from 'index/convertExtensionTools';
-import MouseOverPopover from 'components/Popover';
 export default function Index(props: {
     /**
      * 是否为嵌入
@@ -59,16 +61,14 @@ export default function Index(props: {
     setExpand?: setState<boolean>;
 }): JSX.Element {
     const realTools = getTools(get),
-        extensionTools = useContext(extensions).value,
+        [extensionTools] = useAtom(extensionsAtom),
         toolsList = useToolsList(realTools),
-        showSidebar = useContext(showSidebarContext),
-        recentlyUsed = useContext(recentlyUsedContext).value,
-        mostUsed = useContext(mostUsedContext).value,
+        [showSidebar] = useAtom(showSidebarAtom),
+        [recentlyUsed] = useAtom(recentlyUsedAtom),
+        [mostUsed] = useAtom(mostUsedAtom),
         [sortedTools, setSortedTools] = useState(toolsList),
         [searchText, setSearchText] = useState<string>(props.isImplant ? props.children : ""),
-        usedViewMode = useContext(viewModeContext),
-        viewMode = usedViewMode.value,
-        setViewMode = usedViewMode.set,
+        [viewMode, setViewMode] = useAtom(viewModeAtom),
         [editMode, setEditMode] = useState<boolean>(false),
         [expandThis, setExpandThis] = useState<boolean>(false),
         [showTries, setShowTries] = useState<boolean>(false),
@@ -120,7 +120,7 @@ export default function Index(props: {
             </Box>
         );
     }
-    return (props.isImplant ? showSidebar.show : true) && (
+    return (props.isImplant ? showSidebar : true) && (
         <Box>
             {props.isImplant !== true && (
                 <HeadBar isIndex pageName="Verkfi" sx={{

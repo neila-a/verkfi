@@ -1,9 +1,9 @@
-import {
-    version,
-    devVersion,
-    dev
-} from "../../package.json";
 import db from "db";
+import {
+    dev,
+    devVersion,
+    version
+} from "../../package.json";
 import pages from "./pages.json";
 /* const toolsTo = [
     "audiotools",

@@ -1,58 +1,53 @@
 "use client";
 import {
-    FormGroup,
-    InputLabel,
-    Select,
-    MenuItem,
-    Button,
-    ButtonGroup,
-    Typography,
-    Grid
-} from "@mui/material";
-import {
     CallToActionOutlined,
     Download as DownloadIcon,
     Help as HelpIcon,
     ViewSidebar as ViewSidebarIcon
 } from "@mui/icons-material";
 import {
-    gradientTool,
+    Button,
+    ButtonGroup,
+    FormGroup,
+    Grid,
+    InputLabel,
+    MenuItem,
+    Select,
+    Typography
+} from "@mui/material";
+import {
+    WritableAtom,
+    useAtom
+} from "jotai";
+import langAtom from "layout/langAtom";
+import {
     forkMeOnGitHub,
-    lang as langContext,
-    share,
-    locales
+    locales,
+    share
 } from "layout/layoutClient";
 import {
-    get
-} from "react-intl-universal";
-import {
-    Context,
-    useContext,
-    useId,
-    useState
-} from "react";
-import {
-    Switcher
-} from "./Switcher";
+    Route
+} from "next";
 import dynamic from 'next/dynamic';
 import {
     useRouter
 } from "next/navigation";
+import {
+    useId,
+    useState
+} from "react";
+import {
+    get
+} from "react-intl-universal";
 import Module from "./Module";
 import {
-    setState
-} from "declare";
-import {
-    Route
-} from "next";
+    Switcher
+} from "./Switcher";
 const PureDialog = dynamic(() => import("dialog/Pure")),
     ghURL = "https://github.com/neila-a/verkfi/";
-export type option = [Context<{
-    value: boolean;
-    set: setState<boolean>;
-}>, string];
+export type option = [WritableAtom<boolean, [update: boolean], void>, string];
 export default function Options() {
-    const lang = useContext(langContext),
+    const [lang, setLang] = useAtom(langAtom),
         [dialogOpen, setDialogOpen] = useState<boolean>(false),
         router = useRouter(),
         langId = useId();
@@ -88,9 +83,9 @@ export default function Options() {
             <InputLabel id={langId}>
                 {get("选择语言")}
             </InputLabel>
-            <Select labelId={langId} value={lang.value} label={get("选择语言")} onChange={event => {
+            <Select labelId={langId} value={lang} label={get("选择语言")} onChange={event => {
                 const plang = event.target.value;
-                lang.set(plang);
+                setLang(plang);
             }}>
                 {Object.values(locales).map(ilang => {
                     const {

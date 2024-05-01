@@ -1,26 +1,25 @@
 "use client";
 import {
+    useAtom
+} from "jotai";
+import extensionsAtom from "layout/extensionsAtom";
+import {
+    mostUsed as mostUsedAtom,
+    recentlyUsed as recentlyUsedAtom
+} from "layout/layoutClient";
+import {
     NXTMetadata,
     setting
 } from "./page";
-import {
-    useContext
-} from "react";
-import {
-    recentlyUsed as recentlyUsedContext,
-    mostUsed as mostUsedContext,
-    extensions
-} from "layout/layoutClient";
 export default function useClearExtensionData() {
-    const extensionsTools = useContext(extensions),
-        recentlyUsed = useContext(recentlyUsedContext),
-        oldRecently = recentlyUsed.value,
-        mostUsed = useContext(mostUsedContext),
+    const [extensionsTools, setExtensions] = useAtom(extensionsAtom),
+        [oldRecently, setRecently] = useAtom(recentlyUsedAtom),
+        [mostUsed, setMostUsed] = useAtom(mostUsedAtom),
         oldMost = {
-            ...mostUsed.value
+            ...mostUsed
         };
     return (clearingExtension: NXTMetadata, clearingFiles: [string, Uint8Array][]) => {
-        extensionsTools.set({
+        setExtensions({
             ...clearingExtension,
             files: clearingFiles,
             settings: clearingExtension.settings.map(setting => ({
@@ -28,8 +27,8 @@ export default function useClearExtensionData() {
                 value: setting.defaultValue
             }) as setting)
         });
-        recentlyUsed.set(oldRecently.filter(item => item !== clearingExtension.to));
+        setRecently(oldRecently.filter(item => item !== clearingExtension.to));
         Reflect.deleteProperty(oldMost, clearingExtension.to);
-        mostUsed.set(oldMost);
+        setMostUsed(oldMost);
     };
 }

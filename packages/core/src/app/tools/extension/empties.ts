@@ -1,9 +1,9 @@
 import {
-    NXTMetadata
-} from "setting/extensions/page";
-import {
     single
 } from "db";
+import {
+    NXTMetadata
+} from "setting/extensions/page";
 export const emptyNXTMetadata: NXTMetadata = {
     name: "",
     desc: "",

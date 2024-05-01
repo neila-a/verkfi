@@ -1,11 +1,11 @@
 "use client";
 import {
+    SyncProblem as SyncProblemIcon
+} from "@mui/icons-material";
+import {
     Box,
     Typography
 } from "@mui/material";
-import {
-    SyncProblem as SyncProblemIcon
-} from "@mui/icons-material";
 export default function No(props: {
     children: string;
 }) {

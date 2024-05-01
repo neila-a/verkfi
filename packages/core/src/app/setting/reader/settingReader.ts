@@ -1,6 +1,4 @@
-import db, {
-    option
-} from "db";
+import db from "db";
 import {
     isBrowser
 } from "layout/layoutClient";

@@ -1,22 +1,22 @@
 "use client";
 import {
-    get
-} from 'react-intl-universal';
+    Box,
+    FormControlLabel,
+    FormGroup,
+    Switch,
+    TextField,
+    Typography
+} from "@mui/material";
+import CopyButton from 'components/CopyButton';
+import dynamic from 'next/dynamic';
 import {
     useState
 } from "react";
 import {
-    Typography,
-    FormGroup,
-    FormControlLabel,
-    Switch,
-    TextField,
-    Box
-} from "@mui/material";
-import dynamic from 'next/dynamic';
-const AlertDialog = dynamic(() => import("dialog/Alert"));
+    get
+} from 'react-intl-universal';
 import generatePis from './generatePis';
-import CopyButton from 'components/CopyButton';
+const AlertDialog = dynamic(() => import("dialog/Alert"));
 function PI(): JSX.Element {
     const [digits, setDigits] = useState<number>(1),
         [useAlertShow, setUseAlertShow] = useState<boolean>(false),

@@ -1,33 +1,33 @@
 "use client";
 import {
-    TextField,
     Button,
-    ButtonGroup
+    ButtonGroup,
+    TextField
 } from "@mui/material";
+import TransferList from "components/TransferList";
 import {
     setState
 } from 'declare';
 import {
+    useAtom
+} from "jotai";
+import extensionsAtom from "layout/extensionsAtom";
+import {
+    lists as listsAtom
+} from "layout/layoutClient";
+import dynamic from 'next/dynamic';
+import {
     get
 } from "react-intl-universal";
 import {
-    useContext
-} from "react";
-import dynamic from 'next/dynamic';
-const PureDialog = dynamic(() => import("dialog/Pure"));
-import TransferList from "components/TransferList";
+    getTools
+} from "tools/info";
 import {
     lists
 } from "..";
-import useToolsList from "./useToolsList";
-import {
-    getTools
-} from "tools/info";
 import convertExtensionTools from "../../convertExtensionTools";
-import {
-    extensions,
-    lists as listsContext
-} from "layout/layoutClient";
+import useToolsList from "./useToolsList";
+const PureDialog = dynamic(() => import("dialog/Pure"));
 export default function EditToolsListDialog(props: {
     dialogTools: string[];
     setDialogTools: setState<string[]>;
@@ -42,11 +42,10 @@ export default function EditToolsListDialog(props: {
     const {
         dialogTools, setDialogTools, dialogListName, setDialogListName, setDialogOpen
     } = props,
-        usedList = useContext(listsContext),
-        list = usedList.value,
+        [list, setList] = useAtom(listsAtom),
         edit = (forList: lists) => forList.some(single => single[0] === dialogListName),
         createOrEdit = !edit(list) ? get("category.创建分类") : get("category.编辑分类"),
-        extensionTools = useContext(extensions).value,
+        [extensionTools] = useAtom(extensionsAtom),
         converted = convertExtensionTools(extensionTools),
         toolsList = useToolsList(getTools(get)),
         right = toolsList.concat(converted).filter(atool => atool !== undefined).map(atool => atool.name).filter(v => props.left.every(val => val !== v));
@@ -64,7 +63,7 @@ export default function EditToolsListDialog(props: {
                         listDraft.push([dialogListName, dialogTools]);
                     }
                     props.setList(listDraft);
-                    usedList.set(listDraft);
+                    setList(listDraft);
                     setDialogListName("");
                     setDialogTools([]);
                     return setDialogOpen(false);

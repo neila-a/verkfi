@@ -6,41 +6,41 @@ import {
     useTheme
 } from "@mui/material";
 import {
-    useContext,
-    useState
-} from "react";
-import {
-    get
-} from "react-intl-universal";
-import {
     Filesystem
 } from "@tybys/browser-asar";
-import {
-    FilePond
-} from 'react-filepond'; // Import React FilePond
-import dynamic from "next/dynamic";
-const PureDialog = dynamic(() => import("dialog/Pure"));
+import No from "No";
 import {
     FilePondFile,
     FilePondServerConfigProps
 } from 'filepond';
-import DialogInputs from "./DialogInputs";
 import {
-    settingPage
-} from "../layout";
+    useAtom
+} from "jotai";
+import extensionsAtom from "layout/extensionsAtom";
+import dynamic from "next/dynamic";
+import {
+    useState
+} from "react";
+import {
+    FilePond
+} from 'react-filepond'; // Import React FilePond
+import {
+    get
+} from "react-intl-universal";
+import {
+    emptyNXTMetadata
+} from "tools/extension/empties";
 import {
     noIconTool
 } from "tools/info";
 import {
-    emptyNXTMetadata
-} from "tools/extension/empties";
-import RemoveExtensionDialog from "./RemoveExtensionDialog";
+    settingPage
+} from "../layout";
 import DialogButtons from "./DialogButtons";
+import DialogInputs from "./DialogInputs";
+import RemoveExtensionDialog from "./RemoveExtensionDialog";
 import ToolViewer from "./ToolViewer";
-import No from "No";
-import {
-    extensions
-} from "layout/layoutClient";
+const PureDialog = dynamic(() => import("dialog/Pure"));
 export type inputTypes = "modify" | "add";
 export default function ExtensionManager() {
     const [addDialogOpen, setAddDialogOpen] = useState<boolean>(false),
@@ -59,7 +59,7 @@ export default function ExtensionManager() {
             setFiles([]);
             setFileInfo(emptyNXTMetadata);
         },
-        extensionTools = useContext(extensions).value,
+        [extensionTools] = useAtom(extensionsAtom),
         packagedDialogInputs = (type: inputTypes) => <DialogInputs
             type={type}
             fileInfo={fileInfo}

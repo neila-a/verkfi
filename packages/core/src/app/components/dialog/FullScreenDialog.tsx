@@ -1,21 +1,21 @@
 import {
-    Dialog,
+    Close as CloseIcon
+} from "@mui/icons-material";
+import {
     AppBar,
+    Dialog,
+    IconButton,
     Toolbar,
-    Typography,
-    IconButton
+    Typography
 } from "@mui/material";
 import {
     ReactNode
 } from "react";
 import {
-    Close as CloseIcon
-} from "@mui/icons-material"
-import Transition from "./Transition";
-import {
     get
 } from "react-intl-universal";
 import MouseOverPopover from "../Popover";
+import Transition from "./Transition";
 export default function FullScreenDialog(props: {
     title: string;
     context: ReactNode;

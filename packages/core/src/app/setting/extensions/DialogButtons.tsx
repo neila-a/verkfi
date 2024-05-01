@@ -4,18 +4,18 @@ import {
     ButtonGroup
 } from "@mui/material";
 import {
-    useContext
-} from "react";
+    setState
+} from "declare";
+import {
+    useAtom
+} from "jotai";
+import extensionsAtom from "layout/extensionsAtom";
+import {
+    lists as listsAtom
+} from "layout/layoutClient";
 import {
     get
 } from "react-intl-universal";
-import {
-    extensions,
-    lists as listsContext
-} from "layout/layoutClient";
-import {
-    setState
-} from "declare";
 import {
     NXTMetadata
 } from "./page";
@@ -27,19 +27,19 @@ export default function DialogButtons(props: {
     files: [string, Uint8Array][];
     reset(): void;
 }) {
-    const lists = useContext(listsContext),
-        usedExtensions = useContext(extensions);
+    const [lists, setLists] = useAtom(listsAtom),
+        [extensions, setExtensions] = useAtom(extensionsAtom);
     return (
         <ButtonGroup fullWidth>
             {props.files.length !== 0 && (
                 <Button variant="contained" onClick={async (event) => {
-                    usedExtensions.set({
+                    setExtensions({
                         ...props.fileInfo,
                         files: props.files
                     });
-                    const index = lists?.value.find(list => list[0] === "__global__"), to = `/tools/extension?tool=${props.fileInfo.to}`;
+                    const index = lists?.find(list => list[0] === "__global__"), to = `/tools/extension?tool=${props.fileInfo.to}`;
                     if (!index?.[1].includes(to)) {
-                        lists.set(lists.value.map(singleList => {
+                        setLists(lists?.map(singleList => {
                             if (singleList[0] === "__global__") {
                                 return [singleList[0], [...singleList[1], to]];
                             }

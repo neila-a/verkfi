@@ -1,21 +1,22 @@
 "use client";
 import {
-    FormControlLabel,
-    Checkbox
+    Checkbox,
+    FormControlLabel
 } from "@mui/material";
+import CheckDialog from "dialog/Check";
 import {
-    useContext,
+    useAtom
+} from "jotai";
+import extensionsAtom from "layout/extensionsAtom";
+import {
+    lists as listsAtom
+} from "layout/layoutClient";
+import {
     useState
 } from "react";
 import {
     get
 } from "react-intl-universal";
-import db from "db";
-import CheckDialog from "dialog/Check";
-import {
-    extensions,
-    lists as listsContext
-} from "layout/layoutClient";
 import useClearExtensionData from "./clearExtensionData";
 import {
     NXTMetadata
@@ -29,8 +30,8 @@ export default function RemoveExtensionDialog(props: {
 }) {
     const [clearData, setClearData] = useState<boolean>(false),
         clearExtensionData = useClearExtensionData(),
-        extensionsTools = useContext(extensions),
-        lists = useContext(listsContext);
+        [extensionsTools, setExtensions] = useAtom(extensionsAtom),
+        [lists, setLists] = useAtom(listsAtom);
     return (
         <CheckDialog insert={<FormControlLabel control={(
             <Checkbox value={clearData} onChange={event => {
@@ -40,13 +41,11 @@ export default function RemoveExtensionDialog(props: {
             props.reset();
             setClearData(false);
         }} onTrue={async () => {
-            if (lists.value !== undefined) {
-                lists.set(lists.value.map(singleList => [singleList[0], singleList[1].filter(item => item !== `/tools/extension?tool=${props.fileInfo.to}`)]));
-            }
+            setLists(lists.map(singleList => [singleList[0], singleList[1].filter(item => item !== `/tools/extension?tool=${props.fileInfo.to}`)]));
             if (clearData) {
                 clearExtensionData(props.fileInfo, props.files);
             }
-            extensionsTools.set({
+            setExtensions({
                 ...props.fileInfo,
                 files: props.files,
                 action: "delete"

@@ -1,40 +1,37 @@
 "use client";
 import {
-    Paper,
-    Stack,
-    Typography,
-    Divider,
-    IconButton,
-    Box,
-    useMediaQuery,
-    useTheme
-} from "@mui/material";
-import {
-    useContext
-} from "react";
-import {
-    get
-} from "react-intl-universal";
-import {
     Edit as EditIcon,
     RestartAlt as RestartAltIcon
 } from "@mui/icons-material";
-import dynamic from "next/dynamic";
-const PureDialog = dynamic(() => import("dialog/Pure"));
+import {
+    Box,
+    Divider,
+    IconButton,
+    Paper,
+    Stack,
+    Typography,
+    useMediaQuery,
+    useTheme
+} from "@mui/material";
+import MouseOverPopover from "components/Popover";
 import {
     single
 } from "db";
-import DialogInputs from "./DialogInputs";
-import MouseOverPopover from "components/Popover";
-import useClearExtensionData from "./clearExtensionData";
 import {
     setState
 } from "declare";
+import dynamic from "next/dynamic";
+import {
+    get
+} from "react-intl-universal";
 import DialogButtons from "./DialogButtons";
+import DialogInputs from "./DialogInputs";
+import useClearExtensionData from "./clearExtensionData";
 import {
     NXTMetadata,
     inputTypes
 } from "./page";
+const PureDialog = dynamic(() => import("dialog/Pure"));
 export default function ToolViewer(props: {
     single: single;
     fileInfo: NXTMetadata;

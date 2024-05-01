@@ -1,20 +1,20 @@
 import {
-    get
-} from 'react-intl-universal';
-import {
+    Button,
     Dialog,
-    DialogTitle,
+    DialogActions,
     DialogContent,
     DialogContentText,
-    DialogActions,
-    Button,
+    DialogTitle,
     SxProps,
     Theme
 } from "@mui/material";
-import Transition from "./Transition";
 import {
     ReactNode, useId
 } from 'react';
+import {
+    get
+} from 'react-intl-universal';
+import Transition from "./Transition";
 export default function CheckDialog(props: {
     title: string;
     onFalse(): any;

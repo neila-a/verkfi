@@ -1,14 +1,14 @@
 import {
-    ReactNode,
-    useState,
-    MouseEvent,
-    CSSProperties
-} from 'react';
-import {
     Box,
     Popover,
     Typography
 } from '@mui/material';
+import {
+    CSSProperties,
+    MouseEvent,
+    ReactNode,
+    useState
+} from 'react';
 export default function MouseOverPopover(props: {
     children: ReactNode;
     text: string;

@@ -1,30 +1,30 @@
 "use client";
 import {
-    get
-} from 'react-intl-universal';
-import {
+    Button,
+    ButtonGroup,
     Checkbox,
     FormControlLabel,
     FormGroup,
-    TextField,
-    Button,
     FormLabel,
+    List,
     Paper,
-    ButtonGroup,
-    List
+    TextField
 } from "@mui/material";
+import No from 'No';
 import {
     useEffect,
     useState
 } from "react";
-import SingleMath from "./singleMath";
+import {
+    get
+} from 'react-intl-universal';
+import removeArrayItem from "remove-item-from-array";
+import calcMath from "./calcMath";
 import {
     calc,
     defaultCalcs
 } from "./consts";
-import calcMath from "./calcMath";
-import No from 'No';
-import removeArrayItem from "remove-item-from-array";
+import SingleMath from "./singleMath";
 function MathGen(): JSX.Element {
     const [min, setMin] = useState<number>(0),
         [max, setMax] = useState<number>(10),

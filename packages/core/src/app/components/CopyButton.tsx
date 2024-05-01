@@ -1,10 +1,7 @@
 "use client";
 import {
-    get
-} from 'react-intl-universal';
-import {
-    useState
-} from "react";
+    ContentCopy as ContentCopyIcon
+} from '@mui/icons-material';
 import {
     Button,
     ButtonOwnProps,
@@ -14,12 +11,15 @@ import {
     SxProps,
     Theme
 } from "@mui/material";
-import {
-    ContentCopy as ContentCopyIcon
-} from '@mui/icons-material';
 import dynamic from 'next/dynamic';
-const AlertDialog = dynamic(() => import("dialog/Alert"));
+import {
+    useState
+} from "react";
+import {
+    get
+} from 'react-intl-universal';
 import MouseOverPopover from './Popover';
+const AlertDialog = dynamic(() => import("dialog/Alert"));
 function CopyButton(props: {
     children: string;
     add?: ButtonOwnProps;

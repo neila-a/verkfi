@@ -1,7 +1,10 @@
 "use client";
 import {
-	get
-} from 'react-intl-universal';
+	Extension as ExtensionIcon,
+	Info as InfoIcon,
+	Palette as PaletteIcon,
+	Settings as SettingsIcon
+} from "@mui/icons-material";
 import {
 	Box,
 	Drawer,
@@ -14,21 +17,33 @@ import {
 	TextField,
 	Toolbar
 } from "@mui/material";
+import ErrorBoundary from 'components/ErrorBoundary';
 import HeadBar from "components/HeadBar";
-import {
-	ReactNode,
-	useContext,
-	useState
-} from "react";
-import {
-	Settings as SettingsIcon,
-	Info as InfoIcon,
-	Extension as ExtensionIcon,
-	Palette as PaletteIcon
-} from "@mui/icons-material";
 import {
 	type default as VerkfiIcon
 } from 'components/verkfiIcon/verkfiIcon';
+import {
+	useAtom
+} from 'jotai';
+import extensionsAtom from "layout/extensionsAtom";
+import {
+	showSidebar as showSidebarAtom,
+	sidebarMode as sidebarModeAtom
+} from 'layout/layoutClient';
+import {
+	Route
+} from 'next';
+import {
+	useRouter,
+	useSelectedLayoutSegment
+} from 'next/navigation';
+import {
+	ReactNode,
+	useState
+} from "react";
+import {
+	get
+} from 'react-intl-universal';
 import {
 	drawerWidth
 } from './consts';
@@ -43,19 +58,6 @@ export interface ThemeHaveZIndex {
 		drawer: number;
 	}
 }
-import ErrorBoundary from 'components/ErrorBoundary';
-import {
-	useRouter,
-	useSelectedLayoutSegment
-} from 'next/navigation';
-import {
-	extensions,
-	showSidebar as showSidebarContext,
-	sidebarMode as sidebarModeContext
-} from 'layout/layoutClient';
-import {
-	Route
-} from 'next';
 export default function Settings(props: {
 	children: ReactNode
 }): JSX.Element {
@@ -82,12 +84,11 @@ export default function Settings(props: {
 		}
 	],
 		router = useRouter(),
-		usedExtensions = useContext(extensions),
-		extensionTools = usedExtensions.value,
+		[extensionTools, setExtensions] = useAtom(extensionsAtom),
 		id = useSelectedLayoutSegment(),
 		[value, setValue] = useState(sets.indexOf(sets.filter(set => set.id === id)[0])),
-		showSidebar = useContext(showSidebarContext),
-		sidebarMode = useContext(sidebarModeContext);
+		[showSidebar] = useAtom(showSidebarAtom),
+		[sidebarMode] = useAtom(sidebarModeAtom);
 	return (
 		<>
 			<HeadBar isIndex={false} pageName={get('设置')} sx={{
@@ -97,7 +98,7 @@ export default function Settings(props: {
 				<Drawer anchor="top" variant="permanent" sx={{
 					flexShrink: 0,
 					[`& .MuiDrawer-paper`]: {
-						ml: sidebarMode.value === "sidebar" && showSidebar.show && `${drawerWidth}px`,
+						ml: sidebarMode === "sidebar" && showSidebar && `${drawerWidth}px`,
 						boxSizing: 'border-box'
 					},
 				}}>
@@ -138,7 +139,7 @@ export default function Settings(props: {
 										<Switch checked={settingItem.value as boolean} onChange={event => {
 											const modifiedSettings = item.settings.slice(0);
 											modifiedSettings[index].value = !(modifiedSettings[index].value as boolean);
-											usedExtensions.set({
+											setExtensions({
 												...item,
 												settings: modifiedSettings
 											});
@@ -150,7 +151,7 @@ export default function Settings(props: {
 									<TextField value={settingItem.value as string} label={settingItem.text} variant="outlined" onChange={event => {
 										const modifiedSettings = item.settings.slice(0);
 										modifiedSettings[index].value = event.target.value;
-										usedExtensions.set({
+										setExtensions({
 											...item,
 											settings: modifiedSettings
 										});
@@ -161,7 +162,7 @@ export default function Settings(props: {
 									<Select value={settingItem.value as string} label={settingItem.text} onChange={event => {
 										const modifiedSettings = item.settings.slice(0);
 										modifiedSettings[index].value = event.target.value;
-										usedExtensions.set({
+										setExtensions({
 											...item,
 											settings: modifiedSettings
 										});

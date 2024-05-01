@@ -1,7 +1,20 @@
 "use client";
 import {
-    get
-} from 'react-intl-universal';
+    Box,
+    Checkbox,
+    FormControlLabel,
+    FormGroup,
+    Grid,
+    ImageList,
+    Input as MuiInput,
+    Slider,
+    Typography
+} from "@mui/material";
+import No from 'No';
+import {
+    FilePondFile,
+    FilePondServerConfigProps
+} from 'filepond';
 import {
     ChangeEvent,
     useId,
@@ -11,27 +24,14 @@ import {
     FilePond
 } from 'react-filepond'; // Import React FilePond
 import {
-    Grid,
-    Input as MuiInput,
-    Slider,
-    Typography,
-    Checkbox,
-    FormControlLabel,
-    FormGroup,
-    ImageList,
-    Box
-} from "@mui/material";
+    get
+} from 'react-intl-universal';
 import removeArrayItem from "remove-item-from-array";
 import {
     ImageType,
     ImageTypesGen
 } from "./consts";
-import {
-    FilePondFile,
-    FilePondServerConfigProps
-} from 'filepond';
 import SingleImage from './singleImage';
-import No from 'No';
 export default function Filter(): JSX.Element {
     const [imageArray, setImageArray] = useState<FilePondFile[]>([]),
         [imageFileName, setImageFileName] = useState<string>("libear-only"),

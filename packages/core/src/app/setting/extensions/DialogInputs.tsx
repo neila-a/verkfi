@@ -6,16 +6,16 @@ import {
     TextField
 } from "@mui/material";
 import {
-    get
-} from "react-intl-universal";
-import InfoInput from "./infoInput";
-import {
     hex,
     setState
 } from "declare";
 import {
-    inputTypes,
-    NXTMetadata
+    get
+} from "react-intl-universal";
+import InfoInput from "./infoInput";
+import {
+    NXTMetadata,
+    inputTypes
 } from "./page";
 export default function DialogInputs(props: {
     type: inputTypes;

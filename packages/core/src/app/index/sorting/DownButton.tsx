@@ -1,22 +1,22 @@
 "use client";
 import {
-    IconButton
-} from "@mui/material";
-import {
     ArrowDownward as ArrowDownwardIcon
 } from "@mui/icons-material";
 import {
-    tool
-} from "tools/info";
+    IconButton
+} from "@mui/material";
+import MouseOverPopover from "components/Popover";
 import downGo from "components/arrayMove/downGo";
 import {
     setState
 } from 'declare';
-import useButtonCommonSorting from './buttonCommonSorting';
-import MouseOverPopover from "components/Popover";
 import {
     get
 } from "react-intl-universal";
+import {
+    tool
+} from "tools/info";
+import useButtonCommonSorting from './buttonCommonSorting';
 export default function DownButton(props: {
     editMode: boolean;
     setTools: setState<tool[]>;

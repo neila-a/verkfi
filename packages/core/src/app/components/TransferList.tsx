@@ -1,18 +1,18 @@
 import {
-    FC,
-    useId,
-    useState
-} from "react"
-import {
+    Button,
+    Checkbox,
     Grid,
     List,
     ListItem,
     ListItemIcon,
     ListItemText,
-    Checkbox,
-    Button,
     Paper
-} from "@mui/material"
+} from "@mui/material";
+import {
+    FC,
+    useId,
+    useState
+} from "react";
 import {
     get
 } from "react-intl-universal";

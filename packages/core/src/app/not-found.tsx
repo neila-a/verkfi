@@ -1,13 +1,13 @@
 "use client";
 import {
-    useRouter
-} from "next/navigation";
-import {
     default as ErrorElement
 } from "error";
 import {
     Route
 } from "next";
+import {
+    useRouter
+} from "next/navigation";
 class NotFoundError extends Error {
     constructor(message = '404') {
         super(message);

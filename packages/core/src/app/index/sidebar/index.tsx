@@ -1,42 +1,44 @@
 "use client";
 import {
+    Search as SearchIcon
+} from "@mui/icons-material";
+import {
+    Box,
+    Drawer,
+    IconButton,
+    InputAdornment,
+    TextField,
+    Toolbar
+} from "@mui/material";
+import MouseOverPopover from "components/Popover";
+import {
+    setState
+} from 'declare';
+import {
+    useAtom
+} from 'jotai';
+import {
+    lists
+} from 'layout/layoutClient';
+import {
+    useState
+} from 'react';
+import {
     get
 } from 'react-intl-universal';
 import {
     drawerWidth
 } from 'setting/consts';
 import {
-    IconButton,
-    Drawer,
-    Toolbar,
-    Box,
-    TextField,
-    InputAdornment
-} from "@mui/material";
-import {
-    Search as SearchIcon
-} from "@mui/icons-material";
-import MouseOverPopover from "components/Popover";
-import Buttons from './buttons';
-import {
-    setState
-} from 'declare';
+    tool
+} from "tools/info";
 import {
     viewMode
 } from '../consts';
-import {
-    useContext,
-    useState
-} from 'react';
-import {
-    tool
-} from "tools/info";
-export type lists = [string, string[]][];
-import SingleSelect from './selects/SingleSelect';
+import Buttons from './buttons';
 import Selects from './selects';
-import {
-    lists
-} from 'layout/layoutClient';
+import SingleSelect from './selects/SingleSelect';
+export type lists = [string, string[]][];
 export default function Sidebar(props: {
     /**
      * 是否为嵌入
@@ -77,9 +79,7 @@ export default function Sidebar(props: {
     } = props,
         [editing, setEditing] = useState<boolean>(searchText === ""),
         [clickCount, setClickCount] = useState<number>(0),
-        usedList = useContext(lists),
-        list = usedList.value,
-        setList = usedList.set;
+        [list, setList] = useAtom(lists);
     return (
         <Drawer variant="permanent" sx={{
             maxWidth: drawerWidth,

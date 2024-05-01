@@ -1,25 +1,27 @@
 "use client";
 import {
-    Paper,
-    Grid
+    Grid,
+    Paper
 } from "@mui/material";
+import {
+    useAtom
+} from "jotai";
 import {
     sidebarMode
 } from "layout/layoutClient";
 import {
-    ReactNode,
-    useContext
+    ReactNode
 } from "react";
 export default function Module(props: {
     children: ReactNode;
     mode: sidebarMode;
 }) {
-    const mode = useContext(sidebarMode),
-        isThis = props.mode === mode.value;
+    const [mode, setMode] = useAtom(sidebarMode),
+        isThis = props.mode === mode;
     return (
         <Grid item>
             <Paper onClick={event => {
-                mode.set(props.mode);
+                setMode(props.mode);
             }} sx={{
                 p: 3,
                 display: "flex",

@@ -1,18 +1,18 @@
 import {
-    get
-} from 'react-intl-universal';
-import {
+    Button,
     Dialog,
-    DialogTitle,
+    DialogActions,
     DialogContent,
     DialogContentText,
-    DialogActions,
-    Button
+    DialogTitle
 } from "@mui/material";
-import Transition from "./Transition";
 import {
     useId
 } from 'react';
+import {
+    get
+} from 'react-intl-universal';
+import Transition from "./Transition";
 export default function AlertDialog(props: {
     title: string;
     description: string;

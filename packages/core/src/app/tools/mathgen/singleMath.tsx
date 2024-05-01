@@ -1,16 +1,16 @@
 import {
-    get
-} from 'react-intl-universal';
+    Box,
+    ListItem,
+    TextField,
+    Typography
+} from "@mui/material";
 import {
-    useState,
-    Fragment
+    Fragment,
+    useState
 } from "react";
 import {
-    Typography,
-    TextField,
-    Box,
-    ListItem
-} from "@mui/material";
+    get
+} from 'react-intl-universal';
 export default function SingleMath(props: {
     math: string;
     showOut: boolean;

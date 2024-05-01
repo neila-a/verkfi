@@ -1,11 +1,11 @@
 "use client";
 import {
+    ViewList as ViewListIcon,
+    ViewModule as ViewModuleIcon
+} from "@mui/icons-material";
+import {
     IconButton
 } from "@mui/material";
-import {
-    ViewModule as ViewModuleIcon,
-    ViewList as ViewListIcon
-} from "@mui/icons-material";
 import MouseOverPopover from "components/Popover";
 import {
     setState

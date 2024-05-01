@@ -1,7 +1,7 @@
 "use client";
 import {
-    pillarPositions,
-    collocation
+    collocation,
+    pillarPositions
 } from "./page";
 const validateDistanceLength = (distanceLength: number) => (distanceLength > 0) && (Math.ceil(distanceLength) === distanceLength);
 export default function calcPillars(type: pillarPositions, length: number) {

@@ -1,46 +1,46 @@
 "use client";
 import {
-    get
-} from 'react-intl-universal';
-import {
-    Box,
-    IconButton
-} from "@mui/material";
-import {
-    Edit as EditIcon
-} from "@mui/icons-material";
-import {
-    setState
-} from 'declare';
-import {
-    Fragment,
-    createElement,
-    useContext,
-    useState
-} from 'react';
-import {
-    getTools,
-    tool
-} from "tools/info";
-import useToolsList from './useToolsList';
-import {
     DragDropContext,
     Draggable,
     Droppable
 } from '@hello-pangea/dnd';
-import reorderArray from 'reorder-array';
 import {
-    DragIndicator as DragIndicatorIcon
+    DragIndicator as DragIndicatorIcon,
+    Edit as EditIcon
 } from "@mui/icons-material";
 import {
-    lists as listsContext
-} from 'layout/layoutClient';
+    Box,
+    IconButton
+} from "@mui/material";
 import MouseOverPopover from 'components/Popover';
+import {
+    setState
+} from 'declare';
+import {
+    useAtom
+} from 'jotai';
+import {
+    lists as listsAtom
+} from 'layout/layoutClient';
+import dynamic from 'next/dynamic';
+import {
+    Fragment,
+    createElement,
+    useState
+} from 'react';
+import {
+    get
+} from 'react-intl-universal';
+import reorderArray from 'reorder-array';
+import {
+    getTools,
+    tool
+} from "tools/info";
 import {
     lists
 } from '..';
 import SingleSelect from './SingleSelect';
-import dynamic from 'next/dynamic';
+import useToolsList from './useToolsList';
 export default function Selects(props: {
     list: lists;
     setList: setState<lists>;
@@ -62,7 +62,7 @@ export default function Selects(props: {
         [dialogOpen, setDialogOpen] = useState<boolean>(false),
         [dialogTools, setDialogTools] = useState<string[]>([]),
         gotToolsList = useToolsList(getTools(get)),
-        lists = useContext(listsContext),
+        [lists, setLists] = useAtom(listsAtom),
         [removeDialogOpen, setRemoveDialogOpen] = useState<boolean>(false),
         [dialogListName, setDialogListName] = useState<string>(""),
         RealSelect = (aprops: {
@@ -135,7 +135,7 @@ export default function Selects(props: {
                 }
                 if (props.editMode) {
                     const newLists = reorderArray(props.list, result.source.index, result.destination.index);
-                    lists.set(newLists);
+                    setLists(newLists);
                     props.setList(newLists);
                 }
             }}>
@@ -182,7 +182,7 @@ export default function Selects(props: {
                         onTrue: () => {
                             const listDraft: lists = list.slice(0).filter(draftSingle => draftSingle[0] !== dialogListName)
                             setList(listDraft);
-                            lists.set(listDraft);
+                            setLists(listDraft);
                             setDialogListName("");
                             return setRemoveDialogOpen(false);
                         },

@@ -2,14 +2,14 @@ import {
     TextField
 } from "@mui/material";
 import {
+    setState
+} from "declare";
+import {
     get
 } from "react-intl-universal";
 import {
     NXTMetadata
 } from "./page";
-import {
-    setState
-} from "declare";
 const InfoInput = (props: {
     id: string;
     name: string;

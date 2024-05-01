@@ -1,19 +1,18 @@
 "use client";
 import {
+    useAtom
+} from "jotai";
+import {
+    lists
+} from "layout/layoutClient";
+import {
     type tool
 } from "tools/info";
 import {
     type lists as listsType
 } from '../sidebar';
-import {
-    useContext
-} from "react";
-import {
-    lists
-} from "layout/layoutClient";
 export default function useButtonCommonSorting() {
-    const usedLists = useContext(lists),
-        realList = usedLists.value;
+    const [realList, setList] = useAtom(lists);
     return (sortingFor: string, pd: tool[]) => {
         const index = realList.findIndex(item => item[0] === sortingFor),
             newRealList: listsType = realList.slice(0);
@@ -22,6 +21,6 @@ export default function useButtonCommonSorting() {
         } else {
             newRealList[index][1] = pd.map(toolp => toolp.to);
         }
-        usedLists.set(newRealList);
+        setList(newRealList);
     };
 }

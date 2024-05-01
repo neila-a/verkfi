@@ -1,9 +1,9 @@
 import {
-    block
-} from "./matrix";
-import {
     Palette
 } from "@mui/material";
+import {
+    block
+} from "./matrix";
 export default function drawMatrixBase(edge: number, n: number, blocks: block[], cache: block[], posBlock: block[], posCache: block[], palette: Palette, onlyPos: boolean) {
     if (!onlyPos) console.time("渲染圆");
     const canvas = document.getElementsByTagName("canvas")[0] || document.createElement("canvas"),

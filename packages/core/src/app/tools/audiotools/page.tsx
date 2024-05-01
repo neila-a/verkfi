@@ -1,14 +1,20 @@
 "use client";
 import {
-    get
-} from 'react-intl-universal';
+    PlayArrow,
+    Stop
+} from '@mui/icons-material';
 import {
     Button,
     Grid,
     Typography
 } from "@mui/material";
 import {
-    useEffect,
+    FilePondFile
+} from "filepond";
+import {
+    isBrowser
+} from 'layout/layoutClient';
+import {
     useRef,
     useState
 } from "react";
@@ -16,17 +22,10 @@ import {
     FilePond
 } from 'react-filepond'; // Import React FilePond
 import {
-    FilePondFile
-} from "filepond";
+    get
+} from 'react-intl-universal';
 import Module from './Module';
-import {
-    PlayArrow,
-    Stop
-} from '@mui/icons-material';
 import getRecording from './getRecording';
-import {
-    isBrowser
-} from 'layout/layoutClient';
 export type status = "recording" | "paused" | "inactive";
 function AudioTools(): JSX.Element {
     const [loopAudioSrc, setLoopAudioSrc] = useState<string>(""),

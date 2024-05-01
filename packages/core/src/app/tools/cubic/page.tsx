@@ -1,15 +1,22 @@
 "use client";
 import {
+    FormGroup,
+    TextField
+} from "@mui/material";
+import {
+    OrbitControls,
+    Stats
+} from '@react-three/drei';
+import {
     Canvas
 } from "@react-three/fiber";
-import {
-    Stats,
-    OrbitControls
-} from '@react-three/drei'
 import {
     useRef,
     useState
 } from "react";
+import {
+    get
+} from "react-intl-universal";
 import {
     BoxGeometry,
     Camera,
@@ -18,13 +25,6 @@ import {
     MeshPhongMaterial
 } from "three";
 import getTextCanvas from "./getTextCanvas";
-import {
-    FormGroup,
-    TextField
-} from "@mui/material";
-import {
-    get
-} from "react-intl-universal";
 type text = [string, string, string, string, string, string];
 export default function Cubic(): JSX.Element {
     const canvas = useRef<HTMLCanvasElement>(),

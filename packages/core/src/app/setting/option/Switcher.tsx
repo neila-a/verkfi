@@ -4,17 +4,17 @@ import {
     Switch
 } from "@mui/material";
 import {
+    useAtom
+} from "jotai";
+import {
+    isBrowser
+} from "layout/layoutClient";
+import {
     get
 } from "react-intl-universal";
 import {
     option
 } from "./page";
-import {
-    useContext
-} from "react";
-import {
-    isBrowser
-} from "layout/layoutClient";
 export type stringifyCheck = "false" | "true";
 export function Switcher(props: {
     option: option;
@@ -22,7 +22,7 @@ export function Switcher(props: {
     const {
         option
     } = props,
-        value = useContext(option[0]),
+        [value, setValue] = useAtom(option[0]),
         isShare = option[1] === "share.t",
         hasShare = "share" in (isBrowser() ? navigator : {}),
         isForkMeOnGitHub = option[1] === "Fork me on GitHub";
@@ -34,8 +34,8 @@ export function Switcher(props: {
                 </Alert>
             )}
             <FormControlLabel disabled={!hasShare && isShare} control={(
-                <Switch checked={value.value} onChange={event => {
-                    value.set(!value.value);
+                <Switch checked={value} onChange={event => {
+                    setValue(!value);
                 }} />
             )} label={isForkMeOnGitHub ? option[1] : get(option[1])} />
         </>

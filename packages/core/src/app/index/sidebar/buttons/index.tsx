@@ -1,37 +1,35 @@
 "use client";
 import {
-    Divider,
-    ButtonGroup,
+    Add as AddIcon,
+    ArrowBackIos as ArrowBackIosIcon,
+    ArrowForwardIos as ArrowForwardIosIcon
+} from "@mui/icons-material";
+import {
+    Box,
     Button,
-    IconButton,
-    Box
+    ButtonGroup,
+    Divider,
+    IconButton
 } from "@mui/material";
+import MouseOverPopover from "components/Popover";
 import {
     setState
 } from 'declare';
+import dynamic from 'next/dynamic';
+import {
+    useState
+} from "react";
+import {
+    get
+} from "react-intl-universal";
+import {
+    lists
+} from "..";
 import {
     viewMode
 } from '../../consts';
 import SwitchEditMode from "./SwitchEditMode";
 import SwitchViewMode from "./SwitchViewMode";
-import {
-    ArrowBackIos as ArrowBackIosIcon,
-    ArrowForwardIos as ArrowForwardIosIcon
-} from "@mui/icons-material";
-import {
-    get
-} from "react-intl-universal";
-import {
-    Add as AddIcon
-} from "@mui/icons-material";
-import {
-    useState
-} from "react";
-import {
-    lists
-} from "..";
-import dynamic from 'next/dynamic';
-import MouseOverPopover from "components/Popover";
 const EditToolsListDialog = dynamic(() => import("../selects/EditToolsListDialog"));
 export default function Buttons(props: {
     /**

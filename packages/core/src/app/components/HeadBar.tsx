@@ -1,43 +1,45 @@
 import {
-	get
-} from 'react-intl-universal';
-import pack from "../../../package.json";
-import {
-	AppBar,
-	Toolbar,
-	IconButton,
-	Typography,
-	Box
-} from "@mui/material";
-import {
-	useRouter
-} from 'next/navigation'
+	Theme
+} from "@emotion/react";
 import {
 	ArrowBack,
-	Settings as SettingsIcon,
 	Menu as MenuIcon,
 	MenuOpen,
+	Settings as SettingsIcon,
 	Share as ShareIcon
-} from "@mui/icons-material"
+} from "@mui/icons-material";
+import {
+	AppBar,
+	Box,
+	IconButton,
+	Toolbar,
+	Typography
+} from "@mui/material";
+import {
+	SxProps
+} from '@mui/material/styles';
+import {
+	useAtom
+} from 'jotai';
+import {
+	forkMeOnGitHub as forkMeOnGitHubAtom,
+	repoInfo,
+	share as shareAtom,
+	showSidebar
+} from 'layout/layoutClient';
+import Link from 'next/link';
+import {
+	useRouter
+} from 'next/navigation';
 import {
 	CSSProperties,
 	Fragment,
 	useContext
 } from "react";
+import {
+	get
+} from 'react-intl-universal';
 import MouseOverPopover from "./Popover";
-import {
-	Theme
-} from "@emotion/react";
-import {
-	SxProps
-} from '@mui/material/styles';
-import Link from 'next/link';
-import {
-	forkMeOnGitHub as forkMeOnGitHubContext,
-	repoInfo,
-	share as shareContext,
-	showSidebar
-} from 'layout/layoutClient';
 export interface HeadBarOption {
 	pageName: string;
 	isIndex: boolean;
@@ -52,10 +54,11 @@ export interface HeadBarOption {
  * @param {SxProps<Theme>} sx 添加的样式
  */
 export default function HeadBar(props: HeadBarOption): JSX.Element {
-	const forkMeOnGithub = useContext(forkMeOnGitHubContext),
+	const [forkMeOnGithub] = useAtom(forkMeOnGitHubAtom),
 		router = useRouter(),
 		upper = useContext(repoInfo).name.charAt(0).toUpperCase() + useContext(repoInfo).name.slice(1),
-		share = useContext(shareContext).value,
+		[share] = useAtom(shareAtom),
+		[showSidebarValue, setShowSidebar] = useAtom(showSidebar),
 		noDrag: CSSProperties = {
 			// @ts-ignore React的CSSProperties中明明有WebkitAppRegion，但是类型中没有
 			WebkitAppRegion: "no-drag",
@@ -90,33 +93,31 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 					}}>
 						{props.isIndex ? upper : props.pageName}
 					</Typography>
-					<showSidebar.Consumer>
-						{value => !props.isIndex && (
-							value.show === false ? (
-								<MouseOverPopover text={get("menu.打开菜单")}>
-									<IconButton onClick={event => {
-										value.set(!value.show);
-									}} size="large" edge="end" color="inherit" aria-label={get("menu.打开菜单")} sx={{
-										mr: 1,
-										...noDrag
-									}}>
-										<MenuIcon />
-									</IconButton>
-								</MouseOverPopover>
-							) : (
-								<MouseOverPopover text={get("menu.关闭菜单")}>
-									<IconButton onClick={event => {
-										value.set(!value.show);
-									}} size="large" edge="end" color="inherit" aria-label={get("menu.关闭菜单")} sx={{
-										mr: 1,
-										...noDrag
-									}}>
-										<MenuOpen />
-									</IconButton>
-								</MouseOverPopover>
-							)
-						)}
-					</showSidebar.Consumer>
+					{!props.isIndex && (
+						showSidebarValue ? (
+							<MouseOverPopover text={get("menu.关闭菜单")}>
+								<IconButton onClick={event => {
+									setShowSidebar(!showSidebarValue);
+								}} size="large" edge="end" color="inherit" aria-label={get("menu.关闭菜单")} sx={{
+									mr: 1,
+									...noDrag
+								}}>
+									<MenuOpen />
+								</IconButton>
+							</MouseOverPopover>
+						) : (
+							<MouseOverPopover text={get("menu.打开菜单")}>
+								<IconButton onClick={event => {
+									setShowSidebar(!showSidebarValue);
+								}} size="large" edge="end" color="inherit" aria-label={get("menu.打开菜单")} sx={{
+									mr: 1,
+									...noDrag
+								}}>
+									<MenuIcon />
+								</IconButton>
+							</MouseOverPopover>
+						)
+					)}
 					<title>
 						{props.isIndex ? upper : `${props.pageName} | ${upper}`}
 					</title>
@@ -157,7 +158,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 				</Toolbar>
 			</AppBar >
 			{
-				forkMeOnGithub.value ? (
+				forkMeOnGithub ? (
 					<Box sx={{
 						position: 'fixed',
 						width: 150,

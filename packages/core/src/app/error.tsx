@@ -4,17 +4,17 @@ import {
     ButtonGroup,
     Typography
 } from "@mui/material";
-import Loading from "loading";
+import db from "db";
 import {
-    get
-} from "react-intl-universal";
+    logger
+} from "layout/layoutClient"; // 都是全局日志
+import Loading from "loading";
 import {
     useEffect
 } from "react";
 import {
-    logger
-} from "layout/layoutClient"; // 都是全局日志
-import db from "db";
+    get
+} from "react-intl-universal";
 export default function Error(props: {
     error: Error & {
         digest?: string;

@@ -1,9 +1,29 @@
 import {
-    Metadata
-} from "next";
+    Box,
+    GlobalStyles,
+    Typography
+} from "@mui/material";
+import {
+    AppRouterCacheProvider
+} from '@mui/material-nextjs/v13-appRouter';
+import Ubuntu from "components/fonts";
 import {
     getRepoInfo
 } from "components/getRepoInfo";
+import 'filepond/dist/filepond.min.css'; // Import FilePond styles
+import {
+    Provider
+} from "jotai";
+import BaseLayout from "layout/layoutClient";
+import Loading from "loading";
+import {
+    Metadata,
+    Viewport
+} from "next";
+import {
+    Suspense
+} from "react";
+import pack from "../../package.json";
 export async function generateMetadata() {
     let url = new URL(pack.homepage);
     try {
@@ -52,30 +72,11 @@ export async function generateMetadata() {
         authors: pack.author
     }) satisfies Metadata;
 }
-import {
-    Viewport
-} from "next";
 export function generateViewport(): Viewport {
     return {
         themeColor: "#1976d2",
     };
 }
-import 'filepond/dist/filepond.min.css'; // Import FilePond styles
-import pack from "../../package.json";
-import {
-    Box,
-    GlobalStyles,
-    Typography
-} from "@mui/material";
-import Loading from "loading";
-import BaseLayout from "layout/layoutClient";
-import {
-    AppRouterCacheProvider
-} from '@mui/material-nextjs/v13-appRouter';
-import Ubuntu from "components/fonts";
-import {
-    Suspense
-} from "react";
 export default async function Layout({
     children
 }) {
@@ -109,11 +110,13 @@ export default async function Layout({
                     <Box sx={{
                         minHeight: "100vh"
                     }}>
-                        <Suspense fallback={<Loading />}>
-                            <BaseLayout repoInfo={repoInfo}>
-                                {children}
-                            </BaseLayout>
-                        </Suspense>
+                        <Provider>
+                            <Suspense fallback={<Loading />}>
+                                <BaseLayout repoInfo={repoInfo}>
+                                    {children}
+                                </BaseLayout>
+                            </Suspense>
+                        </Provider>
                     </Box>
                 </AppRouterCacheProvider>
             </body>

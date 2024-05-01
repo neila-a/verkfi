@@ -1,8 +1,8 @@
 "use client";
-import LpLogger from "lp-logger";
 import {
     isBrowser
 } from "layout/layoutClient";
+import LpLogger from "lp-logger";
 export default async function getRecording(onStop: (blob: Blob) => any, onDataAvailable?: (blob: Blob) => any, log = true) {
     let mediaRecorder: MediaRecorder;
     class Logger extends LpLogger {

@@ -1,42 +1,40 @@
 "use client";
 import {
-    useEffect,
-    useRef,
-    useState
-} from "react";
+    Download,
+    PlayArrow,
+    Stop
+} from "@mui/icons-material";
 import {
-    Avatar,
     Box,
     Button,
     ButtonGroup,
     Container,
     List,
     ListItem,
-    ListItemAvatar,
     ListItemText,
     Typography
 } from "@mui/material";
-import {
-    status
-} from "../audiotools/page";
-import {
-    Download,
-    PlayArrow,
-    Stop
-} from "@mui/icons-material";
-import getRecording from "../audiotools/getRecording";
+import InputDialog from "dialog/Input";
 import {
     saveAs
 } from "file-saver";
-import getShortTimeEnergy from "./getShortTimeEnergy";
-import dynamic from "next/dynamic";
-import InputDialog from "dialog/Input";
-import {
-    get
-} from "react-intl-universal";
 import {
     isBrowser
 } from "layout/layoutClient";
+import dynamic from "next/dynamic";
+import {
+    useEffect,
+    useRef,
+    useState
+} from "react";
+import {
+    get
+} from "react-intl-universal";
+import getRecording from "../audiotools/getRecording";
+import {
+    status
+} from "../audiotools/page";
+import getShortTimeEnergy from "./getShortTimeEnergy";
 const PureDialog = dynamic(() => import("dialog/Pure"));
 interface warning {
     /**

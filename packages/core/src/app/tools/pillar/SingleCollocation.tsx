@@ -4,9 +4,9 @@ import {
     List,
     ListItem,
     ListItemText,
-    Paper,
-    Typography
+    Paper
 } from "@mui/material";
+import CopyButton from "components/CopyButton";
 import {
     useState
 } from "react";
@@ -16,7 +16,6 @@ import {
 import {
     collocation
 } from "./page";
-import CopyButton from "components/CopyButton";
 export default function SingleCollocation(props: {
     collocation: collocation;
 }) {

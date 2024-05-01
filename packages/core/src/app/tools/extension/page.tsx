@@ -3,14 +3,16 @@ import {
     single
 } from "db";
 import {
-    useSearchParams
-} from "next/navigation";
+    useAtom
+} from "jotai";
+import extensionsAtom from "layout/extensionsAtom";
 import {
-    extensions,
     isBrowser
 } from "layout/layoutClient";
 import {
-    useContext,
+    useSearchParams
+} from "next/navigation";
+import {
     useRef
 } from "react";
 import {
@@ -19,8 +21,8 @@ import {
 export default function ExtensionLoader() {
     const searchParams = useSearchParams(),
         toolID = searchParams.get("tool"),
-        usedExtensions = useContext(extensions),
-        tool: single = usedExtensions.value.find(a => a.to === toolID),
+        [extensionTools, setExtensions] = useAtom(extensionsAtom),
+        tool: single = extensionTools.find(a => a.to === toolID),
         src = `/extensionfiles/${tool.to}/${tool.main}`,
         ref = useRef<HTMLIFrameElement>();
     if (isBrowser()) {
@@ -32,7 +34,7 @@ export default function ExtensionLoader() {
             if (event.origin === location.origin) {
                 switch (event.data.action) {
                     case "setSetting":
-                        usedExtensions.set({
+                        setExtensions({
                             ...tool,
                             settings: tool.settings.map(set => {
                                 if (set.id === event.data.id) {

@@ -1,52 +1,54 @@
 "use client";
 import {
-    rgbToHex,
-    useTheme
-} from '@mui/material/styles';
-import * as colors from '@mui/material/colors';
-import {
     BrightnessMedium,
     Check as CheckIcon,
     DarkMode,
     LightMode
 } from '@mui/icons-material';
 import {
-    get
-} from "react-intl-universal";
+    Box,
+    Button,
+    Grid,
+    InputLabel,
+    PaletteMode,
+    Paper,
+    Radio,
+    Slider,
+    Tooltip,
+    Typography
+} from '@mui/material';
+import * as colors from '@mui/material/colors';
 import {
-    darkMode as darkModeContext,
+    rgbToHex,
+    useTheme
+} from '@mui/material/styles';
+import {
+    useAtom
+} from 'jotai';
+import {
+    darkMode as darkModeAtom,
     gradientTool,
     paletteColors
 } from 'layout/layoutClient';
 import {
-    Button,
-    Box,
-    Grid,
-    Radio,
-    Tooltip,
-    Typography,
-    Slider,
-    Paper,
-    PaletteMode,
-    InputLabel
-} from '@mui/material';
-import hues from './hues';
-import shades from './shades';
-import {
     Dispatch,
-    useContext,
     useId
 } from 'react';
-import useStoragedState from 'useStoragedState';
-import defaultInternalPalette from './defaultInternalPalette';
-import defaultPalette from './defaultPalette';
+import {
+    get
+} from "react-intl-universal";
 import {
     Switcher
 } from 'setting/option/Switcher';
+import useStoragedState from 'useStoragedState';
+import defaultInternalPalette from './defaultInternalPalette';
+import defaultPalette from './defaultPalette';
+import hues from './hues';
+import shades from './shades';
 function ColorTool() {
-    const palette = useContext(paletteColors),
+    const [palette, setPalette] = useAtom(paletteColors),
         theme = useTheme(),
-        darkMode = useContext(darkModeContext),
+        [darkMode, setDarkMode] = useAtom(darkModeAtom),
         [internalPalette, baseSetInternalPalette] = useStoragedState("internalPalette", "内部调色板", defaultInternalPalette),
         setInternalPalette: Dispatch<typeof defaultInternalPalette> = now => {
             baseSetInternalPalette(now);
@@ -60,7 +62,7 @@ function ColorTool() {
                     main: now.secondary
                 },
             };
-            palette.set(paletteColors);
+            setPalette(paletteColors);
         };
     const handleChangeHue = (name) => (event) => {
         const hue = event.target.value;
@@ -125,7 +127,6 @@ function ColorTool() {
             intent
         } = props,
             intentShade = internalPalette[`${intent}Shade`],
-            startId = useId(),
             realId = `${intent}ShadeSliderLabel`,
             color = internalPalette[`${intent}`];
         return (
@@ -223,12 +224,12 @@ function ColorTool() {
                     mb: 2
                 }}>
                     {([["light", LightMode], ["dark", DarkMode], ["system", BrightnessMedium]] satisfies [PaletteMode | "system", typeof LightMode][]).map(item => {
-                        const isThis = darkMode.mode === item[0],
+                        const isThis = darkMode === item[0],
                             Icon = item[1];
                         return (
                             <Grid item key={item[0]}>
                                 <Paper onClick={event => {
-                                    darkMode.set(item[0]);
+                                    setDarkMode(item[0]);
                                 }} sx={{
                                     p: 2,
                                     display: "flex",
@@ -241,7 +242,7 @@ function ColorTool() {
                                         fontSize: "10vw",
                                         color: theme => theme.palette.primary.main
                                     }} />
-                                    {get(`theme.colorMode.${item[0]}`)}
+                                    {get(`appearance.colorMode.${item[0]}`)}
                                 </Paper>
                             </Grid>
                         );
@@ -256,7 +257,7 @@ function ColorTool() {
                 <ColorPicker intent="secondary" />
             </Grid>
             <Button fullWidth variant="contained" onClick={() => {
-                palette.set(defaultPalette);
+                setPalette(defaultPalette);
                 setInternalPalette(defaultInternalPalette);
             }}>
                 {get("重置")}

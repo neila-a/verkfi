@@ -1,5 +1,11 @@
 "use client";
 import {
+    ArrowBackIos as ArrowBackIosIcon,
+    Close as CloseIcon,
+    Home as HomeIcon,
+    Search as SearchIcon
+} from "@mui/icons-material";
+import {
     Box,
     Button,
     Dialog,
@@ -13,66 +19,55 @@ import {
     useMediaQuery,
     useTheme
 } from "@mui/material";
+import MouseOverPopover from "components/Popover";
+import Transition from "components/dialog/Transition";
+import VerkfiIcon from "components/verkfiIcon/verkfiIcon";
+import convertExtensionTools from "index/convertExtensionTools";
+import getParamTools from "index/getMostUsedTools";
+import ToolsStack from "index/showTool";
+import SwitchEditMode from "index/sidebar/buttons/SwitchEditMode";
+import SwitchViewMode from "index/sidebar/buttons/SwitchViewMode";
+import searchBase from 'index/sidebar/searchBase';
+import Selects from "index/sidebar/selects";
+import useToolsList from "index/sidebar/selects/useToolsList";
+import {
+    useAtom
+} from "jotai";
+import {
+    lists as listsAtom,
+    mostUsed as mostUsedAtom,
+    recentlyUsed as recentlyUsedAtom,
+    repoInfo,
+    showSidebar,
+    viewMode as viewModeAtom,
+} from "layout/layoutClient";
+import Link from "next/link";
 import {
     useContext,
     useState
 } from "react";
-import Transition from "components/dialog/Transition";
-import MouseOverPopover from "components/Popover";
 import {
     get
 } from "react-intl-universal";
 import {
-    ArrowBackIos as ArrowBackIosIcon,
-    Close as CloseIcon,
-    Search as SearchIcon,
-    Home as HomeIcon
-} from "@mui/icons-material";
-import searchBase from 'index/sidebar/searchBase';
-import ToolsStack from "index/showTool";
-import {
     getTools,
     tool
 } from "tools/info";
-import SwitchViewMode from "index/sidebar/buttons/SwitchViewMode";
-import SwitchEditMode from "index/sidebar/buttons/SwitchEditMode";
-import useToolsList from "index/sidebar/selects/useToolsList";
-import Selects from "index/sidebar/selects";
-import {
-    showSidebar,
-    recentlyUsed as recentlyUsedContext,
-    mostUsed as mostUsedContext,
-    lists as listsContext,
-    viewMode as viewModeContext,
-    extensions,
-    repoInfo,
-} from "layout/layoutClient";
-import {
-    useRouter
-} from "next/navigation";
-import getParamTools from "index/getMostUsedTools";
-import VerkfiIcon from "components/verkfiIcon/verkfiIcon";
-import convertExtensionTools from "index/convertExtensionTools";
-import Link from "next/link";
+import extensionsAtom from "./extensionsAtom";
 export default function Menu() {
-    const control = useContext(showSidebar),
+    const [control, setControl] = useAtom(showSidebar),
         theme = useTheme(),
         fullScreen = useMediaQuery(theme.breakpoints.down('sm')),
         realTools = getTools(get), // 硬编码的分类
-        recentlyUsed = useContext(recentlyUsedContext).value,
-        mostUsed = useContext(mostUsedContext).value,
-        usedViewMode = useContext(viewModeContext),
-        viewMode = usedViewMode.value,
-        setViewMode = usedViewMode.set,
+        [recentlyUsed] = useAtom(recentlyUsedAtom),
+        [mostUsed] = useAtom(mostUsedAtom),
+        [viewMode, setViewMode] = useAtom(viewModeAtom),
         [editMode, setEditMode] = useState<boolean>(false),
         [sortingFor, setSortingFor] = useState<string>("__home__"),
         [tab, setTab] = useState<number>(0),
-        listContexted = useContext(listsContext),
-        list = listContexted.value,
-        setList = listContexted.set,
+        [list, setList] = useAtom(listsAtom),
         [searchText, setSearchText] = useState<string>(""),
-        extensionTools = useContext(extensions).value,
-        router = useRouter(),
+        [extensionTools] = useAtom(extensionsAtom),
         gotToolsList = useToolsList(realTools),
         [sortedTools, setSortedTools] = useState(gotToolsList), // 排序完毕，但是不会根据搜索而改动的分类
         [tools, setTools] = useState<tool[]>(gotToolsList), // 经常改动的分类
@@ -124,13 +119,13 @@ export default function Menu() {
                         break;
                 }
             }} fullScreen={fullScreen} onClose={() => {
-                control.set(false);
+                setControl(false);
             }} sx={{
                 ".MuiDialog-paper": {
                     maxWidth: "unset"
                 },
                 zIndex: "38601"
-            }} open={control.show} keepMounted TransitionComponent={Transition}>
+            }} open={control} keepMounted TransitionComponent={Transition}>
                 <DialogTitle sx={{
                     m: 0,
                     p: 0,
@@ -166,7 +161,7 @@ export default function Menu() {
                             <InputAdornment position="end">
                                 <MouseOverPopover text={get("close")}>
                                     <IconButton aria-label={get("close")} onClick={event => {
-                                        control.set(false);
+                                        setControl(false);
                                     }}>
                                         <CloseIcon />
                                     </IconButton>

@@ -1,32 +1,34 @@
 "use client";
+import Recently from "components/Recently";
 import {
-    ReactNode,
-    useContext,
-    useEffect
-} from "react";
+    useAtom
+} from "jotai";
+import {
+    mostUsed as mostUsedAtom,
+    recentlyUsed as recentlyUsedAtom
+} from "layout/layoutClient";
 import {
     useSearchParams,
     useSelectedLayoutSegment
 } from "next/navigation";
-import Recently from "components/Recently";
 import {
-    recentlyUsed as recentlyUsedContext,
-    mostUsed as mostUsedContext
-} from "layout/layoutClient";
+    ReactNode,
+    useEffect
+} from "react";
 // 每个3格最多显示
 export default function Template(props: {
     children: ReactNode;
 }) {
     const gotThisTool = useSelectedLayoutSegment(),
         searchParams = useSearchParams(),
-        recentlyUsed = useContext(recentlyUsedContext),
-        mostUsedState = useContext(mostUsedContext),
+        [recentlyUsed, setRecentlyUsed] = useAtom(recentlyUsedAtom),
+        [mostUsedState, setMostUsed] = useAtom(mostUsedAtom),
         thisTool = gotThisTool === "extension" ? searchParams.get("tool") : gotThisTool;
     useEffect(() => {
-        const set = new Recently(3, recentlyUsed.value.reverse());
+        const set = new Recently(3, recentlyUsed.reverse());
         set.add(thisTool);
         const mostUsed = {
-            ...mostUsedState.value
+            ...mostUsedState
         };
         if (mostUsed.hasOwnProperty(thisTool)) {
             mostUsed[thisTool] = mostUsed[thisTool] + 1;
@@ -34,11 +36,11 @@ export default function Template(props: {
             mostUsed[thisTool] = 0;
         }
         const tempRecently = set.get().reverse();
-        if (JSON.stringify(tempRecently.sort()) !== JSON.stringify(recentlyUsed.value.sort())) {
-            recentlyUsed.set(tempRecently.sort());
+        if (JSON.stringify(tempRecently.sort()) !== JSON.stringify(recentlyUsed.sort())) {
+            setRecentlyUsed(tempRecently.sort());
         }
-        if (JSON.stringify(mostUsed) === JSON.stringify(mostUsedState.value)) {
-            mostUsedState.set(mostUsed);
+        if (JSON.stringify(mostUsed) === JSON.stringify(mostUsedState)) {
+            setMostUsed(mostUsed);
         }
     }, []); // 不放在副作用里会导致无限循环
     return (

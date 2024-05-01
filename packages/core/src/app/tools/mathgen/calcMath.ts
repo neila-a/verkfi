@@ -1,10 +1,10 @@
 import {
+    setState
+} from "declare";
+import {
     calc
 } from "./consts";
 import genNumber from "./genNumber";
-import {
-    setState
-} from "declare";
 export default function calcMath(calcs: calc[], subtractionCheck: boolean, divisionCheck: boolean, max: number, min: number, itemCount: number, setMath: setState<string[]>) {
     const calcMaths: string[] = [];
     calcs.forEach(function (mode) {

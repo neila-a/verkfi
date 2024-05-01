@@ -1,23 +1,23 @@
 "use client";
 import {
+    useAtom
+} from "jotai";
+import extensionsAtom from "layout/extensionsAtom";
+import {
+    lists as listsAtom
+} from "layout/layoutClient";
+import {
     tool
 } from "tools/info";
 import convertExtensionTools from "../../convertExtensionTools";
-import {
-    useContext
-} from "react";
-import {
-    extensions,
-    lists as listsContext
-} from "layout/layoutClient";
 /**
  * 排序工具
  * @param realTools 未排序的工具列表
  * @returns 经过排序的工具列表
  */
 const useToolsList = (realTools: tool[]) => {
-    const lists = useContext(listsContext).value,
-        extensionTools = useContext(extensions).value,
+    const [lists] = useAtom(listsAtom),
+        [extensionTools] = useAtom(extensionsAtom),
         converted = convertExtensionTools(extensionTools),
         list = lists.find(item => item[0] === "__global__");
     if (list === undefined) {

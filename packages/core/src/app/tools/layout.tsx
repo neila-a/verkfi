@@ -1,33 +1,35 @@
 "use client";
 import {
+    Box
+} from "@mui/material";
+import HeadBar from "components/HeadBar";
+import convertExtensionTools from "index/convertExtensionTools";
+import {
+    useAtom
+} from "jotai";
+import extensionsAtom from "layout/extensionsAtom";
+import {
+    gradientTool
+} from "layout/layoutClient";
+import Loading from "loading";
+import lpLogger from "lp-logger";
+import {
     useSearchParams,
     useSelectedLayoutSegment
 } from "next/navigation";
 import {
     ReactNode,
-    Suspense,
-    useContext
+    Suspense
 } from "react";
-import HeadBar from "components/HeadBar";
-import {
-    getTools
-} from "./info";
-import {
-    Box
-} from "@mui/material";
 import {
     get
 } from "react-intl-universal";
-import lpLogger from "lp-logger";
-import {
-    gradientTool,
-    extensions
-} from "layout/layoutClient";
-import convertExtensionTools from "index/convertExtensionTools";
 import {
     emptyExtension
 } from "./extension/empties";
-import Loading from "loading";
+import {
+    getTools
+} from "./info";
 const logger = new lpLogger({
     name: "ToolFinder",
     level: "log"
@@ -35,12 +37,11 @@ const logger = new lpLogger({
 export default function ToolFinder(props: {
     children: ReactNode;
 }): JSX.Element {
-    const colorContext = useContext(gradientTool),
-        color = colorContext.value,
+    const [color] = useAtom(gradientTool),
         segment = useSelectedLayoutSegment(),
         searchParams = useSearchParams(),
         toolID = segment === "extension" ? searchParams.get("tool") : segment,
-        extensionTools = useContext(extensions).value,
+        [extensionTools] = useAtom(extensionsAtom),
         only = searchParams.has("only"),
         toolsInfo = segment === "extension" ? convertExtensionTools(extensionTools).map(single => ({
             ...single,

@@ -1,22 +1,22 @@
 "use client";
 import {
-    IconButton
-} from "@mui/material";
-import {
     ArrowUpward as ArrowUpwardIcon
 } from "@mui/icons-material";
 import {
-    tool
-} from "tools/info";
+    IconButton
+} from "@mui/material";
+import MouseOverPopover from "components/Popover";
 import upGo from "components/arrayMove/upGo";
 import {
     setState
 } from 'declare';
-import useButtonCommonSorting from './buttonCommonSorting';
-import MouseOverPopover from "components/Popover";
 import {
     get
 } from "react-intl-universal";
+import {
+    tool
+} from "tools/info";
+import useButtonCommonSorting from './buttonCommonSorting';
 export default function UpButton(props: {
     editMode: boolean;
     setTools: setState<tool[]>;

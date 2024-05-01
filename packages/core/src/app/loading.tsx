@@ -2,10 +2,10 @@ import {
     Box,
     LinearProgress
 } from "@mui/material";
+import Image from "next/image";
 import {
     ReactNode
 } from "react";
-import Image from "next/image";
 export default function Loading(props: {
     children?: ReactNode;
 }) {

@@ -1,7 +1,7 @@
 import {
     Canvas,
     useFrame
-} from "@react-three/fiber"
+} from "@react-three/fiber";
 import {
     useEffect,
     useRef
