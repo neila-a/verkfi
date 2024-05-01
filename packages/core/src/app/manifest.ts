@@ -1,6 +1,7 @@
 import {
     getRepoInfo
 } from 'components/getRepoInfo';
+import defaultPalette from 'setting/appearance/defaultPalette';
 import pack from "../../package.json";
 export default async function manifest() {
     const repoInfo = await getRepoInfo(),
@@ -12,8 +13,8 @@ export default async function manifest() {
         start_url: "/",
         display: "fullscreen",
         orientation: "any",
-        background_color: "#2196f3",
-        theme_color: "#2196f3",
+        background_color: defaultPalette.primary.main,
+        theme_color: defaultPalette.primary.main,
         launch_handler: {
             client_mode: "auto"
         },

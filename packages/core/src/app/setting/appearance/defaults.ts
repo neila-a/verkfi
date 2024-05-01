@@ -1,6 +1,7 @@
 "use client";
+import defaultPalette from "./defaultPalette";
 const defaults = {
-    primary: '#2196f3',
-    secondary: '#f50057',
+    primary: defaultPalette.primary.main,
+    secondary: defaultPalette.secondary.main
 };
 export default defaults;
