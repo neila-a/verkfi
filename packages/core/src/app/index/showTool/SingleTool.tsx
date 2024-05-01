@@ -217,7 +217,7 @@ export default function SingleTool(props: {
         grid = (
             <Card elevation={elevation} id={`toolAbleToSelect-${tool.to}`} onClick={handleClick} onContextMenu={handleRightClick} sx={{
                 width: `min(275px, ${fullWidth})`,
-                boxShadow: theme => props.focus && `inset 0 0 0 8px ${theme.palette.primary[theme.palette.mode]}`,
+                boxShadow: theme => props.focus && `inset 0 0 0 ${theme.spacing(1)} ${theme.palette.primary[theme.palette.mode]}`,
                 backgroundColor: !gradientTool && `#${tool.color[0]}`,
                 backgroundImage: gradientTool && `linear-gradient(45deg, #${tool.color[0]}, #${tool.color[1]})`
             }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
@@ -259,7 +259,7 @@ export default function SingleTool(props: {
             <Card onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} elevation={elevation} sx={{
                 width: fullWidth,
                 maxWidth: fullWidth,
-                boxShadow: theme => props.focus && `inset 0 0 0 8px ${theme.palette.primary[theme.palette.mode]}`,
+                boxShadow: theme => props.focus && `inset 0 0 0 ${theme.spacing(1)} ${theme.palette.primary[theme.palette.mode]}`,
                 backgroundColor: !gradientTool && `#${tool.color[0]}`,
                 backgroundImage: gradientTool && `linear-gradient(45deg, #${tool.color[0]}, #${tool.color[1]})`
             }} id={`toolAbleToSelect-${tool.to}`} onClick={handleClick} onContextMenu={handleRightClick}>

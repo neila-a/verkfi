@@ -184,12 +184,6 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
 							borderColor: 'rgba(255, 255, 255, 0.7)',
 							fontWeight: 700,
 							fontSize: 13,
-							fontFamily: [
-								"Helvetica Neue",
-								"Helvetica",
-								"Arial",
-								"sans-serif"
-							].join(","),
 							boxShadow: 'rgba(0, 0, 0, 0.5) 0px 2px 3px 0px',
 							backgroundColor: "rgb(170, 0, 0)",
 							backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15))',
