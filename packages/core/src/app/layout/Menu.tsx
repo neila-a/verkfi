@@ -28,17 +28,15 @@ import SwitchEditMode from "index/sidebar/buttons/SwitchEditMode";
 import SwitchViewMode from "index/sidebar/buttons/SwitchViewMode";
 import searchBase from 'index/sidebar/searchBase';
 import Selects from "index/sidebar/selects";
-import useToolsList from "index/sidebar/selects/useToolsList";
+import toolsListAtom from "index/sidebar/selects/toolsListAtom";
+import useMostUsedTools from "index/useMostUsedTools";
 import {
     useAtom
 } from "jotai";
 import {
-    lists as listsAtom,
-    mostUsed as mostUsedAtom,
     recentlyUsed as recentlyUsedAtom,
     repoInfo,
-    showSidebar,
-    viewMode as viewModeAtom,
+    showSidebar
 } from "layout/layoutClient";
 import Link from "next/link";
 import {
@@ -53,7 +51,6 @@ import {
     tool
 } from "tools/info";
 import extensionsAtom from "./extensionsAtom";
-import useMostUsedTools from "index/useMostUsedTools";
 export default function Menu() {
     const [control, setControl] = useAtom(showSidebar),
         theme = useTheme(),
@@ -65,7 +62,7 @@ export default function Menu() {
         [tab, setTab] = useState<number>(0),
         [searchText, setSearchText] = useState<string>(""),
         [extensionTools] = useAtom(extensionsAtom),
-        gotToolsList = useToolsList(realTools),
+        gotToolsList = useAtom(toolsListAtom)[0](realTools),
         mostUsed = useMostUsedTools(),
         [sortedTools, setSortedTools] = useState(gotToolsList), // 排序完毕，但是不会根据搜索而改动的分类
         [tools, setTools] = useState<tool[]>(gotToolsList), // 经常改动的分类

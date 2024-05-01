@@ -17,9 +17,9 @@ import convertExtensionTools from 'index/convertExtensionTools';
 import ToolsStack from 'index/showTool';
 import Sidebar from 'index/sidebar';
 import searchBase from 'index/sidebar/searchBase';
-import useToolsList from 'index/sidebar/selects/useToolsList';
+import toolsListAtom from 'index/sidebar/selects/toolsListAtom';
 import useMostUsedTools from "index/useMostUsedTools";
-import useTries from "index/useTries";
+import triesAtom from "index/triesAtom";
 import {
     useAtom
 } from 'jotai';
@@ -59,7 +59,7 @@ export default function Index(props: {
 }): JSX.Element {
     const realTools = getTools(get),
         [extensionTools] = useAtom(extensionsAtom),
-        toolsList = useToolsList(realTools),
+        toolsList = useAtom(toolsListAtom)[0](realTools),
         [showSidebar] = useAtom(showSidebarAtom),
         [recentlyUsed] = useAtom(recentlyUsedAtom),
         mostUsed = useMostUsedTools(),
@@ -72,7 +72,7 @@ export default function Index(props: {
         [tab, setTab] = useState<number>(0),
         focusingTo = tools[tab] ? tools[tab].to : "", // 每次渲染会重新执行
         [show, setShow] = useState<"tools" | "home">(props.isImplant ? "tools" : "home"),
-        tries = useTries(),
+        tries = useAtom(triesAtom)[0](realTools),
         recentlyTools = recentlyUsed.map(to => {
             const converted = convertExtensionTools(extensionTools);
             return 0

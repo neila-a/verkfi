@@ -40,7 +40,7 @@ import {
     lists
 } from '..';
 import SingleSelect from './SingleSelect';
-import useToolsList from './useToolsList';
+import toolsListAtom from './toolsListAtom';
 export default function Selects(props: {
     setEditing: setState<boolean>;
     sortingFor: string;
@@ -60,7 +60,7 @@ export default function Selects(props: {
         [list, setList] = useAtom(listsAtom),
         [dialogOpen, setDialogOpen] = useState<boolean>(false),
         [dialogTools, setDialogTools] = useState<string[]>([]),
-        gotToolsList = useToolsList(getTools(get)),
+        gotToolsList = useAtom(toolsListAtom)[0](getTools(get)),
         [removeDialogOpen, setRemoveDialogOpen] = useState<boolean>(false),
         [dialogListName, setDialogListName] = useState<string>(""),
         RealSelect = (aprops: {

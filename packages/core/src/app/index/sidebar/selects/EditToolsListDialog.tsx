@@ -26,7 +26,7 @@ import {
     lists
 } from "..";
 import convertExtensionTools from "../../convertExtensionTools";
-import useToolsList from "./useToolsList";
+import toolsListAtom from "./toolsListAtom";
 const PureDialog = dynamic(() => import("dialog/Pure"));
 export default function EditToolsListDialog(props: {
     dialogTools: string[];
@@ -46,7 +46,7 @@ export default function EditToolsListDialog(props: {
         createOrEdit = !edit(list) ? get("category.创建分类") : get("category.编辑分类"),
         [extensionTools] = useAtom(extensionsAtom),
         converted = convertExtensionTools(extensionTools),
-        toolsList = useToolsList(getTools(get)),
+        toolsList = useAtom(toolsListAtom)[0](getTools(get)),
         right = toolsList.concat(converted).filter(atool => atool !== undefined).map(atool => atool.name).filter(v => props.left.every(val => val !== v));
     return (
         <PureDialog action={(
