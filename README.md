@@ -24,15 +24,15 @@
 
 ### Summary - 概要
 
-Neila的一些没用工具的平台。
+Neila 的一些没用工具的平台。
 
-Verkfi这个名字来源于冰岛语的*verkfaeri*，工具。
+Verkfi 这个名字来源于冰岛语的*verkfaeri*，工具。
 
 ### Features - 特性
 
 - 全部采用响应式布局。
-- 使用PWA以在桌面放置，快捷打开。
-- 使用CacheStorage达到超快的访问速度。
+- 使用 PWA 以在桌面放置，快捷打开。
+- 使用 CacheStorage 达到超快的访问速度。
 
 ## Contact - 联系
 
