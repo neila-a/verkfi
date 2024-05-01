@@ -62,7 +62,7 @@ function AudioTools(): JSX.Element {
                     <FilePond
                         files={[]}
                         onupdatefiles={(audios: FilePondFile[]) => audios.forEach(audio => setLoopAudioSrc(window.URL.createObjectURL(audio.file)))}
-                        allowMultiple={true}
+                        allowMultiple
                         maxFiles={1}
                         name="files"
                         acceptedFileTypes={["audio/*"]}

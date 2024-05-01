@@ -42,8 +42,6 @@ import {
 import SingleSelect from './SingleSelect';
 import useToolsList from './useToolsList';
 export default function Selects(props: {
-    list: lists;
-    setList: setState<lists>;
     setEditing: setState<boolean>;
     sortingFor: string;
     setSortingFor: setState<string>;
@@ -57,12 +55,12 @@ export default function Selects(props: {
     modifyClickCount(value: number | "++"): void;
 }) {
     const {
-        list, setList, setTools, searchTools, searchText, setSearchText, sortingFor, setSortingFor, setEditing
+        setTools, searchTools, searchText, setSearchText, sortingFor, setSortingFor, setEditing
     } = props,
+        [list, setList] = useAtom(listsAtom),
         [dialogOpen, setDialogOpen] = useState<boolean>(false),
         [dialogTools, setDialogTools] = useState<string[]>([]),
         gotToolsList = useToolsList(getTools(get)),
-        [lists, setLists] = useAtom(listsAtom),
         [removeDialogOpen, setRemoveDialogOpen] = useState<boolean>(false),
         [dialogListName, setDialogListName] = useState<string>(""),
         RealSelect = (aprops: {
@@ -134,9 +132,8 @@ export default function Selects(props: {
                     return;
                 }
                 if (props.editMode) {
-                    const newLists = reorderArray(props.list, result.source.index, result.destination.index);
-                    setLists(newLists);
-                    props.setList(newLists);
+                    const newLists = reorderArray(list, result.source.index, result.destination.index);
+                    setList(newLists);
                 }
             }}>
                 <Droppable direction={Boolean(props.isSidebar) ? "vertical" : "horizontal"} droppableId="categories" isDropDisabled={!props.editMode}>
@@ -170,7 +167,6 @@ export default function Selects(props: {
                         setDialogListName,
                         setDialogOpen,
                         setRemoveDialogOpen,
-                        setList,
                         left: gotToolsList.filter(tool => {
                             return list.find(single => single[0] === dialogListName)?.[1]?.includes(tool.to);
                         }).map(tool => tool.name)
@@ -182,7 +178,6 @@ export default function Selects(props: {
                         onTrue: () => {
                             const listDraft: lists = list.slice(0).filter(draftSingle => draftSingle[0] !== dialogListName)
                             setList(listDraft);
-                            setLists(listDraft);
                             setDialogListName("");
                             return setRemoveDialogOpen(false);
                         },

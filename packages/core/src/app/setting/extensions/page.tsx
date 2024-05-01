@@ -126,7 +126,7 @@ export default function ExtensionManager() {
                         setAddDialogOpen(true);
                     }
                 }}
-                allowMultiple={true}
+                allowMultiple
                 maxFiles={1}
                 name="files"
                 acceptedFileTypes={[".vxt"]}

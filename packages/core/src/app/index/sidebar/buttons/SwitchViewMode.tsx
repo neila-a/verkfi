@@ -8,19 +8,13 @@ import {
 } from "@mui/material";
 import MouseOverPopover from "components/Popover";
 import {
-    setState
-} from 'declare';
+    useAtom
+} from "jotai";
 import {
-    viewMode
-} from '../../consts';
-export default function SwitchViewMode(props: {
-    viewMode: viewMode;
-    setViewMode: setState<viewMode>;
-}) {
-    const {
-        viewMode,
-        setViewMode
-    } = props;
+    viewMode as viewModeAtom
+} from "layout/layoutClient";
+export default function SwitchViewMode() {
+    const [viewMode, setViewMode] = useAtom(viewModeAtom);
     return (
         <MouseOverPopover text={viewMode == "grid" ? "切换为列表模式" : "切换为网格模式"}>
             <IconButton color="primary" sx={{

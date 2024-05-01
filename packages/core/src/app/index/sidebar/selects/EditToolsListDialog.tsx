@@ -31,7 +31,6 @@ const PureDialog = dynamic(() => import("dialog/Pure"));
 export default function EditToolsListDialog(props: {
     dialogTools: string[];
     setDialogTools: setState<string[]>;
-    setList: setState<lists>;
     dialogListName: string;
     setDialogListName: setState<string>;
     setDialogOpen: setState<boolean>;
@@ -62,7 +61,6 @@ export default function EditToolsListDialog(props: {
                     if (!have) {
                         listDraft.push([dialogListName, dialogTools]);
                     }
-                    props.setList(listDraft);
                     setList(listDraft);
                     setDialogListName("");
                     setDialogTools([]);

@@ -23,7 +23,6 @@ import MouseOverPopover from "components/Popover";
 import Transition from "components/dialog/Transition";
 import VerkfiIcon from "components/verkfiIcon/verkfiIcon";
 import convertExtensionTools from "index/convertExtensionTools";
-import getParamTools from "index/getMostUsedTools";
 import ToolsStack from "index/showTool";
 import SwitchEditMode from "index/sidebar/buttons/SwitchEditMode";
 import SwitchViewMode from "index/sidebar/buttons/SwitchViewMode";
@@ -54,21 +53,20 @@ import {
     tool
 } from "tools/info";
 import extensionsAtom from "./extensionsAtom";
+import useMostUsedTools from "index/useMostUsedTools";
 export default function Menu() {
     const [control, setControl] = useAtom(showSidebar),
         theme = useTheme(),
         fullScreen = useMediaQuery(theme.breakpoints.down('sm')),
         realTools = getTools(get), // 硬编码的分类
         [recentlyUsed] = useAtom(recentlyUsedAtom),
-        [mostUsed] = useAtom(mostUsedAtom),
-        [viewMode, setViewMode] = useAtom(viewModeAtom),
         [editMode, setEditMode] = useState<boolean>(false),
         [sortingFor, setSortingFor] = useState<string>("__home__"),
         [tab, setTab] = useState<number>(0),
-        [list, setList] = useAtom(listsAtom),
         [searchText, setSearchText] = useState<string>(""),
         [extensionTools] = useAtom(extensionsAtom),
         gotToolsList = useToolsList(realTools),
+        mostUsed = useMostUsedTools(),
         [sortedTools, setSortedTools] = useState(gotToolsList), // 排序完毕，但是不会根据搜索而改动的分类
         [tools, setTools] = useState<tool[]>(gotToolsList), // 经常改动的分类
         focusingTo = tools[tab] ? tools[tab].to : "", // 每次渲染会重新执行
@@ -189,8 +187,6 @@ export default function Menu() {
                                     <Selects
                                         setEditing={setEditing}
                                         modifyClickCount={value => null}
-                                        list={list}
-                                        setList={setList}
                                         searchText={searchText}
                                         sortingFor={sortingFor}
                                         setSortingFor={setSortingFor}
@@ -210,7 +206,6 @@ export default function Menu() {
                                     p: 1
                                 }}>
                                     <ToolsStack
-                                        viewMode={viewMode}
                                         searchText=""
                                         sortingFor={"__home__"}
                                         setTools={tools => null}
@@ -230,19 +225,17 @@ export default function Menu() {
                                     p: 1
                                 }}>
                                     <ToolsStack
-                                        viewMode={viewMode}
                                         searchText=""
                                         sortingFor={"__home__"}
                                         setTools={tools => null}
                                         editMode={false}
-                                        paramTool={getParamTools(mostUsed, realTools, extensionTools)} />
+                                        paramTool={mostUsed} />
                                 </Box>
                             </Box>
                         </>
                     ) : (
                         <ToolsStack
                             paramTool={tools}
-                            viewMode={viewMode}
                             searchText={searchText}
                             sortingFor={sortingFor}
                             setTools={setTools}
@@ -295,7 +288,7 @@ export default function Menu() {
                                 </IconButton>
                             </MouseOverPopover>
                         </Link>
-                        <SwitchViewMode viewMode={viewMode} setViewMode={setViewMode} />
+                        <SwitchViewMode />
                         {(editing && sortingFor !== "__extension__") && (
                             <SwitchEditMode editMode={editMode} setEditMode={setEditMode} />
                         )}

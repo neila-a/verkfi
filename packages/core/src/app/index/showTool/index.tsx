@@ -14,6 +14,12 @@ import {
     setState
 } from 'declare';
 import {
+    useAtom
+} from "jotai";
+import {
+    viewMode as viewModeAtom
+} from "layout/layoutClient";
+import {
     get
 } from 'react-intl-universal';
 import {
@@ -23,14 +29,10 @@ import reorderArray from 'reorder-array';
 import {
     tool
 } from "tools/info";
-import {
-    viewMode
-} from '../consts';
 import useButtonCommonSorting from '../sorting/buttonCommonSorting';
 import SingleTool from './SingleTool';
 export default function ToolsStack(props: {
     paramTool: tool[];
-    viewMode: viewMode;
     searchText: string;
     sortingFor: string;
     setTools: setState<tool[]>;
@@ -40,9 +42,7 @@ export default function ToolsStack(props: {
      */
     focus?: string;
 }) {
-    const {
-        viewMode
-    } = props,
+    const [viewMode] = useAtom(viewModeAtom),
         buttonCommonSorting = useButtonCommonSorting();
     function Insert({
         index,
@@ -58,7 +58,6 @@ export default function ToolsStack(props: {
                 sortingFor={props.sortingFor}
                 key={tool.to}
                 focus={props.focus === tool.to}
-                viewMode={viewMode}
                 setTools={props.setTools}
                 editMode={props.editMode} />
         );

@@ -33,8 +33,8 @@ import {
     tool
 } from "tools/info";
 import {
-    viewMode
-} from '../consts';
+    viewMode as viewModeAtom
+} from "layout/layoutClient";
 import Buttons from './buttons';
 import Selects from './selects';
 import SingleSelect from './selects/SingleSelect';
@@ -44,8 +44,6 @@ export default function Sidebar(props: {
      * 是否为嵌入
      */
     isImplant?: boolean;
-    viewMode: viewMode;
-    setViewMode: setState<viewMode>;
     setShow: setState<"tools" | "home">;
     editMode: boolean;
     setEditMode: setState<boolean>;
@@ -66,8 +64,6 @@ export default function Sidebar(props: {
     setExpand: setState<boolean>;
 }) {
     const {
-        viewMode,
-        setViewMode,
         editMode,
         setEditMode,
         searchText,
@@ -77,6 +73,7 @@ export default function Sidebar(props: {
         sortingFor,
         setSortingFor
     } = props,
+        [viewMode, setViewMode] = useAtom(viewModeAtom),
         [editing, setEditing] = useState<boolean>(searchText === ""),
         [clickCount, setClickCount] = useState<number>(0),
         [list, setList] = useAtom(lists);
@@ -136,7 +133,7 @@ export default function Sidebar(props: {
                     <SingleSelect
                         dragButton={<></>}
                         editMode={editMode}
-                        isSidebar={true}
+                        isSidebar
                         sortingFor={sortingFor}
                         searchText={searchText}
                         wantSortingFor="__home__"
@@ -158,8 +155,6 @@ export default function Sidebar(props: {
                 }}>
                     <Selects
                         isSidebar
-                        list={list}
-                        setList={setList}
                         editMode={editMode}
                         setEditing={setEditing}
                         sortingFor={sortingFor}
@@ -181,14 +176,11 @@ export default function Sidebar(props: {
             </Box>
             <Buttons
                 editMode={editMode}
-                viewMode={viewMode}
                 isImplant={props.isImplant}
                 expand={props.expand}
                 setExpand={props.setExpand}
                 setEditMode={setEditMode}
-                setViewMode={setViewMode}
                 editing={editing}
-                setList={setList}
             />
         </Drawer>
     );

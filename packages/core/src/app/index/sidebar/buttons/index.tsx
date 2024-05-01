@@ -15,6 +15,9 @@ import MouseOverPopover from "components/Popover";
 import {
     setState
 } from 'declare';
+import {
+    viewMode as viewModeAtom
+} from "layout/layoutClient";
 import dynamic from 'next/dynamic';
 import {
     useState
@@ -22,12 +25,6 @@ import {
 import {
     get
 } from "react-intl-universal";
-import {
-    lists
-} from "..";
-import {
-    viewMode
-} from '../../consts';
 import SwitchEditMode from "./SwitchEditMode";
 import SwitchViewMode from "./SwitchViewMode";
 const EditToolsListDialog = dynamic(() => import("../selects/EditToolsListDialog"));
@@ -36,18 +33,13 @@ export default function Buttons(props: {
      * 是否为嵌入
      */
     isImplant?: boolean;
-    viewMode: viewMode;
-    setViewMode: setState<viewMode>;
     editMode: boolean;
     setEditMode: setState<boolean>;
     editing: boolean;
-    setList: setState<lists>;
     expand: boolean;
     setExpand: setState<boolean>;
 }) {
     const {
-        viewMode,
-        setViewMode,
         editMode,
         setEditMode,
         editing
@@ -73,7 +65,7 @@ export default function Buttons(props: {
                 display: "flex",
                 justifyContent: "center"
             }}>
-                <SwitchViewMode viewMode={viewMode} setViewMode={setViewMode} />
+                <SwitchViewMode />
                 {editing && (
                     <SwitchEditMode editMode={editMode} setEditMode={setEditMode} />
                 )}
@@ -97,7 +89,6 @@ export default function Buttons(props: {
                 dialogListName={dialogListName}
                 setDialogListName={setDialogListName}
                 setDialogOpen={setDialogOpen}
-                setList={props.setList}
                 left={[]}
             />
         </Box>

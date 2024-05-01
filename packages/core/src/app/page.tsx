@@ -14,25 +14,22 @@ import {
     setState
 } from 'declare';
 import convertExtensionTools from 'index/convertExtensionTools';
-import generateTries from 'index/generateTries';
-import getParamTools from 'index/getMostUsedTools';
 import ToolsStack from 'index/showTool';
 import Sidebar from 'index/sidebar';
 import searchBase from 'index/sidebar/searchBase';
 import useToolsList from 'index/sidebar/selects/useToolsList';
+import useMostUsedTools from "index/useMostUsedTools";
+import useTries from "index/useTries";
 import {
     useAtom
 } from 'jotai';
 import extensionsAtom from "layout/extensionsAtom";
 import {
-    mostUsed as mostUsedAtom,
     recentlyUsed as recentlyUsedAtom,
-    showSidebar as showSidebarAtom,
-    viewMode as viewModeAtom
+    showSidebar as showSidebarAtom
 } from 'layout/layoutClient';
 import {
     useEffect,
-    useMemo,
     useState
 } from 'react';
 import {
@@ -65,10 +62,9 @@ export default function Index(props: {
         toolsList = useToolsList(realTools),
         [showSidebar] = useAtom(showSidebarAtom),
         [recentlyUsed] = useAtom(recentlyUsedAtom),
-        [mostUsed] = useAtom(mostUsedAtom),
+        mostUsed = useMostUsedTools(),
         [sortedTools, setSortedTools] = useState(toolsList),
         [searchText, setSearchText] = useState<string>(props.isImplant ? props.children : ""),
-        [viewMode, setViewMode] = useAtom(viewModeAtom),
         [editMode, setEditMode] = useState<boolean>(false),
         [expandThis, setExpandThis] = useState<boolean>(false),
         [showTries, setShowTries] = useState<boolean>(false),
@@ -76,7 +72,7 @@ export default function Index(props: {
         [tab, setTab] = useState<number>(0),
         focusingTo = tools[tab] ? tools[tab].to : "", // 每次渲染会重新执行
         [show, setShow] = useState<"tools" | "home">(props.isImplant ? "tools" : "home"),
-        tries = useMemo(() => generateTries(mostUsed, realTools), [mostUsed, realTools]),
+        tries = useTries(),
         recentlyTools = recentlyUsed.map(to => {
             const converted = convertExtensionTools(extensionTools);
             return 0
@@ -110,7 +106,6 @@ export default function Index(props: {
             }}>
                 <ToolsStack
                     paramTool={tools}
-                    viewMode={viewMode}
                     searchText={searchText}
                     sortingFor={sortingFor}
                     setTools={setTools}
@@ -133,8 +128,6 @@ export default function Index(props: {
                 setTab={setTab}
                 setShow={setShow}
                 isImplant={props.isImplant}
-                viewMode={viewMode}
-                setViewMode={setViewMode}
                 editMode={editMode}
                 setEditMode={setEditMode}
                 searchText={searchText}
@@ -194,7 +187,6 @@ export default function Index(props: {
                                 p: 1
                             }}>
                                 <ToolsStack
-                                    viewMode={viewMode}
                                     searchText=""
                                     sortingFor={sortingFor}
                                     setTools={setTools}
@@ -211,7 +203,6 @@ export default function Index(props: {
                             p: 1
                         }}>
                             <ToolsStack
-                                viewMode={viewMode}
                                 searchText=""
                                 sortingFor={sortingFor}
                                 setTools={setTools}
@@ -227,12 +218,11 @@ export default function Index(props: {
                             p: 1
                         }}>
                             <ToolsStack
-                                viewMode={viewMode}
                                 searchText=""
                                 sortingFor={"__home__"}
                                 setTools={setTools}
                                 editMode={false}
-                                paramTool={getParamTools(mostUsed, realTools, extensionTools)} />
+                                paramTool={mostUsed} />
                         </Box>
                     </Box>
                 </Box>

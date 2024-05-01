@@ -51,16 +51,15 @@ import {
 import {
     tool
 } from "tools/info";
-import {
-    viewMode
-} from '../consts';
 import DownButton from '../sorting/DownButton';
 import UpButton from '../sorting/UpButton';
 const CheckDialog = dynamic(() => import("dialog/Check"));
+import {
+    viewMode as viewModeAtom
+} from "layout/layoutClient";
 export default function SingleTool(props: {
     tool: tool;
     isFirst: boolean;
-    viewMode: viewMode;
     setTools: setState<tool[]>;
     editMode: boolean;
     sortingFor: string;
@@ -68,11 +67,11 @@ export default function SingleTool(props: {
 }) {
     const {
         tool,
-        viewMode,
         editMode,
         setTools,
         sortingFor
     } = props,
+        [viewMode] = useAtom(viewModeAtom),
         lightMode = useAtom(booleanifyDarkMode),
         ToolIcon = tool.icon,
         subStyle = {

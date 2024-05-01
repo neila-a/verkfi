@@ -1,15 +1,23 @@
 "use client";
 import {
-    single
-} from "db";
+    useAtom
+} from "jotai";
+import extensionsAtom from "layout/extensionsAtom";
 import {
-    mostUsedMarks
+    mostUsed as mostUsedAtom
 } from "layout/layoutClient";
 import {
+    get
+} from "react-intl-universal";
+import {
+    getTools,
     tool
 } from "tools/info";
 import convertExtensionTools from "./convertExtensionTools";
-function getMostUsedTools(mostUsed: mostUsedMarks, realTools: tool[], extensionTools: single[]) {
+function useMostUsedTools() {
+    const [mostUsed] = useAtom(mostUsedAtom),
+        [extensionTools] = useAtom(extensionsAtom),
+        realTools = getTools(get);
     return (Object.entries(mostUsed) satisfies [string, number][]).sort((r, g) => {
         if (r[1] < g[1]) {
             return 1;
@@ -24,4 +32,4 @@ function getMostUsedTools(mostUsed: mostUsedMarks, realTools: tool[], extensionT
             || convertExtensionTools(extensionTools).find(single => `/tools/extension?tool=${to}` === single.to) as tool | 0;
     }).filter(item => item !== 0 && item !== undefined) as unknown as tool[];
 }
-export default getMostUsedTools;
+export default useMostUsedTools;
