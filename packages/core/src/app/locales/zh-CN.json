@@ -254,7 +254,8 @@
 		"notfound": "未找到任何工具",
 		"movedown": "移动到下一个",
 		"moveup": "移动到上一个",
-		"editCategory": "编辑此分类"
+		"editCategory": "编辑此分类",
+		"incorrectCategoryName": "不能使用Verkfi内部使用的分类名称。"
 	},
 	"filter": {
 		"没有任何已生成的图片": "没有任何已生成的图片",
