@@ -6,9 +6,7 @@ import {
 import {
     useAtom
 } from "jotai";
-import {
-    isBrowser
-} from "layout/layoutClient";
+import isBrowser from "layout/isBrowser";
 import {
     get
 } from "react-intl-universal";

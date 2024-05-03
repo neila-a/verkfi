@@ -44,7 +44,9 @@ function PI(): JSX.Element {
             </FormGroup>
             {!useAlertShow && (
                 <Box id="out">
-                    <Typography variant="h4" gutterBottom>{get("结果")}</Typography>
+                    <Typography variant="h4" gutterBottom>
+                        {get("结果")}
+                    </Typography>
                     <CopyButton add={{
                         variant: "contained"
                     }}>
@@ -52,7 +54,9 @@ function PI(): JSX.Element {
                     </CopyButton>
                     <Typography variant="body1" sx={{
                         wordBreak: "break-all"
-                    }} gutterBottom>{get("pi.π是：")}{out}</Typography>
+                    }} gutterBottom>
+                        {get("pi.π是：")}{out}
+                    </Typography>
                 </Box>
             )}
             <AlertDialog open={showInfoDialog} title={get("提示")} description={dialogInfo} onDone={() => {

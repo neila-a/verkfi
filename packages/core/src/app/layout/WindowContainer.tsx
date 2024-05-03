@@ -6,7 +6,7 @@ import {
 import {
     gradientTool,
     windows as windowsAtom
-} from "layout/layoutClient";
+} from "atoms";
 import dynamic from "next/dynamic";
 const Window = dynamic(() => import("components/window/Window"));
 export default function WindowContainer() {

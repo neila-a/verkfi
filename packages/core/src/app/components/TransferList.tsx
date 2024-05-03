@@ -124,7 +124,9 @@ export default function TransferList(props: {
         <Grid container spacing={2} justifyContent="center" alignItems="center" sx={{
             p: theme => theme.spacing(1, 0)
         }}>
-            <Grid item>{customList(left)}</Grid>
+            <Grid item>
+                {customList(left)}
+            </Grid>
             <Grid item>
                 <Grid container direction="column" alignItems="center">
                     <Button
@@ -177,7 +179,9 @@ export default function TransferList(props: {
                     </Button>
                 </Grid>
             </Grid>
-            <Grid item>{customList(right)}</Grid>
+            <Grid item>
+                {customList(right)}
+            </Grid>
         </Grid>
     );
 }

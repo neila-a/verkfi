@@ -24,7 +24,9 @@ export default function SingleMath(props: {
         <ListItem sx={{
             display: "flex"
         }}>
-            <Typography>{math.replace(/=.*/g, "")}</Typography>
+            <Typography>
+                {math.replace(/=.*/g, "")}
+            </Typography>
             <Box sx={{
                 flex: 1,
                 textAlign: "right"
@@ -35,7 +37,9 @@ export default function SingleMath(props: {
                     setError((event.target.value === math.replace(/.*=/g, "")) ? false : true);
                 }} />
                 {showOut === true ? (
-                    <Typography>{get("答案：")}{math.replace(/.*=/g, "")}</Typography>
+                    <Typography>
+                        {get("答案：")}{math.replace(/.*=/g, "")}
+                    </Typography>
                 ) : <Fragment />}
             </Box>
         </ListItem>

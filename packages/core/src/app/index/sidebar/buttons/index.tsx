@@ -17,7 +17,7 @@ import {
 } from "declare";
 import {
     viewMode as viewModeAtom
-} from "layout/layoutClient";
+} from "atoms";
 import dynamic from "next/dynamic";
 import {
     useState

@@ -28,16 +28,18 @@ import SwitchEditMode from "index/sidebar/buttons/SwitchEditMode";
 import SwitchViewMode from "index/sidebar/buttons/SwitchViewMode";
 import searchBase from "index/sidebar/searchBase";
 import Selects from "index/sidebar/selects";
-import toolsListAtom from "index/sidebar/selects/toolsListAtom";
+import toolsListAtom from "atoms/toolsList";
 import useMostUsedTools from "index/useMostUsedTools";
 import {
     useAtom
 } from "jotai";
 import {
-    recentlyUsed as recentlyUsedAtom,
-    repoInfo,
-    showSidebar
+    repoInfo
 } from "layout/layoutClient";
+import {
+    recentlyUsed as recentlyUsedAtom,
+    showSidebar
+} from "atoms";
 import Link from "next/link";
 import {
     useContext,
@@ -50,7 +52,7 @@ import {
     getTools,
     tool
 } from "tools/info";
-import extensionsAtom from "./extensionsAtom";
+import extensionsAtom from "atoms/extensions";
 export default function Menu() {
     const [control, setControl] = useAtom(showSidebar),
         theme = useTheme(),

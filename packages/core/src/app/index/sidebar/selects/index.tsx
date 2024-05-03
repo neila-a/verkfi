@@ -21,7 +21,7 @@ import {
 } from "jotai";
 import {
     lists as listsAtom
-} from "layout/layoutClient";
+} from "atoms";
 import dynamic from "next/dynamic";
 import {
     Fragment,
@@ -40,7 +40,7 @@ import {
     lists
 } from "..";
 import SingleSelect from "./SingleSelect";
-import toolsListAtom from "./toolsListAtom";
+import toolsListAtom from "atoms/toolsList";
 export default function Selects(props: {
     setEditing: setState<boolean>;
     sortingFor: string;

@@ -3,21 +3,16 @@ import {
     not
 } from "components/TransferList";
 import {
-    atom,
-    useAtom
+    atom
 } from "jotai";
 import {
     mostUsed as mostUsedAtom
-} from "layout/layoutClient";
+} from ".";
 import {
-    get
-} from "react-intl-universal";
-import {
-    getTools,
     tool
 } from "tools/info";
-const triesAtom = atom(get => {
-    const mostUsed = get(mostUsedAtom);
+const triesAtom = atom(async get => {
+    const mostUsed = await get(mostUsedAtom);
     return (realTools: tool[]) => {
         const unUsed = not(realTools.map(single => single.to), Object.keys(mostUsed)).slice(0, 3),
             isUnFull = unUsed.length < 3, // 判断没用过的工具有没有三个

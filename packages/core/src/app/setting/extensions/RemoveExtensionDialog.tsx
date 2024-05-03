@@ -7,10 +7,10 @@ import CheckDialog from "dialog/Check";
 import {
     useAtom
 } from "jotai";
-import extensionsAtom from "layout/extensionsAtom";
+import extensionsAtom from "atoms/extensions";
 import {
     lists as listsAtom
-} from "layout/layoutClient";
+} from "atoms";
 import {
     useState
 } from "react";

@@ -22,11 +22,13 @@ import {
     useAtom
 } from "jotai";
 import {
+    repoInfo
+} from "layout/layoutClient";
+import {
     forkMeOnGitHub as forkMeOnGitHubAtom,
-    repoInfo,
     share as shareAtom,
     showSidebar
-} from "layout/layoutClient";
+} from "atoms";
 import Link from "next/link";
 import {
     useRouter
@@ -188,7 +190,9 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
                             backgroundColor: "rgb(170, 0, 0)",
                             backgroundImage: "linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15))",
                             top: 45
-                        }}>Fork me on GitHub</a>
+                        }}>
+                            Fork me on GitHub
+                        </a>
                     </Box>
                 ) : <Fragment />
             }

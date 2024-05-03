@@ -70,7 +70,9 @@ export default function Reset() {
                                 return await caches.delete(key);
                             });
                         });
-                    }}>{get("clear.清空所有缓存")}</Button>
+                    }}>
+                        {get("clear.清空所有缓存")}
+                    </Button>
                 </Spacing3Stack>
                 <Spacing3Stack>
                     <Line
@@ -84,7 +86,9 @@ export default function Reset() {
                         setDialogContext(get("clear.清空设置吗？此操作不可恢复。"));
                         setDialogTitle(get("clear.清空"));
                         setDialogOnDone(() => () => localStorage.clear());
-                    }}>{get("clear.清空所有设置")}</Button>
+                    }}>
+                        {get("clear.清空所有设置")}
+                    </Button>
                     <CheckDialog open={dialogOpen} title={dialogTitle} onFalse={() => {
                         setDialogOpen(false);
                     }} onTrue={() => {

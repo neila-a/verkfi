@@ -1,7 +1,5 @@
 import db from "db";
-import {
-    isBrowser
-} from "layout/layoutClient";
+import isBrowser from "layout/isBrowser";
 export default async function settingReader<setting>(id: string, empty: setting): Promise<setting> {
     if (isBrowser()) {
         const got = await db.options.get({

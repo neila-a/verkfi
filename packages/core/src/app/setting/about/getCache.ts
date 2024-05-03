@@ -1,6 +1,4 @@
-import {
-    isBrowser
-} from "layout/layoutClient";
+import isBrowser from "layout/isBrowser";
 import {
     MB
 } from "../consts";

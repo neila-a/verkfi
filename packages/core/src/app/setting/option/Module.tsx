@@ -8,7 +8,7 @@ import {
 } from "jotai";
 import {
     sidebarMode
-} from "layout/layoutClient";
+} from "atoms";
 import {
     ReactNode
 } from "react";

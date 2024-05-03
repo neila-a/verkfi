@@ -81,7 +81,9 @@ function MathGen(): JSX.Element {
                     }
                 }}>
                     <FormGroup>
-                        <FormLabel component="legend">{get("mathgen.选择计算方法")}</FormLabel>
+                        <FormLabel component="legend">
+                            {get("mathgen.选择计算方法")}
+                        </FormLabel>
                         <FormControlLabel label={get("全选")} control={
                             <Checkbox checked={calcs === defaultCalcs} onChange={event => setCalcs(event.target.checked ? defaultCalcs : [])} />
                         } />

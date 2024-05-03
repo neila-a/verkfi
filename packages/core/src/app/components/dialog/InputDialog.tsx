@@ -32,7 +32,9 @@ export default function InputDialog(props: {
         };
     return (
         <Dialog open={props.open} onClose={handleClose} TransitionComponent={Transition} keepMounted>
-            <DialogTitle>{props.title}</DialogTitle>
+            <DialogTitle>
+                {props.title}
+            </DialogTitle>
             <DialogContent>
                 <DialogContentText>
                     {props.context}
@@ -42,7 +44,9 @@ export default function InputDialog(props: {
                 }} />
             </DialogContent>
             <DialogActions>
-                <Button onClick={event => props.onDone(input)}>{get("确定")}</Button>
+                <Button onClick={event => props.onDone(input)}>
+                    {get("确定")}
+                </Button>
             </DialogActions>
         </Dialog>
     );

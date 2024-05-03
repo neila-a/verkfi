@@ -5,10 +5,8 @@ import {
 import {
     useAtom
 } from "jotai";
-import extensionsAtom from "layout/extensionsAtom";
-import {
-    isBrowser
-} from "layout/layoutClient";
+import extensionsAtom from "atoms/extensions";
+import isBrowser from "layout/isBrowser";
 import {
     useSearchParams
 } from "next/navigation";

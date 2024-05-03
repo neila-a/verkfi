@@ -1,19 +1,18 @@
 "use client";
 import {
-    atom,
-    useAtom
+    atom
 } from "jotai";
-import extensionsAtom from "layout/extensionsAtom";
+import extensionsAtom from "atoms/extensions";
 import {
     lists as listsAtom
-} from "layout/layoutClient";
+} from "atoms";
 import {
     tool
 } from "tools/info";
-import convertExtensionTools from "../../convertExtensionTools";
-const toolsListAtom = atom(get => {
-    const lists = get(listsAtom),
-        extensionTools = get(extensionsAtom),
+import convertExtensionTools from "../index/convertExtensionTools";
+const toolsListAtom = atom(async get => {
+    const lists = await get(listsAtom),
+        extensionTools = await get(extensionsAtom),
         converted = convertExtensionTools(extensionTools),
         list = lists.find(item => item[0] === "__global__");
     /**

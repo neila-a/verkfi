@@ -7,10 +7,10 @@ import convertExtensionTools from "index/convertExtensionTools";
 import {
     useAtom
 } from "jotai";
-import extensionsAtom from "layout/extensionsAtom";
+import extensionsAtom from "atoms/extensions";
 import {
     gradientTool
-} from "layout/layoutClient";
+} from "atoms";
 import Loading from "loading";
 import lpLogger from "lp-logger";
 import {

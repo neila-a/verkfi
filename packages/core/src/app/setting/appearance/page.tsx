@@ -29,7 +29,7 @@ import {
     darkMode as darkModeAtom,
     gradientTool,
     paletteColors
-} from "layout/layoutClient";
+} from "atoms";
 import {
     Dispatch,
     useId
@@ -142,7 +142,9 @@ function ColorTool() {
                 }}>
                     <Typography id={realId} sx={{
                         width: 60
-                    }}>{`${get("appearance.shade")}:`}</Typography>
+                    }}>
+                        {`${get("appearance.shade")}:`}
+                    </Typography>
                     <Slider
                         sx={{
                             width: "calc(100% - 80px)",
@@ -155,7 +157,9 @@ function ColorTool() {
                         step={1}
                         onChange={handleChangeShade(intent)}
                         aria-labelledby={realId} />
-                    <Typography>{shades[intentShade]}</Typography>
+                    <Typography>
+                        {shades[intentShade]}
+                    </Typography>
                 </Box>
                 <Box sx={{
                     width: 192

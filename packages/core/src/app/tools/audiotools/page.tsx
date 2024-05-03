@@ -11,9 +11,7 @@ import {
 import {
     FilePondFile
 } from "filepond";
-import {
-    isBrowser
-} from "layout/layoutClient";
+import isBrowser from "layout/isBrowser";
 import {
     useRef,
     useState
@@ -55,7 +53,9 @@ function AudioTools(): JSX.Element {
         <Grid container direction="column" spacing={2}>
             <Grid item>
                 <Module>
-                    <Typography variant="h4" gutterBottom>{get("音频循环播放")}</Typography>
+                    <Typography variant="h4" gutterBottom>
+                        {get("音频循环播放")}
+                    </Typography>
                     <audio controls loop src={loopAudioSrc}>
                         {get("你的浏览器不支持 audio 元素。")}
                     </audio>
@@ -72,13 +72,19 @@ function AudioTools(): JSX.Element {
             </Grid>
             <Grid item>
                 <Module>
-                    <Typography variant="h4" gutterBottom>{get("音频录制并循环")}</Typography>
+                    <Typography variant="h4" gutterBottom>
+                        {get("音频录制并循环")}
+                    </Typography>
                     <Button startIcon={<PlayArrow />} variant="contained" onClick={() => {
                         return controlAudio("recording");
-                    }} disabled={status === "recording"}>{get("开始")}</Button>
+                    }} disabled={status === "recording"}>
+                        {get("开始")}
+                    </Button>
                     <Button startIcon={<Stop />} variant="contained" onClick={() => {
                         return controlAudio("inactive");
-                    }} disabled={status === "inactive"}>{get("停止")}</Button>
+                    }} disabled={status === "inactive"}>
+                        {get("停止")}
+                    </Button>
                     <audio controls loop src={loopSpeakAudioSrc}>
                         {get("你的浏览器不支持 audio 元素。")}
                     </audio>

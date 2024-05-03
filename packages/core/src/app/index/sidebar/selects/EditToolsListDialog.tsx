@@ -11,10 +11,10 @@ import {
 import {
     useAtom
 } from "jotai";
-import extensionsAtom from "layout/extensionsAtom";
+import extensionsAtom from "atoms/extensions";
 import {
     lists as listsAtom
-} from "layout/layoutClient";
+} from "atoms";
 import dynamic from "next/dynamic";
 import {
     get
@@ -26,7 +26,7 @@ import {
     lists
 } from "..";
 import convertExtensionTools from "../../convertExtensionTools";
-import toolsListAtom from "./toolsListAtom";
+import toolsListAtom from "atoms/toolsList";
 const PureDialog = dynamic(() => import("dialog/Pure"));
 export default function EditToolsListDialog(props: {
     dialogTools: string[];

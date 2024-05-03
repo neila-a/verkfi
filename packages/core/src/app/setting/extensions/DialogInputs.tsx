@@ -70,7 +70,9 @@ export default function DialogInputs(props: {
                         });
                     }}>
                         {props.files.map(file => (
-                            <MenuItem key={file[0]} value={file[0]}>{file[0]}</MenuItem>
+                            <MenuItem key={file[0]} value={file[0]}>
+                                {file[0]}
+                            </MenuItem>
                         ))}
                     </Select>
                 ))}

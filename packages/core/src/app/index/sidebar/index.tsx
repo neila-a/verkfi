@@ -19,7 +19,7 @@ import {
 } from "jotai";
 import {
     lists
-} from "layout/layoutClient";
+} from "atoms";
 import {
     useState
 } from "react";
@@ -34,7 +34,7 @@ import {
 } from "tools/info";
 import {
     viewMode as viewModeAtom
-} from "layout/layoutClient";
+} from "atoms";
 import Buttons from "./buttons";
 import Selects from "./selects";
 import SingleSelect from "./selects/SingleSelect";

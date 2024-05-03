@@ -25,11 +25,11 @@ import {
 import {
     useAtom
 } from "jotai";
-import extensionsAtom from "layout/extensionsAtom";
+import extensionsAtom from "atoms/extensions";
 import {
     showSidebar as showSidebarAtom,
     sidebarMode as sidebarModeAtom
-} from "layout/layoutClient";
+} from "atoms";
 import {
     Route
 } from "next";
@@ -168,7 +168,9 @@ export default function Settings(props: {
                                         });
                                     }}>
                                         {settingItem.switches.map(switching => (
-                                            <MenuItem key={switching} value={switching}>{switching}</MenuItem>
+                                            <MenuItem key={switching} value={switching}>
+                                                {switching}
+                                            </MenuItem>
                                         ))}
                                     </Select>
                                 );

@@ -28,7 +28,9 @@ export default function CheckDialog(props: {
         descriptionId = `${startId}-check-dialog-description`;
     return (
         <Dialog sx={props.sx} open={props.open} TransitionComponent={Transition} aria-describedby={descriptionId}>
-            <DialogTitle>{props.title}</DialogTitle>
+            <DialogTitle>
+                {props.title}
+            </DialogTitle>
             <DialogContent>
                 <DialogContentText id={descriptionId}>
                     {props.description}
@@ -38,10 +40,14 @@ export default function CheckDialog(props: {
             <DialogActions>
                 <Button onClick={() => {
                     props.onFalse();
-                }}>{get("取消")}</Button>
+                }}>
+                    {get("取消")}
+                </Button>
                 <Button onClick={() => {
                     props.onTrue();
-                }}>{get("确定")}</Button>
+                }}>
+                    {get("确定")}
+                </Button>
             </DialogActions>
         </Dialog>
     );

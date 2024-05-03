@@ -9,9 +9,7 @@ import {
 } from "@mui/material";
 import ErrorBoundary from "components/ErrorBoundary";
 import VerkfiIcon from "components/verkfiIcon/verkfiIcon";
-import {
-    isBrowser
-} from "layout/layoutClient";
+import isBrowser from "layout/isBrowser";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import {
@@ -78,7 +76,9 @@ export default function About() {
                         <Typography variant="h4" sx={{
                             fontWeight: 300,
                             fontSize: "300%"
-                        }}>Verkfi</Typography>
+                        }}>
+                            Verkfi
+                        </Typography>
                     </Box>
                     <Box>
                         <Typography>
@@ -98,7 +98,9 @@ export default function About() {
                 p: 2,
                 mb: 4
             }}>
-                ©Copyleft ! <time dateTime="2022">2022</time>-<time dateTime={year.toString()}>{year}</time>， Neila
+                ©Copyleft ! <time dateTime="2022">2022</time>-<time dateTime={year.toString()}>
+                    {year}
+                </time>， Neila
                 <br />
                 {get("copyright.本程序从未提供品质担保。")}
                 <br />

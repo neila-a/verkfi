@@ -31,7 +31,9 @@ export default function PureDialog(props: {
     };
     return (
         <BootstrapDialog {...props.add} onClose={handleClose} open={props.open} TransitionComponent={Transition}>
-            <BootstrapDialogTitle onClose={handleClose}>{props.title}</BootstrapDialogTitle>
+            <BootstrapDialogTitle onClose={handleClose}>
+                {props.title}
+            </BootstrapDialogTitle>
             <DialogContent dividers>
                 {props.children}
             </DialogContent>

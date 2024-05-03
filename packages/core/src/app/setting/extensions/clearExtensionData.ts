@@ -2,11 +2,11 @@
 import {
     useAtom
 } from "jotai";
-import extensionsAtom from "layout/extensionsAtom";
+import extensionsAtom from "atoms/extensions";
 import {
     mostUsed as mostUsedAtom,
     recentlyUsed as recentlyUsedAtom
-} from "layout/layoutClient";
+} from "atoms";
 import {
     NXTMetadata,
     setting

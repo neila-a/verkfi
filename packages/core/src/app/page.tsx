@@ -17,17 +17,17 @@ import convertExtensionTools from "index/convertExtensionTools";
 import ToolsStack from "index/showTool";
 import Sidebar from "index/sidebar";
 import searchBase from "index/sidebar/searchBase";
-import toolsListAtom from "index/sidebar/selects/toolsListAtom";
+import toolsListAtom from "atoms/toolsList";
 import useMostUsedTools from "index/useMostUsedTools";
-import triesAtom from "index/triesAtom";
+import triesAtom from "atoms/tries";
 import {
     useAtom
 } from "jotai";
-import extensionsAtom from "layout/extensionsAtom";
+import extensionsAtom from "atoms/extensions";
 import {
     recentlyUsed as recentlyUsedAtom,
     showSidebar as showSidebarAtom
-} from "layout/layoutClient";
+} from "atoms";
 import {
     useEffect,
     useState

@@ -29,7 +29,7 @@ import {
     gradientTool as gradientToolAtom,
     lists as listsAtom,
     windows as windowsAtom
-} from "layout/layoutClient";
+} from "atoms";
 import {
     Route
 } from "next";
@@ -56,7 +56,7 @@ import UpButton from "../sorting/UpButton";
 const CheckDialog = dynamic(() => import("dialog/Check"));
 import {
     viewMode as viewModeAtom
-} from "layout/layoutClient";
+} from "atoms";
 export default function SingleTool(props: {
     tool: tool;
     isFirst: boolean;

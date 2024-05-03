@@ -4,7 +4,7 @@ import {
 } from "jotai";
 import {
     lists
-} from "layout/layoutClient";
+} from "atoms";
 import {
     type tool
 } from "tools/info";

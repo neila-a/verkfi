@@ -3,15 +3,17 @@ import {
 } from "jotai";
 import setSetting from "./setSetting";
 import settingReader from "./settingReader";
+const emptyString = "__atomDefault__";
 export default function atomWithStorage<setting = any>(id: string, name: string, empty: setting) {
-    const valueAtom = atom(empty);
-    valueAtom.onMount = setValue => {
-        (async () => {
+    const valueAtom = atom<setting | typeof emptyString>(emptyString);
+    return atom(async get => {
+        const got = get(valueAtom);
+        if (got === emptyString) {
             const value = await settingReader(id, empty);
-            setValue(value);
-        })();
-    };
-    return atom(get => get(valueAtom), (get, set, update: setting) => {
+            return value;
+        }
+        return got;
+    }, (get, set, update: setting) => {
         set(valueAtom, update);
         setSetting(id, name, update);
     });

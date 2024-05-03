@@ -74,17 +74,23 @@ function Reversal(): JSX.Element {
                             return wordArray[0];
                         }).join(""));
                         logger.log("已处理。");
-                    }}>{get("处理")}</Button>
+                    }}>
+                        {get("处理")}
+                    </Button>
                     <Button variant="outlined" onClick={() => {
                         setWordList([]);
                         setWords("");
                         setOutput("");
                         logger.log("已重置。");
-                    }}>{get("重来")}</Button>
+                    }}>
+                        {get("重来")}
+                    </Button>
                     <Button variant="outlined" onClick={() => {
                         setShowSplitDialog(true);
                         logger.log("已打开输入对话框。");
-                    }}>{get("拆分")}</Button>
+                    }}>
+                        {get("拆分")}
+                    </Button>
                     <CopyButton add={{
                         variant: "outlined"
                     }}>
@@ -92,7 +98,9 @@ function Reversal(): JSX.Element {
                     </CopyButton>
                 </ButtonGroup>
             </Box>
-            <Typography variant="body1">{get("结果：")}{output}</Typography>
+            <Typography variant="body1">
+                {get("结果：")}{output}
+            </Typography>
             <InputDialog open={showSplitDialog} label="" title={get("拆分")} context={get("reversal.请输入拆分的符号，不输入则是逐字拆分")} onDone={context => {
                 setWordList(words.split(context).map(word => {
                     return [

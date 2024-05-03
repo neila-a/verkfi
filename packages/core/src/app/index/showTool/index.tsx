@@ -18,7 +18,7 @@ import {
 } from "jotai";
 import {
     viewMode as viewModeAtom
-} from "layout/layoutClient";
+} from "atoms";
 import {
     get
 } from "react-intl-universal";

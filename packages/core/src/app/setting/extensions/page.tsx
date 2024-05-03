@@ -16,7 +16,7 @@ import {
 import {
     useAtom
 } from "jotai";
-import extensionsAtom from "layout/extensionsAtom";
+import extensionsAtom from "atoms/extensions";
 import dynamic from "next/dynamic";
 import {
     useState

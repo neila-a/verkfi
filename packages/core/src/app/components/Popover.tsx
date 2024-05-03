@@ -42,7 +42,9 @@ export default function MouseOverPopover(props: {
             }} onClose={handlePopoverClose} aria-label={props.text} disableRestoreFocus>
                 <Typography sx={{
                     p: 1
-                }}>{props.text}</Typography>
+                }}>
+                    {props.text}
+                </Typography>
             </Popover>
         </Box>
     );

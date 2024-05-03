@@ -27,7 +27,9 @@ function ShaiZi(): JSX.Element {
                 }} />
                 <Button variant="contained" onClick={event => {
                     setUseDialogShow(true);
-                }}>{get("shaizi.全屏")}</Button>
+                }}>
+                    {get("shaizi.全屏")}
+                </Button>
             </Stack>
             <FullScreenDialog open={useDialogShow} title={get("shaizi.掷色子（全屏模式）")} onDone={() => {
                 setUseDialogShow(false);

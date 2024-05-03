@@ -5,12 +5,14 @@ import {
 import setSetting from "setting/reader/setSetting";
 import settingReader from "setting/reader/settingReader";
 import {
-    isBrowser,
     locales
-} from "./layoutClient";
-const valueAtom = atom("zhCN");
-valueAtom.onMount = setValue => {
-    (async () => {
+} from "../layout/layoutClient";
+import isBrowser from "layout/isBrowser";
+const emptyString = "__lang__",
+    valueAtom = atom<keyof typeof locales | typeof emptyString>(emptyString);
+const langAtom = atom(async get => {
+    let value = get(valueAtom);
+    if (value === emptyString) {
         let browserLang: string = "zhCN";
         if (isBrowser()) {
             if (window.navigator.language || window.navigator.languages) {
@@ -18,11 +20,11 @@ valueAtom.onMount = setValue => {
             }
         }
         const detailedLang = Object.keys(locales).includes(browserLang) ? browserLang : "zhCN",
-            chooseOption = await settingReader("lang", detailedLang);
-        setValue(chooseOption || "zhCN");
-    })();
-};
-const langAtom = atom(get => get(valueAtom), (get, set, update: string) => {
+            chooseOption = await settingReader("lang", detailedLang) as keyof typeof locales;
+        value = chooseOption;
+    }
+    return value as keyof typeof locales;
+}, async (get, set, update: keyof typeof locales) => {
     set(valueAtom, update);
     setSetting("lang", "语言", update);
 });

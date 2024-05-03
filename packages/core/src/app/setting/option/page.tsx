@@ -19,12 +19,13 @@ import {
     WritableAtom,
     useAtom
 } from "jotai";
-import langAtom from "layout/langAtom";
+import langAtom from "atoms/lang";
 import {
-    forkMeOnGitHub,
-    locales,
-    share
+    locales
 } from "layout/layoutClient";
+import {
+    forkMeOnGitHub, share
+} from "atoms";
 import {
     Route
 } from "next";
@@ -45,7 +46,7 @@ import {
 } from "./Switcher";
 const PureDialog = dynamic(() => import("dialog/Pure")),
     ghURL = "https://github.com/neila-a/verkfi/";
-export type option = [WritableAtom<boolean, [update: boolean], void>, string];
+export type option = [WritableAtom<boolean | Promise<boolean>, [update: boolean], void>, string];
 export default function Options() {
     const [lang, setLang] = useAtom(langAtom),
         [dialogOpen, setDialogOpen] = useState<boolean>(false),
@@ -84,7 +85,7 @@ export default function Options() {
                 {get("选择语言")}
             </InputLabel>
             <Select labelId={langId} value={lang} label={get("选择语言")} onChange={event => {
-                const plang = event.target.value;
+                const plang = event.target.value as keyof typeof locales;
                 setLang(plang);
             }}>
                 {Object.values(locales).map(ilang => {
@@ -93,7 +94,9 @@ export default function Options() {
                         } = ilang,
                         langId = Object.keys(locales).find(key => locales[key] === ilang);
                     return (
-                        <MenuItem key={langName} value={langId}>{langName}</MenuItem>
+                        <MenuItem key={langName} value={langId}>
+                            {langName}
+                        </MenuItem>
                     );
                 })}
             </Select>

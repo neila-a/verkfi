@@ -6,7 +6,7 @@ import {
 import {
     mostUsed as mostUsedAtom,
     recentlyUsed as recentlyUsedAtom
-} from "layout/layoutClient";
+} from "atoms";
 import {
     useSearchParams,
     useSelectedLayoutSegment

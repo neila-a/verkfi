@@ -12,7 +12,7 @@ import {
 } from "jotai";
 import {
     viewMode as viewModeAtom
-} from "layout/layoutClient";
+} from "atoms";
 export default function SwitchViewMode() {
     const [viewMode, setViewMode] = useAtom(viewModeAtom);
     return (

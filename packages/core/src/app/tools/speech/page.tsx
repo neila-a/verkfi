@@ -18,9 +18,7 @@ import InputDialog from "dialog/Input";
 import {
     saveAs
 } from "file-saver";
-import {
-    isBrowser
-} from "layout/layoutClient";
+import isBrowser from "layout/isBrowser";
 import dynamic from "next/dynamic";
 import {
     useEffect,
