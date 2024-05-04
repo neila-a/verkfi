@@ -41,8 +41,7 @@ import {
 import {
     type ThemeHaveZIndex
 } from "setting/layout";
-import {
-    getTools,
+import toolsInfoAtom, {
     tool
 } from "tools/info";
 import {
@@ -62,22 +61,22 @@ export default function Index(props: {
     expand?: boolean;
     setExpand?: setState<boolean>;
 }): JSX.Element {
-    const realTools = getTools(get),
+    const [realTools] = useAtom(toolsInfoAtom),
         [extensionTools] = useAtom(extensionsAtom),
-        toolsList = useAtom(toolsListAtom)[0](realTools),
+        [toolsList] = useAtom(toolsListAtom),
         [showSidebar] = useAtom(showSidebarAtom),
         [recentlyUsed] = useAtom(recentlyUsedAtom),
         mostUsed = useMostUsedTools(),
         [sortedTools, setSortedTools] = useState(toolsList),
         [expandThis, setExpandThis] = useState<boolean>(false),
         [showTries, setShowTries] = useState<boolean>(false),
-        tools = useAtom(toolsAtom)[0](realTools),
+        [tools] = useAtom(toolsAtom),
         setTools = useAtom(toolsAtom)[1],
         [tab] = useAtom(tabAtom),
         sortingFor = useAtom(sortingForAtom)[0](props.isImplant),
         [baseSortingFor] = useAtom(sortingForAtomValue),
         focusingTo = tools[tab] ? tools[tab].to : "", // 每次渲染会重新执行
-        tries = useAtom(triesAtom)[0](realTools),
+        [tries] = useAtom(triesAtom),
         recentlyTools = recentlyUsed.map(to => {
             const converted = convertExtensionTools(extensionTools);
             return 0

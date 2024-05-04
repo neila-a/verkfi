@@ -6,18 +6,14 @@ import extensionsAtom from "atoms/extensions";
 import {
     mostUsed as mostUsedAtom
 } from "atoms";
-import {
-    get
-} from "react-intl-universal";
-import {
-    getTools,
+import toolsInfoAtom, {
     tool
 } from "tools/info";
 import convertExtensionTools from "./convertExtensionTools";
 function useMostUsedTools() {
     const [mostUsed] = useAtom(mostUsedAtom),
         [extensionTools] = useAtom(extensionsAtom),
-        realTools = getTools(get);
+        [realTools] = useAtom(toolsInfoAtom);
     return (Object.entries(mostUsed) satisfies [string, number][]).sort((r, g) => {
         if (r[1] < g[1]) {
             return 1;

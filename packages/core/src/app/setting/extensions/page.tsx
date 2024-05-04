@@ -122,7 +122,7 @@ export default function ExtensionManager() {
                         function readInternal(path: string): file | file[] {
                             const stat = fs.statSync(path);
                             if (stat.isDirectory()) {
-                                return fs.readdirSync(path).map(pathchild => readInternal(`${path}/${pathchild}`)).flat(20); // TS最大支持20
+                                return fs.readdirSync(path).map(pathchild => readInternal(`${path}/${pathchild}`)).flat(20);
                             }
                             return {
                                 path,

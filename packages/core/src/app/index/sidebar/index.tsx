@@ -30,8 +30,7 @@ import {
 import {
     drawerWidth
 } from "setting/consts";
-import {
-    getTools,
+import toolsInfoAtom, {
     tool
 } from "tools/info";
 import Buttons from "./buttons";
@@ -64,11 +63,11 @@ export default function Sidebar(props: {
         isImplant = useContext(isImplantContext),
         sortingFor = useAtom(sortingForAtom)[0](isImplant),
         setSortingFor = useAtom(sortingForAtom)[1],
-        realTools = getTools(get),
+        [realTools] = useAtom(toolsInfoAtom),
         [searchText, setSearchText] = useAtom(searchTextAtom),
         [clickCount, setClickCount] = useState<number>(0),
         setTab = useAtom(tabAtom)[1],
-        tools = useAtom(toolsAtom)[0](realTools);
+        [tools] = useAtom(toolsAtom);
     return (
         <Drawer variant="permanent" sx={{
             maxWidth: drawerWidth,

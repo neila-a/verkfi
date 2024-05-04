@@ -19,9 +19,7 @@ import dynamic from "next/dynamic";
 import {
     get
 } from "react-intl-universal";
-import {
-    getTools
-} from "tools/info";
+import toolsInfoAtom from "tools/info";
 import {
     lists
 } from "..";
@@ -52,7 +50,7 @@ export default function EditToolsListDialog(props: {
         [extensionTools] = useAtom(extensionsAtom),
         incorrect = ["__global__", "__home__", "__empty__"].some(a => a === dialogListName),
         converted = convertExtensionTools(extensionTools),
-        toolsList = useAtom(toolsListAtom)[0](getTools(get)),
+        [toolsList] = useAtom(toolsListAtom),
         right = toolsList.concat(converted).filter(atool => atool !== undefined).map(atool => atool.name).filter(v => props.left.every(val => val !== v));
     return (
         <PureDialog action={(

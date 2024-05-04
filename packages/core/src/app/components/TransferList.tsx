@@ -9,16 +9,14 @@ import {
     Paper
 } from "@mui/material";
 import {
+    useAtom
+} from "jotai";
+import {
     FC,
     useId,
     useState
 } from "react";
-import {
-    get
-} from "react-intl-universal";
-import {
-    getTools
-} from "tools/info";
+import toolsInfoAtom from "tools/info";
 export function not<value>(a: value[], b: value[]) {
     return a.filter(value => b.indexOf(value) === -1);
 }
@@ -31,7 +29,7 @@ export default function TransferList(props: {
     onLeftChange: (context: string[]) => void;
     onRightChange: (context: string[]) => void;
 }) {
-    const toolsList = getTools(get),
+    const [toolsList] = useAtom(toolsInfoAtom),
         [checked, setChecked] = useState<string[]>([]),
         [left, setLeft] = useState<string[]>(props.left),
         [right, setRight] = useState<string[]>(props.right),

@@ -48,8 +48,7 @@ import {
 import {
     get
 } from "react-intl-universal";
-import {
-    getTools,
+import toolsInfoAtom, {
     tool
 } from "tools/info";
 import extensionsAtom from "atoms/extensions";
@@ -67,17 +66,17 @@ export default function Menu() {
     const [control, setControl] = useAtom(showSidebar),
         theme = useTheme(),
         fullScreen = useMediaQuery(theme.breakpoints.down("sm")),
-        realTools = getTools(get), // 硬编码的分类
+        [realTools] = useAtom(toolsInfoAtom),
         [recentlyUsed] = useAtom(recentlyUsedAtom),
         sortingFor = useAtom(sortingForAtom)[0](false),
         setSortingFor = useAtom(sortingForAtom)[1],
         [tab, setTab] = useAtom(tabAtom),
         [searchText, setSearchText] = useAtom(searchTextAtom),
         [extensionTools] = useAtom(extensionsAtom),
-        gotToolsList = useAtom(toolsListAtom)[0](realTools),
+        [gotToolsList] = useAtom(toolsListAtom),
         mostUsed = useMostUsedTools(),
         [sortedTools, setSortedTools] = useState(gotToolsList), // 排序完毕，但是不会根据搜索而改动的分类
-        tools = useAtom(toolsAtom)[0](realTools),
+        [tools] = useAtom(toolsAtom),
         setTools = useAtom(toolsAtom)[1],
         focusingTo = tools[tab] ? tools[tab].to : "", // 每次渲染会重新执行
         upper = useContext(repoInfo).name.charAt(0).toUpperCase() + useContext(repoInfo).name.slice(1),

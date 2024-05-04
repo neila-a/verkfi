@@ -33,8 +33,7 @@ import {
     get
 } from "react-intl-universal";
 import reorderArray from "reorder-array";
-import {
-    getTools,
+import toolsInfoAtom, {
     tool
 } from "tools/info";
 import {
@@ -70,7 +69,7 @@ export default function Selects(props: {
         [list, setList] = useAtom(listsAtom),
         [dialogOpen, setDialogOpen] = useState<boolean>(false),
         [dialogTools, setDialogTools] = useState<string[]>([]),
-        gotToolsList = useAtom(toolsListAtom)[0](getTools(get)),
+        [gotToolsList] = useAtom(toolsListAtom),
         [removeDialogOpen, setRemoveDialogOpen] = useState<boolean>(false),
         [dialogListName, setDialogListName] = useState<string>(""),
         [editMode] = useAtom(editModeAtom),

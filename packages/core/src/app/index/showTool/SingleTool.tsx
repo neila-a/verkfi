@@ -49,8 +49,7 @@ import {
 import {
     NXTMetadata
 } from "setting/extensions/page";
-import {
-    getTools,
+import toolsInfoAtom, {
     tool
 } from "tools/info";
 import DownButton from "../sorting/DownButton";
@@ -77,8 +76,8 @@ export default function SingleTool(props: {
             tool
         } = props,
         isImplant = useContext(isImplantContext),
-        realTools = getTools(get),
-        tools = useAtom(toolsAtom)[0](realTools),
+        [realTools] = useAtom(toolsInfoAtom),
+        [tools] = useAtom(toolsAtom),
         setTools = useAtom(toolsAtom)[1],
         sortingFor = useAtom(sortingForAtom)[0](isImplant),
         [viewMode] = useAtom(viewModeAtom),

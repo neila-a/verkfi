@@ -27,9 +27,7 @@ import {
 import {
     emptyExtension
 } from "./extension/empties";
-import {
-    getTools
-} from "./info";
+import toolsInfoAtom from "./info";
 const logger = new lpLogger({
     name: "ToolFinder",
     level: "log"
@@ -43,10 +41,11 @@ export default function ToolFinder(props: {
         toolID = segment === "extension" ? searchParams.get("tool") : segment,
         [extensionTools] = useAtom(extensionsAtom),
         only = searchParams.has("only"),
+        [internalToolsInfo] = useAtom(toolsInfoAtom),
         toolsInfo = segment === "extension" ? convertExtensionTools(extensionTools).map(single => ({
             ...single,
             to: single.to.replace("/tools/extension?tool=", "") as Lowercase<string>
-        })) : getTools(get),
+        })) : internalToolsInfo,
         filteredToolsInfo = toolsInfo.filter(si => si.to === toolID),
         {
             name

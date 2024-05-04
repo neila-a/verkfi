@@ -63,7 +63,6 @@ async function publicMain() {
             entryPoints: ["next.config.ts"],
             outfile: "next.config.js",
             format: "cjs",
-            minify: true,
             platform: "node"
         }),
         ServiceWorker = await build({

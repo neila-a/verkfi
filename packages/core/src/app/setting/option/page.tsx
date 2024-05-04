@@ -2,6 +2,7 @@
 import {
     CallToActionOutlined,
     Download as DownloadIcon,
+    GitHub,
     Help as HelpIcon,
     ViewSidebar as ViewSidebarIcon
 } from "@mui/icons-material";
@@ -122,7 +123,7 @@ export default function Options() {
                     }}>
                         {get("download.将本应用通过浏览器添加至桌面")}
                     </Button>
-                    <Button onClick={event => {
+                    <Button startIcon={<GitHub />} onClick={event => {
                         router.push(`${ghURL}releases` satisfies Route);
                     }}>
                         {get("download.下载单独安装包")}

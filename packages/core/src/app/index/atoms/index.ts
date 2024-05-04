@@ -15,15 +15,13 @@ export const searchTextAtom = atom(""),
     toolsAtom = atom(get => {
         const value = get(toolsAtomValue),
             list = get(loadableToolsListAtom);
-        return (realTools: tool[]) => {
-            if (value === "__empty__") {
-                if (list.state === "hasData") {
-                    return list.data(realTools);
-                }
-                return [];
+        if (value === "__empty__") {
+            if (list.state === "hasData") {
+                return list.data;
             }
-            return value;
-        };
+            return [];
+        }
+        return value;
     }, (get, set, update: tool[]) => {
         set(toolsAtomValue, update);
     }),
