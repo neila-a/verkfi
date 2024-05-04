@@ -20,6 +20,7 @@ import {
 } from "atoms";
 import dynamic from "next/dynamic";
 import {
+    useContext,
     useState
 } from "react";
 import {
@@ -27,25 +28,26 @@ import {
 } from "react-intl-universal";
 import SwitchEditMode from "./SwitchEditMode";
 import SwitchViewMode from "./SwitchViewMode";
+import {
+    useAtom
+} from "jotai";
+import {
+    editModeAtom,
+    editingAtom
+} from "index/atoms";
+import {
+    isImplantContext
+} from "index/consts";
 const EditToolsListDialog = dynamic(() => import("../selects/EditToolsListDialog"));
 export default function Buttons(props: {
-    /**
-     * 是否为嵌入
-     */
-    isImplant?: boolean;
-    editMode: boolean;
-    setEditMode: setState<boolean>;
-    editing: boolean;
     expand: boolean;
     setExpand: setState<boolean>;
 }) {
-    const {
-            editMode,
-            setEditMode,
-            editing
-        } = props,
+    const [editing] = useAtom(editingAtom),
+        [editMode, setEditMode] = useAtom(editModeAtom),
         [dialogOpen, setDialogOpen] = useState<boolean>(false),
         [dialogTools, setDialogTools] = useState<string[]>([]),
+        isImplant = useContext(isImplantContext),
         [dialogListName, setDialogListName] = useState<string>("");
     return (
         <Box sx={{
@@ -67,9 +69,9 @@ export default function Buttons(props: {
             }}>
                 <SwitchViewMode />
                 {editing && (
-                    <SwitchEditMode editMode={editMode} setEditMode={setEditMode} />
+                    <SwitchEditMode />
                 )}
-                {props.isImplant && (
+                {isImplant && (
                     <MouseOverPopover text={props.expand ? get("window.collapse") : get("window.expand")}>
                         <IconButton color="primary" sx={{
                             p: 1

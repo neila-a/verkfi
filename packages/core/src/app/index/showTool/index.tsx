@@ -31,19 +31,32 @@ import {
 } from "tools/info";
 import useButtonCommonSorting from "../sorting/buttonCommonSorting";
 import SingleTool from "./SingleTool";
+import {
+    editModeAtom,
+    searchTextAtom,
+    sortingForAtom,
+    toolsAtom
+} from "index/atoms";
+import {
+    useContext
+} from "react";
+import {
+    isImplantContext
+} from "index/consts";
 export default function ToolsStack(props: {
     paramTool: tool[];
-    searchText: string;
-    sortingFor: string;
-    setTools: setState<tool[]>;
-    editMode: boolean;
     /**
      * tool.to
      */
     focus?: string;
 }) {
     const [viewMode] = useAtom(viewModeAtom),
-        buttonCommonSorting = useButtonCommonSorting();
+        isImplant = useContext(isImplantContext),
+        [, setTools] = useAtom(toolsAtom),
+        [editMode] = useAtom(editModeAtom),
+        sortingFor = useAtom(sortingForAtom)[0](isImplant),
+        buttonCommonSorting = useButtonCommonSorting(),
+        [searchText] = useAtom(searchTextAtom);
     function Insert({
         index,
         tool
@@ -53,13 +66,11 @@ export default function ToolsStack(props: {
     }) {
         return (
             <SingleTool
-                isFirst={(props.searchText !== "") && (index === 0)}
+                isFirst={(searchText !== "") && (index === 0)}
                 tool={tool}
-                sortingFor={props.sortingFor}
                 key={tool.to}
                 focus={props.focus === tool.to}
-                setTools={props.setTools}
-                editMode={props.editMode} />
+            />
         );
     }
     function ListContainer() {
@@ -71,16 +82,16 @@ export default function ToolsStack(props: {
                 if (result.destination.index === result.source.index) {
                     return;
                 }
-                if (props.editMode) {
+                if (editMode) {
                     const newTools = reorderArray(props.paramTool, result.source.index, result.destination.index);
-                    buttonCommonSorting(props.sortingFor, newTools);
-                    props.setTools(newTools);
+                    buttonCommonSorting(sortingFor, newTools);
+                    setTools(newTools);
                 }
             }}>
                 <Box sx={{
                     width: "100%"
                 }}>
-                    <Droppable droppableId="toolslist" isDropDisabled={!props.editMode}>
+                    <Droppable droppableId="toolslist" isDropDisabled={!editMode}>
                         {provided => {
                             return (
                                 <Box ref={provided.innerRef} {...provided.droppableProps}>
@@ -134,7 +145,7 @@ export default function ToolsStack(props: {
                 <No>
                     {get("index.notfound")}
                 </No>
-            ) : ((viewMode === "list" && props.editMode) ? <ListContainer /> : <GridContainer />)}
+            ) : ((viewMode === "list" && editMode) ? <ListContainer /> : <GridContainer />)}
         </Stack>
     );
 }

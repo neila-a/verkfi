@@ -9,6 +9,9 @@ import {
 import {
     tool
 } from "tools/info";
+import {
+    loadable
+} from "jotai/utils";
 import convertExtensionTools from "../index/convertExtensionTools";
 const toolsListAtom = atom(async get => {
     const lists = await get(listsAtom),
@@ -29,4 +32,5 @@ const toolsListAtom = atom(async get => {
         return list[1].map(to => realTools.concat(converted).find(tool => tool.to === to));
     };
 });
+export const loadableToolsListAtom = loadable(toolsListAtom);
 export default toolsListAtom;

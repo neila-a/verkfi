@@ -45,15 +45,20 @@ import {
     getTools,
     tool
 } from "tools/info";
+import {
+    sortingForAtom,
+    sortingForAtomValue,
+    tabAtom,
+    toolsAtom
+} from "index/atoms";
+import {
+    isImplantContext
+} from "index/consts";
 export default function Index(props: {
     /**
      * 是否为嵌入
      */
     isImplant?: boolean;
-    /**
-     * 搜索内容
-     */
-    children?: string;
     expand?: boolean;
     setExpand?: setState<boolean>;
 }): JSX.Element {
@@ -64,22 +69,21 @@ export default function Index(props: {
         [recentlyUsed] = useAtom(recentlyUsedAtom),
         mostUsed = useMostUsedTools(),
         [sortedTools, setSortedTools] = useState(toolsList),
-        [searchText, setSearchText] = useState<string>(props.isImplant ? props.children : ""),
-        [editMode, setEditMode] = useState<boolean>(false),
         [expandThis, setExpandThis] = useState<boolean>(false),
         [showTries, setShowTries] = useState<boolean>(false),
-        [tools, setTools] = useState(toolsList),
-        [tab, setTab] = useState<number>(0),
+        tools = useAtom(toolsAtom)[0](realTools),
+        setTools = useAtom(toolsAtom)[1],
+        [tab] = useAtom(tabAtom),
+        sortingFor = useAtom(sortingForAtom)[0](props.isImplant),
+        [baseSortingFor] = useAtom(sortingForAtomValue),
         focusingTo = tools[tab] ? tools[tab].to : "", // 每次渲染会重新执行
-        [show, setShow] = useState<"tools" | "home">(props.isImplant ? "tools" : "home"),
         tries = useAtom(triesAtom)[0](realTools),
         recentlyTools = recentlyUsed.map(to => {
             const converted = convertExtensionTools(extensionTools);
             return 0
                 || realTools.find(single => single.to === to)
                 || converted.find(single => `/tools/extension?tool=${to}` === single.to);
-        }).filter((item: tool | 0) => item !== 0) satisfies unknown satisfies tool[],
-        [sortingFor, setSortingFor] = useState<string>(props.isImplant ? "__global__" : "__home__");
+        }).filter((item: tool | 0) => item !== 0) satisfies unknown satisfies tool[];
     let expand = expandThis,
         setExpand = setExpandThis;
     if (props.setExpand) {
@@ -93,11 +97,6 @@ export default function Index(props: {
         setTools(searchBase(sortedTools, search));
         setExpand(true);
     }
-    useEffect(() => {
-        if (props.isImplant) {
-            searchTools(props.children);
-        }
-    }, []);
     function Tools() {
         return (
             <Box sx={{
@@ -106,127 +105,103 @@ export default function Index(props: {
             }}>
                 <ToolsStack
                     paramTool={tools}
-                    searchText={searchText}
-                    sortingFor={sortingFor}
-                    setTools={setTools}
-                    editMode={editMode}
                     focus={focusingTo}
                 />
             </Box>
         );
     }
     return (props.isImplant ? showSidebar : true) && (
-        <Box>
-            {props.isImplant !== true && (
-                <HeadBar isIndex pageName="Verkfi" sx={{
-                    zIndex: theme => String((theme as ThemeHaveZIndex).zIndex.drawer + 1)
-                }} />
-            )}
-            <Sidebar
-                tools={tools}
-                focusingTo={focusingTo}
-                setTab={setTab}
-                setShow={setShow}
-                isImplant={props.isImplant}
-                editMode={editMode}
-                setEditMode={setEditMode}
-                searchText={searchText}
-                setSearchText={setSearchText}
-                searchTools={searchTools}
-                setTools={setTools}
-                setSortedTools={setSortedTools}
-                sortingFor={sortingFor}
-                setSortingFor={setSortingFor}
-                expand={expand}
-                setExpand={setExpand}
-            />
-            {show === "tools" ? (
-                props.isImplant ? (
-                    expand && (
-                        <Drawer anchor="left" variant="permanent" sx={{
-                            flexShrink: 0,
-                            [`& .MuiDrawer-paper`]: {
-                                position: "absolute",
-                                left: drawerWidth,
-                                maxWidth: `calc(100vw - ${drawerWidth}px)`,
-                                width: 320,
-                                boxSizing: "border-box"
-                            }
-                        }}>
-                            <Toolbar />
-                            <Tools />
-                        </Drawer>
-                    )
-                ) : <Tools />
-            ) : (
-                <Box sx={{
-                    p: 3,
-                    ml: props.isImplant ? "" : `${drawerWidth}px`
-                }}>
+        <isImplantContext.Provider value={Boolean(props.isImplant)}>
+            <Box>
+                {props.isImplant !== true && (
+                    <HeadBar isIndex pageName="Verkfi" sx={{
+                        zIndex: theme => String((theme as ThemeHaveZIndex).zIndex.drawer + 1)
+                    }} />
+                )}
+                <Sidebar
+                    focusingTo={focusingTo}
+                    searchTools={searchTools}
+                    setSortedTools={setSortedTools}
+                    expand={expand}
+                    setExpand={setExpand}
+                />
+                {sortingFor === "__home__" || baseSortingFor === "__home__" ? (
                     <Box sx={{
-                        paddingBottom: 3,
-                        width: "100%",
-                        textAlign: "center"
+                        p: 3,
+                        ml: props.isImplant ? "" : `${drawerWidth}px`
                     }}>
-                        <MouseOverPopover text={get("index.generateTry")}>
-                            <IconButton aria-label={get("index.generateTry")} onClick={event => {
-                                setShowTries(old => !old);
-                            }}>
-                                <VerkfiIcon sx={{
-                                    fontSize: "40vw"
-                                }} />
-                            </IconButton>
-                        </MouseOverPopover>
-                    </Box>
-                    <Collapse in={showTries}>
+                        <Box sx={{
+                            paddingBottom: 3,
+                            width: "100%",
+                            textAlign: "center"
+                        }}>
+                            <MouseOverPopover text={get("index.generateTry")}>
+                                <IconButton aria-label={get("index.generateTry")} onClick={event => {
+                                    setShowTries(old => !old);
+                                }}>
+                                    <VerkfiIcon sx={{
+                                        fontSize: "40vw"
+                                    }} />
+                                </IconButton>
+                            </MouseOverPopover>
+                        </Box>
+                        <Collapse in={showTries}>
+                            <Box>
+                                <Typography variant="h4">
+                                    {get("index.trythese")}
+                                </Typography>
+                                <Box sx={{
+                                    p: 1
+                                }}>
+                                    <ToolsStack
+                                        paramTool={tries.filter(item => item !== undefined)} />
+                                </Box>
+                            </Box>
+                        </Collapse>
                         <Box>
                             <Typography variant="h4">
-                                {get("index.trythese")}
+                                {get("use.最近使用")}
                             </Typography>
                             <Box sx={{
                                 p: 1
                             }}>
                                 <ToolsStack
-                                    searchText=""
-                                    sortingFor={sortingFor}
-                                    setTools={setTools}
-                                    editMode={false}
-                                    paramTool={tries.filter(item => item !== undefined)} />
+                                    paramTool={recentlyTools.filter(item => item !== undefined)} />
                             </Box>
                         </Box>
-                    </Collapse>
-                    <Box>
-                        <Typography variant="h4">
-                            {get("use.最近使用")}
-                        </Typography>
-                        <Box sx={{
-                            p: 1
-                        }}>
-                            <ToolsStack
-                                searchText=""
-                                sortingFor={sortingFor}
-                                setTools={setTools}
-                                editMode={false}
-                                paramTool={recentlyTools.filter(item => item !== undefined)} />
+                        <Box>
+                            <Typography variant="h4">
+                                {get("use.最常使用")}
+                            </Typography>
+                            <Box sx={{
+                                p: 1
+                            }}>
+                                <ToolsStack
+                                    paramTool={mostUsed}
+                                />
+                            </Box>
                         </Box>
                     </Box>
-                    <Box>
-                        <Typography variant="h4">
-                            {get("use.最常使用")}
-                        </Typography>
-                        <Box sx={{
-                            p: 1
-                        }}>
-                            <ToolsStack
-                                searchText=""
-                                sortingFor={"__home__"}
-                                setTools={setTools}
-                                editMode={false}
-                                paramTool={mostUsed} />
-                        </Box>
-                    </Box>
-                </Box>
-            )}
-        </Box>
+                ) : (
+                    props.isImplant ? (
+                        expand && (
+                            <Drawer anchor="left" variant="permanent" sx={{
+                                flexShrink: 0,
+                                [`& .MuiDrawer-paper`]: {
+                                    position: "absolute",
+                                    left: drawerWidth,
+                                    maxWidth: `calc(100vw - ${drawerWidth}px)`,
+                                    width: 320,
+                                    boxSizing: "border-box"
+                                }
+                            }}>
+                                <Toolbar />
+                                <Tools />
+                            </Drawer>
+                        )
+                    ) : <Tools />
+                )}
+            </Box>
+        </isImplantContext.Provider>
     );
 }

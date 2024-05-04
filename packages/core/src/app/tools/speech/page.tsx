@@ -45,6 +45,8 @@ interface warning {
      */
     1: number;
 }
+const NoiseVoiceWatershedWave = 20, // origin 2.3
+    SpeechingWatershedWave = 15; // if it didn't speech in 15 seconds, it throws a warning
 export default function Speech() {
     const [status, setStatus] = useState<status>("inactive"),
         mediaRecorder = useRef<"awaqwq" | MediaRecorder>("awaqwq"),
@@ -52,8 +54,6 @@ export default function Speech() {
         speechTimeIntervalID = useRef<number>(0),
         haveTime = useRef<number>(Date.now()),
         [countdown, setCountdown] = useState<number>(0),
-        NoiseVoiceWatershedWave = 20, // origin 2.3
-        SpeechingWatershedWave = 15, // if it didn't speech in 15 seconds, it throws a warning
         [showWarning, setShowWarning] = useState<boolean>(false),
         [selectTime, setSelectTime] = useState<boolean>(false),
         [speechTime, setSpeechTime] = useState<number>(600),

@@ -21,6 +21,7 @@ import {
     lists
 } from "atoms";
 import {
+    useContext,
     useState
 } from "react";
 import {
@@ -30,53 +31,44 @@ import {
     drawerWidth
 } from "setting/consts";
 import {
+    getTools,
     tool
 } from "tools/info";
-import {
-    viewMode as viewModeAtom
-} from "atoms";
 import Buttons from "./buttons";
 import Selects from "./selects";
 import SingleSelect from "./selects/SingleSelect";
+import {
+    searchTextAtom,
+    sortingForAtom,
+    tabAtom,
+    toolsAtom
+} from "index/atoms";
+import {
+    isImplantContext
+} from "index/consts";
 export type lists = [string, string[]][];
 export default function Sidebar(props: {
-    /**
-     * 是否为嵌入
-     */
-    isImplant?: boolean;
-    setShow: setState<"tools" | "home">;
-    editMode: boolean;
-    setEditMode: setState<boolean>;
-    searchText: string;
-    setSearchText: setState<string>;
     /**
      * 搜索工具
      */
     searchTools(search: string): void;
-    tools: tool[];
-    setTab: setState<number>;
     focusingTo: Lowercase<string>;
-    setTools: setState<tool[]>;
     setSortedTools: setState<tool[]>;
-    sortingFor: string;
-    setSortingFor: setState<string>;
     expand: boolean;
     setExpand: setState<boolean>;
 }) {
-    const {
-            editMode,
-            setEditMode,
-            searchText,
-            setSearchText,
-            searchTools,
-            setTools,
-            sortingFor,
-            setSortingFor
+    const
+        {
+            searchTools
         } = props,
-        [viewMode, setViewMode] = useAtom(viewModeAtom),
-        [editing, setEditing] = useState<boolean>(searchText === ""),
+        isImplant = useContext(isImplantContext),
+        sortingFor = useAtom(sortingForAtom)[0](isImplant),
+        setSortingFor = useAtom(sortingForAtom)[1],
+        realTools = getTools(get),
+        [searchText, setSearchText] = useAtom(searchTextAtom),
         [clickCount, setClickCount] = useState<number>(0),
-        [list, setList] = useAtom(lists);
+        setTab = useAtom(tabAtom)[1],
+        tools = useAtom(toolsAtom)[0](realTools);
     return (
         <Drawer variant="permanent" sx={{
             maxWidth: drawerWidth,
@@ -108,7 +100,7 @@ export default function Sidebar(props: {
             }} onKeyUp={event => {
                 if (event.key === "Tab") {
                     event.preventDefault();
-                    props.setTab(old => (old + 1) % props.tools.length);
+                    setTab(old => (old + 1) % tools.length);
                 } else if (event.key === "Enter") {
                     event.preventDefault();
                     const selectool = document.getElementById(`toolAbleToSelect-${props.focusingTo}`) as HTMLDivElement | null;
@@ -123,30 +115,24 @@ export default function Sidebar(props: {
                 searchTools(event.target.value);
                 if (sortingFor === "__home__") {
                     setSortingFor("__global__");
-                    props.setShow("tools");
                 }
             }} />
             <Box sx={{
                 textAlign: "center"
             }}>
-                {!props.isImplant && (
+                {!isImplant && (
                     <SingleSelect
                         dragButton={<></>}
-                        editMode={editMode}
                         isSidebar
-                        sortingFor={sortingFor}
-                        searchText={searchText}
                         wantSortingFor="__home__"
                         tool={get("主页")}
                         onClick={event => {
-                            props.setShow("home");
                             setSortingFor("__home__");
                         }}
                         editButton={<></>}
                     />
                 )}
-                <Box onClick={event => {
-                    props.setShow("tools");
+                <Box onClick={() => {
                     props.setExpand(true);
                     if (clickCount === 1) {
                         props.setExpand(false);
@@ -155,14 +141,7 @@ export default function Sidebar(props: {
                 }}>
                     <Selects
                         isSidebar
-                        editMode={editMode}
-                        setEditing={setEditing}
-                        sortingFor={sortingFor}
-                        setSortingFor={setSortingFor}
-                        searchText={searchText}
-                        setSearchText={setSearchText}
                         setSortedTools={props.setSortedTools}
-                        setTools={setTools}
                         searchTools={searchTools}
                         modifyClickCount={value => {
                             if (value === "++") {
@@ -175,12 +154,8 @@ export default function Sidebar(props: {
                 </Box>
             </Box>
             <Buttons
-                editMode={editMode}
-                isImplant={props.isImplant}
                 expand={props.expand}
                 setExpand={props.setExpand}
-                setEditMode={setEditMode}
-                editing={editing}
             />
         </Drawer>
     );

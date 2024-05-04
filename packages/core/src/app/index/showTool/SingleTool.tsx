@@ -40,6 +40,7 @@ import {
 import {
     Fragment,
     createElement,
+    useContext,
     useState
 } from "react";
 import {
@@ -49,6 +50,7 @@ import {
     NXTMetadata
 } from "setting/extensions/page";
 import {
+    getTools,
     tool
 } from "tools/info";
 import DownButton from "../sorting/DownButton";
@@ -57,20 +59,28 @@ const CheckDialog = dynamic(() => import("dialog/Check"));
 import {
     viewMode as viewModeAtom
 } from "atoms";
+import {
+    editModeAtom,
+    sortingForAtom,
+    toolsAtom
+} from "index/atoms";
+import {
+    isImplantContext
+} from "index/consts";
 export default function SingleTool(props: {
     tool: tool;
     isFirst: boolean;
-    setTools: setState<tool[]>;
-    editMode: boolean;
-    sortingFor: string;
     focus?: boolean;
 }) {
-    const {
-            tool,
-            editMode,
-            setTools,
-            sortingFor
+    const
+        {
+            tool
         } = props,
+        isImplant = useContext(isImplantContext),
+        realTools = getTools(get),
+        tools = useAtom(toolsAtom)[0](realTools),
+        setTools = useAtom(toolsAtom)[1],
+        sortingFor = useAtom(sortingForAtom)[0](isImplant),
         [viewMode] = useAtom(viewModeAtom),
         lightMode = useAtom(booleanifyDarkMode),
         ToolIcon = tool.icon,
@@ -80,6 +90,7 @@ export default function SingleTool(props: {
             }
         },
         router = useRouter(),
+        [editMode] = useAtom(editModeAtom),
         [lists, setLists] = useAtom(listsAtom),
         [windows, setWindows] = useAtom(windowsAtom),
         [gradientTool] = useAtom(gradientToolAtom),
@@ -193,7 +204,7 @@ export default function SingleTool(props: {
                                 main: ""
                             } as unknown as NXTMetadata,
                             files: [],
-                            onTrue: () => setTools(old => old.slice(0).filter(atool => atool.to !== tool.to))
+                            onTrue: () => setTools(tools.slice(0).filter(atool => atool.to !== tool.to))
                         })}
                     </>
                 )}
@@ -206,7 +217,7 @@ export default function SingleTool(props: {
                                 }
                                 return list;
                             }));
-                            setTools(old => old.slice(0).filter(atool => atool.to !== tool.to));
+                            setTools(tools.slice(0).filter(atool => atool.to !== tool.to));
                         }} aria-label={get("singleTool.deleteFromCategory")}>
                             <FolderDelete />
                         </IconButton>

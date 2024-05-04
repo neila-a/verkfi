@@ -17,14 +17,20 @@ import {
     tool
 } from "tools/info";
 import useButtonCommonSorting from "./buttonCommonSorting";
+import {
+    useAtom
+} from "jotai";
+import {
+    editModeAtom
+} from "index/atoms";
 export default function UpButton(props: {
-    editMode: boolean;
     setTools: setState<tool[]>;
     tool: tool;
     sortingFor: string;
 }): JSX.Element {
-    const buttonCommonSorting = useButtonCommonSorting();
-    if (props.editMode && props.sortingFor !== "__home__") {
+    const buttonCommonSorting = useButtonCommonSorting(),
+        [editMode] = useAtom(editModeAtom);
+    if (editMode && props.sortingFor !== "__home__") {
         return (
             <MouseOverPopover text={get("index.moveup")}>
                 <IconButton color="inherit" size="large" edge="end" onClick={event => {

@@ -39,6 +39,7 @@ import {
 } from "next/navigation";
 import {
     ReactNode,
+    Suspense,
     useState
 } from "react";
 import {
@@ -47,19 +48,20 @@ import {
 import {
     drawerWidth
 } from "./consts";
+import Loading from "loading";
 export type settingPage = "option" | "about" | "extensions" | "appearance";
 export interface set {
-	name: string;
-	id: settingPage;
-	Icon: typeof VerkfiIcon;
+    name: string;
+    id: settingPage;
+    Icon: typeof VerkfiIcon;
 }
 export interface ThemeHaveZIndex {
-	zIndex: {
-		drawer: number;
-	}
+    zIndex: {
+        drawer: number;
+    }
 }
 export default function Settings(props: {
-	children: ReactNode
+    children: ReactNode
 }): JSX.Element {
     const sets: set[] = [
         {
@@ -126,7 +128,9 @@ export default function Settings(props: {
                 p: 3
             }}>
                 <ErrorBoundary>
-                    {props.children}
+                    <Suspense fallback={<Loading />}>
+                        {props.children}
+                    </Suspense>
                 </ErrorBoundary>
                 <Box sx={{
                     mt: 2

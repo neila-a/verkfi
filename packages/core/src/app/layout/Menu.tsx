@@ -53,24 +53,35 @@ import {
     tool
 } from "tools/info";
 import extensionsAtom from "atoms/extensions";
+import {
+    editingAtom,
+    searchTextAtom,
+    sortingForAtom,
+    tabAtom,
+    toolsAtom
+} from "index/atoms";
+import {
+    isImplantContext
+} from "index/consts";
 export default function Menu() {
     const [control, setControl] = useAtom(showSidebar),
         theme = useTheme(),
         fullScreen = useMediaQuery(theme.breakpoints.down("sm")),
         realTools = getTools(get), // 硬编码的分类
         [recentlyUsed] = useAtom(recentlyUsedAtom),
-        [editMode, setEditMode] = useState<boolean>(false),
-        [sortingFor, setSortingFor] = useState<string>("__home__"),
-        [tab, setTab] = useState<number>(0),
-        [searchText, setSearchText] = useState<string>(""),
+        sortingFor = useAtom(sortingForAtom)[0](false),
+        setSortingFor = useAtom(sortingForAtom)[1],
+        [tab, setTab] = useAtom(tabAtom),
+        [searchText, setSearchText] = useAtom(searchTextAtom),
         [extensionTools] = useAtom(extensionsAtom),
         gotToolsList = useAtom(toolsListAtom)[0](realTools),
         mostUsed = useMostUsedTools(),
         [sortedTools, setSortedTools] = useState(gotToolsList), // 排序完毕，但是不会根据搜索而改动的分类
-        [tools, setTools] = useState<tool[]>(gotToolsList), // 经常改动的分类
+        tools = useAtom(toolsAtom)[0](realTools),
+        setTools = useAtom(toolsAtom)[1],
         focusingTo = tools[tab] ? tools[tab].to : "", // 每次渲染会重新执行
         upper = useContext(repoInfo).name.charAt(0).toUpperCase() + useContext(repoInfo).name.slice(1),
-        [editing, setEditing] = useState<boolean>(searchText === "");
+        [editing, setEditing] = useAtom(editingAtom);
     function searchTools(search: string) {
         if (search !== "") {
             setEditing(false);
@@ -99,7 +110,7 @@ export default function Menu() {
         }
     }
     return (
-        <>
+        <isImplantContext.Provider value={false}>
             <Dialog onKeyDown={event => {
                 if (event.key === "Tab" || event.key === "Enter") {
                     event.preventDefault();
@@ -184,16 +195,9 @@ export default function Menu() {
                                 <Typography variant="h4">
                                     {get("category.分类")}
                                     <Selects
-                                        setEditing={setEditing}
                                         modifyClickCount={value => null}
-                                        searchText={searchText}
-                                        sortingFor={sortingFor}
-                                        setSortingFor={setSortingFor}
                                         searchTools={searchTools}
-                                        editMode={editMode}
-                                        setTools={setTools}
                                         setSortedTools={setSortedTools}
-                                        setSearchText={setSearchText}
                                     />
                                 </Typography>
                             </Box>
@@ -205,10 +209,6 @@ export default function Menu() {
                                     p: 1
                                 }}>
                                     <ToolsStack
-                                        searchText=""
-                                        sortingFor={"__home__"}
-                                        setTools={tools => null}
-                                        editMode={false}
                                         paramTool={recentlyUsed.map(to => (
                                             0
                                             || realTools.find(single => single.to === to)
@@ -224,10 +224,6 @@ export default function Menu() {
                                     p: 1
                                 }}>
                                     <ToolsStack
-                                        searchText=""
-                                        sortingFor={"__home__"}
-                                        setTools={tools => null}
-                                        editMode={false}
                                         paramTool={mostUsed} />
                                 </Box>
                             </Box>
@@ -235,10 +231,6 @@ export default function Menu() {
                     ) : (
                         <ToolsStack
                             paramTool={tools}
-                            searchText={searchText}
-                            sortingFor={sortingFor}
-                            setTools={setTools}
-                            editMode={editMode}
                             focus={focusingTo}
                         />
                     )}
@@ -289,11 +281,11 @@ export default function Menu() {
                         </Link>
                         <SwitchViewMode />
                         {(editing && sortingFor !== "__extension__") && (
-                            <SwitchEditMode editMode={editMode} setEditMode={setEditMode} />
+                            <SwitchEditMode />
                         )}
                     </Box>
                 </DialogActions>
             </Dialog>
-        </>
+        </isImplantContext.Provider>
     );
 }

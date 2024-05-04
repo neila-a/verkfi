@@ -4,8 +4,19 @@ import {
     Button
 } from "@mui/material";
 import {
+    editModeAtom,
+    sortingForAtom
+} from "index/atoms";
+import {
+    isImplantContext
+} from "index/consts";
+import {
+    useAtom
+} from "jotai";
+import {
     MouseEventHandler,
-    ReactNode
+    ReactNode,
+    useContext
 } from "react";
 export default function SingleSelect(props: {
     tool: string;
@@ -13,33 +24,28 @@ export default function SingleSelect(props: {
     editButton: ReactNode;
     dragButton: ReactNode;
     wantSortingFor?: string;
-    sortingFor: string;
-    searchText: string;
     isSidebar: boolean;
-    editMode: boolean;
 }) {
-    const Inner = () => (
-        <Box sx={{
-            maxWidth: "100%",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            bgcolor: theme => props.sortingFor === props.wantSortingFor && theme.palette.action.active
-        }}>
-            {props.dragButton}
-            <Button aria-label={props.tool} sx={{
-                overflow: "hidden",
-                color: theme => props.sortingFor === props.wantSortingFor && theme.palette.primary[theme.palette.mode]
-            }} onClick={event => {
-                if (!props.editMode) {
-                    props.onClick(event);
-                }
+    const isImplant = useContext(isImplantContext),
+        sortingFor = useAtom(sortingForAtom)[0](isImplant),
+        Inner = () => (
+            <Box sx={{
+                maxWidth: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                bgcolor: theme => sortingFor === props.wantSortingFor && theme.palette.action.active
             }}>
-                {props.tool}
-            </Button>
-            {props.editButton}
-        </Box>
-    );
+                {props.dragButton}
+                <Button aria-label={props.tool} sx={{
+                    overflow: "hidden",
+                    color: theme => sortingFor === props.wantSortingFor && theme.palette.primary[theme.palette.mode]
+                }} onClick={props.onClick}>
+                    {props.tool}
+                </Button>
+                {props.editButton}
+            </Box>
+        );
     return props.isSidebar ? (
         <Box sx={{
             width: "100%",

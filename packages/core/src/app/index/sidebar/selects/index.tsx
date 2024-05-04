@@ -26,6 +26,7 @@ import dynamic from "next/dynamic";
 import {
     Fragment,
     createElement,
+    useContext,
     useState
 } from "react";
 import {
@@ -41,44 +42,52 @@ import {
 } from "..";
 import SingleSelect from "./SingleSelect";
 import toolsListAtom from "atoms/toolsList";
+import {
+    editModeAtom,
+    editingAtom,
+    searchTextAtom,
+    sortingForAtom,
+    toolsAtom
+} from "index/atoms";
+import {
+    isImplantContext
+} from "index/consts";
 export default function Selects(props: {
-    setEditing: setState<boolean>;
-    sortingFor: string;
-    setSortingFor: setState<string>;
-    searchText: string;
-    setSearchText: setState<string>;
     setSortedTools: setState<tool[]>;
-    setTools: setState<tool[]>;
-    editMode: boolean;
     isSidebar?: boolean;
     searchTools(search: string): void;
     modifyClickCount(value: number | "++"): void;
 }) {
-    const {
-            setTools, searchTools, searchText, setSearchText, sortingFor, setSortingFor, setEditing
+    const
+        {
+            searchTools
         } = props,
+        isImplant = useContext(isImplantContext),
+        sortingFor = useAtom(sortingForAtom)[0](isImplant),
+        setSortingFor = useAtom(sortingForAtom)[1],
+        [, setEditing] = useAtom(editingAtom),
+        [searchText, setSearchText] = useAtom(searchTextAtom),
         [list, setList] = useAtom(listsAtom),
         [dialogOpen, setDialogOpen] = useState<boolean>(false),
         [dialogTools, setDialogTools] = useState<string[]>([]),
         gotToolsList = useAtom(toolsListAtom)[0](getTools(get)),
         [removeDialogOpen, setRemoveDialogOpen] = useState<boolean>(false),
         [dialogListName, setDialogListName] = useState<string>(""),
+        [editMode] = useAtom(editModeAtom),
+        setTools = useAtom(toolsAtom)[1],
         RealSelect = (aprops: {
             single: [string, string[]];
             isAll: boolean;
         }) => (
             <Box>
                 <SingleSelect
-                    dragButton={props.editMode && !aprops.isAll && <DragIndicatorIcon />}
-                    editMode={props.editMode}
+                    dragButton={editMode && !aprops.isAll && <DragIndicatorIcon />}
                     isSidebar={Boolean(props.isSidebar)}
-                    sortingFor={sortingFor}
-                    searchText={searchText}
                     key={aprops.single[0]}
                     tool={aprops.single[0]}
                     onClick={event => {
                         const publicSet = draft => {
-                            setEditing(props.searchText === "");
+                            setEditing(searchText === "");
                             setSearchText("");
                             searchTools("");
                             props.modifyClickCount("++");
@@ -103,7 +112,7 @@ export default function Selects(props: {
                             }
                         }
                     }} editButton={(
-                        (props.editMode && !aprops.isAll) ? (
+                        (editMode && !aprops.isAll) ? (
                             <MouseOverPopover text={get("index.editCategory")}>
                                 <IconButton onClick={event => {
                                     setDialogOpen(true);
@@ -131,18 +140,18 @@ export default function Selects(props: {
                 if (result.destination.index === result.source.index) {
                     return;
                 }
-                if (props.editMode) {
+                if (editMode) {
                     const newLists = reorderArray(list, result.source.index, result.destination.index);
                     setList(newLists);
                 }
             }}>
-                <Droppable direction={Boolean(props.isSidebar) ? "vertical" : "horizontal"} droppableId="categories" isDropDisabled={!props.editMode}>
+                <Droppable direction={Boolean(props.isSidebar) ? "vertical" : "horizontal"} droppableId="categories" isDropDisabled={!editMode}>
                     {provided => (
                         <Box ref={provided.innerRef} {...provided.droppableProps} sx={{
                             display: Boolean(props.isSidebar) ? "" : "flex"
                         }}>
                             {list.filter(value => value[0] !== "__global__").map((value, index) => (
-                                props.editMode ? (
+                                editMode ? (
                                     <Draggable draggableId={value[0]} index={index} key={value[0]}>
                                         {provided => (
                                             <Box ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
@@ -157,7 +166,7 @@ export default function Selects(props: {
                     )}
                 </Droppable>
             </DragDropContext>
-            {props.editMode && (
+            {editMode && (
                 <> {/* 只有editMode时才会启用，可以用dynamic */}
                     {createElement(dynamic(() => import("./EditToolsListDialog")), {
                         open: dialogOpen,

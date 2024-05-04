@@ -97,7 +97,7 @@ export default function About() {
             <Typography variant="body1" sx={{
                 p: 2,
                 mb: 4
-            }}>
+            }} paragraph>
                 ©Copyleft ! <time dateTime="2022">2022</time>-<time dateTime={year.toString()}>
                     {year}
                 </time>， Neila
