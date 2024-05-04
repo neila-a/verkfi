@@ -76,22 +76,13 @@ export default function Menu() {
         [extensionTools] = useAtom(extensionsAtom),
         [gotToolsList] = useAtom(toolsListAtom),
         mostUsed = useMostUsedTools(),
-        [sortedTools, setSortedTools] = useAtom(sortedToolsAtom),
+        [, setSortedTools] = useAtom(sortedToolsAtom),
         [tools] = useAtom(toolsAtom),
         setTools = useAtom(toolsAtom)[1],
         focusingTo = tools[tab] ? tools[tab].to : "", // 每次渲染会重新执行
         upper = useContext(repoInfo).name.charAt(0).toUpperCase() + useContext(repoInfo).name.slice(1),
         [editing, setEditing] = useAtom(editingAtom);
     function searchTools(search: string) {
-        if (search !== "") {
-            setEditing(false);
-        } else {
-            setEditing(true);
-        }
-        if (sortingFor === "__home__") {
-            setSortingFor("__global__");
-        }
-        setTools(searchBase(sortedTools, search));
     }
     function handleTab() {
         setTab(old => (old + 1) % tools.length);
@@ -146,11 +137,11 @@ export default function Menu() {
                                 {sortingFor !== "__home__" && (
                                     <MouseOverPopover text={get("back")}>
                                         <IconButton type="button" aria-label={get("back")} onClick={() => {
-                                            setSearchText("");
+                                            setSearchText("", false);
                                             setSortingFor("__home__");
                                             setSortedTools(gotToolsList);
                                             setEditing(true);
-                                            setTools(gotToolsList);
+                                            setTools("refresh");
                                         }}>
                                             <ArrowBackIosIcon />
                                         </IconButton>
@@ -182,7 +173,7 @@ export default function Menu() {
                         "aria-label": get("搜索工具")
                     }} onChange={event => {
                         if (searchText !== event.target.value) {
-                            setSearchText(event.target.value);
+                            setSearchText(event.target.value, false);
                             searchTools(event.target.value);
                             setTab(0);
                         }
@@ -196,7 +187,6 @@ export default function Menu() {
                                     {get("category.分类")}
                                     <Selects
                                         modifyClickCount={value => null}
-                                        searchTools={searchTools}
                                     />
                                 </Typography>
                             </Box>

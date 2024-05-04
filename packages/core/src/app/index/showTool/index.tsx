@@ -85,7 +85,7 @@ export default function ToolsStack(props: {
                 if (editMode) {
                     const newTools = reorderArray(props.paramTool, result.source.index, result.destination.index);
                     buttonCommonSorting(sortingFor, newTools);
-                    setTools(newTools);
+                    setTools("refresh");
                 }
             }}>
                 <Box sx={{

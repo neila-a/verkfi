@@ -89,13 +89,6 @@ export default function Index(props: {
         expand = props.expand;
         setExpand = props.setExpand;
     }
-    /**
-     * 搜索工具
-     */
-    function searchTools(search: string) {
-        setTools(searchBase(sortedTools, search));
-        setExpand(true);
-    }
     function Tools() {
         return (
             <Box sx={{
@@ -119,7 +112,6 @@ export default function Index(props: {
                 )}
                 <Sidebar
                     focusingTo={focusingTo}
-                    searchTools={searchTools}
                     expand={expand}
                     setExpand={setExpand}
                 />

@@ -44,7 +44,7 @@ export default function Buttons(props: {
     setExpand: setState<boolean>;
 }) {
     const [editing] = useAtom(editingAtom),
-        [editMode, setEditMode] = useAtom(editModeAtom),
+        [editMode] = useAtom(editModeAtom),
         [dialogOpen, setDialogOpen] = useState<boolean>(false),
         [dialogTools, setDialogTools] = useState<string[]>([]),
         isImplant = useContext(isImplantContext),

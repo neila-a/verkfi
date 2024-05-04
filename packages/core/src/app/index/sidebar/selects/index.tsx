@@ -51,18 +51,13 @@ import {
 } from "index/consts";
 export default function Selects(props: {
     isSidebar?: boolean;
-    searchTools(search: string): void;
     modifyClickCount(value: number | "++"): void;
 }) {
-    const
-        {
-            searchTools
-        } = props,
-        isImplant = useContext(isImplantContext),
+    const isImplant = useContext(isImplantContext),
         sortingFor = useAtom(sortingForAtom)[0](isImplant),
         setSortingFor = useAtom(sortingForAtom)[1],
         [, setEditing] = useAtom(editingAtom),
-        [sortedTools, setSortedTools] = useAtom(sortedToolsAtom),
+        [, setSortedTools] = useAtom(sortedToolsAtom),
         [searchText, setSearchText] = useAtom(searchTextAtom),
         [list, setList] = useAtom(listsAtom),
         [dialogOpen, setDialogOpen] = useState<boolean>(false),
@@ -85,8 +80,7 @@ export default function Selects(props: {
                     onClick={event => {
                         const publicSet = draft => {
                             setEditing(searchText === "");
-                            setSearchText("");
-                            searchTools("");
+                            setSearchText("", isImplant);
                             props.modifyClickCount("++");
                             setSortedTools(draft);
                             setTools(draft);

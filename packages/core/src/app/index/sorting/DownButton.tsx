@@ -21,26 +21,25 @@ import {
     useAtom
 } from "jotai";
 import {
-    editModeAtom
+    editModeAtom,
+    toolsAtom
 } from "index/atoms";
 export default function DownButton(props: {
-    setTools: setState<tool[]>;
     tool: tool;
     sortingFor: string;
 }): JSX.Element {
     const buttonCommonSorting = useButtonCommonSorting(),
-        [editMode] = useAtom(editModeAtom);
+        [editMode] = useAtom(editModeAtom),
+        [tools, setTools] = useAtom(toolsAtom);
     if (editMode && props.sortingFor !== "__home__") {
         return (
             <MouseOverPopover text={get("index.movedown")}>
                 <IconButton size="large" edge="start" color="inherit" aria-label={get("index.movedown")} onClick={event => {
                     event.stopPropagation();
-                    props.setTools(draft => {
-                        const pd = draft.slice(0);
-                        downGo(pd, pd.indexOf(props.tool));
-                        buttonCommonSorting(props.sortingFor, pd);
-                        return pd;
-                    });
+                    const pd = tools.slice(0);
+                    downGo(pd, pd.indexOf(props.tool));
+                    buttonCommonSorting(props.sortingFor, pd);
+                    setTools("refresh");
                 }}>
                     <ArrowDownwardIcon />
                 </IconButton>

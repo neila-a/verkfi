@@ -1,6 +1,7 @@
 import {
     loadableToolsListAtom
 } from "atoms/toolsList";
+import searchBase from "index/sidebar/searchBase";
 import {
     atom
 } from "jotai";
@@ -10,9 +11,17 @@ import {
 export const toolsAtomValue = atom<tool[] | "__empty__">("__empty__"),
     sortingForAtomValue = atom<string>("__empty__"),
     sortedToolsAtomValue = atom<tool[] | "__empty__">("__empty__"),
+    searchTextAtomValue = atom(""),
     editingAtomValue = atom<boolean | "empty">("empty");
-export const searchTextAtom = atom(""),
-    editModeAtom = atom(false),
+export const editModeAtom = atom(false),
+    searchTextAtom = atom(get => get(searchTextAtomValue), (get, set, search: string, isImplant: boolean) => {
+        set(editingAtom, search === "");
+        if (get(sortingForAtom)(isImplant) === "__home__") {
+            set(sortingForAtom, "__global__");
+        }
+        set(toolsAtom, (searchBase(get(sortedToolsAtom), search)));
+        set(searchTextAtomValue, search);
+    }),
     toolsAtom = atom(get => {
         const value = get(toolsAtomValue),
             list = get(loadableToolsListAtom);
@@ -23,8 +32,31 @@ export const searchTextAtom = atom(""),
             return [];
         }
         return value;
-    }, (get, set, update: tool[]) => {
-        set(toolsAtomValue, update);
+    }, (get, set, update: tool[] | "refresh" | `remove ${string}`) => {
+        function publicIfEmpty() {
+            if (value === "__empty__") {
+                if (list.state === "hasData") {
+                    set(toolsAtomValue, list.data);
+                }
+                set(toolsAtomValue, []);
+            }
+        }
+        const value = get(toolsAtomValue),
+            list = get(loadableToolsListAtom);
+        if (typeof update === "string") {
+            if (update === "refresh") {
+                publicIfEmpty();
+                if (list.state === "hasData") {
+                    set(toolsAtomValue, list.data);
+                }
+            } else if ((update as `remove ${string}`).startsWith("remove ")) {
+                publicIfEmpty();
+                const removing = update.replace("remove ", "");
+                set(toolsAtomValue, (value as tool[]).filter(a => a.to !== removing));
+            }
+        } else {
+            set(toolsAtomValue, update);
+        }
     }),
     tabAtom = atom(0),
     sortingForAtom = atom(get => (isImplant: boolean) => {

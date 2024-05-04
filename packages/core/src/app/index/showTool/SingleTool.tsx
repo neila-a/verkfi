@@ -105,7 +105,6 @@ export default function SingleTool(props: {
         fullWidth = `100%`,
         buttonOptions = {
             editMode: editMode,
-            setTools: setTools,
             tool: tool,
             sortingFor: sortingFor
         },
@@ -203,7 +202,7 @@ export default function SingleTool(props: {
                                 main: ""
                             } as unknown as NXTMetadata,
                             files: [],
-                            onTrue: () => setTools(tools.slice(0).filter(atool => atool.to !== tool.to))
+                            onTrue: () => setTools(`remove ${tool.to}`)
                         })}
                     </>
                 )}
@@ -216,7 +215,7 @@ export default function SingleTool(props: {
                                 }
                                 return list;
                             }));
-                            setTools(tools.slice(0).filter(atool => atool.to !== tool.to));
+                            setTools(`remove ${tool.to}`);
                         }} aria-label={get("singleTool.deleteFromCategory")}>
                             <FolderDelete />
                         </IconButton>

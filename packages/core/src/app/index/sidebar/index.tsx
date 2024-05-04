@@ -35,7 +35,6 @@ import Selects from "./selects";
 import SingleSelect from "./selects/SingleSelect";
 import {
     searchTextAtom,
-    sortedToolsAtom,
     sortingForAtom,
     tabAtom,
     toolsAtom
@@ -45,19 +44,11 @@ import {
 } from "index/consts";
 export type lists = [string, string[]][];
 export default function Sidebar(props: {
-    /**
-     * 搜索工具
-     */
-    searchTools(search: string): void;
     focusingTo: Lowercase<string>;
     expand: boolean;
     setExpand: setState<boolean>;
 }) {
-    const
-        {
-            searchTools
-        } = props,
-        isImplant = useContext(isImplantContext),
+    const isImplant = useContext(isImplantContext),
         sortingFor = useAtom(sortingForAtom)[0](isImplant),
         setSortingFor = useAtom(sortingForAtom)[1],
         [searchText, setSearchText] = useAtom(searchTextAtom),
@@ -80,9 +71,7 @@ export default function Sidebar(props: {
                         <MouseOverPopover text={get("搜索")}>
                             <IconButton sx={{
                                 p: 0
-                            }} type="button" aria-label={get("搜索")} onClick={() => {
-                                searchTools(searchText);
-                            }}>
+                            }} type="button" aria-label={get("搜索")}>
                                 <SearchIcon />
                             </IconButton>
                         </MouseOverPopover>
@@ -106,8 +95,7 @@ export default function Sidebar(props: {
             }} placeholder={get("搜索工具")} inputProps={{
                 "aria-label": get("搜索工具")
             }} onChange={event => {
-                setSearchText(event.target.value);
-                searchTools(event.target.value);
+                setSearchText(event.target.value, isImplant);
                 if (sortingFor === "__home__") {
                     setSortingFor("__global__");
                 }
@@ -136,7 +124,6 @@ export default function Sidebar(props: {
                 }}>
                     <Selects
                         isSidebar
-                        searchTools={searchTools}
                         modifyClickCount={value => {
                             if (value === "++") {
                                 setClickCount(old => old + 1);
