@@ -20,7 +20,8 @@ import isBrowser from "layout/isBrowser";
 interface mostUsedMarks {
     [key: string]: number;
 }
-export const sidebarMode = atomWithStorage<"menu" | "sidebar">("sidebarmode", "边栏模式", "menu"),
+export type sidebarMode = "menu" | "sidebar";
+export const sidebarMode = atomWithStorage<sidebarMode>("sidebarmode", "边栏模式", "menu"),
     showSidebar = atomWithStorage<boolean>("sidebar", "边栏", false),
     forkMeOnGitHub = atomWithStorage<boolean>("fork-me-on-github", "Fork me on GitHub", false),
     share = atomWithStorage<boolean>("share", "分享", isBrowser() ? "share" in navigator : false),

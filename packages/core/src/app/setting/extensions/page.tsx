@@ -40,13 +40,17 @@ import DialogButtons from "./DialogButtons";
 import DialogInputs from "./DialogInputs";
 import RemoveExtensionDialog from "./RemoveExtensionDialog";
 import ToolViewer from "./ToolViewer";
+import {
+    file,
+    single
+} from "db";
 const PureDialog = dynamic(() => import("dialog/Pure"));
 export type inputTypes = "modify" | "add";
 export default function ExtensionManager() {
     const [addDialogOpen, setAddDialogOpen] = useState<boolean>(false),
         [fileArray, setFileArray] = useState<FilePondFile[]>([]),
         [fileInfo, setFileInfo] = useState<NXTMetadata>(emptyNXTMetadata),
-        [files, setFiles] = useState<[string, Uint8Array][]>([]),
+        [files, setFiles] = useState<single["files"]>([]),
         [removeDialogOpen, setRemoveDialogOpen] = useState<boolean>(false),
         [modifyDialogOpen, setModifyDialogOpen] = useState<boolean>(false),
         theme = useTheme(),
@@ -115,7 +119,17 @@ export default function ExtensionManager() {
                                 value: settingItem.defaultValue
                             })) : []
                         });
-                        setFiles(dir.map(item => [item, fs.readFileSync(item)]));
+                        function readInternal(path: string): file | file[] {
+                            const stat = fs.statSync(path);
+                            if (stat.isDirectory()) {
+                                return fs.readdirSync(path).map(pathchild => readInternal(`${path}/${pathchild}`)).flat(20); // TS最大支持20
+                            }
+                            return {
+                                path,
+                                file: fs.readFileSync(path)
+                            };
+                        }
+                        setFiles(dir.map(readInternal).flat(1));
                         if (extensionTools.some(item => item.to === main.to)) {
                             setModifyDialogOpen(true);
                             return setAddDialogOpen(false);

@@ -19,12 +19,15 @@ import {
 import {
     NXTMetadata
 } from "./page";
+import {
+    single
+} from "db";
 export default function DialogButtons(props: {
     type: "modify" | "add";
     fileInfo: NXTMetadata;
     setModifyDialogOpen: setState<boolean>;
     setRemoveDialogOpen: setState<boolean>;
-    files: [string, Uint8Array][];
+    files: single["files"];
     reset(): void;
 }) {
     const [lists, setLists] = useAtom(listsAtom),

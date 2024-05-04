@@ -21,12 +21,15 @@ import useClearExtensionData from "./clearExtensionData";
 import {
     NXTMetadata
 } from "./page";
+import {
+    single
+} from "db";
 export default function RemoveExtensionDialog(props: {
     open: boolean;
     reset: () => any;
     fileInfo: NXTMetadata;
     onTrue?: () => any;
-    files: [string, Uint8Array][];
+    files: single["files"];
 }) {
     const [clearData, setClearData] = useState<boolean>(false),
         clearExtensionData = useClearExtensionData(),

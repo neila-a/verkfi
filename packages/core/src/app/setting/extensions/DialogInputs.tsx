@@ -17,11 +17,14 @@ import {
     NXTMetadata,
     inputTypes
 } from "./page";
+import {
+    single
+} from "db";
 export default function DialogInputs(props: {
     type: inputTypes;
     fileInfo: NXTMetadata;
     setFileInfo: setState<NXTMetadata>;
-    files: [string, Uint8Array][];
+    files: single["files"];
     reset(): void;
     setModifyDialogOpen: setState<boolean>;
     setRemoveDialogOpen: setState<boolean>;
@@ -70,8 +73,8 @@ export default function DialogInputs(props: {
                         });
                     }}>
                         {props.files.map(file => (
-                            <MenuItem key={file[0]} value={file[0]}>
-                                {file[0]}
+                            <MenuItem key={file.path} value={file.path}>
+                                {file.path}
                             </MenuItem>
                         ))}
                     </Select>

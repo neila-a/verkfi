@@ -4,8 +4,12 @@ import Dexie, {
 import {
     NXTMetadata
 } from "setting/extensions/page";
+export interface file {
+    path: string;
+    file: Uint8Array;
+}
 export interface single extends NXTMetadata {
-    files: [string, Uint8Array][];
+    files: file[];
 }
 export interface option<value = any> {
     key: string;
@@ -18,7 +22,7 @@ class ClassedDexie extends Dexie {
     options!: Table<option>;
     constructor() {
         super("Verkfi");
-        this.version(5).stores({
+        this.version(6).stores({
             extensionTools: "to, name, desc, to, icon, color, main, files, settings", // Primary key and indexed props
             options: "key, value"
         });

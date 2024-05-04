@@ -39,8 +39,8 @@ export default function ToolViewer(props: {
     modifyDialogOpen: boolean;
     setModifyDialogOpen: setState<boolean>;
     setRemoveDialogOpen: setState<boolean>;
-    files: [string, Uint8Array][];
-    setFiles: setState<[string, Uint8Array][]>;
+    files: single["files"];
+    setFiles: setState<single["files"]>;
     reset(): void;
 }) {
     const {
@@ -99,7 +99,8 @@ export default function ToolViewer(props: {
                     <MouseOverPopover text={get("extensions.clear")}>
                         <IconButton onClick={event => {
                             const {
-                                files: thisFiles, ...metadata
+                                files: thisFiles,
+                                ...metadata
                             } = single;
                             clearExtensionData(metadata, thisFiles);
                         }} aria-label={get("extensions.clear")}>
