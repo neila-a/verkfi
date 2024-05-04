@@ -55,6 +55,7 @@ import extensionsAtom from "atoms/extensions";
 import {
     editingAtom,
     searchTextAtom,
+    sortedToolsAtom,
     sortingForAtom,
     tabAtom,
     toolsAtom
@@ -75,7 +76,7 @@ export default function Menu() {
         [extensionTools] = useAtom(extensionsAtom),
         [gotToolsList] = useAtom(toolsListAtom),
         mostUsed = useMostUsedTools(),
-        [sortedTools, setSortedTools] = useState(gotToolsList), // 排序完毕，但是不会根据搜索而改动的分类
+        [sortedTools, setSortedTools] = useAtom(sortedToolsAtom),
         [tools] = useAtom(toolsAtom),
         setTools = useAtom(toolsAtom)[1],
         focusingTo = tools[tab] ? tools[tab].to : "", // 每次渲染会重新执行
@@ -196,7 +197,6 @@ export default function Menu() {
                                     <Selects
                                         modifyClickCount={value => null}
                                         searchTools={searchTools}
-                                        setSortedTools={setSortedTools}
                                     />
                                 </Typography>
                             </Box>

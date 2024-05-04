@@ -33,9 +33,6 @@ import {
     get
 } from "react-intl-universal";
 import reorderArray from "reorder-array";
-import toolsInfoAtom, {
-    tool
-} from "tools/info";
 import {
     lists
 } from "..";
@@ -45,6 +42,7 @@ import {
     editModeAtom,
     editingAtom,
     searchTextAtom,
+    sortedToolsAtom,
     sortingForAtom,
     toolsAtom
 } from "index/atoms";
@@ -52,7 +50,6 @@ import {
     isImplantContext
 } from "index/consts";
 export default function Selects(props: {
-    setSortedTools: setState<tool[]>;
     isSidebar?: boolean;
     searchTools(search: string): void;
     modifyClickCount(value: number | "++"): void;
@@ -65,6 +62,7 @@ export default function Selects(props: {
         sortingFor = useAtom(sortingForAtom)[0](isImplant),
         setSortingFor = useAtom(sortingForAtom)[1],
         [, setEditing] = useAtom(editingAtom),
+        [sortedTools, setSortedTools] = useAtom(sortedToolsAtom),
         [searchText, setSearchText] = useAtom(searchTextAtom),
         [list, setList] = useAtom(listsAtom),
         [dialogOpen, setDialogOpen] = useState<boolean>(false),
@@ -90,7 +88,7 @@ export default function Selects(props: {
                             setSearchText("");
                             searchTools("");
                             props.modifyClickCount("++");
-                            props.setSortedTools(draft);
+                            setSortedTools(draft);
                             setTools(draft);
                         };
                         if (aprops.isAll) {

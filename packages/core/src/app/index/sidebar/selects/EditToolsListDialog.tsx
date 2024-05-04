@@ -19,7 +19,6 @@ import dynamic from "next/dynamic";
 import {
     get
 } from "react-intl-universal";
-import toolsInfoAtom from "tools/info";
 import {
     lists
 } from "..";

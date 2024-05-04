@@ -45,6 +45,7 @@ import toolsInfoAtom, {
     tool
 } from "tools/info";
 import {
+    sortedToolsAtom,
     sortingForAtom,
     sortingForAtomValue,
     tabAtom,
@@ -63,11 +64,10 @@ export default function Index(props: {
 }): JSX.Element {
     const [realTools] = useAtom(toolsInfoAtom),
         [extensionTools] = useAtom(extensionsAtom),
-        [toolsList] = useAtom(toolsListAtom),
         [showSidebar] = useAtom(showSidebarAtom),
         [recentlyUsed] = useAtom(recentlyUsedAtom),
         mostUsed = useMostUsedTools(),
-        [sortedTools, setSortedTools] = useState(toolsList),
+        [sortedTools] = useAtom(sortedToolsAtom),
         [expandThis, setExpandThis] = useState<boolean>(false),
         [showTries, setShowTries] = useState<boolean>(false),
         [tools] = useAtom(toolsAtom),
@@ -120,7 +120,6 @@ export default function Index(props: {
                 <Sidebar
                     focusingTo={focusingTo}
                     searchTools={searchTools}
-                    setSortedTools={setSortedTools}
                     expand={expand}
                     setExpand={setExpand}
                 />

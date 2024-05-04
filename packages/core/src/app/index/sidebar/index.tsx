@@ -30,14 +30,12 @@ import {
 import {
     drawerWidth
 } from "setting/consts";
-import toolsInfoAtom, {
-    tool
-} from "tools/info";
 import Buttons from "./buttons";
 import Selects from "./selects";
 import SingleSelect from "./selects/SingleSelect";
 import {
     searchTextAtom,
+    sortedToolsAtom,
     sortingForAtom,
     tabAtom,
     toolsAtom
@@ -52,7 +50,6 @@ export default function Sidebar(props: {
      */
     searchTools(search: string): void;
     focusingTo: Lowercase<string>;
-    setSortedTools: setState<tool[]>;
     expand: boolean;
     setExpand: setState<boolean>;
 }) {
@@ -63,7 +60,6 @@ export default function Sidebar(props: {
         isImplant = useContext(isImplantContext),
         sortingFor = useAtom(sortingForAtom)[0](isImplant),
         setSortingFor = useAtom(sortingForAtom)[1],
-        [realTools] = useAtom(toolsInfoAtom),
         [searchText, setSearchText] = useAtom(searchTextAtom),
         [clickCount, setClickCount] = useState<number>(0),
         setTab = useAtom(tabAtom)[1],
@@ -140,7 +136,6 @@ export default function Sidebar(props: {
                 }}>
                     <Selects
                         isSidebar
-                        setSortedTools={props.setSortedTools}
                         searchTools={searchTools}
                         modifyClickCount={value => {
                             if (value === "++") {

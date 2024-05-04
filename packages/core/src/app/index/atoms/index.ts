@@ -9,6 +9,7 @@ import {
 } from "tools/info";
 export const toolsAtomValue = atom<tool[] | "__empty__">("__empty__"),
     sortingForAtomValue = atom<string>("__empty__"),
+    sortedToolsAtomValue = atom<tool[] | "__empty__">("__empty__"),
     editingAtomValue = atom<boolean | "empty">("empty");
 export const searchTextAtom = atom(""),
     editModeAtom = atom(false),
@@ -47,4 +48,17 @@ export const searchTextAtom = atom(""),
         return value;
     }, (get, set, update: boolean) => {
         set(editingAtomValue, update);
+    }),
+    sortedToolsAtom = atom(get => {
+        const value = get(sortedToolsAtomValue),
+            list = get(loadableToolsListAtom);
+        if (value === "__empty__") {
+            if (list.state === "hasData") {
+                return list.data;
+            }
+            return [];
+        }
+        return value;
+    }, (get, set, update: tool[]) => {
+        set(sortedToolsAtomValue, update);
     });
