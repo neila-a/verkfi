@@ -38,7 +38,8 @@ export default function EditToolsListDialog(props: {
     setRemoveDialogOpen: setState<boolean>;
     open: boolean;
 }) {
-    const {
+    const
+        {
             dialogTools,
             setDialogTools,
             dialogListName,
@@ -49,7 +50,7 @@ export default function EditToolsListDialog(props: {
         edit = (forList: lists) => forList.some(single => single[0] === dialogListName),
         createOrEdit = !edit(list) ? get("category.创建分类") : get("category.编辑分类"),
         [extensionTools] = useAtom(extensionsAtom),
-        incorrect = dialogListName === "__global__" || dialogListName === "__home__",
+        incorrect = ["__global__", "__home__", "__empty__"].some(a => a === dialogListName),
         converted = convertExtensionTools(extensionTools),
         toolsList = useAtom(toolsListAtom)[0](getTools(get)),
         right = toolsList.concat(converted).filter(atool => atool !== undefined).map(atool => atool.name).filter(v => props.left.every(val => val !== v));
