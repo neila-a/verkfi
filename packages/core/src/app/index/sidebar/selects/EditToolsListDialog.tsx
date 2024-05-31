@@ -4,17 +4,17 @@ import {
     ButtonGroup,
     TextField
 } from "@mui/material";
-import TransferList from "components/TransferList";
+import TransferList from "@verkfi/shared/TransferList";
 import {
     setState
 } from "declare";
 import {
     useAtom
 } from "jotai";
-import extensionsAtom from "atoms/extensions";
+import extensionsAtom from "@verkfi/shared/atoms/extensions";
 import {
     lists as listsAtom
-} from "atoms";
+} from "@verkfi/shared/atoms";
 import dynamic from "next/dynamic";
 import {
     get
@@ -23,8 +23,8 @@ import {
     lists
 } from "..";
 import convertExtensionTools from "../../convertExtensionTools";
-import toolsListAtom from "atoms/toolsList";
-const PureDialog = dynamic(() => import("dialog/Pure"));
+import toolsListAtom from "@verkfi/shared/atoms/toolsList";
+const PureDialog = dynamic(() => import("@verkfi/shared/dialog/Pure"));
 export default function EditToolsListDialog(props: {
     dialogTools: string[];
     setDialogTools: setState<string[]>;

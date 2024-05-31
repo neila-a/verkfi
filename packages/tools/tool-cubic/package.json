@@ -1,0 +1,28 @@
+{
+    "name": "@verkfi/tool-cubic",
+    "version": "0.1.0",
+    "description": "Verkfi tool: cubic.",
+    "private": true,
+    "repository": "github:neila-a/verkfi",
+    "keywords": [
+        "verkfi"
+    ],
+    "bugs": {
+        "url": "https://github.com/neila-a/verkfi/issues",
+        "email": "neilaspace@outlook.com"
+    },
+    "main": "page.tsx",
+    "author": {
+        "name": "Neila",
+        "email": "neilaspace@outlook.com",
+        "url": "https://neilasite.netlify.app/"
+    },
+    "devDependencies": {},
+    "homepage": "https://netlify.verkfi.neila.vip/",
+    "dependencies": {
+        "@react-three/drei": "^9.106.0",
+        "@react-three/fiber": "^8.16.6",
+        "@verkfi/shared": "workspace:../../shared",
+        "three": "0.164.1"
+    }
+}

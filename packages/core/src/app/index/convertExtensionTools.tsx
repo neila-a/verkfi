@@ -1,7 +1,7 @@
 "use client";
 import {
     single
-} from "db";
+} from "@verkfi/shared/reader/db";
 import {
     tool
 } from "tools/info";

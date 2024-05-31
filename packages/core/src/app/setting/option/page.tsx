@@ -20,13 +20,13 @@ import {
     WritableAtom,
     useAtom
 } from "jotai";
-import langAtom from "atoms/lang";
+import langAtom from "@verkfi/shared/atoms/lang";
 import {
     locales
 } from "layout/layoutClient";
 import {
     forkMeOnGitHub, share
-} from "atoms";
+} from "@verkfi/shared/atoms";
 import {
     Route
 } from "next";
@@ -45,7 +45,7 @@ import Module from "./Module";
 import {
     Switcher
 } from "./Switcher";
-const PureDialog = dynamic(() => import("dialog/Pure")),
+const PureDialog = dynamic(() => import("@verkfi/shared/dialog/Pure")),
     ghURL = "https://github.com/neila-a/verkfi/";
 export type option = [WritableAtom<boolean | Promise<boolean>, [update: boolean], void>, string];
 export default function Options() {

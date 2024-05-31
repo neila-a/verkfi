@@ -6,10 +6,8 @@ import {
 import {
     AppRouterCacheProvider
 } from "@mui/material-nextjs/v13-appRouter";
-import Ubuntu from "components/fonts";
-import {
-    getRepoInfo
-} from "components/getRepoInfo";
+import Ubuntu from "@verkfi/shared/fonts";
+import getRepoInfo from "@verkfi/shared/getRepoInfo";
 import "filepond/dist/filepond.min.css"; // Import FilePond styles
 import {
     Provider

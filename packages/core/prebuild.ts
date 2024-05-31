@@ -1,9 +1,7 @@
 /**
  * This is a dev-tool only, not for prodcution!
  */
-import {
-    getRepoInfo
-} from "components/getRepoInfo";
+import getRepoInfo from "@verkfi/shared/getRepoInfo";
 import {
     BuildResult,
     Message,

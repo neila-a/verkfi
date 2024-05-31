@@ -1,6 +1,6 @@
 import {
     loadableToolsListAtom
-} from "atoms/toolsList";
+} from "@verkfi/shared/atoms/toolsList";
 import searchBase from "index/sidebar/searchBase";
 import {
     atom

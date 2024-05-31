@@ -1,6 +1,6 @@
 import {
     single
-} from "db";
+} from "@verkfi/shared/reader/db";
 import {
     NXTMetadata
 } from "setting/extensions/page";

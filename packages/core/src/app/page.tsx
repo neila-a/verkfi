@@ -7,29 +7,26 @@ import {
     Toolbar,
     Typography
 } from "@mui/material";
-import HeadBar from "components/HeadBar";
-import MouseOverPopover from "components/Popover";
-import VerkfiIcon from "components/verkfiIcon/verkfiIcon";
+import HeadBar from "@verkfi/shared/HeadBar";
+import MouseOverPopover from "@verkfi/shared/Popover";
+import VerkfiIcon from "@verkfi/shared/verkfiIcon/verkfiIcon";
 import {
     setState
 } from "declare";
 import convertExtensionTools from "index/convertExtensionTools";
 import ToolsStack from "index/showTool";
 import Sidebar from "index/sidebar";
-import searchBase from "index/sidebar/searchBase";
-import toolsListAtom from "atoms/toolsList";
 import useMostUsedTools from "index/useMostUsedTools";
-import triesAtom from "atoms/tries";
+import triesAtom from "@verkfi/shared/atoms/tries";
 import {
     useAtom
 } from "jotai";
-import extensionsAtom from "atoms/extensions";
+import extensionsAtom from "@verkfi/shared/atoms/extensions";
 import {
     recentlyUsed as recentlyUsedAtom,
     showSidebar as showSidebarAtom
-} from "atoms";
+} from "@verkfi/shared/atoms";
 import {
-    useEffect,
     useState
 } from "react";
 import {

@@ -4,7 +4,7 @@ import {
     ButtonGroup,
     Typography
 } from "@mui/material";
-import db from "db";
+import db from "@verkfi/shared/reader/db";
 import {
     logger
 } from "layout/layoutClient"; // 都是全局日志

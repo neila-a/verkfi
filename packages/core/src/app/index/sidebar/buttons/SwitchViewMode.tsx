@@ -6,13 +6,13 @@ import {
 import {
     IconButton
 } from "@mui/material";
-import MouseOverPopover from "components/Popover";
+import MouseOverPopover from "@verkfi/shared/Popover";
 import {
     useAtom
 } from "jotai";
 import {
     viewMode as viewModeAtom
-} from "atoms";
+} from "@verkfi/shared/atoms";
 export default function SwitchViewMode() {
     const [viewMode, setViewMode] = useAtom(viewModeAtom);
     return (

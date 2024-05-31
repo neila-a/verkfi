@@ -6,7 +6,7 @@ import {
 import {
     useAtom
 } from "jotai";
-import isBrowser from "layout/isBrowser";
+import isBrowser from "@verkfi/shared/isBrowser";
 import {
     get
 } from "react-intl-universal";

@@ -26,18 +26,6 @@
         ],
         "baseUrl": "src/app",
         "paths": {
-            "dialog/*": [
-                "components/dialog/*Dialog"
-            ],
-            "No": [
-                "components/No"
-            ],
-            "useStoragedState": [
-                "setting/reader/useStoragedState"
-            ],
-            "db": [
-                "setting/reader/db"
-            ]
         }
     },
     "include": [

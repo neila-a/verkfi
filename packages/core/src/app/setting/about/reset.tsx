@@ -7,7 +7,7 @@ import {
 import {
     ResponsiveStyleValue
 } from "@mui/system";
-import ErrorBoundary from "components/ErrorBoundary";
+import ErrorBoundary from "@verkfi/shared/ErrorBoundary";
 import dynamic from "next/dynamic";
 import {
     FC,
@@ -25,7 +25,7 @@ import Line from "./Line";
 import getCache from "./getCache";
 import getSettingsSur from "./getSettingsSur";
 import getSettingsUsed from "./getSettingsUsed";
-const CheckDialog = dynamic(() => import("dialog/Check"));
+const CheckDialog = dynamic(() => import("@verkfi/shared/dialog/Check"));
 const direction: ResponsiveStyleValue<"row" | "row-reverse" | "column" | "column-reverse"> = {
     xs: "column",
     sm: "row",

@@ -11,13 +11,10 @@ import {
     Divider,
     IconButton
 } from "@mui/material";
-import MouseOverPopover from "components/Popover";
+import MouseOverPopover from "@verkfi/shared/Popover";
 import {
     setState
 } from "declare";
-import {
-    viewMode as viewModeAtom
-} from "atoms";
 import dynamic from "next/dynamic";
 import {
     useContext,

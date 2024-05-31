@@ -1,6 +1,4 @@
-import {
-    getRepoInfo
-} from "components/getRepoInfo";
+import getRepoInfo from "@verkfi/shared/getRepoInfo";
 import pack from "../../package.json";
 export default async function manifest() {
     const repoInfo = await getRepoInfo(),

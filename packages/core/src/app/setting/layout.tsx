@@ -17,19 +17,19 @@ import {
     TextField,
     Toolbar
 } from "@mui/material";
-import ErrorBoundary from "components/ErrorBoundary";
-import HeadBar from "components/HeadBar";
+import ErrorBoundary from "@verkfi/shared/ErrorBoundary";
+import HeadBar from "@verkfi/shared/HeadBar";
 import {
     type default as VerkfiIcon
-} from "components/verkfiIcon/verkfiIcon";
+} from "@verkfi/shared/verkfiIcon/verkfiIcon";
 import {
     useAtom
 } from "jotai";
-import extensionsAtom from "atoms/extensions";
+import extensionsAtom from "@verkfi/shared/atoms/extensions";
 import {
     showSidebar as showSidebarAtom,
     sidebarMode as sidebarModeAtom
-} from "atoms";
+} from "@verkfi/shared/atoms";
 import {
     Route
 } from "next";
@@ -84,7 +84,7 @@ export default function Settings(props: {
             id: "appearance",
             Icon: PaletteIcon
         }
-    ],
+    ] as const,
         router = useRouter(),
         [extensionTools, setExtensions] = useAtom(extensionsAtom),
         id = useSelectedLayoutSegment(),

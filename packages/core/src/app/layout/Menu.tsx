@@ -19,16 +19,16 @@ import {
     useMediaQuery,
     useTheme
 } from "@mui/material";
-import MouseOverPopover from "components/Popover";
-import Transition from "components/dialog/Transition";
-import VerkfiIcon from "components/verkfiIcon/verkfiIcon";
+import MouseOverPopover from "@verkfi/shared/Popover";
+import Transition from "@verkfi/shared/dialog/Transition";
+import VerkfiIcon from "@verkfi/shared/verkfiIcon/verkfiIcon";
 import convertExtensionTools from "index/convertExtensionTools";
 import ToolsStack from "index/showTool";
 import SwitchEditMode from "index/sidebar/buttons/SwitchEditMode";
 import SwitchViewMode from "index/sidebar/buttons/SwitchViewMode";
 import searchBase from "index/sidebar/searchBase";
 import Selects from "index/sidebar/selects";
-import toolsListAtom from "atoms/toolsList";
+import toolsListAtom from "@verkfi/shared/atoms/toolsList";
 import useMostUsedTools from "index/useMostUsedTools";
 import {
     useAtom
@@ -39,7 +39,7 @@ import {
 import {
     recentlyUsed as recentlyUsedAtom,
     showSidebar
-} from "atoms";
+} from "@verkfi/shared/atoms";
 import Link from "next/link";
 import {
     useContext,
@@ -51,7 +51,7 @@ import {
 import toolsInfoAtom, {
     tool
 } from "tools/info";
-import extensionsAtom from "atoms/extensions";
+import extensionsAtom from "@verkfi/shared/atoms/extensions";
 import {
     editingAtom,
     searchTextAtom,

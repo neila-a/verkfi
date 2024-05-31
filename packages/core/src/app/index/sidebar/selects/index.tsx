@@ -12,7 +12,7 @@ import {
     Box,
     IconButton
 } from "@mui/material";
-import MouseOverPopover from "components/Popover";
+import MouseOverPopover from "@verkfi/shared/Popover";
 import {
     setState
 } from "declare";
@@ -21,7 +21,7 @@ import {
 } from "jotai";
 import {
     lists as listsAtom
-} from "atoms";
+} from "@verkfi/shared/atoms";
 import dynamic from "next/dynamic";
 import {
     Fragment,
@@ -37,7 +37,7 @@ import {
     lists
 } from "..";
 import SingleSelect from "./SingleSelect";
-import toolsListAtom from "atoms/toolsList";
+import toolsListAtom from "@verkfi/shared/atoms/toolsList";
 import {
     editModeAtom,
     editingAtom,
@@ -171,7 +171,7 @@ export default function Selects(props: {
                             return list.find(single => single[0] === dialogListName)?.[1]?.includes(tool.to);
                         }).map(tool => tool.name)
                     })}
-                    {createElement(dynamic(() => import("dialog/Check")), {
+                    {createElement(dynamic(() => import("@verkfi/shared/dialog/Check")), {
                         open: removeDialogOpen,
                         title: get("category.删除此分类"),
                         description: get("category.确定删除此分类吗？"),

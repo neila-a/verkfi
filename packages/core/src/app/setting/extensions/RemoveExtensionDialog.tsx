@@ -3,14 +3,14 @@ import {
     Checkbox,
     FormControlLabel
 } from "@mui/material";
-import CheckDialog from "dialog/Check";
+import CheckDialog from "@verkfi/shared/dialog/Check";
 import {
     useAtom
 } from "jotai";
-import extensionsAtom from "atoms/extensions";
+import extensionsAtom from "@verkfi/shared/atoms/extensions";
 import {
     lists as listsAtom
-} from "atoms";
+} from "@verkfi/shared/atoms";
 import {
     useState
 } from "react";
@@ -23,7 +23,7 @@ import {
 } from "./page";
 import {
     single
-} from "db";
+} from "@verkfi/shared/reader/db";
 export default function RemoveExtensionDialog(props: {
     open: boolean;
     reset: () => any;

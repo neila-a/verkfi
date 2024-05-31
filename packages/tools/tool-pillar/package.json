@@ -1,0 +1,25 @@
+{
+    "name": "@verkfi/tool-pillar",
+    "version": "0.1.0",
+    "description": "Verkfi tool: pillar.",
+    "private": true,
+    "repository": "github:neila-a/verkfi",
+    "keywords": [
+        "verkfi"
+    ],
+    "bugs": {
+        "url": "https://github.com/neila-a/verkfi/issues",
+        "email": "neilaspace@outlook.com"
+    },
+    "main": "page.tsx",
+    "author": {
+        "name": "Neila",
+        "email": "neilaspace@outlook.com",
+        "url": "https://neilasite.netlify.app/"
+    },
+    "devDependencies": {},
+    "homepage": "https://netlify.verkfi.neila.vip/",
+    "dependencies": {
+        "@verkfi/shared": "workspace:../../shared"
+    }
+}

@@ -2,10 +2,10 @@
 import {
     useAtom
 } from "jotai";
-import extensionsAtom from "atoms/extensions";
+import extensionsAtom from "@verkfi/shared/atoms/extensions";
 import {
     mostUsed as mostUsedAtom
-} from "atoms";
+} from "@verkfi/shared/atoms";
 import toolsInfoAtom, {
     tool
 } from "tools/info";

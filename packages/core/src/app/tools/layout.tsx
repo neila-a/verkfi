@@ -2,15 +2,15 @@
 import {
     Box
 } from "@mui/material";
-import HeadBar from "components/HeadBar";
+import HeadBar from "@verkfi/shared/HeadBar";
 import convertExtensionTools from "index/convertExtensionTools";
 import {
     useAtom
 } from "jotai";
-import extensionsAtom from "atoms/extensions";
+import extensionsAtom from "@verkfi/shared/atoms/extensions";
 import {
     gradientTool
-} from "atoms";
+} from "@verkfi/shared/atoms";
 import Loading from "loading";
 import lpLogger from "lp-logger";
 import {
@@ -26,7 +26,7 @@ import {
 } from "react-intl-universal";
 import {
     emptyExtension
-} from "./extension/empties";
+} from "tools/extension/empties";
 import toolsInfoAtom from "./info";
 const logger = new lpLogger({
     name: "ToolFinder",

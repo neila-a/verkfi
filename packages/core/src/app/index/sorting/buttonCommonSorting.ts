@@ -4,7 +4,7 @@ import {
 } from "jotai";
 import {
     lists
-} from "atoms";
+} from "@verkfi/shared/atoms";
 import {
     type tool
 } from "tools/info";

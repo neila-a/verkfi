@@ -5,12 +5,6 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "command": "npm run genWorker",
-            "name": "生成ServiceWorker",
-            "request": "launch",
-            "type": "node-terminal"
-        },
-        {
             "command": "git push",
             "name": "Run Git Push",
             "request": "launch",

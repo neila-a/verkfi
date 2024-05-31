@@ -17,10 +17,7 @@ import {
     Typography,
     TypographyOwnProps
 } from "@mui/material";
-import MouseOverPopover from "components/Popover";
-import {
-    setState
-} from "declare";
+import MouseOverPopover from "@verkfi/shared/Popover";
 import {
     useAtom
 } from "jotai";
@@ -29,7 +26,7 @@ import {
     gradientTool as gradientToolAtom,
     lists as listsAtom,
     windows as windowsAtom
-} from "atoms";
+} from "@verkfi/shared/atoms";
 import {
     Route
 } from "next";
@@ -54,10 +51,10 @@ import toolsInfoAtom, {
 } from "tools/info";
 import DownButton from "../sorting/DownButton";
 import UpButton from "../sorting/UpButton";
-const CheckDialog = dynamic(() => import("dialog/Check"));
+const CheckDialog = dynamic(() => import("@verkfi/shared/dialog/Check"));
 import {
     viewMode as viewModeAtom
-} from "atoms";
+} from "@verkfi/shared/atoms";
 import {
     editModeAtom,
     sortingForAtom,

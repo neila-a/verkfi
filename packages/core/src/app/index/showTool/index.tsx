@@ -9,16 +9,13 @@ import {
     Collapse,
     Stack
 } from "@mui/material";
-import No from "No";
-import {
-    setState
-} from "declare";
+import No from "@verkfi/shared/No";
 import {
     useAtom
 } from "jotai";
 import {
     viewMode as viewModeAtom
-} from "atoms";
+} from "@verkfi/shared/atoms";
 import {
     get
 } from "react-intl-universal";

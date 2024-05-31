@@ -5,8 +5,8 @@ import {
 import {
     IconButton
 } from "@mui/material";
-import MouseOverPopover from "components/Popover";
-import downGo from "components/arrayMove/downGo";
+import MouseOverPopover from "@verkfi/shared/Popover";
+import downGo from "@verkfi/shared/arrayMove/downGo";
 import {
     setState
 } from "declare";

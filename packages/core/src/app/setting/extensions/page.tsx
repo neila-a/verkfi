@@ -8,7 +8,7 @@ import {
 import {
     Filesystem
 } from "@tybys/browser-asar";
-import No from "No";
+import No from "@verkfi/shared/No";
 import {
     FilePondFile,
     FilePondServerConfigProps
@@ -16,7 +16,7 @@ import {
 import {
     useAtom
 } from "jotai";
-import extensionsAtom from "atoms/extensions";
+import extensionsAtom from "@verkfi/shared/atoms/extensions";
 import dynamic from "next/dynamic";
 import {
     useState
@@ -43,8 +43,8 @@ import ToolViewer from "./ToolViewer";
 import {
     file,
     single
-} from "db";
-const PureDialog = dynamic(() => import("dialog/Pure"));
+} from "@verkfi/shared/reader/db";
+const PureDialog = dynamic(() => import("@verkfi/shared/dialog/Pure"));
 export type inputTypes = "modify" | "add";
 export default function ExtensionManager() {
     const [addDialogOpen, setAddDialogOpen] = useState<boolean>(false),

@@ -1,14 +1,14 @@
 "use client";
-import ErrorBoundary from "components/ErrorBoundary";
+import ErrorBoundary from "@verkfi/shared/ErrorBoundary";
 import {
     useAtom
 } from "jotai";
 import {
     gradientTool,
     windows as windowsAtom
-} from "atoms";
+} from "@verkfi/shared/atoms";
 import dynamic from "next/dynamic";
-const Window = dynamic(() => import("components/window/Window"));
+const Window = dynamic(() => import("@verkfi/shared/window/Window"));
 export default function WindowContainer() {
     const [color] = useAtom(gradientTool),
         [windows] = useAtom(windowsAtom);

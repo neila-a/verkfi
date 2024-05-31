@@ -1,12 +1,12 @@
 "use client";
-import Recently from "components/Recently";
+import Recently from "@verkfi/shared/Recently";
 import {
     useAtom
 } from "jotai";
 import {
     mostUsed as mostUsedAtom,
     recentlyUsed as recentlyUsedAtom
-} from "atoms";
+} from "@verkfi/shared/atoms";
 import {
     useSearchParams,
     useSelectedLayoutSegment

@@ -10,7 +10,7 @@ import {
     TextField,
     Toolbar
 } from "@mui/material";
-import MouseOverPopover from "components/Popover";
+import MouseOverPopover from "@verkfi/shared/Popover";
 import {
     setState
 } from "declare";
@@ -19,7 +19,7 @@ import {
 } from "jotai";
 import {
     lists
-} from "atoms";
+} from "@verkfi/shared/atoms";
 import {
     useContext,
     useState

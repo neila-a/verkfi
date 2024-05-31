@@ -7,9 +7,9 @@ import {
     Button,
     Typography
 } from "@mui/material";
-import ErrorBoundary from "components/ErrorBoundary";
-import VerkfiIcon from "components/verkfiIcon/verkfiIcon";
-import isBrowser from "layout/isBrowser";
+import ErrorBoundary from "@verkfi/shared/ErrorBoundary";
+import VerkfiIcon from "@verkfi/shared/verkfiIcon/verkfiIcon";
+import isBrowser from "@verkfi/shared/isBrowser";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import {
@@ -22,7 +22,7 @@ import {
 } from "react-intl-universal";
 import pack from "../../../../package.json";
 import Reset from "./reset";
-const PureDialog = dynamic(() => import("dialog/Pure"));
+const PureDialog = dynamic(() => import("@verkfi/shared/dialog/Pure"));
 const {
     version,
     devVersion

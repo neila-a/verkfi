@@ -8,7 +8,7 @@ import {
 } from "jotai";
 import {
     sidebarMode
-} from "atoms";
+} from "@verkfi/shared/atoms";
 import {
     ReactNode
 } from "react";

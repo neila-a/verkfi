@@ -1,4 +1,4 @@
-import isBrowser from "layout/isBrowser";
+import isBrowser from "@verkfi/shared/isBrowser";
 import {
     MB
 } from "../consts";

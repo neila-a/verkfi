@@ -1,12 +1,12 @@
 "use client";
 import {
     single
-} from "db";
+} from "@verkfi/shared/reader/db";
 import {
     useAtom
 } from "jotai";
-import extensionsAtom from "atoms/extensions";
-import isBrowser from "layout/isBrowser";
+import extensionsAtom from "@verkfi/shared/atoms/extensions";
+import isBrowser from "@verkfi/shared/isBrowser";
 import {
     useSearchParams
 } from "next/navigation";

@@ -7,10 +7,10 @@ import {
     ThemeProvider,
     createTheme
 } from "@mui/material/styles";
-import Ubuntu from "components/fonts";
+import Ubuntu from "@verkfi/shared/fonts";
 import {
     repoInfo as repoInfoType
-} from "components/getRepoInfo";
+} from "@verkfi/shared/getRepoInfo";
 import {
     useAtom
 } from "jotai";
@@ -36,7 +36,7 @@ import enUS from "../locales/en-US.json";
 import zhCN from "../locales/zh-CN.json";
 import zhTW from "../locales/zh-TW.json";
 import WindowContainer from "./WindowContainer"; // 重的Window已经被动态加载，那么WindowContainer是轻的
-import langAtom from "atoms/lang";
+import langAtom from "@verkfi/shared/atoms/lang";
 import composeProviders from "./providerCompose";
 import desktopAdder from "./registers/desktopAdder";
 import registerProtocolHandler from "./registers/registerProtocolHandler";
@@ -46,8 +46,8 @@ import {
     paletteColors,
     sidebarMode,
     showSidebar
-} from "atoms";
-import isBrowser from "./isBrowser";
+} from "@verkfi/shared/atoms";
+import isBrowser from "@verkfi/shared/isBrowser";
 export const locales = {
     enUS,
     zhCN,

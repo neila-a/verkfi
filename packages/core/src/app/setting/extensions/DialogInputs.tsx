@@ -19,7 +19,7 @@ import {
 } from "./page";
 import {
     single
-} from "db";
+} from "@verkfi/shared/reader/db";
 export default function DialogInputs(props: {
     type: inputTypes;
     fileInfo: NXTMetadata;

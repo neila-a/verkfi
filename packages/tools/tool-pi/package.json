@@ -1,0 +1,27 @@
+{
+    "name": "@verkfi/tool-pi",
+    "version": "0.1.0",
+    "description": "Verkfi tool: pi.",
+    "private": true,
+    "repository": "github:neila-a/verkfi",
+    "keywords": [
+        "verkfi"
+    ],
+    "bugs": {
+        "url": "https://github.com/neila-a/verkfi/issues",
+        "email": "neilaspace@outlook.com"
+    },
+    "main": "page.tsx",
+    "author": {
+        "name": "Neila",
+        "email": "neilaspace@outlook.com",
+        "url": "https://neilasite.netlify.app/"
+    },
+    "devDependencies": {},
+    "homepage": "https://netlify.verkfi.neila.vip/",
+    "dependencies": {
+        "@verkfi/shared": "workspace:../../shared",
+        "lp-logger": "github:neila-a/lp-logger-no-window",
+        "next": "^14.2.3"
+    }
+}

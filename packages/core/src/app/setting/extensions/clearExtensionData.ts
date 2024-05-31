@@ -2,18 +2,18 @@
 import {
     useAtom
 } from "jotai";
-import extensionsAtom from "atoms/extensions";
+import extensionsAtom from "@verkfi/shared/atoms/extensions";
 import {
     mostUsed as mostUsedAtom,
     recentlyUsed as recentlyUsedAtom
-} from "atoms";
+} from "@verkfi/shared/atoms";
 import {
     NXTMetadata,
     setting
 } from "./page";
 import {
     single
-} from "db";
+} from "@verkfi/shared/reader/db";
 export default function useClearExtensionData() {
     const [extensionsTools, setExtensions] = useAtom(extensionsAtom),
         [oldRecently, setRecently] = useAtom(recentlyUsedAtom),

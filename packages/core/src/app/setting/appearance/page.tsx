@@ -29,7 +29,7 @@ import {
     darkMode as darkModeAtom,
     gradientTool,
     paletteColors
-} from "atoms";
+} from "@verkfi/shared/atoms";
 import {
     Dispatch,
     useId
@@ -40,7 +40,7 @@ import {
 import {
     Switcher
 } from "setting/option/Switcher";
-import useStoragedState from "useStoragedState";
+import useStoragedState from "@verkfi/shared/reader/useStoragedState";
 import defaultInternalPalette from "./defaultInternalPalette";
 import defaultPalette from "./defaultPalette";
 import hues from "./hues";

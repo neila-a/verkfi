@@ -37,7 +37,7 @@ import {
 import {
     locales
 } from "layout/layoutClient";
-import langAtom from "atoms/lang";
+import langAtom from "@verkfi/shared/atoms/lang";
 export interface noIconTool {
 
     /**

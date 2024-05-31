@@ -13,10 +13,10 @@ import {
     useMediaQuery,
     useTheme
 } from "@mui/material";
-import MouseOverPopover from "components/Popover";
+import MouseOverPopover from "@verkfi/shared/Popover";
 import {
     single
-} from "db";
+} from "@verkfi/shared/reader/db";
 import {
     setState
 } from "declare";
@@ -31,7 +31,7 @@ import {
     NXTMetadata,
     inputTypes
 } from "./page";
-const PureDialog = dynamic(() => import("dialog/Pure"));
+const PureDialog = dynamic(() => import("@verkfi/shared/dialog/Pure"));
 export default function ToolViewer(props: {
     single: single;
     fileInfo: NXTMetadata;
