@@ -64,7 +64,6 @@ export default function Index(props: {
         [showSidebar] = useAtom(showSidebarAtom),
         [recentlyUsed] = useAtom(recentlyUsedAtom),
         mostUsed = useMostUsedTools(),
-        [sortedTools] = useAtom(sortedToolsAtom),
         [expandThis, setExpandThis] = useState<boolean>(false),
         [showTries, setShowTries] = useState<boolean>(false),
         [tools] = useAtom(toolsAtom),
