@@ -3,9 +3,6 @@ import {
     PaletteMode
 } from "@mui/material";
 import {
-    WindowOptions
-} from "../window/Window";
-import {
     viewMode as viewModeType
 } from "index/consts";
 import {
@@ -46,5 +43,4 @@ export const sidebarMode = atomWithStorage<sidebarMode>("sidebarmode", "边栏�
     recentlyUsed = atomWithStorage<string[]>("recently-tools", "最近使用的工具", []),
     mostUsed = atomWithStorage<mostUsedMarks>("most-tools", "最常使用的工具", {
     }),
-    lists = atomWithStorage<listsType>("lists", "分类列表", []),
-    windows = atom<WindowOptions[]>([]);
+    lists = atomWithStorage<listsType>("lists", "分类列表", []);

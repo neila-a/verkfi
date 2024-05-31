@@ -35,7 +35,6 @@ import {
 import enUS from "../locales/en-US.json";
 import zhCN from "../locales/zh-CN.json";
 import zhTW from "../locales/zh-TW.json";
-import WindowContainer from "./WindowContainer"; // 重的Window已经被动态加载，那么WindowContainer是轻的
 import {
     usableLangAtom
 } from "@verkfi/shared/atoms/lang";
@@ -119,7 +118,6 @@ export default function ModifiedApp(props: {
                 <Box component="main" ml={(showSidebarValue && sidebarModeValue === "sidebar") && ml}>
                     {props.children}
                 </Box>
-                <WindowContainer />
             </ThemeProvider>
         </Provider>
     );

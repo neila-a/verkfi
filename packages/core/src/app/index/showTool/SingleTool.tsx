@@ -24,8 +24,7 @@ import {
 import {
     booleanifyDarkMode,
     gradientTool as gradientToolAtom,
-    lists as listsAtom,
-    windows as windowsAtom
+    lists as listsAtom
 } from "@verkfi/shared/atoms";
 import {
     Route
@@ -63,6 +62,7 @@ import {
 import {
     isImplantContext
 } from "index/consts";
+import openWindow from "./openWindow";
 export default function SingleTool(props: {
     tool: tool;
     isFirst: boolean;
@@ -88,7 +88,6 @@ export default function SingleTool(props: {
         router = useRouter(),
         [editMode] = useAtom(editModeAtom),
         [lists, setLists] = useAtom(listsAtom),
-        [windows, setWindows] = useAtom(windowsAtom),
         [gradientTool] = useAtom(gradientToolAtom),
         [jumpto, setJumpTo] = useState<string>(""),
         [removeDialogOpen, setRemoveDialogOpen] = useState<boolean>(false),
@@ -130,26 +129,14 @@ export default function SingleTool(props: {
             event.preventDefault();
             if (tool.isGoto) {
                 if (tool.to.startsWith("/tools/extension")) {
-                    setWindows([...windows, {
-                        page: `${tool.to}&only=true`,
-                        to: tool.to,
-                        name: tool.name,
-                        color: tool.color,
-                        id: Math.random().toString().replace(/0\./g, "")
-                    }]);
+                    openWindow(`${tool.to}&only=true`);
                 } else {
                     setJumpDialogOpen(true);
                     setJumpTo(tool.to);
                     setJumpName(tool.name);
                 }
             } else {
-                setWindows([...windows, {
-                    page: `/tools/${tool.to}?only=true`,
-                    to: `/tools/${tool.to}`,
-                    color: tool.color,
-                    name: tool.name,
-                    id: Math.random().toString().replace(/0\./g, "")
-                }]);
+                openWindow(`/tools/${tool.to}?only=true`);
             }
         },
         handleClick = event => {
