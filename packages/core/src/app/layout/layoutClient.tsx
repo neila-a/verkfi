@@ -36,7 +36,9 @@ import enUS from "../locales/en-US.json";
 import zhCN from "../locales/zh-CN.json";
 import zhTW from "../locales/zh-TW.json";
 import WindowContainer from "./WindowContainer"; // 重的Window已经被动态加载，那么WindowContainer是轻的
-import langAtom from "@verkfi/shared/atoms/lang";
+import {
+    usableLangAtom
+} from "@verkfi/shared/atoms/lang";
 import composeProviders from "./providerCompose";
 import desktopAdder from "./registers/desktopAdder";
 import registerProtocolHandler from "./registers/registerProtocolHandler";
@@ -78,7 +80,7 @@ export default function ModifiedApp(props: {
         ),
         pathname = usePathname(),
         params = useSearchParams(),
-        [choosedLang] = useAtom(langAtom),
+        [choosedLang] = useAtom(usableLangAtom),
         [expand, setExpand] = useState<boolean>(false),
         [loaded, setLoaded] = useState<"" | keyof typeof locales>(""),
         implant = (pathname === "/") || (params.get("only") === "true"),

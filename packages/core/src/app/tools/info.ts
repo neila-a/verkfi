@@ -37,7 +37,9 @@ import {
 import {
     locales
 } from "layout/layoutClient";
-import langAtom from "@verkfi/shared/atoms/lang";
+import {
+    usableLangAtom
+} from "@verkfi/shared/atoms/lang";
 export interface noIconTool {
 
     /**
@@ -90,7 +92,7 @@ export interface tool extends noIconTool {
 }
 const toolsInfoAtom = atom(async getAtom => {
     const instance = new ReactIntlUniversal() as typeof import("react-intl-universal"),
-        lang = await getAtom(langAtom);
+        lang = await getAtom(usableLangAtom);
     instance.init({
         currentLocale: lang,
         locales

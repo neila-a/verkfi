@@ -86,7 +86,7 @@ export default function Options() {
                 {get("选择语言")}
             </InputLabel>
             <Select labelId={langId} value={lang} label={get("选择语言")} onChange={event => {
-                const plang = event.target.value as keyof typeof locales;
+                const plang = event.target.value as typeof lang;
                 setLang(plang);
             }}>
                 {Object.values(locales).map(ilang => {
@@ -100,6 +100,9 @@ export default function Options() {
                         </MenuItem>
                     );
                 })}
+                <MenuItem value="system">
+                    {get("appearance.colorMode.system")}
+                </MenuItem>
             </Select>
             <br />
             <ButtonGroup fullWidth>
