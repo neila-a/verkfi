@@ -42,7 +42,6 @@ import toolsInfoAtom, {
     tool
 } from "tools/info";
 import {
-    sortedToolsAtom,
     sortingForAtom,
     sortingForAtomValue,
     tabAtom,

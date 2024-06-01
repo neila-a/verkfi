@@ -1,5 +1,11 @@
 import getRepoInfo from "@verkfi/shared/getRepoInfo";
 import pack from "../../package.json";
+import favicon310x310 from "./image/favicon.310x310.png";
+import favicon512x512 from "./image/favicon.512x512.png";
+import maskableIcon from "./image/maskable_icon.png";
+import settingIcon from "./image/settings.png";
+import narrowHomepage from "./image/screenshots/narrow_homepage.png";
+import wideHomepage from "./image/screenshots/wide_homepage.png";
 export default async function manifest() {
     const repoInfo = await getRepoInfo(),
         upper = repoInfo.name.charAt(0).toUpperCase() + repoInfo.name.slice(1);
@@ -17,19 +23,19 @@ export default async function manifest() {
         },
         icons: [
             {
-                src: "/image/favicon.310x310.png",
+                src: favicon310x310.src,
                 sizes: "310x310",
                 type: "image/png",
                 purpose: "any"
             },
             {
-                src: "/image/favicon.512x512.png",
+                src: favicon512x512.src,
                 sizes: "512x512",
                 type: "image/png",
                 purpose: "any"
             },
             {
-                src: "/image/maskable_icon.png",
+                src: maskableIcon.src,
                 sizes: "731x731",
                 type: "image/png",
                 purpose: "maskable"
@@ -43,7 +49,7 @@ export default async function manifest() {
                 url: "/setting/option",
                 icons: [
                     {
-                        src: "/image/settings.png",
+                        src: settingIcon.src,
                         sizes: "96x96"
                     }
                 ]
@@ -74,14 +80,14 @@ export default async function manifest() {
         },
         screenshots: [
             {
-                src: "/image/screenshots/narrow_homepage.png",
+                src: narrowHomepage.src,
                 sizes: "430x933",
                 type: "image/png",
                 form_factor: "narrow",
                 label: "Home of Verkfi"
             },
             {
-                src: "/image/screenshots/wide_homepage.png",
+                src: wideHomepage.src,
                 sizes: "1505x782",
                 type: "image/png",
                 form_factor: "wide",

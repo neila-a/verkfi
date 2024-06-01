@@ -1,5 +1,5 @@
 <div style="text-align: center">
-    <img alt="Social" src="./public/image/social.png" />
+    <img alt="Social" src="./packages/core/src/app/image/social.png" />
 </div>
 
 # Verkfi

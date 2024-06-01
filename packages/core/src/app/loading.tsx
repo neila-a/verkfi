@@ -6,6 +6,7 @@ import Image from "next/image";
 import {
     ReactNode
 } from "react";
+import favicon from "./image/favicon.svg";
 export default function Loading(props: {
     children?: ReactNode;
 }) {
@@ -22,7 +23,7 @@ export default function Loading(props: {
             justifyContent: "space-evenly",
             alignItems: "center"
         }}>
-            <Image src="/image/favicon.svg" width={160} height={160} alt="VerkfiIcon" />
+            <Image src={favicon} width={160} height={160} alt="VerkfiIcon" />
             {isLoading ? (
                 <LinearProgress color="secondary" sx={{
                     width: 160

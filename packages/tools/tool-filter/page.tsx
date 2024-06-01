@@ -32,10 +32,11 @@ import {
     ImageTypesGen
 } from "./consts";
 import SingleImage from "./singleImage";
+import libearOnly from "./image/libear-only.png";
 export default function Filter(): JSX.Element {
     const [imageArray, setImageArray] = useState<FilePondFile[]>([]),
         [imageFileName, setImageFileName] = useState<string>("libear-only"),
-        [imageURL, setImageURL] = useState<string>("/image/libear-only.png"),
+        [imageURL, setImageURL] = useState<string>(libearOnly.src),
         [imageTypes, setImageTypes] = useState<ImageType[]>(ImageTypesGen),
         [scale, setScale] = useState<number>(100),
         sizeId = useId(),

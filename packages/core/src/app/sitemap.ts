@@ -2,7 +2,7 @@ import {
     MetadataRoute
 } from "next";
 import pack from "../../package.json";
-import pages from "./pages.json";
+import pages from "../pages.json";
 export default function sitemap(): MetadataRoute.Sitemap {
     let url = new URL(pack.homepage);
     try {

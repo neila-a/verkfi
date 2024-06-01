@@ -13,8 +13,7 @@ self.addEventListener("install", async event => event.waitUntil((async () => {
     const openedCache = await caches.open(Cache);
     try {
         await openedCache.addAll([
-            "/index.webmanifest",
-            "/image/favicon.png"
+            "/index.webmanifest"
         ].concat(pages));
     } catch (error) {
         console.error(error);
