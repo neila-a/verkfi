@@ -41,6 +41,7 @@ bower_components
 build/Release
 out
 service-worker.js
+service-worker.js.map
 next.config.js
 *.vxt
 

@@ -45,7 +45,20 @@ async function publicMain() {
     });
     const pagesJSON = JSON.stringify(pages, null, 4);
     fs.writeFileSync("./src/app/pages.json", pagesJSON);
-    const logbuild: <BuildOptions>(result: BuildResult<BuildOptions>, filename: string) => void = (result, filename) => {
+    const NextConfig = await build({
+            entryPoints: ["next.config.ts"],
+            outfile: "next.config.js",
+            format: "cjs",
+            platform: "node"
+        }),
+        ServiceWorker = await build({
+            entryPoints: ["./src/app/service-worker/index.ts"],
+            outfile: "public/service-worker.js",
+            bundle: true,
+            sourcemap: "linked",
+            minify: true
+        });
+    function logbuild<BuildOptions>(result: BuildResult<BuildOptions>, filename: string) {
         logger.log(`正在编译${filename}……`);
         const log = (message: [Message[], string]) => {
             if (message[0].length === 0) {
@@ -56,19 +69,7 @@ async function publicMain() {
         };
         log([result.errors, "错误"]);
         log([result.warnings, "警告"]);
-    },
-        NextConfig = await build({
-            entryPoints: ["next.config.ts"],
-            outfile: "next.config.js",
-            format: "cjs",
-            platform: "node"
-        }),
-        ServiceWorker = await build({
-            entryPoints: ["./src/app/service-worker.ts"],
-            outfile: "public/service-worker.js",
-            bundle: true,
-            minify: true
-        });
+    }
     logbuild(NextConfig, "next.config.ts");
     logbuild(ServiceWorker, "service-worker.ts");
     return pagesJSON;

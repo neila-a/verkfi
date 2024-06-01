@@ -129,14 +129,14 @@ export default function SingleTool(props: {
             event.preventDefault();
             if (tool.isGoto) {
                 if (tool.to.startsWith("/tools/extension")) {
-                    openWindow(`${tool.to}&only=true`);
+                    await openWindow(`${tool.to}&only=true`);
                 } else {
                     setJumpDialogOpen(true);
                     setJumpTo(tool.to);
                     setJumpName(tool.name);
                 }
             } else {
-                openWindow(`/tools/${tool.to}?only=true`);
+                await openWindow(`/tools/${tool.to}?only=true`);
             }
         },
         handleClick = event => {
