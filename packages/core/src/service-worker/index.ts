@@ -2,7 +2,7 @@ import {
     dev,
     devVersion,
     version
-} from "../../../package.json";
+} from "../../package.json";
 import pages from "../pages.json";
 import onFetch from "./onFetch";
 declare const self: ServiceWorkerGlobalScope;

@@ -44,7 +44,7 @@ async function publicMain() {
         }
     });
     const pagesJSON = JSON.stringify(pages, null, 4);
-    fs.writeFileSync("./src/app/pages.json", pagesJSON);
+    fs.writeFileSync("./src/pages.json", pagesJSON);
     const NextConfig = await build({
             entryPoints: ["next.config.ts"],
             outfile: "next.config.js",
@@ -52,7 +52,7 @@ async function publicMain() {
             platform: "node"
         }),
         ServiceWorker = await build({
-            entryPoints: ["./src/app/service-worker/index.ts"],
+            entryPoints: ["./src/service-worker/index.ts"],
             outfile: "public/service-worker.js",
             bundle: true,
             sourcemap: "linked",
