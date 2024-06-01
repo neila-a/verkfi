@@ -109,7 +109,7 @@ export default function Filter(): JSX.Element {
                                 min: 0,
                                 max: 200,
                                 type: "number",
-                                "aria-labelledby": "input-slider"
+                                "aria-labelledby": sizeId
                             }}
                         />
                     </Grid>
@@ -126,7 +126,9 @@ export default function Filter(): JSX.Element {
                 </No>
             ) : (
                 <ImageList>
-                    {imageTypes.map(type => <SingleImage scale={scale} imageURL={imageURL} imageFileName={imageFileName} type={type} key={type} />)}
+                    {imageTypes.map(type => (
+                        <SingleImage scale={scale} imageURL={imageURL} imageFileName={imageFileName} type={type} key={type} />
+                    ))}
                 </ImageList>
             )}
         </>

@@ -39,7 +39,7 @@ export default function Error(props: {
                 </Button>
                 <Button variant="outlined" onClick={async event => {
                     const keylist = await caches.keys();
-                    keylist.map(async key => {
+                    keylist.forEach(async key => {
                         logger.log(`已删除缓存“${key}”`);
                         return await caches.delete(key);
                     });

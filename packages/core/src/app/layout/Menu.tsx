@@ -26,7 +26,6 @@ import convertExtensionTools from "index/convertExtensionTools";
 import ToolsStack from "index/showTool";
 import SwitchEditMode from "index/sidebar/buttons/SwitchEditMode";
 import SwitchViewMode from "index/sidebar/buttons/SwitchViewMode";
-import searchBase from "index/sidebar/searchBase";
 import Selects from "index/sidebar/selects";
 import toolsListAtom from "@verkfi/shared/atoms/toolsList";
 import useMostUsedTools from "index/useMostUsedTools";

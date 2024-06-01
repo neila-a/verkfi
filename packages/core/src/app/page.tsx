@@ -66,7 +66,6 @@ export default function Index(props: {
         [expandThis, setExpandThis] = useState<boolean>(false),
         [showTries, setShowTries] = useState<boolean>(false),
         [tools] = useAtom(toolsAtom),
-        setTools = useAtom(toolsAtom)[1],
         [tab] = useAtom(tabAtom),
         sortingFor = useAtom(sortingForAtom)[0](props.isImplant),
         [baseSortingFor] = useAtom(sortingForAtomValue),
