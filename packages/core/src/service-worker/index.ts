@@ -5,6 +5,7 @@ import {
 } from "../../package.json";
 import pages from "../pages.json";
 import onFetch from "./onFetch";
+import onMessage from "./onMessage";
 declare const self: ServiceWorkerGlobalScope;
 export const Cache = `Verkfi-${version}-${dev === true ? `dev${devVersion}` : "prod"}`,
     log = (text: string) => console.log(`%cServiceWorker`, `background: #52c41a;border-radius: 0.5em;color: white;font-weight: bold;padding: 2px 0.5em`, text);
@@ -31,39 +32,5 @@ self.addEventListener("activate", event => event.waitUntil((async () => {
     return self.clients.claim();
 })()));
 self.addEventListener("fetch", event => event.respondWith(onFetch(event)));
-export interface message {
-    action: "getClients" | "navigate";
-    /**
-     * navigate action 中要聚焦的 ID
-     */
-    id: string;
-    /**
-     * navigate action 中要聚焦的 URL
-     */
-    url: string;
-}
-self.addEventListener("message", event => event.waitUntil((async () => {
-    const data = event.data as message,
-        port = event.ports[0];
-    switch (data.action) {
-        case "getClients":
-            port.postMessage((await self.clients.matchAll({
-                type: "window"
-            })).map(client => ({
-                id: client.id,
-                url: client.url
-            })));
-            break;
-        case "navigate":
-            const client = await self.clients.get(data.id) as WindowClient;
-            await client.navigate(data.url);
-            port.postMessage((await self.clients.matchAll({
-                type: "window"
-            })).map(client => ({
-                id: client.id,
-                url: client.url
-            })));
-            break;
-    }
-})()));
+self.addEventListener("message", event => event.waitUntil(onMessage(event)));
 export default Cache;

@@ -31,6 +31,7 @@
         "@next/bundle-analyzer": "^14.2.3",
         "esbuild": "^0.21.4",
         "eslint-config-next": "^14.2.3",
+        "@types/react-transition-group": "^4.4.10",
         "eslint-plugin-react-hooks": "^4.6.2"
     },
     "homepage": "https://netlify.verkfi.neila.vip/",

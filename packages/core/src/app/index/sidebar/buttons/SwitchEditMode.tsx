@@ -8,9 +8,6 @@ import {
 } from "@mui/material";
 import MouseOverPopover from "@verkfi/shared/Popover";
 import {
-    setState
-} from "declare";
-import {
     editModeAtom
 } from "index/atoms";
 import {

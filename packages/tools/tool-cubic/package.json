@@ -17,7 +17,9 @@
         "email": "neilaspace@outlook.com",
         "url": "https://neilasite.netlify.app/"
     },
-    "devDependencies": {},
+    "devDependencies": {
+        "@types/three": "^0.164.1"
+    },
     "homepage": "https://netlify.verkfi.neila.vip/",
     "dependencies": {
         "@react-three/drei": "^9.106.0",

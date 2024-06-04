@@ -5,7 +5,7 @@ import {
 } from "react";
 import {
     message
-} from "../../service-worker";
+} from "../../service-worker/onMessage";
 import toolsInfoAtom, {
     tool
 } from "tools/info";

@@ -17,7 +17,10 @@
         "email": "neilaspace@outlook.com",
         "url": "https://neilasite.netlify.app/"
     },
-    "devDependencies": {},
+    "devDependencies": {
+        "@types/dom-to-image": "^2.6.7",
+        "@types/file-saver": "^2.0.7"
+    },
     "homepage": "https://netlify.verkfi.neila.vip/",
     "dependencies": {
         "@verkfi/shared": "workspace:../../shared",

@@ -3,7 +3,14 @@ import {
     Cache,
     log
 } from ".";
-namespace paths {
+function testPaths(url: string, ...path: [keyof typeof testPaths, (tested: URLPatternResult) => any][]) {
+    return Promise.all(path.map(async aPath => {
+        if (testPaths[aPath[0]].test(url)) {
+            await aPath[1](testPaths[aPath[0]].exec(url));
+        }
+    }));
+}
+namespace testPaths {
     export const
         handle = new URLPattern({
             pathname: "/handle",
@@ -19,11 +26,6 @@ namespace paths {
             search: "?_rsc=:rsc"
         });
 }
-const testPaths = (url: string, ...path: [keyof typeof paths, (tested: URLPatternResult) => any][]) => Promise.all(path.map(async aPath => {
-    if (paths[aPath[0]].test(url)) {
-        await aPath[1](paths[aPath[0]].exec(url));
-    }
-}));
 /**
  * 判断顺序：handle -> customRoute -> /tools/extension -> _rsc -> fetch -> cache
  * handle：自定义，并且要快
