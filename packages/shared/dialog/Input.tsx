@@ -5,8 +5,10 @@ import {
     DialogContent,
     DialogContentText,
     DialogTitle,
+    SxProps,
     TextField,
-    TextFieldProps
+    TextFieldProps,
+    Theme
 } from "@mui/material";
 import {
     useState
@@ -22,6 +24,7 @@ export default function InputDialog(props: {
     onDone(context: string): any;
     onCancel?: () => any;
     inputAdd?: Omit<TextFieldProps, "autoFocus" | "margin" | "label" | "fullWidth" | "variant" | "onChange">;
+    sx?: SxProps<Theme>
     open: boolean;
 }) {
     const [input, setInput] = useState<string>(""),
@@ -31,7 +34,7 @@ export default function InputDialog(props: {
             }
         };
     return (
-        <Dialog open={props.open} onClose={handleClose} TransitionComponent={Transition} keepMounted>
+        <Dialog open={props.open} onClose={handleClose} TransitionComponent={Transition} keepMounted sx={props?.sx}>
             <DialogTitle>
                 {props.title}
             </DialogTitle>

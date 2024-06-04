@@ -357,5 +357,14 @@
 		"changeSize": "更改窗口大小",
 		"maxmize": "最大化",
 		"expand": "展开"
+	},
+	"clients": {
+		"navigate": "更改路径",
+		"navigateInput":"请输入路径",
+		"search": "根据路径搜索页面",
+		"open": "切换页面",
+		"sync": "刷新",
+		"notfound": "未找到页面",
+		"openNew": "以{path}为路径创建一个新页面"
 	}
 }

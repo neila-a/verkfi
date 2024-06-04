@@ -35,6 +35,7 @@ import {
 } from "next/navigation";
 import {
     Fragment,
+    ReactNode,
     createElement,
     useContext,
     useState
@@ -45,7 +46,7 @@ import {
 import {
     NXTMetadata
 } from "setting/extensions/page";
-import toolsInfoAtom, {
+import {
     tool
 } from "tools/info";
 import DownButton from "../sorting/DownButton";
@@ -65,16 +66,15 @@ import {
 import openWindow from "./openWindow";
 export default function SingleTool(props: {
     tool: tool;
-    isFirst: boolean;
+    actions?: ReactNode;
     focus?: boolean;
+    disableClick?: boolean;
 }) {
     const
         {
             tool
         } = props,
         isImplant = useContext(isImplantContext),
-        [realTools] = useAtom(toolsInfoAtom),
-        [tools] = useAtom(toolsAtom),
         setTools = useAtom(toolsAtom)[1],
         sortingFor = useAtom(sortingForAtom)[0](isImplant),
         [viewMode] = useAtom(viewModeAtom),
@@ -104,61 +104,69 @@ export default function SingleTool(props: {
             tool: tool,
             sortingFor: sortingFor
         },
-        iframe = (
-            <Collapse in={props.focus} sx={{
-                width: "100%",
-                ["& .MuiCollapse-wrapperInner"]: {
-                    width: "100%"
-                }
-            }}>
-                {!props.focus && (
-                    <Box className="iframe-placeholder" sx={{
-                        height: "150px"
-                    }} />
-                )}
-                {props.focus && (
-                    <iframe style={{
-                        border: "none",
-                        width: "100%",
-                        height: "150px"
-                    }} src={tool.isGoto ? (!tool.to.startsWith("/") ? tool.to : `${tool.to}&only=true`) : `/tools/${tool.to}?only=true`} />
-                )}
-            </Collapse>
+        iframe = props.focus && !props?.actions && (
+            <CardContent>
+                <Collapse in={props.focus} sx={{
+                    width: "100%",
+                    ["& .MuiCollapse-wrapperInner"]: {
+                        width: "100%"
+                    }
+                }}>
+                    {!props.focus && (
+                        <Box className="iframe-placeholder" sx={{
+                            height: "150px"
+                        }} />
+                    )}
+                    {props.focus && (
+                        <iframe style={{
+                            border: "none",
+                            width: "100%",
+                            height: "150px"
+                        }} src={tool.isGoto ? (!tool.to.startsWith("/") ? tool.to : `${tool.to}&only=true`) : `/tools/${tool.to}?only=true`} />
+                    )}
+                </Collapse>
+            </CardContent>
         ),
         handleRightClick = async event => {
             event.preventDefault();
-            if (tool.isGoto) {
-                if (tool.to.startsWith("/tools/extension")) {
-                    await openWindow(`${tool.to}&only=true`);
+            if (!props?.disableClick) {
+                if (tool.isGoto) {
+                    if (tool.to.startsWith("/tools/extension")) {
+                        await openWindow(`${tool.to}&only=true`);
+                    } else {
+                        setJumpDialogOpen(true);
+                        setJumpTo(tool.to);
+                        setJumpName(tool.name);
+                    }
                 } else {
-                    setJumpDialogOpen(true);
-                    setJumpTo(tool.to);
-                    setJumpName(tool.name);
+                    await openWindow(`/tools/${tool.to}?only=true`);
                 }
-            } else {
-                await openWindow(`/tools/${tool.to}?only=true`);
             }
         },
         handleClick = event => {
-            if (tool.isGoto) {
-                if (tool.to.startsWith("/tools/extension")) {
-                    router.push(tool.to as Route);
+            if (!props?.disableClick) {
+                if (tool.isGoto) {
+                    if (tool.to.startsWith("/tools/extension")) {
+                        router.push(tool.to as Route);
+                    } else {
+                        setJumpDialogOpen(true);
+                        setJumpTo(tool.to);
+                        setJumpName(tool.name);
+                    }
                 } else {
-                    setJumpDialogOpen(true);
-                    setJumpTo(tool.to);
-                    setJumpName(tool.name);
+                    router.push(`/tools/${tool.to}` as Route);
                 }
-            } else {
-                router.push(`/tools/${tool.to}` as Route);
             }
         },
         handleMouseEnter = event => {
-            if (tool.isGoto) {
-                if (tool.to.startsWith("/tools/extension")) {
-                    router.prefetch(tool.to as Route);
+            if (!props?.disableClick) {
+                if (tool.isGoto) {
+                    if (tool.to.startsWith("/tools/extension")) {
+                        router.prefetch(tool.to as Route);
+                    }
+                } else {
+                    router.prefetch(`/tools/${tool.to}` as Route);
                 }
-            } else {
-                router.prefetch(`/tools/${tool.to}` as Route);
             }
             setElevation(8);
         },
@@ -207,6 +215,18 @@ export default function SingleTool(props: {
                 )}
             </>
         ),
+        actions = props?.actions && (
+            <CardActions sx={{
+                justifyContent: "center",
+                alignItems: "center"
+            }} onClick={event => {
+                event.stopPropagation();
+            }} classes={{
+                root: "singleTool-editControler"
+            }}>
+                {props?.actions}
+            </CardActions>
+        ),
         grid = (
             <Card elevation={elevation} id={`toolAbleToSelect-${tool.to}`} onClick={handleClick} onContextMenu={handleRightClick} sx={{
                 width: `min(275px, ${fullWidth})`,
@@ -241,11 +261,8 @@ export default function SingleTool(props: {
                         {deleteButtons}
                     </CardActions>
                 )}
-                {props.focus && (
-                    <CardContent>
-                        {iframe}
-                    </CardContent>
-                )}
+                {actions}
+                {iframe}
             </Card>
         ),
         list = (
@@ -303,12 +320,9 @@ export default function SingleTool(props: {
                             <DragIndicatorIcon />
                         </CardActions>
                     )}
+                    {actions}
                 </Box>
-                {props.focus && (
-                    <CardContent>
-                        {iframe}
-                    </CardContent>
-                )}
+                {iframe}
             </Card>
         );
     return (

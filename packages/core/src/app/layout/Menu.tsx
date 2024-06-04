@@ -41,8 +41,7 @@ import {
 } from "@verkfi/shared/atoms";
 import Link from "next/link";
 import {
-    useContext,
-    useState
+    useContext
 } from "react";
 import {
     get

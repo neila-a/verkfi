@@ -2,11 +2,13 @@ import {
     ArrowBack,
     Menu as MenuIcon,
     MenuOpen,
+    Pages,
     Settings as SettingsIcon,
     Share as ShareIcon
 } from "@mui/icons-material";
 import {
     AppBar,
+    Badge,
     Box,
     IconButton,
     Toolbar,
@@ -25,6 +27,7 @@ import {
 import {
     forkMeOnGitHub as forkMeOnGitHubAtom,
     share as shareAtom,
+    showClients,
     showSidebar
 } from "./atoms";
 import Link from "next/link";
@@ -40,6 +43,9 @@ import {
     get
 } from "react-intl-universal";
 import MouseOverPopover from "./Popover";
+import {
+    clientsAtom
+} from "layout/atoms";
 export interface HeadBarOption {
     pageName: string;
     isIndex: boolean;
@@ -57,9 +63,11 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
     const repoInfoName = useContext(repoInfoContext).name,
         [forkMeOnGithub] = useAtom(forkMeOnGitHubAtom),
         router = useRouter(),
+        [clients] = useAtom(clientsAtom),
         upper = repoInfoName.charAt(0).toUpperCase() + repoInfoName.slice(1),
         [share] = useAtom(shareAtom),
         [showSidebarValue, setShowSidebar] = useAtom(showSidebar),
+        [showClientsValue, setShowClients] = useAtom(showClients),
         noDrag: CSSProperties = {
             // @ts-ignore React的CSSProperties中明明有WebkitAppRegion，但是类型中没有
             WebkitAppRegion: "no-drag"
@@ -94,13 +102,23 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
                     }}>
                         {props.isIndex ? upper : props.pageName}
                     </Typography>
+                    <MouseOverPopover text={get("clients.open")}>
+                        <IconButton onClick={event => {
+                            setShowClients(!showClientsValue);
+                        }} size="large" edge="end" color="inherit" aria-label={get("clients.open")} sx={{
+                            ...noDrag
+                        }}>
+                            <Badge badgeContent={clients.length} color="secondary">
+                                <Pages />
+                            </Badge>
+                        </IconButton>
+                    </MouseOverPopover>
                     {!props.isIndex && (
                         showSidebarValue ? (
                             <MouseOverPopover text={get("menu.关闭菜单")}>
                                 <IconButton onClick={event => {
                                     setShowSidebar(!showSidebarValue);
                                 }} size="large" edge="end" color="inherit" aria-label={get("menu.关闭菜单")} sx={{
-                                    mr: 1,
                                     ...noDrag
                                 }}>
                                     <MenuOpen />
@@ -111,7 +129,6 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
                                 <IconButton onClick={event => {
                                     setShowSidebar(!showSidebarValue);
                                 }} size="large" edge="end" color="inherit" aria-label={get("menu.打开菜单")} sx={{
-                                    mr: 1,
                                     ...noDrag
                                 }}>
                                     <MenuIcon />
@@ -132,9 +149,7 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
                                         url: location.href
                                     });
                                 }
-                            }} size="large" edge="end" color="inherit" aria-label={get("share.t")} sx={{
-                                mr: 1
-                            }}>
+                            }} size="large" edge="end" color="inherit" aria-label={get("share.t")}>
                                 <ShareIcon />
                             </IconButton>
                         </MouseOverPopover>
@@ -148,55 +163,50 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
                             color: "inherit"
                         }}>
                             <MouseOverPopover text={get("设置")}>
-                                <IconButton size="large" edge="end" color="inherit" aria-label={get("设置")} sx={{
-                                    mr: 1
-                                }}>
+                                <IconButton size="large" edge="end" color="inherit" aria-label={get("设置")}>
                                     <SettingsIcon />
                                 </IconButton>
                             </MouseOverPopover>
                         </Link>
                     </nav>
                 </Toolbar>
-            </AppBar >
-            {
-                forkMeOnGithub ? (
-                    <Box sx={{
-                        position: "fixed",
-                        width: 150,
-                        height: 150,
+            </AppBar>
+            {forkMeOnGithub ? (
+                <Box sx={{
+                    position: "fixed",
+                    width: 150,
+                    height: 150,
+                    overflow: "hidden",
+                    zIndex: "99999",
+                    top: 0,
+                    [props.isIndex ? "left" : "right"]: 0
+                }}>
+                    <a href="https://github.com/neila-a/verkfi.git" style={{
+                        transform: props.isIndex ? "rotate(-45deg)" : "rotate(45deg)",
+                        [props.isIndex ? "left" : "right"]: -40,
+                        display: "inline-block",
+                        width: 200,
                         overflow: "hidden",
-                        zIndex: "99999",
-                        top: 0,
-                        [props.isIndex ? "left" : "right"]: 0
+                        padding: "6px 0px",
+                        textAlign: "center",
+                        textDecoration: "none",
+                        color: "rgb(255, 255, 255)",
+                        position: "inherit",
+                        borderWidth: "1px 0px",
+                        borderStyle: "dotted",
+                        borderColor: "rgba(255, 255, 255, 0.7)",
+                        fontWeight: 700,
+                        fontSize: 13,
+                        boxShadow: "rgba(0, 0, 0, 0.5) 0px 2px 3px 0px",
+                        backgroundColor: "rgb(170, 0, 0)",
+                        backgroundImage: "linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15))",
+                        top: 45
                     }}>
-                        <a href="https://github.com/neila-a/verkfi.git" style={{
-                            transform: props.isIndex ? "rotate(-45deg)" : "rotate(45deg)",
-                            [props.isIndex ? "left" : "right"]: -40,
-                            display: "inline-block",
-                            width: 200,
-                            overflow: "hidden",
-                            padding: "6px 0px",
-                            textAlign: "center",
-                            textDecoration: "none",
-                            color: "rgb(255, 255, 255)",
-                            position: "inherit",
-                            borderWidth: "1px 0px",
-                            borderStyle: "dotted",
-                            borderColor: "rgba(255, 255, 255, 0.7)",
-                            fontWeight: 700,
-                            fontSize: 13,
-                            boxShadow: "rgba(0, 0, 0, 0.5) 0px 2px 3px 0px",
-                            backgroundColor: "rgb(170, 0, 0)",
-                            backgroundImage: "linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15))",
-                            top: 45
-                        }}>
-                            Fork me on GitHub
-                        </a>
-                    </Box>
-                ) : <Fragment />
-            }
-
-            < Toolbar />
+                        Fork me on GitHub
+                    </a>
+                </Box>
+            ) : <Fragment />}
+            <Toolbar />
         </>
     );
 }

@@ -23,6 +23,18 @@
             "name": "针对 localhost:3000 启动 Edge",
             "url": "http://localhost:3000",
             "webRoot": "${workspaceFolder}"
+        },
+        {
+            "cwd": "${workspaceFolder}/packages/core",
+            "name": "Next.js: debug full stack",
+            "type": "node-terminal",
+            "request": "launch",
+            "command": "npm run dev",
+            "serverReadyAction": {
+                "pattern": "- Local:.+(https?://.+)",
+                "uriFormat": "%s",
+                "action": "debugWithEdge"
+            }
         }
     ]
 }

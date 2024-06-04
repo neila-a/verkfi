@@ -19,7 +19,7 @@ export const editModeAtom = atom(false),
         if (get(sortingForAtom)(isImplant) === "__home__") {
             set(sortingForAtom, "__global__");
         }
-        set(toolsAtom, (searchBase(get(sortedToolsAtom), search)));
+        set(toolsAtom, searchBase(get(sortedToolsAtom), search));
         set(searchTextAtomValue, search);
     }),
     toolsAtom = atom(get => {

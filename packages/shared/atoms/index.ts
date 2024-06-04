@@ -20,6 +20,7 @@ interface mostUsedMarks {
 export type sidebarMode = "menu" | "sidebar";
 export const sidebarMode = atomWithStorage<sidebarMode>("sidebarmode", "边栏模式", "menu"),
     showSidebar = atomWithStorage<boolean>("sidebar", "边栏", false),
+    showClients = atomWithStorage<boolean>("clients", "切换页面", false),
     forkMeOnGitHub = atomWithStorage<boolean>("fork-me-on-github", "Fork me on GitHub", false),
     share = atomWithStorage<boolean>("share", "分享", isBrowser() ? "share" in navigator : false),
     paletteColors = atomWithStorage<typeof defaultPalette>("palette", "调色板", defaultPalette),
@@ -39,7 +40,8 @@ export const sidebarMode = atomWithStorage<sidebarMode>("sidebarmode", "边栏�
                 break;
         }
         return value;
-    }), gradientTool = atomWithStorage<boolean>("gradient-tool", "工具渐变", false),
+    }),
+    gradientTool = atomWithStorage<boolean>("gradient-tool", "工具渐变", false),
     recentlyUsed = atomWithStorage<string[]>("recently-tools", "最近使用的工具", []),
     mostUsed = atomWithStorage<mostUsedMarks>("most-tools", "最常使用的工具", {
     }),

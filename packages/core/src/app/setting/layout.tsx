@@ -1,11 +1,5 @@
 "use client";
 import {
-    Extension as ExtensionIcon,
-    Info as InfoIcon,
-    Palette as PaletteIcon,
-    Settings as SettingsIcon
-} from "@mui/icons-material";
-import {
     Box,
     Drawer,
     FormControlLabel,
@@ -20,16 +14,17 @@ import {
 import ErrorBoundary from "@verkfi/shared/ErrorBoundary";
 import HeadBar from "@verkfi/shared/HeadBar";
 import {
+    showSidebar as showSidebarAtom,
+    sidebarMode as sidebarModeAtom
+} from "@verkfi/shared/atoms";
+import extensionsAtom from "@verkfi/shared/atoms/extensions";
+import {
     type default as VerkfiIcon
 } from "@verkfi/shared/verkfiIcon/verkfiIcon";
 import {
     useAtom
 } from "jotai";
-import extensionsAtom from "@verkfi/shared/atoms/extensions";
-import {
-    showSidebar as showSidebarAtom,
-    sidebarMode as sidebarModeAtom
-} from "@verkfi/shared/atoms";
+import Loading from "loading";
 import {
     Route
 } from "next";
@@ -48,7 +43,7 @@ import {
 import {
     drawerWidth
 } from "./consts";
-import Loading from "loading";
+import setsAtom from "./setsAtom";
 export type settingPage = "option" | "about" | "extensions" | "appearance";
 export interface set {
     name: string;
@@ -61,30 +56,9 @@ export interface ThemeHaveZIndex {
     }
 }
 export default function Settings(props: {
-    children: ReactNode
+    children: ReactNode;
 }): JSX.Element {
-    const sets: set[] = [
-        {
-            name: get("选项"),
-            id: "option",
-            Icon: SettingsIcon
-        },
-        {
-            name: get("关于"),
-            id: "about",
-            Icon: InfoIcon
-        },
-        {
-            name: get("extensions.扩展"),
-            id: "extensions",
-            Icon: ExtensionIcon
-        },
-        {
-            name: get("外观"),
-            id: "appearance",
-            Icon: PaletteIcon
-        }
-    ] as const,
+    const [sets] = useAtom(setsAtom),
         router = useRouter(),
         [extensionTools, setExtensions] = useAtom(extensionsAtom),
         id = useSelectedLayoutSegment(),

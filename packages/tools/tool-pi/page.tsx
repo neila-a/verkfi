@@ -25,7 +25,7 @@ function PI(): JSX.Element {
         [out, setOut] = useState("");
     return (
         <>
-            <Box id="input">
+            <FormGroup>
                 <TextField id="digit" label={get("pi.π的小数点后位数")} variant="outlined" value={digits} type="number" onChange={event => {
                     const digit = Math.round(Number(event.target.value));
                     setDigits(digit);
@@ -36,8 +36,6 @@ function PI(): JSX.Element {
                     }
                     return setOut(retinfo);
                 }} />
-            </Box>
-            <FormGroup>
                 <FormControlLabel control={
                     <Switch checked={useAlertShow} onClick={event => setUseAlertShow(old => !old)} />
                 } label={get("用提示框显示结果")} />
@@ -48,7 +46,10 @@ function PI(): JSX.Element {
                         {get("结果")}
                     </Typography>
                     <CopyButton add={{
-                        variant: "contained"
+                        variant: "contained",
+                        sx: {
+                            mb: 1
+                        }
                     }}>
                         {out}
                     </CopyButton>

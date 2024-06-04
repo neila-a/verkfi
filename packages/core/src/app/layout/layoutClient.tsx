@@ -49,6 +49,7 @@ import {
     showSidebar
 } from "@verkfi/shared/atoms";
 import isBrowser from "@verkfi/shared/isBrowser";
+import Clients from "./Clients";
 export const locales = {
     enUS,
     zhCN,
@@ -114,6 +115,7 @@ export default function ModifiedApp(props: {
                 <CssBaseline />
                 <Box component="aside">
                     {Sidebar}
+                    <Clients />
                 </Box>
                 <Box component="main" ml={(showSidebarValue && sidebarModeValue === "sidebar") && ml}>
                     {props.children}

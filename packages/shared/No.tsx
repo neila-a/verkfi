@@ -6,8 +6,11 @@ import {
     Box,
     Typography
 } from "@mui/material";
+import {
+    ReactNode
+} from "react";
 export default function No(props: {
-    children: string;
+    children: ReactNode;
 }) {
     return (
         <Box sx={{

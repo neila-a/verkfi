@@ -30,11 +30,11 @@ import useButtonCommonSorting from "../sorting/buttonCommonSorting";
 import SingleTool from "./SingleTool";
 import {
     editModeAtom,
-    searchTextAtom,
     sortingForAtom,
     toolsAtom
 } from "index/atoms";
 import {
+    ReactNode,
     useContext
 } from "react";
 import {
@@ -42,6 +42,9 @@ import {
 } from "index/consts";
 export default function ToolsStack(props: {
     paramTool: tool[];
+    actions?: ReactNode[];
+    notfound?: ReactNode;
+    disableClick?: boolean;
     /**
      * tool.to
      */
@@ -52,8 +55,7 @@ export default function ToolsStack(props: {
         [, setTools] = useAtom(toolsAtom),
         [editMode] = useAtom(editModeAtom),
         sortingFor = useAtom(sortingForAtom)[0](isImplant),
-        buttonCommonSorting = useButtonCommonSorting(),
-        [searchText] = useAtom(searchTextAtom);
+        buttonCommonSorting = useButtonCommonSorting()
     function Insert({
         index,
         tool
@@ -63,9 +65,10 @@ export default function ToolsStack(props: {
     }) {
         return (
             <SingleTool
-                isFirst={(searchText !== "") && (index === 0)}
+                disableClick={props.disableClick}
                 tool={tool}
                 key={tool.to}
+                actions={props?.actions?.[index]}
                 focus={props.focus === tool.to}
             />
         );
@@ -138,11 +141,11 @@ export default function ToolsStack(props: {
                 width: viewMode === "list" ? "100%" : "unset"
             }
         }}> {/* 工具总览 */}
-            {props.paramTool.length === 0 ? (
+            {props.paramTool.length === 0 ? (props?.notfound || (
                 <No>
                     {get("index.notfound")}
                 </No>
-            ) : ((viewMode === "list" && editMode) ? <ListContainer /> : <GridContainer />)}
+            )) : ((viewMode === "list" && editMode) ? <ListContainer /> : <GridContainer />)}
         </Stack>
     );
 }
