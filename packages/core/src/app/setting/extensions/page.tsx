@@ -1,5 +1,7 @@
 "use client";
 import {
+    Box,
+    IconButton,
     Stack,
     Typography,
     useMediaQuery,
@@ -14,6 +16,7 @@ import {
     FilePondServerConfigProps
 } from "filepond";
 import {
+    Provider,
     useAtom
 } from "jotai";
 import extensionsAtom from "@verkfi/shared/atoms/extensions";
@@ -39,11 +42,18 @@ import {
 import DialogButtons from "./DialogButtons";
 import DialogInputs from "./DialogInputs";
 import RemoveExtensionDialog from "./RemoveExtensionDialog";
-import ToolViewer from "./ToolViewer";
 import {
     file,
     single
 } from "@verkfi/shared/reader/db";
+import ToolsStack from "index/showTool";
+import convertExtensionTools from "index/convertExtensionTools";
+import MouseOverPopover from "@verkfi/shared/Popover";
+import {
+    Edit,
+    RestartAlt
+} from "@mui/icons-material";
+import useClearExtensionData from "./clearExtensionData";
 const PureDialog = dynamic(() => import("@verkfi/shared/dialog/Pure"));
 export type inputTypes = "modify" | "add";
 export default function ExtensionManager() {
@@ -53,6 +63,7 @@ export default function ExtensionManager() {
         [files, setFiles] = useState<single["files"]>([]),
         [removeDialogOpen, setRemoveDialogOpen] = useState<boolean>(false),
         [modifyDialogOpen, setModifyDialogOpen] = useState<boolean>(false),
+        clearExtensionData = useClearExtensionData(),
         theme = useTheme(),
         fullScreen = useMediaQuery(theme.breakpoints.down("sm")),
         reset = () => {
@@ -78,26 +89,44 @@ export default function ExtensionManager() {
             <Typography variant="h4">
                 {get("extensions.扩展")}
             </Typography>
-            <Stack spacing={2} mb={2}>
-                {extensionTools?.length === 0 ? (
-                    <No>
-                        {get("extensions.未找到任何扩展")}
-                    </No>
-                ) : extensionTools?.map(single => (
-                    <ToolViewer
-                        key={single.to}
-                        single={single}
-                        fileInfo={fileInfo}
-                        setFileInfo={setFileInfo}
-                        modifyDialogOpen={modifyDialogOpen}
-                        setModifyDialogOpen={setModifyDialogOpen}
-                        setRemoveDialogOpen={setRemoveDialogOpen}
-                        files={files}
-                        setFiles={setFiles}
-                        reset={reset}
-                    />
-                ))}
-            </Stack>
+            <Box sx={{
+                mb: 2
+            }}>
+                <Provider>
+                    <ToolsStack paramTool={extensionTools?.map(single => ({
+                        ...convertExtensionTools([single])[0]
+                    }))} notfound={(
+                        <No>
+                            {get("extensions.未找到任何扩展")}
+                        </No>
+                    )} actions={extensionTools?.map(single => (
+                        <>
+                            <MouseOverPopover text={get("extensions.clear")}>
+                                <IconButton onClick={event => {
+                                    const {
+                                        files: thisFiles,
+                                        ...metadata
+                                    } = single;
+                                    clearExtensionData(metadata, thisFiles);
+                                }} aria-label={get("extensions.clear")}>
+                                    <RestartAlt />
+                                </IconButton>
+                            </MouseOverPopover>
+                            <MouseOverPopover text={get("extensions.删除扩展")}>
+                                <IconButton onClick={event => {
+                                    setFiles(single.files);
+                                    setFileInfo({
+                                        ...single
+                                    });
+                                    setModifyDialogOpen(true);
+                                }} aria-label={get("extensions.删除扩展")}>
+                                    <Edit />
+                                </IconButton>
+                            </MouseOverPopover>
+                        </>
+                    ))} disableClick />
+                </Provider>
+            </Box>
             <FilePond
                 files={fileArray as unknown as FilePondServerConfigProps["files"]}
                 onupdatefiles={files => {
@@ -160,6 +189,22 @@ export default function ExtensionManager() {
                 fullScreen: fullScreen
             }} open={addDialogOpen} onClose={() => reset()} title={get("extensions.添加扩展")}>
                 {packagedDialogInputs("add")}
+            </PureDialog>
+            <PureDialog action={(
+                <DialogButtons
+                    type="modify"
+                    fileInfo={fileInfo}
+                    setModifyDialogOpen={setModifyDialogOpen}
+                    setRemoveDialogOpen={setRemoveDialogOpen}
+                    files={files}
+                    reset={reset}
+                />
+            )} add={{
+                fullScreen: fullScreen
+            }} open={modifyDialogOpen} onClose={event => {
+                setModifyDialogOpen(false);
+            }} title={get("extensions.编辑扩展")}>
+                {packagedDialogInputs("modify")}
             </PureDialog>
         </>
     );
