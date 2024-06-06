@@ -10,12 +10,11 @@ export interface extensionsDispatch extends single {
 }
 const emptyString = "__empty__",
     valueAtom = atom<typeof emptyString | single[]>(emptyString);
-const extensionsAtom = atom(async get => {
+const extensionsAtom = atom(get => {
     const got = get(valueAtom);
     if (got === emptyString) {
         if (isBrowser()) {
-            const value = await db.extensionTools.toArray();
-            return value;
+            return db.extensionTools.toArray();
         }
         return [];
     }

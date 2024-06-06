@@ -10,11 +10,10 @@ import {
 } from "@verkfi/shared/atoms";
 const emptyString = "__empty__",
     valueAtom = atom<typeof emptyString | typeof defaultInternalPalette>(emptyString),
-    internalPaletteAtom = atom(async get => {
-        const got = get(valueAtom),
-            value = await settingReader("internalPalette", defaultInternalPalette);
+    internalPaletteAtom = atom(get => {
+        const got = get(valueAtom);
         if (got === emptyString) {
-            return value;
+            return settingReader("internalPalette", defaultInternalPalette);
         }
         return got as typeof defaultInternalPalette;
     }, (get, set, update: typeof defaultInternalPalette) => {
