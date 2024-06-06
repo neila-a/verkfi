@@ -3,12 +3,12 @@ import {
 } from "jotai";
 import setSetting from "./setSetting";
 import settingReader from "./settingReader";
-const emptyString = "__atomDefault__";
+export const emptySymbol: unique symbol = Symbol("This atom is empty, it's waiting a value.");
 export default function atomWithStorage<setting = any>(id: string, name: string, empty: setting) {
-    const valueAtom = atom<setting | typeof emptyString>(emptyString);
+    const valueAtom = atom<setting | typeof emptySymbol>(emptySymbol);
     return atom(get => {
         const got = get(valueAtom);
-        if (got === emptyString) {
+        if (typeof got === "symbol") {
             const value = settingReader(id, empty);
             return value;
         }

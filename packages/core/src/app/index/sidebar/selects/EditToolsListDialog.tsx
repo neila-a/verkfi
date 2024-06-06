@@ -47,7 +47,7 @@ export default function EditToolsListDialog(props: {
         edit = (forList: lists) => forList.some(single => single[0] === dialogListName),
         createOrEdit = !edit(list) ? get("category.创建分类") : get("category.编辑分类"),
         [extensionTools] = useAtom(extensionsAtom),
-        incorrect = ["__global__", "__home__", "__empty__"].some(a => a === dialogListName),
+        incorrect = ["__global__", "__home__"].some(a => a === dialogListName),
         converted = convertExtensionTools(extensionTools),
         [toolsList] = useAtom(toolsListAtom),
         right = toolsList.concat(converted).filter(atool => atool !== undefined).map(atool => atool.name).filter(v => props.left.every(val => val !== v));

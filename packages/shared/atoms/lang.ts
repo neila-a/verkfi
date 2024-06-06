@@ -8,15 +8,17 @@ import {
 } from "layout/layoutClient";
 import isBrowser from "../isBrowser";
 import settingReader from "../reader/settingReader";
-const emptyString = "__lang__",
-    valueAtom = atom<keyof typeof locales | typeof emptyString | "system">(emptyString),
+import {
+    emptySymbol
+} from "../reader/atomWithStorage";
+const valueAtom = atom<keyof typeof locales | typeof emptySymbol | "system">(emptySymbol),
     langAtom = atom(get => {
         let value = get(valueAtom);
-        if (value === emptyString) {
+        if (value === emptySymbol) {
             return settingReader("lang", "system") as Promise<keyof typeof locales | "system">;
         }
         return value;
-    }, async (get, set, update: keyof typeof locales | "system") => {
+    }, (get, set, update: keyof typeof locales | "system") => {
         set(valueAtom, update);
         setSetting("lang", "语言", update);
     });

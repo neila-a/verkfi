@@ -40,6 +40,9 @@ import {
 import {
     isImplantContext
 } from "index/consts";
+import {
+    useResetAtom
+} from "jotai/utils";
 export default function ToolsStack(props: {
     paramTool: tool[];
     actions?: ReactNode[];
@@ -52,10 +55,10 @@ export default function ToolsStack(props: {
 }) {
     const [viewMode] = useAtom(viewModeAtom),
         isImplant = useContext(isImplantContext),
-        [, setTools] = useAtom(toolsAtom),
+        resetTools = useResetAtom(toolsAtom),
         [editMode] = useAtom(editModeAtom),
         sortingFor = useAtom(sortingForAtom)[0](isImplant),
-        buttonCommonSorting = useButtonCommonSorting()
+        buttonCommonSorting = useButtonCommonSorting();
     function Insert({
         index,
         tool
@@ -85,7 +88,7 @@ export default function ToolsStack(props: {
                 if (editMode) {
                     const newTools = reorderArray(props.paramTool, result.source.index, result.destination.index);
                     buttonCommonSorting(sortingFor, newTools);
-                    setTools("refresh");
+                    resetTools();
                 }
             }}>
                 <Box sx={{

@@ -8,11 +8,13 @@ import * as colors from "@mui/material/colors";
 import {
     paletteColors as paletteColorsAtom
 } from "@verkfi/shared/atoms";
-const emptyString = "__empty__",
-    valueAtom = atom<typeof emptyString | typeof defaultInternalPalette>(emptyString),
+import {
+    emptySymbol
+} from "@verkfi/shared/reader/atomWithStorage";
+const valueAtom = atom<typeof emptySymbol | typeof defaultInternalPalette>(emptySymbol),
     internalPaletteAtom = atom(get => {
         const got = get(valueAtom);
-        if (got === emptyString) {
+        if (typeof got === "symbol") {
             return settingReader("internalPalette", defaultInternalPalette);
         }
         return got as typeof defaultInternalPalette;

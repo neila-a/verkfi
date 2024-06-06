@@ -61,6 +61,9 @@ import {
 import {
     isImplantContext
 } from "index/consts";
+import {
+    useResetAtom
+} from "jotai/utils";
 export default function Menu() {
     const [control, setControl] = useAtom(showSidebar),
         theme = useTheme(),
@@ -76,7 +79,7 @@ export default function Menu() {
         mostUsed = useMostUsedTools(),
         [, setSortedTools] = useAtom(sortedToolsAtom),
         [tools] = useAtom(toolsAtom),
-        setTools = useAtom(toolsAtom)[1],
+        resetTools = useResetAtom(toolsAtom),
         focusingTo = tools[tab] ? tools[tab].to : "", // 每次渲染会重新执行
         upper = useContext(repoInfo).name.charAt(0).toUpperCase() + useContext(repoInfo).name.slice(1),
         [editing, setEditing] = useAtom(editingAtom);
@@ -139,7 +142,7 @@ export default function Menu() {
                                             setSortingFor("__home__");
                                             setSortedTools(gotToolsList);
                                             setEditing(true);
-                                            setTools("refresh");
+                                            resetTools();
                                         }}>
                                             <ArrowBackIosIcon />
                                         </IconButton>
