@@ -125,7 +125,7 @@ export default function Menu() {
                     maxWidth: "unset"
                 },
                 zIndex: "38601"
-            }} open={control} keepMounted TransitionComponent={Transition}>
+            }} open={control} TransitionComponent={Transition}>
                 <DialogTitle sx={{
                     m: 0,
                     p: 0,

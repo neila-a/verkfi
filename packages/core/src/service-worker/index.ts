@@ -7,7 +7,7 @@ import pages from "../pages.json";
 import onFetch from "./onFetch";
 import onMessage from "./onMessage";
 declare const self: ServiceWorkerGlobalScope;
-export const Cache = `Verkfi-${version}-${dev === true ? `dev${devVersion}` : "prod"}`,
+export const Cache = `Verkfi-${version}-${dev ? `dev${devVersion}` : "prod"}`,
     log = (text: string) => console.log(`%cServiceWorker`, `background: #52c41a;border-radius: 0.5em;color: white;font-weight: bold;padding: 2px 0.5em`, text);
 log(`版本为${Cache}`);
 self.addEventListener("install", async event => event.waitUntil((async () => {
