@@ -145,6 +145,9 @@ importers:
 
   packages/shared:
     dependencies:
+      '@verkfi/core':
+        specifier: link:../core
+        version: link:../core
       dexie:
         specifier: ^4.0.7
         version: 4.0.7

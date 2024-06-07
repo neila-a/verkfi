@@ -16,9 +16,9 @@
         "email": "neilaspace@outlook.com",
         "url": "https://neilasite.netlify.app/"
     },
-    "devDependencies": {},
     "homepage": "https://netlify.verkfi.neila.vip/",
     "dependencies": {
+        "@verkfi/core": "link:../core",
         "dexie": "^4.0.7",
         "jotai": "^2.8.2",
         "lp-logger": "github:neila-a/lp-logger-no-window",

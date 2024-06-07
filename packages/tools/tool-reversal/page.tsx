@@ -105,7 +105,7 @@ function Reversal(): JSX.Element {
                 setWordList(words.split(context).map(word => {
                     return [
                         word,
-                        Math.random() * 10000000000000000
+                        Math.random() * 1000000000000000
                     ];
                 }));
                 logger.log("已拆分。");

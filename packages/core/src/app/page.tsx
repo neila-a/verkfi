@@ -1,6 +1,7 @@
 "use client";
 import {
     Box,
+    Button,
     Collapse,
     Drawer,
     IconButton,
@@ -17,7 +18,7 @@ import convertExtensionTools from "index/convertExtensionTools";
 import ToolsStack from "index/showTool";
 import Sidebar from "index/sidebar";
 import useMostUsedTools from "index/useMostUsedTools";
-import triesAtom from "@verkfi/shared/atoms/tries";
+import recommendAtom from "@verkfi/shared/atoms/recommend";
 import {
     useAtom
 } from "jotai";
@@ -70,7 +71,7 @@ export default function Index(props: {
         sortingFor = useAtom(sortingForAtom)[0](props.isImplant),
         [baseSortingFor] = useAtom(sortingForAtomValue),
         focusingTo = tools[tab] ? tools[tab].to : "", // 每次渲染会重新执行
-        [tries] = useAtom(triesAtom),
+        [recommend, refreshTries] = useAtom(recommendAtom),
         recentlyTools = recentlyUsed.map(to => {
             const converted = convertExtensionTools(extensionTools);
             return 0
@@ -131,14 +132,22 @@ export default function Index(props: {
                         </Box>
                         <Collapse in={showTries}>
                             <Box>
-                                <Typography variant="h4">
-                                    {get("index.trythese")}
-                                </Typography>
+                                <Box sx={{
+                                    display: "flex",
+                                    justifyContent: "space-between"
+                                }}>
+                                    <Typography variant="h4">
+                                        {get("index.trythese")}
+                                    </Typography>
+                                    <Button onClick={event => refreshTries()}>
+                                        {get("index.newTries")}
+                                    </Button>
+                                </Box>
                                 <Box sx={{
                                     p: 1
                                 }}>
                                     <ToolsStack
-                                        paramTool={tries.filter(item => item !== undefined)} />
+                                        paramTool={recommend.filter(item => item !== undefined)} />
                                 </Box>
                             </Box>
                         </Collapse>

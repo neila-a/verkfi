@@ -248,6 +248,7 @@
 	},
 	"index": {
 		"trythese": "试试这些",
+		"newTries": "换一换",
 		"generateTry": "生成推荐工具",
 		"notfound": "未找到任何工具",
 		"movedown": "移动到下一个",

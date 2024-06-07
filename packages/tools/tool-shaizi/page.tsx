@@ -1,10 +1,8 @@
 "use client";
 import {
-    Button,
     Stack,
     TextField
 } from "@mui/material";
-import dynamic from "next/dynamic";
 import {
     useState
 } from "react";
