@@ -27,22 +27,12 @@ async function devMain() {
     return oldPackage;
 }
 async function publicMain() {
-    const pages = ChildProcess.execSync(`find ./src/app -name '*page.tsx'`).toString().replaceAll("./src/app", "").replaceAll("page.tsx", "").split("\n");
-    pages.forEach((single, index) => {
+    const pages = ChildProcess.execSync(`find ./src/app -name '*page.tsx'`).toString().replaceAll("./src/app", "").replaceAll("page.tsx", "").split("\n").map(single => {
         if (single !== "/") {
-            pages[index] = pages[index].substr(0, pages[index].length - 1);
+            return single.substr(0, single.length - 1);
         }
-    });
-    pages.forEach((single, index) => {
-        if (single === "/handle") {
-            pages.splice(index, 1);
-        }
-    });
-    pages.forEach((single, index) => {
-        if (single === "") {
-            pages.splice(index, 1);
-        }
-    });
+        return "/";
+    }).filter(single => single !== "");
     const pagesJSON = JSON.stringify(pages, null, 4);
     fs.writeFileSync("./src/pages.json", pagesJSON);
     const NextConfig = await build({

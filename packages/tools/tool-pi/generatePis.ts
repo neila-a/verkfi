@@ -1,10 +1,7 @@
 "use client";
+import range from "@verkfi/shared/range";
 import generateDigitsOfPi from "./generateDigitsOfPi";
 export default function generatePis(digit: number) {
-    let ret = "3.",
-        generaterInstance = generateDigitsOfPi();
-    for (let i = 0; i < digit; i++) {
-        ret += (generaterInstance.next().value as number).toString();
-    }
-    return ret;
+    const generaterInstance = generateDigitsOfPi();
+    return `3.${[...range(digit - 1)].map(() => (generaterInstance.next().value as number).toString()).join("")}`;
 }

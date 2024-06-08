@@ -87,7 +87,6 @@ export default function Pillar(): JSX.Element {
         [length, setLength] = useState<number>(0),
         [filterRules, setFilterRules] = useState(emptyFilterRules as filterRules),
         choosesId = useId(),
-        valueSelectLabelId = useId(),
         sizeLabelId = useId(),
         pillars = calcPillars(type, length),
         filteredPillars = pillars.filter(single => Object.entries(filterRules).every(singleRule => (

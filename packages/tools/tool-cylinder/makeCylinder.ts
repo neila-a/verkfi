@@ -1,6 +1,7 @@
 import {
     block
 } from "@verkfi/shared/matrix/matrix";
+import range from "@verkfi/shared/range";
 /**
  * 生成一个圆。
  * ![cylinder](./cylinder.png)
@@ -35,7 +36,7 @@ export default class Cylinder extends Array<block> {
             let nextMinXn = 0;
             const minInvRadiusX = 1 / (radiusX - thickness),
                 minInvRadiusZ = 1 / (radiusZ - thickness);
-            forX: for (let x = 0; x <= ceilRadiusX; ++x) {
+            forX: for (let x of range(ceilRadiusX)) {
                 const xn = nextXn,
                     dx2 = nextMinXn * nextMinXn;
                 nextXn = (x + 1) * invRadiusX;
@@ -43,7 +44,7 @@ export default class Cylinder extends Array<block> {
                 let nextZn = 0,
                     nextMinZn = 0;
                 xSqr = xn * xn;
-                forZ: for (let z = 0; z <= ceilRadiusZ; ++z) {
+                for (let z of range(ceilRadiusZ)) {
                     const zn = nextZn,
                         dz2 = nextMinZn * nextMinZn;
                     nextZn = (z + 1) * invRadiusZ;
@@ -63,12 +64,12 @@ export default class Cylinder extends Array<block> {
                 }
             }
         } else {
-            forX: for (let x = 0; x <= ceilRadiusX; ++x) {
+            forX: for (let x of range(ceilRadiusX)) {
                 const xn = nextXn;
                 nextXn = (x + 1) * invRadiusX;
                 let nextZn = 0;
                 xSqr = xn * xn;
-                forZ: for (let z = 0; z <= ceilRadiusZ; ++z) {
+                for (let z of range(ceilRadiusZ)) {
                     const zn = nextZn;
                     nextZn = (z + 1) * invRadiusZ;
                     zSqr = zn * zn;

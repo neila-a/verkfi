@@ -45,6 +45,7 @@ import {
 } from "react-intl-universal";
 import useStoragedState from "@verkfi/shared/reader/useStoragedState";
 import canvasToBlob from "./canvasToBlob";
+import range from "@verkfi/shared/range";
 type block = Blob & {
     rotation: number;
 };
@@ -116,9 +117,9 @@ export default function JigsawEntry(): JSX.Element {
                 splited: Blob[][] = [];
             canvas.width = img.width / width;
             canvas.height = img.height / height;
-            for (let y = 0; y < height; y++) {
+            for (let y of range(height - 1)) {
                 const thisBuffer: Blob[] = [];
-                for (let x = 0; x < width; x++) {
+                for (let x of range(width - 1)) {
                     context.drawImage(img, x * img.width / width, y * img.height / height, img.width / width, img.height / height, 0, 0, img.width / width, img.height / height);
                     thisBuffer.push(await canvasToBlob(canvas));
                     context.clearRect(0, 0, img.width / width, img.height / height);

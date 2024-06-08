@@ -10,7 +10,7 @@ export type rotateAxis = "x" | "y" | "z";
 export const rotateAxis: rotateAxis[] = ["x", "y", "z"],
     rotateStep = 50, // 转90度所需要的帧
     randomAxis = () => rotateAxis[Math.floor(Math.random() * 3)];
-export function ShaiZiCanvas(props: {
+export default function ShaiZiCanvas(props: {
     cishu: number;
 }): JSX.Element {
     // Use useRef hook to access the canvas element

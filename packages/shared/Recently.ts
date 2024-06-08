@@ -27,11 +27,6 @@ export default class Recently extends Set<string> {
             super.add(name);
         }
         if (super.size > this.max) {
-            this.get().forEach((item, index) => {
-                if (index === 0) {
-                    super.delete(item);
-                }
-            });
             super.delete(this.get()[0]);
         }
         return this;

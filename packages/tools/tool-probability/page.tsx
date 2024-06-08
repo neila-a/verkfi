@@ -30,6 +30,7 @@ import {
     VictoryBar,
     VictoryChart
 } from "victory";
+import range from "@verkfi/shared/range";
 export default function Probability(): JSX.Element {
     const [code, setCode] = useState(`// ${get("probability.tip")}`),
         theme = useTheme(),
@@ -40,7 +41,7 @@ export default function Probability(): JSX.Element {
             x: any,
             y: number
         }[] = [];
-    datas.map(data => {
+    datas.forEach(data => {
         const index = objectDatas.findIndex(objectData => objectData.x === data);
         if (index === -1) {
             return objectDatas.push({
@@ -63,12 +64,8 @@ export default function Probability(): JSX.Element {
                     {get("probability.import")}
                 </Button>
                 <Button variant="contained" onClick={event => {
-                    const executing = new Function(code),
-                        draft = [];
-                    for (let i = 0; i < times; i++) {
-                        draft[i] = executing();
-                    }
-                    setDatas(draft);
+                    const executing = new Function(code);
+                    setDatas([...range(times - 1)].map(() => executing()));
                 }} startIcon={(
                     <PlayArrow />
                 )}>

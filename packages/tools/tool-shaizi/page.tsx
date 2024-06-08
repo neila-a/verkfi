@@ -9,9 +9,7 @@ import {
 import {
     get
 } from "react-intl-universal";
-import {
-    ShaiZiCanvas
-} from "./shaiziCanvas";
+import ShaiZiCanvas from "./shaiziCanvas";
 function ShaiZi(): JSX.Element {
     const [cishu, setCishu] = useState<number>(10);
     return (

@@ -1,6 +1,7 @@
 import {
     Palette
 } from "@mui/material";
+import range from "../range";
 import {
     block
 } from "./matrix";
@@ -24,8 +25,8 @@ export default function drawMatrixBase(edge: number, n: number, blocks: block[],
     dos.forEach((item, index) => {
         cxt.fillStyle = item[1];
         const path = new Path2D(), pBlock = item[0].map(item => item.toString());
-        for (let i = 0; i <= n; i++) {
-            for (let j = 0; j < n; j++) {
+        for (let i of range(n)) {
+            for (let j of range(n)) {
                 if (pBlock.includes([i, j].toString())) {
                     path.rect(size * j, size * i, size, size);
                 }
@@ -34,8 +35,8 @@ export default function drawMatrixBase(edge: number, n: number, blocks: block[],
         cxt.fill(path);
     });
     if (!onlyPos) {
-        for (let i = 0; i < n; i++) {
-            for (let j = 0; j < n; j++) {
+        for (let i of range(n - 1)) {
+            for (let j of range(n - 1)) {
                 cxt.rect(size * j, size * i, size, size);
             }
         }

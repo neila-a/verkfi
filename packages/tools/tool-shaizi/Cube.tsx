@@ -25,6 +25,7 @@ import {
     rotateStep,
     randomAxis
 } from "./shaiziCanvas";
+import range from "@verkfi/shared/range";
 export default function Cube(props: {
     cishu: number;
 }) {
@@ -54,18 +55,8 @@ export default function Cube(props: {
             <camera ref={camera} position={[10, 10, 10]} />
             <mesh ref={mesh} args={[cube, materials]} onClick={event => {
                 if (stage.current.length === 0) {
-                    const oldStage = [];
-                    while (oldStage.toString() === cacheStage.current.toString()) for (let step = 0; step < props.cishu; step++) {
-                        oldStage.push(randomAxis());
-                    }
-                    if (oldStage.toString() === cacheStage.current.toString()) {
-                        oldStage.splice(0, oldStage.length);
-                        for (let step = 0; step < props.cishu; step++) {
-                            oldStage.push(randomAxis());
-                        }
-                    } else {
-                        cacheStage.current = oldStage;
-                    }
+                    const oldStage = [...range(props.cishu - 1)].map(() => randomAxis());
+                    cacheStage.current = oldStage;
                     stage.current = oldStage;
                 }
             }}>
