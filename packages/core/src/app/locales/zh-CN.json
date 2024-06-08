@@ -365,5 +365,14 @@
 		"sync": "刷新",
 		"notfound": "未找到页面",
 		"openNew": "以{path}为路径创建一个新页面"
-	}
+	},
+	"probability": {
+		"name": "概率",
+		"description": "对一个表达式计算概率",
+		"runTimes": "运行次数",
+		"tip": "这里是一段JS代码，但是直接使用return返回值。",
+		"import": "导入表达式",
+		"export": "导出表达式"
+	},
+	"run": "运行"
 }

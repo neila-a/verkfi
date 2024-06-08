@@ -11,6 +11,7 @@ import {
     FlipCameraAndroid as FlipCameraAndroidIcon,
     KeyboardVoice as KeyboardVoiceIcon,
     Numbers as NumbersIcon,
+    Percent,
     ViewInAr as ViewInArIcon
 } from "@mui/icons-material";
 import {
@@ -189,6 +190,13 @@ const toolsInfoAtom = atom(async getAtom => {
             desc: get("speech.description"),
             icon: KeyboardVoiceIcon,
             color: [hex("d9afd9"), hex("97d9e1")]
+        },
+        {
+            name: get("probability.name"),
+            to: "probability",
+            desc: get("probability.description"),
+            icon: Percent,
+            color: [hex("d4fc79"), hex("96e6a1")]
         },
         {
             name: get("人生倒计时"),

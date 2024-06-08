@@ -1,0 +1,31 @@
+{
+    "name": "@verkfi/tool-probability",
+    "version": "0.1.0",
+    "description": "Verkfi tool: probability.",
+    "private": true,
+    "repository": "github:neila-a/verkfi",
+    "keywords": [
+        "verkfi"
+    ],
+    "bugs": {
+        "url": "https://github.com/neila-a/verkfi/issues",
+        "email": "neilaspace@outlook.com"
+    },
+    "main": "page.tsx",
+    "author": {
+        "name": "Neila",
+        "email": "neilaspace@outlook.com",
+        "url": "https://neilasite.netlify.app/"
+    },
+    "homepage": "https://netlify.verkfi.neila.vip/",
+    "dependencies": {
+        "@monaco-editor/react": "^4.6.0",
+        "@verkfi/shared": "workspace:../../shared",
+        "file-saver": "2.0.5",
+        "file-to-any": "^1.2.0",
+        "victory": "^37.0.2"
+    },
+    "devDependencies": {
+        "@types/file-saver": "^2.0.7"
+    }
+}
