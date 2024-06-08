@@ -19,15 +19,8 @@ export default function SwitchViewMode() {
         <MouseOverPopover text={viewMode === "grid" ? "切换为列表模式" : "切换为网格模式"}>
             <IconButton color="primary" sx={{
                 p: 1
-            }} aria-label={viewMode === "grid" ? "切换为列表模式" : "切换为网格模式"} onClick={_event => {
-                switch (viewMode) {
-                    case "grid":
-                        setViewMode("list");
-                        break;
-                    case "list":
-                        setViewMode("grid");
-                        break;
-                }
+            }} aria-label={viewMode === "grid" ? "切换为列表模式" : "切换为网格模式"} onClick={event => {
+                setViewMode(viewMode === "grid" ? "list" : "grid")
             }}>
                 {viewMode === "grid" ? <ViewListIcon /> : <ViewModuleIcon />}
             </IconButton>

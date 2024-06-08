@@ -23,21 +23,10 @@ const nzh = new Nzh({
     m_z: "正"
 }); // 数字转汉字这种功能不需要什么国际化
 export default function ReadNumber(): JSX.Element {
-    const [blur, setBlur] = useState<"number" | "string">("number"),
-        [string, setString] = useState<string>(""),
+    const [string, setString] = useState<string>(""),
         [number, setNumber] = useState<string>("0"),
         stringId = useId(),
         numberId = useId();
-    function proc(p: string) {
-        switch (blur) {
-            case "number":
-                setString(nzh.encode(p));
-                break;
-            case "string":
-                setNumber(nzh.decode(p));
-                break;
-        }
-    }
     return (
         <>
             <FormGroup>
@@ -55,9 +44,8 @@ export default function ReadNumber(): JSX.Element {
                             const {
                                 value
                             } = event.target;
-                            setBlur("number");
                             setNumber(value);
-                            proc(value);
+                            setString(nzh.encode(value));
                         }} />
                     </Grid>
                 </Grid>
@@ -74,9 +62,8 @@ export default function ReadNumber(): JSX.Element {
                             const {
                                 value
                             } = event.target;
-                            setBlur("string");
                             setString(value);
-                            proc(value);
+                            setNumber(nzh.decode(value));
                         }} />
                     </Grid>
                 </Grid>
