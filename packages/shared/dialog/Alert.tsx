@@ -26,7 +26,7 @@ export default function AlertDialog(props: {
         titleId = `${thisDialogStartId}-alert-dialog-title`,
         descriptionId = `${thisDialogStartId}-alert-dialog-description`;
     return (
-        <Dialog open={props.open} onClose={handleClose} aria-labelledby={titleId} aria-describedby={descriptionId} TransitionComponent={Transition}>
+        <Dialog open={props.open} onClose={handleClose} aria-labelledby={titleId} aria-describedby={descriptionId} TransitionComponent={Transition} role="alertdialog">
             <DialogTitle id={titleId}>
                 {props.title}
             </DialogTitle>
