@@ -9,6 +9,7 @@ import {
     Extension as ExtensionIcon,
     Filter as FilterIcon,
     FlipCameraAndroid as FlipCameraAndroidIcon,
+    Functions,
     KeyboardVoice as KeyboardVoiceIcon,
     Numbers as NumbersIcon,
     Percent,
@@ -30,7 +31,6 @@ import {
     // @ts-ignore 导入被吃了
     ReactIntlUniversal
 } from "react-intl-universal";
-import PiIcon from "./piIcon";
 import Hex = hex.Hex;
 import {
     atom
@@ -41,6 +41,9 @@ import {
 import {
     usableLangAtom
 } from "@verkfi/shared/atoms/lang";
+import {
+    Pi
+} from "mdi-material-ui";
 export interface noIconTool {
 
     /**
@@ -118,7 +121,7 @@ const toolsInfoAtom = atom(async getAtom => {
             name: get("pi.π计算器"),
             to: "pi",
             desc: get("pi.计算π的小数点后任意位"),
-            icon: PiIcon,
+            icon: Pi,
             color: [hex("4facfe"), hex("00f2fe")]
         },
         {
@@ -197,6 +200,13 @@ const toolsInfoAtom = atom(async getAtom => {
             desc: get("probability.description"),
             icon: Percent,
             color: [hex("d4fc79"), hex("96e6a1")]
+        },
+        {
+            name: get("equation.name"),
+            to: "equation",
+            desc: get("equation.description"),
+            icon: Functions,
+            color: [hex("accbee"), hex("e7f0fd")]
         },
         {
             name: get("人生倒计时"),

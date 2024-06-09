@@ -51,7 +51,6 @@ export default function ToolFinder(props: {
             name
         } = filteredToolsInfo.length === 0 ? emptyExtension : filteredToolsInfo[0],
         tool = toolsInfo.find(si => si.to === toolID);
-    logger.info(`toolID为${toolID}`);
     return (
         <>
             <HeadBar isIndex={false} pageName={name === "" ? get("未找到工具") : name} only={only} sx={tool !== undefined && {

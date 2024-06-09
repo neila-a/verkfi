@@ -1,7 +1,7 @@
 {
-    "name": "@verkfi/tool-probability",
+    "name": "@verkfi/tool-equation",
     "version": "0.1.0",
-    "description": "Verkfi tool: probability.",
+    "description": "Verkfi tool: equation.",
     "private": true,
     "repository": "github:neila-a/verkfi",
     "keywords": [
@@ -20,6 +20,6 @@
     "homepage": "https://netlify.verkfi.neila.vip/",
     "dependencies": {
         "@verkfi/shared": "workspace:../../shared",
-        "victory": "^37.0.2"
+        "decimal.js": "^10.4.3"
     }
 }

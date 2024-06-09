@@ -18,12 +18,18 @@
     },
     "homepage": "https://netlify.verkfi.neila.vip/",
     "dependencies": {
+        "@monaco-editor/react": "^4.6.0",
         "@verkfi/core": "link:../core",
         "dexie": "^4.0.7",
+        "file-saver": "2.0.5",
+        "file-to-any": "^1.2.0",
         "jotai": "^2.8.2",
         "lp-logger": "github:neila-a/lp-logger-no-window",
         "next": "^14.2.3",
         "react-draggable": "^4.4.6",
         "swr": "<2.0.0-beta.0"
+    },
+    "devDependencies": {
+        "@types/file-saver": "^2.0.7"
     }
 }
