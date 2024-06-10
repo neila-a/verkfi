@@ -58,13 +58,13 @@
 	"提示": "Tips",
 	"数字": "Number",
 	"汉字": "Kanji",
-	"输入框": "Entry Field",
+	"输入框": "Entry field",
 	"处理": "Process",
 	"重来": "Refresh",
 	"拆分": "Split",
 	"结果：": "Results:",
 	"你的浏览器不支持这个工具。": "Your browser does not support this tool.",
-	"渐变工具": "Colorful Homepage",
+	"渐变工具": "Gradient tools",
 	"未找到工具": "No tools found",
 	"发生了一些错误": "Something went wrong",
 	"重试": "Retry",
@@ -79,8 +79,11 @@
 	"编辑": "Edit",
 	"删除": "Delete",
 	"主页": "Home page",
-	"外观": "Themes",
+	"外观": "Appearance",
 	"入口": "Entry",
+	"cubic": {
+		"face": "Face {face}"
+	},
 	"back": "Back",
 	"close": "Close",
 	"drag": {
@@ -102,7 +105,8 @@
 		"复制": "Copy",
 		"复制出现错误": "Error copying",
 		"复制完毕": "Copy completed",
-		"已把结果复制至剪贴板。": "Results copied to clipboard."
+		"已把结果复制至剪贴板。": "Results copied to clipboard.",
+		"errorInfo": "An error occurred while copying results, please report to the developer: {error}"
 	},
 	"download": {
 		"下载本应用": "Download this app",
@@ -126,7 +130,7 @@
 		"清空": "Clear"
 	},
 	"storage": {
-		"缓存空间": "Cache Space",
+		"缓存空间": "Cache space",
 		"设置空间": "Set space",
 		"缓存空间已使用容量": "Cache space used for capacity",
 		"缓存空间剩余容量": "Free capacity of cache space",
@@ -137,14 +141,14 @@
 	"category": {
 		"添加分类": "Add a category",
 		"分类名称": "Category name",
-		"创建分类": "Create Category",
-		"编辑分类": "Edit Category",
+		"创建分类": "Create category",
+		"编辑分类": "Edit category",
 		"分类": "Categories",
 		"删除此分类": "Delete this category",
 		"确定删除此分类吗？": "Are you sure you want to delete this category?"
 	},
 	"use": {
-		"最近使用": "Recently Used",
+		"最近使用": "Recently used",
 		"最常使用": "Most used"
 	},
 	"pi": {
@@ -159,9 +163,7 @@
 	},
 	"shaizi": {
 		"掷骰子": "Dice throwing",
-		"掷色子的次数": "Number of Traps",
-		"全屏": "Full Screen",
-		"掷色子（全屏模式）": "Throws (Full Screen Mode)",
+		"掷色子的次数": "Number of traps",
 		"随机掷色子": "Random throws",
 		"色子图标": "Throws icon",
 		"掷色子": "Throws"
@@ -184,16 +186,16 @@
 		}
 	},
 	"extensions": {
-		"扩展工具": "Extended Tools",
+		"扩展工具": "Extended tools",
 		"扩展": "Extended",
-		"添加扩展": "Add Extended",
+		"添加扩展": "Add a extension",
 		"编辑扩展": "Edit extend",
 		"删除扩展": "Delete extend",
 		"确定删除扩展": "Are you sure you want to delete the extend",
 		"未找到任何扩展": "No extensions found",
 		"clear": "Clear usage data for extensions"
 	},
-	"theme": {
+	"appearance": {
 		"primary": "Primary color",
 		"colorSteps": "Color steps",
 		"secondary": "Secondary color",
@@ -202,10 +204,10 @@
 			"red": "Red",
 			"pink": "Pink",
 			"purple": "Purple",
-			"deepPurple": "Deep Purple",
+			"deepPurple": "Deep purple",
 			"indigo": "Indigo",
 			"blue": "Blue",
-			"lightBlue": "Light Blue",
+			"lightBlue": "Light blue",
 			"cyan": "Cyan",
 			"teal": "Teal",
 			"green": "Green",
@@ -214,53 +216,36 @@
 			"yellow": "Yellow",
 			"amber": "Amber",
 			"orange": "Orange",
-			"deepOrange": "Deep Orange"
+			"deepOrange": "Deep orange"
 		},
 		"colorMode": {
 			"text": "Color mode",
 			"light": "Light mode",
-			"dark": "Dark Mode",
+			"dark": "Dark mode",
 			"system": "System default"
 		}
 	},
 	"menu": {
-		"打开菜单": "Open Menu",
-		"关闭菜单": "Close Menu"
-	},
-	"first": {
-		"现在开始": "Get started",
-		"infos": {
-			"start": {
-				"title": "Your tool, anywhere",
-				"context": "Explore more possibilities"
-			},
-			"middle": {
-				"context": "Discover features you don't think"
-			},
-			"end": {
-				"context": "Use tools on different devices and platforms"
-			}
-		},
-		"up": "Previous page",
-		"down": "Next page"
+		"打开菜单": "Open menu",
+		"关闭菜单": "Close menu"
 	},
 	"index": {
 		"trythese": "Try these",
-		"generateTry": "Generate Recommended Tools",
+		"newTries": "Switch",
+		"generateTry": "Generate recommended tools",
 		"notfound": "No tools found",
-		"movedown": "Move to Next",
-		"moveup": "Move to Previous",
-		"editCategory": "Edit this category"
+		"movedown": "Move to next",
+		"moveup": "Move to previous",
+		"editCategory": "Edit this category",
+		"incorrectCategoryName": "The category name used internally by Verkfi cannot be used."
 	},
 	"filter": {
 		"没有任何已生成的图片": "No images generated",
 		"筛选": "Filter",
 		"addRule": "Add filter rules",
 		"type": {
-			"default": "Compare",
-			"<": "less than",
-			"=": "equals",
-			">": "Greater than"
+			"min": "Min",
+			"max": "Max"
 		},
 		"noRule": "No filter rules added",
 		"save": "Save this image",
@@ -275,7 +260,7 @@
 		"types": {
 			"onlyMiddle": "Only Middle Pillar",
 			"oneEndAndMiddle": "One end and Middle Pillar",
-			"twoEndAndMiddle": "Two-end and Middle Pillar"
+			"twoEndAndMiddle": "Two-end and middle pillar"
 		},
 		"collocationShow": {
 			"default": "Amount",
@@ -290,9 +275,9 @@
 	"countletter": {
 		"system": "Numeric",
 		"systemName": {
-			"2": "binary",
+			"2": "Binary",
 			"8": "Octal",
-			"10": "decimal",
+			"10": "Decimal",
 			"16": "Hex"
 		}
 	},
@@ -300,7 +285,7 @@
 		"cache": "Clear cache and try again",
 		"setting": "Clear settings and try again"
 	},
-	"height": "height",
+	"height": "Height",
 	"width": "Width",
 	"share": {
 		"t": "Share",
@@ -313,7 +298,7 @@
 		"name": "Speech",
 		"description": "Make your conversation not stoppable",
 		"stop": "Stop recording",
-		"start": "Start Recording",
+		"start": "Start recording",
 		"download": "Download audio",
 		"vibrate": {
 			"view": "View timeout records",
@@ -327,7 +312,7 @@
 			"context": "Time to record below",
 			"label": "Time to record"
 		},
-		"tip": "There are {all} seconds to record and {time} seconds left.",
+		"tip": "A total of {all, plural, =0 {no seconds} =1 {one second} other {# seconds}} will be recorded, with {time, plural, =0 {no seconds} =1 {one second} other {# seconds}} remaining.",
 		"noSayTime": "Time without speaking：(seconds)"
 	},
 	"singleTool": {
@@ -342,8 +327,8 @@
 		},
 		"new": "Create a new jigsaw",
 		"start": "Start jigsaw",
-		"recent": "Recent Jigsaws",
-		"reset": "Start Over",
+		"recent": "Recent jigsaws",
+		"reset": "Start over",
 		"resetDescription": "Restart the jigsaw.",
 		"allDone": "This jigsaw has been completed.",
 		"noRecent": "You did not have any jigsaws before.",
@@ -351,8 +336,38 @@
 	},
 	"window": {
 		"collapse": "Collapse",
-		"changeSize": "Change Window Size",
+		"changeSize": "Change window size",
 		"maxmize": "Maximize",
 		"expand": "Expand"
-	}
+	},
+	"clients": {
+		"navigate": "Change the path",
+		"navigateInput": "Please enter a path",
+		"search": "Search page by path",
+		"open": "Switch page",
+		"sync": "Refresh",
+		"notfound": "Page not found",
+		"openNew": "Create a new page with {path} as the path"
+	},
+	"probability": {
+		"name": "Probability",
+		"description": "Probability of computing an expression",
+		"runTimes": "Number of times",
+		"tip": "Here is a JS code, but use the return value directly.",
+		"import": "Import expression",
+		"export": "Export the expression"
+	},
+	"equation": {
+		"name": "Equations",
+		"description": "Give a function to calculate its solution",
+		"tips": {
+			"0": "Here is a JS code.",
+			"1": "Direct return to a 2-length tuple to return value.",
+			"2": "The two elements of the tuple are on the two sides of the equation.",
+			"3": "You have obtained a constant named x to replace it with the equation."
+		},
+		"maxTimes": "Maximum iterations",
+		"result": "After {times, plural, =0 {no iterations} =1 {one iteration} other {# iterations}}, the result is {result}"
+	},
+	"run": "Run"
 }
