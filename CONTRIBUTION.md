@@ -41,11 +41,11 @@ PWA 的缓存方案采取的是缓存优先模式，因为对于 Verkfi 来说�
 ### 更新说明
 
 Verkfi 采用的是渐进式更新（即所有提交都直接提交至生产），版本号仅对开发有用，所以不需要更新说明。
-> <https://github.com/gpujs/gpu.js/?tab=readme-ov-file#declaring-variablesfunctions-within-kernels>
 
 ### GPU.js 应用于解方程
 
 解方程中的代码为`string`类型，不被 GPU.js 支持。
+> <https://github.com/gpujs/gpu.js/?tab=readme-ov-file#declaring-variablesfunctions-within-kernels>
 
 ## zIndex
 
