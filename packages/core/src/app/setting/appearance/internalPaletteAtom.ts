@@ -2,23 +2,14 @@ import {
     atom
 } from "jotai";
 import defaultInternalPalette from "./defaultInternalPalette";
-import settingReader from "@verkfi/shared/reader/settingReader";
 import defaultPalette from "./defaultPalette";
 import * as colors from "@mui/material/colors";
 import {
     paletteColors as paletteColorsAtom
 } from "@verkfi/shared/atoms";
-import {
-    emptySymbol
-} from "@verkfi/shared/reader/atomWithStorage";
-const valueAtom = atom<typeof emptySymbol | typeof defaultInternalPalette>(emptySymbol),
-    internalPaletteAtom = atom(get => {
-        const got = get(valueAtom);
-        if (typeof got === "symbol") {
-            return settingReader("internalPalette", defaultInternalPalette);
-        }
-        return got as typeof defaultInternalPalette;
-    }, (get, set, update: typeof defaultInternalPalette) => {
+import atomWithStorage from "@verkfi/shared/reader/atomWithStorage";
+const valueAtom = atomWithStorage("internalPalette", "内部调色板", defaultInternalPalette),
+    internalPaletteAtom = atom(get => get(valueAtom), (get, set, update: typeof defaultInternalPalette) => {
         set(valueAtom, update);
         const paletteColors: typeof defaultPalette = {
             primary: {

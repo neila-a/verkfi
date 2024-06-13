@@ -2,26 +2,12 @@
 import {
     atom
 } from "jotai";
-import setSetting from "../reader/setSetting";
 import {
     locales
 } from "layout/layoutClient";
 import isBrowser from "../isBrowser";
-import settingReader from "../reader/settingReader";
-import {
-    emptySymbol
-} from "../reader/atomWithStorage";
-const valueAtom = atom<keyof typeof locales | typeof emptySymbol | "system">(emptySymbol),
-    langAtom = atom(get => {
-        let value = get(valueAtom);
-        if (value === emptySymbol) {
-            return settingReader("lang", "system") as Promise<keyof typeof locales | "system">;
-        }
-        return value;
-    }, (get, set, update: keyof typeof locales | "system") => {
-        set(valueAtom, update);
-        setSetting("lang", "语言", update);
-    });
+import atomWithStorage from "../reader/atomWithStorage";
+const langAtom = atomWithStorage<keyof typeof locales | "system">("lang", "语言", "system");
 export const usableLangAtom = atom(async get => {
     const got = await get(langAtom);
     if (got === "system") {
