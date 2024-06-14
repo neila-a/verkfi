@@ -11,19 +11,16 @@ import {
 import atomWithInitialValue, {
     valueAtomReturn
 } from "../reader/atomWithInitialValue";
+import simpleGetterWithEmpty from "../reader/simpleGetterWithEmpty";
 export interface extensionsDispatch extends single {
     action?: "delete"
 }
-const [extensionsAtom] = atomWithInitialValue((valueAtom: valueAtomReturn<single[]>) => atom(get => {
-    const got = get(valueAtom);
-    if (got === emptySymbol) {
-        if (isBrowser()) {
-            return db.extensionTools.toArray();
-        }
-        return [];
+const [extensionsAtom] = atomWithInitialValue((valueAtom: valueAtomReturn<single[]>) => atom(simpleGetterWithEmpty(valueAtom, get => {
+    if (isBrowser()) {
+        return db.extensionTools.toArray();
     }
-    return got as single[];
-}, async (get, set, update: extensionsDispatch) => {
+    return [];
+}), async (get, set, update: extensionsDispatch) => {
     const realOld = get(valueAtom),
         old = realOld === emptySymbol ? await db.extensionTools.toArray() : realOld;
     if (update?.action === "delete") {

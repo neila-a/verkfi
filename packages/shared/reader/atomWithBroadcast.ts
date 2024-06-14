@@ -31,13 +31,12 @@ export default function atomWithBroadcast<Value, Arg, Result>(read: (get: Getter
     return created;
 }
 import {
-    Atom,
+    Getter,
     WritableAtom,
     atom
 } from "jotai";
 /**
  * @source jotai/atom.d.ts
  */
-type Getter = <Value>(atom: Atom<Value>) => Value;
 type Setter = <Value, Args extends unknown[], Result>(atom: WritableAtom<Value, Args, Result>, ...args: Args) => Result;
 type Write<Arg, Result> = (get: Getter, set: Setter, arg: Arg) => Result;

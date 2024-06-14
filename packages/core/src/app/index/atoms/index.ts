@@ -15,22 +15,19 @@ import {
 import {
     tool
 } from "tools/info";
+import simpleGetterWithEmpty from "@verkfi/shared/reader/simpleGetterWithEmpty";
 import atomWithInitialValue, {
     valueAtomReturn
 } from "@verkfi/shared/reader/atomWithInitialValue";
 export const editModeAtom = atom(false),
     tabAtom = atom(0),
-    [toolsAtom, toolsAtomValue] = atomWithInitialValue((valueAtom: valueAtomReturn<tool[]>) => atom(get => {
-        const value = get(valueAtom),
-            list = get(loadableToolsListAtom);
-        if (value === emptySymbol) {
-            if (list.state === "hasData") {
-                return list.data;
-            }
-            return [];
+    [toolsAtom, toolsAtomValue] = atomWithInitialValue((valueAtom: valueAtomReturn<tool[]>) => atom(simpleGetterWithEmpty(valueAtom, get => {
+        const list = get(loadableToolsListAtom);
+        if (list.state === "hasData") {
+            return list.data;
         }
-        return value;
-    }, (get, set, update: tool[] | typeof RESET | `remove ${string}`) => {
+        return [];
+    }), (get, set, update: tool[] | typeof RESET | `remove ${string}`) => {
         function publicIfEmpty() {
             if (value === emptySymbol) {
                 if (list.state === "hasData") {
@@ -66,17 +63,13 @@ export const editModeAtom = atom(false),
     }, (get, set, update: string) => {
         set(valueAtom, update);
     })),
-    [sortedToolsAtom, sortedToolsAtomValue] = atomWithInitialValue((valueAtom: valueAtomReturn<tool[]>) => atom(get => {
-        const value = get(valueAtom),
-            list = get(loadableToolsListAtom);
-        if (value === emptySymbol) {
-            if (list.state === "hasData") {
-                return list.data;
-            }
-            return [];
+    [sortedToolsAtom, sortedToolsAtomValue] = atomWithInitialValue((valueAtom: valueAtomReturn<tool[]>) => atom(simpleGetterWithEmpty(valueAtom, get => {
+        const list = get(loadableToolsListAtom);
+        if (list.state === "hasData") {
+            return list.data;
         }
-        return value;
-    }, (get, set, update: tool[]) => {
+        return [];
+    }), (get, set, update: tool[]) => {
         set(valueAtom, update);
     })),
     [searchTextAtom, searchTextAtomValue] = atomWithInitialValue((valueAtom: PrimitiveAtom<string>) => atom(get => get(valueAtom), (get, set, search: string, isImplant: boolean) => {
@@ -87,13 +80,9 @@ export const editModeAtom = atom(false),
         set(toolsAtom, searchBase(get(sortedToolsAtom), search));
         set(valueAtom, search);
     }), ""),
-    [editingAtom, editingAtomValue] = atomWithInitialValue((valueAtom: valueAtomReturn<boolean>) => atom(get => {
-        const value = get(valueAtom);
-        if (value === emptySymbol) {
-            const searchText = get(searchTextAtom);
-            return searchText === "";
-        }
-        return value;
-    }, (get, set, update: boolean) => {
+    [editingAtom, editingAtomValue] = atomWithInitialValue((valueAtom: valueAtomReturn<boolean>) => atom(simpleGetterWithEmpty(valueAtom, get => {
+        const searchText = get(searchTextAtom);
+        return searchText === "";
+    }), (get, set, update: boolean) => {
         set(valueAtom, update);
     }));
