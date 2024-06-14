@@ -29,7 +29,10 @@ export default function MouseOverPopover(props: {
                 {props.children}
             </Box>
             <Popover classes={{
-                root: "mouse-over-popover" /* 暂时没用，仅作为标记 */
+                /**
+                 * 暂时没用，仅作为标记
+                 */
+                root: "mouse-over-popover"
             }} sx={{
                 pointerEvents: "none",
                 zIndex: "38602"

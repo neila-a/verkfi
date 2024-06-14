@@ -9,9 +9,12 @@ import getTries from "./getTries";
 import atomWithInitialValue, {
     valueAtomReturn
 } from "../../reader/atomWithInitialValue";
+import {
+    emptySymbol
+} from "../../reader/atomWithStorage";
 const [recommendAtom] = atomWithInitialValue((valueAtom: valueAtomReturn<tool[]>) => atom(get => {
     const got = get(valueAtom);
-    if (typeof got === "symbol") {
+    if (got === emptySymbol) {
         return getTries(get);
     }
     return got;

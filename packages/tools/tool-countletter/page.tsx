@@ -51,7 +51,7 @@ function CountLetter(): JSX.Element {
                 }} title={get("输入字符")} label={get("在这里输入")} />
                 <AlertDialog open={alertDialogOpen} title={get("输出")} description={out} onDone={() => {
                     setAlertDialogOpen(false);
-                }} /> {/* 输出对话框容器 */}
+                }} />
             </Box>
             <FormControl component="section">
                 <FormLabel id={systemId}>
