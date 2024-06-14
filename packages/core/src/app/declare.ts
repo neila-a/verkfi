@@ -122,7 +122,7 @@ export namespace hex {
  * @param string 任意字符串
  * @returns 六位的小写十六进制字符串
  */
-export const hex: <hexString extends string>(string: hex.HexColor<hexString>) => hex.Hex = string => string;
+export const hex = <hexString extends string>(string: hex.HexColor<hexString>) => string;
 
 interface SpeechRecognitionEvent {
     isTrusted?: boolean;

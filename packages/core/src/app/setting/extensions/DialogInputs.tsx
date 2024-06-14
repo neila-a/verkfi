@@ -20,6 +20,7 @@ import {
 import {
     single
 } from "@verkfi/shared/reader/db";
+import HexColor = hex.HexColor;
 export default function DialogInputs(props: {
     type: inputTypes;
     fileInfo: NXTMetadata;
@@ -53,7 +54,7 @@ export default function DialogInputs(props: {
                             const realOld = {
                                 ...old
                             };
-                            realOld.color[item] = hex(event.target.value as hex.HexColor<string>);
+                            realOld.color[item] = hex(event.target.value as HexColor<string>);
                             return realOld;
                         });
                     }} value={props.fileInfo.color[item]} label={get("appearance.colorSteps") + item} />

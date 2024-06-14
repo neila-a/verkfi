@@ -8,11 +8,13 @@ import isBrowser from "../isBrowser";
 import {
     emptySymbol
 } from "../reader/atomWithStorage";
+import atomWithInitialValue, {
+    valueAtomReturn
+} from "../reader/atomWithInitialValue";
 export interface extensionsDispatch extends single {
     action?: "delete"
 }
-const valueAtom = atom<typeof emptySymbol | single[]>(emptySymbol);
-const extensionsAtom = atom(get => {
+const [extensionsAtom] = atomWithInitialValue((valueAtom: valueAtomReturn<single[]>) => atom(get => {
     const got = get(valueAtom);
     if (got === emptySymbol) {
         if (isBrowser()) {
@@ -41,5 +43,5 @@ const extensionsAtom = atom(get => {
             }));
         }
     }
-});
+}));
 export default extensionsAtom;

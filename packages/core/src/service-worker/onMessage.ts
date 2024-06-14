@@ -1,6 +1,8 @@
 declare const self: ServiceWorkerGlobalScope;
-export interface message {
-    action: "getClients" | "navigate";
+export type message = {
+    action: "getClients"
+} | {
+    action: "navigate";
     /**
      * navigate action 中要聚焦的 ID
      */

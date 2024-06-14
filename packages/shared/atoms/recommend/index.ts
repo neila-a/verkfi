@@ -5,12 +5,11 @@ import {
 import {
     tool
 } from "tools/info";
-import {
-    emptySymbol
-} from "../../reader/atomWithStorage";
 import getTries from "./getTries";
-const valueAtom = atom<tool[] | typeof emptySymbol>(emptySymbol);
-const recommendAtom = atom(get => {
+import atomWithInitialValue, {
+    valueAtomReturn
+} from "../../reader/atomWithInitialValue";
+const [recommendAtom] = atomWithInitialValue((valueAtom: valueAtomReturn<tool[]>) => atom(get => {
     const got = get(valueAtom);
     if (typeof got === "symbol") {
         return getTries(get);
@@ -19,5 +18,5 @@ const recommendAtom = atom(get => {
 }, async (get, set) => {
     const newTries = await getTries(get);
     set(valueAtom, newTries);
-});
+}));
 export default recommendAtom;
