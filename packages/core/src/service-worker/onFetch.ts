@@ -58,9 +58,7 @@ export default async function onFetch(event: FetchEvent) {
         });
     }], ["extensionfiles", async tested => {
         const filePath = tested.pathname.groups.path,
-            tool = await db.extensionTools.get({
-                to: tested.pathname.groups.name
-            }),
+            tool = await db.extensionTools.get(tested.pathname.groups.name),
             file = tool.files.find(file => file.path === filePath).file;
         log(`检测到扩展路径为${filePath}`);
         response = new Response(new Blob([file]));

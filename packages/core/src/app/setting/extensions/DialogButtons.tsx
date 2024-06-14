@@ -42,12 +42,14 @@ export default function DialogButtons(props: {
                     });
                     const index = lists?.find(list => list[0] === "__global__"), to = `/tools/extension?tool=${props.fileInfo.to}`;
                     if (!index?.[1].includes(to)) {
-                        setLists(lists?.map(singleList => {
-                            if (singleList[0] === "__global__") {
-                                return [singleList[0], [...singleList[1], to]];
-                            }
-                            return singleList;
-                        }));
+                        if (lists.map) {
+                            setLists(lists.map(singleList => {
+                                if (singleList[0] === "__global__") {
+                                    return [singleList[0], [...singleList[1], to]];
+                                }
+                                return singleList;
+                            }));
+                        }
                     }
                     props.reset();
                 }}>

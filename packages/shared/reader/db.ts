@@ -4,6 +4,7 @@ import Dexie, {
 import {
     NXTMetadata
 } from "setting/extensions/page";
+import isBrowser from "../isBrowser";
 export interface file {
     path: string;
     file: Uint8Array;
@@ -11,22 +12,32 @@ export interface file {
 export interface single extends NXTMetadata {
     files: file[];
 }
-export interface option<value = any> {
-    key: string;
-    value: value;
-}
-class ClassedDexie extends Dexie {
-    // 'friends' is added by dexie when declaring the stores()
+class DataBase extends Dexie {
     // We just tell the typing system this is the case
     extensionTools!: Table<single>;
-    options!: Table<option>;
+    options!: Table<any>;
     constructor() {
         super("Verkfi");
-        this.version(6).stores({
-            extensionTools: "to, name, desc, to, icon, color, main, files, settings", // Primary key and indexed props
-            options: "key, value"
+        this.version(7).stores({
+            extensionTools: "&to", // Primary key and indexed props
+            options: ""
         });
     }
+    async readSetting<setting>(id: string, empty: setting): Promise<setting> {
+        if (isBrowser()) {
+            const got = await this.options.get(id);
+            if (got === undefined) {
+                await this.options.put(empty, id);
+                return empty;
+            }
+            return got;
+        }
+        return empty;
+    }
+    setSetting<setting = any>(id: string, name: string, value: setting) {
+        this.options.put(value, id);
+        return value;
+    }
 }
-const db = new ClassedDexie();
+const db = new DataBase();
 export default db;

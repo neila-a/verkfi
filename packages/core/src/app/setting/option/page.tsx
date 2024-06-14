@@ -47,7 +47,7 @@ import {
 } from "./Switcher";
 const PureDialog = dynamic(() => import("@verkfi/shared/dialog/Pure")),
     ghURL = "https://github.com/neila-a/verkfi/";
-export type option = [WritableAtom<boolean | Promise<boolean>, [update: boolean], void>, string];
+export type option = [WritableAtom<boolean | Promise<boolean>, [update: boolean | {}], void>, string];
 export default function Options() {
     const [lang, setLang] = useAtom(langAtom),
         [dialogOpen, setDialogOpen] = useState<boolean>(false),
