@@ -20,7 +20,7 @@ import {
 import hues from "./hues";
 import shades from "./shades";
 import ColorBar from "./ColorBar";
-import internalPaletteAtom from "./internalPaletteAtom";
+import internalPaletteAtom from "./paletteAtom";
 export default function ColorPicker(props: {
     intent: string;
 }) {

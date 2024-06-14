@@ -17,8 +17,7 @@ import {
 } from "jotai";
 import {
     darkMode as darkModeAtom,
-    gradientTool,
-    paletteColors
+    gradientTool
 } from "@verkfi/shared/atoms";
 import {
     get
@@ -28,11 +27,10 @@ import {
 } from "setting/option/Switcher";
 import defaultInternalPalette from "./defaultInternalPalette";
 import defaultPalette from "./defaultPalette";
-import internalPaletteAtom from "./internalPaletteAtom";
+import internalPaletteAtom from "./paletteAtom";
 import ColorPicker from "./ColorPicker";
 function ColorTool() {
-    const [palette, setPalette] = useAtom(paletteColors),
-        [darkMode, setDarkMode] = useAtom(darkModeAtom),
+    const [darkMode, setDarkMode] = useAtom(darkModeAtom),
         [internalPalette, setInternalPalette] = useAtom(internalPaletteAtom);
     return (
         <>
@@ -79,7 +77,6 @@ function ColorTool() {
                 <ColorPicker intent="secondary" />
             </Grid>
             <Button fullWidth variant="contained" onClick={() => {
-                setPalette(defaultPalette);
                 setInternalPalette(defaultInternalPalette);
             }}>
                 {get("重置")}

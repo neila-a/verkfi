@@ -11,7 +11,6 @@ import {
 import {
     atom
 } from "jotai";
-import defaultPalette from "setting/appearance/defaultPalette";
 import atomWithStorage from "../reader/atomWithStorage";
 import isBrowser from "../isBrowser";
 interface mostUsedMarks {
@@ -23,7 +22,6 @@ export const sidebarMode = atomWithStorage<sidebarMode>("sidebarmode", "边栏�
     showClients = atomWithStorage<boolean>("clients", "切换页面", false),
     forkMeOnGitHub = atomWithStorage<boolean>("fork-me-on-github", "Fork me on GitHub", false),
     share = atomWithStorage<boolean>("share", "分享", isBrowser() ? "share" in navigator : false),
-    paletteColors = atomWithStorage<typeof defaultPalette>("palette", "调色板", defaultPalette),
     viewMode = atomWithStorage<viewModeType>("viewmode", "列表模式", "list"),
     darkMode = atomWithStorage<PaletteMode | "system">("darkmode", "暗色模式", "system"),
     booleanifyDarkMode = atom(async get => {

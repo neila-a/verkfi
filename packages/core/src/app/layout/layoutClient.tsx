@@ -44,12 +44,14 @@ import registerProtocolHandler from "./registers/registerProtocolHandler";
 import registerServiceWorker from "./registers/registerServiceWorker";
 import {
     darkMode,
-    paletteColors,
     sidebarMode,
     showSidebar
 } from "@verkfi/shared/atoms";
 import isBrowser from "@verkfi/shared/isBrowser";
 import Clients from "./Clients";
+import {
+    paletteAtom
+} from "setting/appearance/paletteAtom";
 export const locales = {
     enUS,
     zhCN,
@@ -65,7 +67,7 @@ export default function ModifiedApp(props: {
     repoInfo: repoInfoType;
 }) {
     const [mode] = useAtom(darkMode),
-        [palette] = useAtom(paletteColors),
+        [palette] = useAtom(paletteAtom),
         theme = useMemo(
             () => createTheme({
                 palette: {
