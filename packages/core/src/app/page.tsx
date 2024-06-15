@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import HeadBar from "@verkfi/shared/HeadBar";
 import MouseOverPopover from "@verkfi/shared/Popover";
-import VerkfiIcon from "@verkfi/shared/verkfiIcon/verkfiIcon";
+import VerkfiIcon from "@verkfi/shared/verkfiIcon";
 import {
     setState
 } from "declare";

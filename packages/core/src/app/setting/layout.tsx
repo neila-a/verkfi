@@ -20,7 +20,7 @@ import {
 import extensionsAtom from "@verkfi/shared/atoms/extensions";
 import {
     type default as VerkfiIcon
-} from "@verkfi/shared/verkfiIcon/verkfiIcon";
+} from "@verkfi/shared/verkfiIcon";
 import {
     useAtom
 } from "jotai";

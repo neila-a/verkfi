@@ -21,7 +21,7 @@ import {
 } from "@mui/material";
 import MouseOverPopover from "@verkfi/shared/Popover";
 import Transition from "@verkfi/shared/dialog/Transition";
-import VerkfiIcon from "@verkfi/shared/verkfiIcon/verkfiIcon";
+import VerkfiIcon from "@verkfi/shared/verkfiIcon";
 import convertExtensionTools from "index/convertExtensionTools";
 import ToolsStack from "index/showTool";
 import SwitchEditMode from "index/sidebar/buttons/SwitchEditMode";

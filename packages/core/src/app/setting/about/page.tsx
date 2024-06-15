@@ -8,7 +8,7 @@ import {
     Typography
 } from "@mui/material";
 import ErrorBoundary from "@verkfi/shared/ErrorBoundary";
-import VerkfiIcon from "@verkfi/shared/verkfiIcon/verkfiIcon";
+import VerkfiIcon from "@verkfi/shared/verkfiIcon";
 import isBrowser from "@verkfi/shared/isBrowser";
 import dynamic from "next/dynamic";
 import Link from "next/link";
