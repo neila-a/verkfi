@@ -1,7 +1,4 @@
 import {
-    single
-} from "@verkfi/shared/reader/db";
-import {
     NXTMetadata
 } from "setting/extensions/page";
 export const emptyNXTMetadata: NXTMetadata = {
@@ -13,8 +10,4 @@ export const emptyNXTMetadata: NXTMetadata = {
     color: ["", ""],
     main: "",
     settings: []
-};
-export const emptyExtension: single = {
-    ...emptyNXTMetadata,
-    files: []
 };

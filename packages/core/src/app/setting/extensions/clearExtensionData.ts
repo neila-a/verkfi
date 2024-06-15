@@ -11,9 +11,6 @@ import {
     NXTMetadata,
     setting
 } from "./page";
-import {
-    single
-} from "@verkfi/shared/reader/db";
 export default function useClearExtensionData() {
     const [extensionsTools, setExtensions] = useAtom(extensionsAtom),
         [oldRecently, setRecently] = useAtom(recentlyUsedAtom),
@@ -21,10 +18,9 @@ export default function useClearExtensionData() {
         oldMost = {
             ...mostUsed
         };
-    return (clearingExtension: NXTMetadata, clearingFiles: single["files"]) => {
+    return (clearingExtension: NXTMetadata) => {
         setExtensions({
             ...clearingExtension,
-            files: clearingFiles,
             settings: clearingExtension.settings.map(setting => ({
                 ...setting,
                 value: setting.defaultValue

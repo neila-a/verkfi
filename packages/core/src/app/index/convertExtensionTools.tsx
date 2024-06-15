@@ -1,11 +1,11 @@
 "use client";
 import {
-    single
-} from "@verkfi/shared/reader/db";
+    NXTMetadata
+} from "setting/extensions/page";
 import {
     tool
 } from "tools/info";
-const convertExtensionTools: (extensionTools: single[]) => tool[] = extensionTools => extensionTools?.map(single => ({
+const convertExtensionTools: (extensionTools: NXTMetadata[]) => tool[] = extensionTools => extensionTools?.map(single => ({
     name: single.name,
     to: `/tools/extension?tool=${single.to}` as Lowercase<string>,
     desc: single.desc,

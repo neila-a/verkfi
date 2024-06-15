@@ -1,8 +1,5 @@
 "use client";
 import {
-    single
-} from "@verkfi/shared/reader/db";
-import {
     useAtom
 } from "jotai";
 import extensionsAtom from "@verkfi/shared/atoms/extensions";
@@ -14,13 +11,14 @@ import {
     useRef
 } from "react";
 import {
+    NXTMetadata,
     setting
 } from "setting/extensions/page";
 export default function ExtensionLoader() {
     const searchParams = useSearchParams(),
         toolID = searchParams.get("tool"),
         [extensionTools, setExtensions] = useAtom(extensionsAtom),
-        tool: single = extensionTools.find(a => a.to === toolID),
+        tool: NXTMetadata = extensionTools.find(a => a.to === toolID),
         src = `/extensionfiles/${tool.to}/${tool.main}`,
         ref = useRef<HTMLIFrameElement>();
     if (isBrowser()) {

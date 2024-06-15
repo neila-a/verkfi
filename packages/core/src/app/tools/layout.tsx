@@ -25,7 +25,7 @@ import {
     get
 } from "react-intl-universal";
 import {
-    emptyExtension
+    emptyNXTMetadata
 } from "tools/extension/empties";
 import toolsInfoAtom from "./info";
 const logger = new lpLogger({
@@ -49,7 +49,7 @@ export default function ToolFinder(props: {
         filteredToolsInfo = toolsInfo.filter(si => si.to === toolID),
         {
             name
-        } = filteredToolsInfo.length === 0 ? emptyExtension : filteredToolsInfo[0],
+        } = filteredToolsInfo.length === 0 ? emptyNXTMetadata : filteredToolsInfo[0],
         tool = toolsInfo.find(si => si.to === toolID);
     return (
         <>

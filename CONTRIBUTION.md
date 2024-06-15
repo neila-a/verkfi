@@ -36,6 +36,10 @@
 
 PWA 的缓存方案采取的是缓存优先模式，因为对于 Verkfi 来说，保持可用比保持最新更重要。
 
+### indexedDB
+
+Verkfi 中对 indexedDB 的使用方式基本上是“能存储非字符串类型的 localStorage”，所以 indexedDB 中仅存储键值对。
+
 ## 废弃提案
 
 ### 更新说明

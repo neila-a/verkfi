@@ -18,14 +18,14 @@ import {
     inputTypes
 } from "./page";
 import {
-    single
+    file
 } from "@verkfi/shared/reader/db";
 import HexColor = hex.HexColor;
 export default function DialogInputs(props: {
     type: inputTypes;
     fileInfo: NXTMetadata;
     setFileInfo: setState<NXTMetadata>;
-    files: single["files"];
+    files: file[];
     reset(): void;
     setModifyDialogOpen: setState<boolean>;
     setRemoveDialogOpen: setState<boolean>;

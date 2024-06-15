@@ -1,20 +1,13 @@
 import Dexie, {
     Table
 } from "dexie";
-import {
-    NXTMetadata
-} from "setting/extensions/page";
 import isBrowser from "../isBrowser";
 export interface file {
     path: string;
     file: Uint8Array;
 }
-export interface single extends NXTMetadata {
-    files: file[];
-}
 class DataBase extends Dexie {
     // We just tell the typing system this is the case
-    extensionTools!: Table<single>;
     options!: Table<any>;
     constructor() {
         super("Verkfi");

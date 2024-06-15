@@ -43,8 +43,7 @@ import DialogButtons from "./DialogButtons";
 import DialogInputs from "./DialogInputs";
 import RemoveExtensionDialog from "./RemoveExtensionDialog";
 import {
-    file,
-    single
+    file
 } from "@verkfi/shared/reader/db";
 import ToolsStack from "index/showTool";
 import convertExtensionTools from "index/convertExtensionTools";
@@ -60,7 +59,7 @@ export default function ExtensionManager() {
     const [addDialogOpen, setAddDialogOpen] = useState<boolean>(false),
         [fileArray, setFileArray] = useState<FilePondFile[]>([]),
         [fileInfo, setFileInfo] = useState<NXTMetadata>(emptyNXTMetadata),
-        [files, setFiles] = useState<single["files"]>([]),
+        [files, setFiles] = useState<file[]>([]),
         [removeDialogOpen, setRemoveDialogOpen] = useState<boolean>(false),
         [modifyDialogOpen, setModifyDialogOpen] = useState<boolean>(false),
         clearExtensionData = useClearExtensionData(),
@@ -104,17 +103,15 @@ export default function ExtensionManager() {
                             <MouseOverPopover text={get("extensions.clear")}>
                                 <IconButton onClick={event => {
                                     const {
-                                        files: thisFiles,
                                         ...metadata
                                     } = single;
-                                    clearExtensionData(metadata, thisFiles);
+                                    clearExtensionData(metadata);
                                 }} aria-label={get("extensions.clear")}>
                                     <RestartAlt />
                                 </IconButton>
                             </MouseOverPopover>
                             <MouseOverPopover text={get("extensions.删除扩展")}>
                                 <IconButton onClick={event => {
-                                    setFiles(single.files);
                                     setFileInfo({
                                         ...single
                                     });
@@ -134,7 +131,7 @@ export default function ExtensionManager() {
                     const reader = new FileReader();
                     reader.onload = function () {
                         const fs = new Filesystem(new Uint8Array(reader.result as ArrayBuffer)),
-                            dir = fs.readdirSync("/").filter(item => item !== "package.json"),
+                            dir = fs.readdirSync("/"),
                             main = JSON.parse(fs.readFileSync("package.json", true));
                         setFileInfo({
                             name: main.name,

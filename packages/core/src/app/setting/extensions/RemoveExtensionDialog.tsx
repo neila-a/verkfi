@@ -22,14 +22,14 @@ import {
     NXTMetadata
 } from "./page";
 import {
-    single
+    file
 } from "@verkfi/shared/reader/db";
 export default function RemoveExtensionDialog(props: {
     open: boolean;
     reset: () => any;
     fileInfo: NXTMetadata;
     onTrue?: () => any;
-    files: single["files"];
+    files: file[];
 }) {
     const [clearData, setClearData] = useState<boolean>(false),
         clearExtensionData = useClearExtensionData(),
@@ -46,11 +46,10 @@ export default function RemoveExtensionDialog(props: {
         }} onTrue={async () => {
             setLists(lists.map(singleList => [singleList[0], singleList[1].filter(item => item !== `/tools/extension?tool=${props.fileInfo.to}`)]));
             if (clearData) {
-                clearExtensionData(props.fileInfo, props.files);
+                clearExtensionData(props.fileInfo);
             }
             setExtensions({
                 ...props.fileInfo,
-                files: props.files,
                 action: "delete"
             });
             setClearData(false);

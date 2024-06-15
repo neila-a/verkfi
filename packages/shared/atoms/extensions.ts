@@ -1,6 +1,3 @@
-import db, {
-    single
-} from "../reader/db";
 import {
     atom
 } from "jotai";
@@ -12,22 +9,40 @@ import atomWithInitialValue, {
     valueAtomReturn
 } from "../reader/atomWithInitialValue";
 import simpleGetterWithEmpty from "../reader/simpleGetterWithEmpty";
-export interface extensionsDispatch extends single {
+import {
+    NXTMetadata
+} from "setting/extensions/page";
+import getMetadatas from "./getMetadatas";
+export interface extensionsDispatch extends NXTMetadata {
     action?: "delete"
 }
-const [extensionsAtom] = atomWithInitialValue((valueAtom: valueAtomReturn<single[]>) => atom(simpleGetterWithEmpty(valueAtom, get => {
+const [extensionsAtom, extensionsAtomValue] = atomWithInitialValue((valueAtom: valueAtomReturn<NXTMetadata[]>) => atom(simpleGetterWithEmpty(valueAtom, async get => {
     if (isBrowser()) {
-        return db.extensionTools.toArray();
+        return await getMetadatas();
     }
     return [];
 }), async (get, set, update: extensionsDispatch) => {
     const realOld = get(valueAtom),
-        old = realOld === emptySymbol ? await db.extensionTools.toArray() : realOld;
+        old = realOld === emptySymbol ? await getMetadatas() : realOld;
     if (update?.action === "delete") {
-        db.extensionTools.delete(update.to);
+        // 实际更新
+        const allHandle = await navigator.storage.getDirectory();
+        await allHandle.removeEntry(update.to, {
+            recursive: true
+        });
+
+        // atom更新
         set(valueAtom, old.filter(a => a.to !== update.to));
     } else {
-        db.extensionTools.put(update);
+        // 实际更新
+        const allHandle = await navigator.storage.getDirectory(),
+            thisHandle = await allHandle.getDirectoryHandle(update.to),
+            packageHandle = await thisHandle.getFileHandle("package.json"),
+            writable = await packageHandle.createWritable();
+        await writable.seek(0);
+        writable.write(JSON.stringify(update));
+
+        // atom更新
         const realOld = old.slice(0),
             index = old.findIndex(a => a.to === update.to);
         if (index === -1) {
@@ -41,4 +56,7 @@ const [extensionsAtom] = atomWithInitialValue((valueAtom: valueAtomReturn<single
         }
     }
 }));
+export {
+    extensionsAtomValue
+};
 export default extensionsAtom;

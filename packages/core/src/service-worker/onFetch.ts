@@ -1,4 +1,3 @@
-import db from "@verkfi/shared/reader/db";
 import {
     Cache,
     log
@@ -57,10 +56,17 @@ export default async function onFetch(event: FetchEvent) {
             headers: headers
         });
     }], ["extensionfiles", async tested => {
-        const filePath = tested.pathname.groups.path,
-            tool = await db.extensionTools.get(tested.pathname.groups.name),
-            file = tool.files.find(file => file.path === filePath).file;
-        log(`检测到扩展路径为${filePath}`);
+        const filePath = tested.pathname.groups.path.split("/"),
+            allHandle = await navigator.storage.getDirectory();
+        let handle = await allHandle.getDirectoryHandle(tested.pathname.groups.name);
+        await Promise.all(filePath.map(async (dir, index) => {
+            if (index !== filePath.length - 1) {
+                handle = await handle.getDirectoryHandle(dir);
+            }
+        }));
+        const fileHandle = await handle.getFileHandle(filePath[filePath.length - 1]),
+            file = await fileHandle.getFile();
+        log("检测到扩展路径为", filePath);
         response = new Response(new Blob([file]));
     }], ["extensionLoader", async () => {
         response = await cache.match(realReq, {

@@ -7,9 +7,12 @@ import {
     setState
 } from "declare";
 import {
-    useAtom
+    useAtom,
+    useSetAtom
 } from "jotai";
-import extensionsAtom from "@verkfi/shared/atoms/extensions";
+import {
+    file
+} from "@verkfi/shared/reader/db";
 import {
     lists as listsAtom
 } from "@verkfi/shared/atoms";
@@ -20,26 +23,48 @@ import {
     NXTMetadata
 } from "./page";
 import {
-    single
-} from "@verkfi/shared/reader/db";
+    extensionsAtomValue
+} from "@verkfi/shared/atoms/extensions";
+import getMetadatas from "@verkfi/shared/atoms/getMetadatas";
 export default function DialogButtons(props: {
     type: "modify" | "add";
     fileInfo: NXTMetadata;
     setModifyDialogOpen: setState<boolean>;
     setRemoveDialogOpen: setState<boolean>;
-    files: single["files"];
+    files: file[];
     reset(): void;
 }) {
     const [lists, setLists] = useAtom(listsAtom),
-        [extensions, setExtensions] = useAtom(extensionsAtom);
+        setExtensions = useSetAtom(extensionsAtomValue);
     return (
         <ButtonGroup fullWidth>
             {props.files.length !== 0 && (
                 <Button variant="contained" onClick={async event => {
-                    setExtensions({
-                        ...props.fileInfo,
-                        files: props.files
-                    });
+                    // 写入文件系统
+                    const allHandle = await navigator.storage.getDirectory();
+                    await Promise.all(props.files.map(async file => {
+                        const dirs = file.path.split("/");
+                        let handle = await allHandle.getDirectoryHandle(props.fileInfo.to, {
+                            create: true
+                        });
+                        await Promise.all(dirs.map(async (dir, index) => {
+                            if (index !== dirs.length - 1) {
+                                handle = await handle.getDirectoryHandle(dir, {
+                                    create: true
+                                });
+                            }
+                        }));
+                        const
+                            fileHandle = await handle.getFileHandle(dirs[dirs.length - 1], {
+                                create: true
+                            }),
+                            writable = await fileHandle.createWritable();
+                        await writable.write(file.file);
+                        await writable.close();
+                    }));
+                    setExtensions(await getMetadatas());
+
+                    // 写入lists
                     const index = lists?.find(list => list[0] === "__global__"), to = `/tools/extension?tool=${props.fileInfo.to}`;
                     if (!index?.[1].includes(to)) {
                         if (lists.map) {
