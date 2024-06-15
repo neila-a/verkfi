@@ -62,3 +62,12 @@ Verkfi 采用的是渐进式更新（即所有提交都直接提交至生产）�
 | Popover                | 38602         |
 | 拼图重置界面           | 38602         |
 | Fork me on Github      | 99999         |
+
+## Devtools 中常用指令
+
+```javascript
+const s = document.createElement("script");
+s.src = "https://cdn.jsdelivr.net/npm/opfs-tools-explorer";
+document.body.append(s);
+OTExplorer.init();
+```

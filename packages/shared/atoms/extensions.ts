@@ -13,10 +13,11 @@ import {
     NXTMetadata
 } from "setting/extensions/page";
 import getMetadatas from "./getMetadatas";
+import atomWithBroadcast from "../reader/atomWithBroadcast";
 export interface extensionsDispatch extends NXTMetadata {
     action?: "delete"
 }
-const [extensionsAtom, extensionsAtomValue] = atomWithInitialValue((valueAtom: valueAtomReturn<NXTMetadata[]>) => atom(simpleGetterWithEmpty(valueAtom, async get => {
+export const [extensionsAtom, extensionsAtomValue] = atomWithInitialValue((valueAtom: valueAtomReturn<NXTMetadata[]>) => atomWithBroadcast(simpleGetterWithEmpty(valueAtom, async get => {
     if (isBrowser()) {
         return await getMetadatas();
     }
@@ -55,8 +56,5 @@ const [extensionsAtom, extensionsAtomValue] = atomWithInitialValue((valueAtom: v
             }));
         }
     }
-}));
-export {
-    extensionsAtomValue
-};
+}, "extensions"));
 export default extensionsAtom;
