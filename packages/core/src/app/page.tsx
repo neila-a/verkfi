@@ -24,8 +24,8 @@ import {
 } from "jotai";
 import extensionsAtom from "@verkfi/shared/atoms/extensions";
 import {
-    recentlyUsed as recentlyUsedAtom,
-    showSidebar as showSidebarAtom
+    recentlyUsedAtom as recentlyUsedAtom,
+    showSidebarAtom as showSidebarAtom
 } from "@verkfi/shared/atoms";
 import {
     useState

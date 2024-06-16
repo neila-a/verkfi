@@ -14,7 +14,7 @@ import {
     useAtom
 } from "jotai";
 import {
-    viewMode as viewModeAtom
+    viewModeAtom
 } from "@verkfi/shared/atoms";
 import {
     get

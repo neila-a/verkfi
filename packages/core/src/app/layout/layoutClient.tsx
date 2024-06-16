@@ -42,8 +42,8 @@ import desktopAdder from "./registers/desktopAdder";
 import registerProtocolHandler from "./registers/registerProtocolHandler";
 import registerServiceWorker from "./registers/registerServiceWorker";
 import {
-    sidebarMode,
-    showSidebar
+    sidebarModeAtom,
+    showSidebarAtom
 } from "@verkfi/shared/atoms";
 import isBrowser from "@verkfi/shared/isBrowser";
 import Clients from "./Clients";
@@ -71,14 +71,14 @@ export default function ModifiedApp(props: {
         [expand, setExpand] = useState<boolean>(false),
         [loaded, setLoaded] = useState<"" | keyof typeof locales>(""),
         implant = (pathname === "/") || (params.get("only") === "true"),
-        [sidebarModeValue] = useAtom(sidebarMode),
+        [sidebarModeValue] = useAtom(sidebarModeAtom),
         ml: string = implant ? "" : (expand ? `calc(min(${`calc(100vw - ${drawerWidth}px)`}, 320px) + ${drawerWidth}px)` : `${drawerWidth}px`),
         Sidebar = implant ? null : (sidebarModeValue === "menu" ? createElement(dynamic(() => import("./Menu"))) : createElement(dynamic(() => import("page")), {
             isImplant: true,
             expand: expand,
             setExpand: setExpand
         })), // 使用createElement因为dynamic不能直接以JSX方式调用
-        [showSidebarValue] = useAtom(showSidebar),
+        [showSidebarValue] = useAtom(showSidebarAtom),
         Provider = composeProviders([repoInfo, props.repoInfo]);
     useEffect(() => {
         if (isBrowser()) {

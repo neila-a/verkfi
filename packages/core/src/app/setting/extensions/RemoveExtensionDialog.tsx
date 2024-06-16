@@ -9,7 +9,7 @@ import {
 } from "jotai";
 import extensionsAtom from "@verkfi/shared/atoms/extensions";
 import {
-    lists as listsAtom
+    listsAtom as listsAtom
 } from "@verkfi/shared/atoms";
 import {
     useState

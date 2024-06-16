@@ -3,16 +3,16 @@ import {
     useAtom
 } from "jotai";
 import {
-    lists
+    listsAtom
 } from "@verkfi/shared/atoms";
 import {
     type tool
 } from "tools/info";
 import {
-    type lists as listsType
+    type listsAtom as listsType
 } from "../sidebar";
 export default function useButtonCommonSorting() {
-    const [realList, setList] = useAtom(lists);
+    const [realList, setList] = useAtom(listsAtom);
     return (sortingFor: string, pd: tool[]) => {
         const index = realList.findIndex(item => item[0] === sortingFor),
             newRealList: listsType = realList.slice(0);

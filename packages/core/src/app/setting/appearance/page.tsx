@@ -17,7 +17,7 @@ import {
     useAtom
 } from "jotai";
 import {
-    gradientTool
+    gradientToolAtom
 } from "@verkfi/shared/atoms";
 import {
     get
@@ -36,7 +36,7 @@ function ColorTool() {
         } = useColorScheme();
     return (
         <>
-            <Switcher option={[gradientTool, "渐变工具"]} key="gradientTool" />
+            <Switcher option={[gradientToolAtom, "渐变工具"]} key="gradientTool" />
             <Box>
                 <InputLabel>
                     {get("appearance.colorMode.text")}

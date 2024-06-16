@@ -7,7 +7,8 @@ import {
     useAtom
 } from "jotai";
 import {
-    sidebarMode
+    sidebarMode,
+    sidebarModeAtom
 } from "@verkfi/shared/atoms";
 import {
     ReactNode
@@ -16,7 +17,7 @@ export default function Module(props: {
     children: ReactNode;
     mode: sidebarMode;
 }) {
-    const [mode, setMode] = useAtom(sidebarMode),
+    const [mode, setMode] = useAtom(sidebarModeAtom),
         isThis = props.mode === mode;
     return (
         <Grid item>

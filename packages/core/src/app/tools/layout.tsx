@@ -9,7 +9,7 @@ import {
 } from "jotai";
 import extensionsAtom from "@verkfi/shared/atoms/extensions";
 import {
-    gradientTool
+    gradientToolAtom
 } from "@verkfi/shared/atoms";
 import Loading from "loading";
 import lpLogger from "lp-logger";
@@ -35,7 +35,7 @@ const logger = new lpLogger({
 export default function ToolFinder(props: {
     children: ReactNode;
 }): JSX.Element {
-    const [color] = useAtom(gradientTool),
+    const [color] = useAtom(gradientToolAtom),
         segment = useSelectedLayoutSegment(),
         searchParams = useSearchParams(),
         toolID = segment === "extension" ? searchParams.get("tool") : segment,

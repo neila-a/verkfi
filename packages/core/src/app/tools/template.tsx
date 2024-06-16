@@ -4,8 +4,8 @@ import {
     useAtom
 } from "jotai";
 import {
-    mostUsed as mostUsedAtom,
-    recentlyUsed as recentlyUsedAtom
+    mostUsedAtom as mostUsedAtom,
+    recentlyUsedAtom as recentlyUsedAtom
 } from "@verkfi/shared/atoms";
 import {
     useSearchParams,

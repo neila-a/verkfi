@@ -36,8 +36,8 @@ import {
     repoInfo
 } from "layout/layoutClient";
 import {
-    recentlyUsed as recentlyUsedAtom,
-    showSidebar
+    recentlyUsedAtom as recentlyUsedAtom,
+    showSidebarAtom
 } from "@verkfi/shared/atoms";
 import Link from "next/link";
 import {
@@ -65,7 +65,7 @@ import {
     useResetAtom
 } from "jotai/utils";
 export default function Menu() {
-    const [control, setControl] = useAtom(showSidebar),
+    const [control, setControl] = useAtom(showSidebarAtom),
         theme = useTheme(),
         fullScreen = useMediaQuery(theme.breakpoints.down("sm")),
         [realTools] = useAtom(toolsInfoAtom),

@@ -25,7 +25,7 @@ import {
     locales
 } from "layout/layoutClient";
 import {
-    forkMeOnGitHub, share
+    forkMeOnGitHubAtom, shareAtom
 } from "@verkfi/shared/atoms";
 import {
     Route
@@ -58,7 +58,7 @@ export default function Options() {
             <Typography variant="h4">
                 {get("选项")}
             </Typography>
-            {([[forkMeOnGitHub, "Fork me on GitHub"], [share, "share.t"]] satisfies option[]).map(options => (
+            {([[forkMeOnGitHubAtom, "Fork me on GitHub"], [shareAtom, "share.t"]] satisfies option[]).map(options => (
                 <Switcher option={options} key={options[1]} />
             ))}
             <InputLabel>

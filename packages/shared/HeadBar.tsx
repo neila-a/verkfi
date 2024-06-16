@@ -25,10 +25,10 @@ import {
     repoInfo as repoInfoContext
 } from "layout/layoutClient";
 import {
-    forkMeOnGitHub as forkMeOnGitHubAtom,
-    share as shareAtom,
-    showClients,
-    showSidebar
+    forkMeOnGitHubAtom as forkMeOnGitHubAtom,
+    shareAtom as shareAtom,
+    showClientsAtom,
+    showSidebarAtom
 } from "./atoms";
 import Link from "next/link";
 import {
@@ -66,8 +66,8 @@ export default function HeadBar(props: HeadBarOption): JSX.Element {
         [clients] = useAtom(clientsAtom),
         upper = repoInfoName.charAt(0).toUpperCase() + repoInfoName.slice(1),
         [share] = useAtom(shareAtom),
-        [showSidebarValue, setShowSidebar] = useAtom(showSidebar),
-        [showClientsValue, setShowClients] = useAtom(showClients),
+        [showSidebarValue, setShowSidebar] = useAtom(showSidebarAtom),
+        [showClientsValue, setShowClients] = useAtom(showClientsAtom),
         noDrag: CSSProperties = {
             // @ts-ignore React的CSSProperties中明明有WebkitAppRegion，但是类型中没有
             WebkitAppRegion: "no-drag"

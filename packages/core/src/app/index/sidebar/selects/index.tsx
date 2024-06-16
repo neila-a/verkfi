@@ -20,7 +20,7 @@ import {
     useAtom
 } from "jotai";
 import {
-    lists as listsAtom
+    listsAtom as listsAtom
 } from "@verkfi/shared/atoms";
 import dynamic from "next/dynamic";
 import {
@@ -34,7 +34,7 @@ import {
 } from "react-intl-universal";
 import reorderArray from "reorder-array";
 import {
-    lists
+    listsAtom
 } from "..";
 import SingleSelect from "./SingleSelect";
 import toolsListAtom from "@verkfi/shared/atoms/toolsList";

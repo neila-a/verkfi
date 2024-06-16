@@ -11,7 +11,7 @@ import {
     useAtom
 } from "jotai";
 import {
-    viewMode as viewModeAtom
+    viewModeAtom
 } from "@verkfi/shared/atoms";
 export default function SwitchViewMode() {
     const [viewMode, setViewMode] = useAtom(viewModeAtom);
@@ -20,7 +20,7 @@ export default function SwitchViewMode() {
             <IconButton color="primary" sx={{
                 p: 1
             }} aria-label={viewMode === "grid" ? "切换为列表模式" : "切换为网格模式"} onClick={event => {
-                setViewMode(viewMode === "grid" ? "list" : "grid");
+                setViewMode("swap");
             }}>
                 {viewMode === "grid" ? <ViewListIcon /> : <ViewModuleIcon />}
             </IconButton>

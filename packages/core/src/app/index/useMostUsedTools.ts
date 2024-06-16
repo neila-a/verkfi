@@ -4,7 +4,7 @@ import {
 } from "jotai";
 import extensionsAtom from "@verkfi/shared/atoms/extensions";
 import {
-    mostUsed as mostUsedAtom
+    mostUsedAtom as mostUsedAtom
 } from "@verkfi/shared/atoms";
 import toolsInfoAtom, {
     tool

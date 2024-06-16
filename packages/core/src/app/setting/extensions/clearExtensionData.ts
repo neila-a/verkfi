@@ -4,8 +4,8 @@ import {
 } from "jotai";
 import extensionsAtom from "@verkfi/shared/atoms/extensions";
 import {
-    mostUsed as mostUsedAtom,
-    recentlyUsed as recentlyUsedAtom
+    mostUsedAtom as mostUsedAtom,
+    recentlyUsedAtom as recentlyUsedAtom
 } from "@verkfi/shared/atoms";
 import {
     NXTMetadata,

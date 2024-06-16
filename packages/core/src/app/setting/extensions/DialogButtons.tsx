@@ -14,7 +14,7 @@ import {
     file
 } from "@verkfi/shared/reader/db";
 import {
-    lists as listsAtom
+    listsAtom as listsAtom
 } from "@verkfi/shared/atoms";
 import {
     get

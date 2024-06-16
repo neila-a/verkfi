@@ -49,7 +49,7 @@ import MouseOverPopover from "@verkfi/shared/Popover";
 import isBrowser from "@verkfi/shared/isBrowser";
 import InputDialog from "@verkfi/shared/dialog/Input";
 import {
-    showClients
+    showClientsAtom
 } from "@verkfi/shared/atoms";
 import Transition from "@verkfi/shared/dialog/Transition";
 import {
@@ -60,7 +60,7 @@ export default function Clients() {
     const [clients, setClients] = useAtom(clientsAtom),
         [realTools] = useAtom(toolsInfoAtom),
         theme = useTheme(),
-        [control, setControl] = useAtom(showClients),
+        [control, setControl] = useAtom(showClientsAtom),
         [sets] = useAtom(setsAtom),
         fullScreen = useMediaQuery(theme.breakpoints.down("sm")),
         emptyColor = new Array<string>(2).fill(theme.palette.background.paper) as [Hex, Hex],

@@ -23,8 +23,8 @@ import {
     useAtom
 } from "jotai";
 import {
-    gradientTool as gradientToolAtom,
-    lists as listsAtom
+    gradientToolAtom as gradientToolAtom,
+    listsAtom as listsAtom
 } from "@verkfi/shared/atoms";
 import {
     Route
@@ -53,7 +53,7 @@ import DownButton from "../sorting/DownButton";
 import UpButton from "../sorting/UpButton";
 const CheckDialog = dynamic(() => import("@verkfi/shared/dialog/Check"));
 import {
-    viewMode as viewModeAtom
+    viewModeAtom
 } from "@verkfi/shared/atoms";
 import {
     editModeAtom,

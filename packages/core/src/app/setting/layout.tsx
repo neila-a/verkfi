@@ -14,8 +14,8 @@ import {
 import ErrorBoundary from "@verkfi/shared/ErrorBoundary";
 import HeadBar from "@verkfi/shared/HeadBar";
 import {
-    showSidebar as showSidebarAtom,
-    sidebarMode as sidebarModeAtom
+    showSidebarAtom as showSidebarAtom,
+    sidebarModeAtom as sidebarModeAtom
 } from "@verkfi/shared/atoms";
 import extensionsAtom from "@verkfi/shared/atoms/extensions";
 import {

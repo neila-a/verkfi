@@ -4,7 +4,7 @@ import {
 } from "jotai";
 import extensionsAtom from "./extensions";
 import {
-    lists as listsAtom
+    listsAtom as listsAtom
 } from ".";
 import toolsInfoAtom from "tools/info";
 import {

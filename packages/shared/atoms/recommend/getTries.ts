@@ -3,7 +3,7 @@ import {
     not
 } from "../../TransferList";
 import {
-    mostUsed as mostUsedAtom
+    mostUsedAtom as mostUsedAtom
 } from "..";
 import toolsInfoAtom from "tools/info";
 import {

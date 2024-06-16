@@ -13,14 +13,14 @@ import {
 } from "jotai";
 import extensionsAtom from "@verkfi/shared/atoms/extensions";
 import {
-    lists as listsAtom
+    listsAtom as listsAtom
 } from "@verkfi/shared/atoms";
 import dynamic from "next/dynamic";
 import {
     get
 } from "react-intl-universal";
 import {
-    lists
+    listsAtom
 } from "..";
 import convertExtensionTools from "../../convertExtensionTools";
 import toolsListAtom from "@verkfi/shared/atoms/toolsList";

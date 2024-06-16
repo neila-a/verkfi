@@ -18,7 +18,7 @@ import {
     useAtom
 } from "jotai";
 import {
-    lists
+    listsAtom
 } from "@verkfi/shared/atoms";
 import {
     useContext,
