@@ -10,13 +10,13 @@ import {
     Grid,
     InputLabel,
     PaletteMode,
-    Paper
+    Paper,
+    useColorScheme
 } from "@mui/material";
 import {
     useAtom
 } from "jotai";
 import {
-    darkMode as darkModeAtom,
     gradientTool
 } from "@verkfi/shared/atoms";
 import {
@@ -26,12 +26,14 @@ import {
     Switcher
 } from "setting/option/Switcher";
 import defaultInternalPalette from "./defaultInternalPalette";
-import defaultPalette from "./defaultPalette";
 import internalPaletteAtom from "./paletteAtom";
 import ColorPicker from "./ColorPicker";
 function ColorTool() {
-    const [darkMode, setDarkMode] = useAtom(darkModeAtom),
-        [internalPalette, setInternalPalette] = useAtom(internalPaletteAtom);
+    const [internalPalette, setInternalPalette] = useAtom(internalPaletteAtom),
+        {
+            mode,
+            setMode
+        } = useColorScheme();
     return (
         <>
             <Switcher option={[gradientTool, "渐变工具"]} key="gradientTool" />
@@ -44,12 +46,12 @@ function ColorTool() {
                     mb: 2
                 }}>
                     {([["light", LightMode], ["dark", DarkMode], ["system", BrightnessMedium]] satisfies [PaletteMode | "system", typeof LightMode][]).map(item => {
-                        const isThis = darkMode === item[0],
+                        const isThis = mode === item[0],
                             Icon = item[1];
                         return (
                             <Grid item key={item[0]}>
                                 <Paper onClick={event => {
-                                    setDarkMode(item[0]);
+                                    setMode(item[0]);
                                 }} sx={{
                                     p: 2,
                                     display: "flex",

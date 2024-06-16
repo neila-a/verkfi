@@ -20,7 +20,7 @@ export default function SwitchViewMode() {
             <IconButton color="primary" sx={{
                 p: 1
             }} aria-label={viewMode === "grid" ? "切换为列表模式" : "切换为网格模式"} onClick={event => {
-                setViewMode(viewMode === "grid" ? "list" : "grid")
+                setViewMode(viewMode === "grid" ? "list" : "grid");
             }}>
                 {viewMode === "grid" ? <ViewListIcon /> : <ViewModuleIcon />}
             </IconButton>

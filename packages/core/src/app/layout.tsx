@@ -1,7 +1,8 @@
 import {
     Box,
     GlobalStyles,
-    Typography
+    Typography,
+    getInitColorSchemeScript
 } from "@mui/material";
 import {
     AppRouterCacheProvider
@@ -22,6 +23,8 @@ import {
     Suspense
 } from "react";
 import pack from "../../package.json";
+import favicon from "./image/favicon.png";
+import social from "./image/social.png";
 export async function generateMetadata() {
     let url = new URL(pack.homepage);
     try {
@@ -32,7 +35,7 @@ export async function generateMetadata() {
     const repoInfo = await getRepoInfo(),
         upperName = repoInfo.name.charAt(0).toUpperCase() + repoInfo.name.slice(1);
     return ({
-        manifest: "/index.webmanifest",
+        manifest: "/manifest.webmanifest",
         metadataBase: url,
         description: repoInfo.description,
         applicationName: upperName,
@@ -41,7 +44,7 @@ export async function generateMetadata() {
             "msapplication-navbutton-color": "#1976d2",
             "msapplication-starturl": "/"
         },
-        icons: "/image/favicon.png",
+        icons: favicon.src,
         appleWebApp: {
             title: upperName
         },
@@ -56,7 +59,7 @@ export async function generateMetadata() {
             siteName: upperName,
             images: [
                 {
-                    url: "./image/social.png",
+                    url: social.src,
                     width: 1280,
                     height: 640
                 }

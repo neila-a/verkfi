@@ -15,14 +15,14 @@ import {
     Collapse,
     IconButton,
     Typography,
-    TypographyOwnProps
+    styled,
+    useColorScheme
 } from "@mui/material";
 import MouseOverPopover from "@verkfi/shared/Popover";
 import {
     useAtom
 } from "jotai";
 import {
-    booleanifyDarkMode,
     gradientTool as gradientToolAtom,
     lists as listsAtom
 } from "@verkfi/shared/atoms";
@@ -64,6 +64,9 @@ import {
     isImplantContext
 } from "index/consts";
 import openWindow from "./openWindow";
+const ToolTypography = styled(Typography)({
+    wordBreak: "break-all"
+});
 export default function SingleTool(props: {
     tool: tool;
     actions?: ReactNode;
@@ -78,7 +81,7 @@ export default function SingleTool(props: {
         setTools = useAtom(toolsAtom)[1],
         sortingFor = useAtom(sortingForAtom)[0](isImplant),
         [viewMode] = useAtom(viewModeAtom),
-        lightMode = useAtom(booleanifyDarkMode),
+        lightMode = useColorScheme().systemMode === "light",
         ToolIcon = tool.icon,
         subStyle = {
             sx: {
@@ -94,10 +97,6 @@ export default function SingleTool(props: {
         [elevation, setElevation] = useState<number>(2),
         [jumpName, setJumpName] = useState<string>(""),
         [jumpDialogOpen, setJumpDialogOpen] = useState<boolean>(false),
-        ToolTypography = (props: TypographyOwnProps) => <Typography {...props} sx={{
-            ...props.sx,
-            wordBreak: "break-all"
-        }} />,
         fullWidth = `100%`,
         buttonOptions = {
             editMode: editMode,

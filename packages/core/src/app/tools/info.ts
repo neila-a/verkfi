@@ -16,7 +16,8 @@ import {
     ViewInAr as ViewInArIcon
 } from "@mui/icons-material";
 import {
-    SvgIconTypeMap
+    SvgIconTypeMap,
+    type SvgIcon
 } from "@mui/material";
 import {
     OverridableComponent
@@ -89,9 +90,7 @@ export interface tool extends noIconTool {
      * URL for icon of your tool.
      * @example https://foo.com/bar.png
      */
-    icon: (OverridableComponent<SvgIconTypeMap<{}, "svg">> & {
-        muiName: string
-    }) | FC;
+    icon: typeof SvgIcon; // MaterialUI 官方做法
 
 }
 const toolsInfoAtom = atom(async getAtom => {

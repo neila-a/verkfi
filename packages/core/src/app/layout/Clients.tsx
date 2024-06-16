@@ -34,6 +34,7 @@ import {
     DialogTitle,
     IconButton,
     InputAdornment,
+    type SvgIcon,
     TextField,
     useMediaQuery,
     useTheme
@@ -144,20 +145,22 @@ export default function Clients() {
             </DialogTitle>
             <DialogContent dividers>
                 <Provider>
-                    <ToolsStack notfound={(<No>
-                        {get("clients.notfound")}
-                        <br />
-                        <Button sx={{
-                            cursor: "pointer",
-                            textTransform: "none" // 路径变为大写会出现错误，因为路径是大小写敏感的
-                        }} onClick={event => {
-                            window.open(searchText).focus();
-                        }}>
-                            {get("clients.openNew", {
-                                path: searchText
-                            })}
-                        </Button>
-                    </No>)} disableClick focus={focusing} actions={filteredClients.map(client => (
+                    <ToolsStack notfound={(
+                        <No>
+                            {get("clients.notfound")}
+                            <br />
+                            <Button sx={{
+                                cursor: "pointer",
+                                textTransform: "none" // 路径变为大写会出现错误，因为路径是大小写敏感的
+                            }} onClick={event => {
+                                window.open(searchText).focus();
+                            }}>
+                                {get("clients.openNew", {
+                                    path: searchText
+                                })}
+                            </Button>
+                        </No>
+                    )} disableClick focus={focusing} actions={filteredClients.map(client => (
                         <MouseOverPopover key={client.id} text={get("clients.navigate")}>
                             <IconButton aria-label={get("clients.navigate")} onClick={event => {
                                 setNavigatingId(client.id);
@@ -172,10 +175,10 @@ export default function Clients() {
                         if (url.pathname === "/") {
                             tool = {
                                 name: get("主页"),
-                                icon: Home,
                                 to: url.pathname as Lowercase<string>,
-                                desc: "", // 将会被覆盖,
-                                color: emptyColor
+                                desc: "", // 将会被覆盖
+                                color: emptyColor,
+                                icon: Home as typeof SvgIcon
                             };
                         } else if (url.pathname.startsWith("/tools")) {
                             const converted = convertExtensionTools(extensionTools);
@@ -196,7 +199,7 @@ export default function Clients() {
                             if (found) {
                                 tool = {
                                     name: found.name + get("设置"),
-                                    icon: found.Icon,
+                                    icon: found.Icon as typeof SvgIcon,
                                     to: url.pathname as Lowercase<string>,
                                     desc: "", // 将会被覆盖
                                     color: emptyColor
@@ -206,7 +209,7 @@ export default function Clients() {
                         if (!tool) {
                             tool = {
                                 name: url.pathname,
-                                icon: Article,
+                                icon: Article as typeof SvgIcon,
                                 to: url.pathname as Lowercase<string>,
                                 desc: "", // 将会被覆盖
                                 color: emptyColor

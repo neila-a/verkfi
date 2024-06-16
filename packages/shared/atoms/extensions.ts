@@ -1,6 +1,3 @@
-import {
-    atom
-} from "jotai";
 import isBrowser from "../isBrowser";
 import {
     emptySymbol
@@ -19,7 +16,12 @@ export interface extensionsDispatch extends NXTMetadata {
 }
 export const [extensionsAtom, extensionsAtomValue] = atomWithInitialValue((valueAtom: valueAtomReturn<NXTMetadata[]>) => atomWithBroadcast(simpleGetterWithEmpty(valueAtom, async get => {
     if (isBrowser()) {
-        return await getMetadatas();
+        try {
+            const metadatas = await getMetadatas();
+            return metadatas;
+        } catch (error) {
+            console.error(error);
+        }
     }
     return [];
 }), async (get, set, update: extensionsDispatch) => {

@@ -28,6 +28,7 @@ export default class ErrorBoundary extends Component {
     }
     render() {
         if ((this.state as prop).hasError === true) {
+            debugger; // 发生错误时自动开启调试
             // 你可以自定义降级后的 UI 并渲染
             return (
                 <Error error={(this.state as prop).error} reset={() => null} />

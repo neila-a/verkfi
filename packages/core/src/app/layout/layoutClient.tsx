@@ -4,8 +4,8 @@ import {
     CssBaseline
 } from "@mui/material";
 import {
-    ThemeProvider,
-    createTheme
+    CssVarsProvider,
+    extendTheme
 } from "@mui/material/styles";
 import Ubuntu from "@verkfi/shared/fonts";
 import {
@@ -25,7 +25,6 @@ import {
     createContext,
     createElement,
     useEffect,
-    useMemo,
     useState
 } from "react";
 import intl from "react-intl-universal";
@@ -43,14 +42,13 @@ import desktopAdder from "./registers/desktopAdder";
 import registerProtocolHandler from "./registers/registerProtocolHandler";
 import registerServiceWorker from "./registers/registerServiceWorker";
 import {
-    darkMode,
     sidebarMode,
     showSidebar
 } from "@verkfi/shared/atoms";
 import isBrowser from "@verkfi/shared/isBrowser";
 import Clients from "./Clients";
 import {
-    paletteAtom
+    themeAtom
 } from "setting/appearance/paletteAtom";
 export const locales = {
     enUS,
@@ -66,20 +64,7 @@ export default function ModifiedApp(props: {
     children: ReactNode;
     repoInfo: repoInfoType;
 }) {
-    const [mode] = useAtom(darkMode),
-        [palette] = useAtom(paletteAtom),
-        theme = useMemo(
-            () => createTheme({
-                palette: {
-                    ...palette,
-                    mode: mode === "system" ? (isBrowser() ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") : "light") : mode
-                },
-                typography: {
-                    fontFamily: Ubuntu.style.fontFamily
-                }
-            }),
-            [mode, palette]
-        ),
+    const [theme] = useAtom(themeAtom),
         pathname = usePathname(),
         params = useSearchParams(),
         [choosedLang] = useAtom(usableLangAtom),
@@ -113,7 +98,7 @@ export default function ModifiedApp(props: {
     }, [choosedLang]);
     return loaded !== "" && (
         <Provider>
-            <ThemeProvider theme={theme}>
+            <CssVarsProvider theme={theme}>
                 <CssBaseline />
                 <Box component="aside">
                     {Sidebar}
@@ -122,7 +107,7 @@ export default function ModifiedApp(props: {
                 <Box component="main" ml={(showSidebarValue && sidebarModeValue === "sidebar") && ml}>
                     {props.children}
                 </Box>
-            </ThemeProvider>
+            </CssVarsProvider>
         </Provider>
     );
 }
