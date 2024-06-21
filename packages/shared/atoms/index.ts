@@ -13,13 +13,13 @@ import {
 interface mostUsedMarks {
     [key: string]: number;
 }
-const viewModeAtomValue = atomWithStorage<viewMode>("viewmode", "列表模式", "list");
+const viewModeAtomValue = atomWithStorage<viewMode>("viewmode", "list");
 export type sidebarMode = "menu" | "sidebar";
-export const sidebarModeAtom = atomWithStorage<sidebarMode>("sidebarmode", "边栏模式", "menu"),
-    showSidebarAtom = atomWithStorage<boolean>("sidebar", "边栏", false),
-    showClientsAtom = atomWithStorage<boolean>("clients", "切换页面", false),
-    forkMeOnGitHubAtom = atomWithStorage<boolean>("fork-me-on-github", "Fork me on GitHub", false),
-    shareAtom = atomWithStorage<boolean>("share", "分享", isBrowser() ? "share" in navigator : false),
+export const sidebarModeAtom = atomWithStorage<sidebarMode>("sidebarmode", "menu"),
+    showSidebarAtom = atomWithStorage<boolean>("sidebar", false),
+    showClientsAtom = atomWithStorage<boolean>("clients", false),
+    forkMeOnGitHubAtom = atomWithStorage<boolean>("fork-me-on-github", false),
+    shareAtom = atomWithStorage<boolean>("share", isBrowser() ? "share" in navigator : false),
     viewModeAtom = atom(get => get(viewModeAtomValue), (get, set, update: viewMode | "swap") => {
         if (update === "swap") {
             const gotValue = get(viewModeAtomValue);
@@ -30,8 +30,8 @@ export const sidebarModeAtom = atomWithStorage<sidebarMode>("sidebarmode", "边�
         }
         set(viewModeAtomValue, update);
     }),
-    gradientToolAtom = atomWithStorage<boolean>("gradient-tool", "工具渐变", false),
-    recentlyUsedAtom = atomWithStorage<string[]>("recently-tools", "最近使用的工具", []),
-    mostUsedAtom = atomWithStorage<mostUsedMarks>("most-tools", "最常使用的工具", {
+    gradientToolAtom = atomWithStorage<boolean>("gradient-tool", false),
+    recentlyUsedAtom = atomWithStorage<string[]>("recently-tools", []),
+    mostUsedAtom = atomWithStorage<mostUsedMarks>("most-tools", {
     }),
-    listsAtom = atomWithStorage<lists>("lists", "分类列表", []);
+    listsAtom = atomWithStorage<lists>("lists", []);

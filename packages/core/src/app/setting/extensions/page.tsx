@@ -17,7 +17,8 @@ import {
 } from "filepond";
 import {
     Provider,
-    useAtom
+    useAtom,
+    useAtomValue
 } from "jotai";
 import extensionsAtom from "@verkfi/shared/atoms/extensions";
 import dynamic from "next/dynamic";
@@ -73,7 +74,7 @@ export default function ExtensionManager() {
             setFiles([]);
             setFileInfo(emptyNXTMetadata);
         },
-        [extensionTools] = useAtom(extensionsAtom),
+        extensionTools = useAtomValue(extensionsAtom),
         packagedDialogInputs = (type: inputTypes) => <DialogInputs
             type={type}
             fileInfo={fileInfo}

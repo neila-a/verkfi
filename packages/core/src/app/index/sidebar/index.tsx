@@ -15,11 +15,10 @@ import {
     setState
 } from "declare";
 import {
-    useAtom
+    useAtom,
+    useAtomValue,
+    useSetAtom
 } from "jotai";
-import {
-    listsAtom
-} from "@verkfi/shared/atoms";
 import {
     useContext,
     useState
@@ -49,12 +48,12 @@ export default function Sidebar(props: {
     setExpand: setState<boolean>;
 }) {
     const isImplant = useContext(isImplantContext),
-        sortingFor = useAtom(sortingForAtom)[0](isImplant),
-        setSortingFor = useAtom(sortingForAtom)[1],
+        sortingFor = useAtomValue(sortingForAtom)(isImplant),
+        setSortingFor = useSetAtom(sortingForAtom),
         [searchText, setSearchText] = useAtom(searchTextAtom),
         [clickCount, setClickCount] = useState<number>(0),
-        setTab = useAtom(tabAtom)[1],
-        [tools] = useAtom(toolsAtom);
+        setTab = useSetAtom(tabAtom),
+        tools = useAtomValue(toolsAtom);
     return (
         <Drawer variant="permanent" sx={{
             maxWidth: drawerWidth,

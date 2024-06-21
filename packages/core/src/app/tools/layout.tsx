@@ -5,14 +5,14 @@ import {
 import HeadBar from "@verkfi/shared/HeadBar";
 import convertExtensionTools from "index/convertExtensionTools";
 import {
-    useAtom
+    useAtom,
+    useAtomValue
 } from "jotai";
 import extensionsAtom from "@verkfi/shared/atoms/extensions";
 import {
     gradientToolAtom
 } from "@verkfi/shared/atoms";
 import Loading from "loading";
-import lpLogger from "lp-logger";
 import {
     useSearchParams,
     useSelectedLayoutSegment
@@ -28,20 +28,16 @@ import {
     emptyNXTMetadata
 } from "tools/extension/empties";
 import toolsInfoAtom from "./info";
-const logger = new lpLogger({
-    name: "ToolFinder",
-    level: "log"
-});
 export default function ToolFinder(props: {
     children: ReactNode;
 }): JSX.Element {
-    const [color] = useAtom(gradientToolAtom),
+    const color = useAtomValue(gradientToolAtom),
         segment = useSelectedLayoutSegment(),
         searchParams = useSearchParams(),
         toolID = segment === "extension" ? searchParams.get("tool") : segment,
-        [extensionTools] = useAtom(extensionsAtom),
+        extensionTools = useAtomValue(extensionsAtom),
         only = searchParams.has("only"),
-        [internalToolsInfo] = useAtom(toolsInfoAtom),
+        internalToolsInfo = useAtomValue(toolsInfoAtom),
         toolsInfo = segment === "extension" ? convertExtensionTools(extensionTools).map(single => ({
             ...single,
             to: single.to.replace("/tools/extension?tool=", "") as Lowercase<string>

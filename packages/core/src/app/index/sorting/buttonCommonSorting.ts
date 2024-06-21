@@ -9,7 +9,7 @@ import {
     type tool
 } from "tools/info";
 import {
-    type listsAtom as listsType
+    type lists as listsType
 } from "../sidebar";
 export default function useButtonCommonSorting() {
     const [realList, setList] = useAtom(listsAtom);

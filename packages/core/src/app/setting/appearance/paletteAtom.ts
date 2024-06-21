@@ -9,7 +9,7 @@ import {
     extendTheme
 } from "@mui/material";
 import Ubuntu from "@verkfi/shared/fonts";
-const internalPaletteAtom = atomWithStorage("internalPalette", "内部调色板", defaultInternalPalette);
+const internalPaletteAtom = atomWithStorage("internalPalette", defaultInternalPalette);
 export const
     paletteAtom = atom(async get => {
         const internal = await get(internalPaletteAtom);

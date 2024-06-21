@@ -27,7 +27,7 @@ class DataBase extends Dexie {
         }
         return empty;
     }
-    setSetting<setting = any>(id: string, name: string, value: setting) {
+    setSetting<setting = any>(id: string, value: setting) {
         this.options.put(value, id);
         return value;
     }

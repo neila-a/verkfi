@@ -1,6 +1,7 @@
 "use client";
 import {
-    useAtom
+    useAtom,
+    useSetAtom
 } from "jotai";
 import extensionsAtom from "@verkfi/shared/atoms/extensions";
 import {
@@ -12,7 +13,7 @@ import {
     setting
 } from "./page";
 export default function useClearExtensionData() {
-    const [extensionsTools, setExtensions] = useAtom(extensionsAtom),
+    const setExtensions = useSetAtom(extensionsAtom),
         [oldRecently, setRecently] = useAtom(recentlyUsedAtom),
         [mostUsed, setMostUsed] = useAtom(mostUsedAtom),
         oldMost = {

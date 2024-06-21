@@ -26,7 +26,8 @@ import {
 import SwitchEditMode from "./SwitchEditMode";
 import SwitchViewMode from "./SwitchViewMode";
 import {
-    useAtom
+    useAtom,
+    useAtomValue
 } from "jotai";
 import {
     editModeAtom,
@@ -40,8 +41,8 @@ export default function Buttons(props: {
     expand: boolean;
     setExpand: setState<boolean>;
 }) {
-    const [editing] = useAtom(editingAtom),
-        [editMode] = useAtom(editModeAtom),
+    const editing = useAtomValue(editingAtom),
+        editMode = useAtomValue(editModeAtom),
         [dialogOpen, setDialogOpen] = useState<boolean>(false),
         [dialogTools, setDialogTools] = useState<string[]>([]),
         isImplant = useContext(isImplantContext),

@@ -19,7 +19,8 @@ import {
     Theme
 } from "@mui/material/styles";
 import {
-    useAtom
+    useAtom,
+    useAtomValue
 } from "jotai";
 import {
     repoInfo as repoInfoContext
@@ -61,11 +62,11 @@ export interface HeadBarOption {
  */
 export default function HeadBar(props: HeadBarOption): JSX.Element {
     const repoInfoName = useContext(repoInfoContext).name,
-        [forkMeOnGithub] = useAtom(forkMeOnGitHubAtom),
+        forkMeOnGithub = useAtomValue(forkMeOnGitHubAtom),
         router = useRouter(),
-        [clients] = useAtom(clientsAtom),
+        clients = useAtomValue(clientsAtom),
         upper = repoInfoName.charAt(0).toUpperCase() + repoInfoName.slice(1),
-        [share] = useAtom(shareAtom),
+        share = useAtomValue(shareAtom),
         [showSidebarValue, setShowSidebar] = useAtom(showSidebarAtom),
         [showClientsValue, setShowClients] = useAtom(showClientsAtom),
         noDrag: CSSProperties = {

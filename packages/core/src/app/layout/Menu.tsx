@@ -30,7 +30,9 @@ import Selects from "index/sidebar/selects";
 import toolsListAtom from "@verkfi/shared/atoms/toolsList";
 import useMostUsedTools from "index/useMostUsedTools";
 import {
-    useAtom
+    useAtom,
+    useAtomValue,
+    useSetAtom
 } from "jotai";
 import {
     repoInfo
@@ -68,23 +70,21 @@ export default function Menu() {
     const [control, setControl] = useAtom(showSidebarAtom),
         theme = useTheme(),
         fullScreen = useMediaQuery(theme.breakpoints.down("sm")),
-        [realTools] = useAtom(toolsInfoAtom),
-        [recentlyUsed] = useAtom(recentlyUsedAtom),
-        sortingFor = useAtom(sortingForAtom)[0](false),
-        setSortingFor = useAtom(sortingForAtom)[1],
+        realTools = useAtomValue(toolsInfoAtom),
+        recentlyUsed = useAtomValue(recentlyUsedAtom),
+        sortingFor = useAtomValue(sortingForAtom)(false),
+        setSortingFor = useSetAtom(sortingForAtom),
         [tab, setTab] = useAtom(tabAtom),
         [searchText, setSearchText] = useAtom(searchTextAtom),
-        [extensionTools] = useAtom(extensionsAtom),
-        [gotToolsList] = useAtom(toolsListAtom),
+        extensionTools = useAtomValue(extensionsAtom),
+        gotToolsList = useAtomValue(toolsListAtom),
         mostUsed = useMostUsedTools(),
-        [, setSortedTools] = useAtom(sortedToolsAtom),
-        [tools] = useAtom(toolsAtom),
+        setSortedTools = useSetAtom(sortedToolsAtom),
+        tools = useAtomValue(toolsAtom),
         resetTools = useResetAtom(toolsAtom),
         focusingTo = tools[tab] ? tools[tab].to : "", // 每次渲染会重新执行
         upper = useContext(repoInfo).name.charAt(0).toUpperCase() + useContext(repoInfo).name.slice(1),
         [editing, setEditing] = useAtom(editingAtom);
-    function searchTools(search: string) {
-    }
     function handleTab() {
         setTab(old => (old + 1) % tools.length);
         const selectool = document.getElementById(`toolAbleToSelect-${focusingTo}`) as HTMLDivElement | null;
@@ -149,9 +149,7 @@ export default function Menu() {
                                     </MouseOverPopover>
                                 )}
                                 <MouseOverPopover text={get("搜索")}>
-                                    <IconButton type="button" aria-label={get("搜索")} onClick={() => {
-                                        searchTools(searchText);
-                                    }}>
+                                    <IconButton type="button" aria-label={get("搜索")}>
                                         <SearchIcon />
                                     </IconButton>
                                 </MouseOverPopover>
@@ -175,7 +173,6 @@ export default function Menu() {
                     }} onChange={event => {
                         if (searchText !== event.target.value) {
                             setSearchText(event.target.value, false);
-                            searchTools(event.target.value);
                             setTab(0);
                         }
                     }} />

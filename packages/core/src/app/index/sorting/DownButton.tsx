@@ -8,9 +8,6 @@ import {
 import MouseOverPopover from "@verkfi/shared/Popover";
 import downGo from "@verkfi/shared/arrayMove/downGo";
 import {
-    setState
-} from "declare";
-import {
     get
 } from "react-intl-universal";
 import {
@@ -18,7 +15,7 @@ import {
 } from "tools/info";
 import useButtonCommonSorting from "./buttonCommonSorting";
 import {
-    useAtom
+    useAtomValue
 } from "jotai";
 import {
     editModeAtom,
@@ -32,8 +29,8 @@ export default function DownButton(props: {
     sortingFor: string;
 }): JSX.Element {
     const buttonCommonSorting = useButtonCommonSorting(),
-        [editMode] = useAtom(editModeAtom),
-        [tools] = useAtom(toolsAtom),
+        editMode = useAtomValue(editModeAtom),
+        tools = useAtomValue(toolsAtom),
         resetTools = useResetAtom(toolsAtom);
     if (editMode && props.sortingFor !== "__home__") {
         return (

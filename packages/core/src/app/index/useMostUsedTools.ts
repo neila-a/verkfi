@@ -1,6 +1,6 @@
 "use client";
 import {
-    useAtom
+    useAtomValue
 } from "jotai";
 import extensionsAtom from "@verkfi/shared/atoms/extensions";
 import {
@@ -11,9 +11,9 @@ import toolsInfoAtom, {
 } from "tools/info";
 import convertExtensionTools from "./convertExtensionTools";
 function useMostUsedTools() {
-    const [mostUsed] = useAtom(mostUsedAtom),
-        [extensionTools] = useAtom(extensionsAtom),
-        [realTools] = useAtom(toolsInfoAtom);
+    const mostUsed = useAtomValue(mostUsedAtom),
+        extensionTools = useAtomValue(extensionsAtom),
+        realTools = useAtomValue(toolsInfoAtom);
     return (Object.entries(mostUsed) satisfies [string, number][]).sort((r, g) => {
         if (r[1] < g[1]) {
             return 1;

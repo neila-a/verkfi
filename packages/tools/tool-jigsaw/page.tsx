@@ -68,7 +68,7 @@ export default function JigsawEntry(): JSX.Element {
         [dialogOpen, setDialogOpen] = useState<boolean>(false),
         [width, setWidth] = useState<number>(3),
         [height, setHeight] = useState<number>(3),
-        [jigsaws, setJigsaws] = useStoragedState<jigsaw[]>("jigsaws", "拼图", []),
+        [jigsaws, setJigsaws] = useStoragedState<jigsaw[]>("jigsaws", []),
         [resetDialogOpen, setResetDialogOpen] = useState<boolean>(false),
         theme = useTheme(),
         portrait = useMediaQuery("(orientation: portrait)"),
@@ -127,7 +127,8 @@ export default function JigsawEntry(): JSX.Element {
                 splited.push(thisBuffer);
             }
             URL.revokeObjectURL(img.src);
-            const addingJigsaw = {
+            const
+                addingJigsaw = {
                     rightBlocks: splited,
                     blocks: [],
                     all: imageFile,

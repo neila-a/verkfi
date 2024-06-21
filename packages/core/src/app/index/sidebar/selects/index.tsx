@@ -14,13 +14,12 @@ import {
 } from "@mui/material";
 import MouseOverPopover from "@verkfi/shared/Popover";
 import {
-    setState
-} from "declare";
-import {
-    useAtom
+    useAtom,
+    useAtomValue,
+    useSetAtom
 } from "jotai";
 import {
-    listsAtom as listsAtom
+    listsAtom
 } from "@verkfi/shared/atoms";
 import dynamic from "next/dynamic";
 import {
@@ -34,7 +33,7 @@ import {
 } from "react-intl-universal";
 import reorderArray from "reorder-array";
 import {
-    listsAtom
+    lists
 } from "..";
 import SingleSelect from "./SingleSelect";
 import toolsListAtom from "@verkfi/shared/atoms/toolsList";
@@ -54,19 +53,19 @@ export default function Selects(props: {
     modifyClickCount(value: number | "++"): void;
 }) {
     const isImplant = useContext(isImplantContext),
-        sortingFor = useAtom(sortingForAtom)[0](isImplant),
-        setSortingFor = useAtom(sortingForAtom)[1],
-        [, setEditing] = useAtom(editingAtom),
-        [, setSortedTools] = useAtom(sortedToolsAtom),
+        sortingFor = useAtomValue(sortingForAtom)(isImplant),
+        setSortingFor = useSetAtom(sortingForAtom),
+        setEditing = useSetAtom(editingAtom),
+        setSortedTools = useSetAtom(sortedToolsAtom),
         [searchText, setSearchText] = useAtom(searchTextAtom),
         [list, setList] = useAtom(listsAtom),
         [dialogOpen, setDialogOpen] = useState<boolean>(false),
         [dialogTools, setDialogTools] = useState<string[]>([]),
-        [gotToolsList] = useAtom(toolsListAtom),
+        gotToolsList = useAtomValue(toolsListAtom),
         [removeDialogOpen, setRemoveDialogOpen] = useState<boolean>(false),
         [dialogListName, setDialogListName] = useState<string>(""),
-        [editMode] = useAtom(editModeAtom),
-        setTools = useAtom(toolsAtom)[1],
+        editMode = useAtomValue(editModeAtom),
+        setTools = useSetAtom(toolsAtom),
         RealSelect = (aprops: {
             single: [string, string[]];
             isAll: boolean;

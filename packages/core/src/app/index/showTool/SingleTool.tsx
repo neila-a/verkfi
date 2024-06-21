@@ -20,11 +20,13 @@ import {
 } from "@mui/material";
 import MouseOverPopover from "@verkfi/shared/Popover";
 import {
-    useAtom
+    useAtom,
+    useAtomValue,
+    useSetAtom
 } from "jotai";
 import {
     gradientToolAtom as gradientToolAtom,
-    listsAtom as listsAtom
+    listsAtom
 } from "@verkfi/shared/atoms";
 import {
     Route
@@ -78,9 +80,9 @@ export default function SingleTool(props: {
             tool
         } = props,
         isImplant = useContext(isImplantContext),
-        setTools = useAtom(toolsAtom)[1],
-        sortingFor = useAtom(sortingForAtom)[0](isImplant),
-        [viewMode] = useAtom(viewModeAtom),
+        setTools = useSetAtom(toolsAtom),
+        sortingFor = useAtomValue(sortingForAtom)(isImplant),
+        viewMode = useAtomValue(viewModeAtom),
         lightMode = useColorScheme().systemMode === "light",
         ToolIcon = tool.icon,
         subStyle = {
@@ -89,9 +91,9 @@ export default function SingleTool(props: {
             }
         },
         router = useRouter(),
-        [editMode] = useAtom(editModeAtom),
+        editMode = useAtomValue(editModeAtom),
         [lists, setLists] = useAtom(listsAtom),
-        [gradientTool] = useAtom(gradientToolAtom),
+        gradientTool = useAtomValue(gradientToolAtom),
         [jumpto, setJumpTo] = useState<string>(""),
         [removeDialogOpen, setRemoveDialogOpen] = useState<boolean>(false),
         [elevation, setElevation] = useState<number>(2),

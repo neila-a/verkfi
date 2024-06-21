@@ -7,7 +7,7 @@ import {
 } from "layout/layoutClient";
 import isBrowser from "../isBrowser";
 import atomWithStorage from "../reader/atomWithStorage";
-const langAtom = atomWithStorage<keyof typeof locales | "system">("lang", "语言", "system");
+const langAtom = atomWithStorage<keyof typeof locales | "system">("lang", "system");
 export const usableLangAtom = atom(async get => {
     const got = await get(langAtom);
     if (got === "system") {

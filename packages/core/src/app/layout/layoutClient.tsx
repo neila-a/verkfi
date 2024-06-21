@@ -12,7 +12,8 @@ import {
     repoInfo as repoInfoType
 } from "@verkfi/shared/getRepoInfo";
 import {
-    useAtom
+    useAtom,
+    useAtomValue
 } from "jotai";
 import LpLogger from "lp-logger";
 import dynamic from "next/dynamic";
@@ -64,21 +65,21 @@ export default function ModifiedApp(props: {
     children: ReactNode;
     repoInfo: repoInfoType;
 }) {
-    const [theme] = useAtom(themeAtom),
+    const theme = useAtomValue(themeAtom),
         pathname = usePathname(),
         params = useSearchParams(),
-        [choosedLang] = useAtom(usableLangAtom),
+        choosedLang = useAtomValue(usableLangAtom),
         [expand, setExpand] = useState<boolean>(false),
         [loaded, setLoaded] = useState<"" | keyof typeof locales>(""),
         implant = (pathname === "/") || (params.get("only") === "true"),
-        [sidebarModeValue] = useAtom(sidebarModeAtom),
+        sidebarModeValue = useAtomValue(sidebarModeAtom),
         ml: string = implant ? "" : (expand ? `calc(min(${`calc(100vw - ${drawerWidth}px)`}, 320px) + ${drawerWidth}px)` : `${drawerWidth}px`),
         Sidebar = implant ? null : (sidebarModeValue === "menu" ? createElement(dynamic(() => import("./Menu"))) : createElement(dynamic(() => import("page")), {
             isImplant: true,
             expand: expand,
             setExpand: setExpand
         })), // 使用createElement因为dynamic不能直接以JSX方式调用
-        [showSidebarValue] = useAtom(showSidebarAtom),
+        showSidebarValue = useAtomValue(showSidebarAtom),
         Provider = composeProviders([repoInfo, props.repoInfo]);
     useEffect(() => {
         if (isBrowser()) {

@@ -11,7 +11,8 @@ import {
 } from "@mui/material";
 import No from "@verkfi/shared/No";
 import {
-    useAtom
+    useAtom,
+    useAtomValue
 } from "jotai";
 import {
     viewModeAtom
@@ -53,11 +54,11 @@ export default function ToolsStack(props: {
      */
     focus?: string;
 }) {
-    const [viewMode] = useAtom(viewModeAtom),
+    const viewMode = useAtomValue(viewModeAtom),
         isImplant = useContext(isImplantContext),
         resetTools = useResetAtom(toolsAtom),
-        [editMode] = useAtom(editModeAtom),
-        sortingFor = useAtom(sortingForAtom)[0](isImplant),
+        editMode = useAtomValue(editModeAtom),
+        sortingFor = useAtomValue(sortingForAtom)(isImplant),
         buttonCommonSorting = useButtonCommonSorting();
     function Insert({
         index,

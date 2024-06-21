@@ -4,14 +4,13 @@ import {
     Button
 } from "@mui/material";
 import {
-    editModeAtom,
     sortingForAtom
 } from "index/atoms";
 import {
     isImplantContext
 } from "index/consts";
 import {
-    useAtom
+    useAtomValue
 } from "jotai";
 import {
     MouseEventHandler,
@@ -27,7 +26,7 @@ export default function SingleSelect(props: {
     isSidebar: boolean;
 }) {
     const isImplant = useContext(isImplantContext),
-        sortingFor = useAtom(sortingForAtom)[0](isImplant),
+        sortingFor = useAtomValue(sortingForAtom)(isImplant),
         Inner = () => (
             <Box sx={{
                 maxWidth: "100%",

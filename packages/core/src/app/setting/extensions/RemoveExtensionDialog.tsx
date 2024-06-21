@@ -5,11 +5,12 @@ import {
 } from "@mui/material";
 import CheckDialog from "@verkfi/shared/dialog/Check";
 import {
-    useAtom
+    useAtom,
+    useSetAtom
 } from "jotai";
 import extensionsAtom from "@verkfi/shared/atoms/extensions";
 import {
-    listsAtom as listsAtom
+    listsAtom
 } from "@verkfi/shared/atoms";
 import {
     useState
@@ -33,7 +34,7 @@ export default function RemoveExtensionDialog(props: {
 }) {
     const [clearData, setClearData] = useState<boolean>(false),
         clearExtensionData = useClearExtensionData(),
-        [extensionsTools, setExtensions] = useAtom(extensionsAtom),
+        setExtensions = useSetAtom(extensionsAtom),
         [lists, setLists] = useAtom(listsAtom);
     return (
         <CheckDialog insert={<FormControlLabel control={(

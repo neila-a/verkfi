@@ -18,7 +18,7 @@ import {
 } from "tools/info";
 import useButtonCommonSorting from "./buttonCommonSorting";
 import {
-    useAtom
+    useAtomValue
 } from "jotai";
 import {
     editModeAtom,
@@ -32,8 +32,8 @@ export default function UpButton(props: {
     sortingFor: string;
 }): JSX.Element {
     const buttonCommonSorting = useButtonCommonSorting(),
-        [editMode] = useAtom(editModeAtom),
-        [tools] = useAtom(toolsAtom),
+        editMode = useAtomValue(editModeAtom),
+        tools = useAtomValue(toolsAtom),
         resetTools = useResetAtom(toolsAtom);
     if (editMode && props.sortingFor !== "__home__") {
         return (

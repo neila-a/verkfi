@@ -20,7 +20,8 @@ import Sidebar from "index/sidebar";
 import useMostUsedTools from "index/useMostUsedTools";
 import recommendAtom from "@verkfi/shared/atoms/recommend";
 import {
-    useAtom
+    useAtom,
+    useAtomValue
 } from "jotai";
 import extensionsAtom from "@verkfi/shared/atoms/extensions";
 import {
@@ -59,17 +60,17 @@ export default function Index(props: {
     expand?: boolean;
     setExpand?: setState<boolean>;
 }): JSX.Element {
-    const [realTools] = useAtom(toolsInfoAtom),
-        [extensionTools] = useAtom(extensionsAtom),
-        [showSidebar] = useAtom(showSidebarAtom),
-        [recentlyUsed] = useAtom(recentlyUsedAtom),
+    const realTools = useAtomValue(toolsInfoAtom),
+        extensionTools = useAtomValue(extensionsAtom),
+        showSidebar = useAtomValue(showSidebarAtom),
+        recentlyUsed = useAtomValue(recentlyUsedAtom),
         mostUsed = useMostUsedTools(),
         [expandThis, setExpandThis] = useState<boolean>(false),
         [showTries, setShowTries] = useState<boolean>(false),
-        [tools] = useAtom(toolsAtom),
-        [tab] = useAtom(tabAtom),
-        sortingFor = useAtom(sortingForAtom)[0](props.isImplant),
-        [baseSortingFor] = useAtom(sortingForAtomValue),
+        tools = useAtomValue(toolsAtom),
+        tab = useAtomValue(tabAtom),
+        sortingFor = useAtomValue(sortingForAtom)(props.isImplant),
+        baseSortingFor = useAtomValue(sortingForAtomValue),
         focusingTo = tools[tab] ? tools[tab].to : "", // 每次渲染会重新执行
         [recommend, refreshTries] = useAtom(recommendAtom),
         recentlyTools = recentlyUsed.map(to => {

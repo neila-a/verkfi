@@ -11,7 +11,8 @@ import toolsInfoAtom, {
 } from "tools/info";
 import {
     Provider,
-    useAtom
+    useAtom,
+    useAtomValue
 } from "jotai";
 import convertExtensionTools from "index/convertExtensionTools";
 import extensionsAtom from "@verkfi/shared/atoms/extensions";
@@ -58,16 +59,16 @@ import {
 import No from "@verkfi/shared/No";
 export default function Clients() {
     const [clients, setClients] = useAtom(clientsAtom),
-        [realTools] = useAtom(toolsInfoAtom),
+        realTools = useAtomValue(toolsInfoAtom),
         theme = useTheme(),
         [control, setControl] = useAtom(showClientsAtom),
-        [sets] = useAtom(setsAtom),
+        sets = useAtomValue(setsAtom),
         fullScreen = useMediaQuery(theme.breakpoints.down("sm")),
         emptyColor = new Array<string>(2).fill(theme.palette.background.paper) as [Hex, Hex],
         [navigateDialogOpen, setNavigateDialogOpen] = useState(false),
         [navigatingId, setNavigatingId] = useState(""),
         [searchText, setSearchText] = useState(""),
-        [extensionTools] = useAtom(extensionsAtom),
+        extensionTools = useAtomValue(extensionsAtom),
         filteredClients = clients.filter(client => client.url.includes(searchText));
     let focusing = "";
     if (isBrowser()) {

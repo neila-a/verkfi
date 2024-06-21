@@ -22,7 +22,8 @@ import {
     type default as VerkfiIcon
 } from "@verkfi/shared/verkfiIcon";
 import {
-    useAtom
+    useAtom,
+    useAtomValue
 } from "jotai";
 import Loading from "loading";
 import {
@@ -58,13 +59,13 @@ export interface ThemeHaveZIndex {
 export default function Settings(props: {
     children: ReactNode;
 }): JSX.Element {
-    const [sets] = useAtom(setsAtom),
+    const sets = useAtomValue(setsAtom),
         router = useRouter(),
         [extensionTools, setExtensions] = useAtom(extensionsAtom),
         id = useSelectedLayoutSegment(),
         [value, setValue] = useState(sets.indexOf(sets.filter(set => set.id === id)[0])),
-        [showSidebar] = useAtom(showSidebarAtom),
-        [sidebarMode] = useAtom(sidebarModeAtom);
+        showSidebar = useAtomValue(showSidebarAtom),
+        sidebarMode = useAtomValue(sidebarModeAtom);
     return (
         <>
             <HeadBar isIndex={false} pageName={get("设置")} sx={{

@@ -9,18 +9,19 @@ import {
     setState
 } from "declare";
 import {
-    useAtom
+    useAtom,
+    useAtomValue
 } from "jotai";
 import extensionsAtom from "@verkfi/shared/atoms/extensions";
 import {
-    listsAtom as listsAtom
+    listsAtom
 } from "@verkfi/shared/atoms";
 import dynamic from "next/dynamic";
 import {
     get
 } from "react-intl-universal";
 import {
-    listsAtom
+    lists
 } from "..";
 import convertExtensionTools from "../../convertExtensionTools";
 import toolsListAtom from "@verkfi/shared/atoms/toolsList";
@@ -46,10 +47,10 @@ export default function EditToolsListDialog(props: {
         [list, setList] = useAtom(listsAtom),
         edit = (forList: lists) => forList.some(single => single[0] === dialogListName),
         createOrEdit = !edit(list) ? get("category.创建分类") : get("category.编辑分类"),
-        [extensionTools] = useAtom(extensionsAtom),
+        extensionTools = useAtomValue(extensionsAtom),
         incorrect = ["__global__", "__home__"].some(a => a === dialogListName),
         converted = convertExtensionTools(extensionTools),
-        [toolsList] = useAtom(toolsListAtom),
+        toolsList = useAtomValue(toolsListAtom),
         right = toolsList.concat(converted).filter(atool => atool !== undefined).map(atool => atool.name).filter(v => props.left.every(val => val !== v));
     return (
         <PureDialog action={(
