@@ -31,8 +31,11 @@ export default function SingleMath(props: {
                 flex: 1,
                 textAlign: "right"
             }}>
-                <TextField label={get("结果")} type="number" InputLabelProps={{
-                    shrink: true
+                <TextField label={get("结果")} type="number" slotProps={{
+                    inputLabel: {
+                        shrink: true,
+                        inputMode: "numeric"
+                    }
                 }} error={isError} onChange={event => {
                     setError(event.target.value === math.replace(/.*=/g, "") ? false : true);
                 }} />

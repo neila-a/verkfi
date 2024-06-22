@@ -135,7 +135,7 @@ export default function Menu() {
                     <TextField slotProps={{
                         input: {
                             startAdornment:
-                                <InputAdornment position="start">
+                                <InputAdornment position="end">
                                     {sortingFor !== "__home__"
                                         && <MouseOverPopover text={get("back")}>
                                             <IconButton type="button" aria-label={get("back")} onClick={() => {
@@ -156,7 +156,7 @@ export default function Menu() {
                                     </MouseOverPopover>
                                 </InputAdornment>,
                             endAdornment:
-                                <InputAdornment position="end">
+                                <InputAdornment position="start">
                                     <MouseOverPopover text={get("close")}>
                                         <IconButton aria-label={get("close")} onClick={event => {
                                             setControl(false);

@@ -104,7 +104,7 @@ export default function Clients() {
                 <TextField slotProps={{
                     input: {
                         startAdornment:
-                            <InputAdornment position="start">
+                            <InputAdornment position="end">
                                 {searchText !== ""
                                     && <MouseOverPopover text={get("back")}>
                                         <IconButton type="button" aria-label={get("back")} onClick={() => {
@@ -121,7 +121,7 @@ export default function Clients() {
                                 </MouseOverPopover>
                             </InputAdornment>,
                         endAdornment:
-                            <InputAdornment position="end">
+                            <InputAdornment position="start">
                                 <MouseOverPopover text={get("clients.sync")}>
                                     <IconButton aria-label={get("clients.sync")} onClick={refresh}>
                                         <Sync />

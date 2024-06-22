@@ -67,7 +67,7 @@ export default function Sidebar(props: {
             <TextField slotProps={{
                 input: {
                     startAdornment:
-                        <InputAdornment position="start">
+                        <InputAdornment position="end">
                             <MouseOverPopover text={get("搜索")}>
                                 <IconButton sx={{
                                     p: 0

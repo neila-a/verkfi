@@ -1,36 +1,18 @@
 "use client";
 import {
-    Add as AddIcon,
-    Delete as DeleteIcon,
-    FilterList as FilterListIcon,
-    FilterListOff as FilterListOffIcon
-} from "@mui/icons-material";
-import {
     Box,
-    Button,
     FormControl,
     FormControlLabel,
     FormGroup,
     FormLabel,
     Grid,
-    IconButton,
-    InputLabel,
-    List,
-    ListItem,
-    ListItemAvatar,
-    ListItemSecondaryAction,
-    MenuItem,
-    Paper,
     Radio,
     RadioGroup,
-    Select,
     Slider,
-    Stack,
     TextField,
     Typography
 } from "@mui/material";
 import No from "@verkfi/shared/No";
-import MouseOverPopover from "@verkfi/shared/Popover";
 import {
     Fragment,
     useId,

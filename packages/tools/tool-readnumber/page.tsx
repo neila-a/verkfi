@@ -37,9 +37,12 @@ export default function ReadNumber(): JSX.Element {
                         </Typography>
                     </Grid>
                     <Grid item>
-                        <TextField value={number} type="number" fullWidth InputLabelProps={{
-                            shrink: true,
-                            "aria-labelledby": numberId
+                        <TextField value={number} type="number" fullWidth slotProps={{
+                            inputLabel: {
+                                shrink: true,
+                                inputMode: "numeric",
+                                "aria-labelledby": numberId
+                            }
                         }} onChange={event => {
                             const {
                                 value
@@ -56,8 +59,10 @@ export default function ReadNumber(): JSX.Element {
                         </Typography>
                     </Grid>
                     <Grid item>
-                        <TextField InputLabelProps={{
-                            "aria-labelledby": stringId
+                        <TextField slotProps={{
+                            inputLabel: {
+                                "aria-labelledby": stringId
+                            }
                         }} value={string} fullWidth onChange={event => {
                             const {
                                 value

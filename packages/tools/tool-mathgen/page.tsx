@@ -49,18 +49,27 @@ function MathGen(): JSX.Element {
             <FormGroup sx={{
                 mb: 2
             }}>
-                <TextField margin="normal" label={get("上限")} type="number" InputLabelProps={{
-                    shrink: true
+                <TextField margin="normal" label={get("上限")} type="number" slotProps={{
+                    inputLabel: {
+                        shrink: true,
+                        inputMode: "numeric"
+                    }
                 }} onChange={event => {
                     setMax(Number(event.target.value));
                 }} defaultValue={max} />
-                <TextField margin="normal" label={get("下限")} type="number" InputLabelProps={{
-                    shrink: true
+                <TextField margin="normal" label={get("下限")} type="number" slotProps={{
+                    inputLabel: {
+                        shrink: true,
+                        inputMode: "numeric"
+                    }
                 }} onChange={event => {
                     setMin(Number(event.target.value));
                 }} defaultValue={min} />
-                <TextField margin="normal" label={get("个数")} type="number" InputLabelProps={{
-                    shrink: true
+                <TextField margin="normal" label={get("个数")} type="number" slotProps={{
+                    inputLabel: {
+                        shrink: true,
+                        inputMode: "numeric"
+                    }
                 }} onChange={event => {
                     setItemCount(Number(event.target.value));
                 }} defaultValue={itemCount} />

@@ -66,9 +66,11 @@ function CylinderPage(): JSX.Element {
                         </Typography>
                     </Grid>
                     <Grid item>
-                        <TextField aria-labelledby={radiusXID} value={radiusX} type="number" InputLabelProps={{
-                            shrink: true,
-                            inputMode: "numeric"
+                        <TextField aria-labelledby={radiusXID} value={radiusX} type="number" slotProps={{
+                            inputLabel: {
+                                shrink: true,
+                                inputMode: "numeric"
+                            }
                         }} onChange={event => setRadiusX(Number(event.target.value))} />
                     </Grid>
                 </Grid>
@@ -79,9 +81,11 @@ function CylinderPage(): JSX.Element {
                         </Typography>
                     </Grid>
                     <Grid item>
-                        <TextField aria-labelledby={radiusZID} value={radiusZ} type="number" InputLabelProps={{
-                            shrink: true,
-                            inputMode: "numeric"
+                        <TextField aria-labelledby={radiusZID} value={radiusZ} type="number" slotProps={{
+                            inputLabel: {
+                                shrink: true,
+                                inputMode: "numeric"
+                            }
                         }} onChange={event => setRadiusZ(Number(event.target.value))} />
                     </Grid>
                 </Grid>
@@ -92,9 +96,11 @@ function CylinderPage(): JSX.Element {
                         </Typography>
                     </Grid>
                     <Grid item>
-                        <TextField aria-labelledby={thicknessID} value={thickness} type="number" InputLabelProps={{
-                            shrink: true,
-                            inputMode: "numeric"
+                        <TextField aria-labelledby={thicknessID} value={thickness} type="number" slotProps={{
+                            inputLabel: {
+                                shrink: true,
+                                inputMode: "numeric"
+                            }
                         }} onChange={event => setThickness(Number(event.target.value))} />
                     </Grid>
                 </Grid>
@@ -115,17 +121,21 @@ function CylinderPage(): JSX.Element {
                         </Typography>
                     </Grid>
                     <Grid item container spacing={1}>
-                        <TextField label="X" value={posX} type="number" InputLabelProps={{
-                            shrink: true,
-                            inputMode: "numeric"
+                        <TextField label="X" value={posX} type="number" slotProps={{
+                            inputLabel: {
+                                shrink: true,
+                                inputMode: "numeric"
+                            }
                         }} onChange={event => {
                             const value = Number(event.target.value);
                             setPosX(value);
                             updatePos(value, posZ);
                         }} />
-                        <TextField label="Y" value={posZ} type="number" InputLabelProps={{
-                            shrink: true,
-                            inputMode: "numeric"
+                        <TextField label="Y" value={posZ} type="number" slotProps={{
+                            inputLabel: {
+                                shrink: true,
+                                inputMode: "numeric"
+                            }
                         }} onChange={event => {
                             const value = Number(event.target.value);
                             setPosZ(value);
