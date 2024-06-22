@@ -102,30 +102,29 @@ export default function ExtensionManager() {
                         <No>
                             {get("extensions.未找到任何扩展")}
                         </No>
-                    )} actions={extensionTools?.map(single => (
-                        <>
-                            <MouseOverPopover text={get("extensions.clear")}>
-                                <IconButton onClick={event => {
-                                    const {
-                                        ...metadata
-                                    } = single;
-                                    clearExtensionData(metadata);
-                                }} aria-label={get("extensions.clear")}>
-                                    <RestartAlt />
-                                </IconButton>
-                            </MouseOverPopover>
-                            <MouseOverPopover text={get("extensions.删除扩展")}>
-                                <IconButton onClick={event => {
-                                    setFileInfo({
-                                        ...single
-                                    });
-                                    setModifyDialogOpen(true);
-                                }} aria-label={get("extensions.删除扩展")}>
-                                    <Edit />
-                                </IconButton>
-                            </MouseOverPopover>
-                        </>
-                    ))} disableClick />
+                    )} actions={extensionTools?.map(single => <>
+                        <MouseOverPopover text={get("extensions.clear")}>
+                            <IconButton onClick={event => {
+                                const {
+                                    ...metadata
+                                } = single;
+                                clearExtensionData(metadata);
+                            }} aria-label={get("extensions.clear")}>
+                                <RestartAlt />
+                            </IconButton>
+                        </MouseOverPopover>
+                        <MouseOverPopover text={get("extensions.删除扩展")}>
+                            <IconButton onClick={event => {
+                                setFileInfo({
+                                    ...single
+                                });
+                                setModifyDialogOpen(true);
+                            }} aria-label={get("extensions.删除扩展")}>
+                                <Edit />
+                            </IconButton>
+                        </MouseOverPopover>
+                    </>
+                    )} disableClick />
                 </Provider>
             </Box>
             <FilePond

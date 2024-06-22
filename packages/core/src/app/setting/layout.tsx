@@ -89,11 +89,10 @@ export default function Settings(props: {
                     }} scrollButtons allowScrollButtonsMobile value={value} onChange={(event, newValue) => {
                         setValue(newValue);
                     }}>
-                        {sets.map(Set => (
-                            <Tab icon={<Set.Icon />} title={`/setting/${Set.id}`} iconPosition="start" label={Set.name} key={Set.id} onClick={event => {
-                                router.push(`/setting/${Set.id}` satisfies Route);
-                            }} />
-                        ))}
+                        {sets.map(Set => <Tab icon={<Set.Icon />} title={`/setting/${Set.id}`} iconPosition="start" label={Set.name} key={Set.id} onClick={event => {
+                            router.push(`/setting/${Set.id}` satisfies Route);
+                        }} />
+                        )}
                     </Tabs>
                 </Drawer>
                 <Toolbar />
@@ -146,11 +145,10 @@ export default function Settings(props: {
                                             settings: modifiedSettings
                                         });
                                     }}>
-                                        {settingItem.switches.map(switching => (
-                                            <MenuItem key={switching} value={switching}>
-                                                {switching}
-                                            </MenuItem>
-                                        ))}
+                                        {settingItem.switches.map(switching => <MenuItem key={switching} value={switching}>
+                                            {switching}
+                                        </MenuItem>
+                                        )}
                                     </Select>
                                 );
                         }

@@ -47,6 +47,8 @@
             "warn",
             "all"
         ],
+        "no-extra-boolean-cast": "warn",
+        "no-extra-bind": "warn",
         "arrow-spacing": [
             "warn",
             {

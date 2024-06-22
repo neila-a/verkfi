@@ -27,11 +27,11 @@ export function Switcher(props: {
         isForkMeOnGitHub = option[1] === "Fork me on GitHub";
     return (
         <>
-            {!hasShare && isShare && (
-                <Alert severity="warning">
+            {!hasShare && isShare
+                && <Alert severity="warning">
                     {get("share.none")}
                 </Alert>
-            )}
+            }
             <FormControlLabel disabled={!hasShare && isShare} control={(
                 <Switch checked={value} onChange={event => {
                     setValue(!value);

@@ -27,37 +27,31 @@ export default function SingleSelect(props: {
 }) {
     const isImplant = useContext(isImplantContext),
         sortingFor = useAtomValue(sortingForAtom)(isImplant),
-        Inner = () => (
-            <Box sx={{
-                maxWidth: "100%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                bgcolor: theme => sortingFor === props.wantSortingFor && theme.palette.action.active
-            }}>
-                {props.dragButton}
-                <Button aria-label={props.tool} sx={{
-                    overflow: "hidden",
-                    color: theme => sortingFor === props.wantSortingFor && theme.palette.primary[theme.palette.mode]
-                }} onClick={props.onClick}>
-                    {props.tool}
-                </Button>
-                {props.editButton}
-            </Box>
-        );
-    return props.isSidebar ? (
-        <Box sx={{
-            width: "100%",
-            whiteSpace: "nowrap",
+        Inner = () => <Box sx={{
+            maxWidth: "100%",
             display: "flex",
             justifyContent: "center",
-            ["& > *"]: {
-                width: "100%"
-            }
+            alignItems: "center",
+            bgcolor: theme => sortingFor === props.wantSortingFor && theme.palette.action.active
         }}>
-            <Inner />
-        </Box>
-    ) : (
+            {props.dragButton}
+            <Button aria-label={props.tool} sx={{
+                overflow: "hidden",
+                color: theme => sortingFor === props.wantSortingFor && theme.palette.primary[theme.palette.mode]
+            }} onClick={props.onClick}>
+                {props.tool}
+            </Button>
+            {props.editButton}
+        </Box>;
+    return props.isSidebar ? <Box sx={{
+        width: "100%",
+        whiteSpace: "nowrap",
+        display: "flex",
+        justifyContent: "center",
+        ["& > *"]: {
+            width: "100%"
+        }
+    }}>
         <Inner />
-    );
+    </Box> : <Inner />;
 }

@@ -24,11 +24,9 @@ export default function Loading(props: {
             alignItems: "center"
         }}>
             <Image src={favicon} width={160} height={160} alt="VerkfiIcon" />
-            {isLoading ? (
-                <LinearProgress color="secondary" sx={{
-                    width: 160
-                }} />
-            ) : props.children}
+            {isLoading ? <LinearProgress color="secondary" sx={{
+                width: 160
+            }} /> : props.children}
         </Box>
     );
 }

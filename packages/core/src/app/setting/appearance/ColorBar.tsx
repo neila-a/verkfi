@@ -21,28 +21,27 @@ const ColorBar = ({
         <Grid container sx={{
             mt: 2
         }}>
-            {["dark", "main", "light"].map(key => (
-                <Box
+            {["dark", "main", "light"].map(key => <Box
+                sx={{
+                    width: 64,
+                    height: 64,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    backgroundColor: background[key]
+                }}
+                key={key}
+            >
+                <Typography
+                    variant="caption"
                     sx={{
-                        width: 64,
-                        height: 64,
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        backgroundColor: background[key]
+                        color: theme.palette.getContrastText(background[key])
                     }}
-                    key={key}
                 >
-                    <Typography
-                        variant="caption"
-                        sx={{
-                            color: theme.palette.getContrastText(background[key])
-                        }}
-                    >
-                        {rgbToHex(background[key])}
-                    </Typography>
-                </Box>
-            ))}
+                    {rgbToHex(background[key])}
+                </Typography>
+            </Box>
+            )}
         </Grid>
     );
 };

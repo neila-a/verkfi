@@ -104,29 +104,28 @@ export default function SingleTool(props: {
             tool: tool,
             sortingFor: sortingFor
         },
-        iframe = props.focus && !props?.actions && (
-            <CardContent>
+        iframe = props.focus && !props?.actions
+            && <CardContent>
                 <Collapse in={props.focus} sx={{
                     width: "100%",
                     ["& .MuiCollapse-wrapperInner"]: {
                         width: "100%"
                     }
                 }}>
-                    {!props.focus && (
-                        <Box className="iframe-placeholder" sx={{
+                    {!props.focus
+                        && <Box className="iframe-placeholder" sx={{
                             height: "150px"
                         }} />
-                    )}
-                    {props.focus && (
-                        <iframe style={{
+                    }
+                    {props.focus
+                        && <iframe style={{
                             border: "none",
                             width: "100%",
                             height: "150px"
-                        }} src={tool.isGoto ? (!tool.to.startsWith("/") ? tool.to : `${tool.to}&only=true`) : `/tools/${tool.to}?only=true`} />
-                    )}
+                        }} src={tool.isGoto ? !tool.to.startsWith("/") ? tool.to : `${tool.to}&only=true` : `/tools/${tool.to}?only=true`} />
+                    }
                 </Collapse>
-            </CardContent>
-        ),
+            </CardContent>,
         handleRightClick = async event => {
             event.preventDefault();
             if (!props?.disableClick) {
@@ -173,10 +172,10 @@ export default function SingleTool(props: {
         handleMouseLeave = event => {
             setElevation(2); // reset to default
         },
-        deleteButtons = (
-            <>
-                {tool.to.startsWith("/tools/extension") && (
-                    <>
+        deleteButtons
+            = <>
+                {tool.to.startsWith("/tools/extension")
+                    && <>
                         <MouseOverPopover text={get("singleTool.deleteExtension")}>
                             <IconButton onClick={event => {
                                 setRemoveDialogOpen(true);
@@ -197,9 +196,9 @@ export default function SingleTool(props: {
                             onTrue: () => setTools(`remove ${tool.to}`)
                         })}
                     </>
-                )}
-                {sortingFor !== "__global__" && sortingFor !== "__home__" && (
-                    <MouseOverPopover text={get("singleTool.deleteFromCategory")}>
+                }
+                {sortingFor !== "__global__" && sortingFor !== "__home__"
+                    && <MouseOverPopover text={get("singleTool.deleteFromCategory")}>
                         <IconButton onClick={event => {
                             setLists(lists.slice(0).map(list => {
                                 if (list[0] === sortingFor) {
@@ -212,11 +211,10 @@ export default function SingleTool(props: {
                             <FolderDelete />
                         </IconButton>
                     </MouseOverPopover>
-                )}
-            </>
-        ),
-        actions = props?.actions && (
-            <CardActions sx={{
+                }
+            </>,
+        actions = props?.actions
+            && <CardActions sx={{
                 justifyContent: "center",
                 alignItems: "center"
             }} onClick={event => {
@@ -225,10 +223,9 @@ export default function SingleTool(props: {
                 root: "singleTool-editControler"
             }}>
                 {props?.actions}
-            </CardActions>
-        ),
-        grid = (
-            <Card elevation={elevation} id={`toolAbleToSelect-${tool.to}`} onClick={handleClick} onContextMenu={handleRightClick} sx={{
+            </CardActions>,
+        grid
+            = <Card elevation={elevation} id={`toolAbleToSelect-${tool.to}`} onClick={handleClick} onContextMenu={handleRightClick} sx={{
                 width: `min(275px, ${fullWidth})`,
                 boxShadow: theme => props.focus && `inset 0 0 0 ${theme.spacing(1)} ${theme.palette.primary[theme.palette.mode]}`,
                 backgroundColor: !gradientTool && `#${tool.color[0]}`,
@@ -236,7 +233,7 @@ export default function SingleTool(props: {
             }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                 <CardHeader title={(
                     <ToolTypography variant="h5">
-                        {(tool.isGoto && !tool.to.startsWith("/tools/extension")) ? <ExitToAppIcon /> : <Fragment />}
+                        {tool.isGoto && !tool.to.startsWith("/tools/extension") ? <ExitToAppIcon /> : <Fragment />}
                         {tool.name}
                     </ToolTypography>
                 )} avatar={(
@@ -247,8 +244,8 @@ export default function SingleTool(props: {
                         {tool.desc}
                     </ToolTypography>
                 </CardContent>
-                {editMode && (
-                    <CardActions sx={{
+                {editMode
+                    && <CardActions sx={{
                         justifyContent: "center",
                         alignItems: "center"
                     }} onClick={event => {
@@ -260,13 +257,12 @@ export default function SingleTool(props: {
                         <UpButton {...buttonOptions} />
                         {deleteButtons}
                     </CardActions>
-                )}
+                }
                 {actions}
                 {iframe}
-            </Card>
-        ),
-        list = (
-            <Card onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} elevation={elevation} sx={{
+            </Card>,
+        list
+            = <Card onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} elevation={elevation} sx={{
                 width: fullWidth,
                 maxWidth: fullWidth,
                 boxShadow: theme => props.focus && `inset 0 0 0 ${theme.spacing(1)} ${theme.palette.primary[theme.palette.mode]}`,
@@ -292,7 +288,7 @@ export default function SingleTool(props: {
                             <ToolIcon />
                         )} title={(
                             <ToolTypography variant="h5">
-                                {(tool.isGoto && !tool.to.startsWith("/tools/extension")) ? <ExitToAppIcon /> : <Fragment />}
+                                {tool.isGoto && !tool.to.startsWith("/tools/extension") ? <ExitToAppIcon /> : <Fragment />}
                                 {tool.name}
                             </ToolTypography>
                         )} />
@@ -307,8 +303,8 @@ export default function SingleTool(props: {
                             </Box>
                         </CardContent>
                     </Box>
-                    {editMode && (
-                        <CardActions onClick={event => {
+                    {editMode
+                        && <CardActions onClick={event => {
                             event.stopPropagation();
                         }} classes={{
                             root: "singleTool-editControler"
@@ -319,12 +315,11 @@ export default function SingleTool(props: {
                             {deleteButtons}
                             <DragIndicatorIcon />
                         </CardActions>
-                    )}
+                    }
                     {actions}
                 </Box>
                 {iframe}
-            </Card>
-        );
+            </Card>;
     return (
         <ButtonBase key={tool.to} component="section" sx={{
             width: viewMode === "grid" ? 275 : fullWidth

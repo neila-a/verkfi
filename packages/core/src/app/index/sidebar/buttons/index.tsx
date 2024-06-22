@@ -53,24 +53,24 @@ export default function Buttons(props: {
             bottom: 0,
             width: "100%"
         }}>
-            {editMode && (
-                <Button onClick={event => {
+            {editMode
+                && <Button onClick={event => {
                     setDialogOpen(true);
                 }} startIcon={<AddIcon />}>
                     {get("category.添加分类")}
                 </Button>
-            )}
+            }
             <Divider />
             <ButtonGroup variant="outlined" sx={{
                 display: "flex",
                 justifyContent: "center"
             }}>
                 <SwitchViewMode />
-                {editing && (
-                    <SwitchEditMode />
-                )}
-                {isImplant && (
-                    <MouseOverPopover text={props.expand ? get("window.collapse") : get("window.expand")}>
+                {editing
+                    && <SwitchEditMode />
+                }
+                {isImplant
+                    && <MouseOverPopover text={props.expand ? get("window.collapse") : get("window.expand")}>
                         <IconButton color="primary" sx={{
                             p: 1
                         }} onClick={event => {
@@ -79,7 +79,7 @@ export default function Buttons(props: {
                             {props.expand ? <ArrowBackIosIcon /> : <ArrowForwardIosIcon />}
                         </IconButton>
                     </MouseOverPopover>
-                )}
+                }
             </ButtonGroup>
             <EditToolsListDialog
                 open={dialogOpen}

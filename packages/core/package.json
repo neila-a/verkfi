@@ -1,7 +1,7 @@
 {
     "name": "@verkfi/core",
     "version": "1.7.3",
-    "devVersion": "985",
+    "devVersion": "988",
     "dev": true,
     "description": "Platform for Neila's something useless tools.",
     "private": true,
@@ -24,7 +24,7 @@
         "prebuild": "npm run build:pb && node prebuild.js",
         "build": "npm run prebuild && NODE_PATH=$(pwd)/node_modules  next build",
         "build:pb": "esbuild prebuild.ts --bundle --minify --external:esbuild --platform=node --outfile=prebuild.js",
-        "lint": "next lint --fix --dir ../shared ../tools",
+        "lint": "next lint --fix --dir ../shared ../tools ./src",
         "start": "next start"
     },
     "devDependencies": {

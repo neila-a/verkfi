@@ -46,40 +46,37 @@ export default function DialogInputs(props: {
                 flexDirection: "row",
                 justifyContent: "space-between"
             }}>
-                {[0, 1].map(item => (
-                    <TextField sx={{
-                        maxWidth: "49%"
-                    }} key={item} margin="dense" variant="outlined" onChange={event => {
-                        props.setFileInfo(old => {
-                            const realOld = {
-                                ...old
-                            };
-                            realOld.color[item] = hex(event.target.value as HexColor<string>);
-                            return realOld;
-                        });
-                    }} value={props.fileInfo.color[item]} label={get("appearance.colorSteps") + item} />
-                ))}
+                {[0, 1].map(item => <TextField sx={{
+                    maxWidth: "49%"
+                }} key={item} margin="dense" variant="outlined" onChange={event => {
+                    props.setFileInfo(old => {
+                        const realOld = {
+                            ...old
+                        };
+                        realOld.color[item] = hex(event.target.value as HexColor<string>);
+                        return realOld;
+                    });
+                }} value={props.fileInfo.color[item]} label={get("appearance.colorSteps") + item} />
+                )}
             </FormGroup>
             <FormGroup>
-                {[["icon", "图标"], ["main", "入口"]].map(item => (
-                    <Select sx={{
-                        mb: 1
-                    }} key={item[0]} value={props.fileInfo[item[0]]} label={get(item[1])} onChange={event => {
-                        props.setFileInfo(old => {
-                            const realOld = {
-                                ...old
-                            };
-                            realOld[item[0]] = event.target.value;
-                            return realOld;
-                        });
-                    }}>
-                        {props.files.map(file => (
-                            <MenuItem key={file.path} value={file.path}>
-                                {file.path}
-                            </MenuItem>
-                        ))}
-                    </Select>
-                ))}
+                {[["icon", "图标"], ["main", "入口"]].map(item => <Select sx={{
+                    mb: 1
+                }} key={item[0]} value={props.fileInfo[item[0]]} label={get(item[1])} onChange={event => {
+                    props.setFileInfo(old => {
+                        const realOld = {
+                            ...old
+                        };
+                        realOld[item[0]] = event.target.value;
+                        return realOld;
+                    });
+                }}>
+                    {props.files.map(file => <MenuItem key={file.path} value={file.path}>
+                        {file.path}
+                    </MenuItem>
+                    )}
+                </Select>
+                )}
             </FormGroup>
         </>
     );

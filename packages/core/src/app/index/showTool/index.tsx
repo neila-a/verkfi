@@ -100,19 +100,17 @@ export default function ToolsStack(props: {
                             return (
                                 <Box ref={provided.innerRef} {...provided.droppableProps}>
                                     <TransitionGroup>
-                                        {props.paramTool.map((tool, index) => (
-                                            <Collapse key={tool.to} sx={{
-                                                width: "100%"
-                                            }}>
-                                                <Draggable draggableId={tool.to} index={index}>
-                                                    {provided => (
-                                                        <Box ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                                            <Insert index={index} tool={tool} />
-                                                        </Box>
-                                                    )}
-                                                </Draggable>
-                                            </Collapse>
-                                        ))}
+                                        {props.paramTool.map((tool, index) => <Collapse key={tool.to} sx={{
+                                            width: "100%"
+                                        }}>
+                                            <Draggable draggableId={tool.to} index={index}>
+                                                {provided => <Box ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                                    <Insert index={index} tool={tool} />
+                                                </Box>
+                                                }
+                                            </Draggable>
+                                        </Collapse>
+                                        )}
                                     </TransitionGroup>
                                     {provided.placeholder}
                                 </Box>
@@ -124,9 +122,8 @@ export default function ToolsStack(props: {
         );
     }
     function GridContainer() {
-        return props.paramTool.map((tool, index) => (
-            <Insert key={tool.to} tool={tool} index={index} />
-        ));
+        return props.paramTool.map((tool, index) => <Insert key={tool.to} tool={tool} index={index} />
+        );
     }
     return (
         <Stack spacing={viewMode === "list" ? 3 : 5} sx={{
@@ -145,11 +142,10 @@ export default function ToolsStack(props: {
                 width: viewMode === "list" ? "100%" : "unset"
             }
         }}> {/* 工具总览 */}
-            {props.paramTool.length === 0 ? (props?.notfound || (
-                <No>
+            {props.paramTool.length === 0 ? props?.notfound
+                || <No>
                     {get("index.notfound")}
-                </No>
-            )) : ((viewMode === "list" && editMode) ? <ListContainer /> : <GridContainer />)}
+                </No> : viewMode === "list" && editMode ? <ListContainer /> : <GridContainer />}
         </Stack>
     );
 }

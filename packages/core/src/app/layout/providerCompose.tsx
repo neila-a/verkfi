@@ -16,9 +16,8 @@ const composeProviders = (...providers: providerAndValue[]) => providers.reduce<
                 </Provider>
             </Previous>
         );
-    }, props => (
-        <>
-            {props.children}
-        </>
-    ));
+    }, props => <>
+        {props.children}
+    </>
+    );
 export default composeProviders;

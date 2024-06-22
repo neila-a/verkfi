@@ -33,18 +33,16 @@ const direction: ResponsiveStyleValue<"row" | "row-reverse" | "column" | "column
 };
 const Spacing3Stack: FC<{
     children: ReactNode;
-}> = props => (
-    <Stack spacing={3}>
-        {props.children}
-    </Stack>
-);
+}> = props => <Stack spacing={3}>
+    {props.children}
+</Stack>;
 export default function Reset() {
     const [dialogOpen, setDialogOpen] = useState<boolean>(false),
         [dialogContext, setDialogContext] = useState<string>(""),
         [dialogTitle, setDialogTitle] = useState<string>(""),
         cacheUsed = use(getCache("usage")),
         cacheAll = use(getCache("quota")),
-        [dialogOnDone, setDialogOnDone] = useState<() => any>(() => null);
+        [dialogOnDone, setDialogOnDone] = useState(() => () => null);
     return (
         <ErrorBoundary>
             <Stack direction={direction} spacing={{

@@ -72,15 +72,15 @@ export default function EditToolsListDialog(props: {
                 }}>
                     {createOrEdit}
                 </Button>
-                {edit(list) && (
-                    <Button variant="outlined" onClick={event => {
+                {edit(list)
+                    && <Button variant="outlined" onClick={event => {
                         props.setRemoveDialogOpen(true);
                         setDialogTools([]);
                         return setDialogOpen(false);
                     }}>
                         {get("category.删除此分类")}
                     </Button>
-                )}
+                }
             </ButtonGroup>
         )} open={props.open} title={createOrEdit} onClose={() => {
             setDialogTools([]);

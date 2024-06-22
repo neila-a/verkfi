@@ -101,19 +101,17 @@ export default function ModifiedApp(props: {
         });
         setLoaded(choosedLang);
     }, [choosedLang]);
-    return loaded !== "" && (
-        <Provider>
-            <CssVarsProvider theme={theme}>
-                <CssBaseline />
-                <Box component="aside">
-                    {Sidebar}
-                    <DevTools />
-                    <Clients />
-                </Box>
-                <Box component="main" ml={showSidebarValue && sidebarModeValue === "sidebar" && ml}>
-                    {props.children}
-                </Box>
-            </CssVarsProvider>
-        </Provider>
-    );
+    return loaded !== "" && <Provider>
+        <CssVarsProvider theme={theme}>
+            <CssBaseline />
+            <Box component="aside">
+                {Sidebar}
+                <DevTools />
+                <Clients />
+            </Box>
+            <Box component="main" ml={showSidebarValue && sidebarModeValue === "sidebar" && ml}>
+                {props.children}
+            </Box>
+        </CssVarsProvider>
+    </Provider>;
 }

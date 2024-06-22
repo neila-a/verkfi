@@ -102,25 +102,24 @@ export default function Clients() {
                 alignItems: "center"
             }}>
                 <TextField InputProps={{
-                    startAdornment: (
+                    startAdornment:
                         <InputAdornment position="start">
-                            {searchText !== "" && (
-                                <MouseOverPopover text={get("back")}>
+                            {searchText !== ""
+                                && <MouseOverPopover text={get("back")}>
                                     <IconButton type="button" aria-label={get("back")} onClick={() => {
                                         setSearchText("");
                                     }}>
                                         <ArrowBackIosIcon />
                                     </IconButton>
                                 </MouseOverPopover>
-                            )}
+                            }
                             <MouseOverPopover text={get("搜索")}>
                                 <IconButton type="button" aria-label={get("搜索")}>
                                     <SearchIcon />
                                 </IconButton>
                             </MouseOverPopover>
-                        </InputAdornment>
-                    ),
-                    endAdornment: (
+                        </InputAdornment>,
+                    endAdornment:
                         <InputAdornment position="end">
                             <MouseOverPopover text={get("clients.sync")}>
                                 <IconButton aria-label={get("clients.sync")} onClick={refresh}>
@@ -135,7 +134,7 @@ export default function Clients() {
                                 </IconButton>
                             </MouseOverPopover>
                         </InputAdornment>
-                    )
+
                 }} fullWidth autoFocus value={searchText} sx={{
                     flex: 1
                 }} placeholder={get("clients.search")} inputProps={{
@@ -161,16 +160,15 @@ export default function Clients() {
                                 })}
                             </Button>
                         </No>
-                    )} disableClick focus={focusing} actions={filteredClients.map(client => (
-                        <MouseOverPopover key={client.id} text={get("clients.navigate")}>
-                            <IconButton aria-label={get("clients.navigate")} onClick={event => {
-                                setNavigatingId(client.id);
-                                setNavigateDialogOpen(true);
-                            }}>
-                                <TrendingFlat />
-                            </IconButton>
-                        </MouseOverPopover>
-                    ))} paramTool={filteredClients.map(client => {
+                    )} disableClick focus={focusing} actions={filteredClients.map(client => <MouseOverPopover key={client.id} text={get("clients.navigate")}>
+                        <IconButton aria-label={get("clients.navigate")} onClick={event => {
+                            setNavigatingId(client.id);
+                            setNavigateDialogOpen(true);
+                        }}>
+                            <TrendingFlat />
+                        </IconButton>
+                    </MouseOverPopover>
+                    )} paramTool={filteredClients.map(client => {
                         const url = new URL(client.url);
                         let tool: tool;
                         if (url.pathname === "/") {

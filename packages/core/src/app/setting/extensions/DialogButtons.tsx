@@ -38,8 +38,8 @@ export default function DialogButtons(props: {
         setExtensions = useSetAtom(extensionsAtomValue);
     return (
         <ButtonGroup fullWidth>
-            {props.files.length !== 0 && (
-                <Button variant="contained" onClick={async event => {
+            {props.files.length !== 0
+                && <Button variant="contained" onClick={async event => {
                     // 写入文件系统
                     const allHandle = await navigator.storage.getDirectory();
                     await Promise.all(props.files.map(async file => {
@@ -80,15 +80,15 @@ export default function DialogButtons(props: {
                 }}>
                     {props.type === "add" ? get("添加") : get("编辑")}
                 </Button>
-            )}
-            {props.type === "modify" && (
-                <Button variant="outlined" onClick={async event => {
+            }
+            {props.type === "modify"
+                && <Button variant="outlined" onClick={async event => {
                     props.setModifyDialogOpen(false);
                     props.setRemoveDialogOpen(true);
                 }}>
                     {get("删除")}
                 </Button>
-            )}
+            }
         </ButtonGroup>
     );
 }

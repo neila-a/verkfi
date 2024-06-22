@@ -65,7 +65,7 @@ export default function Sidebar(props: {
         }}>
             <Toolbar />
             <TextField InputProps={{
-                startAdornment: (
+                startAdornment:
                     <InputAdornment position="start">
                         <MouseOverPopover text={get("搜索")}>
                             <IconButton sx={{
@@ -75,7 +75,7 @@ export default function Sidebar(props: {
                             </IconButton>
                         </MouseOverPopover>
                     </InputAdornment>
-                )
+
             }} value={searchText} onKeyDown={event => {
                 if (event.key === "Tab" || event.key === "Enter") {
                     event.preventDefault();
@@ -102,8 +102,8 @@ export default function Sidebar(props: {
             <Box sx={{
                 textAlign: "center"
             }}>
-                {!isImplant && (
-                    <SingleSelect
+                {!isImplant
+                    && <SingleSelect
                         dragButton={<></>}
                         isSidebar
                         wantSortingFor="__home__"
@@ -113,7 +113,7 @@ export default function Sidebar(props: {
                         }}
                         editButton={<></>}
                     />
-                )}
+                }
                 <Box onClick={() => {
                     props.setExpand(true);
                     if (clickCount === 1) {

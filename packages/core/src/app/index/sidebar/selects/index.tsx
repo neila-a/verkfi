@@ -69,56 +69,52 @@ export default function Selects(props: {
         RealSelect = (aprops: {
             single: [string, string[]];
             isAll: boolean;
-        }) => (
-            <Box>
-                <SingleSelect
-                    dragButton={editMode && !aprops.isAll && <DragIndicatorIcon />}
-                    isSidebar={Boolean(props.isSidebar)}
-                    key={aprops.single[0]}
-                    tool={aprops.single[0]}
-                    onClick={event => {
-                        const publicSet = draft => {
-                            setEditing(searchText === "");
-                            setSearchText("", isImplant);
-                            props.modifyClickCount("++");
-                            setSortedTools(draft);
-                            setTools(draft);
-                        };
-                        if (aprops.isAll) {
-                            if (sortingFor !== "__global__") {
-                                const draft = gotToolsList;
-                                props.modifyClickCount(0);
-                                setSortingFor("__global__");
-                                publicSet(draft);
-                            }
-                        } else {
-                            if (sortingFor !== aprops.single[0]) {
-                                const draft = aprops.single[1].map(toolTo => gotToolsList.find(one => one.to === toolTo));
-                                if (sortingFor !== aprops.single[0]) {
-                                    props.modifyClickCount(0);
-                                }
-                                setSortingFor(aprops.single[0]);
-                                publicSet(draft);
-                            }
+        }) => <Box>
+            <SingleSelect
+                dragButton={editMode && !aprops.isAll && <DragIndicatorIcon />}
+                isSidebar={Boolean(props.isSidebar)}
+                key={aprops.single[0]}
+                tool={aprops.single[0]}
+                onClick={event => {
+                    const publicSet = draft => {
+                        setEditing(searchText === "");
+                        setSearchText("", isImplant);
+                        props.modifyClickCount("++");
+                        setSortedTools(draft);
+                        setTools(draft);
+                    };
+                    if (aprops.isAll) {
+                        if (sortingFor !== "__global__") {
+                            const draft = gotToolsList;
+                            props.modifyClickCount(0);
+                            setSortingFor("__global__");
+                            publicSet(draft);
                         }
-                    }} editButton={(
-                        (editMode && !aprops.isAll) ? (
-                            <MouseOverPopover text={get("index.editCategory")}>
-                                <IconButton onClick={event => {
-                                    setDialogOpen(true);
-                                    setDialogListName(aprops.single[0]);
-                                }} aria-label={get("index.editCategory")}>
-                                    <EditIcon />
-                                </IconButton>
-                            </MouseOverPopover>
-                        ) : <Fragment />
-                    )} wantSortingFor={aprops.isAll ? "__global__" : aprops.single[0]} />
-            </Box>
-        );
+                    } else {
+                        if (sortingFor !== aprops.single[0]) {
+                            const draft = aprops.single[1].map(toolTo => gotToolsList.find(one => one.to === toolTo));
+                            if (sortingFor !== aprops.single[0]) {
+                                props.modifyClickCount(0);
+                            }
+                            setSortingFor(aprops.single[0]);
+                            publicSet(draft);
+                        }
+                    }
+                }} editButton={(
+                    editMode && !aprops.isAll ? <MouseOverPopover text={get("index.editCategory")}>
+                        <IconButton onClick={event => {
+                            setDialogOpen(true);
+                            setDialogListName(aprops.single[0]);
+                        }} aria-label={get("index.editCategory")}>
+                            <EditIcon />
+                        </IconButton>
+                    </MouseOverPopover> : <Fragment />
+                )} wantSortingFor={aprops.isAll ? "__global__" : aprops.single[0]} />
+        </Box>;
     return (
         <Box sx={{
             width: "100%",
-            display: Boolean(props.isSidebar) ? "" : "flex",
+            display: props.isSidebar ? "" : "flex",
             justifyContent: "space-evenly",
             alignItems: "center"
         }}>
@@ -135,29 +131,24 @@ export default function Selects(props: {
                     setList(newLists);
                 }
             }}>
-                <Droppable direction={Boolean(props.isSidebar) ? "vertical" : "horizontal"} droppableId="categories" isDropDisabled={!editMode}>
-                    {provided => (
-                        <Box ref={provided.innerRef} {...provided.droppableProps} sx={{
-                            display: Boolean(props.isSidebar) ? "" : "flex"
-                        }}>
-                            {list.filter(value => value[0] !== "__global__").map((value, index) => (
-                                editMode ? (
-                                    <Draggable draggableId={value[0]} index={index} key={value[0]}>
-                                        {provided => (
-                                            <Box ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                                <RealSelect single={value} isAll={false} />
-                                            </Box>
-                                        )}
-                                    </Draggable>
-                                ) : <RealSelect key={value[0]} single={value} isAll={false} />
-                            ))}
-                            {provided.placeholder}
-                        </Box>
-                    )}
+                <Droppable direction={props.isSidebar ? "vertical" : "horizontal"} droppableId="categories" isDropDisabled={!editMode}>
+                    {provided => <Box ref={provided.innerRef} {...provided.droppableProps} sx={{
+                        display: props.isSidebar ? "" : "flex"
+                    }}>
+                        {list.filter(value => value[0] !== "__global__").map((value, index) => editMode ? <Draggable draggableId={value[0]} index={index} key={value[0]}>
+                            {provided => <Box ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                <RealSelect single={value} isAll={false} />
+                            </Box>
+                            }
+                        </Draggable> : <RealSelect key={value[0]} single={value} isAll={false} />
+                        )}
+                        {provided.placeholder}
+                    </Box>
+                    }
                 </Droppable>
             </DragDropContext>
-            {editMode && (
-                <> {/* 只有editMode时才会启用，可以用dynamic */}
+            {editMode
+                && <> {/* 只有editMode时才会启用，可以用dynamic */}
                     {createElement(dynamic(() => import("./EditToolsListDialog")), {
                         open: dialogOpen,
                         dialogTools,
@@ -186,7 +177,7 @@ export default function Selects(props: {
                         }
                     })}
                 </>
-            )}
+            }
         </Box>
     );
 }

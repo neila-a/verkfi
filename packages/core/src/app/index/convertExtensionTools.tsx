@@ -15,9 +15,8 @@ const convertExtensionTools = (extensionTools: NXTMetadata[]) => extensionTools?
     /**
      * 这里的图片是直接从indexedDB加载来的，不需要且不能使用next/image的优化
      */
-    icon: (() => (
-        <img src={`/extensionfiles/${single.to}/${single.icon}`} alt={single.name} height={24} width={24} />
-    )) as unknown as typeof SvgIcon,
+    icon: (() => <img src={`/extensionfiles/${single.to}/${single.icon}`} alt={single.name} height={24} width={24} />
+    ) as unknown as typeof SvgIcon,
     color: single.color,
     isGoto: true
 } as tool));

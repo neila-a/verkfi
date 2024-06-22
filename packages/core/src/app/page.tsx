@@ -84,86 +84,84 @@ export default function Index(props: {
             </Box>
         );
     }
-    return (props.isImplant ? showSidebar : true) && (
-        <isImplantContext.Provider value={Boolean(props.isImplant)}>
+    return (props.isImplant ? showSidebar : true)
+        && <isImplantContext.Provider value={Boolean(props.isImplant)}>
             <Box>
-                {props.isImplant !== true && (
-                    <HeadBar isIndex pageName="Verkfi" sx={{
+                {props.isImplant !== true
+                    && <HeadBar isIndex pageName="Verkfi" sx={{
                         zIndex: theme => String((theme as ThemeHaveZIndex).zIndex.drawer + 1)
                     }} />
-                )}
+                }
                 <Sidebar
                     focusingTo={focusingTo}
                     expand={expand}
                     setExpand={setExpand}
                 />
-                {sortingFor === "__home__" || baseSortingFor === "__home__" ? (
+                {sortingFor === "__home__" || baseSortingFor === "__home__" ? <Box sx={{
+                    p: 3,
+                    ml: props.isImplant ? "" : `${drawerWidth}px`
+                }}>
                     <Box sx={{
-                        p: 3,
-                        ml: props.isImplant ? "" : `${drawerWidth}px`
+                        paddingBottom: 3,
+                        width: "100%",
+                        textAlign: "center"
                     }}>
+                        <MouseOverPopover text={get("index.generateTry")}>
+                            <IconButton aria-label={get("index.generateTry")} onClick={event => {
+                                setShowTries(old => !old);
+                            }}>
+                                <VerkfiIcon sx={{
+                                    fontSize: "40vw"
+                                }} />
+                            </IconButton>
+                        </MouseOverPopover>
+                    </Box>
+                    <Collapse in={showTries}>
+                        <Box>
+                            <Box sx={{
+                                display: "flex",
+                                justifyContent: "space-between"
+                            }}>
+                                <Typography variant="h4">
+                                    {get("index.trythese")}
+                                </Typography>
+                                <Button onClick={event => refreshTries()}>
+                                    {get("index.newTries")}
+                                </Button>
+                            </Box>
+                            <Box sx={{
+                                p: 1
+                            }}>
+                                <ToolsStack
+                                    paramTool={recommend.filter(item => item !== undefined)} />
+                            </Box>
+                        </Box>
+                    </Collapse>
+                    <Box>
+                        <Typography variant="h4">
+                            {get("use.最近使用")}
+                        </Typography>
                         <Box sx={{
-                            paddingBottom: 3,
-                            width: "100%",
-                            textAlign: "center"
+                            p: 1
                         }}>
-                            <MouseOverPopover text={get("index.generateTry")}>
-                                <IconButton aria-label={get("index.generateTry")} onClick={event => {
-                                    setShowTries(old => !old);
-                                }}>
-                                    <VerkfiIcon sx={{
-                                        fontSize: "40vw"
-                                    }} />
-                                </IconButton>
-                            </MouseOverPopover>
-                        </Box>
-                        <Collapse in={showTries}>
-                            <Box>
-                                <Box sx={{
-                                    display: "flex",
-                                    justifyContent: "space-between"
-                                }}>
-                                    <Typography variant="h4">
-                                        {get("index.trythese")}
-                                    </Typography>
-                                    <Button onClick={event => refreshTries()}>
-                                        {get("index.newTries")}
-                                    </Button>
-                                </Box>
-                                <Box sx={{
-                                    p: 1
-                                }}>
-                                    <ToolsStack
-                                        paramTool={recommend.filter(item => item !== undefined)} />
-                                </Box>
-                            </Box>
-                        </Collapse>
-                        <Box>
-                            <Typography variant="h4">
-                                {get("use.最近使用")}
-                            </Typography>
-                            <Box sx={{
-                                p: 1
-                            }}>
-                                <ToolsStack
-                                    paramTool={recentlyTools.filter(item => item !== undefined)} />
-                            </Box>
-                        </Box>
-                        <Box>
-                            <Typography variant="h4">
-                                {get("use.最常使用")}
-                            </Typography>
-                            <Box sx={{
-                                p: 1
-                            }}>
-                                <ToolsStack
-                                    paramTool={mostUsed}
-                                />
-                            </Box>
+                            <ToolsStack
+                                paramTool={recentlyTools.filter(item => item !== undefined)} />
                         </Box>
                     </Box>
-                ) : props.isImplant ? expand && (
-                    <Drawer anchor="left" variant="permanent" sx={{
+                    <Box>
+                        <Typography variant="h4">
+                            {get("use.最常使用")}
+                        </Typography>
+                        <Box sx={{
+                            p: 1
+                        }}>
+                            <ToolsStack
+                                paramTool={mostUsed}
+                            />
+                        </Box>
+                    </Box>
+                </Box> : props.isImplant ? expand
+                    && <Drawer anchor="left" variant="permanent" sx={{
                         flexShrink: 0,
                         [`& .MuiDrawer-paper`]: {
                             position: "absolute",
@@ -175,9 +173,7 @@ export default function Index(props: {
                     }}>
                         <Toolbar />
                         <Tools />
-                    </Drawer>
-                ) : <Tools />}
+                    </Drawer> : <Tools />}
             </Box>
-        </isImplantContext.Provider>
-    );
+        </isImplantContext.Provider>;
 }

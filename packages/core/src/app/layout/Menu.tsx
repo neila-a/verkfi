@@ -133,10 +133,10 @@ export default function Menu() {
                     alignItems: "center"
                 }}>
                     <TextField InputProps={{
-                        startAdornment: (
+                        startAdornment:
                             <InputAdornment position="start">
-                                {sortingFor !== "__home__" && (
-                                    <MouseOverPopover text={get("back")}>
+                                {sortingFor !== "__home__"
+                                    && <MouseOverPopover text={get("back")}>
                                         <IconButton type="button" aria-label={get("back")} onClick={() => {
                                             setSearchText("", false);
                                             setSortingFor("__home__");
@@ -147,15 +147,14 @@ export default function Menu() {
                                             <ArrowBackIosIcon />
                                         </IconButton>
                                     </MouseOverPopover>
-                                )}
+                                }
                                 <MouseOverPopover text={get("搜索")}>
                                     <IconButton type="button" aria-label={get("搜索")}>
                                         <SearchIcon />
                                     </IconButton>
                                 </MouseOverPopover>
-                            </InputAdornment>
-                        ),
-                        endAdornment: (
+                            </InputAdornment>,
+                        endAdornment:
                             <InputAdornment position="end">
                                 <MouseOverPopover text={get("close")}>
                                     <IconButton aria-label={get("close")} onClick={event => {
@@ -165,7 +164,7 @@ export default function Menu() {
                                     </IconButton>
                                 </MouseOverPopover>
                             </InputAdornment>
-                        )
+
                     }} fullWidth autoFocus value={searchText} sx={{
                         flex: 1
                     }} placeholder={get("搜索工具")} inputProps={{
@@ -178,52 +177,48 @@ export default function Menu() {
                     }} />
                 </DialogTitle>
                 <DialogContent dividers>
-                    {sortingFor === "__home__" ? (
-                        <>
-                            <Box>
-                                <Typography variant="h4">
-                                    {get("category.分类")}
-                                    <Selects
-                                        modifyClickCount={value => null}
-                                    />
-                                </Typography>
-                            </Box>
-                            <Box>
-                                <Typography variant="h4">
-                                    {get("use.最近使用")}
-                                </Typography>
-                                <Box sx={{
-                                    p: 1
-                                }}>
-                                    <ToolsStack
-                                        paramTool={recentlyUsed.map(to => (
-                                            0
+                    {sortingFor === "__home__" ? <>
+                        <Box>
+                            <Typography variant="h4">
+                                {get("category.分类")}
+                                <Selects
+                                    modifyClickCount={value => null}
+                                />
+                            </Typography>
+                        </Box>
+                        <Box>
+                            <Typography variant="h4">
+                                {get("use.最近使用")}
+                            </Typography>
+                            <Box sx={{
+                                p: 1
+                            }}>
+                                <ToolsStack
+                                    paramTool={recentlyUsed.map(to => 0
                                             || realTools.find(single => single.to === to)
-                                            || convertExtensionTools(extensionTools).find(single => `/tools/extension?tool=${to}` === single.to))
-                                        ).filter((item: tool | 0) => item !== 0 && item !== undefined) as unknown as tool[]} />
-                                </Box>
+                                            || convertExtensionTools(extensionTools).find(single => `/tools/extension?tool=${to}` === single.to)
+                                    ).filter((item: tool | 0) => item !== 0 && item !== undefined) as unknown as tool[]} />
                             </Box>
-                            <Box>
-                                <Typography variant="h4">
-                                    {get("use.最常使用")}
-                                </Typography>
-                                <Box sx={{
-                                    p: 1
-                                }}>
-                                    <ToolsStack
-                                        paramTool={mostUsed} />
-                                </Box>
+                        </Box>
+                        <Box>
+                            <Typography variant="h4">
+                                {get("use.最常使用")}
+                            </Typography>
+                            <Box sx={{
+                                p: 1
+                            }}>
+                                <ToolsStack
+                                    paramTool={mostUsed} />
                             </Box>
-                        </>
-                    ) : (
-                        <ToolsStack
-                            paramTool={tools}
-                            focus={focusingTo}
-                        />
-                    )}
+                        </Box>
+                    </> : <ToolsStack
+                        paramTool={tools}
+                        focus={focusingTo}
+                    />
+                    }
                 </DialogContent>
-                {sortingFor !== "__home__" && (
-                    <DialogActions>
+                {sortingFor !== "__home__"
+                    && <DialogActions>
                         {get("press")}
                         <Button onClick={handleTab}>
                             <kbd>
@@ -239,7 +234,7 @@ export default function Menu() {
                         </Button>
                         {get("enter")}
                     </DialogActions>
-                )}
+                }
                 <DialogActions sx={{
                     display: "flex",
                     justifyContent: "space-between"
@@ -267,9 +262,9 @@ export default function Menu() {
                             </MouseOverPopover>
                         </Link>
                         <SwitchViewMode />
-                        {(editing && sortingFor !== "__extension__") && (
-                            <SwitchEditMode />
-                        )}
+                        {editing && sortingFor !== "__extension__"
+                            && <SwitchEditMode />
+                        }
                     </Box>
                 </DialogActions>
             </Dialog>
