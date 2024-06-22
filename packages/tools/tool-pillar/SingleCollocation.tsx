@@ -30,21 +30,20 @@ export default function SingleCollocation(props: {
                 setElevation(2); // reset to default
             }}>
                 <List>
-                    {Object.entries(props.collocation).map((value, index) => (
-                        <ListItem key={value[0]} sx={{
-                            mb: index === 1 && 1,
-                            pt: 0,
-                            pb: 0
-                        }} secondaryAction={(
-                            <CopyButton onlyIcon>
-                                {value.toString()}
-                            </CopyButton>
-                        )}>
-                            <ListItemText>
-                                {get(`pillar.collocationShow.${value[0]}`)}: {value[1]}
-                            </ListItemText>
-                        </ListItem>
-                    ))}
+                    {Object.entries(props.collocation).map((value, index) => <ListItem key={value[0]} sx={{
+                        mb: index === 1 && 1,
+                        pt: 0,
+                        pb: 0
+                    }} secondaryAction={(
+                        <CopyButton onlyIcon>
+                            {value.toString()}
+                        </CopyButton>
+                    )}>
+                        <ListItemText>
+                            {get(`pillar.collocationShow.${value[0]}`)}: {value[1]}
+                        </ListItemText>
+                    </ListItem>
+                    )}
                 </List>
             </Paper>
         </Grid>

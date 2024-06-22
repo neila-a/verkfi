@@ -26,22 +26,20 @@ export default function BootstrapDialogTitle(props: {
             p: 2
         }}>
             {children}
-            {onClose ? (
-                <MouseOverPopover text={get("close")}>
-                    <IconButton
-                        aria-label={get("close")}
-                        onClick={onClose}
-                        sx={{
-                            position: "absolute",
-                            right: 8,
-                            top: 8,
-                            color: theme => theme.palette.grey[500]
-                        }}
-                    >
-                        <CloseIcon />
-                    </IconButton>
-                </MouseOverPopover>
-            ) : null}
+            {onClose ? <MouseOverPopover text={get("close")}>
+                <IconButton
+                    aria-label={get("close")}
+                    onClick={onClose}
+                    sx={{
+                        position: "absolute",
+                        right: 8,
+                        top: 8,
+                        color: theme => theme.palette.grey[500]
+                    }}
+                >
+                    <CloseIcon />
+                </IconButton>
+            </MouseOverPopover> : null}
         </DialogTitle>
     );
 }

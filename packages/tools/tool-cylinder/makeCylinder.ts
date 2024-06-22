@@ -57,7 +57,7 @@ export default class Cylinder extends Array<block> {
                         }
                         break;
                     }
-                    if ((dz2 + nextMinXn * nextMinXn <= 1) && (nextMinZn * nextMinZn + dx2 <= 1)) {
+                    if (dz2 + nextMinXn * nextMinXn <= 1 && nextMinZn * nextMinZn + dx2 <= 1) {
                         continue;
                     }
                     this.setBlock(x, z, radiusX, radiusZ);
@@ -81,7 +81,7 @@ export default class Cylinder extends Array<block> {
                         break;
                     }
                     if (!filled) {
-                        if ((zSqr + nextXn * nextXn <= 1) && (nextZn * nextZn + xSqr <= 1)) {
+                        if (zSqr + nextXn * nextXn <= 1 && nextZn * nextZn + xSqr <= 1) {
                             continue;
                         }
                     }

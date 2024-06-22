@@ -144,24 +144,21 @@ export default function Speech() {
                     })}
                 </Typography>
                 <ButtonGroup>
-                    {status === "recording" ? (
-                        <Button disabled={speechTime > 0} startIcon={<Stop />} variant="contained" onClick={event => {
-                            (mediaRecorder.current as MediaRecorder).stop();
-                            clearInterval(intervalID.current);
-                            clearInterval(speechTimeIntervalID.current);
-                            intervalID.current = 0;
-                            speechTimeIntervalID.current = 0;
-                            setStatus("inactive");
-                        }}>
-                            {get("speech.stop")}
-                        </Button>
-                    ) : (
-                        <Button startIcon={<PlayArrow />} variant="contained" onClick={event => {
-                            setSelectTime(true);
-                        }}>
-                            {get("speech.start")}
-                        </Button>
-                    )}
+                    {status === "recording" ? <Button disabled={speechTime > 0} startIcon={<Stop />} variant="contained" onClick={event => {
+                        (mediaRecorder.current as MediaRecorder).stop();
+                        clearInterval(intervalID.current);
+                        clearInterval(speechTimeIntervalID.current);
+                        intervalID.current = 0;
+                        speechTimeIntervalID.current = 0;
+                        setStatus("inactive");
+                    }}>
+                        {get("speech.stop")}
+                    </Button> : <Button startIcon={<PlayArrow />} variant="contained" onClick={event => {
+                        setSelectTime(true);
+                    }}>
+                        {get("speech.start")}
+                    </Button>
+                    }
                     <Button variant="outlined" startIcon={<Download />} onClick={event => {
                         const okExt = [
                             ["audio/ogg", "ogg"],

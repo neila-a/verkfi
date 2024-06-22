@@ -89,11 +89,8 @@ export default function Pillar(): JSX.Element {
         choosesId = useId(),
         sizeLabelId = useId(),
         pillars = calcPillars(type, length),
-        filteredPillars = pillars.filter(single => Object.entries(filterRules).every(singleRule => (
-            single[singleRule[0]] >= singleRule[1].min && single[singleRule[0]] <= singleRule[1].max
-        ))).map(single => (
-            <SingleCollocation key={JSON.stringify(single)} collocation={single} />
-        ));
+        filteredPillars = pillars.filter(single => Object.entries(filterRules).every(singleRule => single[singleRule[0]] >= singleRule[1].min && single[singleRule[0]] <= singleRule[1].max
+        )).map(single => <SingleCollocation key={JSON.stringify(single)} collocation={single} />);
     return (
         <>
             <FormGroup sx={{
@@ -115,31 +112,30 @@ export default function Pillar(): JSX.Element {
                         {get("pillar.position")}
                     </FormLabel>
                     <RadioGroup aria-labelledby={choosesId} value={type} onChange={(event, value: pillarPositions) => setType(value)} name="chooses-group">
-                        {Object.keys(examples).map(single => (
-                            <Box key={single} sx={{
-                                display: "flex"
-                            }}>
-                                <FormControlLabel value={single} control={<Radio />} label={get(`pillar.types.${single}`)} />
-                                {examples[single].map((block, index) => {
-                                    const pillar = block === 1;
-                                    return (
-                                        <Box key={index} sx={{
-                                            mb: 1,
-                                            width: 48,
-                                            height: 48,
-                                            display: "inline-flex",
-                                            alignItems: "center",
-                                            justifyContent: "center",
-                                            boxShadow: theme => `inset 0 0 0 ${theme.spacing(1)} ${theme.palette[pillar ? "primary" : "secondary"][theme.palette.mode]}`
-                                        }}>
-                                            <Typography>
-                                                {pillar ? get("pillar.name") : get("pillar.distance")}
-                                            </Typography>
-                                        </Box>
-                                    );
-                                })}
-                            </Box>
-                        ))}
+                        {Object.keys(examples).map(single => <Box key={single} sx={{
+                            display: "flex"
+                        }}>
+                            <FormControlLabel value={single} control={<Radio />} label={get(`pillar.types.${single}`)} />
+                            {examples[single].map((block, index) => {
+                                const pillar = block === 1;
+                                return (
+                                    <Box key={index} sx={{
+                                        mb: 1,
+                                        width: 48,
+                                        height: 48,
+                                        display: "inline-flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        boxShadow: theme => `inset 0 0 0 ${theme.spacing(1)} ${theme.palette[pillar ? "primary" : "secondary"][theme.palette.mode]}`
+                                    }}>
+                                        <Typography>
+                                            {pillar ? get("pillar.name") : get("pillar.distance")}
+                                        </Typography>
+                                    </Box>
+                                );
+                            })}
+                        </Box>
+                        )}
                     </RadioGroup>
                 </FormControl>
                 <Grid rowSpacing={2} container sx={{
@@ -199,17 +195,14 @@ export default function Pillar(): JSX.Element {
                 </Grid>
             </FormGroup>
             {
-                filteredPillars.length === 0 ? (
-                    <No>
-                        {get("pillar.no")}
-                    </No>
-                ) : (
-                    <Grid container spacing={2} component="ul" sx={{
-                        listStyle: "none"
-                    }}>
-                        {filteredPillars}
-                    </Grid>
-                )
+                filteredPillars.length === 0 ? <No>
+                    {get("pillar.no")}
+                </No> : <Grid container spacing={2} component="ul" sx={{
+                    listStyle: "none"
+                }}>
+                    {filteredPillars}
+                </Grid>
+
             }
         </>
     );

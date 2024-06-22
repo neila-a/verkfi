@@ -34,13 +34,11 @@ export default function SingleMath(props: {
                 <TextField label={get("结果")} type="number" InputLabelProps={{
                     shrink: true
                 }} error={isError} onChange={event => {
-                    setError((event.target.value === math.replace(/.*=/g, "")) ? false : true);
+                    setError(event.target.value === math.replace(/.*=/g, "") ? false : true);
                 }} />
-                {showOut === true ? (
-                    <Typography>
-                        {get("答案：")}{math.replace(/.*=/g, "")}
-                    </Typography>
-                ) : <Fragment />}
+                {showOut === true ? <Typography>
+                    {get("答案：")}{math.replace(/.*=/g, "")}
+                </Typography> : <Fragment />}
             </Box>
         </ListItem>
     );

@@ -75,7 +75,7 @@ export default function Filter(): JSX.Element {
                     <FormControlLabel label={get("全部")} control={
                         <Checkbox
                             checked={imageTypes === ImageTypesGen}
-                            indeterminate={(imageTypes !== ImageTypesGen) && (imageTypes.toString() !== "")}
+                            indeterminate={imageTypes !== ImageTypesGen && imageTypes.toString() !== ""}
                             onChange={event => setImageTypes(event.target.checked ? ImageTypesGen : [])}
                         />
                     } />
@@ -120,17 +120,13 @@ export default function Filter(): JSX.Element {
                     </Grid>
                 </Grid>
             </Box>
-            {imageTypes.length === 0 ? (
-                <No>
-                    {get("filter.没有任何已生成的图片")}
-                </No>
-            ) : (
-                <ImageList>
-                    {imageTypes.map(type => (
-                        <SingleImage scale={scale} imageURL={imageURL} imageFileName={imageFileName} type={type} key={type} />
-                    ))}
-                </ImageList>
-            )}
+            {imageTypes.length === 0 ? <No>
+                {get("filter.没有任何已生成的图片")}
+            </No> : <ImageList>
+                {imageTypes.map(type => <SingleImage scale={scale} imageURL={imageURL} imageFileName={imageFileName} type={type} key={type} />
+                )}
+            </ImageList>
+            }
         </>
     );
 }

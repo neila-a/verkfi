@@ -47,18 +47,17 @@ export default function Cubic(): JSX.Element {
                 <Stats />
             </Canvas>
             <FormGroup>
-                {text.map((a, index) => (
-                    <TextField key={index} value={a} margin="dense" label={get("cubic.face", {
-                        face: index + 1
-                    })} fullWidth onChange={event => {
-                        setText(old => old.map((value, searchingIndex) => {
-                            if (searchingIndex === index) {
-                                return event.target.value;
-                            }
-                            return value;
-                        }) as text);
-                    }} />
-                ))}
+                {text.map((a, index) => <TextField key={index} value={a} margin="dense" label={get("cubic.face", {
+                    face: index + 1
+                })} fullWidth onChange={event => {
+                    setText(old => old.map((value, searchingIndex) => {
+                        if (searchingIndex === index) {
+                            return event.target.value;
+                        }
+                        return value;
+                    }) as text);
+                }} />
+                )}
             </FormGroup>
         </>
     );

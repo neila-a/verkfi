@@ -2,7 +2,7 @@
 import {
     createSvgIcon
 } from "@mui/material";
-const VerkfiIcon = createSvgIcon((
+const VerkfiIcon = createSvgIcon(
     <svg width="108" height="108" viewBox="0 0 108 108">
         <line y2="18" x2="90" y1="90" x1="54" id="line1" style={{
             stroke: "#81c784",
@@ -29,5 +29,5 @@ const VerkfiIcon = createSvgIcon((
             stopOpacity: 1
         }} />
     </svg>
-), "Verkfi");
+    , "Verkfi");
 export default VerkfiIcon;

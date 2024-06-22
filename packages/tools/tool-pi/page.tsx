@@ -40,8 +40,8 @@ function PI(): JSX.Element {
                     <Switch checked={useAlertShow} onClick={event => setUseAlertShow(old => !old)} />
                 } label={get("用提示框显示结果")} />
             </FormGroup>
-            {!useAlertShow && (
-                <Box id="out">
+            {!useAlertShow
+                && <Box id="out">
                     <Typography variant="h4" gutterBottom>
                         {get("结果")}
                     </Typography>
@@ -59,7 +59,7 @@ function PI(): JSX.Element {
                         {get("pi.π是：")}{out}
                     </Typography>
                 </Box>
-            )}
+            }
             <AlertDialog open={showInfoDialog} title={get("提示")} description={dialogInfo} onDone={() => {
                 setShowInfoDialog(false);
             }} />

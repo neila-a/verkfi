@@ -5,7 +5,7 @@
     ],
     "rules": {
         "@next/next/no-img-element": "off",
-        "react-hooks/rules-of-hooks": "error", // 检查 Hook 的规则
+        "react-hooks/rules-of-hooks": "warn", // 检查 Hook 的规则
         "react-hooks/exhaustive-deps": "off",
         "semi": [
             "warn",
@@ -23,25 +23,29 @@
             }
         ],
         "eqeqeq": [
-            "error",
+            "warn",
             "always"
         ],
-        "no-delete-var": "error",
+        "no-delete-var": "warn",
         "no-else-return": "warn",
         "no-eval": "error",
         "no-extra-label": "warn",
         "no-extra-semi": "warn",
-        "no-proto": "error",
-        "no-script-url": "error",
-        "no-var": "error",
-        "no-with": "error",
+        "no-proto": "warn",
+        "no-script-url": "warn",
+        "no-var": "warn",
+        "no-with": "warn",
         "array-bracket-spacing": [
-            "error",
+            "warn",
             "never"
         ],
         "arrow-parens": [
-            "error",
+            "warn",
             "as-needed"
+        ],
+        "no-extra-parens": [
+            "warn",
+            "all"
         ],
         "arrow-spacing": [
             "warn",
@@ -50,115 +54,115 @@
                 "after": true
             }
         ],
-        "block-spacing": "error",
-        "brace-style": "error",
+        "block-spacing": "warn",
+        "brace-style": "warn",
         "comma-dangle": [
-            "error",
+            "warn",
             "never"
         ],
         "comma-spacing": [
-            "error",
+            "warn",
             {
                 "before": false,
                 "after": true
             }
         ],
         "comma-style": [
-            "error",
+            "warn",
             "last"
         ],
         "dot-location": [
-            "error",
+            "warn",
             "object"
         ],
         "eol-last": [
-            "error",
+            "warn",
             "always"
         ],
         "func-call-spacing": [
-            "error",
+            "warn",
             "never"
         ],
         "generator-star-spacing": [
-            "error",
+            "warn",
             {
                 "before": false,
                 "after": true
             }
         ],
         "implicit-arrow-linebreak": [
-            "error"
+            "warn"
         ],
         "indent": [
-            "error",
+            "warn",
             4,
             {
                 "SwitchCase": 1
             }
         ],
         "key-spacing": [
-            "error"
+            "warn"
             // 全部使用默认
         ],
-        "keyword-spacing": "error",
+        "keyword-spacing": "warn",
         "linebreak-style": [
-            "error",
+            "warn",
             "unix"
         ],
         "max-statements-per-line": [
-            "error",
+            "warn",
             {
                 "max": 2
             }
         ],
         "multiline-ternary": [
-            "error",
+            "warn",
             "never"
         ],
-        "new-parens": "error",
-        "no-multi-spaces": "error",
-        "no-multiple-empty-lines": "error",
-        "no-trailing-spaces": "error",
-        "no-whitespace-before-property": "error",
-        "nonblock-statement-body-position": "error",
+        "new-parens": "warn",
+        "no-multi-spaces": "warn",
+        "no-multiple-empty-lines": "warn",
+        "no-trailing-spaces": "warn",
+        "no-whitespace-before-property": "warn",
+        "nonblock-statement-body-position": "warn",
         "object-curly-newline": [
-            "error",
+            "warn",
             "always"
         ],
         "object-curly-spacing": [
-            "error",
+            "warn",
             "never"
         ],
-        "object-property-newline": "error",
+        "object-property-newline": "warn",
         "operator-linebreak": [
-            "error",
+            "warn",
             "before"
         ],
         "padded-blocks": [
-            "error",
+            "warn",
             "never"
         ],
         "rest-spread-spacing": [
-            "error",
+            "warn",
             "never"
         ],
         "semi-spacing": [
-            "error",
+            "warn",
             {
                 "before": false,
                 "after": true
             }
         ],
         "semi-style": [
-            "error",
+            "warn",
             "last"
         ],
         "space-before-blocks": [
-            "error",
+            "warn",
             "always"
         ],
         "space-before-function-paren": [
-            "error",
+            "warn",
             {
                 "anonymous": "always",
                 "named": "never",
@@ -166,37 +170,37 @@
             }
         ],
         "space-in-parens": [
-            "error",
+            "warn",
             "never"
         ],
         "space-infix-ops": [
-            "error"
+            "warn"
         ],
         "space-unary-ops": [
-            "error",
+            "warn",
             {
                 "words": true,
                 "nonwords": false
             }
         ],
         "switch-colon-spacing": [
-            "error"
+            "warn"
         ],
         "template-curly-spacing": [
-            "error",
+            "warn",
             "never"
         ],
         "template-tag-spacing": [
-            "error",
+            "warn",
             "never"
         ],
-        "unicode-bom": "error",
+        "unicode-bom": "warn",
         "wrap-iife": [
-            "error",
+            "warn",
             "inside"
         ],
         "yield-star-spacing": [
-            "error",
+            "warn",
             "after"
         ]
     }

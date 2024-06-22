@@ -162,25 +162,21 @@ export default function Index(props: {
                             </Box>
                         </Box>
                     </Box>
-                ) : (
-                    props.isImplant ? (
-                        expand && (
-                            <Drawer anchor="left" variant="permanent" sx={{
-                                flexShrink: 0,
-                                [`& .MuiDrawer-paper`]: {
-                                    position: "absolute",
-                                    left: drawerWidth,
-                                    maxWidth: `calc(100vw - ${drawerWidth}px)`,
-                                    width: 320,
-                                    boxSizing: "border-box"
-                                }
-                            }}>
-                                <Toolbar />
-                                <Tools />
-                            </Drawer>
-                        )
-                    ) : <Tools />
-                )}
+                ) : props.isImplant ? expand && (
+                    <Drawer anchor="left" variant="permanent" sx={{
+                        flexShrink: 0,
+                        [`& .MuiDrawer-paper`]: {
+                            position: "absolute",
+                            left: drawerWidth,
+                            maxWidth: `calc(100vw - ${drawerWidth}px)`,
+                            width: 320,
+                            boxSizing: "border-box"
+                        }
+                    }}>
+                        <Toolbar />
+                        <Tools />
+                    </Drawer>
+                ) : <Tools />}
             </Box>
         </isImplantContext.Provider>
     );

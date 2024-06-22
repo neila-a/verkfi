@@ -75,14 +75,14 @@ export default function ModifiedApp(props: {
         choosedLang = useAtomValue(usableLangAtom),
         [expand, setExpand] = useState<boolean>(false),
         [loaded, setLoaded] = useState<"" | keyof typeof locales>(""),
-        implant = (pathname === "/") || (params.get("only") === "true"),
+        implant = pathname === "/" || params.get("only") === "true",
         sidebarModeValue = useAtomValue(sidebarModeAtom),
-        ml: string = implant ? "" : (expand ? `calc(min(${`calc(100vw - ${drawerWidth}px)`}, 320px) + ${drawerWidth}px)` : `${drawerWidth}px`),
-        Sidebar = implant ? null : (sidebarModeValue === "menu" ? createElement(dynamic(() => import("./Menu"))) : createElement(dynamic(() => import("page")), {
+        ml: string = implant ? "" : expand ? `calc(min(${`calc(100vw - ${drawerWidth}px)`}, 320px) + ${drawerWidth}px)` : `${drawerWidth}px`,
+        Sidebar = implant ? null : sidebarModeValue === "menu" ? createElement(dynamic(() => import("./Menu"))) : createElement(dynamic(() => import("page")), {
             isImplant: true,
             expand: expand,
             setExpand: setExpand
-        })), // 使用createElement因为dynamic不能直接以JSX方式调用
+        }), // 使用createElement因为dynamic不能直接以JSX方式调用
         showSidebarValue = useAtomValue(showSidebarAtom),
         Provider = composeProviders([repoInfo, props.repoInfo]);
     useEffect(() => {
@@ -110,7 +110,7 @@ export default function ModifiedApp(props: {
                     <DevTools />
                     <Clients />
                 </Box>
-                <Box component="main" ml={(showSidebarValue && sidebarModeValue === "sidebar") && ml}>
+                <Box component="main" ml={showSidebarValue && sidebarModeValue === "sidebar" && ml}>
                     {props.children}
                 </Box>
             </CssVarsProvider>

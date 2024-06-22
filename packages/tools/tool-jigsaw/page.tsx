@@ -75,16 +75,14 @@ export default function JigsawEntry(): JSX.Element {
         widtha = portrait ? `calc(100vw / ${width})` : `calc(100vw / (${width} + 1))`,
         heighta = portrait ? `calc((100vh - 56px) / (${height} + 1))` : `calc((100vh - 64px) / ${height})`,
         column = useMediaQuery(theme.breakpoints.down("sm")),
-        splitInputs = (
-            <>
-                <TextField margin="dense" value={width} variant="outlined" onChange={event => {
-                    setWidth(Number(event.target.value));
-                }} label={get("jigsaw.split.width")} type="number" />
-                <TextField margin="dense" value={height} variant="outlined" onChange={event => {
-                    setHeight(Number(event.target.value));
-                }} label={get("jigsaw.split.height")} type="number" />
-            </>
-        ),
+        splitInputs = <>
+            <TextField margin="dense" value={width} variant="outlined" onChange={event => {
+                setWidth(Number(event.target.value));
+            }} label={get("jigsaw.split.width")} type="number" />
+            <TextField margin="dense" value={height} variant="outlined" onChange={event => {
+                setHeight(Number(event.target.value));
+            }} label={get("jigsaw.split.height")} type="number" />
+        </>,
         [selecting, setSelecting] = useState<[number, number]>([-1, -1]),
         [imageFile, setImageFile] = useState<Blob>(new Blob()),
         selects = jigsaws.filter(a => a.all === imageFile).map(n => n.rightBlocks.map((b, rowIndex) => b.map((c, columnIndex) => {
@@ -202,55 +200,52 @@ export default function JigsawEntry(): JSX.Element {
                         {get("jigsaw.recent")}
                     </Typography>
                 </ImageListItem>
-                {jigsaws.length === 0 ? (
-                    <No>
-                        {get("jigsaw.noRecent")}
-                    </No>
-                ) : jigsaws.map(jigsaw => (
-                    <ImageListItem key={`${jigsaw.all.size}@${jigsaw.fileName}`}>
-                        <img
-                            src={URL.createObjectURL(jigsaw.all)}
-                            alt={jigsaw.fileName}
-                            loading="lazy"
-                        />
-                        <ImageListItemBar title={jigsaw.fileName} subtitle={(
-                            <>
-                                {get("jigsaw.split.height")}: {jigsaw.rightBlocks.length}
-                                <br />
-                                {get("jigsaw.split.width")}: {jigsaw.rightBlocks[0].length}
-                            </>
-                        )} actionIcon={(
-                            <Box sx={{
-                                ["& button"]: {
-                                    color: theme => `${theme.palette.primary.main} !important`
-                                }
-                            }}>
-                                <MouseOverPopover text={get("jigsaw.delete")}>
-                                    <IconButton onClick={async event => {
-                                        jigsaws.forEach(async (singleOld, index) => {
-                                            if (await blobToInt8Array(singleOld.all) === await blobToInt8Array(jigsaw.all)) {
-                                                setJigsaws(jigsaws.toSpliced(index, 1));
-                                            }
-                                        });
-                                    }} aria-label={get("jigsaw.delete")}>
-                                        <Delete />
-                                    </IconButton>
-                                </MouseOverPopover>
-                                <MouseOverPopover text={get("jigsaw.start")}>
-                                    <IconButton onClick={event => {
-                                        setWidth(jigsaw.rightBlocks[0].length);
-                                        setHeight(jigsaw.rightBlocks.length);
-                                        setImageFile(jigsaw.all);
-                                        setImageFileName(jigsaw.fileName);
-                                        setDialogOpen(true);
-                                    }} aria-label={get("jigsaw.start")}>
-                                        <PlayArrow />
-                                    </IconButton>
-                                </MouseOverPopover>
-                            </Box>
-                        )} />
-                    </ImageListItem>
-                ))}
+                {jigsaws.length === 0 ? <No>
+                    {get("jigsaw.noRecent")}
+                </No> : jigsaws.map(jigsaw => <ImageListItem key={`${jigsaw.all.size}@${jigsaw.fileName}`}>
+                    <img
+                        src={URL.createObjectURL(jigsaw.all)}
+                        alt={jigsaw.fileName}
+                        loading="lazy"
+                    />
+                    <ImageListItemBar title={jigsaw.fileName} subtitle={(
+                        <>
+                            {get("jigsaw.split.height")}: {jigsaw.rightBlocks.length}
+                            <br />
+                            {get("jigsaw.split.width")}: {jigsaw.rightBlocks[0].length}
+                        </>
+                    )} actionIcon={(
+                        <Box sx={{
+                            ["& button"]: {
+                                color: theme => `${theme.palette.primary.main} !important`
+                            }
+                        }}>
+                            <MouseOverPopover text={get("jigsaw.delete")}>
+                                <IconButton onClick={async event => {
+                                    jigsaws.forEach(async (singleOld, index) => {
+                                        if (await blobToInt8Array(singleOld.all) === await blobToInt8Array(jigsaw.all)) {
+                                            setJigsaws(jigsaws.toSpliced(index, 1));
+                                        }
+                                    });
+                                }} aria-label={get("jigsaw.delete")}>
+                                    <Delete />
+                                </IconButton>
+                            </MouseOverPopover>
+                            <MouseOverPopover text={get("jigsaw.start")}>
+                                <IconButton onClick={event => {
+                                    setWidth(jigsaw.rightBlocks[0].length);
+                                    setHeight(jigsaw.rightBlocks.length);
+                                    setImageFile(jigsaw.all);
+                                    setImageFileName(jigsaw.fileName);
+                                    setDialogOpen(true);
+                                }} aria-label={get("jigsaw.start")}>
+                                    <PlayArrow />
+                                </IconButton>
+                            </MouseOverPopover>
+                        </Box>
+                    )} />
+                </ImageListItem>
+                )}
             </Box>
             <Dialog TransitionComponent={Transition} open={dialogOpen} fullScreen onClose={event => {
                 setDialogOpen(false);

@@ -3,7 +3,7 @@ import {
     collocation,
     pillarPositions
 } from "./page";
-const validateDistanceLength = (distanceLength: number) => (distanceLength > 0) && (Math.ceil(distanceLength) === distanceLength);
+const validateDistanceLength = (distanceLength: number) => distanceLength > 0 && Math.ceil(distanceLength) === distanceLength;
 export default function calcPillars(type: pillarPositions, length: number) {
     const collocations: collocation[] = [];
     for (let count = 1; count < length; count++) {
@@ -15,7 +15,7 @@ export default function calcPillars(type: pillarPositions, length: number) {
             switch (type) {
                 case "onlyMiddle": {
                     const distanceLength = (length - count * pillarLength) / (count + 1);
-                    if (((count + 1) * distanceLength + count * pillarLength === length) && validateDistanceLength(distanceLength)) {
+                    if ((count + 1) * distanceLength + count * pillarLength === length && validateDistanceLength(distanceLength)) {
                         collocations.push({
                             pillarLength,
                             pillarCount: count,
@@ -26,7 +26,7 @@ export default function calcPillars(type: pillarPositions, length: number) {
                     break;
                 } case "oneEndAndMiddle": {
                     const distanceLength = length / count - pillarLength;
-                    if ((count * (pillarLength + distanceLength) === length) && validateDistanceLength(distanceLength)) {
+                    if (count * (pillarLength + distanceLength) === length && validateDistanceLength(distanceLength)) {
                         collocations.push({
                             pillarLength,
                             pillarCount: count,
@@ -37,7 +37,7 @@ export default function calcPillars(type: pillarPositions, length: number) {
                     break;
                 } case "twoEndAndMiddle": {
                     const distanceLength = (length - pillarLength) / count - pillarLength;
-                    if ((count * distanceLength + (count + 1) * pillarLength === length) && validateDistanceLength(distanceLength)) {
+                    if (count * distanceLength + (count + 1) * pillarLength === length && validateDistanceLength(distanceLength)) {
                         collocations.push({
                             pillarLength,
                             pillarCount: count + 1,

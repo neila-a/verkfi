@@ -66,9 +66,7 @@ function CountLetter(): JSX.Element {
                     }}
                     name="radio-buttons-group"
                 >
-                    {([2, 8, 10, 16] satisfies numberType[]).map(type => (
-                        <FormControlLabel key={type} value={type.toString()} control={<Radio />} label={get(`countletter.systemName.${type.toString()}`)} />
-                    ))}
+                    {([2, 8, 10, 16] satisfies numberType[]).map(type => <FormControlLabel key={type} value={type.toString()} control={<Radio />} label={get(`countletter.systemName.${type.toString()}`)} />)}
                 </RadioGroup>
             </FormControl>
         </>

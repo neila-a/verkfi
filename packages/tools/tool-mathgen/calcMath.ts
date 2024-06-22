@@ -28,14 +28,14 @@ const calcMath = (calcs: calc[], subtractionCheck: boolean, divisionCheck: boole
         }
         return [one, two, evaluate(`${one} ${modeS} ${two}`)];
     }
-    return [...range(itemCount / (calcs.length) - 1, 1)].map(step => {
+    return [...range(itemCount / calcs.length - 1, 1)].map(step => {
         let [one, two, out] = genMathS(),
             math = `${one}${mode}${two}=${out}`;
         function reGenMath() {
             [one, two, out] = genMathS();
             math = `${one}${mode}${two}=${out}`;
         }
-        while (out > max || (mode === "%" && two === 0)) {
+        while (out > max || mode === "%" && two === 0) {
             reGenMath();
         }
         return math;
