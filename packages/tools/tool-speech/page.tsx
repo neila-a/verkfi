@@ -65,7 +65,7 @@ export default function Speech() {
             audioFile.current = new Blob([blob]);
         }, async blob => {
             const context = new AudioContext(),
-                energy = getShortTimeEnergy((await context.decodeAudioData(await blob.arrayBuffer())).getChannelData(0)),
+                energy = getShortTimeEnergy(await context.decodeAudioData(await blob.arrayBuffer()).then(buffer => buffer.getChannelData(0))),
                 avg = energy.reduce((a, b) => a + b) / energy.length,
                 watershed = Math.max(...energy) / avg,
                 have = watershed < NoiseVoiceWatershedWave;

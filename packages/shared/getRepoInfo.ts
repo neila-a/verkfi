@@ -3,7 +3,5 @@ export interface repoInfo {
     name: string;
     description: string;
 }
-export default async function getRepoInfo() {
-    const repoInfo: repoInfo = await (await fetch(`https://api.github.com/repos/${pack.repository.replace("github:", "")}`)).json();
-    return repoInfo;
-}
+const getRepoInfo = () => fetch(`https://api.github.com/repos/${pack.repository.replace("github:", "")}`).then(response => response.json()).then(json => json as repoInfo);
+export default getRepoInfo;

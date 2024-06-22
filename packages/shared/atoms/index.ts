@@ -41,7 +41,7 @@ export const sidebarModeAtom = atomWithStorage<sidebarMode>("sidebarmode", "menu
     }),
     gradientToolAtom = atomWithStorage<boolean>("gradient-tool", false),
     recentlyUsedAtom = atomWithStorage<string[]>("recently-tools", []),
-    recentlyToolsAtom = atom(async get => (await Promise.all((await get(recentlyUsedAtom)).map(
+    recentlyToolsAtom = atom(async get => Promise.all((await get(recentlyUsedAtom)).map(
         /**
          * 确实可以避免某些情况下的 `Promise`，但是太复杂会降低可读性
         */
@@ -49,10 +49,10 @@ export const sidebarModeAtom = atomWithStorage<sidebarMode>("sidebarmode", "menu
             const extensionTools = await get(extensionsAtom),
                 converted = convertExtensionTools(extensionTools);
             return 0
-                || (await get(toolsInfoAtom)).find(single => single.to === to)
+                || await get(toolsInfoAtom).then(toolsInfo => toolsInfo.find(single => single.to === to))
                 || converted.find(single => `/tools/extension?tool=${to}` === single.to);
         }
-    ))).filter((item: tool | 0) => item !== 0) satisfies unknown satisfies tool[]),
+    )).then(toFilter => toFilter.filter((item: tool | 0) => item !== 0) satisfies unknown satisfies tool[])),
     mostUsedAtom = atomWithStorage<mostUsedMarks>("most-tools", {
     }),
     mostUsedToolsAtom = atom(async get => {
