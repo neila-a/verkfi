@@ -14,18 +14,16 @@ import VerkfiIcon from "@verkfi/shared/verkfiIcon";
 import {
     setState
 } from "declare";
-import convertExtensionTools from "index/convertExtensionTools";
 import ToolsStack from "index/showTool";
 import Sidebar from "index/sidebar";
-import useMostUsedTools from "index/useMostUsedTools";
 import recommendAtom from "@verkfi/shared/atoms/recommend";
 import {
     useAtom,
     useAtomValue
 } from "jotai";
-import extensionsAtom from "@verkfi/shared/atoms/extensions";
 import {
-    recentlyUsedAtom as recentlyUsedAtom,
+    mostUsedToolsAtom,
+    recentlyToolsAtom,
     showSidebarAtom as showSidebarAtom
 } from "@verkfi/shared/atoms";
 import {
@@ -40,9 +38,6 @@ import {
 import {
     type ThemeHaveZIndex
 } from "setting/layout";
-import toolsInfoAtom, {
-    tool
-} from "tools/info";
 import {
     sortingForAtom,
     sortingForAtomValue,
@@ -60,11 +55,8 @@ export default function Index(props: {
     expand?: boolean;
     setExpand?: setState<boolean>;
 }): JSX.Element {
-    const realTools = useAtomValue(toolsInfoAtom),
-        extensionTools = useAtomValue(extensionsAtom),
-        showSidebar = useAtomValue(showSidebarAtom),
-        recentlyUsed = useAtomValue(recentlyUsedAtom),
-        mostUsed = useMostUsedTools(),
+    const showSidebar = useAtomValue(showSidebarAtom),
+        mostUsed = useAtomValue(mostUsedToolsAtom),
         [expandThis, setExpandThis] = useState<boolean>(false),
         [showTries, setShowTries] = useState<boolean>(false),
         tools = useAtomValue(toolsAtom),
@@ -73,12 +65,7 @@ export default function Index(props: {
         baseSortingFor = useAtomValue(sortingForAtomValue),
         focusingTo = tools[tab] ? tools[tab].to : "", // 每次渲染会重新执行
         [recommend, refreshTries] = useAtom(recommendAtom),
-        recentlyTools = recentlyUsed.map(to => {
-            const converted = convertExtensionTools(extensionTools);
-            return 0
-                || realTools.find(single => single.to === to)
-                || converted.find(single => `/tools/extension?tool=${to}` === single.to);
-        }).filter((item: tool | 0) => item !== 0) satisfies unknown satisfies tool[];
+        recentlyTools = useAtomValue(recentlyToolsAtom);
     let expand = expandThis,
         setExpand = setExpandThis;
     if (props.setExpand) {

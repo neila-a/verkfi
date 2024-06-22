@@ -28,7 +28,6 @@ import SwitchEditMode from "index/sidebar/buttons/SwitchEditMode";
 import SwitchViewMode from "index/sidebar/buttons/SwitchViewMode";
 import Selects from "index/sidebar/selects";
 import toolsListAtom from "@verkfi/shared/atoms/toolsList";
-import useMostUsedTools from "index/useMostUsedTools";
 import {
     useAtom,
     useAtomValue,
@@ -38,6 +37,7 @@ import {
     repoInfo
 } from "layout/layoutClient";
 import {
+    mostUsedToolsAtom,
     recentlyUsedAtom as recentlyUsedAtom,
     showSidebarAtom
 } from "@verkfi/shared/atoms";
@@ -78,7 +78,7 @@ export default function Menu() {
         [searchText, setSearchText] = useAtom(searchTextAtom),
         extensionTools = useAtomValue(extensionsAtom),
         gotToolsList = useAtomValue(toolsListAtom),
-        mostUsed = useMostUsedTools(),
+        mostUsed = useAtomValue(mostUsedToolsAtom),
         setSortedTools = useSetAtom(sortedToolsAtom),
         tools = useAtomValue(toolsAtom),
         resetTools = useResetAtom(toolsAtom),

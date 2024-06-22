@@ -8,17 +8,14 @@ import {
 import MouseOverPopover from "@verkfi/shared/Popover";
 import upGo from "@verkfi/shared/arrayMove/upGo";
 import {
-    setState
-} from "declare";
-import {
     get
 } from "react-intl-universal";
 import {
     tool
 } from "tools/info";
-import useButtonCommonSorting from "./buttonCommonSorting";
 import {
-    useAtomValue
+    useAtomValue,
+    useSetAtom
 } from "jotai";
 import {
     editModeAtom,
@@ -27,11 +24,14 @@ import {
 import {
     useResetAtom
 } from "jotai/utils";
+import {
+    buttonCommonSorterAtom
+} from "@verkfi/shared/atoms";
 export default function UpButton(props: {
     tool: tool;
     sortingFor: string;
 }): JSX.Element {
-    const buttonCommonSorting = useButtonCommonSorting(),
+    const buttonCommonSorting = useSetAtom(buttonCommonSorterAtom),
         editMode = useAtomValue(editModeAtom),
         tools = useAtomValue(toolsAtom),
         resetTools = useResetAtom(toolsAtom);

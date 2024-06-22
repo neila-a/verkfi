@@ -18,7 +18,8 @@ import {
 import {
     Provider,
     useAtom,
-    useAtomValue
+    useAtomValue,
+    useSetAtom
 } from "jotai";
 import extensionsAtom from "@verkfi/shared/atoms/extensions";
 import dynamic from "next/dynamic";
@@ -53,7 +54,9 @@ import {
     Edit,
     RestartAlt
 } from "@mui/icons-material";
-import useClearExtensionData from "./clearExtensionData";
+import {
+    extensionDataCleanerAtom
+} from "@verkfi/shared/atoms";
 const PureDialog = dynamic(() => import("@verkfi/shared/dialog/Pure"));
 export type inputTypes = "modify" | "add";
 export default function ExtensionManager() {
@@ -63,7 +66,7 @@ export default function ExtensionManager() {
         [files, setFiles] = useState<file[]>([]),
         [removeDialogOpen, setRemoveDialogOpen] = useState<boolean>(false),
         [modifyDialogOpen, setModifyDialogOpen] = useState<boolean>(false),
-        clearExtensionData = useClearExtensionData(),
+        clearExtensionData = useSetAtom(extensionDataCleanerAtom),
         theme = useTheme(),
         fullScreen = useMediaQuery(theme.breakpoints.down("sm")),
         reset = () => {

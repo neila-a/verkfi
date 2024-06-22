@@ -14,7 +14,7 @@ import {
     useColorScheme
 } from "@mui/material";
 import {
-    useAtom
+    useSetAtom
 } from "jotai";
 import {
     gradientToolAtom
@@ -29,7 +29,7 @@ import defaultInternalPalette from "./defaultInternalPalette";
 import internalPaletteAtom from "./paletteAtom";
 import ColorPicker from "./ColorPicker";
 function ColorTool() {
-    const [internalPalette, setInternalPalette] = useAtom(internalPaletteAtom),
+    const setInternalPalette = useSetAtom(internalPaletteAtom),
         {
             mode,
             setMode

@@ -11,11 +11,12 @@ import {
 } from "@mui/material";
 import No from "@verkfi/shared/No";
 import {
-    useAtom,
-    useAtomValue
+    useAtomValue,
+    useSetAtom
 } from "jotai";
 import {
-    viewModeAtom
+    viewModeAtom,
+    buttonCommonSorterAtom
 } from "@verkfi/shared/atoms";
 import {
     get
@@ -27,7 +28,6 @@ import reorderArray from "reorder-array";
 import {
     tool
 } from "tools/info";
-import useButtonCommonSorting from "../sorting/buttonCommonSorting";
 import SingleTool from "./SingleTool";
 import {
     editModeAtom,
@@ -59,7 +59,7 @@ export default function ToolsStack(props: {
         resetTools = useResetAtom(toolsAtom),
         editMode = useAtomValue(editModeAtom),
         sortingFor = useAtomValue(sortingForAtom)(isImplant),
-        buttonCommonSorting = useButtonCommonSorting();
+        buttonCommonSorting = useSetAtom(buttonCommonSorterAtom);
     function Insert({
         index,
         tool

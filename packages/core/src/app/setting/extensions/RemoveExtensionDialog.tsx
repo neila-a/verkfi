@@ -10,6 +10,7 @@ import {
 } from "jotai";
 import extensionsAtom from "@verkfi/shared/atoms/extensions";
 import {
+    extensionDataCleanerAtom,
     listsAtom
 } from "@verkfi/shared/atoms";
 import {
@@ -18,7 +19,6 @@ import {
 import {
     get
 } from "react-intl-universal";
-import useClearExtensionData from "./clearExtensionData";
 import {
     NXTMetadata
 } from "./page";
@@ -33,7 +33,7 @@ export default function RemoveExtensionDialog(props: {
     files: file[];
 }) {
     const [clearData, setClearData] = useState<boolean>(false),
-        clearExtensionData = useClearExtensionData(),
+        clearExtensionData = useSetAtom(extensionDataCleanerAtom),
         setExtensions = useSetAtom(extensionsAtom),
         [lists, setLists] = useAtom(listsAtom);
     return (
