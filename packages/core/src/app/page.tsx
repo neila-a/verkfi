@@ -39,9 +39,9 @@ import {
     type ThemeHaveZIndex
 } from "setting/layout";
 import {
+    focusingToAtom,
     sortingForAtom,
     sortingForAtomValue,
-    tabAtom,
     toolsAtom
 } from "index/atoms";
 import {
@@ -60,10 +60,9 @@ export default function Index(props: {
         [expandThis, setExpandThis] = useState<boolean>(false),
         [showTries, setShowTries] = useState<boolean>(false),
         tools = useAtomValue(toolsAtom),
-        tab = useAtomValue(tabAtom),
         sortingFor = useAtomValue(sortingForAtom)(props.isImplant),
         baseSortingFor = useAtomValue(sortingForAtomValue),
-        focusingTo = tools[tab] ? tools[tab].to : "", // 每次渲染会重新执行
+        focusingTo = useAtomValue(focusingToAtom),
         [recommend, refreshTries] = useAtom(recommendAtom),
         recentlyTools = useAtomValue(recentlyToolsAtom);
     let expand = expandThis,

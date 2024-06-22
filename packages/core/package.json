@@ -1,7 +1,7 @@
 {
     "name": "@verkfi/core",
     "version": "1.7.3",
-    "devVersion": "982",
+    "devVersion": "985",
     "dev": true,
     "description": "Platform for Neila's something useless tools.",
     "private": true,
@@ -32,7 +32,8 @@
         "@types/react-transition-group": "^4.4.10",
         "esbuild": "^0.21.5",
         "eslint-config-next": "^14.2.4",
-        "eslint-plugin-react-hooks": "^4.6.2"
+        "eslint-plugin-react-hooks": "^4.6.2",
+        "jotai-devtools": "^0.10.0"
     },
     "homepage": "https://netlify.verkfi.neila.vip/",
     "dependencies": {

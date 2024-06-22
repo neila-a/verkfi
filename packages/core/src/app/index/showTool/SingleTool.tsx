@@ -101,7 +101,6 @@ export default function SingleTool(props: {
         [jumpDialogOpen, setJumpDialogOpen] = useState<boolean>(false),
         fullWidth = `100%`,
         buttonOptions = {
-            editMode: editMode,
             tool: tool,
             sortingFor: sortingFor
         },

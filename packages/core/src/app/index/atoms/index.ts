@@ -85,4 +85,9 @@ export const editModeAtom = atom(false),
         return searchText === "";
     }), (get, set, update: boolean) => {
         set(valueAtom, update);
-    }));
+    })),
+    focusingToAtom = atom(async get => {
+        const tab = get(tabAtom),
+            tools = await get(toolsAtom);
+        return tools[tab] ? tools[tab].to : "";
+    });

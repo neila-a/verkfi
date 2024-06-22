@@ -49,6 +49,10 @@ import {
 import isBrowser from "@verkfi/shared/isBrowser";
 import Clients from "./Clients";
 import {
+    DevTools
+} from "jotai-devtools";
+import "jotai-devtools/styles.css";
+import {
     themeAtom
 } from "setting/appearance/paletteAtom";
 export const locales = {
@@ -103,6 +107,7 @@ export default function ModifiedApp(props: {
                 <CssBaseline />
                 <Box component="aside">
                     {Sidebar}
+                    <DevTools />
                     <Clients />
                 </Box>
                 <Box component="main" ml={(showSidebarValue && sidebarModeValue === "sidebar") && ml}>

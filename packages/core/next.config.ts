@@ -12,6 +12,7 @@ const nextConfig: NextConfig = bundleAnalyzer({
     compress: true,
     experimental: {
         typedRoutes: true
-    }
+    },
+    transpilePackages: ["jotai-devtools"]
 });
 module.exports = nextConfig;
