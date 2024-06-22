@@ -60,7 +60,10 @@ export default function Buttons(props: {
                     {get("category.添加分类")}
                 </Button>
             }
-            <Divider />
+            <Divider
+                sx={{
+                    opacity: "0.6"
+                }} />
             <ButtonGroup variant="outlined" sx={{
                 display: "flex",
                 justifyContent: "center"

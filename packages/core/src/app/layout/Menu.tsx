@@ -132,44 +132,47 @@ export default function Menu() {
                     display: "flex",
                     alignItems: "center"
                 }}>
-                    <TextField InputProps={{
-                        startAdornment:
-                            <InputAdornment position="start">
-                                {sortingFor !== "__home__"
-                                    && <MouseOverPopover text={get("back")}>
-                                        <IconButton type="button" aria-label={get("back")} onClick={() => {
-                                            setSearchText("", false);
-                                            setSortingFor("__home__");
-                                            setSortedTools(gotToolsList);
-                                            setEditing(true);
-                                            resetTools();
-                                        }}>
-                                            <ArrowBackIosIcon />
+                    <TextField slotProps={{
+                        input: {
+                            startAdornment:
+                                <InputAdornment position="start">
+                                    {sortingFor !== "__home__"
+                                        && <MouseOverPopover text={get("back")}>
+                                            <IconButton type="button" aria-label={get("back")} onClick={() => {
+                                                setSearchText("", false);
+                                                setSortingFor("__home__");
+                                                setSortedTools(gotToolsList);
+                                                setEditing(true);
+                                                resetTools();
+                                            }}>
+                                                <ArrowBackIosIcon />
+                                            </IconButton>
+                                        </MouseOverPopover>
+                                    }
+                                    <MouseOverPopover text={get("搜索")}>
+                                        <IconButton type="button" aria-label={get("搜索")}>
+                                            <SearchIcon />
                                         </IconButton>
                                     </MouseOverPopover>
-                                }
-                                <MouseOverPopover text={get("搜索")}>
-                                    <IconButton type="button" aria-label={get("搜索")}>
-                                        <SearchIcon />
-                                    </IconButton>
-                                </MouseOverPopover>
-                            </InputAdornment>,
-                        endAdornment:
-                            <InputAdornment position="end">
-                                <MouseOverPopover text={get("close")}>
-                                    <IconButton aria-label={get("close")} onClick={event => {
-                                        setControl(false);
-                                    }}>
-                                        <CloseIcon />
-                                    </IconButton>
-                                </MouseOverPopover>
-                            </InputAdornment>
+                                </InputAdornment>,
+                            endAdornment:
+                                <InputAdornment position="end">
+                                    <MouseOverPopover text={get("close")}>
+                                        <IconButton aria-label={get("close")} onClick={event => {
+                                            setControl(false);
+                                        }}>
+                                            <CloseIcon />
+                                        </IconButton>
+                                    </MouseOverPopover>
+                                </InputAdornment>
 
+                        },
+                        htmlInput: {
+                            "aria-label": get("搜索工具")
+                        }
                     }} fullWidth autoFocus value={searchText} sx={{
                         flex: 1
-                    }} placeholder={get("搜索工具")} inputProps={{
-                        "aria-label": get("搜索工具")
-                    }} onChange={event => {
+                    }} placeholder={get("搜索工具")} onChange={event => {
                         if (searchText !== event.target.value) {
                             setSearchText(event.target.value, false);
                             setTab(0);
@@ -195,8 +198,8 @@ export default function Menu() {
                             }}>
                                 <ToolsStack
                                     paramTool={recentlyUsed.map(to => 0
-                                            || realTools.find(single => single.to === to)
-                                            || convertExtensionTools(extensionTools).find(single => `/tools/extension?tool=${to}` === single.to)
+                                        || realTools.find(single => single.to === to)
+                                        || convertExtensionTools(extensionTools).find(single => `/tools/extension?tool=${to}` === single.to)
                                     ).filter((item: tool | 0) => item !== 0 && item !== undefined) as unknown as tool[]} />
                             </Box>
                         </Box>

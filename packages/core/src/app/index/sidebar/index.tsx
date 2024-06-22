@@ -64,18 +64,22 @@ export default function Sidebar(props: {
             }
         }}>
             <Toolbar />
-            <TextField InputProps={{
-                startAdornment:
-                    <InputAdornment position="start">
-                        <MouseOverPopover text={get("搜索")}>
-                            <IconButton sx={{
-                                p: 0
-                            }} type="button" aria-label={get("搜索")}>
-                                <SearchIcon />
-                            </IconButton>
-                        </MouseOverPopover>
-                    </InputAdornment>
-
+            <TextField slotProps={{
+                input: {
+                    startAdornment:
+                        <InputAdornment position="start">
+                            <MouseOverPopover text={get("搜索")}>
+                                <IconButton sx={{
+                                    p: 0
+                                }} type="button" aria-label={get("搜索")}>
+                                    <SearchIcon />
+                                </IconButton>
+                            </MouseOverPopover>
+                        </InputAdornment>
+                },
+                htmlInput: {
+                    "aria-label": get("搜索工具")
+                }
             }} value={searchText} onKeyDown={event => {
                 if (event.key === "Tab" || event.key === "Enter") {
                     event.preventDefault();
@@ -91,9 +95,7 @@ export default function Sidebar(props: {
                         selectool.click();
                     }
                 }
-            }} placeholder={get("搜索工具")} inputProps={{
-                "aria-label": get("搜索工具")
-            }} onChange={event => {
+            }} placeholder={get("搜索工具")} onChange={event => {
                 setSearchText(event.target.value, isImplant);
                 if (sortingFor === "__home__") {
                     setSortingFor("__global__");

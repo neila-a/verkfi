@@ -1,7 +1,7 @@
 {
     "name": "@verkfi/core",
     "version": "1.7.3",
-    "devVersion": "988",
+    "devVersion": "989",
     "dev": true,
     "description": "Platform for Neila's something useless tools.",
     "private": true,
@@ -72,5 +72,15 @@
         "reorder-array": "^1.0.3",
         "sass": "^1.77.5",
         "typescript": "^5.4.5"
-    }
+    },
+    "browserslist": [
+        "chrome 89",
+        "edge 93",
+        "firefox 71",
+        "opera 75",
+        "safari 12.1",
+        "ChromeAndroid 61",
+        "FirefoxAndroid 79",
+        "ios_saf 12.2"
+    ]
 }

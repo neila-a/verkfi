@@ -49,7 +49,9 @@ export default function Reset() {
                 xs: 2,
                 sm: 3,
                 md: 4
-            }} divider={<Divider orientation="vertical" flexItem />}>
+            }} divider={<Divider orientation="vertical" flexItem sx={{
+                opacity: "0.6"
+            }} />}>
                 <Spacing3Stack>
                     <Line
                         value={Number((cacheUsed / cacheAll * 100).toFixed(5))}
@@ -95,6 +97,6 @@ export default function Reset() {
                     }} description={dialogContext} />
                 </Spacing3Stack>
             </Stack>
-        </ErrorBoundary>
+        </ErrorBoundary >
     );
 }

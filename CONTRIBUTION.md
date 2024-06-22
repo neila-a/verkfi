@@ -26,7 +26,8 @@
 
 ### 后备方案
 
-像 canvas、audio 这些 HTML5 元素不需要后备方案，因为在连 HTML5 都不完整支持的浏览器上 Verkfi 会直接报错推出。
+像 canvas、audio 这些 HTML5 元素不需要后备方案，因为在连 HTML5 都不完整支持的浏览器上 Verkfi 会直接报错推出。  
+浏览器最低版本是依照[Navigator#share](https://developer.mozilla.org/zh-CN/docs/Web/API/Navigator/share#%E6%B5%8F%E8%A7%88%E5%99%A8%E5%85%BC%E5%AE%B9%E6%80%A7)来确定的。
 
 #### 分享
 

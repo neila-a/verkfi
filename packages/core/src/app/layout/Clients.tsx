@@ -101,45 +101,48 @@ export default function Clients() {
                 display: "flex",
                 alignItems: "center"
             }}>
-                <TextField InputProps={{
-                    startAdornment:
-                        <InputAdornment position="start">
-                            {searchText !== ""
-                                && <MouseOverPopover text={get("back")}>
-                                    <IconButton type="button" aria-label={get("back")} onClick={() => {
-                                        setSearchText("");
-                                    }}>
-                                        <ArrowBackIosIcon />
+                <TextField slotProps={{
+                    input: {
+                        startAdornment:
+                            <InputAdornment position="start">
+                                {searchText !== ""
+                                    && <MouseOverPopover text={get("back")}>
+                                        <IconButton type="button" aria-label={get("back")} onClick={() => {
+                                            setSearchText("");
+                                        }}>
+                                            <ArrowBackIosIcon />
+                                        </IconButton>
+                                    </MouseOverPopover>
+                                }
+                                <MouseOverPopover text={get("搜索")}>
+                                    <IconButton type="button" aria-label={get("搜索")}>
+                                        <SearchIcon />
                                     </IconButton>
                                 </MouseOverPopover>
-                            }
-                            <MouseOverPopover text={get("搜索")}>
-                                <IconButton type="button" aria-label={get("搜索")}>
-                                    <SearchIcon />
-                                </IconButton>
-                            </MouseOverPopover>
-                        </InputAdornment>,
-                    endAdornment:
-                        <InputAdornment position="end">
-                            <MouseOverPopover text={get("clients.sync")}>
-                                <IconButton aria-label={get("clients.sync")} onClick={refresh}>
-                                    <Sync />
-                                </IconButton>
-                            </MouseOverPopover>
-                            <MouseOverPopover text={get("close")}>
-                                <IconButton aria-label={get("close")} onClick={event => {
-                                    setControl(false);
-                                }}>
-                                    <Close />
-                                </IconButton>
-                            </MouseOverPopover>
-                        </InputAdornment>
+                            </InputAdornment>,
+                        endAdornment:
+                            <InputAdornment position="end">
+                                <MouseOverPopover text={get("clients.sync")}>
+                                    <IconButton aria-label={get("clients.sync")} onClick={refresh}>
+                                        <Sync />
+                                    </IconButton>
+                                </MouseOverPopover>
+                                <MouseOverPopover text={get("close")}>
+                                    <IconButton aria-label={get("close")} onClick={event => {
+                                        setControl(false);
+                                    }}>
+                                        <Close />
+                                    </IconButton>
+                                </MouseOverPopover>
+                            </InputAdornment>
 
+                    },
+                    htmlInput: {
+                        "aria-label": get("clients.search")
+                    }
                 }} fullWidth autoFocus value={searchText} sx={{
                     flex: 1
-                }} placeholder={get("clients.search")} inputProps={{
-                    "aria-label": get("clients.search")
-                }} onChange={event => {
+                }} placeholder={get("clients.search")} onChange={event => {
                     setSearchText(event.target.value);
                 }} />
             </DialogTitle>
