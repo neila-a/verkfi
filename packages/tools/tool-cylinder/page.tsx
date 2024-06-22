@@ -43,18 +43,15 @@ function CylinderPage(): JSX.Element {
         thicknessID = useId(),
         theme = useTheme(),
         posCache = useRef<block>([1, 1]),
-        cache = useRef<block[]>([]),
         blocks = useMemo(() => new Cylinder(radiusX, radiusZ, thickness, filled), [radiusX, radiusZ, thickness, filled]),
         updatePos = throttle(throttleTime, (X: number, Z: number) => {
-            drawMatrix(blocks.slice(0), Math.max(radiusX, radiusZ), X, Z, posCache.current, cache.current, theme.palette, true);
+            drawMatrix(blocks.slice(0), Math.max(radiusX, radiusZ), X, Z, posCache.current, theme.palette, true);
             posCache.current = [X, Z];
-            cache.current = blocks.slice(0);
         });
     useEffect(() => {
         const g = Math.max(radiusX, radiusZ);
-        drawMatrix(blocks.slice(0), g, g, g, posCache.current, cache.current, theme.palette, false);
+        drawMatrix(blocks.slice(0), g, g, g, posCache.current, theme.palette, false);
         posCache.current = [g, g];
-        cache.current = blocks.slice(0);
     }, [radiusX, radiusZ, thickness, filled]);
     return (
         <>
@@ -147,12 +144,12 @@ function CylinderPage(): JSX.Element {
             <Box id="canvascontainer" sx={{
                 cursor: "cell"
             }} onMouseMove={event => {
-                const b = window.getComputedStyle(document.getElementById("canvascontainer")),
-                    w = Number(b.width.replace("px", "")),
-                    h = Number(b.height.replace("px", "")),
-                    e = Math.min(h, w),
-                    x = Math.round(event.nativeEvent.offsetX / (e / radiusX) * 2 + 1),
-                    z = Math.round(event.nativeEvent.offsetY / (e / radiusZ) * 2 + 1);
+                const style = window.getComputedStyle(document.getElementById("canvascontainer")),
+                    width = Number(style.width.replace("px", "")),
+                    height = Number(style.height.replace("px", "")),
+                    edge = Math.min(height, width),
+                    x = Math.round(event.nativeEvent.offsetX / (edge / radiusX) * 2 + 1),
+                    z = Math.round(event.nativeEvent.offsetY / (edge / radiusZ) * 2 + 1);
                 if (posX !== x) {
                     setPosX(x);
                 }

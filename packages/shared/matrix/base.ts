@@ -5,7 +5,7 @@ import range from "../range";
 import {
     block
 } from "./matrix";
-export default function drawMatrixBase(edge: number, n: number, blocks: block[], cache: block[], posBlock: block[], posCache: block[], palette: Palette, onlyPos: boolean) {
+export default function drawMatrixBase(edge: number, n: number, blocks: block[], posBlock: block[], posCache: block[], palette: Palette, onlyPos: boolean) {
     if (!onlyPos) console.time("渲染圆");
     const canvas = document.getElementsByTagName("canvas")[0] || document.createElement("canvas"),
         size = edge / n,
@@ -17,27 +17,27 @@ export default function drawMatrixBase(edge: number, n: number, blocks: block[],
         }
     }); // 如果canvas不等于edge则设为edge
     if (!onlyPos) {
-        const w = canvas.getAttribute("width");
-        canvas.setAttribute("width", w); // 刷新
+        const width = canvas.getAttribute("width");
+        canvas.setAttribute("width", width); // 刷新
     }
     cxt.strokeStyle = palette.text.primary;
     const dos: [block[], string][] = [[posCache, palette.background.default], [blocks, "#FF0000"], [posBlock, palette.primary[palette.mode]]];
     dos.forEach((item, index) => {
         cxt.fillStyle = item[1];
         const path = new Path2D(), pBlock = item[0].map(item => item.toString());
-        for (let i of range(n)) {
-            for (let j of range(n)) {
-                if (pBlock.includes([i, j].toString())) {
-                    path.rect(size * j, size * i, size, size);
+        for (let x of range(n)) {
+            for (let y of range(n)) {
+                if (pBlock.includes([x, y].toString())) {
+                    path.rect(size * y, size * x, size, size);
                 }
             }
         }
         cxt.fill(path);
     });
     if (!onlyPos) {
-        for (let i of range(n - 1)) {
-            for (let j of range(n - 1)) {
-                cxt.rect(size * j, size * i, size, size);
+        for (let x of range(n - 1)) {
+            for (let y of range(n - 1)) {
+                cxt.rect(size * y, size * x, size, size);
             }
         }
     }

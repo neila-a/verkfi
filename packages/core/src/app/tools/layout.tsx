@@ -3,12 +3,12 @@ import {
     Box
 } from "@mui/material";
 import HeadBar from "@verkfi/shared/HeadBar";
-import convertExtensionTools from "index/convertExtensionTools";
 import {
-    useAtom,
     useAtomValue
 } from "jotai";
-import extensionsAtom from "@verkfi/shared/atoms/extensions";
+import {
+    convertedExtensionsAtom
+} from "@verkfi/shared/atoms/extensions";
 import {
     gradientToolAtom
 } from "@verkfi/shared/atoms";
@@ -35,10 +35,10 @@ export default function ToolFinder(props: {
         segment = useSelectedLayoutSegment(),
         searchParams = useSearchParams(),
         toolID = segment === "extension" ? searchParams.get("tool") : segment,
-        extensionTools = useAtomValue(extensionsAtom),
+        converted = useAtomValue(convertedExtensionsAtom),
         only = searchParams.has("only"),
         internalToolsInfo = useAtomValue(toolsInfoAtom),
-        toolsInfo = segment === "extension" ? convertExtensionTools(extensionTools).map(single => ({
+        toolsInfo = segment === "extension" ? converted.map(single => ({
             ...single,
             to: single.to.replace("/tools/extension?tool=", "") as Lowercase<string>
         })) : internalToolsInfo,

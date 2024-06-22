@@ -7,9 +7,9 @@ import {
 } from "layout/layoutClient";
 import isBrowser from "../isBrowser";
 import atomWithStorage from "../reader/atomWithStorage";
+import awaiter from "../reader/awaiter";
 const langAtom = atomWithStorage<keyof typeof locales | "system">("lang", "system");
-export const usableLangAtom = atom(async get => {
-    const got = await get(langAtom);
+export const usableLangAtom = atom(get => awaiter(get(langAtom), got => {
     if (got === "system") {
         let browserLang: string = "zhCN";
         if (isBrowser()) {
@@ -21,5 +21,5 @@ export const usableLangAtom = atom(async get => {
         return detailedLang as keyof typeof locales;
     }
     return got;
-});
+}));
 export default langAtom;

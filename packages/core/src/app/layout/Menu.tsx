@@ -22,7 +22,6 @@ import {
 import MouseOverPopover from "@verkfi/shared/Popover";
 import Transition from "@verkfi/shared/dialog/Transition";
 import VerkfiIcon from "@verkfi/shared/verkfiIcon";
-import convertExtensionTools from "index/convertExtensionTools";
 import ToolsStack from "index/showTool";
 import SwitchEditMode from "index/sidebar/buttons/SwitchEditMode";
 import SwitchViewMode from "index/sidebar/buttons/SwitchViewMode";
@@ -51,7 +50,9 @@ import {
 import toolsInfoAtom, {
     tool
 } from "tools/info";
-import extensionsAtom from "@verkfi/shared/atoms/extensions";
+import {
+    convertedExtensionsAtom
+} from "@verkfi/shared/atoms/extensions";
 import {
     editingAtom,
     searchTextAtom,
@@ -76,7 +77,7 @@ export default function Menu() {
         setSortingFor = useSetAtom(sortingForAtom),
         [tab, setTab] = useAtom(tabAtom),
         [searchText, setSearchText] = useAtom(searchTextAtom),
-        extensionTools = useAtomValue(extensionsAtom),
+        converted = useAtomValue(convertedExtensionsAtom),
         gotToolsList = useAtomValue(toolsListAtom),
         mostUsed = useAtomValue(mostUsedToolsAtom),
         setSortedTools = useSetAtom(sortedToolsAtom),
@@ -199,7 +200,7 @@ export default function Menu() {
                                 <ToolsStack
                                     paramTool={recentlyUsed.map(to => 0
                                         || realTools.find(single => single.to === to)
-                                        || convertExtensionTools(extensionTools).find(single => `/tools/extension?tool=${to}` === single.to)
+                                        || converted.find(single => `/tools/extension?tool=${to}` === single.to)
                                     ).filter((item: tool | 0) => item !== 0 && item !== undefined) as unknown as tool[]} />
                             </Box>
                         </Box>

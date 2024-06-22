@@ -2,7 +2,6 @@
 import {
     Box,
     IconButton,
-    Stack,
     Typography,
     useMediaQuery,
     useTheme
@@ -17,11 +16,12 @@ import {
 } from "filepond";
 import {
     Provider,
-    useAtom,
     useAtomValue,
     useSetAtom
 } from "jotai";
-import extensionsAtom from "@verkfi/shared/atoms/extensions";
+import extensionsAtom, {
+    convertedExtensionsAtom
+} from "@verkfi/shared/atoms/extensions";
 import dynamic from "next/dynamic";
 import {
     useState
@@ -48,7 +48,6 @@ import {
     file
 } from "@verkfi/shared/reader/db";
 import ToolsStack from "index/showTool";
-import convertExtensionTools from "index/convertExtensionTools";
 import MouseOverPopover from "@verkfi/shared/Popover";
 import {
     Edit,
@@ -78,6 +77,7 @@ export default function ExtensionManager() {
             setFileInfo(emptyNXTMetadata);
         },
         extensionTools = useAtomValue(extensionsAtom),
+        converted = useAtomValue(convertedExtensionsAtom),
         packagedDialogInputs = (type: inputTypes) => <DialogInputs
             type={type}
             fileInfo={fileInfo}
@@ -96,9 +96,7 @@ export default function ExtensionManager() {
                 mb: 2
             }}>
                 <Provider>
-                    <ToolsStack paramTool={extensionTools?.map(single => ({
-                        ...convertExtensionTools([single])[0]
-                    }))} notfound={(
+                    <ToolsStack paramTool={converted} notfound={(
                         <No>
                             {get("extensions.未找到任何扩展")}
                         </No>

@@ -45,6 +45,7 @@ import {
 import {
     Pi
 } from "mdi-material-ui";
+import awaiter from "@verkfi/shared/reader/awaiter";
 export interface noIconTool {
 
     /**
@@ -93,9 +94,8 @@ export interface tool extends noIconTool {
     icon: typeof SvgIcon; // MaterialUI 官方做法
 
 }
-const toolsInfoAtom = atom(async getAtom => {
-    const instance = new ReactIntlUniversal() as typeof import("react-intl-universal"),
-        lang = await getAtom(usableLangAtom);
+const toolsInfoAtom = atom(getAtom => awaiter(getAtom(usableLangAtom), lang => {
+    const instance = new ReactIntlUniversal() as typeof import("react-intl-universal");
     instance.init({
         currentLocale: lang,
         locales
@@ -216,5 +216,5 @@ const toolsInfoAtom = atom(async getAtom => {
             isGoto: true
         }
     ] as tool[];
-});
+}));
 export default toolsInfoAtom;

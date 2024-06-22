@@ -14,8 +14,9 @@ import {
     useAtom,
     useAtomValue
 } from "jotai";
-import convertExtensionTools from "index/convertExtensionTools";
-import extensionsAtom from "@verkfi/shared/atoms/extensions";
+import {
+    convertedExtensionsAtom
+} from "@verkfi/shared/atoms/extensions";
 import {
     get
 } from "react-intl-universal";
@@ -68,7 +69,7 @@ export default function Clients() {
         [navigateDialogOpen, setNavigateDialogOpen] = useState(false),
         [navigatingId, setNavigatingId] = useState(""),
         [searchText, setSearchText] = useState(""),
-        extensionTools = useAtomValue(extensionsAtom),
+        converted = useAtomValue(convertedExtensionsAtom),
         filteredClients = clients.filter(client => client.url.includes(searchText));
     let focusing = "";
     if (isBrowser()) {
@@ -183,7 +184,6 @@ export default function Clients() {
                                 icon: Home as typeof SvgIcon
                             };
                         } else if (url.pathname.startsWith("/tools")) {
-                            const converted = convertExtensionTools(extensionTools);
                             let to = url.pathname.replace("/tools/", "");
                             if (to.startsWith("extension")) {
                                 to = url.searchParams.get("tool");

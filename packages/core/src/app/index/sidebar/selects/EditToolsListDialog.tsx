@@ -12,7 +12,9 @@ import {
     useAtom,
     useAtomValue
 } from "jotai";
-import extensionsAtom from "@verkfi/shared/atoms/extensions";
+import {
+    convertedExtensionsAtom
+} from "@verkfi/shared/atoms/extensions";
 import {
     listsAtom
 } from "@verkfi/shared/atoms";
@@ -23,7 +25,6 @@ import {
 import {
     lists
 } from "..";
-import convertExtensionTools from "../../convertExtensionTools";
 import toolsListAtom from "@verkfi/shared/atoms/toolsList";
 const PureDialog = dynamic(() => import("@verkfi/shared/dialog/Pure"));
 export default function EditToolsListDialog(props: {
@@ -47,9 +48,8 @@ export default function EditToolsListDialog(props: {
         [list, setList] = useAtom(listsAtom),
         edit = (forList: lists) => forList.some(single => single[0] === dialogListName),
         createOrEdit = !edit(list) ? get("category.创建分类") : get("category.编辑分类"),
-        extensionTools = useAtomValue(extensionsAtom),
-        incorrect = ["__global__", "__home__"].some(a => a === dialogListName),
-        converted = convertExtensionTools(extensionTools),
+        incorrect = ["__global__", "__home__"].some(incorrectListName => incorrectListName === dialogListName),
+        converted = useAtomValue(convertedExtensionsAtom),
         toolsList = useAtomValue(toolsListAtom),
         right = toolsList.concat(converted).filter(atool => atool !== undefined).map(atool => atool.name).filter(v => props.left.every(val => val !== v));
     return (

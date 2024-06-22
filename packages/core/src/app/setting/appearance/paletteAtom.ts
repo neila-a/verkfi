@@ -9,23 +9,20 @@ import {
     extendTheme
 } from "@mui/material";
 import Ubuntu from "@verkfi/shared/fonts";
+import awaiter from "@verkfi/shared/reader/awaiter";
 const internalPaletteAtom = atomWithStorage("internalPalette", defaultInternalPalette);
 export const
-    paletteAtom = atom(async get => {
-        const internal = await get(internalPaletteAtom);
-        return {
-            primary: {
-                ...colors[internal.primaryHue],
-                main: internal.primary
-            },
-            secondary: {
-                ...colors[internal.secondaryHue],
-                main: internal.secondary
-            }
-        } as typeof defaultPalette;
-    }),
-    themeAtom = atom(async get => {
-        const palette = await get(paletteAtom);
+    paletteAtom = atom(get => awaiter(get(internalPaletteAtom), internal => ({
+        primary: {
+            ...colors[internal.primaryHue],
+            main: internal.primary
+        },
+        secondary: {
+            ...colors[internal.secondaryHue],
+            main: internal.secondary
+        }
+    } as typeof defaultPalette))),
+    themeAtom = atom(get => awaiter(get(paletteAtom), palette => {
         if (typeof extendTheme === "function") {
             return extendTheme({
                 cssVarPrefix: "verkfi",
@@ -42,5 +39,5 @@ export const
                 }
             });
         }
-    });
+    }));
 export default internalPaletteAtom;

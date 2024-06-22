@@ -75,7 +75,7 @@
         ],
         "dot-location": [
             "warn",
-            "object"
+            "property"
         ],
         "eol-last": [
             "warn",
