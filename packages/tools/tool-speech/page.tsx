@@ -46,7 +46,11 @@ interface warning {
     1: number;
 }
 const NoiseVoiceWatershedWave = 20, // origin 2.3
-    SpeechingWatershedWave = 15; // if it didn't speech in 15 seconds, it throws a warning
+    SpeechingWatershedWave = 15, // if it didn't speech in 15 seconds, it throws a warning
+    defaultSpeechTime = 600,
+    secondDivMS = 1000,
+    vibrateTimes = 4,
+    vibrateTime = 250;
 export default function Speech() {
     const [status, setStatus] = useState<status>("inactive"),
         mediaRecorder = useRef<"awaqwq" | MediaRecorder>("awaqwq"),
@@ -56,8 +60,8 @@ export default function Speech() {
         [countdown, setCountdown] = useState<number>(0),
         [showWarning, setShowWarning] = useState<boolean>(false),
         [selectTime, setSelectTime] = useState<boolean>(false),
-        [speechTime, setSpeechTime] = useState<number>(600),
-        [allSpeechTime, setAllSpeechTime] = useState<number>(600),
+        [speechTime, setSpeechTime] = useState<number>(defaultSpeechTime),
+        [allSpeechTime, setAllSpeechTime] = useState<number>(defaultSpeechTime),
         [warnings, setWarnings] = useState<warning[]>([]),
         audioFile = useRef<Blob>(new Blob(["Why you downloaded this??? Do not do it!!!"]));
     if (isBrowser()) {
@@ -83,10 +87,10 @@ export default function Speech() {
         };
     }, []);
     function intervaler() {
-        const time = Math.floor((Date.now() - haveTime.current) / 1000);
+        const time = Math.floor((Date.now() - haveTime.current) / secondDivMS);
         if ("vibrate" in window.navigator) {
             if (time > SpeechingWatershedWave) {
-                window.navigator.vibrate(Array(4).fill(250));
+                window.navigator.vibrate(Array(vibrateTimes).fill(vibrateTime));
                 setWarnings(old => {
                     if (old.some(singleWarning => singleWarning[0] === haveTime.current)) {
                         return old.slice(0).map(singleWarning => {
@@ -194,12 +198,12 @@ export default function Speech() {
                 setSpeechTime(Number(context));
                 setAllSpeechTime(Number(context));
                 setStatus("recording");
-                (mediaRecorder.current as MediaRecorder).start(1000);
+                (mediaRecorder.current as MediaRecorder).start(secondDivMS);
                 haveTime.current = Date.now();
                 clearInterval(speechTimeIntervalID.current);
-                speechTimeIntervalID.current = setInterval(timeIntervaler, 1000) as unknown as number;
+                speechTimeIntervalID.current = setInterval(timeIntervaler, secondDivMS) as unknown as number;
                 clearInterval(intervalID.current);
-                intervalID.current = setInterval(intervaler, 1000) as unknown as number;
+                intervalID.current = setInterval(intervaler, secondDivMS) as unknown as number;
                 return setSelectTime(false);
             }} inputAdd={{
                 type: "number"

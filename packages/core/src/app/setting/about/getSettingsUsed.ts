@@ -1,6 +1,7 @@
 import {
     KB
 } from "../consts";
+const fractionDigits = 2;
 export default function getSettingsUsed() {
     let cache = 0;
     for (let key in localStorage) {
@@ -8,5 +9,5 @@ export default function getSettingsUsed() {
             cache += localStorage.getItem(key).length;
         }
     }
-    return Number((cache / KB).toFixed(2));
+    return Number((cache / KB).toFixed(fractionDigits));
 }

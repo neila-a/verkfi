@@ -55,5 +55,5 @@ const
             }
             return math;
         });
-    })).keys()].flat(14)); // 14 没有什么意义
+    })).keys()].flat(1));
 export default calcMath;

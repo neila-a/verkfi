@@ -11,6 +11,8 @@ class DataBase extends Dexie {
     options!: Table<any>;
     constructor() {
         super("Verkfi");
+        // 7是数据库版本
+        // eslint-disable-next-line no-magic-numbers
         this.version(7).stores({
             extensionTools: "&to", // Primary key and indexed props
             options: ""

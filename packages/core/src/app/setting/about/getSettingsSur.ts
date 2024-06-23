@@ -1,3 +1,4 @@
 import getSettingsUsed from "./getSettingsUsed";
-export const getSettingsSur = () => 5120 - getSettingsUsed();
+const localStorageQuota = 5120;
+export const getSettingsSur = () => localStorageQuota - getSettingsUsed();
 export default getSettingsSur;

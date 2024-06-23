@@ -11,7 +11,8 @@ import {
     useTheme
 } from "@mui/material/styles";
 import drawMatrix, {
-    block
+    block,
+    dDivR
 } from "@verkfi/shared/matrix/matrix";
 import {
     useEffect,
@@ -30,10 +31,11 @@ import Cylinder from "./makeCylinder";
 /**
  * 1000(ms, = 1s) / 60(60fps) = 17(ms)
  */
-const throttleTime = 17;
+const throttleTime = 17,
+    initialRadius = 50;
 function CylinderPage(): JSX.Element {
-    const [radiusX, setRadiusX] = useState<number>(50),
-        [radiusZ, setRadiusZ] = useState<number>(50),
+    const [radiusX, setRadiusX] = useState<number>(initialRadius),
+        [radiusZ, setRadiusZ] = useState<number>(initialRadius),
         [thickness, setThickness] = useState<number>(1),
         [filled, setFilled] = useState<boolean>(true),
         [posX, setPosX] = useState<number>(1),
@@ -148,8 +150,8 @@ function CylinderPage(): JSX.Element {
                     width = Number(style.width.replace("px", "")),
                     height = Number(style.height.replace("px", "")),
                     edge = Math.min(height, width),
-                    x = Math.round(event.nativeEvent.offsetX / (edge / radiusX) * 2 + 1),
-                    z = Math.round(event.nativeEvent.offsetY / (edge / radiusZ) * 2 + 1);
+                    x = Math.round(event.nativeEvent.offsetX / (edge / radiusX) * dDivR + 1),
+                    z = Math.round(event.nativeEvent.offsetY / (edge / radiusZ) * dDivR + 1);
                 if (posX !== x) {
                     setPosX(x);
                 }

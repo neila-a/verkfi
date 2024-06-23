@@ -4,6 +4,7 @@ import {
     setState
 } from "declare";
 import Decimal from "decimal.js";
+const sumDivMiddle = 2;
 const run = (maxTimes: number, setTimes: setState<number>, setResult: setState<Decimal>) => (code: string) => {
     /**
      * 方程
@@ -23,7 +24,7 @@ const run = (maxTimes: number, setTimes: setState<number>, setResult: setState<D
         endTimes = 0,
         right = new Decimal(maxTimes);
     loop: for (let times of range(maxTimes)) {
-        const mid = left.plus(right).div(2),
+        const mid = left.plus(right).div(sumDivMiddle),
             leftDiff = getDiff(left),
             rightDiff = getDiff(right);
         switch (true) {
@@ -43,6 +44,6 @@ const run = (maxTimes: number, setTimes: setState<number>, setResult: setState<D
         endTimes = times;
     }
     setTimes(endTimes);
-    setResult(left.plus(right).div(2));
+    setResult(left.plus(right).div(sumDivMiddle));
 };
 export default run;

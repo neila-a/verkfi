@@ -5,7 +5,7 @@ import {
 type providerAndValue<value = any> = [Context<value>, value];
 const composeProviders = (...providers: providerAndValue[]) => providers.reduce<(props: {
     children: ReactNode;
-}) => JSX.Element>((Previous, current) => (function This(props) {
+}) => JSX.Element>((Previous, current) => function This(props) {
         const {
             Provider
         } = current[0];
@@ -16,7 +16,7 @@ const composeProviders = (...providers: providerAndValue[]) => providers.reduce<
                 </Provider>
             </Previous>
         );
-    }), props => <>
+    }, props => <>
         {props.children}
     </>);
 export default composeProviders;

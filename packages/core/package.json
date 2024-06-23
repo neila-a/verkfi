@@ -60,6 +60,7 @@
         "@verkfi/tool-reversal": "workspace:../tools/tool-reversal",
         "@verkfi/tool-shaizi": "workspace:../tools/tool-shaizi",
         "@verkfi/tool-speech": "workspace:../tools/tool-speech",
+        "array-flatten": "^3.0.0",
         "filepond": "^4.30.6",
         "jotai": "^2.8.3",
         "lp-logger": "github:neila-a/lp-logger-no-window",

@@ -1,3 +1,5 @@
+/* eslint-disable no-magic-numbers */
+// 整段代码都是从FAWE来的，根本不知道什么意思
 import {
     block
 } from "@verkfi/shared/matrix/matrix";

@@ -5,6 +5,7 @@ import {
 } from "jotai";
 import {
     mostUsedAtom as mostUsedAtom,
+    mostUsedSelects,
     recentlyUsedAtom as recentlyUsedAtom
 } from "@verkfi/shared/atoms";
 import {
@@ -26,7 +27,7 @@ export default function Template(props: {
         thisTool = gotThisTool === "extension" ? searchParams.get("tool") : gotThisTool;
     useEffect(() => {
         if (!searchParams.has("only")) {
-            const set = new Recently(3, recentlyUsed.reverse());
+            const set = new Recently(mostUsedSelects, recentlyUsed.reverse());
             set.add(thisTool);
             const mostUsed = {
                 ...mostUsedState

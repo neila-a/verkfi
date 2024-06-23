@@ -10,8 +10,9 @@ import {
     get
 } from "react-intl-universal";
 import ShaiZiCanvas from "./shaiziCanvas";
+const defaultCishu = 10;
 function ShaiZi(): JSX.Element {
-    const [cishu, setCishu] = useState<number>(10);
+    const [cishu, setCishu] = useState<number>(defaultCishu);
     return (
         <>
             <Stack spacing={2} component="section">

@@ -25,17 +25,18 @@ import Line from "./Line";
 import getCache from "./getCache";
 import getSettingsSur from "./getSettingsSur";
 import getSettingsUsed from "./getSettingsUsed";
-const CheckDialog = dynamic(() => import("@verkfi/shared/dialog/Check"));
-const direction: ResponsiveStyleValue<"row" | "row-reverse" | "column" | "column-reverse"> = {
-    xs: "column",
-    sm: "row",
-    md: "row"
-};
-const Spacing3Stack: FC<{
-    children: ReactNode;
-}> = props => <Stack spacing={3}>
-    {props.children}
-</Stack>;
+const CheckDialog = dynamic(() => import("@verkfi/shared/dialog/Check")),
+    direction: ResponsiveStyleValue<"row" | "row-reverse" | "column" | "column-reverse"> = {
+        xs: "column",
+        sm: "row",
+        md: "row"
+    },
+    Spacing3Stack: FC<{
+        children: ReactNode;
+    }> = props => <Stack spacing={3}>
+        {props.children}
+    </Stack>,
+    fractionDigits = 5;
 export default function Reset() {
     const [dialogOpen, setDialogOpen] = useState<boolean>(false),
         [dialogContext, setDialogContext] = useState<string>(""),
@@ -54,10 +55,12 @@ export default function Reset() {
             }} />}>
                 <Spacing3Stack>
                     <Line
-                        value={Number((cacheUsed / cacheAll * 100).toFixed(5))}
+                        // 100用于把小数转换为百分比
+                        // eslint-disable-next-line no-magic-numbers
+                        value={Number((cacheUsed / cacheAll * 100).toFixed(fractionDigits))}
                         mainLabel={get("storage.缓存空间")}
-                        usedLabel={`${get("已用")} ${cacheUsed.toFixed(5)} MB`}
-                        surLabel={`${get("storage.总容量")} ${cacheAll.toFixed(5)} MB`}
+                        usedLabel={`${get("已用")} ${cacheUsed.toFixed(fractionDigits)} MB`}
+                        surLabel={`${get("storage.总容量")} ${cacheAll.toFixed(fractionDigits)} MB`}
                     />
                     <Button variant="contained" onClick={event => {
                         setDialogOpen(true);
@@ -76,7 +79,9 @@ export default function Reset() {
                 </Spacing3Stack>
                 <Spacing3Stack>
                     <Line
-                        value={Number((cacheUsed / cacheAll * 100).toFixed(5))}
+                        // 100用于把小数转换为百分比
+                        // eslint-disable-next-line no-magic-numbers
+                        value={Number((cacheUsed / cacheAll * 100).toFixed(fractionDigits))}
                         mainLabel={get("storage.设置空间")}
                         usedLabel={`${get("已用")} ${getSettingsUsed()} KB`}
                         surLabel={`${get("storage.总容量")} ${getSettingsSur()} KB`}

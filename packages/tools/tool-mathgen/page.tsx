@@ -25,10 +25,12 @@ import {
     defaultCalcs
 } from "./consts";
 import SingleMath from "./singleMath";
+const defaultMax = 10,
+    defaultItemCount = 20;
 function MathGen(): JSX.Element {
     const [min, setMin] = useState<number>(0),
-        [max, setMax] = useState<number>(10),
-        [itemCount, setItemCount] = useState<number>(20),
+        [max, setMax] = useState<number>(defaultMax),
+        [itemCount, setItemCount] = useState<number>(defaultItemCount),
         [maths, setMath] = useState<string[]>([]),
         [subtractionCheck, setSubtractionCheck] = useState<boolean>(true),
         [divisionCheck, setDivisionCheck] = useState<boolean>(true),

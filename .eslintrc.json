@@ -204,6 +204,17 @@
         "yield-star-spacing": [
             "warn",
             "after"
+        ],
+        "no-magic-numbers": [
+            "warn",
+            {
+                "ignoreArrayIndexes": true,
+                "ignore": [
+                    -1,
+                    0,
+                    1
+                ]
+            }
         ]
     }
 }

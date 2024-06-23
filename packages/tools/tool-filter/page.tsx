@@ -33,20 +33,22 @@ import {
 } from "./consts";
 import SingleImage from "./singleImage";
 import libearOnly from "./image/libear-only.png";
+const initialScale = 100,
+    scaleMax = 200;
 export default function Filter(): JSX.Element {
     const [imageArray, setImageArray] = useState<FilePondFile[]>([]),
         [imageFileName, setImageFileName] = useState<string>("libear-only"),
         [imageURL, setImageURL] = useState<string>(libearOnly.src),
         [imageTypes, setImageTypes] = useState<ImageType[]>(ImageTypesGen),
-        [scale, setScale] = useState<number>(100),
+        [scale, setScale] = useState<number>(initialScale),
         sizeId = useId(),
         handleSliderChange = (event: Event, newValue: number) => setScale(newValue),
         handleInputChange = (event: ChangeEvent<HTMLInputElement>) => setScale(Number(event.target.value)),
         handleBlur = () => {
             if (scale < 0) {
                 setScale(0);
-            } else if (scale > 200) {
-                setScale(200);
+            } else if (scale > scaleMax) {
+                setScale(scaleMax);
             }
         };
     return (

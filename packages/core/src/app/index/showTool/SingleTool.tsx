@@ -66,9 +66,14 @@ import {
     isImplantContext
 } from "index/consts";
 import openWindow from "./openWindow";
-const ToolTypography = styled(Typography)({
-    wordBreak: "break-all"
-});
+import {
+    highElevation,
+    lowElevation
+} from "@verkfi/tool-pillar/SingleCollocation";
+const gridWidth = 275,
+    ToolTypography = styled(Typography)({
+        wordBreak: "break-all"
+    });
 export default function SingleTool(props: {
     tool: tool;
     actions?: ReactNode;
@@ -96,7 +101,7 @@ export default function SingleTool(props: {
         gradientTool = useAtomValue(gradientToolAtom),
         [jumpto, setJumpTo] = useState<string>(""),
         [removeDialogOpen, setRemoveDialogOpen] = useState<boolean>(false),
-        [elevation, setElevation] = useState<number>(2),
+        [elevation, setElevation] = useState<number>(lowElevation),
         [jumpName, setJumpName] = useState<string>(""),
         [jumpDialogOpen, setJumpDialogOpen] = useState<boolean>(false),
         fullWidth = `100%`,
@@ -167,10 +172,10 @@ export default function SingleTool(props: {
                     router.prefetch(`/tools/${tool.to}` as Route);
                 }
             }
-            setElevation(8);
+            setElevation(highElevation);
         },
         handleMouseLeave = event => {
-            setElevation(2); // reset to default
+            setElevation(lowElevation); // reset to default
         },
         deleteButtons
             = <>
@@ -322,7 +327,7 @@ export default function SingleTool(props: {
             </Card>;
     return (
         <ButtonBase key={tool.to} component="section" sx={{
-            width: viewMode === "grid" ? 275 : fullWidth
+            width: viewMode === "grid" ? gridWidth : fullWidth
         }}>
             {viewMode === "grid" ? grid : list}
             <CheckDialog open={jumpDialogOpen} description={`${get("singleTool.jump")}${jumpName}？`} title={get("离开Verkfi")} onTrue={() => {

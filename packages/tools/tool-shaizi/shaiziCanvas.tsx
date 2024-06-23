@@ -6,10 +6,13 @@ import {
     useRef
 } from "react";
 import Cube from "./Cube";
+import {
+    ambientLightPosition
+} from "../tool-cubic/page";
 export type rotateAxis = "x" | "y" | "z";
 export const rotateAxis: rotateAxis[] = ["x", "y", "z"],
     rotateStep = 50, // 转90度所需要的帧
-    randomAxis = () => rotateAxis[Math.floor(Math.random() * 3)];
+    randomAxis = () => rotateAxis[Math.floor(Math.random() * rotateAxis.length)];
 export default function ShaiZiCanvas(props: {
     cishu: number;
 }): JSX.Element {
@@ -22,7 +25,7 @@ export default function ShaiZiCanvas(props: {
         <Canvas style={{
             cursor: "pointer"
         }} ref={canvas}>
-            <ambientLight position={[9, 9, 9]} />
+            <ambientLight position={[ambientLightPosition, ambientLightPosition, ambientLightPosition]} />
             <Cube cishu={props.cishu} />
         </Canvas>
     );

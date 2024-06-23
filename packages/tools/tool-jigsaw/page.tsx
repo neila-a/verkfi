@@ -61,13 +61,15 @@ interface jigsaw {
     all: Blob;
     fileName: string;
 }
-const blobToInt8Array = async (blob: Blob) => new Int8Array(await blob.arrayBuffer()).join("");
+const blobToInt8Array = async (blob: Blob) => new Int8Array(await blob.arrayBuffer()).join(""),
+    initialSize = 3,
+    dragImageSize = 32;
 export default function JigsawEntry(): JSX.Element {
     const [imageArray, setImageArray] = useState<FilePondFile[]>([]),
         [imageFileName, setImageFileName] = useState<string>(""),
         [dialogOpen, setDialogOpen] = useState<boolean>(false),
-        [width, setWidth] = useState<number>(3),
-        [height, setHeight] = useState<number>(3),
+        [width, setWidth] = useState<number>(initialSize),
+        [height, setHeight] = useState<number>(initialSize),
         [jigsaws, setJigsaws] = useStoragedState<jigsaw[]>("jigsaws", []),
         [resetDialogOpen, setResetDialogOpen] = useState<boolean>(false),
         theme = useTheme(),
@@ -91,7 +93,7 @@ export default function JigsawEntry(): JSX.Element {
                 return (
                     <img draggable onDragStart={event => {
                         event.dataTransfer.setData("application/json", JSON.stringify([rowIndex, columnIndex]));
-                        event.dataTransfer.setDragImage(event.currentTarget, 32, 32);
+                        event.dataTransfer.setDragImage(event.currentTarget, dragImageSize, dragImageSize);
                         event.dataTransfer.dropEffect = "move";
                     }} onClick={event => {
                         setSelecting([rowIndex, columnIndex]);

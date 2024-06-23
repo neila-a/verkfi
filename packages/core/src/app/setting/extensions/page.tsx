@@ -54,6 +54,9 @@ import {
     RestartAlt
 } from "@mui/icons-material";
 import {
+    flatten
+} from "array-flatten";
+import {
     extensionDataCleanerAtom
 } from "@verkfi/shared/atoms";
 const PureDialog = dynamic(() => import("@verkfi/shared/dialog/Pure"));
@@ -146,16 +149,12 @@ export default function ExtensionManager() {
                                 value: settingItem.defaultValue
                             })) : []
                         });
-                        function readInternal(path: string): file | file[] {
-                            const stat = fs.statSync(path);
-                            if (stat.isDirectory()) {
-                                return fs.readdirSync(path).map(pathchild => readInternal(`${path}/${pathchild}`)).flat(20);
-                            }
-                            return {
-                                path,
-                                file: fs.readFileSync(path)
-                            };
-                        }
+                        const readInternal: (path: string) => file | file[] = path => fs.statSync(path).isDirectory() ? flatten(
+                            fs.readdirSync(path).map(pathchild => readInternal(`${path}/${pathchild}`))
+                        ) : {
+                            path,
+                            file: fs.readFileSync(path)
+                        };
                         setFiles(dir.map(readInternal).flat(1));
                         if (extensionTools.some(item => item.to === main.to)) {
                             setModifyDialogOpen(true);

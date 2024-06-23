@@ -16,18 +16,23 @@ import {
 import {
     collocation
 } from "./page";
+/**
+ * @source Material Design官方文档
+ */
+export const lowElevation = 2,
+    highElevation = 8;
 export default function SingleCollocation(props: {
     collocation: collocation;
 }) {
-    const [elevation, setElevation] = useState<number>(2);
+    const [elevation, setElevation] = useState<number>(lowElevation);
     return (
         <Grid item component="li">
             <Paper sx={{
                 minWidth: 155 // 经过测量得出的
             }} elevation={elevation} onMouseEnter={event => {
-                setElevation(8);
+                setElevation(highElevation);
             }} onMouseLeave={event => {
-                setElevation(2); // reset to default
+                setElevation(lowElevation); // reset to default
             }}>
                 <List>
                     {Object.entries(props.collocation).map((value, index) => <ListItem key={value[0]} sx={{

@@ -56,6 +56,10 @@ export interface ThemeHaveZIndex {
         drawer: number;
     }
 }
+/**
+ * 1 === 100%
+ */
+const allWidth = 100;
 export default function Settings(props: {
     children: ReactNode;
 }): JSX.Element {
@@ -82,9 +86,9 @@ export default function Settings(props: {
                     <Toolbar />
                     <Tabs sx={{
                         [`& .MuiTab-root`]: {
-                            maxWidth: `${100 / sets.length}%`,
-                            width: `${100 / sets.length}%`,
-                            minWidth: `${100 / sets.length}%`
+                            maxWidth: `${allWidth / sets.length}%`,
+                            width: `${allWidth / sets.length}%`,
+                            minWidth: `${allWidth / sets.length}%`
                         }
                     }} scrollButtons allowScrollButtonsMobile value={value} onChange={(event, newValue) => {
                         setValue(newValue);

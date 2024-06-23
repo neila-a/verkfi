@@ -21,11 +21,15 @@ import {
     get
 } from "react-intl-universal";
 import removeArrayItem from "remove-item-from-array";
-const InputDialog = dynamic(() => import("@verkfi/shared/dialog/Input"));
-const logger = new LpLogger({
-    name: get("翻转"),
-    level: "log" // 空字符串时，不显示任何信息
-});
+const InputDialog = dynamic(() => import("@verkfi/shared/dialog/Input")),
+    logger = new LpLogger({
+        name: get("翻转"),
+        level: "log" // 空字符串时，不显示任何信息
+    }),
+    /**
+     * 随机所用的系数
+     */
+    randomFactor = 1000_0000_0000_0000;
 function Reversal(): JSX.Element {
     const [wordList, setWordList] = useState<[string, number][]>([]),
         [words, setWords] = useState<string>(""),
@@ -47,7 +51,7 @@ function Reversal(): JSX.Element {
                     if (event.key === "Enter") {
                         setWordList(current => [...current, [
                             words,
-                            Math.random() * 1000000000000000
+                            Math.random() * randomFactor
                         ]]);
                         setWords("");
                         logger.log("已保存至列表。");
@@ -68,6 +72,8 @@ function Reversal(): JSX.Element {
                     <Button variant="contained" onClick={() => {
                         const stageOutput: [string, number][] = wordList;
                         stageOutput.sort(() => {
+                            // 0.5用于随机
+                            // eslint-disable-next-line no-magic-numbers
                             return Math.random() - 0.5;
                         });
                         setOutput(stageOutput.map(wordArray => {
@@ -105,7 +111,7 @@ function Reversal(): JSX.Element {
                 setWordList(words.split(context).map(word => {
                     return [
                         word,
-                        Math.random() * 1000000000000000
+                        Math.random() * randomFactor
                     ];
                 }));
                 logger.log("已拆分。");

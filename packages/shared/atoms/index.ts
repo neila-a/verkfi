@@ -26,7 +26,8 @@ interface mostUsedMarks {
 }
 const viewModeAtomValue = atomWithStorage<viewMode>("viewmode", "list");
 export type sidebarMode = "menu" | "sidebar";
-export const sidebarModeAtom = atomWithStorage<sidebarMode>("sidebarmode", "menu"),
+export const mostUsedSelects = 3,
+    sidebarModeAtom = atomWithStorage<sidebarMode>("sidebarmode", "menu"),
     showSidebarAtom = atomWithStorage<boolean>("sidebar", false),
     showClientsAtom = atomWithStorage<boolean>("clients", false),
     forkMeOnGitHubAtom = atomWithStorage<boolean>("fork-me-on-github", false),
@@ -53,7 +54,7 @@ export const sidebarModeAtom = atomWithStorage<sidebarMode>("sidebarmode", "menu
             return -1;
         }
         return 0;
-    }).slice(0, 3).map(item => {
+    }).slice(0, mostUsedSelects).map(item => {
         const to = item[0];
         return 0
             || realTools.find(single => single.to === to)

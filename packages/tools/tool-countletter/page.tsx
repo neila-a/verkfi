@@ -1,3 +1,5 @@
+/* eslint-disable no-magic-numbers */
+// 这个文件中的魔数是数字进制
 "use client";
 import {
     Box,

@@ -1,4 +1,5 @@
-"use client";
+/* eslint-disable no-magic-numbers */
+// 整段代码都不知道什么意思
 export default function* generateDigitsOfPi() {
     let q = 1n,
         r = 180n,

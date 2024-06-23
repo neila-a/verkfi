@@ -58,6 +58,9 @@ import {
     clientsAtom
 } from "./atoms";
 import No from "@verkfi/shared/No";
+import {
+    emptyNXTMetadata
+} from "tools/extension/empties";
 export default function Clients() {
     const [clients, setClients] = useAtom(clientsAtom),
         realTools = useAtomValue(toolsInfoAtom),
@@ -65,7 +68,7 @@ export default function Clients() {
         [control, setControl] = useAtom(showClientsAtom),
         sets = useAtomValue(setsAtom),
         fullScreen = useMediaQuery(theme.breakpoints.down("sm")),
-        emptyColor = new Array<string>(2).fill(theme.palette.background.paper) as [Hex, Hex],
+        emptyColor = emptyNXTMetadata.color.fill(theme.palette.background.paper as Hex),
         [navigateDialogOpen, setNavigateDialogOpen] = useState(false),
         [navigatingId, setNavigatingId] = useState(""),
         [searchText, setSearchText] = useState(""),

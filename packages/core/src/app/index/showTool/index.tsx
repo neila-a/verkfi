@@ -44,6 +44,8 @@ import {
 import {
     useResetAtom
 } from "jotai/utils";
+const listSpacing = 3,
+    gridSpacing = 5;
 export default function ToolsStack(props: {
     paramTool: tool[];
     actions?: ReactNode[];
@@ -126,7 +128,7 @@ export default function ToolsStack(props: {
         );
     }
     return (
-        <Stack spacing={viewMode === "list" ? 3 : 5} sx={{
+        <Stack spacing={viewMode === "list" ? listSpacing : gridSpacing} sx={{
             flexDirection: viewMode === "grid" && "row",
             display: viewMode === "grid" && "flex",
             width: "100%",

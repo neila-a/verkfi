@@ -1,5 +1,6 @@
+/* eslint-disable no-magic-numbers */
+// 整个文件都不知道为什么
 import range from "@verkfi/shared/range";
-
 export default function getShortTimeEnergy(audioData: Float32Array) {
     let sum = 0;
     const {

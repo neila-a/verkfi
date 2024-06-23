@@ -1,4 +1,8 @@
+/* eslint-disable no-magic-numbers */
 "use client";
+/**
+ * @source Material UI官方文档
+ */
 const shades = [
     900,
     800,

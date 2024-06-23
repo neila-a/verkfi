@@ -26,6 +26,10 @@ import {
     randomAxis
 } from "./shaiziCanvas";
 import range from "@verkfi/shared/range";
+import {
+    cameraPosition,
+    cubeSize
+} from "../tool-cubic/page";
 export default function Cube(props: {
     cishu: number;
 }) {
@@ -38,8 +42,10 @@ export default function Cube(props: {
             map: new TextureLoader().load(img.src),
             color: 16777215
         })),
-        cube = new BoxGeometry(3, 3, 3);
+        cube = new BoxGeometry(cubeSize, cubeSize, cubeSize);
     useFrame(() => {
+        // 它工作了，但不知道为什么
+        // eslint-disable-next-line no-magic-numbers
         if (stage.current.length !== 0 && cishu.current < rotateStep / 2) {
             mesh.current.rotation[stage.current[stage.current.length - 1]] += Math.PI / rotateStep;
             cishu.current = cishu.current + 1;
@@ -52,7 +58,7 @@ export default function Cube(props: {
     });
     return (
         <>
-            <camera ref={camera} position={[10, 10, 10]} />
+            <camera ref={camera} position={[cameraPosition, cameraPosition, cameraPosition]} />
             <mesh ref={mesh} args={[cube, materials]} onClick={event => {
                 if (stage.current.length === 0) {
                     const oldStage = [...range(props.cishu - 1)].map(() => randomAxis());
