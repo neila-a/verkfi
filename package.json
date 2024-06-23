@@ -5,7 +5,7 @@
 		"@types/react-dom": "18.3.0"
 	},
 	"dependencies": {
-		"@mui/icons-material": "^5.15.19",
+		"@mui/icons-material": "^5.15.20",
 		"@mui/material": "6.0.0-alpha.11",
 		"react": "^18.3.1",
 		"react-intl-universal": "^2.11.1"
