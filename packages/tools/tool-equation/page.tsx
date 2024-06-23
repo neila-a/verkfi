@@ -18,7 +18,11 @@ export default function Equation(): JSX.Element {
         [result, setResult] = useState<Decimal>(new Decimal(0)),
         [times, setTimes] = useState(0);
     return <Editor
-        run={run(maxTimes, setTimes, setResult)}
+        run={code => {
+            const ran = run(maxTimes, code);
+            setResult(ran.result);
+            setTimes(ran.times);
+        }}
         // eslint-disable-next-line no-magic-numbers
         tip={Array(4).fill(null).map((item, index) => get(`equation.tips.${index}`)).join("\n// ")}
     >

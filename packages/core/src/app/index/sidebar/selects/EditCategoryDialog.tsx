@@ -6,11 +6,9 @@ import {
 } from "@mui/material";
 import TransferList from "@verkfi/shared/TransferList";
 import {
-    setState
-} from "declare";
-import {
     useAtom,
-    useAtomValue
+    useAtomValue,
+    useSetAtom
 } from "jotai";
 import {
     convertedExtensionsAtom
@@ -23,28 +21,23 @@ import {
     get
 } from "react-intl-universal";
 import {
+    categoryDialogListNameAtom,
+    categoryDialogOpenAtom,
+    categoryDialogToolsAtom,
+    removeDialogOpenAtom
+} from "@verkfi/shared/atoms/category";
+import {
     lists
 } from "..";
 import toolsListAtom from "@verkfi/shared/atoms/toolsList";
 const PureDialog = dynamic(() => import("@verkfi/shared/dialog/Pure"));
-export default function EditToolsListDialog(props: {
-    dialogTools: string[];
-    setDialogTools: setState<string[]>;
-    dialogListName: string;
-    setDialogListName: setState<string>;
-    setDialogOpen: setState<boolean>;
+export default function EditCategoryDialog(props: {
     left: string[];
-    setRemoveDialogOpen: setState<boolean>;
-    open: boolean;
 }) {
-    const
-        {
-            dialogTools,
-            setDialogTools,
-            dialogListName,
-            setDialogListName,
-            setDialogOpen
-        } = props,
+    const [open, setDialogOpen] = useAtom(categoryDialogOpenAtom),
+        setRemoveDialogOpen = useSetAtom(removeDialogOpenAtom),
+        [dialogListName, setDialogListName] = useAtom(categoryDialogListNameAtom),
+        [dialogTools, setDialogTools] = useAtom(categoryDialogToolsAtom),
         [list, setList] = useAtom(listsAtom),
         edit = (forList: lists) => forList.some(single => single[0] === dialogListName),
         createOrEdit = !edit(list) ? get("category.创建分类") : get("category.编辑分类"),
@@ -76,7 +69,7 @@ export default function EditToolsListDialog(props: {
                 </Button>
                 {edit(list)
                     && <Button variant="outlined" onClick={event => {
-                        props.setRemoveDialogOpen(true);
+                        setRemoveDialogOpen(true);
                         setDialogTools([]);
                         return setDialogOpen(false);
                     }}>
@@ -84,7 +77,7 @@ export default function EditToolsListDialog(props: {
                     </Button>
                 }
             </ButtonGroup>
-        )} open={props.open} title={createOrEdit} onClose={() => {
+        )} open={open} title={createOrEdit} onClose={() => {
             setDialogTools([]);
             setDialogListName("");
             setDialogOpen(false);

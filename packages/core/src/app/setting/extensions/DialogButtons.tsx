@@ -4,9 +4,6 @@ import {
     ButtonGroup
 } from "@mui/material";
 import {
-    setState
-} from "declare";
-import {
     useAtom,
     useSetAtom
 } from "jotai";
@@ -26,15 +23,19 @@ import {
     extensionsAtomValue
 } from "@verkfi/shared/atoms/extensions";
 import getMetadatas from "@verkfi/shared/atoms/getMetadatas";
+import {
+    modifyDialogOpenAtom,
+    removeDialogOpenAtom
+} from "./atoms";
 export default function DialogButtons(props: {
     type: "modify" | "add";
     fileInfo: NXTMetadata;
-    setModifyDialogOpen: setState<boolean>;
-    setRemoveDialogOpen: setState<boolean>;
     files: file[];
     reset(): void;
 }) {
     const [lists, setLists] = useAtom(listsAtom),
+        setRemoveDialogOpen = useSetAtom(removeDialogOpenAtom),
+        setModifyDialogOpen = useSetAtom(modifyDialogOpenAtom),
         setExtensions = useSetAtom(extensionsAtomValue);
     return (
         <ButtonGroup fullWidth>
@@ -83,8 +84,8 @@ export default function DialogButtons(props: {
             }
             {props.type === "modify"
                 && <Button variant="outlined" onClick={async event => {
-                    props.setModifyDialogOpen(false);
-                    props.setRemoveDialogOpen(true);
+                    setModifyDialogOpen(false);
+                    setRemoveDialogOpen(true);
                 }}>
                     {get("删除")}
                 </Button>

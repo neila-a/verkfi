@@ -94,4 +94,5 @@ export const editModeAtom = atom(false),
         const tab = get(tabAtom),
             tools = get(toolsAtom);
         return tools[tab] ? tools[tab].to : "";
-    });
+    }),
+    expandAtom = atom(false);

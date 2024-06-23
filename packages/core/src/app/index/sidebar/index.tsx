@@ -12,9 +12,6 @@ import {
 } from "@mui/material";
 import MouseOverPopover from "@verkfi/shared/Popover";
 import {
-    setState
-} from "declare";
-import {
     useAtom,
     useAtomValue,
     useSetAtom
@@ -33,6 +30,7 @@ import Buttons from "./buttons";
 import Selects from "./selects";
 import SingleSelect from "./selects/SingleSelect";
 import {
+    expandAtom,
     searchTextAtom,
     sortingForAtom,
     tabAtom,
@@ -44,8 +42,6 @@ import {
 export type lists = [string, string[]][];
 export default function Sidebar(props: {
     focusingTo: Lowercase<string>;
-    expand: boolean;
-    setExpand: setState<boolean>;
 }) {
     const isImplant = useContext(isImplantContext),
         sortingFor = useAtomValue(sortingForAtom)(isImplant),
@@ -53,6 +49,7 @@ export default function Sidebar(props: {
         [searchText, setSearchText] = useAtom(searchTextAtom),
         [clickCount, setClickCount] = useState<number>(0),
         setTab = useSetAtom(tabAtom),
+        setExpand = useSetAtom(expandAtom),
         tools = useAtomValue(toolsAtom);
     return (
         <Drawer variant="permanent" sx={{
@@ -117,9 +114,9 @@ export default function Sidebar(props: {
                     />
                 }
                 <Box onClick={() => {
-                    props.setExpand(true);
+                    setExpand(true);
                     if (clickCount === 1) {
-                        props.setExpand(false);
+                        setExpand(false);
                         setClickCount(0);
                     }
                 }}>
@@ -135,10 +132,7 @@ export default function Sidebar(props: {
                     />
                 </Box>
             </Box>
-            <Buttons
-                expand={props.expand}
-                setExpand={props.setExpand}
-            />
+            <Buttons />
         </Drawer>
     );
 }

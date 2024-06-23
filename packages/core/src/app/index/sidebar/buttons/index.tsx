@@ -12,13 +12,9 @@ import {
     IconButton
 } from "@mui/material";
 import MouseOverPopover from "@verkfi/shared/Popover";
-import {
-    setState
-} from "declare";
 import dynamic from "next/dynamic";
 import {
-    useContext,
-    useState
+    useContext
 } from "react";
 import {
     get
@@ -27,26 +23,27 @@ import SwitchEditMode from "./SwitchEditMode";
 import SwitchViewMode from "./SwitchViewMode";
 import {
     useAtom,
-    useAtomValue
+    useAtomValue,
+    useSetAtom
 } from "jotai";
 import {
     editModeAtom,
-    editingAtom
+    editingAtom,
+    expandAtom
 } from "index/atoms";
 import {
     isImplantContext
 } from "index/consts";
-const EditToolsListDialog = dynamic(() => import("../selects/EditToolsListDialog"));
-export default function Buttons(props: {
-    expand: boolean;
-    setExpand: setState<boolean>;
-}) {
+import {
+    categoryDialogOpenAtom
+} from "@verkfi/shared/atoms/category";
+const EditCategoryDialog = dynamic(() => import("../selects/EditCategoryDialog"));
+export default function Buttons() {
     const editing = useAtomValue(editingAtom),
+        [expand, setExpand] = useAtom(expandAtom),
         editMode = useAtomValue(editModeAtom),
-        [dialogOpen, setDialogOpen] = useState<boolean>(false),
-        [dialogTools, setDialogTools] = useState<string[]>([]),
-        isImplant = useContext(isImplantContext),
-        [dialogListName, setDialogListName] = useState<string>("");
+        setDialogOpen = useSetAtom(categoryDialogOpenAtom),
+        isImplant = useContext(isImplantContext);
     return (
         <Box sx={{
             position: "absolute",
@@ -73,25 +70,18 @@ export default function Buttons(props: {
                     && <SwitchEditMode />
                 }
                 {isImplant
-                    && <MouseOverPopover text={props.expand ? get("window.collapse") : get("window.expand")}>
+                    && <MouseOverPopover text={expand ? get("window.collapse") : get("window.expand")}>
                         <IconButton color="primary" sx={{
                             p: 1
                         }} onClick={event => {
-                            props.setExpand(!props.expand);
-                        }} aria-label={props.expand ? get("window.collapse") : get("window.expand")}>
-                            {props.expand ? <ArrowBackIosIcon /> : <ArrowForwardIosIcon />}
+                            setExpand(!expand);
+                        }} aria-label={expand ? get("window.collapse") : get("window.expand")}>
+                            {expand ? <ArrowBackIosIcon /> : <ArrowForwardIosIcon />}
                         </IconButton>
                     </MouseOverPopover>
                 }
             </ButtonGroup>
-            <EditToolsListDialog
-                open={dialogOpen}
-                dialogTools={dialogTools}
-                setRemoveDialogOpen={setDialogOpen}
-                setDialogTools={setDialogTools}
-                dialogListName={dialogListName}
-                setDialogListName={setDialogListName}
-                setDialogOpen={setDialogOpen}
+            <EditCategoryDialog
                 left={[]}
             />
         </Box>

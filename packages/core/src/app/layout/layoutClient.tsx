@@ -55,6 +55,9 @@ import "jotai-devtools/styles.css";
 import {
     themeAtom
 } from "setting/appearance/paletteAtom";
+import {
+    expandAtom
+} from "index/atoms";
 export const locales = {
     enUS,
     zhCN,
@@ -73,15 +76,13 @@ export default function ModifiedApp(props: {
         pathname = usePathname(),
         params = useSearchParams(),
         choosedLang = useAtomValue(usableLangAtom),
-        [expand, setExpand] = useState<boolean>(false),
+        expand = useAtomValue(expandAtom),
         [loaded, setLoaded] = useState<"" | keyof typeof locales>(""),
         implant = pathname === "/" || params.get("only") === "true",
         sidebarModeValue = useAtomValue(sidebarModeAtom),
         ml: string = implant ? "" : expand ? `calc(min(${`calc(100vw - ${drawerWidth}px)`}, 320px) + ${drawerWidth}px)` : `${drawerWidth}px`,
         Sidebar = implant ? null : sidebarModeValue === "sidebar" ? createElement(dynamic(() => import("page")), {
-            isImplant: true,
-            expand: expand,
-            setExpand: setExpand
+            isImplant: true
         }) : createElement(dynamic(() => import("./Menu"))), // 使用createElement因为dynamic不能直接以JSX方式调用
         showSidebarValue = useAtomValue(showSidebarAtom),
         Provider = composeProviders([repoInfo, props.repoInfo]);

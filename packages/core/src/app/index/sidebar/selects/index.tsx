@@ -48,6 +48,11 @@ import {
 import {
     isImplantContext
 } from "index/consts";
+import {
+    categoryDialogListNameAtom,
+    categoryDialogOpenAtom,
+    removeDialogOpenAtom
+} from "@verkfi/shared/atoms/category";
 export default function Selects(props: {
     isSidebar?: boolean;
     modifyClickCount(value: number | "++"): void;
@@ -59,11 +64,10 @@ export default function Selects(props: {
         setSortedTools = useSetAtom(sortedToolsAtom),
         [searchText, setSearchText] = useAtom(searchTextAtom),
         [list, setList] = useAtom(listsAtom),
-        [dialogOpen, setDialogOpen] = useState<boolean>(false),
-        [dialogTools, setDialogTools] = useState<string[]>([]),
+        setDialogOpen = useSetAtom(categoryDialogOpenAtom),
         gotToolsList = useAtomValue(toolsListAtom),
-        [removeDialogOpen, setRemoveDialogOpen] = useState<boolean>(false),
-        [dialogListName, setDialogListName] = useState<string>(""),
+        [removeDialogOpen, setRemoveDialogOpen] = useAtom(removeDialogOpenAtom),
+        [dialogListName, setDialogListName] = useAtom(categoryDialogListNameAtom),
         editMode = useAtomValue(editModeAtom),
         setTools = useSetAtom(toolsAtom);
     function RealSelect(aprops: {
@@ -151,14 +155,7 @@ export default function Selects(props: {
             </DragDropContext>
             {editMode
                 && <> {/* 只有editMode时才会启用，可以用dynamic */}
-                    {createElement(dynamic(() => import("./EditToolsListDialog")), {
-                        open: dialogOpen,
-                        dialogTools,
-                        setDialogTools,
-                        dialogListName,
-                        setDialogListName,
-                        setDialogOpen,
-                        setRemoveDialogOpen,
+                    {createElement(dynamic(() => import("./EditCategoryDialog")), {
                         left: gotToolsList.filter(tool => {
                             return list.find(single => single[0] === dialogListName)?.[1]?.includes(tool.to);
                         }).map(tool => tool.name)

@@ -96,11 +96,6 @@ declare global {
 
 }
 
-/**
- * React的useState()产生的第二个变量
- */
-export type setState<stateType> = Dispatch<SetStateAction<stateType>>;
-
 export namespace hex {
     type HexDigit = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "a" | "b" | "c" | "d" | "e" | "f";
     export type HexColor<hexString extends string> =

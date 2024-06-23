@@ -16,6 +16,7 @@ import {
 } from "filepond";
 import {
     Provider,
+    useAtom,
     useAtomValue,
     useSetAtom
 } from "jotai";
@@ -59,15 +60,21 @@ import {
 import {
     extensionDataCleanerAtom
 } from "@verkfi/shared/atoms";
+import {
+    fileInfoAtom,
+    filesAtom,
+    modifyDialogOpenAtom,
+    removeDialogOpenAtom
+} from "./atoms";
 const PureDialog = dynamic(() => import("@verkfi/shared/dialog/Pure"));
 export type inputTypes = "modify" | "add";
 export default function ExtensionManager() {
     const [addDialogOpen, setAddDialogOpen] = useState<boolean>(false),
         [fileArray, setFileArray] = useState<FilePondFile[]>([]),
-        [fileInfo, setFileInfo] = useState<NXTMetadata>(emptyNXTMetadata),
-        [files, setFiles] = useState<file[]>([]),
-        [removeDialogOpen, setRemoveDialogOpen] = useState<boolean>(false),
-        [modifyDialogOpen, setModifyDialogOpen] = useState<boolean>(false),
+        [fileInfo, setFileInfo] = useAtom(fileInfoAtom),
+        [files, setFiles] = useAtom(filesAtom),
+        [removeDialogOpen, setRemoveDialogOpen] = useAtom(removeDialogOpenAtom),
+        [modifyDialogOpen, setModifyDialogOpen] = useAtom(modifyDialogOpenAtom),
         clearExtensionData = useSetAtom(extensionDataCleanerAtom),
         theme = useTheme(),
         fullScreen = useMediaQuery(theme.breakpoints.down("sm")),
@@ -83,12 +90,7 @@ export default function ExtensionManager() {
         converted = useAtomValue(convertedExtensionsAtom),
         packagedDialogInputs = (type: inputTypes) => <DialogInputs
             type={type}
-            fileInfo={fileInfo}
-            setFileInfo={setFileInfo}
-            files={files}
             reset={reset}
-            setModifyDialogOpen={setModifyDialogOpen}
-            setRemoveDialogOpen={setRemoveDialogOpen}
         />;
     return (
         <>
@@ -177,8 +179,6 @@ export default function ExtensionManager() {
                 <DialogButtons
                     type="add"
                     fileInfo={fileInfo}
-                    setModifyDialogOpen={setModifyDialogOpen}
-                    setRemoveDialogOpen={setRemoveDialogOpen}
                     files={files}
                     reset={reset}
                 />
@@ -191,8 +191,6 @@ export default function ExtensionManager() {
                 <DialogButtons
                     type="modify"
                     fileInfo={fileInfo}
-                    setModifyDialogOpen={setModifyDialogOpen}
-                    setRemoveDialogOpen={setRemoveDialogOpen}
                     files={files}
                     reset={reset}
                 />

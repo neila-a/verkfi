@@ -19,12 +19,14 @@ import {
     get
 } from "react-intl-universal";
 import removeArrayItem from "remove-item-from-array";
-import calcMath from "./calcMath";
 import {
     calc,
     defaultCalcs
 } from "./consts";
+import genNumber from "./genNumber";
 import SingleMath from "./singleMath";
+import created from "./createdMath";
+import range from "@verkfi/shared/range";
 const defaultMax = 10,
     defaultItemCount = 20;
 function MathGen(): JSX.Element {
@@ -39,8 +41,39 @@ function MathGen(): JSX.Element {
             "+",
             "-"
         ]),
-        packagedCalcMath = () => calcMath(calcs, subtractionCheck, divisionCheck, max, min, itemCount, setMath);
-    useEffect(packagedCalcMath, [
+        calcMath = () => setMath([...new Set(calcs.map(mode => {
+            const modeS = mode.replace("×", "*").replace("÷", "/");
+            function genMathS(): [number, number, number] {
+                const one = genNumber(max, min);
+                let two = genNumber(max, min);
+                if (subtractionCheck || divisionCheck) {
+                    switch (mode) {
+                        case "-":
+                        case "÷":
+                            while (two > one) {
+                                two = genNumber(max, min);
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                return [one, two, created.evaluate(`${one} ${modeS} ${two}`)];
+            }
+            return [...range(itemCount / calcs.length - 1, 1)].map(step => {
+                let [one, two, out] = genMathS(),
+                    math = `${one}${mode}${two}=${out}`;
+                function reGenMath() {
+                    [one, two, out] = genMathS();
+                    math = `${one}${mode}${two}=${out}`;
+                }
+                while (mode === "%" && two === 0 || out > max) {
+                    reGenMath();
+                }
+                return math;
+            });
+        })).keys()].flat(1));
+    useEffect(calcMath, [
         min,
         max,
         itemCount,
@@ -106,7 +139,7 @@ function MathGen(): JSX.Element {
                     </FormGroup>
                 </Paper>
                 <ButtonGroup fullWidth>
-                    <Button variant="contained" onClick={packagedCalcMath}>
+                    <Button variant="contained" onClick={calcMath}>
                         {get("计算")}
                     </Button>
                     <Button variant="outlined" onClick={event => {

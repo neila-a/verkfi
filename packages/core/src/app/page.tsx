@@ -9,9 +9,6 @@ import {
 import HeadBar from "@verkfi/shared/HeadBar";
 import MouseOverPopover from "@verkfi/shared/Popover";
 import VerkfiIcon from "@verkfi/shared/verkfiIcon";
-import {
-    setState
-} from "declare";
 import ToolsStack from "index/showTool";
 import Sidebar from "index/sidebar";
 import {
@@ -24,8 +21,7 @@ import {
     showSidebarAtom as showSidebarAtom
 } from "@verkfi/shared/atoms";
 import {
-    Suspense,
-    useState
+    Suspense
 } from "react";
 import {
     get
@@ -37,6 +33,7 @@ import {
     type ThemeHaveZIndex
 } from "setting/layout";
 import {
+    expandAtom,
     focusingToAtom,
     showRecommendsAtom,
     sortingForAtom,
@@ -53,24 +50,16 @@ export default function Index(props: {
      * 是否为嵌入
      */
     isImplant?: boolean;
-    expand?: boolean;
-    setExpand?: setState<boolean>;
 }): JSX.Element {
     const showSidebar = useAtomValue(showSidebarAtom),
         mostUsed = useAtomValue(mostUsedToolsAtom),
-        [expandThis, setExpandThis] = useState<boolean>(false),
+        expand = useAtomValue(expandAtom),
         setShowRecommends = useSetAtom(showRecommendsAtom),
         tools = useAtomValue(toolsAtom),
         sortingFor = useAtomValue(sortingForAtom)(props.isImplant),
         baseSortingFor = useAtomValue(sortingForAtomValue),
         focusingTo = useAtomValue(focusingToAtom),
         recentlyTools = useAtomValue(recentlyToolsAtom);
-    let expand = expandThis,
-        setExpand = setExpandThis;
-    if (props.setExpand) {
-        expand = props.expand;
-        setExpand = props.setExpand;
-    }
     function Tools() {
         return (
             <Box sx={{
@@ -93,8 +82,6 @@ export default function Index(props: {
             }
             <Sidebar
                 focusingTo={focusingTo}
-                expand={expand}
-                setExpand={setExpand}
             />
             {sortingFor === "__home__" || baseSortingFor === "__home__" ? <Box sx={{
                 p: 3,

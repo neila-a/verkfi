@@ -1,10 +1,7 @@
 import range from "@verkfi/shared/range";
-import {
-    setState
-} from "declare";
 import Decimal from "decimal.js";
 const sumDivMiddle = 2;
-const run = (maxTimes: number, setTimes: setState<number>, setResult: setState<Decimal>) => (code: string) => {
+const run = (maxTimes: number, code: string) => {
     /**
      * 方程
      */
@@ -42,7 +39,9 @@ const run = (maxTimes: number, setTimes: setState<number>, setResult: setState<D
         }
         endTimes = times;
     }
-    setTimes(endTimes);
-    setResult(left.plus(right).div(sumDivMiddle));
+    return {
+        times: endTimes,
+        result: left.plus(right).div(sumDivMiddle)
+    };
 };
 export default run;
