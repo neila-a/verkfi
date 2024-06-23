@@ -1,4 +1,3 @@
-"use client";
 import {
     dDivR
 } from "../../shared/matrix/matrix";

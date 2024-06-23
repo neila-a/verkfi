@@ -1,4 +1,3 @@
-"use client";
 const defaultPalette = {
     // 来自palette的快照
     "primary": {

@@ -1,4 +1,3 @@
-"use client";
 import defaults from "./defaults";
 const defaultInternalPalette = {
     primary: defaults.primary,

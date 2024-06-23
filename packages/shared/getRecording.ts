@@ -1,4 +1,3 @@
-"use client";
 import isBrowser from "./isBrowser";
 import LpLogger from "lp-logger";
 export default async function getRecording(onStop: (blob: Blob) => any, onDataAvailable?: (blob: Blob) => any, log = true) {

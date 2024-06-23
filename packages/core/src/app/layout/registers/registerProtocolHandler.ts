@@ -1,4 +1,3 @@
-"use client";
 import {
     logger
 } from "../layoutClient";

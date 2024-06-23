@@ -1,4 +1,3 @@
-"use client";
 import range from "@verkfi/shared/range";
 import generateDigitsOfPi from "./generateDigitsOfPi";
 export default function generatePis(digit: number) {

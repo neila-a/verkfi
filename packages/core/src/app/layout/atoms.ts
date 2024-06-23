@@ -1,4 +1,3 @@
-"use client";
 import atomWithBroadcast from "@verkfi/shared/reader/atomWithBroadcast";
 import atomWithInitialValue, {
     valueAtomReturn

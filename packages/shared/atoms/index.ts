@@ -1,4 +1,3 @@
-"use client";
 import {
     viewMode
 } from "index/consts";

@@ -1,4 +1,3 @@
-"use client";
 import toolsInfoAtom from "tools/info";
 import {
     atomWithRefresh
