@@ -33,17 +33,23 @@ export const mostUsedSelects = 3,
     shareAtom = atomWithStorage<boolean>("share", isBrowser() ? "share" in navigator : false),
     viewModeAtom = atom(get => get(viewModeAtomValue), (get, set, update: viewMode | "swap") => {
         if (update === "swap") {
-            return awaiter(get(viewModeAtomValue), (value: viewMode) => set(viewModeAtomValue, value === "grid" ? "list" : "grid"));
+            return awaiter(
+                get(viewModeAtomValue), value => set(viewModeAtomValue, value === "grid" ? "list" : "grid")
+            );
         }
         set(viewModeAtomValue, update);
     }),
     gradientToolAtom = atomWithStorage<boolean>("gradient-tool", false),
     recentlyUsedAtom = atomWithStorage<string[]>("recently-tools", []),
-    recentlyToolsAtom = atom(async get => awaiter(get(recentlyUsedAtom), recentlyUsed => Promise.all(recentlyUsed
-        .map(to => awaiter(get(convertedExtensionsAtom), converted => (0
-            || awaiter(get(toolsInfoAtom), toolsInfo => toolsInfo.find(single => single.to === to))
-            || converted.find(single => `/tools/extension?tool=${to}` === single.to)) as tool | 0)))
-        .then(toFilter => toFilter.filter(item => item !== 0) satisfies unknown as tool[]))),
+    recentlyToolsAtom = atom(async get => awaiter(
+        get(recentlyUsedAtom), recentlyUsed => Promise.all(recentlyUsed.map(to => awaiter(
+            get(convertedExtensionsAtom), converted => (0
+                || awaiter(
+                    get(toolsInfoAtom), toolsInfo => toolsInfo.find(single => single.to === to)
+                )
+                || converted.find(single => `/tools/extension?tool=${to}` === single.to)) as tool | 0
+        ))).then(toFilter => toFilter.filter(item => item !== 0) satisfies unknown as tool[])
+    )),
     mostUsedAtom = atomWithStorage<mostUsedMarks>("most-tools", {
     }),
     mostUsedToolsAtom = atom(get => awaiter(
@@ -66,17 +72,19 @@ export const mostUsedSelects = 3,
         )
     )),
     listsAtom = atomWithStorage<lists>("lists", []),
-    buttonCommonSorterAtom = atom(null, (get, set, sortingFor: string, pd: tool[]) => awaiter(get(listsAtom), realList => {
-        const index = realList.findIndex(item => item[0] === sortingFor),
-            newRealList: lists = realList.slice(0);
-        if (index === -1) {
-            newRealList.push(["__global__", pd.map(toolp => toolp.to)]);
-        } else {
-            newRealList[index][1] = pd.map(toolp => toolp.to);
+    buttonCommonSorterAtom = atom(null, (get, set, sortingFor: string, pd: tool[]) => awaiter(
+        get(listsAtom), realList => {
+            const index = realList.findIndex(item => item[0] === sortingFor),
+                newRealList: lists = realList.slice(0);
+            if (index === -1) {
+                newRealList.push(["__global__", pd.map(toolp => toolp.to)]);
+            } else {
+                newRealList[index][1] = pd.map(toolp => toolp.to);
+            }
+            set(listsAtom, newRealList);
+            return newRealList;
         }
-        set(listsAtom, newRealList);
-        return newRealList;
-    })),
+    )),
     extensionDataCleanerAtom = atom(null, async (get, set, clearingExtension: NXTMetadata) => awaiter(
         get(mostUsedAtom), mostUsed => awaiter(
             get(recentlyUsedAtom), oldRecently => {

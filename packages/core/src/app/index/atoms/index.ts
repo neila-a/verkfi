@@ -22,30 +22,34 @@ export const editModeAtom = atom(false),
     tabAtom = atom(0),
     showRecommendsAtom = atom(false),
     [toolsAtom, toolsAtomValue] = atomWithInitialValue((valueAtom: valueAtomReturn<tool[]>) => atom(
-        simpleGetterWithEmpty(valueAtom, get => awaiter(get(toolsListAtom), list => list)),
-        (get, set, update: tool[] | typeof RESET | `remove ${string}`) => awaiter(get(toolsListAtom), list => {
-            function publicIfEmpty() {
-                if (value === emptySymbol) {
-                    if (list) {
-                        return set(valueAtom, list);
+        simpleGetterWithEmpty(valueAtom, get => awaiter(
+            get(toolsListAtom), list => list
+        )),
+        (get, set, update: tool[] | typeof RESET | `remove ${string}`) => awaiter(
+            get(toolsListAtom), list => {
+                function publicIfEmpty() {
+                    if (value === emptySymbol) {
+                        if (list) {
+                            return set(valueAtom, list);
+                        }
+                        return set(valueAtom, []);
                     }
-                    return set(valueAtom, []);
+                }
+                const value = get(valueAtom);
+                if (update === RESET) {
+                    publicIfEmpty();
+                    if (list) {
+                        set(valueAtom, list);
+                    }
+                } else if (typeof update === "string") {
+                    publicIfEmpty();
+                    const removing = update.replace("remove ", "");
+                    set(valueAtom, (value as tool[]).filter(a => a.to !== removing));
+                } else {
+                    set(valueAtom, update);
                 }
             }
-            const value = get(valueAtom);
-            if (update === RESET) {
-                publicIfEmpty();
-                if (list) {
-                    set(valueAtom, list);
-                }
-            } else if (typeof update === "string") {
-                publicIfEmpty();
-                const removing = update.replace("remove ", "");
-                set(valueAtom, (value as tool[]).filter(a => a.to !== removing));
-            } else {
-                set(valueAtom, update);
-            }
-        })
+        )
     )),
     [sortingForAtom, sortingForAtomValue] = atomWithInitialValue((valueAtom: valueAtomReturn<string>) => atom(get => (isImplant: boolean) => {
         const value = get(valueAtom);
@@ -60,7 +64,9 @@ export const editModeAtom = atom(false),
         set(valueAtom, update);
     })),
     [sortedToolsAtom, sortedToolsAtomValue] = atomWithInitialValue((valueAtom: valueAtomReturn<tool[]>) => atom(
-        simpleGetterWithEmpty(valueAtom, get => awaiter(get(toolsListAtom), list => list)),
+        simpleGetterWithEmpty(valueAtom, get => awaiter(
+            get(toolsListAtom), list => list
+        )),
         (get, set, update: tool[]) => {
             set(valueAtom, update);
         }
@@ -73,7 +79,9 @@ export const editModeAtom = atom(false),
                 set(sortingForAtom, "__global__");
             }
             set(valueAtom, search);
-            awaiter(get(sortedToolsAtom), sortedTools => set(toolsAtom, searchBase(sortedTools, search)));
+            awaiter(
+                get(sortedToolsAtom), sortedTools => set(toolsAtom, searchBase(sortedTools, search))
+            );
         }
     ), ""),
     [editingAtom, editingAtomValue] = atomWithInitialValue((valueAtom: valueAtomReturn<boolean>) => atom(simpleGetterWithEmpty(valueAtom, get => {
