@@ -93,10 +93,9 @@ export default function Settings(props: {
                     }} scrollButtons allowScrollButtonsMobile value={value} onChange={(event, newValue) => {
                         setValue(newValue);
                     }}>
-                        {sets.map(Set => <Tab icon={<Set.Icon />} title={`/setting/${Set.id}`} iconPosition="start" label={Set.name} key={Set.id} onClick={event => {
+                        {sets.map(Set => <Tab icon={<Set.Icon />} onClick={event => {
                             router.push(`/setting/${Set.id}` satisfies Route);
-                        }} />
-                        )}
+                        }} title={`/setting/${Set.id}`} iconPosition="start" label={Set.name} key={Set.id} />)}
                     </Tabs>
                 </Drawer>
                 <Toolbar />

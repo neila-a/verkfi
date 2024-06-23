@@ -8,7 +8,10 @@ import onFetch from "./onFetch";
 import onMessage from "./onMessage";
 declare const self: ServiceWorkerGlobalScope;
 export const Cache = `Verkfi-${version}-${dev ? `dev${devVersion}` : "prod"}`,
-    log = (...texts: any[]) => console.log(`%cServiceWorker`, `background: #52c41a;border-radius: 0.5em;color: white;font-weight: bold;padding: 2px 0.5em`, ...texts);
+    log = (...texts: any[]) => console.log(
+        `%cServiceWorker`, `background: #52c41a;border-radius: 0.5em;color: white;font-weight: bold;padding: 2px 0.5em`,
+        ...texts
+    );
 log(`版本为${Cache}`);
 self.addEventListener("install", async event => event.waitUntil((async () => {
     const openedCache = await caches.open(Cache);

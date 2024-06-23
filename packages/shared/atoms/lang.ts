@@ -13,7 +13,9 @@ export const usableLangAtom = atom(get => awaiter(get(langAtom), got => {
         let browserLang: string = "zhCN";
         if (isBrowser()) {
             if (window.navigator.language || window.navigator.languages) {
-                browserLang = (window.navigator.languages && window.navigator.languages[0] || window.navigator.language).split("-").join("") || "zhCN";
+                browserLang = (window.navigator.languages && window.navigator.languages[0]
+                    || window.navigator.language).split("-").join("")
+                    || "zhCN";
             }
         }
         const detailedLang = Object.keys(locales).includes(browserLang) ? browserLang : "zhCN";

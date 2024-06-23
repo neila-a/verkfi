@@ -24,7 +24,9 @@ const
         multiplyDependencies,
         modDependencies
     }),
-    calcMath = (calcs: calc[], subtractionCheck: boolean, divisionCheck: boolean, max: number, min: number, itemCount: number, setMath: setState<string[]>) => setMath([...new Set(calcs.map(mode => {
+    calcMath = (
+        calcs: calc[], subtractionCheck: boolean, divisionCheck: boolean, max: number, min: number, itemCount: number, setMath: setState<string[]>
+    ) => setMath([...new Set(calcs.map(mode => {
         const modeS = mode.replace("×", "*").replace("÷", "/");
         function genMathS(): [number, number, number] {
             const one = genNumber(max, min);

@@ -19,14 +19,21 @@ export default function AlertDialog(props: {
     onDone(): any;
     open: boolean;
 }) {
-    const handleClose = () => {
+    const thisDialogStartId = useId(),
+        handleClose = () => {
             props.onDone();
         },
-        thisDialogStartId = useId(),
         titleId = `${thisDialogStartId}-alert-dialog-title`,
         descriptionId = `${thisDialogStartId}-alert-dialog-description`;
     return (
-        <Dialog open={props.open} onClose={handleClose} aria-labelledby={titleId} aria-describedby={descriptionId} TransitionComponent={Transition} role="alertdialog">
+        <Dialog
+            open={props.open}
+            onClose={handleClose}
+            aria-labelledby={titleId}
+            aria-describedby={descriptionId}
+            TransitionComponent={Transition}
+            role="alertdialog"
+        >
             <DialogTitle id={titleId}>
                 {props.title}
             </DialogTitle>

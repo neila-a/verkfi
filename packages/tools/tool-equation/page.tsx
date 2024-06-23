@@ -17,8 +17,11 @@ export default function Equation(): JSX.Element {
     const [maxTimes, setMaxTimes] = useState(initialMaxTimes),
         [result, setResult] = useState<Decimal>(new Decimal(0)),
         [times, setTimes] = useState(0);
-    // eslint-disable-next-line no-magic-numbers
-    return <Editor run={run(maxTimes, setTimes, setResult)} tip={Array(4).fill(null).map((item, index) => get(`equation.tips.${index}`)).join("\n// ")}>
+    return <Editor
+        run={run(maxTimes, setTimes, setResult)}
+        // eslint-disable-next-line no-magic-numbers
+        tip={Array(4).fill(null).map((item, index) => get(`equation.tips.${index}`)).join("\n// ")}
+    >
         <TextField
             fullWidth
             value={maxTimes}

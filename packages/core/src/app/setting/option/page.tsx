@@ -46,7 +46,8 @@ import {
     Switcher
 } from "./Switcher";
 const PureDialog = dynamic(() => import("@verkfi/shared/dialog/Pure")),
-    ghURL = "https://github.com/neila-a/verkfi/";
+    ghURL = "https://github.com/neila-a/verkfi/",
+    options = [[forkMeOnGitHubAtom, "Fork me on GitHub"], [shareAtom, "share.t"]] satisfies option[];
 export type option = [WritableAtom<boolean | Promise<boolean>, [update: boolean | {}], void>, string];
 export default function Options() {
     const [lang, setLang] = useAtom(langAtom),
@@ -58,8 +59,7 @@ export default function Options() {
             <Typography variant="h4">
                 {get("选项")}
             </Typography>
-            {([[forkMeOnGitHubAtom, "Fork me on GitHub"], [shareAtom, "share.t"]] satisfies option[]).map(options => <Switcher option={options} key={options[1]} />
-            )}
+            {options.map(option => <Switcher option={option} key={option[1]} />)}
             <InputLabel>
                 {get("option.菜单模式")}
             </InputLabel>
@@ -89,10 +89,10 @@ export default function Options() {
                 setLang(plang);
             }}>
                 {Object.values(locales).map(ilang => {
-                    const {
+                    const langId = Object.keys(locales).find(key => locales[key] === ilang),
+                        {
                             langName
-                        } = ilang,
-                        langId = Object.keys(locales).find(key => locales[key] === ilang);
+                        } = ilang;
                     return (
                         <MenuItem key={langName} value={langId}>
                             {langName}

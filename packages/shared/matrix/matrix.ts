@@ -7,8 +7,10 @@ export type block = [number, number];
  * 直径除以半径
  */
 export const dDivR = 2;
-export default function drawMatrix(blocks: block[], edgeBlock: number, posX: number, posZ: number, posCache: block, palette: Palette, onlyPos: boolean) {
-    const edge = Number(window.getComputedStyle(document.getElementById("canvascontainer").parentElement.children[0]).width.replace("px", "")), // Decrepated: Math.max(w, h),
+export default function drawMatrix(
+    blocks: block[], edgeBlock: number, posX: number, posZ: number, posCache: block, palette: Palette, onlyPos: boolean
+) {
+    const edge = Number(window.getComputedStyle(document.getElementById("canvascontainer").parentElement.children[0]).width.replace("px", "")),
         nowPos: block = [posX, posZ],
         cachePosBlock: block[] = [],
         posBlock: block[] = [];

@@ -65,11 +65,12 @@ export default function Selects(props: {
         [removeDialogOpen, setRemoveDialogOpen] = useState<boolean>(false),
         [dialogListName, setDialogListName] = useState<string>(""),
         editMode = useAtomValue(editModeAtom),
-        setTools = useSetAtom(toolsAtom),
-        RealSelect = (aprops: {
-            single: [string, string[]];
-            isAll: boolean;
-        }) => <Box>
+        setTools = useSetAtom(toolsAtom);
+    function RealSelect(aprops: {
+        single: [string, string[]];
+        isAll: boolean;
+    }) {
+        return <Box>
             <SingleSelect
                 dragButton={editMode && !aprops.isAll && <DragIndicatorIcon />}
                 isSidebar={Boolean(props.isSidebar)}
@@ -111,6 +112,7 @@ export default function Selects(props: {
                     </MouseOverPopover> : <Fragment />
                 )} wantSortingFor={aprops.isAll ? "__global__" : aprops.single[0]} />
         </Box>;
+    }
     return (
         <Box sx={{
             width: "100%",
@@ -135,12 +137,12 @@ export default function Selects(props: {
                     {provided => <Box ref={provided.innerRef} {...provided.droppableProps} sx={{
                         display: props.isSidebar ? "" : "flex"
                     }}>
-                        {list.filter(value => value[0] !== "__global__").map((value, index) => editMode ? <Draggable draggableId={value[0]} index={index} key={value[0]}>
-                            {provided => <Box ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                <RealSelect single={value} isAll={false} />
-                            </Box>
-                            }
-                        </Draggable> : <RealSelect key={value[0]} single={value} isAll={false} />
+                        {list.filter(value => value[0] !== "__global__").map(
+                            (value, index) => editMode ? <Draggable draggableId={value[0]} index={index} key={value[0]}>
+                                {provided => <Box ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                    <RealSelect single={value} isAll={false} />
+                                </Box>}
+                            </Draggable> : <RealSelect key={value[0]} single={value} isAll={false} />
                         )}
                         {provided.placeholder}
                     </Box>

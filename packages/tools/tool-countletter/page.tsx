@@ -44,7 +44,10 @@ function CountLetter(): JSX.Element {
                 </Button>
                 <InputDialog open={enterDialogOpen} context={get("输入你要转换的字符（串）")} onDone={context => {
                     table.forEach(single => {
-                        context = context.replace(new RegExp(single, "g"), (table.indexOf(single.toUpperCase()) + 1).toString(numberType).toUpperCase());
+                        context = context.replace(
+                            new RegExp(single, "g"),
+                            (table.indexOf(single.toUpperCase()) + 1).toString(numberType).toUpperCase()
+                        );
                     });
                     setEnterDialogOpen(false);
                     setOut(context);
@@ -68,7 +71,12 @@ function CountLetter(): JSX.Element {
                     }}
                     name="radio-buttons-group"
                 >
-                    {([2, 8, 10, 16] satisfies numberType[]).map(type => <FormControlLabel key={type} value={type.toString()} control={<Radio />} label={get(`countletter.systemName.${type.toString()}`)} />)}
+                    {([2, 8, 10, 16] satisfies numberType[]).map(type => <FormControlLabel
+                        key={type}
+                        value={type.toString()}
+                        control={<Radio />}
+                        label={get(`countletter.systemName.${type.toString()}`)}
+                    />)}
                 </RadioGroup>
             </FormControl>
         </>

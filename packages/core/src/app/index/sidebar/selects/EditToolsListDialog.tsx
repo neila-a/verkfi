@@ -51,7 +51,9 @@ export default function EditToolsListDialog(props: {
         incorrect = ["__global__", "__home__"].some(incorrectListName => incorrectListName === dialogListName),
         converted = useAtomValue(convertedExtensionsAtom),
         toolsList = useAtomValue(toolsListAtom),
-        right = toolsList.concat(converted).filter(atool => atool !== undefined).map(atool => atool.name).filter(v => props.left.every(val => val !== v));
+        right = toolsList.concat(converted).filter(
+            atool => atool !== undefined
+        ).map(atool => atool.name).filter(v => props.left.every(val => val !== v));
     return (
         <PureDialog action={(
             <ButtonGroup fullWidth>

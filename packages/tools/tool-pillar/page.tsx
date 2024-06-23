@@ -71,8 +71,11 @@ export default function Pillar(): JSX.Element {
         choosesId = useId(),
         sizeLabelId = useId(),
         pillars = calcPillars(type, length),
-        filteredPillars = pillars.filter(single => Object.entries(filterRules).every(singleRule => single[singleRule[0]] >= singleRule[1].min && single[singleRule[0]] <= singleRule[1].max
-        )).map(single => <SingleCollocation key={JSON.stringify(single)} collocation={single} />);
+        filteredPillars = pillars.filter(
+            single => Object.entries(filterRules).every(
+                singleRule => single[singleRule[0]] >= singleRule[1].min && single[singleRule[0]] <= singleRule[1].max
+            )
+        ).map(single => <SingleCollocation key={JSON.stringify(single)} collocation={single} />);
     return (
         <>
             <FormGroup sx={{
@@ -93,29 +96,31 @@ export default function Pillar(): JSX.Element {
                     <FormLabel id={choosesId}>
                         {get("pillar.position")}
                     </FormLabel>
-                    <RadioGroup aria-labelledby={choosesId} value={type} onChange={(event, value: pillarPositions) => setType(value)} name="chooses-group">
+                    <RadioGroup
+                        aria-labelledby={choosesId}
+                        value={type}
+                        onChange={(event, value: pillarPositions) => setType(value)}
+                        name="chooses-group"
+                    >
                         {Object.keys(examples).map(single => <Box key={single} sx={{
                             display: "flex"
                         }}>
                             <FormControlLabel value={single} control={<Radio />} label={get(`pillar.types.${single}`)} />
-                            {examples[single].map((block, index) => {
-                                const pillar = block === 1;
-                                return (
-                                    <Box key={index} sx={{
-                                        mb: 1,
-                                        width: 48,
-                                        height: 48,
-                                        display: "inline-flex",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                        boxShadow: theme => `inset 0 0 0 ${theme.spacing(1)} ${theme.palette[pillar ? "primary" : "secondary"][theme.palette.mode]}`
-                                    }}>
-                                        <Typography>
-                                            {pillar ? get("pillar.name") : get("pillar.distance")}
-                                        </Typography>
-                                    </Box>
-                                );
-                            })}
+                            {examples[single].map((block, index) => <Box key={index} sx={{
+                                mb: 1,
+                                width: 48,
+                                height: 48,
+                                display: "inline-flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                boxShadow: theme => `inset 0 0 0 ${theme.spacing(1)} ${theme.palette[
+                                    block === 1 ? "primary" : "secondary"
+                                ][theme.palette.mode]}`
+                            }}>
+                                <Typography>
+                                    {block === 1 ? get("pillar.name") : get("pillar.distance")}
+                                </Typography>
+                            </Box>)}
                         </Box>
                         )}
                     </RadioGroup>
@@ -148,14 +153,14 @@ export default function Pillar(): JSX.Element {
                                     }} />
                                 </Grid>
                                 <Grid item xs={3} sm={7}>
-                                    <Slider marks step={1} min={0} max={length} value={[rule.min, rule.max]} onChange={(event, newValue) => setFilterRules(old => {
+                                    <Slider marks step={1} min={0} onChange={(event, newValue) => setFilterRules(old => {
                                         const realOld = {
                                             ...old
                                         };
                                         realOld[name].min = Number(newValue[0]);
                                         realOld[name].max = Number(newValue[1]);
                                         return realOld;
-                                    })} aria-labelledby={sizeLabelId} />
+                                    })} max={length} value={[rule.min, rule.max]} aria-labelledby={sizeLabelId} />
                                 </Grid>
                                 <Grid item xs={4} sm={2}>
                                     <TextField label={get("filter.type.max")} sx={{

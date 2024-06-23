@@ -46,19 +46,25 @@ export const mostUsedSelects = 3,
         .then(toFilter => toFilter.filter(item => item !== 0) satisfies unknown as tool[]))),
     mostUsedAtom = atomWithStorage<mostUsedMarks>("most-tools", {
     }),
-    mostUsedToolsAtom = atom(get => awaiter(get(convertedExtensionsAtom), converted => awaiter(get(toolsInfoAtom), realTools => awaiter(get(mostUsedAtom), mostUsed => Object.entries(mostUsed).sort((r, g) => {
-        if (r[1] < g[1]) {
-            return 1;
-        } if (r[1] > g[1]) {
-            return -1;
-        }
-        return 0;
-    }).slice(0, mostUsedSelects).map(item => {
-        const to = item[0];
-        return 0
-            || realTools.find(single => single.to === to)
-            || converted.find(single => `/tools/extension?tool=${to}` === single.to) as tool | 0;
-    }).filter(item => item !== 0 && item !== undefined) as unknown as tool[])))),
+    mostUsedToolsAtom = atom(get => awaiter(
+        get(convertedExtensionsAtom), converted => awaiter(
+            get(toolsInfoAtom), realTools => awaiter(
+                get(mostUsedAtom), mostUsed => Object.entries(mostUsed).sort((r, g) => {
+                    if (r[1] < g[1]) {
+                        return 1;
+                    } if (r[1] > g[1]) {
+                        return -1;
+                    }
+                    return 0;
+                }).slice(0, mostUsedSelects).map(item => {
+                    const to = item[0];
+                    return 0
+                        || realTools.find(single => single.to === to)
+                        || converted.find(single => `/tools/extension?tool=${to}` === single.to) as tool | 0;
+                }).filter(item => item !== 0 && item !== undefined) as unknown as tool[]
+            )
+        )
+    )),
     listsAtom = atomWithStorage<lists>("lists", []),
     buttonCommonSorterAtom = atom(null, (get, set, sortingFor: string, pd: tool[]) => awaiter(get(listsAtom), realList => {
         const index = realList.findIndex(item => item[0] === sortingFor),
@@ -71,19 +77,23 @@ export const mostUsedSelects = 3,
         set(listsAtom, newRealList);
         return newRealList;
     })),
-    extensionDataCleanerAtom = atom(null, async (get, set, clearingExtension: NXTMetadata) => awaiter(get(mostUsedAtom), mostUsed => awaiter(get(recentlyUsedAtom), oldRecently => {
-        const
-            oldMost = {
-                ...mostUsed
-            };
-        set(extensionsAtom, {
-            ...clearingExtension,
-            settings: clearingExtension.settings.map(setting => ({
-                ...setting,
-                value: setting.defaultValue
-            }) as setting)
-        });
-        set(recentlyUsedAtom, oldRecently.filter(item => item !== clearingExtension.to));
-        Reflect.deleteProperty(oldMost, clearingExtension.to);
-        set(mostUsedAtom, oldMost);
-    })));
+    extensionDataCleanerAtom = atom(null, async (get, set, clearingExtension: NXTMetadata) => awaiter(
+        get(mostUsedAtom), mostUsed => awaiter(
+            get(recentlyUsedAtom), oldRecently => {
+                const
+                    oldMost = {
+                        ...mostUsed
+                    };
+                set(extensionsAtom, {
+                    ...clearingExtension,
+                    settings: clearingExtension.settings.map(setting => ({
+                        ...setting,
+                        value: setting.defaultValue
+                    }) as setting)
+                });
+                set(recentlyUsedAtom, oldRecently.filter(item => item !== clearingExtension.to));
+                Reflect.deleteProperty(oldMost, clearingExtension.to);
+                set(mostUsedAtom, oldMost);
+            }
+        )
+    ));

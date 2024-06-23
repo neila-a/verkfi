@@ -28,6 +28,11 @@ import {
 import defaultInternalPalette from "./defaultInternalPalette";
 import internalPaletteAtom from "./paletteAtom";
 import ColorPicker from "./ColorPicker";
+const colorModeIcons = [
+    ["light", LightMode],
+    ["dark", DarkMode],
+    ["system", BrightnessMedium]
+] satisfies [PaletteMode | "system", typeof LightMode][];
 function ColorTool() {
     const setInternalPalette = useSetAtom(internalPaletteAtom),
         {
@@ -45,7 +50,7 @@ function ColorTool() {
                     justifyContent: "space-evenly",
                     mb: 2
                 }}>
-                    {([["light", LightMode], ["dark", DarkMode], ["system", BrightnessMedium]] satisfies [PaletteMode | "system", typeof LightMode][]).map(item => {
+                    {colorModeIcons.map(item => {
                         const isThis = mode === item[0],
                             Icon = item[1];
                         return (

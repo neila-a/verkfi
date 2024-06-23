@@ -152,7 +152,7 @@ export default function Clients() {
             </DialogTitle>
             <DialogContent dividers>
                 <Provider>
-                    <ToolsStack notfound={(
+                    <ToolsStack disableClick focus={focusing} notfound={(
                         <No>
                             {get("clients.notfound")}
                             <br />
@@ -167,7 +167,7 @@ export default function Clients() {
                                 })}
                             </Button>
                         </No>
-                    )} disableClick focus={focusing} actions={filteredClients.map(client => <MouseOverPopover key={client.id} text={get("clients.navigate")}>
+                    )} actions={filteredClients.map(client => <MouseOverPopover key={client.id} text={get("clients.navigate")}>
                         <IconButton aria-label={get("clients.navigate")} onClick={event => {
                             setNavigatingId(client.id);
                             setNavigateDialogOpen(true);

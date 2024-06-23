@@ -65,14 +65,17 @@ export const editModeAtom = atom(false),
             set(valueAtom, update);
         }
     )),
-    [searchTextAtom, searchTextAtomValue] = atomWithInitialValue((valueAtom: PrimitiveAtom<string>) => atom(get => get(valueAtom), (get, set, search: string, isImplant: boolean) => {
-        set(editingAtom, search === "");
-        if (get(sortingForAtom)(isImplant) === "__home__") {
-            set(sortingForAtom, "__global__");
+    [searchTextAtom, searchTextAtomValue] = atomWithInitialValue((valueAtom: PrimitiveAtom<string>) => atom(
+        get => get(valueAtom),
+        (get, set, search: string, isImplant: boolean) => {
+            set(editingAtom, search === "");
+            if (get(sortingForAtom)(isImplant) === "__home__") {
+                set(sortingForAtom, "__global__");
+            }
+            set(valueAtom, search);
+            awaiter(get(sortedToolsAtom), sortedTools => set(toolsAtom, searchBase(sortedTools, search)));
         }
-        set(valueAtom, search);
-        awaiter(get(sortedToolsAtom), sortedTools => set(toolsAtom, searchBase(sortedTools, search)));
-    }), ""),
+    ), ""),
     [editingAtom, editingAtomValue] = atomWithInitialValue((valueAtom: valueAtomReturn<boolean>) => atom(simpleGetterWithEmpty(valueAtom, get => {
         const searchText = get(searchTextAtom);
         return searchText === "";

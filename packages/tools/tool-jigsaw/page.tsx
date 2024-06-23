@@ -120,7 +120,17 @@ export default function JigsawEntry(): JSX.Element {
             for (let y of range(height - 1)) {
                 const thisBuffer: Blob[] = [];
                 for (let x of range(width - 1)) {
-                    context.drawImage(img, x * img.width / width, y * img.height / height, img.width / width, img.height / height, 0, 0, img.width / width, img.height / height);
+                    context.drawImage(
+                        img,
+                        x * img.width / width,
+                        y * img.height / height,
+                        img.width / width,
+                        img.height / height,
+                        0,
+                        0,
+                        img.width / width,
+                        img.height / height
+                    );
                     thisBuffer.push(await canvasToBlob(canvas));
                     context.clearRect(0, 0, img.width / width, img.height / height);
                 }
@@ -306,7 +316,9 @@ export default function JigsawEntry(): JSX.Element {
                                         return n.blocks?.[indexb1]?.[indexc1];
                                     })).filter(item => item !== undefined)
                                 },
-                                    booleans = await Promise.all(jigsaws.map(async jigsaw => await blobToInt8Array(jigsaw.all) === await blobToInt8Array(imageFile))),
+                                    booleans = await Promise.all(jigsaws.map(
+                                        async jigsaw => await blobToInt8Array(jigsaw.all) === await blobToInt8Array(imageFile)
+                                    )),
                                     index = booleans.indexOf(true);
                                 const old = jigsaws.slice(0);
                                 old[index] = addingJigsaw;

@@ -78,11 +78,11 @@ export default function ModifiedApp(props: {
         implant = pathname === "/" || params.get("only") === "true",
         sidebarModeValue = useAtomValue(sidebarModeAtom),
         ml: string = implant ? "" : expand ? `calc(min(${`calc(100vw - ${drawerWidth}px)`}, 320px) + ${drawerWidth}px)` : `${drawerWidth}px`,
-        Sidebar = implant ? null : sidebarModeValue === "menu" ? createElement(dynamic(() => import("./Menu"))) : createElement(dynamic(() => import("page")), {
+        Sidebar = implant ? null : sidebarModeValue === "sidebar" ? createElement(dynamic(() => import("page")), {
             isImplant: true,
             expand: expand,
             setExpand: setExpand
-        }), // 使用createElement因为dynamic不能直接以JSX方式调用
+        }) : createElement(dynamic(() => import("./Menu"))), // 使用createElement因为dynamic不能直接以JSX方式调用
         showSidebarValue = useAtomValue(showSidebarAtom),
         Provider = composeProviders([repoInfo, props.repoInfo]);
     useEffect(() => {
