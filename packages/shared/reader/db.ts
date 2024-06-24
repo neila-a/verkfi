@@ -13,8 +13,7 @@ class DataBase extends Dexie {
         super("Verkfi");
         // 7是数据库版本
         // eslint-disable-next-line no-magic-numbers
-        this.version(7).stores({
-            extensionTools: "&to", // Primary key and indexed props
+        this.version(8).stores({
             options: ""
         });
     }
