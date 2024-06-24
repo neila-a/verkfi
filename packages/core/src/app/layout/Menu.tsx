@@ -37,6 +37,7 @@ import {
 } from "layout/layoutClient";
 import {
     mostUsedToolsAtom,
+    recentlyToolsAtom,
     recentlyUsedAtom as recentlyUsedAtom,
     showSidebarAtom
 } from "@verkfi/shared/atoms";
@@ -71,13 +72,11 @@ export default function Menu() {
     const [control, setControl] = useAtom(showSidebarAtom),
         theme = useTheme(),
         fullScreen = useMediaQuery(theme.breakpoints.down("sm")),
-        realTools = useAtomValue(toolsInfoAtom),
-        recentlyUsed = useAtomValue(recentlyUsedAtom),
         sortingFor = useAtomValue(sortingForAtom)(false),
         setSortingFor = useSetAtom(sortingForAtom),
         [tab, setTab] = useAtom(tabAtom),
+        recentlyUsedTools = useAtomValue(recentlyToolsAtom),
         [searchText, setSearchText] = useAtom(searchTextAtom),
-        converted = useAtomValue(convertedExtensionsAtom),
         gotToolsList = useAtomValue(toolsListAtom),
         mostUsed = useAtomValue(mostUsedToolsAtom),
         setSortedTools = useSetAtom(sortedToolsAtom),
@@ -98,9 +97,7 @@ export default function Menu() {
     }
     function handleEnter() {
         const selectool = document.getElementById(`toolAbleToSelect-${focusingTo}`) as HTMLDivElement | null;
-        if (selectool !== null) {
-            selectool.click();
-        }
+        selectool?.click();
     }
     return (
         <isImplantContext.Provider value={false}>
@@ -197,11 +194,7 @@ export default function Menu() {
                             <Box sx={{
                                 p: 1
                             }}>
-                                <ToolsStack
-                                    paramTool={recentlyUsed.map(to => 0
-                                        || realTools.find(single => single.to === to)
-                                        || converted.find(single => `/tools/extension?tool=${to}` === single.to)
-                                    ).filter((item: tool | 0) => item !== 0 && item !== undefined) as unknown as tool[]} />
+                                <ToolsStack paramTool={recentlyUsedTools} />
                             </Box>
                         </Box>
                         <Box>

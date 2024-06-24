@@ -1,16 +1,25 @@
-import atomWithBroadcast from "./atomWithBroadcast";
-import atomWithInitialValue, {
-    valueAtomReturn
-} from "./atomWithInitialValue";
+import atomWithBroadcast, {
+    Write
+} from "./atomWithBroadcast";
+import atomWithInitialValue from "./atomWithInitialValue";
 import db from "./db";
-import simpleGetterWithEmpty from "./simpleGetterWithEmpty";
+import atomWithEmpty from "./atomWithEmpty";
 export const emptySymbol: unique symbol = Symbol("This atom is empty, it's waiting a value.");
 const atomWithStorage = <setting = any>(id: string, empty: setting) => atomWithInitialValue(
-    (valueAtom: valueAtomReturn<setting>) => atomWithBroadcast(
-        simpleGetterWithEmpty(valueAtom, get => db.readSetting(id, empty)), (get, set, update: setting) => {
-            set(valueAtom, update);
-            db.setSetting(id, update);
-        }, `storagedAtom-${id}`
-    )
+    valueAtom => {
+        const withedEmpty = atomWithEmpty<setting, setting, void>(
+            get => db.readSetting(id, empty),
+            (get, set, update: setting) => {
+                set(valueAtom, update);
+                db.setSetting(id, update);
+            },
+            valueAtom
+        );
+        return atomWithBroadcast(
+            get => get(withedEmpty),
+            (get, set, update: setting) => set(withedEmpty, update),
+            `storagedAtom-${id}`
+        );
+    }
 )[0];
 export default atomWithStorage;
