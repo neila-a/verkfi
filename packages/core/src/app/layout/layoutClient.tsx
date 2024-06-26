@@ -4,15 +4,12 @@ import {
     CssBaseline
 } from "@mui/material";
 import {
-    CssVarsProvider,
-    extendTheme
+    CssVarsProvider
 } from "@mui/material/styles";
-import Ubuntu from "@verkfi/shared/fonts";
 import {
     repoInfo as repoInfoType
 } from "@verkfi/shared/getRepoInfo";
 import {
-    useAtom,
     useAtomValue
 } from "jotai";
 import LpLogger from "lp-logger";
@@ -25,10 +22,8 @@ import {
     ReactNode,
     createContext,
     createElement,
-    useEffect,
-    useState
+    useEffect
 } from "react";
-import intl from "react-intl-universal";
 import {
     drawerWidth
 } from "setting/consts";
@@ -36,6 +31,7 @@ import enUS from "../locales/en-US.json";
 import zhCN from "../locales/zh-CN.json";
 import zhTW from "../locales/zh-TW.json";
 import {
+    langIniterAtom,
     usableLangAtom
 } from "@verkfi/shared/atoms/lang";
 import composeProviders from "./providerCompose";
@@ -75,9 +71,7 @@ export default function ModifiedApp(props: {
     const theme = useAtomValue(themeAtom),
         pathname = usePathname(),
         params = useSearchParams(),
-        choosedLang = useAtomValue(usableLangAtom),
         expand = useAtomValue(expandAtom),
-        [loaded, setLoaded] = useState<"" | keyof typeof locales>(""),
         implant = pathname === "/" || params.get("only") === "true",
         sidebarModeValue = useAtomValue(sidebarModeAtom),
         ml: string = implant ? "" : expand ? `calc(min(${`calc(100vw - ${drawerWidth}px)`}, 320px) + ${drawerWidth}px)` : `${drawerWidth}px`,
@@ -86,23 +80,13 @@ export default function ModifiedApp(props: {
         }) : createElement(dynamic(() => import("./Menu"))), // 使用createElement因为dynamic不能直接以JSX方式调用
         showSidebarValue = useAtomValue(showSidebarAtom),
         Provider = composeProviders([repoInfo, props.repoInfo]);
+    useAtomValue(langIniterAtom);
     useEffect(() => {
-        if (isBrowser()) {
-            registerProtocolHandler();
-            registerServiceWorker();
-        } else {
-            logger.error(`执行BOM相关操作时发生错误`);
-        }
+        registerProtocolHandler();
+        registerServiceWorker();
         desktopAdder();
     }, []);
-    useEffect(() => {
-        intl.init({
-            currentLocale: choosedLang,
-            locales
-        });
-        setLoaded(choosedLang);
-    }, [choosedLang]);
-    return loaded !== "" && <Provider>
+    return <Provider>
         <CssVarsProvider theme={theme}>
             <CssBaseline />
             <Box component="aside">

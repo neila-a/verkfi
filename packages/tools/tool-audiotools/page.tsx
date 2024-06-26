@@ -56,9 +56,7 @@ function AudioTools(): JSX.Element {
                     <Typography variant="h4" gutterBottom>
                         {get("音频循环播放")}
                     </Typography>
-                    <audio controls loop src={loopAudioSrc}>
-                        {get("你的浏览器不支持 audio 元素。")}
-                    </audio>
+                    <audio controls loop src={loopAudioSrc} />
                     <FilePond
                         files={[]}
                         onupdatefiles={(audios: FilePondFile[]) => audios.forEach(audio => setLoopAudioSrc(window.URL.createObjectURL(audio.file)))}
@@ -85,9 +83,7 @@ function AudioTools(): JSX.Element {
                     }} disabled={status === "inactive"}>
                         {get("停止")}
                     </Button>
-                    <audio controls loop src={loopSpeakAudioSrc}>
-                        {get("你的浏览器不支持 audio 元素。")}
-                    </audio>
+                    <audio controls loop src={loopSpeakAudioSrc} />
                 </Module>
             </Grid>
         </Grid>

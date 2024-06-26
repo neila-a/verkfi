@@ -94,8 +94,8 @@ export interface tool extends noIconTool {
     icon: typeof SvgIcon; // MaterialUI 官方做法
 
 }
-const toolsInfoAtom = atom(getAtom => awaiter(
-    getAtom(usableLangAtom), lang => {
+const toolsInfoAtom = atom(async getAtom => awaiter(
+    await getAtom(usableLangAtom), lang => {
         const instance = new ReactIntlUniversal() as typeof import("react-intl-universal");
         instance.init({
             currentLocale: lang,

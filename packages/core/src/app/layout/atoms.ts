@@ -1,23 +1,29 @@
-import atomWithBroadcast from "@verkfi/shared/reader/atomWithBroadcast";
-import atomWithEmpty from "@verkfi/shared/reader/atomWithEmpty";
-import atomWithInitialValue, {
-    valueAtomReturn
-} from "@verkfi/shared/reader/atomWithInitialValue";
+import {
+    atomWithRefresh
+} from "jotai/utils";
+import {
+    message
+} from "../../service-worker/onMessage";
+import {
+    atom
+} from "jotai";
 interface clientBase {
     id: string;
     url: string;
 }
-export const [clientsAtom] = atomWithInitialValue(
-    (valueAtom: valueAtomReturn<clientBase[]>) => {
-        const withedEmpty = atomWithEmpty(
-            () => [] as clientBase[],
-            (get, set, update: clientBase[]) => set(valueAtom, update),
-            valueAtom
-        );
-        return atomWithBroadcast(
-            get => get(withedEmpty),
-            (get, set, update: clientBase[]) => set(withedEmpty, update),
-            "clients"
-        );
+export const clientsAtom = atomWithRefresh(get => new Promise<clientBase[]>(resolve => {
+    const channel = new MessageChannel();
+    channel.port1.onmessage = event => {
+        resolve(event.data as clientBase[]);
+    };
+    if ("serviceWorker" in navigator && navigator.serviceWorker) {
+        navigator.serviceWorker.controller.postMessage({
+            action: "getClients"
+        } as message, [channel.port2]);
     }
-);
+})),
+    searchTextAtom = atom(""),
+    /** 
+     * `clientsAtom`一定是`Promise`，不需要使用`awaiter`
+     */
+    filteredClientsAtom = atom(get => get(clientsAtom).then(clients => clients.filter(client => client.url.includes(get(searchTextAtom)))));

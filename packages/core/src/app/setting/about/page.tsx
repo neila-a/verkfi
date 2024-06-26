@@ -7,38 +7,33 @@ import {
     Button,
     Typography
 } from "@mui/material";
-import ErrorBoundary from "@verkfi/shared/ErrorBoundary";
 import VerkfiIcon from "@verkfi/shared/verkfiIcon";
 import isBrowser from "@verkfi/shared/isBrowser";
-import dynamic from "next/dynamic";
 import Link from "next/link";
-import {
-    ReactNode,
-    useState
-} from "react";
 import {
     get,
     getHTML
 } from "react-intl-universal";
 import pack from "../../../../package.json";
 import Reset from "./reset";
-const PureDialog = dynamic(() => import("@verkfi/shared/dialog/Pure"));
+import {
+    Suspense
+} from "react";
+import Loading from "loading";
 const {
     version,
-    devVersion
+    devVersion,
+    author
 } = pack;
 export default function About() {
-    const initialAddressInfo = {
-        host: "",
-        href: "",
-        pathname: "",
-        port: "",
-        protocol: ""
-    };
-    const [dialogOpen, setDialogOpen] = useState<boolean>(false),
-        [dialogContext, setDialogContext] = useState<ReactNode>(""),
-        [dialogTitle, setDialogTitle] = useState<string>(""),
-        year = new Date().getFullYear();
+    const year = new Date().getFullYear(),
+        initialAddressInfo = {
+            host: "",
+            href: "",
+            pathname: "",
+            port: "",
+            protocol: ""
+        };
     let addressInfo = initialAddressInfo;
     if (isBrowser()) {
         addressInfo = {
@@ -50,7 +45,7 @@ export default function About() {
         };
     }
     return (
-        <ErrorBoundary>
+        <>
             <Typography variant="h4">
                 {get("关于")}
             </Typography>
@@ -100,13 +95,17 @@ export default function About() {
             }} paragraph>
                 ©Copyleft ! <time dateTime="2022">2022</time>-<time dateTime={year.toString()}>
                     {year}
-                </time>， Neila
+                </time>， <Link href={new URL(author.url)}>
+                    {author.name}
+                </Link>
                 <br />
                 {get("copyright.本程序从未提供品质担保。")}
                 <br />
                 {getHTML("copyright.版权")}
             </Typography>
-            <Reset />
+            <Suspense fallback={<Loading />}>
+                <Reset />
+            </Suspense>
             <Typography variant="body1" sx={{
                 mt: 4,
                 p: 2
@@ -121,15 +120,6 @@ export default function About() {
                 <br />
                 {get("infos.status.端口")}：{addressInfo.port}
             </Typography>
-            <PureDialog open={dialogOpen} title={dialogTitle} onClose={() => {
-                setDialogContext("");
-                setDialogTitle("");
-                setDialogOpen(false);
-            }}>
-                <Box component="section">
-                    {dialogContext}
-                </Box>
-            </PureDialog>
-        </ErrorBoundary>
+        </>
     );
 }
