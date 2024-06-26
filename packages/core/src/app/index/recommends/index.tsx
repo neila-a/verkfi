@@ -5,11 +5,10 @@ import {
     Collapse,
     Typography
 } from "@mui/material";
-import ToolsStack from "index/showTool";
 import recommendAtom from "@verkfi/shared/atoms/recommend";
 import {
-    useAtom,
-    useAtomValue
+    useAtomValue,
+    useSetAtom
 } from "jotai";
 import {
     get
@@ -17,8 +16,13 @@ import {
 import {
     showRecommendsAtom
 } from "index/atoms";
+import {
+    Suspense
+} from "react";
+import Loading from "loading";
+import InnerRecommends from "./Inner";
 export default function Recommends() {
-    const [recommend, refreshTries] = useAtom(recommendAtom), showRecommends = useAtomValue(showRecommendsAtom);
+    const refreshTries = useSetAtom(recommendAtom), showRecommends = useAtomValue(showRecommendsAtom);
     return <Collapse in={showRecommends}>
         <Box>
             <Box sx={{
@@ -35,8 +39,9 @@ export default function Recommends() {
             <Box sx={{
                 p: 1
             }}>
-                <ToolsStack
-                    paramTool={recommend.filter(item => item !== undefined)} />
+                <Suspense fallback={<Loading />}>
+                    <InnerRecommends />
+                </Suspense>
             </Box>
         </Box>
     </Collapse>;

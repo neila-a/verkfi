@@ -31,8 +31,7 @@ import enUS from "../locales/en-US.json";
 import zhCN from "../locales/zh-CN.json";
 import zhTW from "../locales/zh-TW.json";
 import {
-    langIniterAtom,
-    usableLangAtom
+    langIniterAtom
 } from "@verkfi/shared/atoms/lang";
 import composeProviders from "./providerCompose";
 import desktopAdder from "./registers/desktopAdder";
@@ -42,7 +41,6 @@ import {
     sidebarModeAtom,
     showSidebarAtom
 } from "@verkfi/shared/atoms";
-import isBrowser from "@verkfi/shared/isBrowser";
 import Clients from "./Clients";
 import {
     DevTools
@@ -74,7 +72,7 @@ export default function ModifiedApp(props: {
         expand = useAtomValue(expandAtom),
         implant = pathname === "/" || params.get("only") === "true",
         sidebarModeValue = useAtomValue(sidebarModeAtom),
-        ml: string = implant ? "" : expand ? `calc(min(${`calc(100vw - ${drawerWidth}px)`}, 320px) + ${drawerWidth}px)` : `${drawerWidth}px`,
+        ml = implant ? "" : expand ? `calc(min(${`calc(100vw - ${drawerWidth}px)`}, 320px) + ${drawerWidth}px)` : `${drawerWidth}px`,
         Sidebar = implant ? null : sidebarModeValue === "sidebar" ? createElement(dynamic(() => import("page")), {
             isImplant: true
         }) : createElement(dynamic(() => import("./Menu"))), // 使用createElement因为dynamic不能直接以JSX方式调用

@@ -21,9 +21,6 @@ import {
     showSidebarAtom as showSidebarAtom
 } from "@verkfi/shared/atoms";
 import {
-    Suspense
-} from "react";
-import {
     get
 } from "react-intl-universal";
 import {
@@ -43,8 +40,13 @@ import {
 import {
     isImplantContext
 } from "index/consts";
-import Loading from "loading";
-import Recommends from "index/Recommends";
+import Recommends from "index/recommends";
+import {
+    useContext
+} from "react";
+import {
+    repoInfo as repoInfoContext
+} from "layout/layoutClient";
 export default function Index(props: {
     /**
      * 是否为嵌入
@@ -59,6 +61,7 @@ export default function Index(props: {
         sortingFor = useAtomValue(sortingForAtom)(props.isImplant),
         baseSortingFor = useAtomValue(sortingForAtomValue),
         focusingTo = useAtomValue(focusingToAtom),
+        repoInfo = useContext(repoInfoContext),
         recentlyTools = useAtomValue(recentlyToolsAtom);
     function Tools() {
         return (
@@ -76,7 +79,7 @@ export default function Index(props: {
     return (props.isImplant ? showSidebar : true) && <isImplantContext.Provider value={Boolean(props.isImplant)}>
         <Box>
             {props.isImplant !== true
-                && <HeadBar isIndex pageName="Verkfi" sx={{
+                && <HeadBar isIndex pageName={repoInfo.name} sx={{
                     zIndex: theme => String((theme as ThemeHaveZIndex).zIndex.drawer + 1)
                 }} />
             }
@@ -102,9 +105,7 @@ export default function Index(props: {
                         </IconButton>
                     </MouseOverPopover>
                 </Box>
-                <Suspense fallback={<Loading />}>
-                    <Recommends />
-                </Suspense>
+                <Recommends />
                 <Box>
                     <Typography variant="h4">
                         {get("use.最近使用")}
