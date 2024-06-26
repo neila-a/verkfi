@@ -16,10 +16,6 @@ import {
 } from "react-intl-universal";
 import pack from "../../../../package.json";
 import Reset from "./reset";
-import {
-    Suspense
-} from "react";
-import Loading from "loading";
 const {
     version,
     devVersion,
@@ -103,9 +99,7 @@ export default function About() {
                 <br />
                 {getHTML("copyright.版权")}
             </Typography>
-            <Suspense fallback={<Loading />}>
-                <Reset />
-            </Suspense>
+            <Reset />
             <Typography variant="body1" sx={{
                 mt: 4,
                 p: 2
