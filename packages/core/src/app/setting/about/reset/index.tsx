@@ -1,11 +1,14 @@
 "use client";
 import {
-    Button
+    Button,
+    Skeleton,
+    Stack,
+    Typography
 } from "@mui/material";
 import ErrorBoundary from "@verkfi/shared/ErrorBoundary";
 import dynamic from "next/dynamic";
 import {
-    use,
+    Suspense,
     useState
 } from "react";
 import {
@@ -15,23 +18,19 @@ import {
     logger
 } from "../../logger";
 import Line from "./Line";
-import getCache from "./getCache";
-const CheckDialog = dynamic(() => import("@verkfi/shared/dialog/Check")),
-    fractionDigits = 5;
+const CheckDialog = dynamic(() => import("@verkfi/shared/dialog/Check"));
 export default function Reset() {
-    const [dialogOpen, setDialogOpen] = useState<boolean>(false),
-        cacheUsed = use(getCache("usage")),
-        cacheAll = use(getCache("quota"));
+    const [dialogOpen, setDialogOpen] = useState<boolean>(false);
     return (
         <ErrorBoundary>
-            <Line
-                // 100用于把小数转换为百分比
-                // eslint-disable-next-line no-magic-numbers
-                value={Number((cacheUsed / cacheAll * 100).toFixed(fractionDigits))}
-                mainLabel={get("storage.缓存空间")}
-                usedLabel={`${get("已用")} ${cacheUsed.toFixed(fractionDigits)} MB`}
-                surLabel={`${get("storage.总容量")} ${cacheAll.toFixed(fractionDigits)} MB`}
-            />
+            <Stack direction="column" spacing={1}>
+                <Typography>
+                    {get("storage.缓存空间")}
+                </Typography>
+                <Suspense fallback={<Skeleton />}>
+                    <Line />
+                </Suspense>
+            </Stack>
             <Button variant="contained" onClick={() => {
                 setDialogOpen(true);
             }} fullWidth>

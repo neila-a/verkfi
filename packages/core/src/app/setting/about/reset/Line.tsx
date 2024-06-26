@@ -1,33 +1,33 @@
+"use client";
 import {
     Box,
     LinearProgress,
-    Stack,
     Typography
 } from "@mui/material";
-/**
- * 线段图
- * @param value 百分比
- * @param usedLabel 百分比的标签
- * @param surLabel 剩余百分比的标签
- * @param mainLabel 主标签
- * @returns 一个React元素，其中含有线段图
- */
-export default function Line(props: {
-    value: number;
-    usedLabel: string;
-    surLabel: string;
-    mainLabel: string;
-}) {
+import {
+    use
+} from "react";
+import getCache from "./getCache";
+import {
+    get
+} from "react-intl-universal";
+import ErrorBoundary from "@verkfi/shared/ErrorBoundary";
+const fractionDigits = 5;
+export default function Line() {
+    const cacheUsed = use(getCache("usage")),
+        cacheAll = use(getCache("quota"));
     return (
-        <Stack direction="column" spacing={1}>
-            <Typography>
-                {props.mainLabel}
-            </Typography>
+        <ErrorBoundary>
             <Box sx={{
                 width: "100%",
                 mr: 1
             }}>
-                <LinearProgress variant="determinate" {...props} />
+                <LinearProgress
+                    variant="determinate"
+                    // 100用于把小数转换为百分比
+                    // eslint-disable-next-line no-magic-numbers
+                    value={Number((cacheUsed / cacheAll * 100).toFixed(fractionDigits))}
+                />
             </Box>
             <Box sx={{
                 display: "flex",
@@ -38,17 +38,17 @@ export default function Line(props: {
                     minWidth: 35
                 }}>
                     <Typography variant="body2" color="text.secondary">
-                        {props.usedLabel}
+                        {`${get("已用")} ${cacheUsed.toFixed(fractionDigits)} MB`}
                     </Typography>
                 </Box>
                 <Box sx={{
                     minWidth: 35
                 }}>
                     <Typography variant="body2" color="text.secondary">
-                        {props.surLabel}
+                        {`${get("storage.总容量")} ${cacheAll.toFixed(fractionDigits)} MB`}
                     </Typography>
                 </Box>
             </Box>
-        </Stack>
+        </ErrorBoundary>
     );
 }
