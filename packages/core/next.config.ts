@@ -12,7 +12,8 @@ const nextConfig: NextConfig = bundleAnalyzer({
     compress: true,
     experimental: {
         typedRoutes: true
+        // disabled: reactCompiler: true
     },
     transpilePackages: ["jotai-devtools"]
 });
-module.exports = nextConfig;
+export default nextConfig;

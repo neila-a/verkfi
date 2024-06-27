@@ -236,7 +236,7 @@ export default function JigsawEntry(): JSX.Element {
                                 }
                             }}>
                                 <MouseOverPopover text={get("jigsaw.delete")}>
-                                    <IconButton onClick={async (event) => {
+                                    <IconButton onClick={async event => {
                                         jigsaws.forEach(async (singleOld, index) => {
                                             if (await blobToInt8Array(singleOld.all) === await blobToInt8Array(jigsaw.all)) {
                                                 setJigsaws(jigsaws.toSpliced(index, 1));

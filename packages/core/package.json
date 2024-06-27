@@ -19,11 +19,11 @@
         "url": "https://neilasite.netlify.app/"
     },
     "scripts": {
-        "predev": "npm run build:pb && VERKFI_ENV=dev node prebuild.js",
+        "predev": "npm run build:pb && VERKFI_ENV=dev node out/prebuilder.js",
         "dev": "npm run predev && VERKFI_URL=localhost:3000 next dev",
-        "prebuild": "npm run build:pb && node prebuild.js",
+        "prebuild": "npm run build:pb && node out/prebuilder.js",
         "build": "npm run prebuild && NODE_PATH=$(pwd)/node_modules  next build",
-        "build:pb": "esbuild prebuild.ts --bundle --minify --external:esbuild --platform=node --outfile=prebuild.js",
+        "build:pb": "esbuild src/prebuilder/index.ts --bundle --minify --external:esbuild --platform=node --outfile=out/prebuilder.js",
         "lint": "next lint --fix --dir ../shared ../tools ./src",
         "start": "next start"
     },

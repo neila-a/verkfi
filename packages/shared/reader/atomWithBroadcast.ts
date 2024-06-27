@@ -9,7 +9,7 @@ export default function atomWithBroadcast<Value, Arg, Result>(read: (get: Getter
         write(get, set, update);
         const channel = new BroadcastChannel(broadcastChannelId);
         return channel.postMessage(update);
-    }) as unknown as WritableAtom<Value, [Arg, isEvent?: boolean], Result>;
+    }) as unknown as WritableAtom<Value, [update: Arg, isEvent?: boolean], Result>;
     created.debugLabel = broadcastChannelId;
     created.onMount = setAtom => {
         const channel = new BroadcastChannel(broadcastChannelId);
