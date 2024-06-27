@@ -11,6 +11,7 @@ import {
     Box,
     Button,
     ButtonGroup,
+    Skeleton,
     useTheme
 } from "@mui/material";
 import saveAs from "file-saver";
@@ -70,9 +71,10 @@ export default function Editor(props: {
             }}>
                 <Monaco value={code} onChange={(value, event) => {
                     setCode(value);
-                }} theme={theme.palette.mode === "light" ? "light" : "vs-dark"} language="javascript" loading={(
-                    <Loading />
-                )} />
+                }} theme={theme.palette.mode === "light" ? "light" : "vs-dark"} language="javascript" loading={<Skeleton sx={{
+                    height: "30vh",
+                    maxWidth: "unset" // Skeleton自带的maxWidth是fit-content，会导致没有覆盖到全宽
+                }} />} />
             </Box>
             <input type="file" style={{
                 display: "none"

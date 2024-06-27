@@ -33,7 +33,6 @@ import zhTW from "../locales/zh-TW.json";
 import {
     langIniterAtom
 } from "@verkfi/shared/atoms/lang";
-import composeProviders from "./providerCompose";
 import desktopAdder from "./registers/desktopAdder";
 import registerProtocolHandler from "./registers/registerProtocolHandler";
 import registerServiceWorker from "./registers/registerServiceWorker";
@@ -76,15 +75,14 @@ export default function ModifiedApp(props: {
         Sidebar = implant ? null : sidebarModeValue === "sidebar" ? createElement(dynamic(() => import("page")), {
             isImplant: true
         }) : createElement(dynamic(() => import("./Menu"))), // 使用createElement因为dynamic不能直接以JSX方式调用
-        showSidebarValue = useAtomValue(showSidebarAtom),
-        Provider = composeProviders([repoInfo, props.repoInfo]);
+        showSidebarValue = useAtomValue(showSidebarAtom);
     useAtomValue(langIniterAtom);
     useEffect(() => {
         registerProtocolHandler();
         registerServiceWorker();
         desktopAdder();
     }, []);
-    return <Provider>
+    return <repoInfo.Provider value={props.repoInfo}>
         <CssVarsProvider theme={theme}>
             <CssBaseline />
             <Box component="aside">
@@ -96,5 +94,5 @@ export default function ModifiedApp(props: {
                 {props.children}
             </Box>
         </CssVarsProvider>
-    </Provider>;
+    </repoInfo.Provider>;
 }
