@@ -25,10 +25,12 @@ import {
 } from "react-intl-universal";
 import Module from "./Module";
 import getRecording from "@verkfi/shared/getRecording";
+import useBlobState from "@verkfi/shared/useBlobState";
 export type status = "recording" | "paused" | "inactive";
 function AudioTools(): JSX.Element {
-    const [loopAudioSrc, setLoopAudioSrc] = useState<string>(""),
-        [loopSpeakAudioSrc, setLoopSpeakAudioSrc] = useState<string>(""),
+    const mediaRecorder = useRef<"awaqwq" | MediaRecorder>("awaqwq"),
+        [loopAudioSrc, setLoopAudioSrc] = useBlobState(),
+        [loopSpeakAudioSrc, setLoopSpeakAudioSrc] = useBlobState(),
         [status, setStatus] = useReducer((old: status, set: status) => {
             switch (set) {
                 case "inactive":
@@ -42,13 +44,14 @@ function AudioTools(): JSX.Element {
                     break;
             }
             return set;
-        }, "inactive"),
-        mediaRecorder = useRef<"awaqwq" | MediaRecorder>("awaqwq");
-    if (isBrowser()) {
-        getRecording(blob => setLoopSpeakAudioSrc(URL.createObjectURL(blob))).then(recording => {
-            mediaRecorder.current = recording;
-        });
-    } // ref不怕重复刷新，可以不用useEffect
+        }, "inactive");
+    if (mediaRecorder.current === "awaqwq") {
+        if (isBrowser()) {
+            getRecording(blob => setLoopSpeakAudioSrc(blob)).then(recording => {
+                mediaRecorder.current = recording;
+            });
+        } // ref不怕重复刷新，可以不用useEffect
+    }
     return (
         <Grid container direction="column" spacing={2}>
             <Grid item>
@@ -59,7 +62,7 @@ function AudioTools(): JSX.Element {
                     <audio controls loop src={loopAudioSrc} />
                     <FilePond
                         files={[]}
-                        onupdatefiles={(audios: FilePondFile[]) => audios.forEach(audio => setLoopAudioSrc(window.URL.createObjectURL(audio.file)))}
+                        onupdatefiles={audios => audios.forEach(audio => setLoopAudioSrc(audio.file))}
                         allowMultiple
                         maxFiles={1}
                         name="files"

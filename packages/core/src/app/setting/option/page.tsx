@@ -48,7 +48,7 @@ import {
 const PureDialog = dynamic(() => import("@verkfi/shared/dialog/Pure")),
     ghURL = "https://github.com/neila-a/verkfi/",
     options = [[forkMeOnGitHubAtom, "Fork me on GitHub"], [shareAtom, "share.t"]] satisfies option[];
-export type option = [WritableAtom<boolean | Promise<boolean>, [update: boolean | {}], void>, string];
+export type option = [typeof shareAtom, string];
 export default function Options() {
     const [lang, setLang] = useAtom(langAtom),
         [dialogOpen, setDialogOpen] = useState<boolean>(false),

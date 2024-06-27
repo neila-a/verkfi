@@ -23,7 +23,7 @@ export const clientsAtom = atomWithRefresh(get => new Promise<clientBase[]>(reso
     }
 })),
     searchTextAtom = atom(""),
-    /** 
+    /**
      * `clientsAtom`一定是`Promise`，不需要使用`awaiter`
      */
     filteredClientsAtom = atom(get => get(clientsAtom).then(clients => clients.filter(client => client.url.includes(get(searchTextAtom)))));

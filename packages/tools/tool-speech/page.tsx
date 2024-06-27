@@ -170,7 +170,7 @@ export default function Speech() {
                             ["audio/webm;codecs=opus", "webm"],
                             ["audio/mpeg", "mp3"]
                         ].find(a => MediaRecorder.isTypeSupported(a[0]));
-                        saveAs(URL.createObjectURL(audioFile.current), `speech.${okExt[1]}`);
+                        saveAs(audioFile.current, `speech.${okExt[1]}`);
                     }}>
                         {get("speech.download")}
                     </Button>

@@ -33,12 +33,13 @@ import {
 } from "./consts";
 import SingleImage from "./singleImage";
 import libearOnly from "./image/libear-only.png";
+import useBlobState from "@verkfi/shared/useBlobState";
 const initialScale = 100,
     scaleMax = 200;
 export default function Filter(): JSX.Element {
     const [imageArray, setImageArray] = useState<FilePondFile[]>([]),
         [imageFileName, setImageFileName] = useState<string>("libear-only"),
-        [imageURL, setImageURL] = useState<string>(libearOnly.src),
+        [imageURL, setImageURL] = useBlobState(libearOnly.src),
         [imageTypes, setImageTypes] = useState<ImageType[]>(ImageTypesGen),
         [scale, setScale] = useState<number>(initialScale),
         sizeId = useId(),
@@ -59,7 +60,7 @@ export default function Filter(): JSX.Element {
                     setImageArray(images);
                     images.forEach(image => {
                         setImageFileName(image.filename);
-                        setImageURL(URL.createObjectURL(image.file));
+                        setImageURL(image.file);
                     });
                 }}
                 maxFiles={1}
