@@ -22,8 +22,8 @@ importers:
         version: 2.11.1(react@18.3.1)
     devDependencies:
       '@types/node':
-        specifier: 20.12.13
-        version: 20.12.13
+        specifier: 20.14.9
+        version: 20.14.9
       '@types/react':
         specifier: 18.3.3
         version: 18.3.3
@@ -176,8 +176,8 @@ importers:
         specifier: ^1.2.0
         version: 1.2.0
       jotai:
-        specifier: ^2.8.2
-        version: 2.8.2(@types/react@18.3.3)(react@18.3.1)
+        specifier: ^2.8.0
+        version: 2.8.0(@types/react@18.3.3)(react@18.3.1)
       lp-logger:
         specifier: github:neila-a/lp-logger-no-window
         version: https://codeload.github.com/neila-a/lp-logger-no-window/tar.gz/04f2b376323698503090ef239040e6dd81e1d742
@@ -384,6 +384,9 @@ importers:
       '@verkfi/shared':
         specifier: workspace:../../shared
         version: link:../../shared
+      '@verkfi/tool-cubic':
+        specifier: link:../tool-cubic
+        version: link:../tool-cubic
       next:
         specifier: ^14.2.3
         version: 14.2.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.77.6)
@@ -1200,8 +1203,8 @@ packages:
   '@types/lodash@4.17.5':
     resolution: {integrity: sha512-MBIOHVZqVqgfro1euRDWX7OO0fBVUUMrN6Pwm8LQsz8cWhEpihlvR70ENj3f40j58TNxZaWv2ndSkInykNBBJw==}
 
-  '@types/node@20.12.13':
-    resolution: {integrity: sha512-gBGeanV41c1L171rR7wjbMiEpEI/l5XFQdLLfhr/REwpgDy/4U8y89+i8kRiLzDyZdOkXh+cRaTetUnCYutoXA==}
+  '@types/node@20.14.9':
+    resolution: {integrity: sha512-06OCtnTXtWOZBJlRApleWndH4JsRVs1pDCc8dLSQp+7PpUpX3ePdHyeNSFTeSe7FtKyQkrlPvHwJOW3SLd8Oyg==}
 
   '@types/offscreencanvas@2019.7.3':
     resolution: {integrity: sha512-ieXiYmgSRXUDeOntE1InxjWyvEelZGP63M+cGuquuRLuIKKT1osnkXjxev9B7d1nXSug5vpunx+gNlbVxMlC9A==}
@@ -2221,8 +2224,8 @@ packages:
     peerDependencies:
       react: '>=17.0.0'
 
-  jotai@2.8.2:
-    resolution: {integrity: sha512-AU+EU82YqP94izfbGYQQL3oa/06gmn+Ijf/CKx0QybAURtbqh2e4N6zA2fxeIh0JEUgASF6z5IhagJ8NicR95A==}
+  jotai@2.8.0:
+    resolution: {integrity: sha512-yZNMC36FdLOksOr8qga0yLf14miCJlEThlp5DeFJNnqzm2+ZG7wLcJzoOyij5K6U6Xlc5ljQqPDlJRgqW0Y18g==}
     engines: {node: '>=12.20.0'}
     peerDependencies:
       '@types/react': '>=17.0.0'
@@ -4071,7 +4074,7 @@ snapshots:
 
   '@types/lodash@4.17.5': {}
 
-  '@types/node@20.12.13':
+  '@types/node@20.14.9':
     dependencies:
       undici-types: 5.26.5
 
@@ -5298,7 +5301,7 @@ snapshots:
       - react-dom
       - redux
 
-  jotai@2.8.2(@types/react@18.3.3)(react@18.3.1):
+  jotai@2.8.0(@types/react@18.3.3)(react@18.3.1):
     optionalDependencies:
       '@types/react': 18.3.3
       react: 18.3.1

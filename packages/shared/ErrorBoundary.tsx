@@ -1,4 +1,4 @@
-import Error from "error";
+import Error from "@verkfi/core/src/app/error";
 import {
     Component
 } from "react";

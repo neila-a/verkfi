@@ -6,10 +6,8 @@ import {
 } from "@hello-pangea/dnd";
 import {
     Box,
-    Collapse,
-    Stack
+    Collapse
 } from "@mui/material";
-import No from "@verkfi/shared/No";
 import {
     useAtomValue,
     useSetAtom
@@ -18,9 +16,6 @@ import {
     viewModeAtom,
     buttonCommonSorterAtom
 } from "@verkfi/shared/atoms";
-import {
-    get
-} from "react-intl-universal";
 import {
     TransitionGroup
 } from "react-transition-group";
@@ -44,9 +39,10 @@ import {
 import {
     useResetAtom
 } from "jotai/utils";
-const listSpacing = 3,
+import ToolsStack from "./ToolsStack";
+export const listSpacing = 3,
     gridSpacing = 5;
-export default function ToolsStack(props: {
+export default function ToolsStackWithTools(props: {
     paramTool: tool[];
     actions?: ReactNode[];
     notfound?: ReactNode;
@@ -56,8 +52,7 @@ export default function ToolsStack(props: {
      */
     focus?: string;
 }) {
-    const viewMode = useAtomValue(viewModeAtom),
-        isImplant = useContext(isImplantContext),
+    const isImplant = useContext(isImplantContext),
         resetTools = useResetAtom(toolsAtom),
         editMode = useAtomValue(editModeAtom),
         sortingFor = useAtomValue(sortingForAtom)(isImplant),
@@ -108,8 +103,7 @@ export default function ToolsStack(props: {
                                             <Draggable draggableId={tool.to} index={index}>
                                                 {provided => <Box ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                                                     <Insert index={index} tool={tool} />
-                                                </Box>
-                                                }
+                                                </Box>}
                                             </Draggable>
                                         </Collapse>
                                         )}
@@ -124,30 +118,7 @@ export default function ToolsStack(props: {
         );
     }
     function GridContainer() {
-        return props.paramTool.map((tool, index) => <Insert key={tool.to} tool={tool} index={index} />
-        );
+        return props.paramTool.map((tool, index) => <Insert key={tool.to} tool={tool} index={index} />);
     }
-    return (
-        <Stack spacing={viewMode === "list" ? listSpacing : gridSpacing} sx={{
-            flexDirection: viewMode === "grid" && "row",
-            display: viewMode === "grid" && "flex",
-            width: "100%",
-            flexWrap: "wrap",
-            alignContent: "center",
-            alignItems: "flex-end",
-            justifyContent: "space-evenly",
-            textAlign: "center",
-            ["& *"]: {
-                cursor: "pointer"
-            },
-            ["& > *"]: {
-                width: viewMode === "list" ? "100%" : "unset"
-            }
-        }}> {/* 工具总览 */}
-            {props.paramTool.length === 0 ? props?.notfound
-                || <No>
-                    {get("index.notfound")}
-                </No> : viewMode === "list" && editMode ? <ListContainer /> : <GridContainer />}
-        </Stack>
-    );
+    return <ToolsStack {...props} GridContainer={GridContainer} ListContainer={ListContainer} />;
 }

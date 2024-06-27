@@ -24,6 +24,7 @@
     "dependencies": {
         "@react-three/fiber": "^8.16.6",
         "@verkfi/shared": "workspace:../../shared",
+        "@verkfi/tool-cubic": "link:../tool-cubic",
         "next": "^14.2.3",
         "three": "0.164.1"
     }

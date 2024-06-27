@@ -9,7 +9,7 @@ import {
 import HeadBar from "@verkfi/shared/HeadBar";
 import MouseOverPopover from "@verkfi/shared/Popover";
 import VerkfiIcon from "@verkfi/shared/verkfiIcon";
-import ToolsStack from "index/showTool";
+import ToolsStackWithTools from "index/showTool";
 import Sidebar from "index/sidebar";
 import {
     useAtomValue,
@@ -47,6 +47,7 @@ import {
 import {
     repoInfo as repoInfoContext
 } from "layout/layoutClient";
+import ToolsSkeleton from "index/showTool/toolsSkeleton";
 export default function Index(props: {
     /**
      * 是否为嵌入
@@ -69,7 +70,7 @@ export default function Index(props: {
                 p: 3,
                 ml: props.isImplant ? "" : `${drawerWidth}px`
             }}>
-                <ToolsStack
+                <ToolsStackWithTools
                     paramTool={tools}
                     focus={focusingTo}
                 />
@@ -113,7 +114,7 @@ export default function Index(props: {
                     <Box sx={{
                         p: 1
                     }}>
-                        <ToolsStack paramTool={recentlyTools.filter(item => item !== undefined)} />
+                        <ToolsStackWithTools paramTool={recentlyTools.filter(item => item !== undefined)} />
                     </Box>
                 </Box>
                 <Box>
@@ -123,7 +124,7 @@ export default function Index(props: {
                     <Box sx={{
                         p: 1
                     }}>
-                        <ToolsStack
+                        <ToolsStackWithTools
                             paramTool={mostUsed}
                         />
                     </Box>

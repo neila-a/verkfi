@@ -29,7 +29,7 @@ import {
     type SvgIcon,
     useTheme
 } from "@mui/material";
-import ToolsStack from "index/showTool";
+import ToolsStackWithTools from "index/showTool";
 import setsAtom from "setting/setsAtom";
 import MouseOverPopover from "@verkfi/shared/Popover";
 import isBrowser from "@verkfi/shared/isBrowser";
@@ -67,7 +67,7 @@ export default function ClientsContent() {
     }
     //如果将Provider留在主组件里会导致ClientsContent组件本身接不到数据
     return <Provider>
-        <ToolsStack disableClick focus={focusing} notfound={(
+        <ToolsStackWithTools disableClick focus={focusing} notfound={(
             <No>
                 {get("clients.notfound")}
                 <br />

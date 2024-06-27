@@ -14,11 +14,11 @@ import extensionsAtom, {
 } from "./extensions";
 import toolsInfoAtom, {
     tool
-} from "tools/info";
+} from "@verkfi/core/src/app/tools/info";
 import {
     NXTMetadata,
     setting
-} from "setting/extensions/page";
+} from "@verkfi/core/src/app/setting/extensions/page";
 import awaiter from "../reader/awaiter";
 interface mostUsedMarks {
     [key: string]: number;

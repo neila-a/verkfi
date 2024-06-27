@@ -24,7 +24,7 @@ import {
 } from "jotai";
 import {
     repoInfo as repoInfoContext
-} from "layout/layoutClient";
+} from "@verkfi/core/src/app/layout/layoutClient";
 import {
     forkMeOnGitHubAtom as forkMeOnGitHubAtom,
     shareAtom as shareAtom,
@@ -46,7 +46,7 @@ import {
 import MouseOverPopover from "./Popover";
 import {
     clientsAtom
-} from "layout/atoms";
+} from "@verkfi/core/src/app/layout/atoms";
 export interface HeadBarOption {
     pageName: string;
     isIndex: boolean;

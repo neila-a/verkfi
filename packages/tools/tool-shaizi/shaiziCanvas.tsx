@@ -8,7 +8,7 @@ import {
 import Cube from "./Cube";
 import {
     ambientLightPosition
-} from "../tool-cubic/page";
+} from "@verkfi/tool-cubic/page";
 export type rotateAxis = "x" | "y" | "z";
 export const rotateAxis: rotateAxis[] = ["x", "y", "z"],
     rotateStep = 50, // 转90度所需要的帧

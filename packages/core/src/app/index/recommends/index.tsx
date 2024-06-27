@@ -21,6 +21,7 @@ import {
 } from "react";
 import Loading from "loading";
 import InnerRecommends from "./Inner";
+import ToolsSkeleton from "index/showTool/toolsSkeleton";
 export default function Recommends() {
     const refreshTries = useSetAtom(recommendAtom), showRecommends = useAtomValue(showRecommendsAtom);
     return <Collapse in={showRecommends}>
@@ -39,7 +40,7 @@ export default function Recommends() {
             <Box sx={{
                 p: 1
             }}>
-                <Suspense fallback={<Loading />}>
+                <Suspense fallback={<ToolsSkeleton />}>
                     <InnerRecommends />
                 </Suspense>
             </Box>

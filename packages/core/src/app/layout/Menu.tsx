@@ -22,7 +22,7 @@ import {
 import MouseOverPopover from "@verkfi/shared/Popover";
 import Transition from "@verkfi/shared/dialog/Transition";
 import VerkfiIcon from "@verkfi/shared/verkfiIcon";
-import ToolsStack from "index/showTool";
+import ToolsStackWithTools from "index/showTool";
 import SwitchEditMode from "index/sidebar/buttons/SwitchEditMode";
 import SwitchViewMode from "index/sidebar/buttons/SwitchViewMode";
 import Selects from "index/sidebar/selects";
@@ -187,7 +187,7 @@ export default function Menu() {
                             <Box sx={{
                                 p: 1
                             }}>
-                                <ToolsStack paramTool={recentlyUsedTools} />
+                                <ToolsStackWithTools paramTool={recentlyUsedTools} />
                             </Box>
                         </Box>
                         <Box>
@@ -197,11 +197,11 @@ export default function Menu() {
                             <Box sx={{
                                 p: 1
                             }}>
-                                <ToolsStack
+                                <ToolsStackWithTools
                                     paramTool={mostUsed} />
                             </Box>
                         </Box>
-                    </> : <ToolsStack
+                    </> : <ToolsStackWithTools
                         paramTool={tools}
                         focus={focusingTo}
                     />

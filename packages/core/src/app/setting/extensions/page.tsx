@@ -48,7 +48,7 @@ import RemoveExtensionDialog from "./RemoveExtensionDialog";
 import {
     file
 } from "@verkfi/shared/reader/db";
-import ToolsStack from "index/showTool";
+import ToolsStackWithTools from "index/showTool";
 import MouseOverPopover from "@verkfi/shared/Popover";
 import {
     Edit,
@@ -101,7 +101,7 @@ export default function ExtensionManager() {
                 mb: 2
             }}>
                 <Provider>
-                    <ToolsStack paramTool={converted} notfound={(
+                    <ToolsStackWithTools paramTool={converted} notfound={(
                         <No>
                             {get("extensions.未找到任何扩展")}
                         </No>

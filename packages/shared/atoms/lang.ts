@@ -3,7 +3,7 @@ import {
 } from "jotai";
 import {
     locales
-} from "layout/layoutClient";
+} from "@verkfi/core/src/app/layout/layoutClient";
 import isBrowser from "../isBrowser";
 import atomWithStorage from "../reader/atomWithStorage";
 import awaiter from "../reader/awaiter";
@@ -28,8 +28,8 @@ function usabler(lang: lang) {
                     || "zhCN") as pureLang;
             }
         }
-        const detailedLang = Object.keys(locales).includes(browserLang) ? browserLang : "zhCN"
-        setLang(detailedLang)
+        const detailedLang = Object.keys(locales).includes(browserLang) ? browserLang : "zhCN";
+        setLang(detailedLang);
         return detailedLang;
     }
     setLang(lang);

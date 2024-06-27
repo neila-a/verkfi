@@ -34,8 +34,8 @@ import {
     clientsAtom,
     searchTextAtom
 } from "./atoms";
-import Loading from "loading";
 import ClientsContent from "./ClientsContent";
+import ToolsSkeleton from "index/showTool/toolsSkeleton";
 export default function Clients() {
     const setClients = useSetAtom(clientsAtom),
         theme = useTheme(),
@@ -105,7 +105,7 @@ export default function Clients() {
             <DialogContent dividers sx={{
                 maxHeight: "100%"
             }}>
-                <Suspense fallback={<Loading />}>
+                <Suspense fallback={<ToolsSkeleton />}>
                     <ClientsContent />
                 </Suspense>
             </DialogContent>

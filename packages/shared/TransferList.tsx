@@ -9,7 +9,6 @@ import {
     Paper
 } from "@mui/material";
 import {
-    useAtom,
     useAtomValue
 } from "jotai";
 import {
@@ -17,7 +16,7 @@ import {
     useId,
     useState
 } from "react";
-import toolsInfoAtom from "tools/info";
+import toolsInfoAtom from "@verkfi/core/src/app/tools/info";
 export function not<value>(a: value[], b: value[]) {
     return a.filter(value => b.indexOf(value) === -1);
 }

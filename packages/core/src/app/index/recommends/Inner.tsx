@@ -1,5 +1,5 @@
 "use client";
-import ToolsStack from "index/showTool";
+import ToolsStackWithTools from "index/showTool";
 import recommendAtom from "@verkfi/shared/atoms/recommend";
 import {
     useAtomValue
@@ -9,5 +9,5 @@ import {
  */
 export default function InnerRecommends() {
     const recommend = useAtomValue(recommendAtom);
-    return <ToolsStack paramTool={recommend.filter(item => item !== undefined)} />;
+    return <ToolsStackWithTools paramTool={recommend.filter(item => item !== undefined)} />;
 }

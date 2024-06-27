@@ -29,7 +29,7 @@ import range from "@verkfi/shared/range";
 import {
     cameraPosition,
     cubeSize
-} from "../tool-cubic/page";
+} from "@verkfi/tool-cubic/page";
 export default function Cube(props: {
     cishu: number;
 }) {

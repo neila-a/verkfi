@@ -7,7 +7,7 @@ import {
 import {
     listsAtom
 } from ".";
-import toolsInfoAtom from "tools/info";
+import toolsInfoAtom from "@verkfi/core/src/app/tools/info";
 import awaiter from "../reader/awaiter";
 const toolsListAtom = atom(get => awaiter(
     get(listsAtom), lists => awaiter(
