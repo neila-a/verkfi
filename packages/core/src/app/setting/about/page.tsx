@@ -33,11 +33,7 @@ export default function About() {
     let addressInfo = initialAddressInfo;
     if (isBrowser()) {
         addressInfo = {
-            href: location.href,
-            host: location.hostname,
-            pathname: location.pathname,
-            protocol: location.protocol,
-            port: location.port
+            ...location
         };
     }
     return (

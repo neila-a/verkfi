@@ -38,7 +38,6 @@ import {
 import {
     mostUsedToolsAtom,
     recentlyToolsAtom,
-    recentlyUsedAtom as recentlyUsedAtom,
     showSidebarAtom
 } from "@verkfi/shared/atoms";
 import Link from "next/link";
@@ -48,12 +47,6 @@ import {
 import {
     get
 } from "react-intl-universal";
-import toolsInfoAtom, {
-    tool
-} from "tools/info";
-import {
-    convertedExtensionsAtom
-} from "@verkfi/shared/atoms/extensions";
 import {
     editingAtom,
     searchTextAtom,

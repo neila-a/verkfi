@@ -67,12 +67,3 @@ Verkfi 采用的是渐进式更新（即所有提交都直接提交至生产）�
 ## Suspense
 
 Suspense 只有不知道内容是什么的时候才能使用 Loading 组件，否则就要使用 Skeleton 组件。
-
-## Devtools 中常用指令
-
-```javascript
-const s = document.createElement("script");
-s.src = "https://cdn.jsdelivr.net/npm/opfs-tools-explorer";
-document.body.append(s);
-OTExplorer.init();
-```

@@ -113,8 +113,7 @@ export default function Index(props: {
                     <Box sx={{
                         p: 1
                     }}>
-                        <ToolsStack
-                            paramTool={recentlyTools.filter(item => item !== undefined)} />
+                        <ToolsStack paramTool={recentlyTools.filter(item => item !== undefined)} />
                     </Box>
                 </Box>
                 <Box>

@@ -5,7 +5,6 @@ import {
 import atomWithInitialValue, {
     valueAtomReturn
 } from "../reader/atomWithInitialValue";
-import simpleGetterWithEmpty from "../reader/atomWithEmpty";
 import {
     NXTMetadata
 } from "setting/extensions/page";

@@ -1,35 +1,20 @@
-export default function atomWithBroadcast<Value, Args extends unknown[], Result>(read: (get: Getter, options: {
+export default function atomWithBroadcast<Value, Arg, Result>(read: (get: Getter, options: {
     readonly signal: AbortSignal;
-    readonly setSelf: <A extends Args>(...args: A) => Result;
-}) => Value, write: Write<Args, Result>, broadcastChannelId: string) {
-    type Arg = Args[0];
-    const created = atom(read, (get, set, update: Arg | {
-        __atom_update_type__: "message",
-        update: Arg;
-    }) => {
-        let message = false;
-        if (typeof update === "object") {
-            if ("__atom_update_type__" in update) {
-                if (update.__atom_update_type__ === "message") {
-                    write(get, set, ...[update.update] as Args);
-                    message = true;
-                }
-            }
+    readonly setSelf: <A extends Arg>(arg: A) => Result;
+}) => Value, write: Write<[Arg], Result>, broadcastChannelId: string) {
+    const created = atom(read, (get, set, update: Arg, isEvent?: boolean) => {
+        if (isEvent) {
+            return write(get, set, update);
         }
-        if (!message) {
-            write(get, set, ...[update] as Args);
-            const channel = new BroadcastChannel(broadcastChannelId);
-            channel.postMessage(update);
-        }
-    }) as unknown as WritableAtom<Value, Args, Result>;
+        write(get, set, update);
+        const channel = new BroadcastChannel(broadcastChannelId);
+        return channel.postMessage(update);
+    }) as unknown as WritableAtom<Value, [Arg, isEvent?: boolean], Result>;
     created.debugLabel = broadcastChannelId;
     created.onMount = setAtom => {
         const channel = new BroadcastChannel(broadcastChannelId);
         channel.addEventListener("message", event => {
-            setAtom(...[{
-                __atom_update_type__: "message",
-                update: event.data
-            }] as Args);
+            setAtom(event.data as Arg, true);
         });
     };
     return created;

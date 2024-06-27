@@ -2,7 +2,6 @@ import {
     Atom,
     Getter,
     Setter,
-    WritableAtom,
     atom
 } from "jotai";
 import {
@@ -11,7 +10,7 @@ import {
 import awaiter from "./awaiter";
 function atomWithEmpty<Value, update extends Value, Result>(
     read: Read<Value, SetAtom<[value: Exclude<update, typeof emptySymbol>], Result>>,
-    write: Write<[value: Exclude<update, typeof emptySymbol>], Result>,
+    write: Write<[value: Exclude<update, typeof emptySymbol>, isEvent?: boolean], Result>,
     valuer: Atom<Value>
 ) {
     return atom(
@@ -20,14 +19,14 @@ function atomWithEmpty<Value, update extends Value, Result>(
             if (got === emptySymbol) {
                 const waiting = read(get, options);
                 return awaiter(waiting, value => {
-                    options.setSelf(...[value] as [value: Exclude<update, typeof emptySymbol>]);
+                    options.setSelf(...[value] as [value: Exclude<update, typeof emptySymbol>], true);
                     return read(get, options);
                 });
             }
             return got as Exclude<Value, typeof emptySymbol>;
         },
         write
-    ) as WritableAtom<Exclude<Value, typeof emptySymbol>, [value: Exclude<update, typeof emptySymbol>], Result>;
+    );
 }
 export default atomWithEmpty;
 /**

@@ -15,7 +15,7 @@ const atomWithStorage = <setting = any>(id: string, empty: setting) => atomWithI
         );
         return atomWithBroadcast(
             get => get(withedEmpty),
-            (get, set, update: setting) => set(withedEmpty, update),
+            (get, set, update: setting) => set(withedEmpty, update as Exclude<setting, typeof emptySymbol>),
             `storagedAtom-${id}`
         );
     }

@@ -41,15 +41,17 @@ export const mostUsedSelects = 3,
     }),
     gradientToolAtom = atomWithStorage<boolean>("gradient-tool", false),
     recentlyUsedAtom = atomWithStorage<string[]>("recently-tools", []),
-    recentlyToolsAtom = atom(async get => awaiter(
-        get(recentlyUsedAtom), recentlyUsed => Promise.all(recentlyUsed.map(to => awaiter(
-            get(convertedExtensionsAtom), converted => (0
-                || awaiter(
-                    get(toolsInfoAtom), toolsInfo => toolsInfo.find(single => single.to === to)
-                )
+    recentlyToolsAtom = atom(async get => {
+        // 用了Promise.all就不可能避免微任务了
+        const recentlyUsed = await get(recentlyUsedAtom),
+            converted = await get(convertedExtensionsAtom),
+            toolsInfo = await get(toolsInfoAtom),
+            unfilterd = await Promise.all(recentlyUsed.map(to => (0
+                || toolsInfo.find(single => single.to === to)
                 || converted.find(single => `/tools/extension?tool=${to}` === single.to)) as tool | 0
-        ))).then(toFilter => toFilter.filter(item => item !== 0) satisfies unknown as tool[])
-    )),
+            ));
+        return unfilterd.filter(item => item !== 0) satisfies unknown as tool[];
+    }),
     mostUsedAtom = atomWithStorage<mostUsedMarks>("most-tools", {
     }),
     mostUsedToolsAtom = atom(get => awaiter(
