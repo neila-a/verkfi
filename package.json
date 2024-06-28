@@ -9,6 +9,7 @@
 		"@mui/material": "6.0.0-alpha.11",
 		"react": "^18.3.1",
 		"react-intl-universal": "^2.11.1",
+		"esbuild": "^0.21.5",
 		"next": "14.2.4"
 	},
 	"scripts": {
