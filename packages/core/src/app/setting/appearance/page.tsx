@@ -28,6 +28,9 @@ import {
 import defaultInternalPalette from "./defaultInternalPalette";
 import internalPaletteAtom from "./paletteAtom";
 import ColorPicker from "./ColorPicker";
+import {
+    startTransition
+} from "react";
 const colorModeIcons = [
     ["light", LightMode],
     ["dark", DarkMode],
@@ -84,7 +87,7 @@ function ColorTool() {
                 <ColorPicker intent="secondary" />
             </Grid>
             <Button fullWidth variant="contained" onClick={() => {
-                setInternalPalette(defaultInternalPalette);
+                startTransition(() => setInternalPalette(defaultInternalPalette));
             }}>
                 {get("重置")}
             </Button>

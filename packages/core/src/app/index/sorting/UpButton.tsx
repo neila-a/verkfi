@@ -27,14 +27,16 @@ import {
 import {
     buttonCommonSorterAtom
 } from "@verkfi/shared/atoms";
+import {
+    startTransition
+} from "react";
 export default function UpButton(props: {
     tool: tool;
     sortingFor: string;
 }) {
     const buttonCommonSorting = useSetAtom(buttonCommonSorterAtom),
         editMode = useAtomValue(editModeAtom),
-        tools = useAtomValue(toolsAtom),
-        resetTools = useResetAtom(toolsAtom);
+        tools = useAtomValue(toolsAtom);
     if (editMode && props.sortingFor !== "__home__") {
         return (
             <MouseOverPopover text={get("index.moveup")}>
@@ -42,8 +44,7 @@ export default function UpButton(props: {
                     event.stopPropagation();
                     const pd = tools.slice(0);
                     upGo(pd, pd.indexOf(props.tool));
-                    buttonCommonSorting(props.sortingFor, pd);
-                    resetTools();
+                    startTransition(async () => await buttonCommonSorting(props.sortingFor, pd));
                 }} aria-label={get("index.moveup")} >
                     <ArrowUpwardIcon />
                 </IconButton>

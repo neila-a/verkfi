@@ -28,9 +28,8 @@ class DataBase extends Dexie {
         }
         return empty;
     }
-    setSetting<setting = any>(id: string, value: setting) {
-        this.options.put(value, id);
-        return value;
+    async setSetting<setting = any>(id: string, value: setting) {
+        await this.options.put(value, id);
     }
 }
 const db = new DataBase();

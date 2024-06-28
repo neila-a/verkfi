@@ -14,6 +14,7 @@ import {
 } from "next/navigation";
 import {
     ReactNode,
+    startTransition,
     useEffect
 } from "react";
 // 每个3格最多显示
@@ -39,10 +40,10 @@ export default function Template(props: {
             }
             const tempRecently = set.get().reverse();
             if (JSON.stringify(tempRecently.sort()) !== JSON.stringify(recentlyUsed.sort())) {
-                setRecentlyUsed(tempRecently.sort());
+                startTransition(() => setRecentlyUsed(tempRecently.sort()));
             }
             if (JSON.stringify(mostUsed) === JSON.stringify(mostUsedState)) {
-                setMostUsed(mostUsed);
+                startTransition(() => setMostUsed(mostUsed));
             }
         }
     }, []); // 不放在副作用里会导致无限循环

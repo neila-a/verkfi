@@ -206,13 +206,15 @@ export default function SingleTool(props: {
                 {sortingFor !== "__global__" && sortingFor !== "__home__"
                     && <MouseOverPopover text={get("singleTool.deleteFromCategory")}>
                         <IconButton onClick={event => {
-                            setLists(lists.slice(0).map(list => {
-                                if (list[0] === sortingFor) {
-                                    return [list[0], list[1].filter(singleTool => singleTool !== tool.to)];
-                                }
-                                return list;
-                            }));
-                            startTransition(async () => await setTools(`remove ${tool.to}`));
+                            startTransition(async () => {
+                                await setLists(lists.slice(0).map(list => {
+                                    if (list[0] === sortingFor) {
+                                        return [list[0], list[1].filter(singleTool => singleTool !== tool.to)];
+                                    }
+                                    return list;
+                                }));
+                                return await setTools(`remove ${tool.to}`);
+                            });
                         }} aria-label={get("singleTool.deleteFromCategory")}>
                             <FolderDelete />
                         </IconButton>

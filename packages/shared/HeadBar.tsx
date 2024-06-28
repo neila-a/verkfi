@@ -38,6 +38,7 @@ import {
 import {
     CSSProperties,
     Fragment,
+    startTransition,
     useContext
 } from "react";
 import {
@@ -105,7 +106,7 @@ export default function HeadBar(props: HeadBarOption) {
                     </Typography>
                     <MouseOverPopover text={get("clients.open")}>
                         <IconButton onClick={event => {
-                            setShowClients(!showClientsValue);
+                            startTransition(() => setShowClients(!showClientsValue));
                         }} size="large" edge="end" color="inherit" aria-label={get("clients.open")} sx={{
                             ...noDrag
                         }}>
@@ -199,7 +200,7 @@ export default function HeadBar(props: HeadBarOption) {
                     backgroundImage: "linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15))",
                     top: 45
                 }}>
-                        Fork me on GitHub
+                    Fork me on GitHub
                 </a>
             </Box> : <Fragment />}
             <Toolbar />

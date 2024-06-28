@@ -135,7 +135,7 @@ export default function Selects(props: {
                 }
                 if (editMode) {
                     const newLists = reorderArray(list, result.source.index, result.destination.index);
-                    setList(newLists);
+                    return startTransition(() => setList(newLists));
                 }
             }}>
                 <Droppable direction={props.isSidebar ? "vertical" : "horizontal"} droppableId="categories" isDropDisabled={!editMode}>

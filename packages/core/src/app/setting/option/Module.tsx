@@ -11,7 +11,8 @@ import {
     sidebarModeAtom
 } from "@verkfi/shared/atoms";
 import {
-    ReactNode
+    ReactNode,
+    startTransition
 } from "react";
 export default function Module(props: {
     children: ReactNode;
@@ -22,7 +23,7 @@ export default function Module(props: {
     return (
         <Grid item>
             <Paper onClick={event => {
-                setMode(props.mode);
+                startTransition(() => setMode(props.mode));
             }} sx={{
                 p: 3,
                 display: "flex",

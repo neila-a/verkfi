@@ -30,6 +30,9 @@ import {
     lists
 } from "..";
 import toolsListAtom from "@verkfi/shared/atoms/toolsList";
+import {
+    startTransition
+} from "react";
 const PureDialog = dynamic(() => import("@verkfi/shared/dialog/Pure"));
 export default function EditCategoryDialog(props: {
     left: string[];
@@ -60,7 +63,7 @@ export default function EditCategoryDialog(props: {
                     if (!have) {
                         listDraft.push([dialogListName, dialogTools]);
                     }
-                    setList(listDraft);
+                    startTransition(() => setList(listDraft));
                     setDialogListName("");
                     setDialogTools([]);
                     return setDialogOpen(false);

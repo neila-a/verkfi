@@ -20,6 +20,13 @@ import {
     setting
 } from "@verkfi/core/src/app/setting/extensions/page";
 import awaiter from "../reader/awaiter";
+import {
+    toolsAtom,
+    toolsAtomUpdate
+} from "index/atoms";
+import {
+    RESET
+} from "jotai/utils";
 interface mostUsedMarks {
     [key: string]: number;
 }
@@ -84,12 +91,12 @@ export const mostUsedSelects = 3,
                 newRealList[index][1] = pd.map(toolp => toolp.to);
             }
             set(listsAtom, newRealList);
-            return newRealList;
+            return awaiter(set(toolsAtom, RESET as unknown as toolsAtomUpdate), a => a);
         }
     )),
-    extensionDataCleanerAtom = atom(null, async (get, set, clearingExtension: NXTMetadata) => awaiter(
+    extensionDataCleanerAtom = atom(null, (get, set, clearingExtension: NXTMetadata) => awaiter(
         get(mostUsedAtom), mostUsed => awaiter(
-            get(recentlyUsedAtom), oldRecently => {
+            get(recentlyUsedAtom), async oldRecently => {
                 const
                     oldMost = {
                         ...mostUsed
@@ -101,9 +108,9 @@ export const mostUsedSelects = 3,
                         value: setting.defaultValue
                     }) as setting)
                 });
-                set(recentlyUsedAtom, oldRecently.filter(item => item !== clearingExtension.to));
+                await set(recentlyUsedAtom, oldRecently.filter(item => item !== clearingExtension.to));
                 Reflect.deleteProperty(oldMost, clearingExtension.to);
-                set(mostUsedAtom, oldMost);
+                await set(mostUsedAtom, oldMost);
             }
         )
     ));

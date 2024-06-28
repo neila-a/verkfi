@@ -13,6 +13,9 @@ import {
 import {
     viewModeAtom
 } from "@verkfi/shared/atoms";
+import {
+    startTransition
+} from "react";
 export default function SwitchViewMode() {
     const [viewMode, setViewMode] = useAtom(viewModeAtom);
     return (
@@ -20,7 +23,7 @@ export default function SwitchViewMode() {
             <IconButton color="primary" sx={{
                 p: 1
             }} aria-label={viewMode === "grid" ? "切换为列表模式" : "切换为网格模式"} onClick={event => {
-                setViewMode("swap");
+                return startTransition(async () => await setViewMode("swap"));
             }}>
                 {viewMode === "grid" ? <ViewListIcon /> : <ViewModuleIcon />}
             </IconButton>

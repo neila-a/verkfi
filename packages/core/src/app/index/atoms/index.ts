@@ -19,7 +19,7 @@ import atomWithInitialValue, {
 } from "@verkfi/shared/reader/atomWithInitialValue";
 import awaiter from "@verkfi/shared/reader/awaiter";
 import atomWithEmpty from "@verkfi/shared/reader/atomWithEmpty";
-type toolsAtomUpdate = tool[] | typeof RESET | `remove ${string}`;
+export type toolsAtomUpdate = tool[] | typeof RESET | `remove ${string}`;
 export const editModeAtom = atom(false),
     tabAtom = atom(0),
     showRecommendsAtom = atom(false),

@@ -25,6 +25,7 @@ import extensionsAtom, {
 } from "@verkfi/shared/atoms/extensions";
 import dynamic from "next/dynamic";
 import {
+    startTransition,
     useState
 } from "react";
 import {
@@ -111,7 +112,7 @@ export default function ExtensionManager() {
                                 const {
                                     ...metadata
                                 } = single;
-                                clearExtensionData(metadata);
+                                startTransition(async () => await clearExtensionData(metadata));
                             }} aria-label={get("extensions.clear")}>
                                 <RestartAlt />
                             </IconButton>

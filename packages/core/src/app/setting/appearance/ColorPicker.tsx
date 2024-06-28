@@ -21,6 +21,9 @@ import hues from "./hues";
 import shades from "./shades";
 import ColorBar from "./ColorBar";
 import internalPaletteAtom from "./paletteAtom";
+import {
+    startTransition
+} from "react";
 export default function ColorPicker(props: {
     intent: string;
 }) {
@@ -30,21 +33,21 @@ export default function ColorPicker(props: {
         handleChangeHue = name => event => {
             const hue = event.target.value;
             const color = colors[hue][shades[internalPalette[`${name}Shade`]]];
-            setInternalPalette({
+            startTransition(() => setInternalPalette({
                 ...internalPalette,
                 [`${name}Hue`]: hue,
                 [name]: color,
                 [`${name}Input`]: color
-            });
+            }));
         },
         handleChangeShade = name => (event, shade) => {
             const color = colors[internalPalette[`${name}Hue`]][shades[shade]];
-            setInternalPalette({
+            startTransition(() => setInternalPalette({
                 ...internalPalette,
                 [`${name}Shade`]: shade,
                 [name]: color,
                 [`${name}Input`]: color
-            });
+            }));
         },
         intentShade = internalPalette[`${intent}Shade`],
         color = internalPalette[`${intent}`];

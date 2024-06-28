@@ -14,6 +14,7 @@ import {
     listsAtom
 } from "@verkfi/shared/atoms";
 import {
+    startTransition,
     useState
 } from "react";
 import {
@@ -45,10 +46,15 @@ export default function RemoveExtensionDialog(props: {
             props.reset();
             setClearData(false);
         }} onTrue={async () => {
-            setLists(lists.map(singleList => [singleList[0], singleList[1].filter(item => item !== `/tools/extension?tool=${props.fileInfo.to}`)]));
-            if (clearData) {
-                clearExtensionData(props.fileInfo);
-            }
+            startTransition(async () => {
+                await setLists(lists.map(singleList => [
+                    singleList[0],
+                    singleList[1].filter(item => item !== `/tools/extension?tool=${props.fileInfo.to}`)
+                ]));
+                if (clearData) {
+                    return await clearExtensionData(props.fileInfo);
+                }
+            });
             setExtensions({
                 ...props.fileInfo,
                 action: "delete"

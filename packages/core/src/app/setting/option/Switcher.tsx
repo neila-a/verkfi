@@ -13,6 +13,9 @@ import {
 import {
     option
 } from "./page";
+import {
+    startTransition
+} from "react";
 export type stringifyCheck = "false" | "true";
 export function Switcher(props: {
     option: option;
@@ -34,7 +37,7 @@ export function Switcher(props: {
             }
             <FormControlLabel disabled={!hasShare && isShare} control={(
                 <Switch checked={value} onChange={event => {
-                    setValue(!value);
+                    startTransition(() => setValue(!value));
                 }} />
             )} label={isForkMeOnGitHub ? option[1] : get(option[1])} />
         </>

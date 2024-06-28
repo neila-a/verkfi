@@ -37,7 +37,6 @@ import {
     clientsAtom,
     searchTextAtom
 } from "./atoms";
-import ToolsSkeleton from "index/showTool/toolsSkeleton";
 export default function Clients() {
     const setClients = useSetAtom(clientsAtom),
         theme = useTheme(),
@@ -46,7 +45,7 @@ export default function Clients() {
         [searchText, setSearchText] = useAtom(searchTextAtom);
     return (
         <Dialog fullScreen={fullScreen} onClose={() => {
-            setControl(false);
+            startTransition(() => setControl(false));
         }} sx={{
             ".MuiDialog-paper": {
                 maxWidth: "unset"
@@ -87,7 +86,7 @@ export default function Clients() {
                                 </MouseOverPopover>
                                 <MouseOverPopover text={get("close")}>
                                     <IconButton aria-label={get("close")} onClick={event => {
-                                        setControl(false);
+                                        startTransition(() => setControl(false));
                                     }}>
                                         <Close />
                                     </IconButton>

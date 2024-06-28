@@ -42,6 +42,7 @@ import {
 } from "@verkfi/shared/atoms";
 import Link from "next/link";
 import {
+    startTransition,
     useContext
 } from "react";
 import {
@@ -134,7 +135,7 @@ export default function Menu() {
                                                 setSortingFor("__home__");
                                                 setSortedTools(gotToolsList);
                                                 setEditing(true);
-                                                resetTools();
+                                                startTransition(async () => await resetTools());
                                             }}>
                                                 <ArrowBackIosIcon />
                                             </IconButton>

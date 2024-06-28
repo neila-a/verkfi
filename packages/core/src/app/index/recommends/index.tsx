@@ -17,13 +17,14 @@ import {
     showRecommendsAtom
 } from "index/atoms";
 import {
-    Suspense
+    Suspense,
+    startTransition
 } from "react";
-import Loading from "loading";
 import InnerRecommends from "./Inner";
 import ToolsSkeleton from "index/showTool/toolsSkeleton";
 export default function Recommends() {
-    const refreshTries = useSetAtom(recommendAtom), showRecommends = useAtomValue(showRecommendsAtom);
+    const refreshTries = useSetAtom(recommendAtom),
+        showRecommends = useAtomValue(showRecommendsAtom);
     return <Collapse in={showRecommends}>
         <Box>
             <Box sx={{
@@ -33,7 +34,9 @@ export default function Recommends() {
                 <Typography variant="h4">
                     {get("index.trythese")}
                 </Typography>
-                <Button onClick={event => refreshTries()}>
+                <Button onClick={event => {
+                    return startTransition(refreshTries);
+                }}>
                     {get("index.newTries")}
                 </Button>
             </Box>

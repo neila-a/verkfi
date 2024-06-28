@@ -17,7 +17,6 @@ import {
     Typography
 } from "@mui/material";
 import {
-    WritableAtom,
     useAtom
 } from "jotai";
 import langAtom from "@verkfi/shared/atoms/lang";
@@ -25,7 +24,8 @@ import {
     locales
 } from "layout/layoutClient";
 import {
-    forkMeOnGitHubAtom, shareAtom
+    forkMeOnGitHubAtom,
+    shareAtom
 } from "@verkfi/shared/atoms";
 import {
     Route
@@ -35,6 +35,7 @@ import {
     useRouter
 } from "next/navigation";
 import {
+    startTransition,
     useId,
     useState
 } from "react";
@@ -86,7 +87,7 @@ export default function Options() {
             </InputLabel>
             <Select labelId={langId} value={lang} label={get("选择语言")} onChange={event => {
                 const plang = event.target.value as typeof lang;
-                setLang(plang);
+                startTransition(() => setLang(plang));
             }}>
                 {Object.values(locales).map(ilang => {
                     const langId = Object.keys(locales).find(key => locales[key] === ilang),

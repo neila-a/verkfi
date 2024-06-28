@@ -13,7 +13,6 @@ import {
     useSetAtom
 } from "jotai";
 import {
-    viewModeAtom,
     buttonCommonSorterAtom
 } from "@verkfi/shared/atoms";
 import {
@@ -54,7 +53,6 @@ export default function ToolsStackWithTools(props: {
     focus?: string;
 }) {
     const isImplant = useContext(isImplantContext),
-        resetTools = useResetAtom(toolsAtom),
         editMode = useAtomValue(editModeAtom),
         sortingFor = useAtomValue(sortingForAtom)(isImplant),
         buttonCommonSorting = useSetAtom(buttonCommonSorterAtom);
@@ -86,8 +84,9 @@ export default function ToolsStackWithTools(props: {
                 }
                 if (editMode) {
                     const newTools = reorderArray(props.paramTool, result.source.index, result.destination.index);
-                    buttonCommonSorting(sortingFor, newTools);
-                    startTransition(async () => await resetTools());
+                    startTransition(async () => {
+                        return await buttonCommonSorting(sortingFor, newTools);
+                    });
                 }
             }}>
                 <Box sx={{
