@@ -14,7 +14,7 @@ import {
     get,
     getHTML
 } from "react-intl-universal";
-import pack from "../../../../package.json";
+import pack from "../../../../../../../package.json";
 import Reset from "./reset";
 const {
     version,

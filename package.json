@@ -1,9 +1,19 @@
 {
+	"version": "1.7.3",
+	"devVersion": "1013",
+	"dev": true,
+	"description": "Platform for Neila's something useless tools.",
 	"devDependencies": {
 		"@types/node": "20.14.9",
 		"@types/react": "18.3.3",
 		"@types/react-dom": "18.3.0"
 	},
+	"author": {
+		"name": "Neila",
+		"email": "neilaspace@outlook.com",
+		"url": "https://neilasite.netlify.app/"
+	},
+	"homepage": "https://netlify.verkfi.neila.vip/",
 	"dependencies": {
 		"@mui/icons-material": "^5.15.20",
 		"@mui/material": "6.0.0-alpha.11",

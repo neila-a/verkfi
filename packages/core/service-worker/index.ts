@@ -2,7 +2,7 @@ import {
     dev,
     devVersion,
     version
-} from "@verkfi/core-ui/package.json";
+} from "../../../package.json";
 import pages from "@verkfi/core-ui/src/pages.json";
 import onFetch from "./onFetch";
 import onMessage from "./onMessage";
