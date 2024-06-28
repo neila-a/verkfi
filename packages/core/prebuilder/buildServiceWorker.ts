@@ -1,7 +1,7 @@
 import logbuild from "./logbuild";
 const buildServiceWorker = () => logbuild({
-    entryPoints: ["./src/service-worker/index.ts"],
-    outfile: "public/service-worker.js",
+    entryPoints: ["./packages/core/service-worker/index.ts"],
+    outfile: "packages/core/ui/public/service-worker.js",
     bundle: true,
     sourcemap: "linked",
     minify: true

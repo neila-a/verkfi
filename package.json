@@ -8,6 +8,15 @@
 		"@mui/icons-material": "^5.15.20",
 		"@mui/material": "6.0.0-alpha.11",
 		"react": "^18.3.1",
-		"react-intl-universal": "^2.11.1"
-	}
+		"react-intl-universal": "^2.11.1",
+		"next": "14.2.4"
+	},
+	"scripts": {
+		"dev": "npm run build:pb && VERKFI_ENV=dev node out/prebuilder.js",
+		"build": "npm run build:pb && node out/prebuilder.js",
+		"build:pb": "esbuild packages/core/prebuilder/index.ts --bundle --minify --external:esbuild --platform=node --outfile=out/prebuilder.js",
+		"lint": "next lint ./packages/core/ui --fix --dir packages",
+		"start": "next start ./packages/core/ui"
+	},
+	"packageManager": "pnpm@9.5.0-beta.0+sha256.bd91cddc9b205c94b5bf0380cec8fc8e4b1dde7b8c5191732f3d4e73848e860e"
 }

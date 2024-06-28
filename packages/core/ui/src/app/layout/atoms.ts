@@ -3,7 +3,7 @@ import {
 } from "jotai/utils";
 import {
     message
-} from "../../service-worker/onMessage";
+} from "@verkfi/core-service-worker/onMessage";
 import {
     atom
 } from "jotai";

@@ -14,16 +14,16 @@ import extensionsAtom, {
 } from "./extensions";
 import toolsInfoAtom, {
     tool
-} from "@verkfi/core/src/app/tools/info";
+} from "@verkfi/core-ui/src/app/tools/info";
 import {
     NXTMetadata,
     setting
-} from "@verkfi/core/src/app/setting/extensions/page";
+} from "@verkfi/core-ui/src/app/setting/extensions/page";
 import awaiter from "../reader/awaiter";
 import {
     toolsAtom,
     toolsAtomUpdate
-} from "@verkfi/core/src/app/index/atoms";
+} from "@verkfi/core-ui/src/app/index/atoms";
 import {
     RESET
 } from "jotai/utils";

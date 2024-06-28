@@ -4,7 +4,7 @@ import {
 } from "react";
 import {
     message
-} from "../../service-worker/onMessage";
+} from "@verkfi/core-service-worker/onMessage";
 import toolsInfoAtom, {
     tool
 } from "tools/info";

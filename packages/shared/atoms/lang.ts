@@ -3,7 +3,7 @@ import {
 } from "jotai";
 import {
     locales
-} from "@verkfi/core/src/app/layout/layoutClient";
+} from "@verkfi/core-ui/src/app/layout/layoutClient";
 import isBrowser from "../isBrowser";
 import atomWithStorage from "../reader/atomWithStorage";
 import awaiter from "../reader/awaiter";

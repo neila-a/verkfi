@@ -1,4 +1,4 @@
-import Error from "@verkfi/core/src/app/error";
+import Error from "@verkfi/core-ui/src/app/error";
 import {
     Component,
     ReactNode

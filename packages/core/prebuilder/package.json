@@ -1,26 +1,27 @@
 {
-    "name": "@verkfi/tool-pi",
+    "name": "@verkfi/core-prebuilder",
     "version": "0.1.0",
-    "description": "Verkfi tool: pi.",
+    "description": "The prebuilder for Verkfi.",
     "private": true,
     "repository": "github:neila-a/verkfi",
     "keywords": [
         "verkfi"
     ],
+    "main": "index.ts",
     "bugs": {
         "url": "https://github.com/neila-a/verkfi/issues",
         "email": "neilaspace@outlook.com"
     },
-    "main": "page.tsx",
     "author": {
         "name": "Neila",
         "email": "neilaspace@outlook.com",
         "url": "https://neilasite.netlify.app/"
     },
-    "devDependencies": {},
-    "homepage": "https://netlify.verkfi.neila.vip/",
     "dependencies": {
-        "@verkfi/shared": "workspace:../../shared",
-        "lp-logger": "github:neila-a/lp-logger-no-window"
-    }
+        "@colors/colors": "^1.6.0",
+        "esbuild": "^0.21.5",
+        "@verkfi/core-ui": "link:../ui",
+        "@verkfi/shared": "link:../../shared"
+    },
+    "homepage": "https://netlify.verkfi.neila.vip/"
 }

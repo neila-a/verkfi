@@ -1,6 +1,6 @@
 import {
     NXTMetadata
-} from "@verkfi/core/src/app/setting/extensions/page";
+} from "@verkfi/core-ui/src/app/setting/extensions/page";
 export default async function getMetadatas() {
     const allHandle = await navigator.storage.getDirectory() as FileSystemDirectoryHandle & {
         values(): AsyncIterableIterator<FileSystemHandle>;

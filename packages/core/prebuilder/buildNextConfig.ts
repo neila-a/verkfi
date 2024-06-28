@@ -1,7 +1,7 @@
 import logbuild from "./logbuild";
 const buildNextConfig = () => logbuild({
-    entryPoints: ["next.config.ts"],
-    outfile: "next.config.js",
+    entryPoints: ["packages/core/ui/next.config.ts"],
+    outfile: "packages/core/ui/next.config.js",
     format: "cjs",
     minify: true,
     platform: "node"

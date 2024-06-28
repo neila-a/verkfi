@@ -1,4 +1,4 @@
-import toolsInfoAtom from "@verkfi/core/src/app/tools/info";
+import toolsInfoAtom from "@verkfi/core-ui/src/app/tools/info";
 import {
     atomWithRefresh
 } from "jotai/utils";

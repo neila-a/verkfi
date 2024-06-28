@@ -22,7 +22,6 @@
     "dependencies": {
         "@verkfi/shared": "workspace:../../shared",
         "lp-logger": "github:neila-a/lp-logger-no-window",
-        "next": "^14.2.3",
         "remove-item-from-array": "^1.0.4"
     }
 }

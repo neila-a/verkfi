@@ -14,10 +14,10 @@ export default async function editPages() {
     const
         {
             stdout
-        } = await promisify(exec)("find ./src/app -name '*page.tsx'"),
+        } = await promisify(exec)("find packages/core/ui/src/app -name '*page.tsx'"),
         pages = stdout
             .toString()
-            .replaceAll("./src/app", "")
+            .replaceAll("./packages/core/ui/src/app", "")
             .replaceAll("page.tsx", "")
             .split("\n")
             .map(single => {
@@ -26,5 +26,5 @@ export default async function editPages() {
                 }
                 return "/";
             }).filter(single => single !== ""), pagesJSON = JSON.stringify(pages, null, JSONspacing);
-    return await writeFile("./src/pages.json", pagesJSON);
+    return await writeFile("packages/core/ui/src/pages.json", pagesJSON);
 }

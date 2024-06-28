@@ -1,4 +1,4 @@
 {
-    "react-intl-universal-i18n.configPath": "packages/core/src/app/locales",
+    "react-intl-universal-i18n.configPath": "packages/core/ui/src/app/locales",
     "react-intl-universal-i18n.regExp": "get(\"$1\")"
 }

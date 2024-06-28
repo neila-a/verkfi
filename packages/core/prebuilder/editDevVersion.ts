@@ -2,7 +2,7 @@ import getRepoInfo from "@verkfi/shared/getRepoInfo";
 import {
     exec
 } from "node:child_process";
-import pack from "../../package.json";
+import pack from "@verkfi/core-ui/package.json";
 import {
     JSONspacing
 } from "./consts";
@@ -16,7 +16,7 @@ import {
 import "@colors/colors";
 export default async function editDevVersion() {
     const repoInfo = await getRepoInfo(),
-        file = await readFile("package.json"),
+        file = await readFile("packages/core/ui/package.json"),
         oldPackage = <typeof pack>JSON.parse(file.toString()),
         {
             stdout
@@ -25,6 +25,6 @@ export default async function editDevVersion() {
     oldPackage.description = repoInfo.description;
     oldPackage.devVersion = commits.toString();
     console.log("计算devVersion".brightCyan, ` 计算出devVersion为${commits}`);
-    await writeFile("package.json", JSON.stringify(oldPackage, null, JSONspacing));
+    await writeFile("packages/core/ui/package.json", JSON.stringify(oldPackage, null, JSONspacing));
     return oldPackage;
 }

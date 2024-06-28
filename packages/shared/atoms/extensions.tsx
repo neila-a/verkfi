@@ -7,7 +7,7 @@ import atomWithInitialValue, {
 } from "../reader/atomWithInitialValue";
 import {
     NXTMetadata
-} from "@verkfi/core/src/app/setting/extensions/page";
+} from "@verkfi/core-ui/src/app/setting/extensions/page";
 import getMetadatas from "./getMetadatas";
 import atomWithBroadcast from "../reader/atomWithBroadcast";
 import awaiter from "../reader/awaiter";
@@ -20,7 +20,7 @@ import {
 } from "jotai";
 import {
     tool
-} from "@verkfi/core/src/app/tools/info";
+} from "@verkfi/core-ui/src/app/tools/info";
 import atomWithEmpty from "../reader/atomWithEmpty";
 export interface extensionsDispatch extends NXTMetadata {
     action?: "delete"
