@@ -17,7 +17,7 @@ import {
 } from "react-intl-universal";
 import generatePis from "./generatePis";
 const AlertDialog = dynamic(() => import("@verkfi/shared/dialog/Alert"));
-function PI(): JSX.Element {
+function PI() {
     const [digits, setDigits] = useState<number>(1),
         [useAlertShow, setUseAlertShow] = useState<boolean>(false),
         [showInfoDialog, setShowInfoDialog] = useState<boolean>(false),

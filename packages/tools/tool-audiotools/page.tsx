@@ -27,7 +27,7 @@ import Module from "./Module";
 import getRecording from "@verkfi/shared/getRecording";
 import useBlobState from "@verkfi/shared/useBlobState";
 export type status = "recording" | "paused" | "inactive";
-function AudioTools(): JSX.Element {
+function AudioTools() {
     const mediaRecorder = useRef<"awaqwq" | MediaRecorder>("awaqwq"),
         [loopAudioSrc, setLoopAudioSrc] = useBlobState(),
         [loopSpeakAudioSrc, setLoopSpeakAudioSrc] = useBlobState(),

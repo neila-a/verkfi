@@ -53,7 +53,7 @@ export default function Index(props: {
      * 是否为嵌入
      */
     isImplant?: boolean;
-}): JSX.Element {
+}) {
     const showSidebar = useAtomValue(showSidebarAtom),
         mostUsed = useAtomValue(mostUsedToolsAtom),
         expand = useAtomValue(expandAtom),

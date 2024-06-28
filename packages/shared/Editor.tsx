@@ -31,7 +31,7 @@ export default function Editor(props: {
     run(code: string): any;
     children?: ReactNode;
     tip: string;
-}): JSX.Element {
+}) {
     const [code, setCode] = useState(`// ${props.tip}`),
         theme = useTheme(),
         inputRef = useRef<HTMLInputElement>();

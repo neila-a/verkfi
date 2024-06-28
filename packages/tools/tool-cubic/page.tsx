@@ -29,7 +29,7 @@ type text = [string, string, string, string, string, string];
 export const cubeSize = 3,
     ambientLightPosition = 9,
     cameraPosition = 10;
-export default function Cubic(): JSX.Element {
+export default function Cubic() {
     const canvas = useRef<HTMLCanvasElement>(),
         camera = useRef<Camera>(),
         mesh = useRef<Mesh>(),

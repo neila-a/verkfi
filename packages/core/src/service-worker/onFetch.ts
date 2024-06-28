@@ -2,6 +2,9 @@ import {
     Cache,
     log
 } from ".";
+/**
+ * 为了和命名空间重合而必须使用命名函数
+ */
 function testPaths(url: string, ...path: [keyof typeof testPaths, (tested: URLPatternResult) => any][]) {
     return Promise.all(path.map(async aPath => {
         if (testPaths[aPath[0]].test(url)) {

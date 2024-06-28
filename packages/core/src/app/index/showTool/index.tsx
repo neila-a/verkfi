@@ -31,6 +31,7 @@ import {
 } from "index/atoms";
 import {
     ReactNode,
+    startTransition,
     useContext
 } from "react";
 import {
@@ -86,7 +87,7 @@ export default function ToolsStackWithTools(props: {
                 if (editMode) {
                     const newTools = reorderArray(props.paramTool, result.source.index, result.destination.index);
                     buttonCommonSorting(sortingFor, newTools);
-                    resetTools();
+                    startTransition(async () => await resetTools());
                 }
             }}>
                 <Box sx={{

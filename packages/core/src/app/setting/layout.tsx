@@ -62,7 +62,7 @@ export interface ThemeHaveZIndex {
 const allWidth = 100;
 export default function Settings(props: {
     children: ReactNode;
-}): JSX.Element {
+}) {
     const sets = useAtomValue(setsAtom),
         router = useRouter(),
         [extensionTools, setExtensions] = useAtom(extensionsAtom),

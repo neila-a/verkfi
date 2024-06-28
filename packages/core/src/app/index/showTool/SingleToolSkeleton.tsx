@@ -2,13 +2,7 @@ import {
     Skeleton
 } from "@mui/material";
 import SingleTool from "./SingleTool";
-import {
-    emptyArray
-} from "./toolsSkeleton";
-/**
- * @internal
- */
-const SkeletonTools = () => emptyArray.fill(0).map((item, index) => <Skeleton key={index} sx={{
+const SingleToolSkeleton = () => <Skeleton sx={{
     transform: "unset",
     maxWidth: "unset"
 }}>
@@ -21,5 +15,5 @@ const SkeletonTools = () => emptyArray.fill(0).map((item, index) => <Skeleton ke
         // @ts-ignore 占空值
         color: ["114514", "191981"]
     }} />
-</Skeleton>);
-export default SkeletonTools;
+</Skeleton>;
+export default SingleToolSkeleton;

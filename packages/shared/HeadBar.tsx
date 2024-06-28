@@ -60,7 +60,7 @@ export interface HeadBarOption {
  * @param {boolean} only 是否隐藏
  * @param {SxProps<Theme>} sx 添加的样式
  */
-export default function HeadBar(props: HeadBarOption): JSX.Element {
+export default function HeadBar(props: HeadBarOption) {
     const repoInfoName = useContext(repoInfoContext).name,
         forkMeOnGithub = useAtomValue(forkMeOnGitHubAtom),
         router = useRouter(),

@@ -11,7 +11,7 @@ import {
 } from "react-intl-universal";
 import ShaiZiCanvas from "./shaiziCanvas";
 const defaultCishu = 10;
-function ShaiZi(): JSX.Element {
+function ShaiZi() {
     const [cishu, setCishu] = useState<number>(defaultCishu);
     return (
         <>

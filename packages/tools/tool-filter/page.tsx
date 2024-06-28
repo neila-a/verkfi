@@ -36,7 +36,7 @@ import libearOnly from "./image/libear-only.png";
 import useBlobState from "@verkfi/shared/useBlobState";
 const initialScale = 100,
     scaleMax = 200;
-export default function Filter(): JSX.Element {
+export default function Filter() {
     const [imageArray, setImageArray] = useState<FilePondFile[]>([]),
         [imageFileName, setImageFileName] = useState<string>("libear-only"),
         [imageURL, setImageURL] = useBlobState(libearOnly.src),

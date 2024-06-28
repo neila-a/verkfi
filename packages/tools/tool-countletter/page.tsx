@@ -27,7 +27,7 @@ const logger = new LpLogger({
     level: "log" // 空字符串时，不显示任何信息
 });
 type numberType = 2 | 8 | 10 | 16;
-function CountLetter(): JSX.Element {
+function CountLetter() {
     const [enterDialogOpen, setEnterDialogOpen] = useState<boolean>(false),
         [alertDialogOpen, setAlertDialogOpen] = useState<boolean>(false),
         [out, setOut] = useState<string>(""),

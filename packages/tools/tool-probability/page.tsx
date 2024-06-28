@@ -17,7 +17,7 @@ import {
 import Editor from "@verkfi/shared/Editor";
 import range from "@verkfi/shared/range";
 const defaultTimes = 10;
-export default function Probability(): JSX.Element {
+export default function Probability() {
     const [datas, setDatas] = useState([]),
         [times, setTimes] = useState(defaultTimes),
         objectDatas: {

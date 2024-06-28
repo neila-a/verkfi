@@ -64,7 +64,7 @@ values.forEach(value => {
         ...emptyFilterRule
     };
 });
-export default function Pillar(): JSX.Element {
+export default function Pillar() {
     const [type, setType] = useState<pillarPositions>("oneEndAndMiddle"),
         [length, setLength] = useState<number>(0),
         [filterRules, setFilterRules] = useState(emptyFilterRules as filterRules),

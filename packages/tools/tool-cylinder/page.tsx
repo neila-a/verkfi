@@ -33,7 +33,7 @@ import Cylinder from "./makeCylinder";
  */
 const throttleTime = 17,
     initialRadius = 50;
-function CylinderPage(): JSX.Element {
+function CylinderPage() {
     const [radiusX, setRadiusX] = useState<number>(initialRadius),
         [radiusZ, setRadiusZ] = useState<number>(initialRadius),
         [thickness, setThickness] = useState<number>(1),

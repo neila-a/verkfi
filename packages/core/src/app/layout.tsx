@@ -1,8 +1,7 @@
 import {
     Box,
     GlobalStyles,
-    Typography,
-    getInitColorSchemeScript
+    Typography
 } from "@mui/material";
 import {
     AppRouterCacheProvider

@@ -29,7 +29,7 @@ import created from "./createdMath";
 import range from "@verkfi/shared/range";
 const defaultMax = 10,
     defaultItemCount = 20;
-function MathGen(): JSX.Element {
+function MathGen() {
     const [min, setMin] = useState<number>(0),
         [max, setMax] = useState<number>(defaultMax),
         [itemCount, setItemCount] = useState<number>(defaultItemCount),

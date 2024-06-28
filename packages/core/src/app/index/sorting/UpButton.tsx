@@ -30,7 +30,7 @@ import {
 export default function UpButton(props: {
     tool: tool;
     sortingFor: string;
-}): JSX.Element {
+}) {
     const buttonCommonSorting = useSetAtom(buttonCommonSorterAtom),
         editMode = useAtomValue(editModeAtom),
         tools = useAtomValue(toolsAtom),

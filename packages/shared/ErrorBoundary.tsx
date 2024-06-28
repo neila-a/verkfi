@@ -1,11 +1,12 @@
 import Error from "@verkfi/core/src/app/error";
 import {
-    Component
+    Component,
+    ReactNode
 } from "react";
 interface prop {
     hasError?: boolean;
     error?: Error;
-    children?: JSX.Element;
+    children?: ReactNode;
 }
 export default class ErrorBoundary extends Component {
     constructor(props) {

@@ -13,7 +13,7 @@ import {
 import run from "./run";
 import Decimal from "decimal.js";
 const initialMaxTimes = 1_0000_0000;
-export default function Equation(): JSX.Element {
+export default function Equation() {
     const [maxTimes, setMaxTimes] = useState(initialMaxTimes),
         [result, setResult] = useState<Decimal>(new Decimal(0)),
         [times, setTimes] = useState(0);

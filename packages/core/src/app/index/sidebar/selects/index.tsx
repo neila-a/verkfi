@@ -25,6 +25,7 @@ import dynamic from "next/dynamic";
 import {
     Fragment,
     createElement,
+    startTransition,
     useContext,
     useState
 } from "react";
@@ -86,7 +87,7 @@ export default function Selects(props: {
                         setSearchText("", isImplant);
                         props.modifyClickCount("++");
                         setSortedTools(draft);
-                        setTools(draft);
+                        startTransition(async () => await setTools(draft));
                     };
                     if (aprops.isAll) {
                         if (sortingFor !== "__global__") {

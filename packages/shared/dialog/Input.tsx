@@ -11,6 +11,7 @@ import {
     Theme
 } from "@mui/material";
 import {
+    ReactNode,
     useState
 } from "react";
 import {
@@ -19,7 +20,7 @@ import {
 import Transition from "./Transition";
 export default function InputDialog(props: {
     label: string;
-    context: string | JSX.Element;
+    context: ReactNode;
     title: string;
     onDone(context: string): any;
     onCancel?: () => any;

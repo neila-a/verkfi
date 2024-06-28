@@ -30,7 +30,7 @@ const InputDialog = dynamic(() => import("@verkfi/shared/dialog/Input")),
      * 随机所用的系数
      */
     randomFactor = 1000_0000_0000_0000;
-function Reversal(): JSX.Element {
+function Reversal() {
     const [wordList, setWordList] = useState<[string, number][]>([]),
         [words, setWords] = useState<string>(""),
         [output, setOutput] = useState<string>(""),

@@ -30,7 +30,7 @@ import {
 import toolsInfoAtom from "./info";
 export default function ToolFinder(props: {
     children: ReactNode;
-}): JSX.Element {
+}) {
     const color = useAtomValue(gradientToolAtom),
         segment = useSelectedLayoutSegment(),
         searchParams = useSearchParams(),

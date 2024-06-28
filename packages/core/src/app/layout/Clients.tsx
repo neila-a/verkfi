@@ -1,18 +1,8 @@
 "use client";
 import {
-    Suspense
-} from "react";
-import {
-    useAtom,
-    useSetAtom
-} from "jotai";
-import {
-    get
-} from "react-intl-universal";
-import {
     ArrowBackIos as ArrowBackIosIcon,
-    Search as SearchIcon,
     Close,
+    Search as SearchIcon,
     Sync
 } from "@mui/icons-material";
 import {
@@ -31,10 +21,22 @@ import {
 } from "@verkfi/shared/atoms";
 import Transition from "@verkfi/shared/dialog/Transition";
 import {
+    useAtom,
+    useSetAtom
+} from "jotai";
+import Loading from "loading";
+import {
+    Suspense,
+    startTransition
+} from "react";
+import {
+    get
+} from "react-intl-universal";
+import ClientsContent from "./ClientsContent";
+import {
     clientsAtom,
     searchTextAtom
 } from "./atoms";
-import ClientsContent from "./ClientsContent";
 import ToolsSkeleton from "index/showTool/toolsSkeleton";
 export default function Clients() {
     const setClients = useSetAtom(clientsAtom),
@@ -79,7 +81,7 @@ export default function Clients() {
                         endAdornment:
                             <InputAdornment position="start">
                                 <MouseOverPopover text={get("clients.sync")}>
-                                    <IconButton aria-label={get("clients.sync")} onClick={event => setClients()}>
+                                    <IconButton aria-label={get("clients.sync")} onClick={event => startTransition(() => setClients())}>
                                         <Sync />
                                     </IconButton>
                                 </MouseOverPopover>
@@ -105,7 +107,7 @@ export default function Clients() {
             <DialogContent dividers sx={{
                 maxHeight: "100%"
             }}>
-                <Suspense fallback={<ToolsSkeleton />}>
+                <Suspense fallback={<Loading />}>
                     <ClientsContent />
                 </Suspense>
             </DialogContent>

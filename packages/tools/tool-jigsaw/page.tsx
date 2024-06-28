@@ -64,7 +64,7 @@ interface jigsaw {
 const blobToInt8Array = async (blob: Blob) => new Int8Array(await blob.arrayBuffer()).join(""),
     initialSize = 3,
     dragImageSize = 32;
-export default function JigsawEntry(): JSX.Element {
+export default function JigsawEntry() {
     const [imageArray, setImageArray] = useState<FilePondFile[]>([]),
         [imageFileName, setImageFileName] = useState<string>(""),
         [dialogOpen, setDialogOpen] = useState<boolean>(false),

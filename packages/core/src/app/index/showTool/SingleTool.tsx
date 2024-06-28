@@ -39,6 +39,7 @@ import {
     Fragment,
     ReactNode,
     createElement,
+    startTransition,
     useContext,
     useState
 } from "react";
@@ -198,7 +199,7 @@ export default function SingleTool(props: {
                                 main: ""
                             } as unknown as NXTMetadata,
                             files: [],
-                            onTrue: () => setTools(`remove ${tool.to}`)
+                            onTrue: () => startTransition(async () => await setTools(`remove ${tool.to}`))
                         })}
                     </>
                 }
@@ -211,7 +212,7 @@ export default function SingleTool(props: {
                                 }
                                 return list;
                             }));
-                            setTools(`remove ${tool.to}`);
+                            startTransition(async () => await setTools(`remove ${tool.to}`));
                         }} aria-label={get("singleTool.deleteFromCategory")}>
                             <FolderDelete />
                         </IconButton>

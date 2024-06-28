@@ -14,7 +14,7 @@ import {
 export default function SingleMath(props: {
     math: string;
     showOut: boolean;
-}): JSX.Element {
+}) {
     const [isError, setError] = useState<boolean>(false),
         {
             math,

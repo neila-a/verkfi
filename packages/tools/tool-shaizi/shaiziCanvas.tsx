@@ -15,7 +15,7 @@ export const rotateAxis: rotateAxis[] = ["x", "y", "z"],
     randomAxis = () => rotateAxis[Math.floor(Math.random() * rotateAxis.length)];
 export default function ShaiZiCanvas(props: {
     cishu: number;
-}): JSX.Element {
+}) {
     // Use useRef hook to access the canvas element
     const canvas = useRef<HTMLCanvasElement>();
     useEffect(() => {
