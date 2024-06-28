@@ -3,20 +3,21 @@ import {
     Message,
     build
 } from "esbuild";
-import {
-    logger
-} from "./consts";
+import "@colors/colors";
 export default async function logbuild(options: BuildOptions, filename: string) {
+    console.time(`编译${filename}耗时`);
     const awaitedResult = await build(options);
-    logger.log(`正在编译${filename}……`);
-    const log = (message: [Message[], string]) => {
+    console.log(`编译${filename}`.brightCyan, ` 正在编译${filename}……`);
+    const log = (...message: [Message[], string]) => {
         if (message[0].length === 0) {
-            logger.log(`编译${filename}时未出现${message[1]}。`);
+            console.log(`编译${filename}`.brightCyan, ` 编译${filename}时未出现${message[1]}。`);
         } else {
-            message[0].forEach(warn => logger.warn(`编译${filename}时出现${message[1]}：${JSON.stringify(warn)}`));
+            message[0].forEach(warn => console.log(`编译${filename}`.brightYellow, ` 编译${filename}时出现${message[1]}：${JSON.stringify(warn)}`));
         }
     };
-    log([awaitedResult.errors, "错误"]);
-    log([awaitedResult.warnings, "警告"]);
+    log(awaitedResult.errors, "错误");
+    log(awaitedResult.warnings, "警告");
+    console.timeEnd(`编译${filename}耗时`);
+    console.log(""); // 换行
     return awaitedResult;
 }

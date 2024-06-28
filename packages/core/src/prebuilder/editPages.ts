@@ -1,12 +1,21 @@
-import ChildProcess from "node:child_process";
-import * as fs from "node:fs";
+import {
+    exec
+} from "node:child_process";
 import {
     JSONspacing
 } from "./consts";
-export default function editPages() {
+import {
+    writeFile
+} from "node:fs/promises";
+import {
+    promisify
+} from "node:util";
+export default async function editPages() {
     const
-        pages = ChildProcess
-            .execSync(`find ./src/app -name '*page.tsx'`)
+        {
+            stdout
+        } = await promisify(exec)("find ./src/app -name '*page.tsx'"),
+        pages = stdout
             .toString()
             .replaceAll("./src/app", "")
             .replaceAll("page.tsx", "")
@@ -17,5 +26,5 @@ export default function editPages() {
                 }
                 return "/";
             }).filter(single => single !== ""), pagesJSON = JSON.stringify(pages, null, JSONspacing);
-    return fs.writeFileSync("./src/pages.json", pagesJSON);
+    return await writeFile("./src/pages.json", pagesJSON);
 }

@@ -5,10 +5,13 @@ import editDevVersion from "./editDevVersion";
 import editPages from "./editPages";
 import buildServiceWorker from "./buildServiceWorker";
 import buildNextConfig from "./buildNextConfig";
-if (process.env.VERKFI_ENV === "dev") {
-    editDevVersion();
-}
-editPages();
-buildServiceWorker();
-buildNextConfig();
-// 并发执行
+import buildNext from "./buildNext";
+(async () => {
+    if (process.env.VERKFI_ENV === "dev") {
+        await editDevVersion();
+    }
+    await editPages();
+    await buildServiceWorker();
+    await buildNextConfig();
+    buildNext();
+})();
