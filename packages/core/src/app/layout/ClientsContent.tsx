@@ -145,13 +145,11 @@ export default function ClientsContent() {
                 setNavigatingId("");
                 setNavigateDialogOpen(false);
             };
-            if ("serviceWorker" in navigator && navigator.serviceWorker) {
-                navigator.serviceWorker.controller.postMessage({
-                    action: "navigate",
-                    id: navigatingId,
-                    url: context
-                } as message, [channel.port2]);
-            }
+            navigator?.serviceWorker?.controller?.postMessage?.({
+                action: "navigate",
+                id: navigatingId,
+                url: context
+            } as message, [channel.port2]);
         }} inputAdd={{
             placeholder: "/"
         }} sx={{
