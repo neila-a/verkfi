@@ -23,7 +23,7 @@
         "dexie": "^4.0.7",
         "file-saver": "2.0.5",
         "file-to-any": "^1.2.0",
-        "jotai": "^2.8.0",
+        "jotai": "2.8.0",
         "lp-logger": "github:neila-a/lp-logger-no-window",
         "next": "^14.2.3",
         "react-draggable": "^4.4.6",

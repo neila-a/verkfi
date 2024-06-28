@@ -62,7 +62,7 @@
         "@verkfi/tool-speech": "workspace:../tools/tool-speech",
         "array-flatten": "^3.0.0",
         "filepond": "^4.30.6",
-        "jotai": "^2.8.3",
+        "jotai": "2.8.0",
         "lp-logger": "github:neila-a/lp-logger-no-window",
         "mdi-material-ui": "^7.9.1",
         "next": "14.2.4",

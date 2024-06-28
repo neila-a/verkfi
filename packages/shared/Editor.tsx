@@ -18,7 +18,6 @@ import saveAs from "file-saver";
 import {
     toText
 } from "file-to-any";
-import Loading from "loading";
 import {
     ReactNode,
     useRef,

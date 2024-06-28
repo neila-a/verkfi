@@ -23,7 +23,7 @@ import awaiter from "../reader/awaiter";
 import {
     toolsAtom,
     toolsAtomUpdate
-} from "index/atoms";
+} from "@verkfi/core/src/app/index/atoms";
 import {
     RESET
 } from "jotai/utils";

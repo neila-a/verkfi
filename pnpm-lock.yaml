@@ -109,8 +109,8 @@ importers:
         specifier: ^4.30.6
         version: 4.31.1
       jotai:
-        specifier: ^2.8.3
-        version: 2.8.3(@types/react@18.3.3)(react@18.3.1)
+        specifier: 2.8.0
+        version: 2.8.0(@types/react@18.3.3)(react@18.3.1)
       lp-logger:
         specifier: github:neila-a/lp-logger-no-window
         version: https://codeload.github.com/neila-a/lp-logger-no-window/tar.gz/17b3ab1b07e49d6ab4f45af34ed4c59f53f7fdb4
@@ -176,7 +176,7 @@ importers:
         specifier: ^1.2.0
         version: 1.2.0
       jotai:
-        specifier: ^2.8.0
+        specifier: 2.8.0
         version: 2.8.0(@types/react@18.3.3)(react@18.3.1)
       lp-logger:
         specifier: github:neila-a/lp-logger-no-window
@@ -2226,18 +2226,6 @@ packages:
 
   jotai@2.8.0:
     resolution: {integrity: sha512-yZNMC36FdLOksOr8qga0yLf14miCJlEThlp5DeFJNnqzm2+ZG7wLcJzoOyij5K6U6Xlc5ljQqPDlJRgqW0Y18g==}
-    engines: {node: '>=12.20.0'}
-    peerDependencies:
-      '@types/react': '>=17.0.0'
-      react: '>=17.0.0'
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-      react:
-        optional: true
-
-  jotai@2.8.3:
-    resolution: {integrity: sha512-pR4plVvdbzB6zyt7VLLHPMAkcRSKhRIvZKd+qkifQLa3CEziEo1uwZjePj4acTmQrboiISBlYSdCz3gWcr1Nkg==}
     engines: {node: '>=12.20.0'}
     peerDependencies:
       '@types/react': '>=17.0.0'
@@ -5302,11 +5290,6 @@ snapshots:
       - redux
 
   jotai@2.8.0(@types/react@18.3.3)(react@18.3.1):
-    optionalDependencies:
-      '@types/react': 18.3.3
-      react: 18.3.1
-
-  jotai@2.8.3(@types/react@18.3.3)(react@18.3.1):
     optionalDependencies:
       '@types/react': 18.3.3
       react: 18.3.1
