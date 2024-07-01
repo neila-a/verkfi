@@ -19,8 +19,11 @@ function atomWithEmpty<Value, update extends Value, Result>(
             if (got === emptySymbol) {
                 const waiting = read(get, options);
                 return awaiter(waiting, value => {
-                    options.setSelf(...[value] as [value: Exclude<update, typeof emptySymbol>], true);
-                    return read(get, options);
+                    try {
+                        options.setSelf(...[value] as [value: Exclude<update, typeof emptySymbol>], true);
+                    } finally {
+                        return read(get, options);
+                    }
                 });
             }
             return got as Exclude<Value, typeof emptySymbol>;

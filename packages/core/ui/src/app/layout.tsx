@@ -33,7 +33,7 @@ export async function generateMetadata() {
     }
     const repoInfo = await getRepoInfo(),
         upperName = repoInfo.name.charAt(0).toUpperCase() + repoInfo.name.slice(1);
-    return ({
+    return {
         manifest: "/manifest.webmanifest",
         metadataBase: url,
         description: repoInfo.description,
@@ -70,11 +70,12 @@ export async function generateMetadata() {
             ]
         },
         authors: pack.author
-    }) satisfies Metadata;
+    } satisfies Metadata;
 }
 export function generateViewport(): Viewport {
     return {
-        themeColor: "#1976d2"
+        themeColor: "#1976d2",
+        colorScheme: "light dark"
     };
 }
 export default async function Layout({

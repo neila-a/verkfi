@@ -60,7 +60,7 @@ export default function onFetch(event: FetchEvent) {
         return await cache.match(realReq, {
             ignoreSearch: true
         });
-    }], ["rsc", async () => {
+    }], ["rsc", async tested => {
         const cache = await caches.open(Cache);
         log(`检测到URL：${url} 中含有searchParam“rsc”，已返回无rsc版本`);
         return await cache.match(realReq, {

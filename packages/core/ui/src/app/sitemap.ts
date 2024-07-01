@@ -3,7 +3,7 @@ import {
 } from "next";
 import pack from "../../package.json";
 import pages from "../pages.json";
-export default function sitemap(): MetadataRoute.Sitemap {
+export default function sitemap() {
     let url = new URL(pack.homepage);
     try {
         url = new URL(process.env.VERKFI_URL);
@@ -12,5 +12,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
     return pages.map(page => ({
         url: new URL(url + page).toString()
-    }));
+    } as MetadataRoute.Sitemap[number]));
 }

@@ -1,33 +1,33 @@
 {
-	"version": "1.7.3",
-	"devVersion": "1013",
-	"dev": true,
-	"description": "Platform for Neila's something useless tools.",
-	"devDependencies": {
-		"@types/node": "20.14.9",
-		"@types/react": "18.3.3",
-		"@types/react-dom": "18.3.0"
-	},
-	"author": {
-		"name": "Neila",
-		"email": "neilaspace@outlook.com",
-		"url": "https://neilasite.netlify.app/"
-	},
-	"homepage": "https://netlify.verkfi.neila.vip/",
-	"dependencies": {
-		"@mui/icons-material": "^5.15.20",
-		"@mui/material": "6.0.0-alpha.11",
-		"react": "^18.3.1",
-		"react-intl-universal": "^2.11.1",
-		"esbuild": "^0.21.5",
-		"next": "14.2.4"
-	},
-	"scripts": {
-		"dev": "npm run build:pb && VERKFI_ENV=dev node out/prebuilder.js",
-		"build": "npm run build:pb && node out/prebuilder.js",
-		"build:pb": "esbuild packages/core/prebuilder/index.ts --bundle --minify --external:esbuild --platform=node --outfile=out/prebuilder.js",
-		"lint": "next lint ./packages/core/ui --fix --dir packages",
-		"start": "next start ./packages/core/ui"
-	},
-	"packageManager": "pnpm@9.5.0-beta.0+sha256.bd91cddc9b205c94b5bf0380cec8fc8e4b1dde7b8c5191732f3d4e73848e860e"
+    "version": "1.7.3",
+    "devVersion": "1020",
+    "dev": true,
+    "description": "Platform for Neila's something useless tools.",
+    "devDependencies": {
+        "@types/node": "20.14.9",
+        "@types/react": "18.3.3",
+        "@types/react-dom": "18.3.0"
+    },
+    "author": {
+        "name": "Neila",
+        "email": "neilaspace@outlook.com",
+        "url": "https://neilasite.netlify.app/"
+    },
+    "homepage": "https://netlify.verkfi.neila.vip/",
+    "dependencies": {
+        "@mui/icons-material": "^5.15.20",
+        "@mui/material": "6.0.0-alpha.11",
+        "react": "^18.3.1",
+        "react-intl-universal": "^2.11.1",
+        "esbuild": "^0.21.5",
+        "next": "14.2.4"
+    },
+    "scripts": {
+        "dev": "npm run build:pb && VERKFI_ENV=dev node out/prebuilder.js",
+        "build": "npm run build:pb && node out/prebuilder.js",
+        "build:pb": "esbuild packages/core/prebuilder/index.ts --bundle --minify --external:esbuild --platform=node --outfile=out/prebuilder.js",
+        "lint": "next lint ./packages/core/ui --fix --dir packages",
+        "start": "next start ./packages/core/ui"
+    },
+    "packageManager": "pnpm@9.5.0-beta.0+sha256.bd91cddc9b205c94b5bf0380cec8fc8e4b1dde7b8c5191732f3d4e73848e860e"
 }

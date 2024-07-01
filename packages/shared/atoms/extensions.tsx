@@ -33,8 +33,7 @@ export const [extensionsAtom, extensionsAtomValue] = atomWithInitialValue(
                     try {
                         const metadatas = await getMetadatas();
                         return metadatas;
-                    } catch (error) {
-                        console.error(error);
+                    } catch {
                     }
                 }
                 return [];

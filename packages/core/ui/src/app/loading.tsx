@@ -19,11 +19,11 @@ export default function Loading(props: {
             width: "100%",
             height: "100vh",
             flexDirection: "column",
-            backgroundColor: "#1976d2",
+            backgroundColor: "unset",
             justifyContent: "space-evenly",
             alignItems: "center"
         }}>
-            <Image src={favicon} width={160} height={160} alt="VerkfiIcon" />
+            <Image priority={false} src={favicon} width={160} height={160} alt="VerkfiIcon" />
             {isLoading ? <LinearProgress color="secondary" sx={{
                 width: 160
             }} /> : props.children}
