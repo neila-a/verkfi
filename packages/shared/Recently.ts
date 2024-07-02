@@ -1,4 +1,7 @@
-export default class Recently extends Set<string> {
+/**
+ * 其实就是一个栈
+ */
+export default class Recently<T> extends Set<T> {
     /**
      * 创建时指定的最大个数
      */
@@ -12,7 +15,7 @@ export default class Recently extends Set<string> {
         /**
          * 之前的最近
          */
-        old: Iterable<string>
+        old: Iterable<T>
     ) {
         super(old);
         this.max = max;
@@ -20,7 +23,7 @@ export default class Recently extends Set<string> {
     get() {
         return [...super.entries()].map(item => item[1]);
     }
-    override add(name: string) {
+    override add(name: T) {
         super.add(name);
         if (this.get()[super.size - 1] !== name) {
             super.delete(name);

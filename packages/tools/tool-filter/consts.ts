@@ -10,4 +10,4 @@ export const ImageTypesGen = [
     "saturate",
     "sepia",
     "shadow"
-];
+] as const;

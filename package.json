@@ -7,9 +7,15 @@
         "@eslint/compat": "^1.1.0",
         "@eslint/eslintrc": "^3.1.0",
         "@eslint/js": "^9.6.0",
+        "@testing-library/jest-dom": "^6.4.6",
+        "@testing-library/react": "^16.0.0",
+        "@types/jest": "^29.5.12",
         "@types/node": "20.14.9",
         "@types/react": "18.3.3",
-        "@types/react-dom": "18.3.0"
+        "@types/react-dom": "18.3.0",
+        "jest": "^29.7.0",
+        "jest-environment-jsdom": "^29.7.0",
+        "ts-node": "^10.9.2"
     },
     "author": {
         "name": "Neila",
@@ -30,7 +36,8 @@
         "build": "npm run build:pb && node out/prebuilder.js",
         "build:pb": "esbuild packages/core/prebuilder/index.ts --bundle --minify --external:esbuild --platform=node --outfile=out/prebuilder.js",
         "lint": "eslint .",
-        "start": "next start ./packages/core/ui"
+        "start": "next start ./packages/core/ui",
+        "test": "jest"
     },
     "packageManager": "pnpm@9.5.0-beta.0+sha256.bd91cddc9b205c94b5bf0380cec8fc8e4b1dde7b8c5191732f3d4e73848e860e"
 }

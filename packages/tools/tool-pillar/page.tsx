@@ -23,7 +23,6 @@ import {
 } from "react-intl-universal";
 import SingleCollocation from "./SingleCollocation";
 import calcPillars from "./calcPillars";
-export type pillarPositions = "onlyMiddle" | "oneEndAndMiddle" | "twoEndAndMiddle";
 const enum block {
     empty,
     fill
@@ -36,9 +35,10 @@ const examples = {
     "onlyMiddle": [block.empty, block.fill, block.empty],
     "oneEndAndMiddle": [block.fill, block.empty, block.fill, block.empty],
     "twoEndAndMiddle": [block.fill, block.empty, block.fill]
-} satisfies Record<pillarPositions, block[]>;
-type value = "pillarLength" | "pillarCount" | "distanceLength" | "distanceCount";
-const values: value[] = ["pillarLength", "pillarCount", "distanceLength", "distanceCount"];
+};
+export type pillarPositions = keyof typeof examples;
+const values = ["pillarLength", "pillarCount", "distanceLength", "distanceCount"] as const;
+type value = typeof values[number];
 /**
  * 0：柱子长度
  * 1：柱子个数
@@ -46,17 +46,15 @@ const values: value[] = ["pillarLength", "pillarCount", "distanceLength", "dista
  * 3：间隔个数
  */
 export type collocation = Record<value, number>;
-interface filterRule {
-    min: number;
-    max: number;
-}
+type filterRule = typeof emptyFilterRule;
 type filterRules = Record<value, filterRule>;
-const emptyFilterRule: filterRule = {
-    min: 0,
-    max: 100
-},
+const
+    emptyFilterRule = {
+        min: 0,
+        max: 100
+    },
     emptyFilterRules = {
-    };
+    } as filterRules;
 values.forEach(value => {
     emptyFilterRules[value] = {
         ...emptyFilterRule
@@ -70,7 +68,7 @@ export default function Pillar() {
         sizeLabelId = useId(),
         pillars = calcPillars(type, length),
         filteredPillars = pillars.filter(
-            single => Object.entries(filterRules).every(
+            single => (Object.entries(filterRules) as [value, filterRule][]).every(
                 singleRule => single[singleRule[0]] >= singleRule[1].min && single[singleRule[0]] <= singleRule[1].max
             )
         ).map(single => <SingleCollocation key={JSON.stringify(single)} collocation={single} />);
@@ -100,7 +98,7 @@ export default function Pillar() {
                         onChange={(event, value: pillarPositions) => setType(value)}
                         name="chooses-group"
                     >
-                        {Object.keys(examples).map(single => <Box key={single} sx={{
+                        {(Object.keys(examples) as pillarPositions[]).map(single => <Box key={single} sx={{
                             display: "flex"
                         }}>
                             <FormControlLabel value={single} control={<Radio />} label={get(`pillar.types.${single}`)} />
@@ -157,8 +155,10 @@ export default function Pillar() {
                                         const realOld = {
                                             ...old
                                         };
-                                        realOld[name].min = Number(newValue[0]);
-                                        realOld[name].max = Number(newValue[1]);
+                                        if (newValue instanceof Array) {
+                                            realOld[name].min = Number(newValue[0]);
+                                            realOld[name].max = Number(newValue[1]);
+                                        }
                                         return realOld;
                                     })} max={length} value={[rule.min, rule.max]} aria-labelledby={sizeLabelId} />
                                 </Grid>

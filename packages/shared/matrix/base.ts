@@ -11,7 +11,7 @@ export default function drawMatrixBase(
     if (!onlyPos) console.time("渲染圆");
     const canvas = document.getElementsByTagName("canvas")[0] || document.createElement("canvas"),
         size = edge / n,
-        cxt = canvas.getContext("2d");
+        context = canvas.getContext("2d");
     ["height", "width"].forEach(attr => {
         const edgeStr = edge.toString();
         if (canvas.getAttribute(attr) !== edgeStr) {
@@ -22,10 +22,10 @@ export default function drawMatrixBase(
         const width = canvas.getAttribute("width");
         canvas.setAttribute("width", width); // 刷新
     }
-    cxt.strokeStyle = palette.text.primary;
+    context.strokeStyle = palette.text.primary;
     const dos: [block[], string][] = [[posCache, palette.background.default], [blocks, "#FF0000"], [posBlock, palette.primary[palette.mode]]];
     dos.forEach((item, index) => {
-        cxt.fillStyle = item[1];
+        context.fillStyle = item[1];
         const path = new Path2D(), pBlock = item[0].map(item => item.toString());
         for (let x of range(n)) {
             for (let y of range(n)) {
@@ -34,16 +34,16 @@ export default function drawMatrixBase(
                 }
             }
         }
-        cxt.fill(path);
+        context.fill(path);
     });
     if (!onlyPos) {
         for (let x of range(n - 1)) {
             for (let y of range(n - 1)) {
-                cxt.rect(size * y, size * x, size, size);
+                context.rect(size * y, size * x, size, size);
             }
         }
     }
-    cxt.stroke();
+    context.stroke();
     if (!onlyPos) console.timeEnd("渲染圆");
     return canvas;
 }

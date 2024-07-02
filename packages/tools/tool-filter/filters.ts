@@ -9,5 +9,5 @@ const filters = {
     saturate: "saturate(7)",
     sepia: "sepia(100%)",
     shadow: "drop-shadow(8px 8px 10px green)"
-};
+} as const;
 export default filters;
