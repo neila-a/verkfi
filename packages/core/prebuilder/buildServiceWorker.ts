@@ -4,6 +4,7 @@ const buildServiceWorker = () => logbuild({
     outfile: "packages/core/ui/public/service-worker.js",
     bundle: true,
     sourcemap: "linked",
-    minify: true
+    minify: true,
+    treeShaking: true
 }, "service-worker.ts");
 export default buildServiceWorker;

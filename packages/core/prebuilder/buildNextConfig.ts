@@ -4,6 +4,7 @@ const buildNextConfig = () => logbuild({
     outfile: "packages/core/ui/next.config.js",
     format: "cjs",
     minify: true,
-    platform: "node"
+    platform: "node",
+    treeShaking: true
 }, "next.config.ts");
 export default buildNextConfig;

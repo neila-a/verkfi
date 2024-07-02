@@ -30,9 +30,7 @@ export default function InputDialog(props: {
 }) {
     const [input, setInput] = useState<string>(""),
         handleClose = () => {
-            if ("onCancel" in props) {
-                props.onCancel();
-            }
+            props?.onCancel?.();
         };
     return (
         <Dialog open={props.open} onClose={handleClose} TransitionComponent={Transition} keepMounted sx={props?.sx}>

@@ -24,14 +24,10 @@ import {
 import pack from "../../package.json";
 import favicon from "./image/favicon.png";
 import social from "./image/social.png";
+import getHomePage from "layout/getHomepage";
 export async function generateMetadata() {
-    let url = new URL(pack.homepage);
-    try {
-        url = new URL(process.env.VERKFI_URL);
-    } catch (reason) {
-        console.error(`URL build failed, reason: ${reason}. Using ${url} from homepage in package.json.`);
-    }
-    const repoInfo = await getRepoInfo(),
+    const url = getHomePage(),
+        repoInfo = await getRepoInfo(),
         upperName = repoInfo.name.charAt(0).toUpperCase() + repoInfo.name.slice(1);
     return {
         manifest: "/manifest.webmanifest",

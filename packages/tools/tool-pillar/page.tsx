@@ -24,17 +24,19 @@ import {
 import SingleCollocation from "./SingleCollocation";
 import calcPillars from "./calcPillars";
 export type pillarPositions = "onlyMiddle" | "oneEndAndMiddle" | "twoEndAndMiddle";
+const enum block {
+    empty,
+    fill
+}
 /**
  * 0：间隔
  * 1：柱子
  */
 const examples = {
-    "onlyMiddle": [0, 1, 0],
-    "oneEndAndMiddle": [1, 0, 1, 0],
-    "twoEndAndMiddle": [1, 0, 1]
-} satisfies ({
-    [key in pillarPositions]: (0 | 1)[];
-});
+    "onlyMiddle": [block.empty, block.fill, block.empty],
+    "oneEndAndMiddle": [block.fill, block.empty, block.fill, block.empty],
+    "twoEndAndMiddle": [block.fill, block.empty, block.fill]
+} satisfies Record<pillarPositions, block[]>;
 type value = "pillarLength" | "pillarCount" | "distanceLength" | "distanceCount";
 const values: value[] = ["pillarLength", "pillarCount", "distanceLength", "distanceCount"];
 /**
@@ -43,16 +45,12 @@ const values: value[] = ["pillarLength", "pillarCount", "distanceLength", "dista
  * 2：间隔长度
  * 3：间隔个数
  */
-export type collocation = {
-    [key in value]: number;
-};
+export type collocation = Record<value, number>;
 interface filterRule {
     min: number;
     max: number;
 }
-type filterRules = {
-    [key in value]: filterRule;
-};
+type filterRules = Record<value, filterRule>;
 const emptyFilterRule: filterRule = {
     min: 0,
     max: 100
@@ -147,9 +145,11 @@ export default function Pillar() {
                                         };
                                         realOld[name].min = Number(event.target.value);
                                         return realOld;
-                                    })} inputProps={{
-                                        step: 1,
-                                        type: "number"
+                                    })} slotProps={{
+                                        htmlInput: {
+                                            step: 1,
+                                            type: "number"
+                                        }
                                     }} />
                                 </Grid>
                                 <Grid item xs={3} sm={7}>
@@ -171,9 +171,11 @@ export default function Pillar() {
                                         };
                                         realOld[name].max = Number(event.target.value);
                                         return realOld;
-                                    })} inputProps={{
-                                        step: 1,
-                                        type: "number"
+                                    })} slotProps={{
+                                        htmlInput: {
+                                            step: 1,
+                                            type: "number"
+                                        }
                                     }} />
                                 </Grid>
                             </Fragment>
