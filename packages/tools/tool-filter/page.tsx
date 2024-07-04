@@ -43,7 +43,7 @@ export default function Filter() {
         [imageTypes, setImageTypes] = useState<ImageType[]>(ImageTypesGen),
         [scale, setScale] = useState<number>(initialScale),
         sizeId = useId(),
-        handleSliderChange = (event: Event, newValue: number) => setScale(newValue),
+        handleSliderChange = (event: Event, newValue: number | number[]) => setScale(Number(newValue)),
         handleInputChange = (event: ChangeEvent<HTMLInputElement>) => setScale(Number(event.target.value)),
         handleBlur = () => {
             if (scale < 0) {

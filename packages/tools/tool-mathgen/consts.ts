@@ -5,4 +5,4 @@ export const defaultCalcs = [
     "×",
     "÷",
     "%"
-] as const;
+];

@@ -1,7 +1,7 @@
 import isBrowser from "./isBrowser";
 import LpLogger from "lp-logger";
 export default async function getRecording(onStop: (blob: Blob) => any, onDataAvailable?: (blob: Blob) => any, log = true) {
-    let mediaRecorder: MediaRecorder;
+    let mediaRecorder = undefined as unknown as MediaRecorder;
     class Logger extends LpLogger {
         constructor() {
             super({
@@ -9,7 +9,7 @@ export default async function getRecording(onStop: (blob: Blob) => any, onDataAv
                 level: "log" // 空字符串时，不显示任何信息
             });
         }
-        log(...a) {
+        log(...a: any[]) {
             if (log) {
                 super.log(...a);
             }
@@ -55,6 +55,6 @@ export default async function getRecording(onStop: (blob: Blob) => any, onDataAv
             logger.log("录音已继续");
         };
         mediaRecorder.stop();
-        return mediaRecorder;
     }
+    return mediaRecorder;
 }
