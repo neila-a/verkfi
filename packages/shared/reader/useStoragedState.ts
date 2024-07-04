@@ -10,6 +10,6 @@ export default function useStoragedState<setting = any>(id: string, empty: setti
             return val;
         }, useSWR(id, () => promise, {
             suspense: true
-        }).data);
+        }).data as setting);
     return reduce;
 }

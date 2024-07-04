@@ -12,6 +12,7 @@ import {
     IconButton,
     InputAdornment,
     TextField,
+    Theme,
     useMediaQuery,
     useTheme
 } from "@mui/material";
@@ -39,9 +40,8 @@ import {
 } from "./atoms";
 export default function Clients() {
     const setClients = useSetAtom(clientsAtom),
-        theme = useTheme(),
         [control, setControl] = useAtom(showClientsAtom),
-        fullScreen = useMediaQuery(theme.breakpoints.down("sm")),
+        fullScreen = useMediaQuery<Theme>(theme => theme.breakpoints.down("sm")),
         [searchText, setSearchText] = useAtom(searchTextAtom);
     return (
         <Dialog fullScreen={fullScreen} onClose={() => {

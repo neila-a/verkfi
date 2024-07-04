@@ -32,6 +32,7 @@
         "@mui/material-nextjs": "^5.15.11",
         "@mui/system": "^5.15.20",
         "@tybys/browser-asar": "github:toyobayashi/browser-asar",
+        "@verkfi/core-service-worker": "workspace:../service-worker",
         "@verkfi/shared": "workspace:../../shared",
         "@verkfi/tool-audiotools": "workspace:../../tools/tool-audiotools",
         "@verkfi/tool-countletter": "workspace:../../tools/tool-countletter",
@@ -48,9 +49,8 @@
         "@verkfi/tool-reversal": "workspace:../../tools/tool-reversal",
         "@verkfi/tool-shaizi": "workspace:../../tools/tool-shaizi",
         "@verkfi/tool-speech": "workspace:../../tools/tool-speech",
-        "@verkfi/core-service-worker": "workspace:../service-worker",
         "array-flatten": "^3.0.0",
-        "filepond": "^4.30.6",
+        "filepond": "^4.31.1",
         "jotai": "2.8.0",
         "lp-logger": "github:neila-a/lp-logger-no-window",
         "mdi-material-ui": "^7.9.1",
@@ -59,7 +59,7 @@
         "react-transition-group": "^4.4.5",
         "reorder-array": "^1.0.3",
         "sass": "^1.77.6",
-        "typescript": "^5.5.2"
+        "typescript": "^5.5.3"
     },
     "browserslist": [
         "chrome 89",

@@ -2,6 +2,7 @@
 import {
     Box,
     IconButton,
+    Theme,
     Typography,
     useMediaQuery,
     useTheme
@@ -77,8 +78,7 @@ export default function ExtensionManager() {
         [removeDialogOpen, setRemoveDialogOpen] = useAtom(removeDialogOpenAtom),
         [modifyDialogOpen, setModifyDialogOpen] = useAtom(modifyDialogOpenAtom),
         clearExtensionData = useSetAtom(extensionDataCleanerAtom),
-        theme = useTheme(),
-        fullScreen = useMediaQuery(theme.breakpoints.down("sm")),
+        fullScreen = useMediaQuery<Theme>(theme => theme.breakpoints.down("sm")),
         reset = () => {
             setAddDialogOpen(false);
             setModifyDialogOpen(false);

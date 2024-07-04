@@ -12,7 +12,7 @@ import {
     Button,
     ButtonGroup,
     Skeleton,
-    useTheme
+    useColorScheme
 } from "@mui/material";
 import saveAs from "file-saver";
 import {
@@ -32,8 +32,10 @@ export default function Editor(props: {
     tip: string;
 }) {
     const [code, setCode] = useState(`// ${props.tip}`),
-        theme = useTheme(),
-        inputRef = useRef<HTMLInputElement>();
+        {
+            systemMode: mode
+        } = useColorScheme(),
+        inputRef = useRef<HTMLInputElement>(undefined as unknown as HTMLInputElement);
     return (
         <>
             <ButtonGroup fullWidth sx={{
@@ -69,8 +71,8 @@ export default function Editor(props: {
                 height: "30vh"
             }}>
                 <Monaco value={code} onChange={(value, event) => {
-                    setCode(value);
-                }} theme={theme.palette.mode === "light" ? "light" : "vs-dark"} language="javascript" loading={<Skeleton sx={{
+                    setCode(value as string);
+                }} theme={mode === "light" ? "light" : "vs-dark"} language="javascript" loading={<Skeleton sx={{
                     height: "30vh",
                     maxWidth: "unset" // Skeleton自带的maxWidth是fit-content，会导致没有覆盖到全宽
                 }} />} />
@@ -78,8 +80,8 @@ export default function Editor(props: {
             <input type="file" style={{
                 display: "none"
             }} onChange={async event => {
-                if (event.target.files.length > 0) {
-                    const file = event.target.files[0],
+                if (event.target.files!.length > 0) {
+                    const file = event.target.files![0],
                         string = await toText(file);
                     setCode(string);
                 }

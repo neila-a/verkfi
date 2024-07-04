@@ -15,6 +15,7 @@ import {
     IconButton,
     InputAdornment,
     TextField,
+    Theme,
     Typography,
     useMediaQuery,
     useTheme
@@ -64,8 +65,7 @@ import {
 } from "jotai/utils";
 export default function Menu() {
     const [control, setControl] = useAtom(showSidebarAtom),
-        theme = useTheme(),
-        fullScreen = useMediaQuery(theme.breakpoints.down("sm")),
+        fullScreen = useMediaQuery<Theme>(theme => theme.breakpoints.down("sm")),
         sortingFor = useAtomValue(sortingForAtom)(false),
         setSortingFor = useSetAtom(sortingForAtom),
         [tab, setTab] = useAtom(tabAtom),

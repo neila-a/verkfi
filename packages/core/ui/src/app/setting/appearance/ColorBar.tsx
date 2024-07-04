@@ -5,44 +5,43 @@ import {
     Typography
 } from "@mui/material";
 import {
-    rgbToHex,
-    useTheme
+    PaletteColor,
+    useTheme,
+    Theme,
+    rgbToHex
 } from "@mui/material/styles";
-const ColorBar = ({
-    color
-}) => {
-    const theme = useTheme(),
-        background = theme.palette.augmentColor({
-            color: {
-                main: color
-            }
-        });
-    return (
-        <Grid container sx={{
+const schemes = ["dark", "main", "light"] as Array<keyof PaletteColor>,
+    ColorBar = ({
+        color
+    }) => {
+        const theme = useTheme();
+        return <Grid container sx={{
             mt: 2
         }}>
-            {["dark", "main", "light"].map(key => <Box
-                sx={{
+            {schemes.map(key => {
+                const background = (theme: Theme) => theme.palette.augmentColor({
+                    color: {
+                        main: color
+                    }
+                })[key];
+                return <Box sx={{
                     width: 64,
                     height: 64,
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    backgroundColor: background[key]
-                }}
-                key={key}
-            >
-                <Typography
-                    variant="caption"
-                    sx={{
-                        color: theme.palette.getContrastText(background[key])
-                    }}
-                >
-                    {rgbToHex(background[key])}
-                </Typography>
-            </Box>
-            )}
-        </Grid>
-    );
-};
+                    backgroundColor: background
+                }} key={key}>
+                    <Typography
+                        variant="caption"
+                        sx={theme => ({
+                            color: theme.palette.getContrastText(background(theme))
+                        })}
+                    >
+                        {rgbToHex(background(theme))}
+                    </Typography>
+                </Box>;
+            })}
+        </Grid>;
+    };
 export default ColorBar;

@@ -33,8 +33,8 @@ import {
 export default function Cube(props: {
     cishu: number;
 }) {
-    const camera = useRef<Camera>(),
-        mesh = useRef<Mesh>(),
+    const camera = useRef<Camera>(new Camera()),
+        mesh = useRef<Mesh>(new Mesh()),
         stage = useRef<rotateAxis[]>([]),
         cacheStage = useRef<rotateAxis[]>([]),
         cishu = useRef<number>(0),
@@ -51,9 +51,11 @@ export default function Cube(props: {
             cishu.current = cishu.current + 1;
         } else {
             cishu.current = 0;
-            const oldStage = stage.current.slice(0);
-            oldStage.pop();
-            stage.current = oldStage;
+            /**
+             * `slice(0, -1)`可以用来代替`pop()`
+             * @see https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/pop#%E8%AF%AD%E6%B3%95
+             */
+            stage.current = stage.current.slice(0, -1);
         }
     });
     return (

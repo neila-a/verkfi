@@ -18,10 +18,10 @@ import {
     ImageListItem,
     ImageListItemBar,
     TextField,
+    Theme,
     Toolbar,
     Typography,
-    useMediaQuery,
-    useTheme
+    useMediaQuery
 } from "@mui/material";
 import No from "@verkfi/shared/No";
 import MouseOverPopover from "@verkfi/shared/Popover";
@@ -72,11 +72,10 @@ export default function JigsawEntry() {
         [height, setHeight] = useState<number>(initialSize),
         [jigsaws, setJigsaws] = useStoragedState<jigsaw[]>("jigsaws", []),
         [resetDialogOpen, setResetDialogOpen] = useState<boolean>(false),
-        theme = useTheme(),
         portrait = useMediaQuery("(orientation: portrait)"),
         widtha = portrait ? `calc(100vw / ${width})` : `calc(100vw / (${width} + 1))`,
         heighta = portrait ? `calc((100vh - 56px) / (${height} + 1))` : `calc((100vh - 64px) / ${height})`,
-        column = useMediaQuery(theme.breakpoints.down("sm")),
+        column = useMediaQuery<Theme>(theme => theme.breakpoints.down("sm")),
         splitInputs = <>
             <TextField margin="dense" value={width} variant="outlined" onChange={event => {
                 setWidth(Number(event.target.value));
@@ -124,7 +123,7 @@ export default function JigsawEntry() {
             for (let y of range(height - 1)) {
                 const thisBuffer: Blob[] = [];
                 for (let x of range(width - 1)) {
-                    context.drawImage(
+                    context!.drawImage(
                         img,
                         x * img.width / width,
                         y * img.height / height,
@@ -136,7 +135,7 @@ export default function JigsawEntry() {
                         img.height / height
                     );
                     thisBuffer.push(await canvasToBlob(canvas));
-                    context.clearRect(0, 0, img.width / width, img.height / height);
+                    context!.clearRect(0, 0, img.width / width, img.height / height);
                 }
                 splited.push(thisBuffer);
             }
@@ -270,7 +269,7 @@ export default function JigsawEntry() {
             }}>
                 <AppBar position="relative">
                     <Toolbar sx={{
-                        mr: !portrait && widtha
+                        mr: !portrait ? widtha : ""
                     }}>
                         <Typography sx={{
                             flex: 1

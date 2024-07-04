@@ -12,7 +12,7 @@
     ],
     "main": "index.html",
     "dependencies": {
-        "@electron/asar": "^3.2.9"
+        "@electron/asar": "^3.2.10"
     },
     "settings": [
         {

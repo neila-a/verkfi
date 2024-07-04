@@ -17,11 +17,10 @@
         "email": "neilaspace@outlook.com",
         "url": "https://neilasite.netlify.app/"
     },
-    "devDependencies": {},
     "homepage": "https://netlify.verkfi.neila.vip/",
     "dependencies": {
         "@verkfi/shared": "workspace:../../shared",
-        "filepond": "^4.30.6",
+        "filepond": "^4.31.1",
         "react-filepond": "^7.1.2"
     }
 }

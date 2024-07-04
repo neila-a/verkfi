@@ -1,4 +1,4 @@
-type Res = Response | Promise<Response> | undefined;
+type Res = Response | Promise<Response>;
 /**
  * 为了和命名空间重合而必须使用命名函数
  */
@@ -9,7 +9,7 @@ async function testPaths(
 ) {
     for (let aPath of path) {
         if (testPaths[aPath[0]].test(url)) {
-            const result = await aPath[1](testPaths[aPath[0]].exec(url));
+            const result = await aPath[1](testPaths[aPath[0]].exec(url) as URLPatternResult);
             if (result) {
                 return result;
             }

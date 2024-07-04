@@ -1,5 +1,5 @@
 {
-    "name": "@verkfi/core-serivce-worker",
+    "name": "@verkfi/core-service-worker",
     "version": "0.1.0",
     "description": "The service worker for Verkfi.",
     "private": true,

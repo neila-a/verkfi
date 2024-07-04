@@ -22,8 +22,8 @@
     },
     "homepage": "https://netlify.verkfi.neila.vip/",
     "dependencies": {
-        "@react-three/drei": "^9.106.0",
-        "@react-three/fiber": "^8.16.6",
+        "@react-three/drei": "^9.108.1",
+        "@react-three/fiber": "^8.16.8",
         "@verkfi/shared": "workspace:../../shared",
         "three": "0.164.1"
     }

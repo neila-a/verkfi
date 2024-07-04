@@ -1,6 +1,6 @@
 {
     "version": "1.7.3",
-    "devVersion": "1020",
+    "devVersion": "1024",
     "dev": true,
     "description": "Platform for Neila's something useless tools.",
     "devDependencies": {
@@ -25,7 +25,7 @@
     "homepage": "https://netlify.verkfi.neila.vip/",
     "dependencies": {
         "@mui/icons-material": "^5.15.21",
-        "@mui/material": "6.0.0-alpha.11",
+        "@mui/material": "6.0.0-alpha.13",
         "esbuild": "^0.23.0",
         "next": "14.2.4",
         "react": "^18.3.1",

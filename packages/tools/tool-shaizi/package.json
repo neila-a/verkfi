@@ -22,7 +22,7 @@
     },
     "homepage": "https://netlify.verkfi.neila.vip/",
     "dependencies": {
-        "@react-three/fiber": "^8.16.6",
+        "@react-three/fiber": "^8.16.8",
         "@verkfi/shared": "workspace:../../shared",
         "@verkfi/tool-cubic": "link:../tool-cubic",
         "three": "0.164.1"

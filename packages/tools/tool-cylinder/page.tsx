@@ -146,7 +146,7 @@ function CylinderPage() {
             <Box id="canvascontainer" sx={{
                 cursor: "cell"
             }} onMouseMove={event => {
-                const style = window.getComputedStyle(document.getElementById("canvascontainer")),
+                const style = window.getComputedStyle(document.getElementById("canvascontainer") as HTMLCanvasElement),
                     width = Number(style.width.replace("px", "")),
                     height = Number(style.height.replace("px", "")),
                     edge = Math.min(height, width),
