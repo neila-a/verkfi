@@ -251,9 +251,18 @@ importers:
       filepond:
         specifier: ^4.31.1
         version: 4.31.1
+      jotai:
+        specifier: 2.8.0
+        version: 2.8.0(@types/react@18.3.3)(react@18.3.1)
       react-filepond:
         specifier: ^7.1.2
         version: 7.1.2(filepond@4.31.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-h5-audio-player:
+        specifier: ^3.9.3
+        version: 3.9.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-voice-visualizer:
+        specifier: ^2.0.2
+        version: 2.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
   packages/tools/tool-countletter:
     dependencies:
@@ -1060,6 +1069,14 @@ packages:
   '@humanwhocodes/object-schema@2.0.3':
     resolution: {integrity: sha512-93zYdMES/c1D69yZiKDBj0V24vqNzB/koF26KPaagAfd3P/4gUlh3Dys5ogAK+Exi9QyzlD8x/08Zt7wIKcDcA==}
     deprecated: Use @eslint/object-schema instead
+
+  '@iconify/react@4.1.1':
+    resolution: {integrity: sha512-jed14EjvKjee8mc0eoscGxlg7mSQRkwQG3iX3cPBCO7UlOjz0DtlvTqxqEcHUJGh+z1VJ31Yhu5B9PxfO0zbdg==}
+    peerDependencies:
+      react: '>=16'
+
+  '@iconify/types@2.0.0':
+    resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
 
   '@isaacs/cliui@8.0.2':
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
@@ -3683,6 +3700,12 @@ packages:
       react: 16 - 18
       react-dom: 16 - 18
 
+  react-h5-audio-player@3.9.3:
+    resolution: {integrity: sha512-D92SbCk6AJAsXYQ2qJqxeAvEjRXBQHY2q6dIZLaLL74eZi7VfynC0/EspHHbFDqBXDq7o2xNFH1Vas+HyXeE/w==}
+    peerDependencies:
+      react: ^16.3.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.3.0 || ^17.0.0 || ^18.0.0
+
   react-intl-universal@2.11.1:
     resolution: {integrity: sha512-wkmbd7Qohnr8ch02ZzF6uLZAOvdsHbvMjhiS13WUeberdrraOma4bOnn2hUVnEa/LXEvYRD0ta0RBPOV0g2HoA==}
     peerDependencies:
@@ -3789,6 +3812,12 @@ packages:
     peerDependencies:
       react: '>=16.13'
       react-dom: '>=16.13'
+
+  react-voice-visualizer@2.0.2:
+    resolution: {integrity: sha512-d+BjdjaAWaPrvuoDEj2OBiPzCPJO0BmZMsjgUUaKhbZNFkGsH7qcbMoviMbImigszr2MsYppgiu37BWsiHBOyg==}
+    peerDependencies:
+      react: ^18.2.0
+      react-dom: ^18.2.0
 
   react@18.3.1:
     resolution: {integrity: sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ==}
@@ -5190,6 +5219,13 @@ snapshots:
   '@humanwhocodes/module-importer@1.0.1': {}
 
   '@humanwhocodes/object-schema@2.0.3': {}
+
+  '@iconify/react@4.1.1(react@18.3.1)':
+    dependencies:
+      '@iconify/types': 2.0.0
+      react: 18.3.1
+
+  '@iconify/types@2.0.0': {}
 
   '@isaacs/cliui@8.0.2':
     dependencies:
@@ -8346,6 +8382,13 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
+  react-h5-audio-player@3.9.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+    dependencies:
+      '@babel/runtime': 7.24.7
+      '@iconify/react': 4.1.1(react@18.3.1)
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+
   react-intl-universal@2.11.1(react@18.3.1):
     dependencies:
       cookie: 0.3.1
@@ -8451,6 +8494,11 @@ snapshots:
   react-use-measure@2.1.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       debounce: 1.2.1
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+
+  react-voice-visualizer@2.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+    dependencies:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
