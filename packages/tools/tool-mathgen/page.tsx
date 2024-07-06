@@ -73,12 +73,7 @@ function MathGen() {
                 return math;
             });
         })).keys()].flat(1));
-    useEffect(calcMath, [
-        min,
-        max,
-        itemCount,
-        calcs
-    ]);
+    useEffect(calcMath, [min, max, itemCount, calcs, subtractionCheck, divisionCheck]);
     return (
         <>
             <FormGroup sx={{

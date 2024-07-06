@@ -101,18 +101,16 @@ export default function Sidebar(props: {
             <Box sx={{
                 textAlign: "center"
             }}>
-                {!isImplant
-                    && <SingleSelect
-                        dragButton={<></>}
-                        isSidebar
-                        wantSortingFor="__home__"
-                        tool={get("主页")}
-                        onClick={event => {
-                            setSortingFor("__home__");
-                        }}
-                        editButton={<></>}
-                    />
-                }
+                {!isImplant && <SingleSelect
+                    dragButton={<></>}
+                    isSidebar
+                    wantSortingFor="__home__"
+                    tool={get("主页")}
+                    onClick={event => {
+                        setSortingFor("__home__");
+                    }}
+                    editButton={<></>}
+                />}
                 <Box onClick={() => {
                     setExpand(true);
                     if (clickCount === 1) {

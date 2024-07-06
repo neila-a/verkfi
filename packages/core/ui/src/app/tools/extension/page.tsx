@@ -51,13 +51,9 @@ export default function ExtensionLoader() {
             }
         });
     }
-    return (
-        <>
-            <iframe ref={ref} id="iframe" style={{
-                border: "none",
-                width: "calc(100vw - 48px)",
-                height: "100vh"
-            }} src={src} />
-        </>
-    );
+    return <iframe ref={ref} id="iframe" style={{
+        border: "none",
+        width: "calc(100vw - 48px)",
+        height: "100vh"
+    }} src={src} />;
 }

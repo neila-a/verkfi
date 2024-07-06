@@ -55,28 +55,26 @@ function CopyButton(props: {
             },
             cursor: "copy"
         };
-    return (
-        <>
-            {props.onlyIcon ? <MouseOverPopover text={get("copy.复制")}>
-                <IconButton {...props.add} sx={sx} onClick={handleCopy} aria-label={get("copy.复制")}>
-                    <ContentCopyIcon />
-                </IconButton>
-            </MouseOverPopover> : <Button
-                aria-label={get("copy.复制")}
-                {...props.add as ButtonOwnProps}
-                startIcon={<ContentCopyIcon />}
-                sx={sx}
-                onClick={handleCopy}
-            >
-                {get("copy.复制")}
-            </Button>}
-            <Snackbar open={showCopyDoneDialog} message={get("copy.已把结果复制至剪贴板。")} onClose={() => {
-                setShowCopyDoneDialog(false);
-            }} />
-            <AlertDialog open={showCopyErrorDialog} onDone={() => {
-                setShowCopyErrorDialog(false);
-            }} title={get("copy.复制出现错误")} description={copyError} />
-        </>
-    );
+    return <>
+        props.onlyIcon ? <MouseOverPopover text={get("copy.复制")}>
+            <IconButton {...props.add} sx={sx} onClick={handleCopy} aria-label={get("copy.复制")}>
+                <ContentCopyIcon />
+            </IconButton>
+        </MouseOverPopover> : <Button
+            aria-label={get("copy.复制")}
+            {...props.add as ButtonOwnProps}
+            startIcon={<ContentCopyIcon />}
+            sx={sx}
+            onClick={handleCopy}
+        >
+            {get("copy.复制")}
+        </Button>,
+        <Snackbar open={showCopyDoneDialog} message={get("copy.已把结果复制至剪贴板。")} onClose={() => {
+            setShowCopyDoneDialog(false);
+        }} />,
+        <AlertDialog open={showCopyErrorDialog} onDone={() => {
+            setShowCopyErrorDialog(false);
+        }} title={get("copy.复制出现错误")} description={copyError} />
+    </>;
 }
 export default CopyButton;

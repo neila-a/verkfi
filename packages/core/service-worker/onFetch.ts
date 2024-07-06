@@ -27,7 +27,8 @@ export default function onFetch(event: FetchEvent) {
     path.shift();
     if (urlObject.protocol === "chrome-extension:") return fakeResonse;
     log(`抓取: ${url}`);
-    const faller = (options: CacheQueryOptions = {}) => async () => {
+    const faller = (options: CacheQueryOptions = {
+    }) => async () => {
         const cache = await caches.open(Cache),
             cacheMateched = await cache.match(realReq, options);
         if (!cacheMateched) {
@@ -36,7 +37,7 @@ export default function onFetch(event: FetchEvent) {
             return newreq;
         }
         return cacheMateched;
-    }
+    };
     return testPaths(url, faller(), ["handle", () => {
         const toPath = `/tools/${urlObject.searchParams.get("handle")!.replace(/web\+verkfi:\/\//g, "")}`;
         log(`检测到URL：${url}中含有"handle"，重定向至${toPath}`);

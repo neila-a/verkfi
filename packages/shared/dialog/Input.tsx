@@ -41,7 +41,11 @@ export default function InputDialog(props: {
                 <DialogContentText>
                     {props.context}
                 </DialogContentText>
-                <TextField autoFocus margin="dense" label={props.label} fullWidth onChange={event => {
+                <TextField onKeyDown={event => {
+                    if (event.key === "Enter") {
+                        props.onDone(input);
+                    }
+                }} autoFocus margin="dense" label={props.label} fullWidth onChange={event => {
                     setInput(event.target.value);
                 }} />
             </DialogContent>

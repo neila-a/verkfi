@@ -70,15 +70,13 @@ export default function EditCategoryDialog(props: {
                 }}>
                     {createOrEdit}
                 </Button>
-                {edit(list)
-                    && <Button variant="outlined" onClick={event => {
-                        setRemoveDialogOpen(true);
-                        setDialogTools([]);
-                        return setDialogOpen(false);
-                    }}>
-                        {get("category.删除此分类")}
-                    </Button>
-                }
+                {edit(list) && <Button variant="outlined" onClick={event => {
+                    setRemoveDialogOpen(true);
+                    setDialogTools([]);
+                    return setDialogOpen(false);
+                }}>
+                    {get("category.删除此分类")}
+                </Button>}
             </ButtonGroup>
         )} open={open} title={createOrEdit} onClose={() => {
             setDialogTools([]);

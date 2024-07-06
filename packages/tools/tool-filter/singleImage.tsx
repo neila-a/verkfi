@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+// 这里的img全是blob生成的
 import {
     Download as DownloadIcon
 } from "@mui/icons-material";
@@ -38,7 +40,7 @@ export default function SingleImage(props: {
                 <ImageListItemBar title={type} subtitle={props.imageFileName} actionIcon={(
                     <MouseOverPopover text={get("filter.save")}>
                         <IconButton onClick={async event => {
-                            const blob = await domtoimage.toBlob(document.getElementById(type));
+                            const blob = await domtoimage.toBlob(document.getElementById(type) as HTMLImageElement);
                             // 调用file-save方法 直接保存图片
                             saveAs(blob, `${props.imageFileName}.${type}.png`);
                         }} aria-label={get("filter.save")}>

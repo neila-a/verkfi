@@ -62,15 +62,13 @@ export default function Clients() {
                     input: {
                         startAdornment:
                             <InputAdornment position="end">
-                                {searchText !== ""
-                                    && <MouseOverPopover text={get("back")}>
-                                        <IconButton type="button" aria-label={get("back")} onClick={() => {
-                                            setSearchText("");
-                                        }}>
-                                            <ArrowBackIosIcon />
-                                        </IconButton>
-                                    </MouseOverPopover>
-                                }
+                                {searchText !== "" && <MouseOverPopover text={get("back")}>
+                                    <IconButton type="button" aria-label={get("back")} onClick={() => {
+                                        setSearchText("");
+                                    }}>
+                                        <ArrowBackIosIcon />
+                                    </IconButton>
+                                </MouseOverPopover>}
                                 <MouseOverPopover text={get("搜索")}>
                                     <IconButton type="button" aria-label={get("搜索")}>
                                         <SearchIcon />

@@ -18,10 +18,9 @@ import Module from "./Module";
 import {
     useTheme
 } from "@mui/material";
-export type status = "recording" | "paused" | "inactive";
 function AudioTools() {
     const theme = useTheme(),
-        
+
         [loopAudioSrc, setLoopAudioSrc] = useBlobState(),
         [loopSpeakAudioSrc, setLoopSpeakAudioSrc] = useBlobState(),
 
@@ -38,7 +37,7 @@ function AudioTools() {
         if (!recordedBlob) return;
 
         setLoopSpeakAudioSrc(recordedBlob);
-    }, [recordedBlob]);
+    }, [recordedBlob, setLoopSpeakAudioSrc]);
 
     return <>
         <Module title="音频循环播放">

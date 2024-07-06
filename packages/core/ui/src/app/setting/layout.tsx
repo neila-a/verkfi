@@ -63,6 +63,7 @@ const allWidth = 100;
 export default function Settings(props: {
     children: ReactNode;
 }) {
+    1;
     const sets = useAtomValue(setsAtom),
         router = useRouter(),
         [extensionTools, setExtensions] = useAtom(extensionsAtom),

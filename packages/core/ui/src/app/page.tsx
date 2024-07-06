@@ -79,11 +79,9 @@ export default function Index(props: {
     }
     return (props.isImplant ? showSidebar : true) && <isImplantContext.Provider value={Boolean(props.isImplant)}>
         <Box>
-            {props.isImplant !== true
-                && <HeadBar isIndex pageName={repoInfo.name} sx={{
-                    zIndex: theme => String((theme as ThemeHaveZIndex).zIndex.drawer + 1)
-                }} />
-            }
+            {props.isImplant !== true && <HeadBar isIndex pageName={repoInfo.name} sx={{
+                zIndex: theme => String((theme as ThemeHaveZIndex).zIndex.drawer + 1)
+            }} />}
             <Sidebar
                 focusingTo={focusingTo}
             />
@@ -129,20 +127,19 @@ export default function Index(props: {
                         />
                     </Box>
                 </Box>
-            </Box> : props.isImplant ? expand
-                && <Drawer anchor="left" variant="permanent" sx={{
-                    flexShrink: 0,
-                    [`& .MuiDrawer-paper`]: {
-                        position: "absolute",
-                        left: drawerWidth,
-                        maxWidth: `calc(100vw - ${drawerWidth}px)`,
-                        width: 320,
-                        boxSizing: "border-box"
-                    }
-                }}>
-                    <Toolbar />
-                    <Tools />
-                </Drawer> : <Tools />}
+            </Box> : props.isImplant ? expand && <Drawer anchor="left" variant="permanent" sx={{
+                flexShrink: 0,
+                [`& .MuiDrawer-paper`]: {
+                    position: "absolute",
+                    left: drawerWidth,
+                    maxWidth: `calc(100vw - ${drawerWidth}px)`,
+                    width: 320,
+                    boxSizing: "border-box"
+                }
+            }}>
+                <Toolbar />
+                <Tools />
+            </Drawer> : <Tools />}
         </Box>
     </isImplantContext.Provider>;
 }

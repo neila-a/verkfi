@@ -24,6 +24,8 @@
     "dependencies": {
         "@verkfi/shared": "workspace:../../shared",
         "@verkfi/tool-audiotools": "workspace:../tool-audiotools",
-        "file-saver": "2.0.5"
+        "array-chunkify": "^1.0.0",
+        "file-saver": "2.0.5",
+        "react-audio-visualize": "^1.1.3"
     }
 }

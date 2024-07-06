@@ -28,18 +28,14 @@ export function Switcher(props: {
         hasShare = "share" in (isBrowser() ? navigator : {
         }),
         isForkMeOnGitHub = option[1] === "Fork me on GitHub";
-    return (
-        <>
-            {!hasShare && isShare
-                && <Alert severity="warning">
-                    {get("share.none")}
-                </Alert>
-            }
-            <FormControlLabel disabled={!hasShare && isShare} control={(
-                <Switch checked={value} onChange={event => {
-                    startTransition(() => setValue(!value));
-                }} />
-            )} label={isForkMeOnGitHub ? option[1] : get(option[1])} />
-        </>
-    );
+    return <>
+        {!hasShare && isShare && <Alert severity="warning">
+            {get("share.none")}
+        </Alert>}
+        <FormControlLabel disabled={!hasShare && isShare} control={(
+            <Switch checked={value} onChange={event => {
+                startTransition(() => setValue(!value));
+            }} />
+        )} label={isForkMeOnGitHub ? option[1] : get(option[1])} />
+    </>;
 }

@@ -50,13 +50,11 @@ export default function Buttons() {
             bottom: 0,
             width: "100%"
         }}>
-            {editMode
-                && <Button onClick={event => {
-                    setDialogOpen(true);
-                }} startIcon={<AddIcon />}>
-                    {get("category.添加分类")}
-                </Button>
-            }
+            {editMode && <Button onClick={event => {
+                setDialogOpen(true);
+            }} startIcon={<AddIcon />}>
+                {get("category.添加分类")}
+            </Button>}
             <Divider
                 sx={{
                     opacity: "0.6"
@@ -66,20 +64,16 @@ export default function Buttons() {
                 justifyContent: "center"
             }}>
                 <SwitchViewMode />
-                {editing
-                    && <SwitchEditMode />
-                }
-                {isImplant
-                    && <MouseOverPopover text={expand ? get("window.collapse") : get("window.expand")}>
-                        <IconButton color="primary" sx={{
-                            p: 1
-                        }} onClick={event => {
-                            setExpand(!expand);
-                        }} aria-label={expand ? get("window.collapse") : get("window.expand")}>
-                            {expand ? <ArrowBackIosIcon /> : <ArrowForwardIosIcon />}
-                        </IconButton>
-                    </MouseOverPopover>
-                }
+                {editing && <SwitchEditMode />}
+                {isImplant && <MouseOverPopover text={expand ? get("window.collapse") : get("window.expand")}>
+                    <IconButton color="primary" sx={{
+                        p: 1
+                    }} onClick={event => {
+                        setExpand(!expand);
+                    }} aria-label={expand ? get("window.collapse") : get("window.expand")}>
+                        {expand ? <ArrowBackIosIcon /> : <ArrowForwardIosIcon />}
+                    </IconButton>
+                </MouseOverPopover>}
             </ButtonGroup>
             <EditCategoryDialog
                 left={[]}

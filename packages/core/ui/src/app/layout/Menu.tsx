@@ -126,38 +126,33 @@ export default function Menu() {
                 }}>
                     <TextField slotProps={{
                         input: {
-                            startAdornment:
-                                <InputAdornment position="end">
-                                    {sortingFor !== "__home__"
-                                        && <MouseOverPopover text={get("back")}>
-                                            <IconButton type="button" aria-label={get("back")} onClick={() => {
-                                                setSearchText("", false);
-                                                setSortingFor("__home__");
-                                                setSortedTools(gotToolsList);
-                                                setEditing(true);
-                                                startTransition(async () => await resetTools());
-                                            }}>
-                                                <ArrowBackIosIcon />
-                                            </IconButton>
-                                        </MouseOverPopover>
-                                    }
-                                    <MouseOverPopover text={get("搜索")}>
-                                        <IconButton type="button" aria-label={get("搜索")}>
-                                            <SearchIcon />
-                                        </IconButton>
-                                    </MouseOverPopover>
-                                </InputAdornment>,
-                            endAdornment:
-                                <InputAdornment position="start">
-                                    <MouseOverPopover text={get("close")}>
-                                        <IconButton aria-label={get("close")} onClick={event => {
-                                            setControl(false);
-                                        }}>
-                                            <CloseIcon />
-                                        </IconButton>
-                                    </MouseOverPopover>
-                                </InputAdornment>
-
+                            startAdornment: <InputAdornment position="end">
+                                {sortingFor !== "__home__" && <MouseOverPopover text={get("back")}>
+                                    <IconButton type="button" aria-label={get("back")} onClick={() => {
+                                        setSearchText("", false);
+                                        setSortingFor("__home__");
+                                        setSortedTools(gotToolsList);
+                                        setEditing(true);
+                                        startTransition(async () => await resetTools());
+                                    }}>
+                                        <ArrowBackIosIcon />
+                                    </IconButton>
+                                </MouseOverPopover>}
+                                <MouseOverPopover text={get("搜索")}>
+                                    <IconButton type="button" aria-label={get("搜索")}>
+                                        <SearchIcon />
+                                    </IconButton>
+                                </MouseOverPopover>
+                            </InputAdornment>,
+                            endAdornment: <InputAdornment position="start">
+                                <MouseOverPopover text={get("close")}>
+                                    <IconButton aria-label={get("close")} onClick={event => {
+                                        setControl(false);
+                                    }}>
+                                        <CloseIcon />
+                                    </IconButton>
+                                </MouseOverPopover>
+                            </InputAdornment>
                         },
                         htmlInput: {
                             "aria-label": get("搜索工具")
@@ -205,27 +200,24 @@ export default function Menu() {
                     </> : <ToolsStackWithTools
                         paramTool={tools}
                         focus={focusingTo}
-                    />
-                    }
+                    />}
                 </DialogContent>
-                {sortingFor !== "__home__"
-                    && <DialogActions>
-                        {get("press")}
-                        <Button onClick={handleTab}>
-                            <kbd>
-                                Tab
-                            </kbd>
-                        </Button>
-                        {get("switch")}，
-                        {get("press")}
-                        <Button onClick={handleEnter}>
-                            <kbd>
-                                Enter
-                            </kbd>
-                        </Button>
-                        {get("enter")}
-                    </DialogActions>
-                }
+                {sortingFor !== "__home__" && <DialogActions>
+                    {get("press")}
+                    <Button onClick={handleTab}>
+                        <kbd>
+                            Tab
+                        </kbd>
+                    </Button>
+                    {get("switch")}，
+                    {get("press")}
+                    <Button onClick={handleEnter}>
+                        <kbd>
+                            Enter
+                        </kbd>
+                    </Button>
+                    {get("enter")}
+                </DialogActions>}
                 <DialogActions sx={{
                     display: "flex",
                     justifyContent: "space-between"
@@ -253,9 +245,7 @@ export default function Menu() {
                             </MouseOverPopover>
                         </Link>
                         <SwitchViewMode />
-                        {editing && sortingFor !== "__extension__"
-                            && <SwitchEditMode />
-                        }
+                        {editing && sortingFor !== "__extension__" && <SwitchEditMode />}
                     </Box>
                 </DialogActions>
             </Dialog>

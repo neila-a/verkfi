@@ -46,10 +46,8 @@ export default function Template(props: {
                 startTransition(() => setMostUsed(mostUsed));
             }
         }
+        // 这东西只要进入的时候记一次就可以了
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []); // 不放在副作用里会导致无限循环
-    return (
-        <>
-            {props.children}
-        </>
-    );
+    return props.children;
 }

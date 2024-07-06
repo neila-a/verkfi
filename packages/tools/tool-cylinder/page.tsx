@@ -54,7 +54,7 @@ function CylinderPage() {
         const g = Math.max(radiusX, radiusZ);
         drawMatrix(blocks.slice(0), g, g, g, posCache.current, theme.palette, false);
         posCache.current = [g, g];
-    }, [radiusX, radiusZ, thickness, filled]);
+    }, [radiusX, radiusZ, thickness, filled, blocks, theme.palette]);
     return (
         <>
             <FormGroup>

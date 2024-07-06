@@ -1,4 +1,6 @@
 "use client";
+/* eslint-disable @next/next/no-img-element */
+// 这里的img全是blob生成的
 import {
     Close,
     Delete,
