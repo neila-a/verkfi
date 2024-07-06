@@ -56,7 +56,7 @@ export default function EditCategoryDialog(props: {
                 <Button variant="contained" onClick={event => {
                     const listDraft: lists = list.slice(0),
                         index = list.findIndex(singleList => singleList[0] === dialogListName),
-                        have: boolean = index !== -1;
+                        have = index !== -1;
                     if (index !== -1) {
                         listDraft[index] = [list[index][0], dialogTools];
                     }

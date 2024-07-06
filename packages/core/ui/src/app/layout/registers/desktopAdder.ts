@@ -1,7 +1,4 @@
 import {
-    BeforeInstallPromptEvent
-} from "declare";
-import {
     logger
 } from "../layoutClient";
 const desktopAdder = () => {

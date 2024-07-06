@@ -115,7 +115,7 @@ export default function JigsawEntry() {
     function start() {
         const img = new Image();
         img.src = URL.createObjectURL(imageFile);
-        img.onload = async event => {
+        img.addEventListener("load", async event => {
             URL.revokeObjectURL(img.src);
             const canvas = document.createElement("canvas"),
                 context = canvas.getContext("2d"),
@@ -159,7 +159,7 @@ export default function JigsawEntry() {
                 old.push(addingJigsaw);
                 setJigsaws(old);
             }
-        };
+        });
     }
     return (
         <>

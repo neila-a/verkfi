@@ -166,7 +166,7 @@ export default function Speech() {
         }}>
             {countdown}
         </Typography>
-        {mediaRecorder === "awaqwq" ? false : <LiveAudioVisualizer
+        {mediaRecorder === emptySymbol ? false : <LiveAudioVisualizer
             mediaRecorder={mediaRecorder}
             width="200%"
             height={75}
@@ -186,7 +186,7 @@ export default function Speech() {
                 })}
             </Typography>
             <ButtonGroup>
-                <Button disabled={status === "recording" ? (speechTime > 0 || mediaRecorder === "awaqwq") : false} onClick={event => {
+                <Button disabled={status === "recording" ? (speechTime > 0 || mediaRecorder === emptySymbol) : false} onClick={event => {
                     if (status === "recording") {
                         (mediaRecorder as MediaRecorder).stop();
                         clearInterval(intervalID.current);

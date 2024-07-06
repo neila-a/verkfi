@@ -1,22 +1,16 @@
 import isBrowser from "./isBrowser";
 import LpLogger from "lp-logger";
-export default async function getRecording(onStop: (blob: Blob) => any, onDataAvailable?: (blob: Blob) => any, log = true) {
+export default async function getRecording(
+    onStop: (blob: Blob) => any,
+    onDataAvailable: (blob: Blob) => any
+) {
     let mediaRecorder = undefined as unknown as MediaRecorder;
-    class Logger extends LpLogger {
-        constructor() {
-            super({
-                name: "AudioTools",
-                level: "log" // 空字符串时，不显示任何信息
-            });
-        }
-        log(...a: any[]) {
-            if (log) {
-                super.log(...a);
-            }
-        }
-    }
-    const logger = new Logger();
-    if (isBrowser() && navigator.mediaDevices.getUserMedia) {
+    const logger = new LpLogger({
+        name: "AudioTools",
+        level: "log" // 空字符串时，不显示任何信息
+    });
+    // 可以相信浏览器必支持这个API，因为 Verkfi 核心所需要的浏览器版本就很高
+    if (isBrowser()) {
         const chunks: Blob[] = [],
             constraints = {
                 audio: true
@@ -32,28 +26,19 @@ export default async function getRecording(onStop: (blob: Blob) => any, onDataAv
         mediaRecorder = new MediaRecorder(stream, {
             mimeType
         });
-        mediaRecorder.ondataavailable = event => {
+        mediaRecorder.addEventListener("dataavailable", event => {
             chunks.push(event.data);
-            if (typeof onDataAvailable === "function") {
-                onDataAvailable(new Blob([chunks[0], event.data]));
-            }
-        };
-        mediaRecorder.onstop = event => {
-            logger.log("录音已停止");
+            onDataAvailable(new Blob([chunks[0], event.data], {
+                type: mimeType
+            }));
+        });
+        mediaRecorder.addEventListener("stop", event => {
+            logger.log("录音已停止。");
             onStop(new Blob(chunks, {
                 type: mimeType
             }));
             chunks.splice(0, chunks.length);
-        };
-        mediaRecorder.onpause = event => {
-            logger.log("录音已暂停");
-        };
-        mediaRecorder.onstart = event => {
-            logger.log("录音已开始");
-        };
-        mediaRecorder.onresume = event => {
-            logger.log("录音已继续");
-        };
+        });
         mediaRecorder.stop();
     }
     return mediaRecorder;

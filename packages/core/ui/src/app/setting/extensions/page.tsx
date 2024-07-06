@@ -136,7 +136,7 @@ export default function ExtensionManager() {
                 onupdatefiles={files => {
                     setFileArray(files);
                     const reader = new FileReader();
-                    reader.onload = function () {
+                    reader.addEventListener("load", event => {
                         const fs = new Filesystem(new Uint8Array(reader.result as ArrayBuffer)),
                             dir = fs.readdirSync("/"),
                             main = JSON.parse(fs.readFileSync("package.json", true));
@@ -163,7 +163,7 @@ export default function ExtensionManager() {
                             setModifyDialogOpen(true);
                             return setAddDialogOpen(false);
                         }
-                    };
+                    });
                     files.forEach(file => reader.readAsArrayBuffer(file.file));
                     if (files.length > 0) {
                         setAddDialogOpen(true);

@@ -17,7 +17,7 @@ export default function drawMatrix(
         cachePosBlock: block[] = [],
         posBlock: block[] = [];
     [nowPos, posCache].forEach((item, index) => {
-        let i: number = 0;
+        let i = 0;
         while (i < edgeBlock * dDivR + 1) {
             const calcBlock: block[] = [[i, item[0] - 1], [item[1] - 1, i]];
             index === 0 /* 判断是否为当前位置 */ ? posBlock.push(...calcBlock) : cachePosBlock.push(...calcBlock);
