@@ -37,17 +37,6 @@ import {
 import {
     emptySymbol
 } from "@verkfi/shared/reader/atomWithStorage";
-interface warning {
-    /**
-     * 发生时间
-     */
-    0: number;
-
-    /**
-     * 持续时间
-     */
-    1: number;
-}
 const
 
     // 只是导入
@@ -74,7 +63,8 @@ export default function Speech() {
         [selectTime, setSelectTime] = useState(false),
         [speechTime, setSpeechTime] = useState(defaultSpeechTime),
         [allSpeechTime, setAllSpeechTime] = useState(defaultSpeechTime),
-        [warnings, setWarnings] = useState<warning[]>([]),
+        [warnings, setWarnings] = useState<Record<number, number>>({
+        }), // 发生时间作为key是一定唯一的
         /**
          * 只有第一个块里才有文件头
          */
@@ -127,19 +117,10 @@ export default function Speech() {
         if ("vibrate" in window.navigator) {
             if (time > SpeechingWatershedWave) {
                 window.navigator.vibrate(Array(vibrateTimes).fill(vibrateTime));
-                setWarnings(old => {
-                    if (old.some(singleWarning => singleWarning[0] === haveTime.current)) {
-                        return old.slice(0).map(singleWarning => {
-                            if (singleWarning[0] === haveTime.current) {
-                                return [singleWarning[0], time];
-                            }
-                            return singleWarning;
-                        });
-                    }
-                    const realOld = old.slice(0);
-                    realOld.push([haveTime.current, time]);
-                    return realOld;
-                });
+                setWarnings(old => ({
+                    ...old,
+                    [haveTime.current]: time
+                }));
             } else {
                 window.navigator.vibrate(0);
             }

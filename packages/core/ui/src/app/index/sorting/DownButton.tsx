@@ -22,9 +22,6 @@ import {
     toolsAtom
 } from "index/atoms";
 import {
-    useResetAtom
-} from "jotai/utils";
-import {
     buttonCommonSorterAtom
 } from "@verkfi/shared/atoms";
 import {

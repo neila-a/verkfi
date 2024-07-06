@@ -8,7 +8,7 @@ export default function getTextCanvas(text: string) {
     const canvas = document.createElement("canvas");
     canvas.width = width;
     canvas.height = height;
-    const context = canvas.getContext("2d");
+    const context = canvas.getContext("2d") as CanvasRenderingContext2D;
     context.fillStyle = "#000000";
     context.fillRect(0, 0, width, height);
     context.font = textSize + "px \" bold";

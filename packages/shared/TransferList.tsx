@@ -4,6 +4,7 @@ import {
     Grid,
     List,
     ListItem,
+    ListItemButton,
     ListItemIcon,
     ListItemText,
     Paper
@@ -88,13 +89,12 @@ export default function TransferList(props: {
                     <List dense component="div" role="list">
                         {items.map(value => {
                             const Icon: FC = (() => <></>)
-                                || toolsList.find(single => single.name === value).icon,
+                                || toolsList.find(single => single.name === value)?.icon,
                                 labelId = `${startId}-transfer-list-item-${value}-label`;
                             return (
-                                <ListItem
+                                <ListItemButton
                                     key={value}
                                     role="listitem"
-                                    button
                                     onClick={handleToggle(value)}
                                 >
                                     <ListItemIcon sx={{
@@ -111,7 +111,7 @@ export default function TransferList(props: {
                                         <Icon />
                                     </ListItemIcon>
                                     <ListItemText id={labelId} primary={value} />
-                                </ListItem>
+                                </ListItemButton>
                             );
                         })}
                     </List>
