@@ -68,8 +68,8 @@ export default function Pillar() {
         sizeLabelId = useId(),
         pillars = calcPillars(type, length),
         filteredPillars = pillars.filter(
-            single => (Object.entries(filterRules) as [value, filterRule][]).every(
-                singleRule => single[singleRule[0]] >= singleRule[1].min && single[singleRule[0]] <= singleRule[1].max
+            single => (Object.keys(filterRules) as value[]).every(
+                singleRule => single[singleRule] >= filterRules[singleRule].min && single[singleRule] <= filterRules[singleRule].max
             )
         ).map(single => <SingleCollocation key={JSON.stringify(single)} collocation={single} />);
     return (

@@ -20,7 +20,7 @@ const recommendAtom = atomWithRefresh(get => awaiter(
                     return Math.random() - 0.5;
                 }).slice(0, mostUsedSelects),
                 isUnFull = unUsed.length < mostUsedSelects, // 判断没用过的工具有没有三个
-                toFill = (Object.entries(mostUsed) satisfies [string, number][]).sort((r, g) => {
+                toFill = Object.entries(mostUsed).sort((r, g) => {
                     if (r[1] < g[1]) {
                         return -1;
                     } if (r[1] > g[1]) {

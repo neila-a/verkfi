@@ -20,7 +20,7 @@ import {
 import {
     get
 } from "react-intl-universal";
-import removeArrayItem from "remove-item-from-array";
+type wordList = Record<number, string>;
 const InputDialog = dynamic(() => import("@verkfi/shared/dialog/Input")),
     logger = new LpLogger({
         name: get("翻转"),
@@ -31,8 +31,9 @@ const InputDialog = dynamic(() => import("@verkfi/shared/dialog/Input")),
      */
     randomFactor = 1000_0000_0000_0000;
 function Reversal() {
-    const [wordList, setWordList] = useState<[string, number][]>([]),
-        [words, setWords] = useState(""),
+    const [words, setWords] = useState(""),
+        [wordList, setWordList] = useState<wordList>({
+        }),
         [output, setOutput] = useState(""),
         [showSplitDialog, setShowSplitDialog] = useState(false);
     return <>
@@ -48,20 +49,22 @@ function Reversal() {
             </Alert>
             <TextField fullWidth label={get("输入框")} id="input" onKeyDown={event => {
                 if (event.key === "Enter") {
-                    setWordList(current => [...current, [
-                        words,
-                        Math.random() * randomFactor
-                    ]]);
+                    setWordList(current => ({
+                        ...current,
+                        [Math.random() * randomFactor]: words
+                    }));
                     setWords("");
                     logger.log("已保存至列表。");
                 }
             }} onChange={event => {
                 setWords(event.target.value);
             }} value={words} />
-            {wordList.map(wordArray => {
+            {Object.keys(wordList).map(a => Number(a)).map(id => {
                 return (
-                    <Chip key={wordArray[1]} label={wordArray[0]} onDelete={() => {
-                        setWordList(oldWordList => removeArrayItem(oldWordList, wordArray));
+                    <Chip key={id} label={wordList[id]} onDelete={() => {
+                        const draft = structuredClone(wordList);
+                        Reflect.deleteProperty(draft, id);
+                        setWordList(draft);
                     }} deleteIcon={<Close />} />
                 );
             })}
@@ -69,7 +72,7 @@ function Reversal() {
                 mt: 1
             }}>
                 <Button variant="contained" onClick={() => {
-                    const stageOutput: [string, number][] = wordList;
+                    const stageOutput = wordList;
                     stageOutput.sort(() => {
                         // 0.5用于随机
                         // eslint-disable-next-line no-magic-numbers

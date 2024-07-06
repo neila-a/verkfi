@@ -9,6 +9,8 @@ export default function drawMatrixBase(
     edge: number, n: number, blocks: block[], posBlock: block[], posCache: block[], palette: Palette, onlyPos: boolean
 ) {
     if (!onlyPos) console.time("渲染圆");
+
+    // 调整canvas大小
     const canvas = document.getElementsByTagName("canvas")[0] || document.createElement("canvas"),
         size = edge / n,
         context = canvas.getContext("2d") as CanvasRenderingContext2D;
@@ -22,6 +24,8 @@ export default function drawMatrixBase(
         const width = canvas.getAttribute("width");
         canvas.setAttribute("width", width as string); // 刷新
     }
+
+    // 渲染方块
     context.strokeStyle = palette.text.primary;
     const dos: [block[], string][] = [[posCache, palette.background.default], [blocks, "#FF0000"], [posBlock, palette.primary[palette.mode]]];
     dos.forEach((item, index) => {
@@ -36,6 +40,8 @@ export default function drawMatrixBase(
         }
         context.fill(path);
     });
+
+    // 渲染边框
     if (!onlyPos) {
         for (let x of range(n - 1)) {
             for (let y of range(n - 1)) {
@@ -44,6 +50,7 @@ export default function drawMatrixBase(
         }
     }
     context.stroke();
+
     if (!onlyPos) console.timeEnd("渲染圆");
     return canvas;
 }

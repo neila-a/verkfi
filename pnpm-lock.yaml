@@ -423,9 +423,6 @@ importers:
       lp-logger:
         specifier: github:neila-a/lp-logger-no-window
         version: https://codeload.github.com/neila-a/lp-logger-no-window/tar.gz/04f2b376323698503090ef239040e6dd81e1d742
-      remove-item-from-array:
-        specifier: ^1.0.4
-        version: 1.0.4
 
   packages/tools/tool-shaizi:
     dependencies:
