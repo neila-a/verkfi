@@ -4,6 +4,7 @@ import {
     TextField
 } from "@mui/material";
 import {
+    useMemo,
     useState
 } from "react";
 import {
@@ -18,26 +19,21 @@ import Editor from "@verkfi/shared/Editor";
 import range from "@verkfi/shared/range";
 const defaultTimes = 10;
 export default function Probability() {
-    const [datas, setDatas] = useState([]),
+    const [datas, setDatas] = useState<Map<any, number>>(new Map()),
         [times, setTimes] = useState(defaultTimes),
-        objectDatas: {
-            x: any,
-            y: number
-        }[] = [];
-    datas.forEach(data => {
-        const index = objectDatas.findIndex(objectData => objectData.x === data);
-        if (index === -1) {
-            return objectDatas.push({
-                x: data,
-                y: 1
-            });
-        }
-        return objectDatas[index].y += 1;
-    });
+        objectData = useMemo(() => [...datas.entries()].map(data => ({
+            x: data[0],
+            y: data[1]
+        })), [datas])
     return (
         <Editor run={code => {
-            const executing = new Function(code);
-            setDatas([...range(times - 1)].map(() => executing()));
+            const executing = new Function(code),
+                dataArray = [...range(times - 1)].map(() => executing()),
+                map = new Map(dataArray.map(data => [data, 0]));
+            dataArray.forEach(data => {
+                map.set(data, (map.get(data) as number) + 1);
+            });
+            setDatas(map);
         }} tip={get("probability.tip")}>
             <TextField
                 fullWidth
@@ -56,9 +52,7 @@ export default function Probability() {
                 theme={VictoryTheme.material}
                 domainPadding={10}
             >
-                <VictoryBar
-                    data={objectDatas}
-                />
+                <VictoryBar data={objectData} />
             </VictoryChart>
         </Editor>
     );

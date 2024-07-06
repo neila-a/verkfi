@@ -15,13 +15,13 @@ export default function MouseOverPopover(props: {
     sx?: CSSProperties;
 }) {
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null),
-        handlePopoverOpen = (event: MouseEvent<HTMLElement>) => {
-            setAnchorEl(event.currentTarget);
-        },
-        handlePopoverClose = () => {
-            setAnchorEl(null);
-        },
         open = Boolean(anchorEl);
+    function handlePopoverClose() {
+        setAnchorEl(null);
+    }
+    function handlePopoverOpen(event: MouseEvent<HTMLElement>) {
+        setAnchorEl(event.currentTarget);
+    }
     return (
         <Box sx={props?.sx ? props.sx : {
         }}>

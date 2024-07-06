@@ -36,8 +36,76 @@ export default function TransferList(props: {
         [right, setRight] = useState<string[]>(props.right),
         leftChecked = intersection(checked, left),
         rightChecked = intersection(checked, right),
-        startId = useId(),
-        handleToggle = (value: string) => () => {
+        startId = useId();
+    function customList(items: string[]) {
+        return (
+            <Paper sx={{
+                width: 200,
+                height: 230,
+                overflow: "auto"
+            }}>
+                <List dense component="div" role="list">
+                    {items.map(value => {
+                        const Icon: FC = (() => <></>)
+                            || toolsList.find(single => single.name === value)?.icon, labelId = `${startId}-transfer-list-item-${value}-label`;
+                        return (
+                            <ListItemButton
+                                key={value}
+                                role="listitem"
+                                onClick={handleToggle(value)}
+                            >
+                                <ListItemIcon sx={{
+                                    alignItems: "center"
+                                }}>
+                                    <Checkbox
+                                        checked={checked.indexOf(value) !== -1}
+                                        tabIndex={-1}
+                                        disableRipple
+                                        inputProps={{
+                                            "aria-labelledby": labelId
+                                        }} />
+                                    <Icon />
+                                </ListItemIcon>
+                                <ListItemText id={labelId} primary={value} />
+                            </ListItemButton>
+                        );
+                    })}
+                </List>
+            </Paper>
+        );
+    }
+    function handleAllLeft() {
+        const newLeft = left.concat(right);
+        setLeft(newLeft);
+        setRight([]);
+        props.onLeftChange(newLeft);
+        props.onRightChange([]);
+    }
+    function handleCheckedLeft() {
+        const newLeft = left.concat(rightChecked), newRight = not(right, rightChecked);
+        setLeft(newLeft);
+        setRight(newRight);
+        setChecked(not(checked, rightChecked));
+        props.onLeftChange(newLeft);
+        props.onRightChange(newRight);
+    }
+    function handleCheckedRight() {
+        const newRight = right.concat(leftChecked), newLeft = not(left, leftChecked);
+        setRight(newRight);
+        setLeft(newLeft);
+        setChecked(not(checked, leftChecked));
+        props.onLeftChange(newLeft);
+        props.onRightChange(newRight);
+    }
+    function handleAllRight() {
+        const newRight = right.concat(left);
+        setRight(newRight);
+        setLeft([]);
+        props.onLeftChange([]);
+        props.onRightChange(newRight);
+    }
+    function handleToggle(value: string) {
+        return () => {
             const currentIndex = checked.indexOf(value);
             const newChecked = [...checked];
             if (currentIndex === -1) {
@@ -46,78 +114,8 @@ export default function TransferList(props: {
                 newChecked.splice(currentIndex, 1);
             }
             setChecked(newChecked);
-        },
-        handleAllRight = () => {
-            const newRight = right.concat(left);
-            setRight(newRight);
-            setLeft([]);
-            props.onLeftChange([]);
-            props.onRightChange(newRight);
-        },
-        handleCheckedRight = () => {
-            const newRight = right.concat(leftChecked),
-                newLeft = not(left, leftChecked);
-            setRight(newRight);
-            setLeft(newLeft);
-            setChecked(not(checked, leftChecked));
-            props.onLeftChange(newLeft);
-            props.onRightChange(newRight);
-        },
-        handleCheckedLeft = () => {
-            const newLeft = left.concat(rightChecked),
-                newRight = not(right, rightChecked);
-            setLeft(newLeft);
-            setRight(newRight);
-            setChecked(not(checked, rightChecked));
-            props.onLeftChange(newLeft);
-            props.onRightChange(newRight);
-        },
-        handleAllLeft = () => {
-            const newLeft = left.concat(right);
-            setLeft(newLeft);
-            setRight([]);
-            props.onLeftChange(newLeft);
-            props.onRightChange([]);
-        },
-        customList = (items: string[]) => {
-            return (
-                <Paper sx={{
-                    width: 200,
-                    height: 230,
-                    overflow: "auto"
-                }}>
-                    <List dense component="div" role="list">
-                        {items.map(value => {
-                            const Icon: FC = (() => <></>)
-                                || toolsList.find(single => single.name === value)?.icon,
-                                labelId = `${startId}-transfer-list-item-${value}-label`;
-                            return (
-                                <ListItemButton
-                                    key={value}
-                                    role="listitem"
-                                    onClick={handleToggle(value)}
-                                >
-                                    <ListItemIcon sx={{
-                                        alignItems: "center"
-                                    }}>
-                                        <Checkbox
-                                            checked={checked.indexOf(value) !== -1}
-                                            tabIndex={-1}
-                                            disableRipple
-                                            inputProps={{
-                                                "aria-labelledby": labelId
-                                            }}
-                                        />
-                                        <Icon />
-                                    </ListItemIcon>
-                                    <ListItemText id={labelId} primary={value} />
-                                </ListItemButton>
-                            );
-                        })}
-                    </List>
-                </Paper>
-            );
         };
+    }
     return (
         <Grid container spacing={2} justifyContent="center" alignItems="center" sx={{
             p: theme => theme.spacing(1, 0)

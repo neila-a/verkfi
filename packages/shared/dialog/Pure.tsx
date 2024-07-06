@@ -26,9 +26,9 @@ export default function PureDialog(props: {
     add?: Omit<DialogProps, "open">;
     open: boolean;
 }) {
-    const handleClose = () => {
+    function handleClose() {
         props.onClose();
-    };
+    }
     return (
         <BootstrapDialog {...props.add} onClose={handleClose} open={props.open} TransitionComponent={Transition}>
             <BootstrapDialogTitle onClose={handleClose}>

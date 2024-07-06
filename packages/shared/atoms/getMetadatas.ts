@@ -1,6 +1,11 @@
 import {
-    NXTMetadata
+    NXTMetadata as baseNXT
 } from "@verkfi/core-ui/src/app/setting/extensions/page";
+import {
+    noIconTool
+} from "@verkfi/core-ui/src/app/tools/info";
+interface NXTMetadata extends baseNXT, noIconTool {
+}
 export default async function getMetadatas() {
     const allHandle = await navigator.storage.getDirectory() as FileSystemDirectoryHandle & {
         values(): AsyncIterableIterator<FileSystemHandle>;

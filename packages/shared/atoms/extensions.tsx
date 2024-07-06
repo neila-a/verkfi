@@ -6,7 +6,7 @@ import atomWithInitialValue, {
     valueAtomReturn
 } from "../reader/atomWithInitialValue";
 import {
-    NXTMetadata
+    NXTMetadata as baseNXT
 } from "@verkfi/core-ui/src/app/setting/extensions/page";
 import getMetadatas from "./getMetadatas";
 import atomWithBroadcast from "../reader/atomWithBroadcast";
@@ -19,11 +19,14 @@ import {
     atom
 } from "jotai";
 import {
+    noIconTool,
     tool
 } from "@verkfi/core-ui/src/app/tools/info";
 import atomWithEmpty from "../reader/atomWithEmpty";
 export interface extensionsDispatch extends NXTMetadata {
     action?: "delete"
+}
+interface NXTMetadata extends baseNXT, noIconTool {
 }
 export const [extensionsAtom, extensionsAtomValue] = atomWithInitialValue(
     (valueAtom: valueAtomReturn<NXTMetadata[]>) => {
@@ -42,10 +45,12 @@ export const [extensionsAtom, extensionsAtomValue] = atomWithInitialValue(
                 if (update instanceof Array) {
                     return set(valueAtom, update);
                 }
-                const realOld = get(valueAtom), old = realOld === emptySymbol ? await getMetadatas() : realOld;
+
+                const realOld = get(valueAtom),
+                    old = realOld === emptySymbol ? await getMetadatas() : realOld,
+                    allHandle = await navigator.storage.getDirectory();
                 if (update?.action === "delete") {
                     // 实际更新
-                    const allHandle = await navigator.storage.getDirectory();
                     await allHandle.removeEntry(update.to, {
                         recursive: true
                     });
@@ -54,8 +59,7 @@ export const [extensionsAtom, extensionsAtomValue] = atomWithInitialValue(
                     set(valueAtom, old.filter(a => a.to !== update.to));
                 } else {
                     // 实际更新
-                    const allHandle = await navigator.storage.getDirectory(),
-                        thisHandle = await allHandle.getDirectoryHandle(update.to),
+                    const thisHandle = await allHandle.getDirectoryHandle(update.to),
                         packageHandle = await thisHandle.getFileHandle("package.json"),
                         writable = await packageHandle.createWritable();
                     await writable.seek(0);
@@ -85,16 +89,20 @@ export const [extensionsAtom, extensionsAtomValue] = atomWithInitialValue(
     }
 );
 export const convertedExtensionsAtom = atom(get => awaiter(
-    get(extensionsAtom), extensionTools => extensionTools.map(single => ({
-        name: single.name,
-        to: `/tools/extension?tool=${single.to}` as Lowercase<string>,
-        desc: single.desc,
-        // 这里的图片是直接从indexedDB加载来的，不需要且不能使用next/image的优化
-        // eslint-disable-next-line @next/next/no-img-element
-        icon: (() => <img src={`/extensionfiles/${single.to}/${single.icon}`} alt={single.name} height={24} width={24} />) as unknown as typeof SvgIcon,
-        color: single.color,
-        isGoto: true
-    } as tool))
+    get(extensionsAtom), extensionTools => extensionTools.map(single => {
+        const element = () => <img src={`/extensionfiles/${single.to}/${single.icon}`} alt={single.name} height={24} width={24} />;
+        element.muiName = single.to;
+        return {
+            name: single.name,
+            to: `/tools/extension?tool=${single.to}` as Lowercase<string>,
+            desc: single.desc,
+            // 这里的图片是直接从indexedDB加载来的，不需要且不能使用next/image的优化
+            // eslint-disable-next-line @next/next/no-img-element
+            icon: element as typeof SvgIcon,
+            color: single.color,
+            isGoto: true
+        } as tool;
+    })
 ));
 export default extensionsAtom;
 

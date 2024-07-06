@@ -79,20 +79,20 @@ export default function ExtensionManager() {
         [modifyDialogOpen, setModifyDialogOpen] = useAtom(modifyDialogOpenAtom),
         clearExtensionData = useSetAtom(extensionDataCleanerAtom),
         fullScreen = useMediaQuery<Theme>(theme => theme.breakpoints.down("sm")),
-        reset = () => {
-            setAddDialogOpen(false);
-            setModifyDialogOpen(false);
-            setRemoveDialogOpen(false);
-            setFileArray([]);
-            setFiles([]);
-            setFileInfo(emptyNXTMetadata);
-        },
         extensionTools = useAtomValue(extensionsAtom),
         converted = useAtomValue(convertedExtensionsAtom),
         packagedDialogInputs = (type: inputTypes) => <DialogInputs
             type={type}
             reset={reset}
         />;
+    function reset() {
+        setAddDialogOpen(false);
+        setModifyDialogOpen(false);
+        setRemoveDialogOpen(false);
+        setFileArray([]);
+        setFiles([]);
+        setFileInfo(emptyNXTMetadata);
+    }
     return (
         <>
             <Typography variant="h4">

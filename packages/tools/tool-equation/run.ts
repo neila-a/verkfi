@@ -1,7 +1,7 @@
 import range from "@verkfi/shared/range";
 import Decimal from "decimal.js";
 const sumDivMiddle = 2;
-const run = (maxTimes: number, code: string) => {
+function run(maxTimes: number, code: string) {
     /**
      * 方程
      */
@@ -17,12 +17,9 @@ const run = (maxTimes: number, code: string) => {
         /**
          * 最后setTimes用的times
          */
-        endTimes = 0,
-        right = new Decimal(maxTimes);
+        endTimes = 0, right = new Decimal(maxTimes);
     loop: for (let times of range(maxTimes)) {
-        const mid = left.plus(right).div(sumDivMiddle),
-            leftDiff = getDiff(left),
-            rightDiff = getDiff(right);
+        const mid = left.plus(right).div(sumDivMiddle), leftDiff = getDiff(left), rightDiff = getDiff(right);
         switch (true) {
             case leftDiff.comparedTo(0) === 0:
                 left = mid;
@@ -43,5 +40,5 @@ const run = (maxTimes: number, code: string) => {
         times: endTimes,
         result: left.plus(right).div(sumDivMiddle)
     };
-};
+}
 export default run;

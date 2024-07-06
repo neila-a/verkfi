@@ -1,7 +1,7 @@
 import {
     logger
 } from "../layoutClient";
-const desktopAdder = () => {
+function desktopAdder() {
     const defaultPrompt = {
         async prompt() {
             logger.error("无法安装");
@@ -20,5 +20,5 @@ const desktopAdder = () => {
     // 手动触发PWA安装
     const addToDesktop = () => deferredPrompt.prompt();
     window.installPWA = addToDesktop;
-};
+}
 export default desktopAdder;

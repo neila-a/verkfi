@@ -28,10 +28,10 @@ export default function InputDialog(props: {
     sx?: SxProps<Theme>
     open: boolean;
 }) {
-    const [input, setInput] = useState(""),
-        handleClose = () => {
-            props?.onCancel?.();
-        };
+    const [input, setInput] = useState("");
+    function handleClose() {
+        props?.onCancel?.();
+    }
     return (
         <Dialog open={props.open} onClose={handleClose} TransitionComponent={Transition} keepMounted sx={props?.sx}>
             <DialogTitle>

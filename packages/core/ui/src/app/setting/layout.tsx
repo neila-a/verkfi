@@ -119,7 +119,7 @@ export default function Settings(props: {
                                 return (
                                     <FormControlLabel control={(
                                         <Switch checked={settingItem.value as boolean} onChange={event => {
-                                            const modifiedSettings = item.settings.slice(0);
+                                            const modifiedSettings = structuredClone(item.settings);
                                             modifiedSettings[index].value = !(modifiedSettings[index].value as boolean);
                                             setExtensions({
                                                 ...item,
@@ -131,7 +131,7 @@ export default function Settings(props: {
                             case "input":
                                 return (
                                     <TextField value={settingItem.value as string} label={settingItem.text} variant="outlined" onChange={event => {
-                                        const modifiedSettings = item.settings.slice(0);
+                                        const modifiedSettings = structuredClone(item.settings);
                                         modifiedSettings[index].value = event.target.value;
                                         setExtensions({
                                             ...item,
@@ -142,7 +142,7 @@ export default function Settings(props: {
                             case "switch":
                                 return (
                                     <Select value={settingItem.value as string} label={settingItem.text} onChange={event => {
-                                        const modifiedSettings = item.settings.slice(0);
+                                        const modifiedSettings = structuredClone(item.settings);
                                         modifiedSettings[index].value = event.target.value;
                                         setExtensions({
                                             ...item,

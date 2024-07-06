@@ -43,14 +43,14 @@ export default function Filter() {
         [scale, setScale] = useState(initialScale),
         sizeId = useId(),
         handleSliderChange = (event: Event, newValue: number | number[]) => setScale(Number(newValue)),
-        handleInputChange = (event: ChangeEvent<HTMLInputElement>) => setScale(Number(event.target.value)),
-        handleBlur = () => {
-            if (scale < 0) {
-                setScale(0);
-            } else if (scale > scaleMax) {
-                setScale(scaleMax);
-            }
-        };
+        handleInputChange = (event: ChangeEvent<HTMLInputElement>) => setScale(Number(event.target.value));
+    function handleBlur() {
+        if (scale < 0) {
+            setScale(0);
+        } else if (scale > scaleMax) {
+            setScale(scaleMax);
+        }
+    }
     return (
         <>
             <FilePond

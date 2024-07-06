@@ -20,11 +20,11 @@ export default function AlertDialog(props: {
     open: boolean;
 }) {
     const thisDialogStartId = useId(),
-        handleClose = () => {
-            props.onDone();
-        },
         titleId = `${thisDialogStartId}-alert-dialog-title`,
         descriptionId = `${thisDialogStartId}-alert-dialog-description`;
+    function handleClose() {
+        props.onDone();
+    }
     return (
         <Dialog
             open={props.open}
