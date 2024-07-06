@@ -15,7 +15,7 @@ export default function SingleMath(props: {
     math: string;
     showOut: boolean;
 }) {
-    const [isError, setError] = useState<boolean>(false),
+    const [isError, setError] = useState(false),
         {
             math,
             showOut

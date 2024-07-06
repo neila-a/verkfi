@@ -23,8 +23,8 @@ const nzh = new Nzh({
     m_z: "正"
 }); // 数字转汉字这种功能不需要什么国际化
 export default function ReadNumber() {
-    const [string, setString] = useState<string>(""),
-        [number, setNumber] = useState<string>("0"),
+    const [string, setString] = useState("零"),
+        [number, setNumber] = useState("0"),
         stringId = useId(),
         numberId = useId();
     return (

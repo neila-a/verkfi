@@ -30,13 +30,13 @@ import range from "@verkfi/shared/range";
 const defaultMax = 10,
     defaultItemCount = 20;
 function MathGen() {
-    const [min, setMin] = useState<number>(0),
-        [max, setMax] = useState<number>(defaultMax),
-        [itemCount, setItemCount] = useState<number>(defaultItemCount),
+    const [min, setMin] = useState(0),
+        [max, setMax] = useState(defaultMax),
+        [itemCount, setItemCount] = useState(defaultItemCount),
         [maths, setMath] = useState<string[]>([]),
-        [subtractionCheck, setSubtractionCheck] = useState<boolean>(true),
-        [divisionCheck, setDivisionCheck] = useState<boolean>(true),
-        [showOut, setShowOut] = useState<boolean>(false),
+        [subtractionCheck, setSubtractionCheck] = useState(true),
+        [divisionCheck, setDivisionCheck] = useState(true),
+        [showOut, setShowOut] = useState(false),
         [calcs, setCalcs] = useState<calc[]>([
             "+",
             "-"

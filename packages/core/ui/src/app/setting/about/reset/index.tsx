@@ -20,7 +20,7 @@ import {
 import Line from "./Line";
 const CheckDialog = dynamic(() => import("@verkfi/shared/dialog/Check"));
 export default function Reset() {
-    const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+    const [dialogOpen, setDialogOpen] = useState(false);
     return (
         <ErrorBoundary>
             <Stack direction="column" spacing={1}>

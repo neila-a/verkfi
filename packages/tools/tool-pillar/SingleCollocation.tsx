@@ -24,7 +24,7 @@ export const lowElevation = 2,
 export default function SingleCollocation(props: {
     collocation: collocation;
 }) {
-    const [elevation, setElevation] = useState<number>(lowElevation);
+    const [elevation, setElevation] = useState(lowElevation);
     return (
         <Grid item component="li">
             <Paper sx={{
@@ -36,7 +36,7 @@ export default function SingleCollocation(props: {
             }}>
                 <List>
                     {Object.entries(props.collocation).map((value, index) => <ListItem key={value[0]} sx={{
-                        mb: index === 1 && 1,
+                        mb: index === 1 ? 1 : "",
                         pt: 0,
                         pb: 0
                     }} secondaryAction={(

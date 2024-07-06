@@ -34,9 +34,9 @@ function CopyButton(props: {
     onlyIcon?: boolean;
     add?: ButtonOwnProps | IconButtonOwnProps;
 }) {
-    const [showCopyDoneDialog, setShowCopyDoneDialog] = useState<boolean>(false),
-        [copyError, setCopyError] = useState<string>(""),
-        [showCopyErrorDialog, setShowCopyErrorDialog] = useState<boolean>(false),
+    const [showCopyDoneDialog, setShowCopyDoneDialog] = useState(false),
+        [copyError, setCopyError] = useState(""),
+        [showCopyErrorDialog, setShowCopyErrorDialog] = useState(false),
         handleCopy = async () => {
             try {
                 await navigator.clipboard.writeText(props.children);
@@ -48,7 +48,8 @@ function CopyButton(props: {
                 setShowCopyErrorDialog(true);
             }
         },
-        add = "add" in props ? props.add : {
+        add = "add" in props ? (props.add || {
+        }) : {
         },
         sx: SxProps<Theme> = {
             ..."sx" in add ? add.sx : {

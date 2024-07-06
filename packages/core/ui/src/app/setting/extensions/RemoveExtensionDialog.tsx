@@ -33,7 +33,7 @@ export default function RemoveExtensionDialog(props: {
     onTrue?: () => any;
     files: file[];
 }) {
-    const [clearData, setClearData] = useState<boolean>(false),
+    const [clearData, setClearData] = useState(false),
         clearExtensionData = useSetAtom(extensionDataCleanerAtom),
         setExtensions = useSetAtom(extensionsAtom),
         [lists, setLists] = useAtom(listsAtom);

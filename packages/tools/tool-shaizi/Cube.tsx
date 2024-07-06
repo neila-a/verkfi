@@ -37,7 +37,7 @@ export default function Cube(props: {
         mesh = useRef<Mesh>(new Mesh()),
         stage = useRef<rotateAxis[]>([]),
         cacheStage = useRef<rotateAxis[]>([]),
-        cishu = useRef<number>(0),
+        cishu = useRef(0),
         materials = [img1, img2, img3, img4, img5, img6].map((img: StaticImageData) => new MeshPhongMaterial({
             map: new TextureLoader().load(img.src),
             color: 16777215

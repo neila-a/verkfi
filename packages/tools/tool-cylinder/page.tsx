@@ -34,12 +34,12 @@ import Cylinder from "./makeCylinder";
 const throttleTime = 17,
     initialRadius = 50;
 function CylinderPage() {
-    const [radiusX, setRadiusX] = useState<number>(initialRadius),
-        [radiusZ, setRadiusZ] = useState<number>(initialRadius),
-        [thickness, setThickness] = useState<number>(1),
-        [filled, setFilled] = useState<boolean>(true),
-        [posX, setPosX] = useState<number>(1),
-        [posZ, setPosZ] = useState<number>(1),
+    const [radiusX, setRadiusX] = useState(initialRadius),
+        [radiusZ, setRadiusZ] = useState(initialRadius),
+        [thickness, setThickness] = useState(1),
+        [filled, setFilled] = useState(true),
+        [posX, setPosX] = useState(1),
+        [posZ, setPosZ] = useState(1),
         radiusXID = useId(),
         radiusZID = useId(),
         thicknessID = useId(),

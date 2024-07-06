@@ -62,7 +62,7 @@ values.forEach(value => {
 });
 export default function Pillar() {
     const [type, setType] = useState<pillarPositions>("oneEndAndMiddle"),
-        [length, setLength] = useState<number>(0),
+        [length, setLength] = useState(0),
         [filterRules, setFilterRules] = useState(emptyFilterRules as filterRules),
         choosesId = useId(),
         sizeLabelId = useId(),
@@ -95,7 +95,7 @@ export default function Pillar() {
                     <RadioGroup
                         aria-labelledby={choosesId}
                         value={type}
-                        onChange={(event, value: pillarPositions) => setType(value)}
+                        onChange={(event, value) => setType(value as pillarPositions)}
                         name="chooses-group"
                     >
                         {(Object.keys(examples) as pillarPositions[]).map(single => <Box key={single} sx={{

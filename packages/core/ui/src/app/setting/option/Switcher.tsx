@@ -16,7 +16,6 @@ import {
 import {
     startTransition
 } from "react";
-export type stringifyCheck = "false" | "true";
 export function Switcher(props: {
     option: option;
 }) {

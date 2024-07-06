@@ -68,12 +68,12 @@ const blobToInt8Array = async (blob: Blob) => new Int8Array(await blob.arrayBuff
     dragImageSize = 32;
 export default function JigsawEntry() {
     const [imageArray, setImageArray] = useState<FilePondFile[]>([]),
-        [imageFileName, setImageFileName] = useState<string>(""),
-        [dialogOpen, setDialogOpen] = useState<boolean>(false),
-        [width, setWidth] = useState<number>(initialSize),
-        [height, setHeight] = useState<number>(initialSize),
+        [imageFileName, setImageFileName] = useState(""),
+        [dialogOpen, setDialogOpen] = useState(false),
+        [width, setWidth] = useState(initialSize),
+        [height, setHeight] = useState(initialSize),
         [jigsaws, setJigsaws] = useStoragedState<jigsaw[]>("jigsaws", []),
-        [resetDialogOpen, setResetDialogOpen] = useState<boolean>(false),
+        [resetDialogOpen, setResetDialogOpen] = useState(false),
         portrait = useMediaQuery("(orientation: portrait)"),
         widtha = portrait ? `calc(100vw / ${width})` : `calc(100vw / (${width} + 1))`,
         heighta = portrait ? `calc((100vh - 56px) / (${height} + 1))` : `calc((100vh - 64px) / ${height})`,

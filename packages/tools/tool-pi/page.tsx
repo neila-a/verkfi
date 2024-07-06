@@ -18,10 +18,10 @@ import {
 import generatePis from "./generatePis";
 const AlertDialog = dynamic(() => import("@verkfi/shared/dialog/Alert"));
 function PI() {
-    const [digits, setDigits] = useState<number>(1),
-        [useAlertShow, setUseAlertShow] = useState<boolean>(false),
-        [showInfoDialog, setShowInfoDialog] = useState<boolean>(false),
-        [dialogInfo, setDialogInfo] = useState<string>(""),
+    const [digits, setDigits] = useState(1),
+        [useAlertShow, setUseAlertShow] = useState(false),
+        [showInfoDialog, setShowInfoDialog] = useState(false),
+        [dialogInfo, setDialogInfo] = useState(""),
         [out, setOut] = useState("");
     return (
         <>

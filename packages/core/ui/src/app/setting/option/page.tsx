@@ -52,7 +52,7 @@ const PureDialog = dynamic(() => import("@verkfi/shared/dialog/Pure")),
 export type option = [typeof shareAtom, string];
 export default function Options() {
     const [lang, setLang] = useAtom(langAtom),
-        [dialogOpen, setDialogOpen] = useState<boolean>(false),
+        [dialogOpen, setDialogOpen] = useState(false),
         router = useRouter(),
         langId = useId();
     return (

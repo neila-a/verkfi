@@ -12,7 +12,7 @@ import {
 import ShaiZiCanvas from "./shaiziCanvas";
 const defaultCishu = 10;
 function ShaiZi() {
-    const [cishu, setCishu] = useState<number>(defaultCishu);
+    const [cishu, setCishu] = useState(defaultCishu);
     return (
         <>
             <Stack spacing={2} component="section">

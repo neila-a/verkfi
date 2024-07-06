@@ -17,7 +17,8 @@ import {
     get
 } from "react-intl-universal";
 import {
-    NXTMetadata
+    NXTMetadata,
+    inputTypes
 } from "./page";
 import {
     extensionsAtomValue
@@ -31,7 +32,7 @@ import {
     startTransition
 } from "react";
 export default function DialogButtons(props: {
-    type: "modify" | "add";
+    type: inputTypes;
     fileInfo: NXTMetadata;
     files: file[];
     reset(): void;

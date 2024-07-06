@@ -71,7 +71,7 @@ import {
 const PureDialog = dynamic(() => import("@verkfi/shared/dialog/Pure"));
 export type inputTypes = "modify" | "add";
 export default function ExtensionManager() {
-    const [addDialogOpen, setAddDialogOpen] = useState<boolean>(false),
+    const [addDialogOpen, setAddDialogOpen] = useState(false),
         [fileArray, setFileArray] = useState<FilePondFile[]>([]),
         [fileInfo, setFileInfo] = useAtom(fileInfoAtom),
         [files, setFiles] = useAtom(filesAtom),

@@ -28,9 +28,9 @@ const logger = new LpLogger({
 });
 type numberType = 2 | 8 | 10 | 16;
 function CountLetter() {
-    const [enterDialogOpen, setEnterDialogOpen] = useState<boolean>(false),
-        [alertDialogOpen, setAlertDialogOpen] = useState<boolean>(false),
-        [out, setOut] = useState<string>(""),
+    const [enterDialogOpen, setEnterDialogOpen] = useState(false),
+        [alertDialogOpen, setAlertDialogOpen] = useState(false),
+        [out, setOut] = useState(""),
         systemId = useId(),
         [numberType, setNumberType] = useState<numberType>(10);
     return (

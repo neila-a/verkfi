@@ -103,11 +103,11 @@ export default function SingleTool(props: {
         [lists, setLists] = useAtom(listsAtom),
 
         // states
-        [jumpto, setJumpTo] = useState<string>(""),
-        [removeDialogOpen, setRemoveDialogOpen] = useState<boolean>(false),
-        [elevation, setElevation] = useState<number>(lowElevation),
-        [jumpName, setJumpName] = useState<string>(""),
-        [jumpDialogOpen, setJumpDialogOpen] = useState<boolean>(false),
+        [jumpto, setJumpTo] = useState(""),
+        [removeDialogOpen, setRemoveDialogOpen] = useState(false),
+        [elevation, setElevation] = useState(lowElevation),
+        [jumpName, setJumpName] = useState(""),
+        [jumpDialogOpen, setJumpDialogOpen] = useState(false),
 
         // 常量
         {

@@ -17,7 +17,7 @@ export default function ShaiZiCanvas(props: {
     cishu: number;
 }) {
     // Use useRef hook to access the canvas element
-    const canvas = useRef<HTMLCanvasElement>();
+    const canvas = useRef(undefined as unknown as HTMLCanvasElement);
     useEffect(() => {
         canvas.current.setAttribute("height", "200");
     }); // 用ifBrowser的话此时canvas.current还没初始化，不行

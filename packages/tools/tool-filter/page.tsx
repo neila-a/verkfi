@@ -38,10 +38,10 @@ const initialScale = 100,
     scaleMax = 200;
 export default function Filter() {
     const [imageArray, setImageArray] = useState<FilePondFile[]>([]),
-        [imageFileName, setImageFileName] = useState<string>("libear-only"),
+        [imageFileName, setImageFileName] = useState("libear-only"),
         [imageURL, setImageURL] = useBlobState(libearOnly.src),
         [imageTypes, setImageTypes] = useState<ImageType[]>(ImageTypesGen),
-        [scale, setScale] = useState<number>(initialScale),
+        [scale, setScale] = useState(initialScale),
         sizeId = useId(),
         handleSliderChange = (event: Event, newValue: number | number[]) => setScale(Number(newValue)),
         handleInputChange = (event: ChangeEvent<HTMLInputElement>) => setScale(Number(event.target.value)),

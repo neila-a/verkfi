@@ -47,7 +47,7 @@ export default function Sidebar(props: {
         sortingFor = useAtomValue(sortingForAtom)(isImplant),
         setSortingFor = useSetAtom(sortingForAtom),
         [searchText, setSearchText] = useAtom(searchTextAtom),
-        [clickCount, setClickCount] = useState<number>(0),
+        [clickCount, setClickCount] = useState(0),
         setTab = useSetAtom(tabAtom),
         setExpand = useSetAtom(expandAtom),
         tools = useAtomValue(toolsAtom);

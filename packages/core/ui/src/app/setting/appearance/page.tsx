@@ -31,11 +31,14 @@ import ColorPicker from "./ColorPicker";
 import {
     startTransition
 } from "react";
+import {
+    Mode
+} from "@mui/system/cssVars/useCurrentColorScheme";
 const colorModeIcons = [
     ["light", LightMode],
     ["dark", DarkMode],
     ["system", BrightnessMedium]
-] satisfies [PaletteMode | "system", typeof LightMode][];
+] satisfies [Mode, typeof LightMode][];
 function ColorTool() {
     const setInternalPalette = useSetAtom(internalPaletteAtom),
         {

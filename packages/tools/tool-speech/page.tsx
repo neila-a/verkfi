@@ -34,6 +34,7 @@ import getShortTimeEnergy from "./getShortTimeEnergy";
 import {
     LiveAudioVisualizer
 } from "react-audio-visualize"
+import { emptySymbol } from "@verkfi/shared/reader/atomWithStorage";
 interface warning {
     /**
      * 发生时间
@@ -56,36 +57,36 @@ const
     secondDivMS = 1000,
     vibrateTimes = 4,
     vibrateTime = 250,
-    emptyBlobContext = "empty",
+    emptyBlobContext = ["Why you downloaded this??? Do not do it!!!"],
 
     // 试验得到的常数
     NoiseVoiceWatershedWave = 20; // origin 2.3
 export default function Speech() {
     const [status, setStatus] = useState<RecordingState>("inactive"),
-        [mediaRecorder, setMediaRecorder] = useState<"awaqwq" | MediaRecorder>("awaqwq"),
-        intervalID = useRef<number>(0),
-        speechTimeIntervalID = useRef<number>(0),
-        haveTime = useRef<number>(Date.now()),
-        [countdown, setCountdown] = useState<number>(0),
-        [showWarning, setShowWarning] = useState<boolean>(false),
-        [selectTime, setSelectTime] = useState<boolean>(false),
-        [speechTime, setSpeechTime] = useState<number>(defaultSpeechTime),
-        [allSpeechTime, setAllSpeechTime] = useState<number>(defaultSpeechTime),
+        [mediaRecorder, setMediaRecorder] = useState<typeof emptySymbol | MediaRecorder>(emptySymbol),
+        intervalID = useRef(0),
+        speechTimeIntervalID = useRef(0),
+        haveTime = useRef(Date.now()),
+        [countdown, setCountdown] = useState(0),
+        [showWarning, setShowWarning] = useState(false),
+        [selectTime, setSelectTime] = useState(false),
+        [speechTime, setSpeechTime] = useState(defaultSpeechTime),
+        [allSpeechTime, setAllSpeechTime] = useState(defaultSpeechTime),
         [warnings, setWarnings] = useState<warning[]>([]),
         /**
          * 只有第一个块里才有文件头
          */
-        firstChunk = useRef<Blob>(new Blob([emptyBlobContext])),
+        firstChunk = useRef(new Blob(emptyBlobContext)),
         theme = useTheme(),
         barColor = theme.palette.primary.main,
-        audioFile = useRef<Blob>(new Blob(["Why you downloaded this??? Do not do it!!!"]));
+        audioFile = useRef(new Blob(emptyBlobContext));
     if (isBrowser()) {
         getRecording(blob => {
             audioFile.current = new Blob([blob]);
         }, async chunk => {
             // 加载文件头
             let blob: Blob;
-            if (await firstChunk.current.text() === emptyBlobContext) {
+            if (await firstChunk.current.text() === emptyBlobContext[0]) {
                 firstChunk.current = chunk;
                 blob = chunk;
             } else {
