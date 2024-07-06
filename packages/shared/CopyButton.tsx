@@ -48,8 +48,8 @@ function CopyButton(props: {
                 setShowCopyErrorDialog(true);
             }
         },
-        add = "add" in props ? (props.add || {
-        }) : {
+        add = "add" in props ? props.add || {
+        } : {
         },
         sx: SxProps<Theme> = {
             ..."sx" in add ? add.sx : {

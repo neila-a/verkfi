@@ -1,6 +1,6 @@
 {
     "version": "1.7.3",
-    "devVersion": "1027",
+    "devVersion": "1030",
     "dev": true,
     "description": "Platform for Neila's something useless tools.",
     "devDependencies": {

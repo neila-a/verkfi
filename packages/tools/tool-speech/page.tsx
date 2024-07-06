@@ -33,8 +33,10 @@ import getRecording from "@verkfi/shared/getRecording";
 import getShortTimeEnergy from "./getShortTimeEnergy";
 import {
     LiveAudioVisualizer
-} from "react-audio-visualize"
-import { emptySymbol } from "@verkfi/shared/reader/atomWithStorage";
+} from "react-audio-visualize";
+import {
+    emptySymbol
+} from "@verkfi/shared/reader/atomWithStorage";
 interface warning {
     /**
      * 发生时间
@@ -186,7 +188,7 @@ export default function Speech() {
                 })}
             </Typography>
             <ButtonGroup>
-                <Button disabled={status === "recording" ? (speechTime > 0 || mediaRecorder === emptySymbol) : false} onClick={event => {
+                <Button disabled={status === "recording" ? speechTime > 0 || mediaRecorder === emptySymbol : false} onClick={event => {
                     if (status === "recording") {
                         (mediaRecorder as MediaRecorder).stop();
                         clearInterval(intervalID.current);

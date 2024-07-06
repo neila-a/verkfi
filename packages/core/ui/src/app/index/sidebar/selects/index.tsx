@@ -24,18 +24,15 @@ import {
 import dynamic from "next/dynamic";
 import {
     Fragment,
+    ReactNode,
     createElement,
     startTransition,
-    useContext,
-    useState
+    useContext
 } from "react";
 import {
     get
 } from "react-intl-universal";
 import reorderArray from "reorder-array";
-import {
-    lists
-} from "..";
 import SingleSelect from "./SingleSelect";
 import toolsListAtom from "@verkfi/shared/atoms/toolsList";
 import {
@@ -72,15 +69,18 @@ export default function Selects(props: {
         editMode = useAtomValue(editModeAtom),
         setTools = useSetAtom(toolsAtom);
     function RealSelect(aprops: {
-        single: [string, string[]];
+        /**
+         * 分类名称
+         */
+        single: string;
         isAll: boolean;
     }) {
         return <Box>
             <SingleSelect
                 dragButton={editMode && !aprops.isAll && <DragIndicatorIcon />}
                 isSidebar={Boolean(props.isSidebar)}
-                key={aprops.single[0]}
-                tool={aprops.single[0]}
+                key={aprops.single}
+                tool={aprops.single}
                 onClick={event => {
                     const publicSet = draft => {
                         setEditing(searchText === "");
@@ -97,12 +97,12 @@ export default function Selects(props: {
                             publicSet(draft);
                         }
                     } else {
-                        if (sortingFor !== aprops.single[0]) {
-                            const draft = aprops.single[1].map(toolTo => gotToolsList.find(one => one.to === toolTo));
-                            if (sortingFor !== aprops.single[0]) {
+                        if (sortingFor !== aprops.single) {
+                            const draft = (aprops.isAll ? [] as string[] : list[aprops.single]).map(toolTo => gotToolsList.find(one => one.to === toolTo));
+                            if (sortingFor !== aprops.single) {
                                 props.modifyClickCount(0);
                             }
-                            setSortingFor(aprops.single[0]);
+                            setSortingFor(aprops.single);
                             publicSet(draft);
                         }
                     }
@@ -110,12 +110,12 @@ export default function Selects(props: {
                     editMode && !aprops.isAll ? <MouseOverPopover text={get("index.editCategory")}>
                         <IconButton onClick={event => {
                             setDialogOpen(true);
-                            setDialogListName(aprops.single[0]);
+                            setDialogListName(aprops.single);
                         }} aria-label={get("index.editCategory")}>
                             <EditIcon />
                         </IconButton>
                     </MouseOverPopover> : <Fragment />
-                )} wantSortingFor={aprops.isAll ? "__global__" : aprops.single[0]} />
+                )} wantSortingFor={aprops.isAll ? "__global__" : aprops.single} />
         </Box>;
     }
     return (
@@ -125,7 +125,7 @@ export default function Selects(props: {
             justifyContent: "space-evenly",
             alignItems: "center"
         }}>
-            <RealSelect single={[get("全部"), []]} isAll />
+            <RealSelect single={get("全部")} isAll />
             <DragDropContext onDragEnd={result => {
                 if (!result.destination) {
                     return;
@@ -142,42 +142,49 @@ export default function Selects(props: {
                     {provided => <Box ref={provided.innerRef} {...provided.droppableProps} sx={{
                         display: props.isSidebar ? "" : "flex"
                     }}>
-                        {list.filter(value => value[0] !== "__global__").map(
-                            (value, index) => editMode ? <Draggable draggableId={value[0]} index={index} key={value[0]}>
-                                {provided => <Box ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                    <RealSelect single={value} isAll={false} />
-                                </Box>}
-                            </Draggable> : <RealSelect key={value[0]} single={value} isAll={false} />
-                        )}
+                        {Object.keys(list).filter(value => value !== "__global__").map((value, index) => createElement(
+                            editMode ? (props: {
+                                children: ReactNode;
+                            }) => {
+                                return <Draggable draggableId={value} index={index} key={value}>
+                                    {provided => <Box ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                        {props.children}
+                                    </Box>}
+                                </Draggable>;
+                            } : Fragment,
+                            {
+                                key: value
+                            },
+                            <RealSelect single={value} isAll={false} />
+                        ))}
                         {provided.placeholder}
                     </Box>
                     }
                 </Droppable>
             </DragDropContext>
-            {editMode
-                && <> {/* 只有editMode时才会启用，可以用dynamic */}
-                    {createElement(dynamic(() => import("./EditCategoryDialog")), {
-                        left: gotToolsList.filter(tool => {
-                            return list.find(single => single[0] === dialogListName)?.[1]?.includes(tool.to);
-                        }).map(tool => tool.name)
-                    })}
-                    {createElement(dynamic(() => import("@verkfi/shared/dialog/Check")), {
-                        open: removeDialogOpen,
-                        title: get("category.删除此分类"),
-                        description: get("category.确定删除此分类吗？"),
-                        onTrue: () => {
-                            const listDraft: lists = list.slice(0).filter(draftSingle => draftSingle[0] !== dialogListName);
-                            setList(listDraft);
-                            setDialogListName("");
-                            return setRemoveDialogOpen(false);
-                        },
-                        onFalse: () => {
-                            setDialogListName("");
-                            return setRemoveDialogOpen(false);
-                        }
-                    })}
-                </>
-            }
+            {editMode && <> {/* 只有editMode时才会启用，可以用dynamic */}
+                {createElement(dynamic(() => import("./EditCategoryDialog")), {
+                    left: gotToolsList.filter(tool => {
+                        return list[dialogListName]?.includes(tool.to);
+                    }).map(tool => tool.name)
+                })}
+                {createElement(dynamic(() => import("@verkfi/shared/dialog/Check")), {
+                    open: removeDialogOpen,
+                    title: get("category.删除此分类"),
+                    description: get("category.确定删除此分类吗？"),
+                    onTrue: () => {
+                        const listDraft = structuredClone(list);
+                        Reflect.deleteProperty(listDraft, dialogListName);
+                        setList(listDraft);
+                        setDialogListName("");
+                        return setRemoveDialogOpen(false);
+                    },
+                    onFalse: () => {
+                        setDialogListName("");
+                        return setRemoveDialogOpen(false);
+                    }
+                })}
+            </>}
         </Box>
     );
 }

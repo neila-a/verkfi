@@ -3,14 +3,17 @@ import atomWithInitialValue from "./atomWithInitialValue";
 import db from "./db";
 import atomWithEmpty from "./atomWithEmpty";
 import isBrowser from "../isBrowser";
+import {
+    PrimitiveAtom
+} from "jotai";
 export const emptySymbol: unique symbol = Symbol("This atom is empty, it's waiting a value.");
 const atomWithStorage = <setting = any>(id: string, empty: setting) => atomWithInitialValue(
-    valueAtom => {
+    (valueAtom: PrimitiveAtom<setting>) => {
         const withedEmpty = atomWithEmpty<setting | Promise<setting>, setting, Promise<void>>(
             get => isBrowser() ? db.readSetting(id, empty) : empty,
             async (get, set, update: setting) => {
                 set(valueAtom, update);
-                if (isBrowser) {
+                if (isBrowser()) {
                     return await db.setSetting(id, update);
                 }
             },

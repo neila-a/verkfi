@@ -42,7 +42,7 @@ export default function EditCategoryDialog(props: {
         [dialogListName, setDialogListName] = useAtom(categoryDialogListNameAtom),
         [dialogTools, setDialogTools] = useAtom(categoryDialogToolsAtom),
         [list, setList] = useAtom(listsAtom),
-        edit = (forList: lists) => forList.some(single => single[0] === dialogListName),
+        edit = (forList: lists) => Object.keys(forList).some(single => single === dialogListName),
         createOrEdit = !edit(list) ? get("category.创建分类") : get("category.编辑分类"),
         incorrect = ["__global__", "__home__"].some(incorrectListName => incorrectListName === dialogListName),
         converted = useAtomValue(convertedExtensionsAtom),
@@ -54,15 +54,8 @@ export default function EditCategoryDialog(props: {
         <PureDialog action={(
             <ButtonGroup fullWidth>
                 <Button variant="contained" onClick={event => {
-                    const listDraft: lists = list.slice(0),
-                        index = list.findIndex(singleList => singleList[0] === dialogListName),
-                        have = index !== -1;
-                    if (index !== -1) {
-                        listDraft[index] = [list[index][0], dialogTools];
-                    }
-                    if (!have) {
-                        listDraft.push([dialogListName, dialogTools]);
-                    }
+                    const listDraft = structuredClone(list);
+                    listDraft[dialogListName] = dialogTools;
                     startTransition(() => setList(listDraft));
                     setDialogListName("");
                     setDialogTools([]);

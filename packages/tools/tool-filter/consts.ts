@@ -12,4 +12,4 @@ const ImageTypesGen = [
     "shadow"
 ] as const;
 // eslint-disable-next-line import/no-anonymous-default-export
-export default [...ImageTypesGen];
+export default [...ImageTypesGen] as ImageType[];

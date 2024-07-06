@@ -47,10 +47,11 @@ export default function RemoveExtensionDialog(props: {
             setClearData(false);
         }} onTrue={async () => {
             startTransition(async () => {
-                await setLists(lists.map(singleList => [
-                    singleList[0],
-                    singleList[1].filter(item => item !== `/tools/extension?tool=${props.fileInfo.to}`)
-                ]));
+                const draft = structuredClone(lists);
+                Object.keys(draft).map(list => {
+                    draft[list] = draft[list].filter(item => item !== `/tools/extension?tool=${props.fileInfo.to}`);
+                });
+                await setLists(draft);
                 if (clearData) {
                     return await clearExtensionData(props.fileInfo);
                 }

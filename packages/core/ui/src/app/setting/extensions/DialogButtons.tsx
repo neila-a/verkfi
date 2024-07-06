@@ -68,16 +68,11 @@ export default function DialogButtons(props: {
                 setExtensions(await getMetadatas());
 
                 // 写入lists
-                const index = lists?.find(list => list[0] === "__global__"), to = `/tools/extension?tool=${props.fileInfo.to}`;
-                if (!index?.[1].includes(to)) {
-                    if (lists.map) {
-                        startTransition(() => setLists(lists.map(singleList => {
-                            if (singleList[0] === "__global__") {
-                                return [singleList[0], [...singleList[1], to]];
-                            }
-                            return singleList;
-                        })));
-                    }
+                const to = `/tools/extension?tool=${props.fileInfo.to}`;
+                if (lists.__global__.includes(to)) {
+                    const draft = structuredClone(lists);
+                    draft.__global__.push(to);
+                    startTransition(() => setLists(draft));
                 }
                 props.reset();
             }}>

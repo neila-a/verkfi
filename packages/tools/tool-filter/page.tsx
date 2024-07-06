@@ -27,9 +27,8 @@ import {
     get
 } from "react-intl-universal";
 import removeArrayItem from "remove-item-from-array";
-import {
-    ImageType,
-    ImageTypesGen
+import ImageTypesGen, {
+    ImageType
 } from "./consts";
 import SingleImage from "./singleImage";
 import libearOnly from "./image/libear-only.png";

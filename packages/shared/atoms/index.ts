@@ -1,12 +1,13 @@
 import {
     viewMode
-} from "index/consts";
+} from "@verkfi/core-ui/src/app/index/consts";
 import {
     lists
-} from "index/sidebar";
+} from "@verkfi/core-ui/src/app/index/sidebar";
 import atomWithStorage from "../reader/atomWithStorage";
 import isBrowser from "../isBrowser";
 import {
+    WritableAtom,
     atom
 } from "jotai";
 import extensionsAtom, {
@@ -27,9 +28,7 @@ import {
 import {
     RESET
 } from "jotai/utils";
-interface mostUsedMarks {
-    [key: string]: number;
-}
+type mostUsedMarks = Record<string, number>;
 const viewModeAtomValue = atomWithStorage<viewMode>("viewmode", "list");
 export type sidebarMode = "menu" | "sidebar";
 export const mostUsedSelects = 3,
@@ -80,15 +79,16 @@ export const mostUsedSelects = 3,
             )
         )
     )),
-    listsAtom = atomWithStorage<lists>("lists", []),
+    listsAtom = atomWithStorage<lists>("lists", {
+    }),
     buttonCommonSorterAtom = atom(null, (get, set, sortingFor: string, pd: tool[]) => awaiter(
-        get(listsAtom), realList => {
-            const index = realList.findIndex(item => item[0] === sortingFor),
-                newRealList: lists = realList.slice(0);
-            if (index === -1) {
-                newRealList.push(["__global__", pd.map(toolp => toolp.to)]);
+        get(listsAtom), (realList: lists) => {
+            const newRealList = structuredClone(realList),
+                content = pd.map(toolp => toolp.to);
+            if (sortingFor in newRealList) {
+                newRealList[sortingFor] = content;
             } else {
-                newRealList[index][1] = pd.map(toolp => toolp.to);
+                newRealList.__global__ = content;
             }
             set(listsAtom, newRealList);
             return awaiter(set(toolsAtom, RESET as unknown as toolsAtomUpdate), a => a);

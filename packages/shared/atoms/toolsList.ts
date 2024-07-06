@@ -7,19 +7,22 @@ import {
 import {
     listsAtom
 } from ".";
-import toolsInfoAtom from "@verkfi/core-ui/src/app/tools/info";
+import toolsInfoAtom, {
+    tool
+} from "@verkfi/core-ui/src/app/tools/info";
 import awaiter from "../reader/awaiter";
+import {
+    lists
+} from "@verkfi/core-ui/src/app/index/sidebar";
 const toolsListAtom = atom(get => awaiter(
-    get(listsAtom), lists => awaiter(
+    get(listsAtom), (lists: lists) => awaiter(
         get(convertedExtensionsAtom), converted => awaiter(
             get(toolsInfoAtom), realTools => {
-                const list = lists.find(item => item[0] === "__global__");
-                if (list === undefined) {
-                    const newLists = lists.slice(0);
-                    newLists.push(["__global__", realTools.concat(converted).map(tool => tool.to)]);
-                    return realTools.concat(converted);
+                const concated = realTools.concat(converted);
+                if ("__global__" in lists) {
+                    return lists.__global__.map(to => concated.find(tool => tool.to === to) as tool);
                 }
-                return list[1].map(to => realTools.concat(converted).find(tool => tool.to === to));
+                return concated;
             }
         )
     )

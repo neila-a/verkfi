@@ -39,7 +39,7 @@ import {
 import {
     isImplantContext
 } from "index/consts";
-export type lists = [string, string[]][];
+export type lists = Record<string, string[]>;
 export default function Sidebar(props: {
     focusingTo: Lowercase<string>;
 }) {

@@ -83,9 +83,7 @@ declare global {
     }
     interface URLPatternComponentResult {
         input: string;
-        groups: {
-            [key: string]: string | undefined;
-        };
+        groups: Record<string, string | undefined>;
     }
 
 }
