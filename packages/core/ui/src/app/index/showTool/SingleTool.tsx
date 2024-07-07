@@ -217,10 +217,8 @@ export default function SingleTool(props: {
             sortingFor !== "__global__" && sortingFor !== "__home__" && <MouseOverPopover text={get("singleTool.deleteFromCategory")}>
                 <IconButton onClick={event => {
                     startTransition(async () => {
-                        const newLists = {
-                            ...lists
-                        };
-                        newLists[sortingFor] = newLists[sortingFor].filter(singleTool => singleTool !== tool.to);
+                        const newLists = structuredClone(lists);
+                        newLists.set(sortingFor, newLists[sortingFor].filter(singleTool => singleTool !== tool.to));
                         await setLists(newLists);
                         return await setTools(`remove ${tool.to}`);
                     });

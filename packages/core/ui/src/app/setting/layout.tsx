@@ -5,6 +5,7 @@ import {
     FormControlLabel,
     MenuItem,
     Select,
+    SelectChangeEvent,
     Switch,
     Tab,
     Tabs,
@@ -34,6 +35,7 @@ import {
     useSelectedLayoutSegment
 } from "next/navigation";
 import {
+    ChangeEventHandler,
     ReactNode,
     Suspense,
     useState
@@ -114,47 +116,42 @@ export default function Settings(props: {
                     mt: 2
                 }}>
                     {extensionTools.map(item => item.settings.filter(settingItem => settingItem.page === id).map((settingItem, index) => {
+                        const publicProps = {
+                            value: settingItem.value as string,
+                            label: settingItem.text,
+                            onChange: (event: {
+                                target: {
+                                    value: boolean | string;
+                                }
+                            }) => {
+                                const modifiedSettings = structuredClone(item.settings);
+                                modifiedSettings[index].value = event.target.value;
+                                setExtensions({
+                                    ...item,
+                                    settings: modifiedSettings
+                                });
+                            }
+                        }
                         switch (settingItem.type) {
                             case "boolean":
-                                return (
-                                    <FormControlLabel control={(
-                                        <Switch checked={settingItem.value as boolean} onChange={event => {
-                                            const modifiedSettings = structuredClone(item.settings);
-                                            modifiedSettings[index].value = !(modifiedSettings[index].value as boolean);
-                                            setExtensions({
-                                                ...item,
-                                                settings: modifiedSettings
-                                            });
-                                        }} />
-                                    )} label={settingItem.text} />
-                                );
-                            case "input":
-                                return (
-                                    <TextField value={settingItem.value as string} label={settingItem.text} variant="outlined" onChange={event => {
+                                return <FormControlLabel control={(
+                                    <Switch checked={settingItem.value as boolean} onChange={event => {
                                         const modifiedSettings = structuredClone(item.settings);
-                                        modifiedSettings[index].value = event.target.value;
+                                        modifiedSettings[index].value = !(modifiedSettings[index].value as boolean);
                                         setExtensions({
                                             ...item,
                                             settings: modifiedSettings
                                         });
                                     }} />
-                                );
+                                )} label={settingItem.text} />;
+                            case "input":
+                                return <TextField {...publicProps} variant="outlined" />;
                             case "switch":
-                                return (
-                                    <Select value={settingItem.value as string} label={settingItem.text} onChange={event => {
-                                        const modifiedSettings = structuredClone(item.settings);
-                                        modifiedSettings[index].value = event.target.value;
-                                        setExtensions({
-                                            ...item,
-                                            settings: modifiedSettings
-                                        });
-                                    }}>
-                                        {settingItem.switches.map(switching => <MenuItem key={switching} value={switching}>
-                                            {switching}
-                                        </MenuItem>
-                                        )}
-                                    </Select>
-                                );
+                                return <Select {...publicProps}>
+                                    {settingItem.switches.map(switching => <MenuItem key={switching} value={switching}>
+                                        {switching}
+                                    </MenuItem>)}
+                                </Select>;
                         }
                     }))}
                 </Box>

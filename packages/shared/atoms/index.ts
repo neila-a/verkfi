@@ -14,6 +14,7 @@ import extensionsAtom, {
     convertedExtensionsAtom
 } from "./extensions";
 import toolsInfoAtom, {
+    noIconTool,
     tool
 } from "@verkfi/core-ui/src/app/tools/info";
 import {
@@ -79,22 +80,21 @@ export const mostUsedSelects = 3,
             )
         )
     )),
-    listsAtom = atomWithStorage<lists>("lists", {
-    }),
+    listsAtom = atomWithStorage<lists>("lists", new Map()),
     buttonCommonSorterAtom = atom(null, (get, set, sortingFor: string, pd: tool[]) => awaiter(
         get(listsAtom), (realList: lists) => {
             const newRealList = structuredClone(realList),
                 content = pd.map(toolp => toolp.to);
             if (sortingFor in newRealList) {
-                newRealList[sortingFor] = content;
+                newRealList.set(sortingFor, content);
             } else {
-                newRealList.__global__ = content;
+                newRealList.set("__global__", content);
             }
             set(listsAtom, newRealList);
             return awaiter(set(toolsAtom, RESET as unknown as toolsAtomUpdate), a => a);
         }
     )),
-    extensionDataCleanerAtom = atom(null, (get, set, clearingExtension: NXTMetadata) => awaiter(
+    extensionDataCleanerAtom = atom(null, (get, set, clearingExtension: NXTMetadata & noIconTool) => awaiter(
         get(mostUsedAtom), mostUsed => awaiter(
             get(recentlyUsedAtom), async oldRecently => {
                 const

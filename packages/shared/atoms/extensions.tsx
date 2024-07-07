@@ -67,16 +67,9 @@ export const [extensionsAtom, extensionsAtomValue] = atomWithInitialValue(
                     await writable.close();
 
                     // atom更新
-                    const realOld = old.slice(0), index = old.findIndex(a => a.to === update.to);
-                    if (index === -1) {
-                        realOld.push(update);
-                        set(valueAtom, realOld);
-                    } else {
-                        set(valueAtom, realOld.map(a => {
-                            if (a.to === update.to) return update;
-                            return a;
-                        }));
-                    }
+                    const map = new Map(old.map(one => [one.to, one]));
+                    map.set(update.to, update);
+                    set(valueAtom, [...map.values()]);
                 }
             },
             valueAtom
