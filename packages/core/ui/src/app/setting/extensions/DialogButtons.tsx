@@ -31,6 +31,9 @@ import {
 import {
     startTransition
 } from "react";
+import {
+    globalListSymbol
+} from "index/atoms";
 export default function DialogButtons(props: {
     type: inputTypes;
     fileInfo: NXTMetadata;
@@ -69,9 +72,9 @@ export default function DialogButtons(props: {
 
                 // 写入lists
                 const to = `/tools/extension?tool=${props.fileInfo.to}`;
-                if (lists.__global__.includes(to)) {
+                if (lists.get(globalListSymbol).includes(to)) {
                     const draft = structuredClone(lists);
-                    draft.__global__.push(to);
+                    draft.set(globalListSymbol, [...draft.get(globalListSymbol), to])
                     startTransition(() => setLists(draft));
                 }
                 props.reset();

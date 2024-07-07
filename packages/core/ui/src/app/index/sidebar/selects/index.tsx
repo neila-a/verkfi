@@ -38,6 +38,8 @@ import toolsListAtom from "@verkfi/shared/atoms/toolsList";
 import {
     editModeAtom,
     editingAtom,
+    globalListSymbol,
+    listName,
     searchTextAtom,
     sortedToolsAtom,
     sortingForAtom,
@@ -90,15 +92,15 @@ export default function Selects(props: {
                         startTransition(async () => await setTools(draft));
                     };
                     if (aprops.isAll) {
-                        if (sortingFor !== "__global__") {
+                        if (sortingFor !== globalListSymbol) {
                             const draft = gotToolsList;
                             props.modifyClickCount(0);
-                            setSortingFor("__global__");
+                            setSortingFor(globalListSymbol);
                             publicSet(draft);
                         }
                     } else {
                         if (sortingFor !== aprops.single) {
-                            const draft = (aprops.isAll ? [] as string[] : list.get(aprops.single)).map(toolTo => gotToolsList.find(one => one.to === toolTo));
+                            const draft = (aprops.isAll ? [] as string[] : list.get(aprops.single as listName)).map(toolTo => gotToolsList.find(one => one.to === toolTo));
                             if (sortingFor !== aprops.single) {
                                 props.modifyClickCount(0);
                             }
@@ -115,7 +117,7 @@ export default function Selects(props: {
                             <EditIcon />
                         </IconButton>
                     </MouseOverPopover> : <Fragment />
-                )} wantSortingFor={aprops.isAll ? "__global__" : aprops.single} />
+                )} wantSortingFor={aprops.isAll ? globalListSymbol : aprops.single} />
         </Box>;
     }
     return (
@@ -134,29 +136,32 @@ export default function Selects(props: {
                     return;
                 }
                 if (editMode) {
-                    const newLists = reorderArray(list, result.source.index, result.destination.index);
-                    return startTransition(() => setList(newLists));
+                    const listArray = [...list.entries()],
+                        newLists = reorderArray(list, result.source.index, result.destination.index) as typeof listArray;
+                    return startTransition(() => setList(new Map(newLists)));
                 }
             }}>
                 <Droppable direction={props.isSidebar ? "vertical" : "horizontal"} droppableId="categories" isDropDisabled={!editMode}>
                     {provided => <Box ref={provided.innerRef} {...provided.droppableProps} sx={{
                         display: props.isSidebar ? "" : "flex"
                     }}>
-                        {Object.keys(list).filter(value => value !== "__global__").map((value, index) => createElement(
-                            editMode ? (props: {
-                                children: ReactNode;
-                            }) => {
-                                return <Draggable draggableId={value} index={index} key={value}>
-                                    {provided => <Box ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                        {props.children}
-                                    </Box>}
-                                </Draggable>;
-                            } : Fragment,
-                            {
-                                key: value
-                            },
-                            <RealSelect single={value} isAll={false} />
-                        ))}
+                        {([...list.keys()].filter(value => value !== globalListSymbol) as string[]).map((value, index) => {
+                            return createElement(
+                                editMode ? (props: {
+                                    children: ReactNode;
+                                }) => {
+                                    return <Draggable draggableId={value} index={index} key={value}>
+                                        {provided => <Box ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                            {props.children}
+                                        </Box>}
+                                    </Draggable>;
+                                } : Fragment,
+                                {
+                                    key: value
+                                },
+                                <RealSelect single={value} isAll={false} />
+                            );
+                        })}
                         {provided.placeholder}
                     </Box>
                     }
@@ -165,7 +170,7 @@ export default function Selects(props: {
             {editMode && <> {/* 只有editMode时才会启用，可以用dynamic */}
                 {createElement(dynamic(() => import("./EditCategoryDialog")), {
                     left: gotToolsList.filter(tool => {
-                        return list[dialogListName]?.includes(tool.to);
+                        return list.get(dialogListName)?.includes(tool.to);
                     }).map(tool => tool.name)
                 })}
                 {createElement(dynamic(() => import("@verkfi/shared/dialog/Check")), {
@@ -174,7 +179,7 @@ export default function Selects(props: {
                     description: get("category.确定删除此分类吗？"),
                     onTrue: () => {
                         const listDraft = structuredClone(list);
-                        Reflect.deleteProperty(listDraft, dialogListName);
+                        listDraft.delete(dialogListName);
                         setList(listDraft);
                         setDialogListName("");
                         return setRemoveDialogOpen(false);

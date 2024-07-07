@@ -32,6 +32,7 @@ import {
 import {
     expandAtom,
     focusingToAtom,
+    homeListSymbol,
     showRecommendsAtom,
     sortingForAtom,
     sortingForAtomValue,
@@ -47,7 +48,6 @@ import {
 import {
     repoInfo as repoInfoContext
 } from "layout/layoutClient";
-import ToolsSkeleton from "index/showTool/toolsSkeleton";
 export default function Index(props: {
     /**
      * 是否为嵌入
@@ -85,7 +85,7 @@ export default function Index(props: {
             <Sidebar
                 focusingTo={focusingTo}
             />
-            {sortingFor === "__home__" || baseSortingFor === "__home__" ? <Box sx={{
+            {sortingFor === homeListSymbol || baseSortingFor === homeListSymbol ? <Box sx={{
                 p: 3,
                 ml: props.isImplant ? "" : `${drawerWidth}px`
             }}>

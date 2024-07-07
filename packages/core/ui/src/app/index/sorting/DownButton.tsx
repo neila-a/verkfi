@@ -19,6 +19,8 @@ import {
 } from "jotai";
 import {
     editModeAtom,
+    homeListSymbol,
+    sorting,
     toolsAtom
 } from "index/atoms";
 import {
@@ -29,12 +31,12 @@ import {
 } from "react";
 export default function DownButton(props: {
     tool: tool;
-    sortingFor: string;
+    sortingFor: sorting;
 }) {
     const buttonCommonSorting = useSetAtom(buttonCommonSorterAtom),
         editMode = useAtomValue(editModeAtom),
         tools = useAtomValue(toolsAtom);
-    if (editMode && props.sortingFor !== "__home__") {
+    if (editMode && props.sortingFor !== homeListSymbol) {
         return (
             <MouseOverPopover text={get("index.movedown")}>
                 <IconButton size="large" edge="start" color="inherit" aria-label={get("index.movedown")} onClick={event => {

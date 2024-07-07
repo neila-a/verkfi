@@ -19,11 +19,10 @@ import {
 } from "jotai";
 import {
     editModeAtom,
+    homeListSymbol,
+    sorting,
     toolsAtom
 } from "index/atoms";
-import {
-    useResetAtom
-} from "jotai/utils";
 import {
     buttonCommonSorterAtom
 } from "@verkfi/shared/atoms";
@@ -32,12 +31,12 @@ import {
 } from "react";
 export default function UpButton(props: {
     tool: tool;
-    sortingFor: string;
+    sortingFor: sorting;
 }) {
     const buttonCommonSorting = useSetAtom(buttonCommonSorterAtom),
         editMode = useAtomValue(editModeAtom),
         tools = useAtomValue(toolsAtom);
-    if (editMode && props.sortingFor !== "__home__") {
+    if (editMode && props.sortingFor !== homeListSymbol) {
         return (
             <MouseOverPopover text={get("index.moveup")}>
                 <IconButton color="inherit" size="large" edge="end" onClick={event => {

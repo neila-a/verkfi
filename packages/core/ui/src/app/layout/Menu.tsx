@@ -51,6 +51,7 @@ import {
 } from "react-intl-universal";
 import {
     editingAtom,
+    homeListSymbol,
     searchTextAtom,
     sortedToolsAtom,
     sortingForAtom,
@@ -127,10 +128,10 @@ export default function Menu() {
                     <TextField slotProps={{
                         input: {
                             startAdornment: <InputAdornment position="end">
-                                {sortingFor !== "__home__" && <MouseOverPopover text={get("back")}>
+                                {sortingFor !== homeListSymbol && <MouseOverPopover text={get("back")}>
                                     <IconButton type="button" aria-label={get("back")} onClick={() => {
                                         setSearchText("", false);
-                                        setSortingFor("__home__");
+                                        setSortingFor(homeListSymbol);
                                         setSortedTools(gotToolsList);
                                         setEditing(true);
                                         startTransition(async () => await resetTools());
@@ -167,7 +168,7 @@ export default function Menu() {
                     }} />
                 </DialogTitle>
                 <DialogContent dividers>
-                    {sortingFor === "__home__" ? <>
+                    {sortingFor === homeListSymbol ? <>
                         <Box>
                             <Typography variant="h4">
                                 {get("category.分类")}
@@ -202,7 +203,7 @@ export default function Menu() {
                         focus={focusingTo}
                     />}
                 </DialogContent>
-                {sortingFor !== "__home__" && <DialogActions>
+                {sortingFor !== homeListSymbol && <DialogActions>
                     {get("press")}
                     <Button onClick={handleTab}>
                         <kbd>

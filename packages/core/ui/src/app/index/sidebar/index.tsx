@@ -31,7 +31,11 @@ import Selects from "./selects";
 import SingleSelect from "./selects/SingleSelect";
 import {
     expandAtom,
+    globalListSymbol,
+    homeListSymbol,
+    listName,
     searchTextAtom,
+    sorting,
     sortingForAtom,
     tabAtom,
     toolsAtom
@@ -39,7 +43,7 @@ import {
 import {
     isImplantContext
 } from "index/consts";
-export type lists = Map<string, string[]>;
+export type lists = Map<listName, string[]>;
 export default function Sidebar(props: {
     focusingTo: Lowercase<string>;
 }) {
@@ -94,8 +98,8 @@ export default function Sidebar(props: {
                 }
             }} placeholder={get("搜索工具")} onChange={event => {
                 setSearchText(event.target.value, isImplant);
-                if (sortingFor === "__home__") {
-                    setSortingFor("__global__");
+                if (sortingFor === homeListSymbol) {
+                    setSortingFor(globalListSymbol);
                 }
             }} />
             <Box sx={{
@@ -104,10 +108,10 @@ export default function Sidebar(props: {
                 {!isImplant && <SingleSelect
                     dragButton={<></>}
                     isSidebar
-                    wantSortingFor="__home__"
+                    wantSortingFor={homeListSymbol}
                     tool={get("主页")}
                     onClick={event => {
-                        setSortingFor("__home__");
+                        setSortingFor(homeListSymbol);
                     }}
                     editButton={<></>}
                 />}

@@ -25,8 +25,7 @@ import {
 import SingleTool from "./SingleTool";
 import {
     editModeAtom,
-    sortingForAtom,
-    toolsAtom
+    sortingForAtom
 } from "index/atoms";
 import {
     ReactNode,
@@ -36,9 +35,6 @@ import {
 import {
     isImplantContext
 } from "index/consts";
-import {
-    useResetAtom
-} from "jotai/utils";
 import ToolsStack from "./ToolsStack";
 export const listSpacing = 3,
     gridSpacing = 5;

@@ -20,7 +20,11 @@ import atomWithInitialValue, {
 import awaiter from "@verkfi/shared/reader/awaiter";
 import atomWithEmpty from "@verkfi/shared/reader/atomWithEmpty";
 export type toolsAtomUpdate = tool[] | typeof RESET | `remove ${string}`;
-export const editModeAtom = atom(false),
+export type listName = string | typeof globalListSymbol;
+export type sorting = listName | typeof homeListSymbol;
+export const globalListSymbol = Symbol("__verkfias eleos mystar__ global list"),
+    homeListSymbol = Symbol("__verkfias eleos mystar__ home list"),
+    editModeAtom = atom(false),
     tabAtom = atom(0),
     showRecommendsAtom = atom(false),
     [toolsAtom, toolsAtomValue] = atomWithInitialValue(
@@ -54,16 +58,16 @@ export const editModeAtom = atom(false),
             valueAtom
         ) as WritableAtom<tool[], [update: toolsAtomUpdate], void | Promise<void>>
     ),
-    [sortingForAtom, sortingForAtomValue] = atomWithInitialValue((valueAtom: valueAtomReturn<string>) => atom(get => (isImplant: boolean) => {
+    [sortingForAtom, sortingForAtomValue] = atomWithInitialValue((valueAtom: valueAtomReturn<sorting>) => atom(get => (isImplant: boolean) => {
         const value = get(valueAtom);
         if (value === emptySymbol) {
             if (isImplant) {
-                return "__global__";
+                return globalListSymbol;
             }
-            return "__home__";
+            return homeListSymbol;
         }
         return value;
-    }, (get, set, update: string) => {
+    }, (get, set, update: sorting) => {
         set(valueAtom, update);
     })),
     [sortedToolsAtom, sortedToolsAtomValue] = atomWithInitialValue(valueAtom => atomWithEmpty(
@@ -79,8 +83,8 @@ export const editModeAtom = atom(false),
         get => get(valueAtom),
         (get, set, search: string, isImplant: boolean) => {
             set(editingAtom, search === "");
-            if (get(sortingForAtom)(isImplant) === "__home__") {
-                set(sortingForAtom, "__global__");
+            if (get(sortingForAtom)(isImplant) === homeListSymbol) {
+                set(sortingForAtom, globalListSymbol);
             }
             set(valueAtom, search);
             awaiter(

@@ -4,6 +4,7 @@ import {
     Button
 } from "@mui/material";
 import {
+    sorting,
     sortingForAtom
 } from "index/atoms";
 import {
@@ -22,7 +23,7 @@ export default function SingleSelect(props: {
     onClick: MouseEventHandler<HTMLButtonElement>;
     editButton: ReactNode;
     dragButton: ReactNode;
-    wantSortingFor?: string;
+    wantSortingFor?: sorting;
     isSidebar: boolean;
 }) {
     const isImplant = useContext(isImplantContext),

@@ -44,7 +44,6 @@ export default function EditCategoryDialog(props: {
         [list, setList] = useAtom(listsAtom),
         edit = (forList: lists) => [...forList.keys()].some(single => single === dialogListName),
         createOrEdit = !edit(list) ? get("category.创建分类") : get("category.编辑分类"),
-        incorrect = ["__global__", "__home__"].some(incorrectListName => incorrectListName === dialogListName),
         converted = useAtomValue(convertedExtensionsAtom),
         toolsList = useAtomValue(toolsListAtom),
         right = toolsList.concat(converted).filter(
@@ -78,7 +77,7 @@ export default function EditCategoryDialog(props: {
         }}>
             <TextField value={dialogListName} autoFocus margin="dense" label={get("category.分类名称")} fullWidth onChange={event => {
                 setDialogListName(event.target.value);
-            }} error={incorrect} helperText={incorrect && get("index.incorrectCategoryName")} />
+            }} />
             <TransferList left={props.left} right={right} onLeftChange={context => {
                 setDialogTools(context.map(name => toolsList.concat(converted).find(fullTool => fullTool.name === name).to));
             }} onRightChange={context => null} />

@@ -60,6 +60,9 @@ import {
 } from "@verkfi/shared/atoms";
 import {
     editModeAtom,
+    globalListSymbol,
+    homeListSymbol,
+    sorting,
     sortingForAtom,
     toolsAtom
 } from "index/atoms";
@@ -116,7 +119,7 @@ export default function SingleTool(props: {
         ToolIcon = tool.icon,
         buttonOptions = {
             tool: tool,
-            sortingFor: sortingFor
+            sortingFor: sortingFor as sorting
         },
         subStyle = {
             sx: {
@@ -214,7 +217,7 @@ export default function SingleTool(props: {
                     onTrue: () => startTransition(async () => await setTools(`remove ${tool.to}`))
                 })
             ],
-            sortingFor !== "__global__" && sortingFor !== "__home__" && <MouseOverPopover text={get("singleTool.deleteFromCategory")}>
+            sortingFor !== globalListSymbol && sortingFor !== homeListSymbol && <MouseOverPopover text={get("singleTool.deleteFromCategory")}>
                 <IconButton onClick={event => {
                     startTransition(async () => {
                         const newLists = structuredClone(lists);
