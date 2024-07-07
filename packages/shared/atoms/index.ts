@@ -24,6 +24,7 @@ import {
 import awaiter from "../reader/awaiter";
 import {
     globalListSymbol,
+    listName,
     sorting,
     toolsAtom,
     toolsAtomUpdate
@@ -83,7 +84,7 @@ export const mostUsedSelects = 3,
         )
     )),
     listsAtom = atomWithStorage<lists>("lists", new Map()),
-    buttonCommonSorterAtom = atom(null, (get, set, sortingFor: sorting, pd: tool[]) => awaiter(
+    buttonCommonSorterAtom = atom(null, (get, set, sortingFor: listName, pd: tool[]) => awaiter(
         get(listsAtom), (realList: lists) => {
             const newRealList = structuredClone(realList),
                 content = pd.map(toolp => toolp.to);

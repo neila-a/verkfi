@@ -25,6 +25,7 @@
         "@verkfi/shared": "workspace:../../shared",
         "d3-array": "3.2.4",
         "filepond": "^4.31.1",
+        "jotai": "2.8.0",
         "react-filepond": "^7.1.2"
     }
 }

@@ -74,7 +74,7 @@ export default function DialogButtons(props: {
                 const to = `/tools/extension?tool=${props.fileInfo.to}`;
                 if (lists.get(globalListSymbol).includes(to)) {
                     const draft = structuredClone(lists);
-                    draft.set(globalListSymbol, [...draft.get(globalListSymbol), to])
+                    draft.set(globalListSymbol, [...draft.get(globalListSymbol), to]);
                     startTransition(() => setLists(draft));
                 }
                 props.reset();
@@ -88,9 +88,7 @@ export default function DialogButtons(props: {
                 {get("删除")}
             </Button>
         ];
-    return (
-        <ButtonGroup fullWidth>
-            {buttons}
-        </ButtonGroup>
-    );
+    return <ButtonGroup fullWidth>
+        {buttons}
+    </ButtonGroup>;
 }

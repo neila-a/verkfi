@@ -82,17 +82,15 @@ export default function Menu() {
         [editing, setEditing] = useAtom(editingAtom);
     function handleTab() {
         setTab(old => (old + 1) % tools.length);
-        const selectool = document.getElementById(`toolAbleToSelect-${focusingTo}`) as HTMLDivElement | null;
-        if (selectool !== null) {
-            selectool.scrollIntoView({
-                block: "start",
-                behavior: "smooth"
-            });
-        }
+        const selectool = document.getElementById(`toolAbleToSelect-${focusingTo}`) as HTMLDivElement;
+        selectool?.scrollIntoView?.({
+            block: "start",
+            behavior: "smooth"
+        });
     }
     function handleEnter() {
         const selectool = document.getElementById(`toolAbleToSelect-${focusingTo}`) as HTMLDivElement | null;
-        selectool?.click();
+        selectool?.click?.();
     }
     return (
         <isImplantContext.Provider value={false}>

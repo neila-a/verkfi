@@ -91,10 +91,8 @@ export default function Sidebar(props: {
                     setTab(old => (old + 1) % tools.length);
                 } else if (event.key === "Enter") {
                     event.preventDefault();
-                    const selectool = document.getElementById(`toolAbleToSelect-${props.focusingTo}`) as HTMLDivElement | null;
-                    if (selectool !== null) {
-                        selectool.click();
-                    }
+                    const selectool = document.getElementById(`toolAbleToSelect-${props.focusingTo}`) as HTMLDivElement;
+                    selectool?.click?.();
                 }
             }} placeholder={get("搜索工具")} onChange={event => {
                 setSearchText(event.target.value, isImplant);

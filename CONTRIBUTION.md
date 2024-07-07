@@ -70,10 +70,6 @@ Suspense 只有不知道内容是什么的时候才能使用 Loading 组件，�
 
 ## 不能更新的依赖
 
-### SWR
-
-SWR 更新后在没有 fallback 中使用 Promise 会直接报错退出。
-
 ### Jotai
 
 见[pmndrs/jotai#2579](https://github.com/pmndrs/jotai/discussions/2579#discussion-6740943)。

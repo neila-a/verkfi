@@ -20,7 +20,7 @@ import {
 import {
     get
 } from "react-intl-universal";
-type wordList = Record<number, string>;
+type wordList = Map<number, string>;
 const InputDialog = dynamic(() => import("@verkfi/shared/dialog/Input")),
     logger = new LpLogger({
         name: get("翻转"),
@@ -32,8 +32,7 @@ const InputDialog = dynamic(() => import("@verkfi/shared/dialog/Input")),
     randomFactor = 1000_0000_0000_0000;
 function Reversal() {
     const [words, setWords] = useState(""),
-        [wordList, setWordList] = useState<wordList>({
-        }),
+        [wordList, setWordList] = useState<wordList>(new Map()),
         [output, setOutput] = useState(""),
         [showSplitDialog, setShowSplitDialog] = useState(false);
     return <>
@@ -72,7 +71,7 @@ function Reversal() {
                 mt: 1
             }}>
                 <Button variant="contained" onClick={() => {
-                    const stageOutput = wordList;
+                    const stageOutput = [...wordList.entries()];
                     stageOutput.sort(() => {
                         // 0.5用于随机
                         // eslint-disable-next-line no-magic-numbers
@@ -86,7 +85,7 @@ function Reversal() {
                     {get("处理")}
                 </Button>
                 <Button variant="outlined" onClick={() => {
-                    setWordList([]);
+                    setWordList(new Map());
                     setWords("");
                     setOutput("");
                     logger.log("已重置。");
@@ -110,12 +109,9 @@ function Reversal() {
             {get("结果：")}{output}
         </Typography>
         <InputDialog open={showSplitDialog} label="" title={get("拆分")} context={get("reversal.请输入拆分的符号，不输入则是逐字拆分")} onDone={context => {
-            setWordList(words.split(context).map(word => {
-                return [
-                    word,
-                    Math.random() * randomFactor
-                ];
-            }));
+            const draft: wordList = new Map();
+            words.split(context).forEach(word => (draft.set(Math.random() * randomFactor, word)));
+            setWordList(draft);
             logger.log("已拆分。");
             setShowSplitDialog(false);
         }} />
