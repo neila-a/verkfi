@@ -20,6 +20,7 @@ import {
 import {
     editModeAtom,
     homeListSymbol,
+    listName,
     sorting,
     toolsAtom
 } from "index/atoms";
@@ -36,19 +37,19 @@ export default function UpButton(props: {
     const buttonCommonSorting = useSetAtom(buttonCommonSorterAtom),
         editMode = useAtomValue(editModeAtom),
         tools = useAtomValue(toolsAtom);
-    if (editMode && props.sortingFor !== homeListSymbol) {
-        return (
-            <MouseOverPopover text={get("index.moveup")}>
+    if (props.sortingFor !== homeListSymbol) {
+        if (editMode) {
+            return <MouseOverPopover text={get("index.moveup")}>
                 <IconButton color="inherit" size="large" edge="end" onClick={event => {
                     event.stopPropagation();
                     const pd = tools.slice(0);
                     upGo(pd, pd.indexOf(props.tool));
-                    startTransition(async () => await buttonCommonSorting(props.sortingFor, pd));
-                }} aria-label={get("index.moveup")} >
+                    startTransition(async () => await buttonCommonSorting(props.sortingFor as listName, pd)); // sortingFor 为 home 时进入不了 if
+                }} aria-label={get("index.moveup")}> 
                     <ArrowUpwardIcon />
                 </IconButton>
-            </MouseOverPopover>
-        );
+            </MouseOverPopover>;
+        }
     }
     return null;
 }

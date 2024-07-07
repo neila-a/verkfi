@@ -25,6 +25,7 @@ import {
 import SingleTool from "./SingleTool";
 import {
     editModeAtom,
+    listName,
     sortingForAtom
 } from "index/atoms";
 import {
@@ -50,7 +51,7 @@ export default function ToolsStackWithTools(props: {
 }) {
     const isImplant = useContext(isImplantContext),
         editMode = useAtomValue(editModeAtom),
-        sortingFor = useAtomValue(sortingForAtom)(isImplant),
+        sortingFor = useAtomValue(sortingForAtom)(isImplant) as listName, // sortingFor 为 home 时此组件不可能出现
         buttonCommonSorting = useSetAtom(buttonCommonSorterAtom);
     function Insert({
         index,
