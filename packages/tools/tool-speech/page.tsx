@@ -1,6 +1,7 @@
 "use client";
 import {
     Download,
+    Pause,
     PlayArrow,
     Stop
 } from "@mui/icons-material";
@@ -23,6 +24,7 @@ import isBrowser from "@verkfi/shared/isBrowser";
 import dynamic from "next/dynamic";
 import {
     useEffect,
+    useReducer,
     useRef,
     useState
 } from "react";
@@ -52,8 +54,46 @@ const
 
     // 试验得到的常数
     NoiseVoiceWatershedWave = 20; // origin 2.3
+type RecordingStateWithResume = RecordingState | "resume";
 export default function Speech() {
-    const [status, setStatus] = useState<RecordingState>("inactive"),
+    function baseStart() {
+        haveTime.current = Date.now();
+
+        clearInterval(speechTimeIntervalID.current);
+        speechTimeIntervalID.current = setInterval(timeIntervaler, secondDivMS) as unknown as number;
+
+        clearInterval(intervalID.current);
+        intervalID.current = setInterval(intervaler, secondDivMS) as unknown as number;
+    }
+    function baseStop() {
+        clearInterval(intervalID.current);
+        intervalID.current = 0;
+
+        clearInterval(speechTimeIntervalID.current);
+        speechTimeIntervalID.current = 0;
+    }
+    const [status, setStatus] = useReducer((old: RecordingStateWithResume, update: RecordingStateWithResume) => {
+        switch (update) {
+            case "inactive":
+                (mediaRecorder as MediaRecorder).stop();
+                baseStop();
+                break;
+            case "paused":
+                (mediaRecorder as MediaRecorder).pause();
+                baseStop();
+                break;
+
+            case "recording":
+                (mediaRecorder as MediaRecorder).start(secondDivMS);
+                baseStart();
+                break;
+            case "resume":
+                (mediaRecorder as MediaRecorder).resume();
+                baseStart();
+                break;
+        }
+        return update;
+    }, "inactive"),
         [mediaRecorder, setMediaRecorder] = useState<typeof emptySymbol | MediaRecorder>(emptySymbol),
         intervalID = useRef(0),
         speechTimeIntervalID = useRef(0),
@@ -71,10 +111,12 @@ export default function Speech() {
         firstChunk = useRef(new Blob(emptyBlobContext)),
         theme = useTheme(),
         barColor = theme.palette.primary.main,
-        audioFile = useRef(new Blob(emptyBlobContext));
+        [audioFile, setAudioFile] = useState<"empty" | Blob>("empty");
+
+    // 获取 Recording
     if (isBrowser()) {
         getRecording(blob => {
-            audioFile.current = new Blob([blob]);
+            setAudioFile(new Blob([blob]));
         }, async chunk => {
             // 加载文件头
             let blob: Blob;
@@ -106,12 +148,16 @@ export default function Speech() {
             setMediaRecorder(recording);
         });
     }
+
+    // 作为生命周期使用
     useEffect(() => {
         return () => {
             clearInterval(intervalID.current);
             clearInterval(speechTimeIntervalID.current);
         };
     }, []);
+
+    // 倒数器
     function intervaler() {
         const time = Math.floor((Date.now() - haveTime.current) / secondDivMS);
         if ("vibrate" in window.navigator) {
@@ -169,21 +215,21 @@ export default function Speech() {
                 })}
             </Typography>
             <ButtonGroup>
-                <Button disabled={status === "recording" ? speechTime > 0 || mediaRecorder === emptySymbol : false} onClick={event => {
-                    if (status === "recording") {
-                        (mediaRecorder as MediaRecorder).stop();
-                        clearInterval(intervalID.current);
-                        clearInterval(speechTimeIntervalID.current);
-                        intervalID.current = 0;
-                        speechTimeIntervalID.current = 0;
-                        return setStatus("inactive");
+                <Button disabled={status === "inactive" ? false : speechTime > 0 || mediaRecorder === emptySymbol} onClick={event => {
+                    if (status === "inactive") {
+                        return setSelectTime(true);
                     }
-                    intervalID.current = setInterval(intervaler, secondDivMS) as unknown as number;
-                    speechTimeIntervalID.current = setInterval(timeIntervaler, secondDivMS) as unknown as number;
-                    (mediaRecorder as MediaRecorder).start();
-                    return setSelectTime(true);
-                }} startIcon={status === "recording" ? <Stop /> : <PlayArrow />} variant="contained">
-                    {get(`speech.${status === "recording" ? "stop" : "start"}`)}
+                    return setStatus("inactive");
+                }} startIcon={status === "inactive" ? <PlayArrow /> : <Stop />} variant="contained">
+                    {get(`speech.${status === "inactive" ? "start" : "stop"}`)}
+                </Button>
+                <Button disabled={status === "inactive"} onClick={event => {
+                    if (status === "recording") {
+                        setStatus("paused");
+                    }
+                    setStatus("resume");
+                }} startIcon={status === "recording" ? <Pause /> : <PlayArrow />} variant="outlined">
+                    {get(`speech.${status === "recording" ? "pause" : "contiune"}`)}
                 </Button>
                 <Button variant="outlined" startIcon={<Download />} onClick={event => {
                     const okExt = [
@@ -192,11 +238,10 @@ export default function Speech() {
                         ["audio/webm;codecs=opus", "webm"],
                         ["audio/mpeg", "mp3"]
                     ].find(a => MediaRecorder.isTypeSupported(a[0]));
-                    saveAs(audioFile.current, `speech.${okExt?.[1]}`);
-                }}>
+                    saveAs(audioFile as Blob, `speech.${okExt?.[1]}`);
+                }} disabled={audioFile === "empty"}>
                     {get("speech.download")}
                 </Button>
-                <br />
                 <Button variant="outlined" onClick={event => {
                     setShowWarning(true);
                 }}>
@@ -208,7 +253,7 @@ export default function Speech() {
             setShowWarning(false);
         }} open={showWarning}>
             <List>
-                {warnings.map(singleWarning => <ListItem key={singleWarning[0]}>
+                {Object.entries(warnings).map(singleWarning => <ListItem key={singleWarning[0]}>
                     <ListItemText
                         primary={`${get("speech.vibrate.time.occurrence")}: ${new Date(singleWarning[0]).toLocaleString()}`}
                         secondary={`${get("speech.vibrate.time.duration")}: ${singleWarning[1]}s`}
@@ -220,12 +265,6 @@ export default function Speech() {
             setSpeechTime(Number(context));
             setAllSpeechTime(Number(context));
             setStatus("recording");
-            (mediaRecorder as MediaRecorder).start(secondDivMS);
-            haveTime.current = Date.now();
-            clearInterval(speechTimeIntervalID.current);
-            speechTimeIntervalID.current = setInterval(timeIntervaler, secondDivMS) as unknown as number;
-            clearInterval(intervalID.current);
-            intervalID.current = setInterval(intervaler, secondDivMS) as unknown as number;
             return setSelectTime(false);
         }} inputAdd={{
             type: "number"

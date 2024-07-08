@@ -291,6 +291,8 @@
 		"description": "让你的说话不能停止",
 		"stop": "停止录制",
 		"start": "开始录制",
+		"pause": "暂停录制",
+		"contiune": "继续录制",
 		"download": "下载音频",
 		"vibrate": {
 			"view": "查看超时记录",

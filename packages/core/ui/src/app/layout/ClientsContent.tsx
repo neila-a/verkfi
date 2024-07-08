@@ -89,8 +89,7 @@ export default function ClientsContent() {
             }}>
                 <TrendingFlat />
             </IconButton>
-        </MouseOverPopover>
-        )} paramTool={filteredClients.map(client => {
+        </MouseOverPopover>)} paramTool={filteredClients.map(client => {
             const url = new URL(client.url);
             let tool: tool;
             if (url.pathname === "/") {
