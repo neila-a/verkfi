@@ -310,7 +310,7 @@
 		"noSayTime": "没说话的时间：（秒）"
 	},
 	"singleTool": {
-		"jump": "确定离开Verkfi并跳转至",
+		"jump": "确定离开Verkfi并跳转至{name}吗？",
 		"deleteFromCategory": "从此分类中删除此工具",
 		"deleteExtension": "删除此扩展工具"
 	},

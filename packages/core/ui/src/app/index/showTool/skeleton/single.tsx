@@ -1,7 +1,7 @@
 import {
     Skeleton
 } from "@mui/material";
-import SingleTool from "./SingleTool";
+import SingleTool from "../SingleTool";
 const SingleToolSkeleton = () => <Skeleton sx={{
     transform: "unset",
     maxWidth: "unset"

@@ -21,7 +21,7 @@ import {
     startTransition
 } from "react";
 import InnerRecommends from "./Inner";
-import ToolsSkeleton from "index/showTool/toolsSkeleton";
+import ToolsSkeleton from "index/showTool/skeleton";
 export default function Recommends() {
     const refreshTries = useSetAtom(recommendAtom),
         showRecommends = useAtomValue(showRecommendsAtom);
