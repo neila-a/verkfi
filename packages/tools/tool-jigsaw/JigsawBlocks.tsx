@@ -9,7 +9,7 @@ import {
 import atoms from "./atoms";
 export default function JigsawBlocks() {
     const
-        
+
         // states
         jigsaws = useAtomValue(atoms.jigsaws.all),
         imageKey = useAtomValue(atoms.image.fileKey),
@@ -25,7 +25,7 @@ export default function JigsawBlocks() {
         const jigsaw = jigsaws[imageKey],
             finding = jigsaw.blocks.flat()[rowIndex * width + columnIndex],
             right = finding !== undefined && finding !== null,
-            moving = () => publicMoving(jigsaw, rowIndex, columnIndex)
+            moving = () => publicMoving(jigsaw, rowIndex, columnIndex);
         return (
             <ImageListItem key={`${rowIndex},${columnIndex}`} onClick={async event => {
                 if (selecting[0] === rowIndex && selecting[1] === columnIndex) {
@@ -46,11 +46,12 @@ export default function JigsawBlocks() {
                 width: widtha,
                 height: `${heighta} !important`
             }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img alt="" style={{
                     objectFit: "fill",
                     display: right ? "" : "none"
                 }} src={URL.createObjectURL(c)} />
             </ImageListItem>
         );
-    }))
+    }));
 }

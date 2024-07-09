@@ -45,7 +45,7 @@ export default function UpButton(props: {
                     const pd = tools.slice(0);
                     upGo(pd, pd.indexOf(props.tool));
                     startTransition(async () => await buttonCommonSorting(props.sortingFor as listName, pd)); // sortingFor 为 home 时进入不了 if
-                }} aria-label={get("index.moveup")}> 
+                }} aria-label={get("index.moveup")}>
                     <ArrowUpwardIcon />
                 </IconButton>
             </MouseOverPopover>;

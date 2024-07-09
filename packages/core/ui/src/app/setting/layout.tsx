@@ -131,7 +131,7 @@ export default function Settings(props: {
                                     settings: modifiedSettings
                                 });
                             }
-                        }
+                        };
                         switch (settingItem.type) {
                             case "boolean":
                                 return <FormControlLabel control={(

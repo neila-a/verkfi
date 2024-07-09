@@ -7,5 +7,5 @@ export default function SingleToolDeleteButtons(props: Pick<globalProps, "tool">
     return <>
         <SingleToolDeleteFromExtensionButton {...props} />
         <SingleToolDeleteFromCategoryButton {...props} />
-    </>
+    </>;
 }

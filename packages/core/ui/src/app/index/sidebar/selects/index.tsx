@@ -100,7 +100,9 @@ export default function Selects(props: {
                         }
                     } else {
                         if (sortingFor !== aprops.single) {
-                            const draft = (aprops.isAll ? [] as string[] : list.get(aprops.single as listName)).map(toolTo => gotToolsList.find(one => one.to === toolTo));
+                            const draft = (
+                                aprops.isAll ? [] as string[] : list.get(aprops.single as listName)
+                            ).map(toolTo => gotToolsList.find(one => one.to === toolTo));
                             if (sortingFor !== aprops.single) {
                                 props.modifyClickCount(0);
                             }

@@ -24,7 +24,7 @@ export default function Probability() {
         objectData = useMemo(() => [...datas.entries()].map(data => ({
             x: data[0],
             y: data[1]
-        })), [datas])
+        })), [datas]);
     return (
         <Editor run={code => {
             const executing = new Function(code),

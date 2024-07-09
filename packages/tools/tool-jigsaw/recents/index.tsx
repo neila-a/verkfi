@@ -2,11 +2,11 @@
 import {
     ImageListItem,
     Typography
-} from "@mui/material"
+} from "@mui/material";
 import {
     get
-} from "react-intl-universal"
-import RecentsArray from "./array"
+} from "react-intl-universal";
+import RecentsArray from "./array";
 export default function Recents() {
     return <>
         <ImageListItem key="Subheader">

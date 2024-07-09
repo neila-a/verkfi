@@ -28,6 +28,7 @@ export default function SingleSelect(props: {
         heighta = portrait ? `calc((100vh - 56px) / (${height} + 1))` : `calc((100vh - 64px) / ${height})`;
     if (finding === undefined || finding === null) {
         const src = URL.createObjectURL(props.column);
+        // eslint-disable-next-line @next/next/no-img-element
         return <img draggable onDragStart={event => {
             event.dataTransfer.setData("application/json", JSON.stringify([props.rowIndex, props.columnIndex]));
             event.dataTransfer.setDragImage(event.currentTarget, dragImageSize, dragImageSize);

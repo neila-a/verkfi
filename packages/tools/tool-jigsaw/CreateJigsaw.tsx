@@ -51,7 +51,7 @@ export default function CreateJigsaw() {
                     files={imageArray as unknown as FilePondServerConfigProps["files"]}
                     onupdatefiles={images => {
                         const fileImages = images.map(image => new File([image.file], image.filename, {
-                            ...image.file,
+                            ...image.file
                         }));
                         setImageArray(fileImages);
                     }}
@@ -74,5 +74,5 @@ export default function CreateJigsaw() {
         }} fullWidth disabled={imageArray.length === 0} startIcon={<PlayArrow />}>
             {get("jigsaw.start")}
         </Button>
-    </Box>
+    </Box>;
 }

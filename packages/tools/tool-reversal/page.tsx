@@ -110,7 +110,7 @@ function Reversal() {
         </Typography>
         <InputDialog open={showSplitDialog} label="" title={get("拆分")} context={get("reversal.请输入拆分的符号，不输入则是逐字拆分")} onDone={context => {
             const draft: wordList = new Map();
-            words.split(context).forEach(word => (draft.set(Math.random() * randomFactor, word)));
+            words.split(context).forEach(word => draft.set(Math.random() * randomFactor, word));
             setWordList(draft);
             logger.log("已拆分。");
             setShowSplitDialog(false);

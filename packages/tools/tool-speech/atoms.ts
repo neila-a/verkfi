@@ -92,6 +92,7 @@ namespace atoms {
                         }
                     }).then(recording => setUsed(recording));
                 }
+                // eslint-disable-next-line react-hooks/exhaustive-deps
             }, [used]);
             return used;
         }
@@ -100,11 +101,12 @@ namespace atoms {
     export const countdown = createAtom(0),
         audioFile = createAtom<typeof emptySymbol | Blob>(emptySymbol),
         status = createAtom("inactive" as RecordingStateWithResume, async (get, set, update: RecordingStateWithResume, recorder: MediaRecorder) => {
-            const bulkUpdate = (action: intervalerIds.intervalUpdateActions) => [intervalerIds.main, intervalerIds.speechTime].map(atom => set(atom, {
-                action,
-                get,
-                set
-            })),
+            const
+                bulkUpdate = (action: intervalerIds.intervalUpdateActions) => [intervalerIds.main, intervalerIds.speechTime].map(atom => set(atom, {
+                    action,
+                    get,
+                    set
+                })),
                 baseStop = () => bulkUpdate("stop");
             function baseStart() {
                 set(haveTime);
@@ -143,34 +145,34 @@ namespace atoms {
             clearInterval(old);
             return update.action === "start" ? setInterval(() => intervaler(update.get, update.set), secondDivMS) as unknown as number : 0;
         });
-        export const main = intervalAtom((get, set) => {
-            const time = Math.floor((Date.now() - get(haveTime) / secondDivMS));
-            if ("vibrate" in window.navigator) {
-                if (time > SpeechingWatershedWave) {
-                    window.navigator.vibrate(Array(vibrateTimes).fill(vibrateTime));
-                    set(warnings.record, {
-                        ...get(warnings.record),
-                        [get(haveTime)]: time
-                    });
-                } else {
-                    window.navigator.vibrate(0);
+        export const
+            main = intervalAtom((get, set) => {
+                const time = Math.floor(Date.now() - get(haveTime) / secondDivMS);
+                if ("vibrate" in window.navigator) {
+                    if (time > SpeechingWatershedWave) {
+                        window.navigator.vibrate(Array(vibrateTimes).fill(vibrateTime));
+                        set(warnings.record, {
+                            ...get(warnings.record),
+                            [get(haveTime)]: time
+                        });
+                    } else {
+                        window.navigator.vibrate(0);
+                    }
                 }
-            }
-            set(countdown, time);
-        }),
+                set(countdown, time);
+            }),
             speechTime = intervalAtom((get, set) => get(selectTime.remaining) > -1 && set(selectTime.remaining, get(selectTime.remaining) - 1));
     }
     export function useCleanIDsonUnmount() {
         const intervalID = useAtomValue(intervalerIds.main),
             speechTimeIntervalID = useAtomValue(intervalerIds.speechTime);
-
         // 作为生命周期使用
         useEffect(() => {
             return () => {
                 clearInterval(intervalID);
                 clearInterval(speechTimeIntervalID);
             };
-        }, []);
+        }, [intervalID, speechTimeIntervalID]);
     }
 }
 export default atoms;

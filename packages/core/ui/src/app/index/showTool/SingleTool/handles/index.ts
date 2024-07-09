@@ -4,23 +4,24 @@ import {
 import openWindow from "./openWindow";
 import atoms from "../atoms";
 import createHandler from "./create";
-export const handleRightClickAtom = createHandler<"disableClick", false, true>()((props, tool) => (get, set, event) => {
-    event.preventDefault();
-    if (!props?.disableClick) {
-        if (tool.isGoto) {
-            if (tool.to.startsWith("/tools/extension")) {
-                openWindow(`${tool.to}&only=true`);
+export const
+    handleRightClickAtom = createHandler<"disableClick", false, true>()((props, tool) => (get, set, event) => {
+        event.preventDefault();
+        if (!props?.disableClick) {
+            if (tool.isGoto) {
+                if (tool.to.startsWith("/tools/extension")) {
+                    openWindow(`${tool.to}&only=true`);
+                } else {
+                    set(atoms.dialogOpen.jump, true);
+                    set(atoms.jump, {
+                        ...tool
+                    });
+                }
             } else {
-                set(atoms.dialogOpen.jump, true);
-                set(atoms.jump, {
-                    ...tool
-                });
+                openWindow(`/tools/${tool.to}?only=true`);
             }
-        } else {
-            openWindow(`/tools/${tool.to}?only=true`);
         }
-    }
-}),
+    }),
     handleClickAtom = createHandler<"disableClick", true, true>()((props, tool, router) => (get, set) => {
         if (!props?.disableClick) {
             if (tool.isGoto) {

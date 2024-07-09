@@ -52,5 +52,5 @@ export default function SingleToolDeleteFromExtensionButton(props: Pick<globalPr
             files: [],
             onTrue: () => startTransition(async () => await setTools(`remove ${props.tool.to}`))
         })}
-    </>
+    </>;
 }
