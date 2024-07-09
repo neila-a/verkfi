@@ -2,6 +2,7 @@ import {
     ButtonBase
 } from "@mui/material";
 import {
+    Provider,
     useAtomValue
 } from "jotai";
 import {
@@ -24,8 +25,10 @@ export default function SingleTool(props: globalProps) {
         <ButtonBase key={props.tool.to} component="section" sx={{
             width: viewMode === "grid" ? gridWidth : fullWidth
         }}>
-            {viewMode === "grid" ? <SingleToolInGridMode {...props} /> : <SingleToolInListMode {...props} />}
-            <SingleToolJumpDialog />
+            <Provider>
+                {viewMode === "grid" ? <SingleToolInGridMode {...props} /> : <SingleToolInListMode {...props} />}
+                <SingleToolJumpDialog />
+            </Provider>
         </ButtonBase>
     </Link>;
 }

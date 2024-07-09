@@ -20,10 +20,15 @@ import atomWithInitialValue, {
 import awaiter from "@verkfi/shared/reader/awaiter";
 import atomWithEmpty from "@verkfi/shared/reader/atomWithEmpty";
 export type toolsAtomUpdate = tool[] | typeof RESET | `remove ${string}`;
-export type listName = string | typeof globalListSymbol;
-export type sorting = listName | typeof homeListSymbol;
-export const globalListSymbol = Symbol("__verkfias eleos mystar__ global list"),
-    homeListSymbol = Symbol("__verkfias eleos mystar__ home list"),
+export type listName = string | typeof globalList;
+export type sorting = listName | typeof homeList;
+export const
+    globalList = {
+        internal: "global"
+    } as const,
+    homeList = {
+        internal: "home"
+    } as const,
     editModeAtom = atom(false),
     tabAtom = atom(0),
     showRecommendsAtom = atom(false),
@@ -62,9 +67,9 @@ export const globalListSymbol = Symbol("__verkfias eleos mystar__ global list"),
         const value = get(valueAtom);
         if (value === emptySymbol) {
             if (isImplant) {
-                return globalListSymbol;
+                return globalList;
             }
-            return homeListSymbol;
+            return homeList;
         }
         return value;
     }, (get, set, update: sorting) => {
@@ -83,8 +88,8 @@ export const globalListSymbol = Symbol("__verkfias eleos mystar__ global list"),
         get => get(valueAtom),
         (get, set, search: string, isImplant: boolean) => {
             set(editingAtom, search === "");
-            if (get(sortingForAtom)(isImplant) === homeListSymbol) {
-                set(sortingForAtom, globalListSymbol);
+            if (get(sortingForAtom)(isImplant) === homeList) {
+                set(sortingForAtom, globalList);
             }
             set(valueAtom, search);
             awaiter(

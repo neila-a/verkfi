@@ -139,11 +139,11 @@ export default function ClientsContent() {
         })} />
         <InputDialog label={get("clients.navigate")} context={get("clients.navigateInput")} onDone={context => {
             const channel = new MessageChannel();
-            channel.port1.addEventListener("message", event => {
+            channel.port1.onmessage = event => {
                 setClients();
                 setNavigatingId("");
                 setNavigateDialogOpen(false);
-            });
+            };
             navigator?.serviceWorker?.controller?.postMessage?.({
                 action: "navigate",
                 id: navigatingId,

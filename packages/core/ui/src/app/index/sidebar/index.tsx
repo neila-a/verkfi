@@ -31,8 +31,8 @@ import Selects from "./selects";
 import SingleSelect from "./selects/SingleSelect";
 import {
     expandAtom,
-    globalListSymbol,
-    homeListSymbol,
+    globalList,
+    homeList,
     listName,
     searchTextAtom,
     sorting,
@@ -96,8 +96,8 @@ export default function Sidebar(props: {
                 }
             }} placeholder={get("搜索工具")} onChange={event => {
                 setSearchText(event.target.value, isImplant);
-                if (sortingFor === homeListSymbol) {
-                    setSortingFor(globalListSymbol);
+                if (sortingFor === homeList) {
+                    setSortingFor(globalList);
                 }
             }} />
             <Box sx={{
@@ -106,10 +106,10 @@ export default function Sidebar(props: {
                 {!isImplant && <SingleSelect
                     dragButton={<></>}
                     isSidebar
-                    wantSortingFor={homeListSymbol}
+                    wantSortingFor={homeList}
                     tool={get("主页")}
                     onClick={event => {
-                        setSortingFor(homeListSymbol);
+                        setSortingFor(homeList);
                     }}
                     editButton={<></>}
                 />}

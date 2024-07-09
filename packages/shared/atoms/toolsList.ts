@@ -15,14 +15,14 @@ import {
     lists
 } from "@verkfi/core-ui/src/app/index/sidebar";
 import {
-    globalListSymbol
+    globalList
 } from "@verkfi/core-ui/src/app/index/atoms";
 const toolsListAtom = atom(get => awaiter(
     get(listsAtom), (lists: lists) => awaiter(
         get(convertedExtensionsAtom), converted => awaiter(
             get(toolsInfoAtom), realTools => {
                 const concated = realTools.concat(converted),
-                    got = lists.get(globalListSymbol);
+                    got = lists.get(globalList);
                 if (got) {
                     return got.map(to => concated.find(tool => tool.to === to) as tool);
                 }

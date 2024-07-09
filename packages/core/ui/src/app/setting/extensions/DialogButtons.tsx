@@ -32,7 +32,7 @@ import {
     startTransition
 } from "react";
 import {
-    globalListSymbol
+    globalList
 } from "index/atoms";
 export default function DialogButtons(props: {
     type: inputTypes;
@@ -72,9 +72,9 @@ export default function DialogButtons(props: {
 
                 // 写入lists
                 const to = `/tools/extension?tool=${props.fileInfo.to}`;
-                if (lists.get(globalListSymbol).includes(to)) {
+                if (lists.get(globalList).includes(to)) {
                     const draft = structuredClone(lists);
-                    draft.set(globalListSymbol, [...draft.get(globalListSymbol), to]);
+                    draft.set(globalList, [...draft.get(globalList), to]);
                     startTransition(() => setLists(draft));
                 }
                 props.reset();

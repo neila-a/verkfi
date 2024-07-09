@@ -19,7 +19,7 @@ import {
 } from "jotai";
 import {
     editModeAtom,
-    homeListSymbol,
+    homeList,
     listName,
     sorting,
     toolsAtom
@@ -37,7 +37,7 @@ export default function UpButton(props: {
     const buttonCommonSorting = useSetAtom(buttonCommonSorterAtom),
         editMode = useAtomValue(editModeAtom),
         tools = useAtomValue(toolsAtom);
-    if (props.sortingFor !== homeListSymbol) {
+    if (props.sortingFor !== homeList) {
         if (editMode) {
             return <MouseOverPopover text={get("index.moveup")}>
                 <IconButton color="inherit" size="large" edge="end" onClick={event => {

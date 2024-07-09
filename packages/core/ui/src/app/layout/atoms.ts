@@ -13,9 +13,9 @@ interface clientBase {
 }
 export const clientsAtom = atomWithRefresh(get => new Promise<clientBase[]>(resolve => {
     const channel = new MessageChannel();
-    channel.port1.addEventListener("message", event => {
+    channel.port1.onmessage = event => {
         resolve(event.data as clientBase[]);
-    });
+    };
     navigator?.serviceWorker?.controller?.postMessage?.({
         action: "getClients"
     } as message, [channel.port2]);

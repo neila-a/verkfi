@@ -32,7 +32,7 @@ import {
 import {
     expandAtom,
     focusingToAtom,
-    homeListSymbol,
+    homeList,
     showRecommendsAtom,
     sortingForAtom,
     sortingForAtomValue,
@@ -85,7 +85,7 @@ export default function Index(props: {
             <Sidebar
                 focusingTo={focusingTo}
             />
-            {sortingFor === homeListSymbol || baseSortingFor === homeListSymbol ? <Box sx={{
+            {sortingFor === homeList || baseSortingFor === homeList ? <Box sx={{
                 p: 3,
                 ml: props.isImplant ? "" : `${drawerWidth}px`
             }}>

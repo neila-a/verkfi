@@ -127,8 +127,7 @@ export default function Filter() {
             </No> : <ImageList>
                 {imageTypes.map(type => <SingleImage scale={scale} imageURL={imageURL} imageFileName={imageFileName} type={type} key={type} />
                 )}
-            </ImageList>
-            }
+            </ImageList>}
         </>
     );
 }

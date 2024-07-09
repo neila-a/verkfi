@@ -23,9 +23,8 @@ import {
 } from "@verkfi/core-ui/src/app/setting/extensions/page";
 import awaiter from "../reader/awaiter";
 import {
-    globalListSymbol,
+    globalList,
     listName,
-    sorting,
     toolsAtom,
     toolsAtomUpdate
 } from "@verkfi/core-ui/src/app/index/atoms";
@@ -88,10 +87,10 @@ export const mostUsedSelects = 3,
         get(listsAtom), (realList: lists) => {
             const newRealList = structuredClone(realList),
                 content = pd.map(toolp => toolp.to);
-            if (sortingFor in newRealList) {
+            if (newRealList.has(sortingFor)) {
                 newRealList.set(sortingFor, content);
             } else {
-                newRealList.set(globalListSymbol, content);
+                newRealList.set(globalList, content);
             }
             set(listsAtom, newRealList);
             return awaiter(set(toolsAtom, RESET as unknown as toolsAtomUpdate), a => a);

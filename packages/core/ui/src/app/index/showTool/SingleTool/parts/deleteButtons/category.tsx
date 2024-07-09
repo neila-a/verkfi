@@ -9,8 +9,8 @@ import {
     get
 } from "react-intl-universal";
 import {
-    globalListSymbol,
-    homeListSymbol,
+    globalList,
+    homeList,
     sortingForAtom,
     toolsAtom
 } from "index/atoms";
@@ -37,11 +37,11 @@ export default function SingleToolDeleteFromCategoryButton(props: Pick<globalPro
         sortingFor = useAtomValue(sortingForAtom)(isImplant),
         [lists, setLists] = useAtom(listsAtom),
         setTools = useSetAtom(toolsAtom);
-    return sortingFor !== globalListSymbol && sortingFor !== homeListSymbol && <MouseOverPopover text={get("singleTool.deleteFromCategory")}>
+    return sortingFor !== globalList && sortingFor !== homeList && <MouseOverPopover text={get("singleTool.deleteFromCategory")}>
         <IconButton onClick={event => {
             startTransition(async () => {
                 const newLists = structuredClone(lists);
-                newLists.set(sortingFor, newLists[sortingFor].filter((singleTool: string) => singleTool !== props.tool.to));
+                newLists.set(sortingFor, newLists.get(sortingFor).filter((singleTool: string) => singleTool !== props.tool.to));
                 await setLists(newLists);
                 return await setTools(`remove ${props.tool.to}`);
             });

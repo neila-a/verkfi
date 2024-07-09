@@ -38,7 +38,7 @@ import toolsListAtom from "@verkfi/shared/atoms/toolsList";
 import {
     editModeAtom,
     editingAtom,
-    globalListSymbol,
+    globalList,
     listName,
     searchTextAtom,
     sortedToolsAtom,
@@ -92,10 +92,10 @@ export default function Selects(props: {
                         startTransition(async () => await setTools(draft));
                     };
                     if (aprops.isAll) {
-                        if (sortingFor !== globalListSymbol) {
+                        if (sortingFor !== globalList) {
                             const draft = gotToolsList;
                             props.modifyClickCount(0);
-                            setSortingFor(globalListSymbol);
+                            setSortingFor(globalList);
                             publicSet(draft);
                         }
                     } else {
@@ -119,7 +119,7 @@ export default function Selects(props: {
                             <EditIcon />
                         </IconButton>
                     </MouseOverPopover> : <Fragment />
-                )} wantSortingFor={aprops.isAll ? globalListSymbol : aprops.single} />
+                )} wantSortingFor={aprops.isAll ? globalList : aprops.single} />
         </Box>;
     }
     return (
@@ -147,7 +147,7 @@ export default function Selects(props: {
                     {provided => <Box ref={provided.innerRef} {...provided.droppableProps} sx={{
                         display: props.isSidebar ? "" : "flex"
                     }}>
-                        {([...list.keys()].filter(value => value !== globalListSymbol) as string[]).map((value, index) => {
+                        {([...list.keys()].filter(value => value !== globalList) as string[]).map((value, index) => {
                             return createElement(
                                 editMode ? (props: {
                                     children: ReactNode;
