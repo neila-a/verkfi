@@ -90,7 +90,7 @@ export default function Speech() {
                 })}
             </Typography>
             <ButtonGroup>
-                <Button disabled={(status === "inactive" ? false : speechTime > 0) && mediaRecorder === emptySymbol} onClick={() => {
+                <Button disabled={mediaRecorder === emptySymbol || !(status === "inactive" ? true : speechTime > 0)} onClick={() => {
                     if (status === "inactive") {
                         return setSelectTime(true);
                     }
@@ -98,7 +98,7 @@ export default function Speech() {
                 }} startIcon={status === "inactive" ? <PlayArrow /> : <Stop />} variant="contained">
                     {get(`speech.${status === "inactive" ? "start" : "stop"}`)}
                 </Button>
-                <Button disabled={status === "inactive" && mediaRecorder === emptySymbol} onClick={() => {
+                <Button disabled={mediaRecorder === emptySymbol || status === "inactive"} onClick={() => {
                     if (status === "recording") {
                         setStatus("paused", mediaRecorder as MediaRecorder);
                     }

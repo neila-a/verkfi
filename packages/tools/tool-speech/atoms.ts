@@ -28,6 +28,7 @@ import {
     emptySymbol
 } from "@verkfi/shared/reader/atomWithStorage";
 import getShortTimeEnergy from "./getShortTimeEnergy";
+import atomWithInitialValue, { valueAtomReturn } from "@verkfi/shared/reader/atomWithInitialValue";
 namespace atoms {
     /**
      * 只有第一个块里才有文件头
@@ -100,7 +101,7 @@ namespace atoms {
     const haveTime = atomWithRefresh(() => Date.now());
     export const countdown = createAtom(0),
         audioFile = createAtom<typeof emptySymbol | Blob>(emptySymbol),
-        status = createAtom("inactive" as RecordingStateWithResume, async (get, set, update: RecordingStateWithResume, recorder: MediaRecorder) => {
+        [status] = atomWithInitialValue((valueAtom: valueAtomReturn<RecordingStateWithResume>) => createAtom(get => get(valueAtom), async (get, set, update: RecordingStateWithResume, recorder: MediaRecorder) => {
             const
                 bulkUpdate = (action: intervalerIds.intervalUpdateActions) => [intervalerIds.main, intervalerIds.speechTime].map(atom => set(atom, {
                     action,
@@ -133,8 +134,9 @@ namespace atoms {
                         break;
                 }
             }
+            set(valueAtom, update);
             return update;
-        });
+        }));
     namespace intervalerIds {
         export type intervalUpdateActions = "start" | "stop";
         const intervalAtom = (intervaler: (get: Getter, set: Setter) => any) => atomWithReducer(0, (old, update: {

@@ -103,7 +103,7 @@ export default function ExtensionManager() {
         <Box sx={{
             mb: 2
         }}>
-            <ScopeProvider atoms={[editModeAtom]}>
+            <ScopeProvider atoms={[]}>
                 <ToolsStackWithTools paramTool={converted} notfound={<No>
                     {get("extensions.未找到任何扩展")}
                 </No>} actions={extensionTools?.map(single => <>

@@ -71,7 +71,7 @@ export default function ClientsContent() {
     if (isBrowser()) {
         focusing = window.location.pathname;
     }
-    return <ScopeProvider atoms={[editModeAtom]}>
+    return <ScopeProvider atoms={[]}>
         <ToolsStackWithTools disableClick focus={focusing} notfound={(
             <No>
                 {get("clients.notfound")}

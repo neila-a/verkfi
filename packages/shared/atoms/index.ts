@@ -18,9 +18,11 @@ import toolsInfoAtom, {
     tool
 } from "@verkfi/core-ui/src/app/tools/info";
 import {
-    NXTMetadata,
-    setting
+    NXTMetadata
 } from "@verkfi/core-ui/src/app/setting/extensions/page";
+import {
+    setting
+} from "@verkfi/core-ui/src/app/setting/extensions/consts";
 import awaiter from "../reader/awaiter";
 import {
     globalList,

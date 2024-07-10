@@ -19,7 +19,9 @@ import {
 import SingleToolInListMode from "./modes/list";
 import SingleToolInGridMode from "./modes/grid";
 import SingleToolJumpDialog from "./parts/jumpDialog";
-import atoms from "./atoms";
+import {
+    editModeAtom
+} from "index/atoms";
 export default function SingleTool(props: globalProps) {
     const viewMode = useAtomValue(viewModeAtom);
     return <Link href="a" style={{
@@ -28,7 +30,7 @@ export default function SingleTool(props: globalProps) {
         <ButtonBase key={props.tool.to} component="section" sx={{
             width: viewMode === "grid" ? gridWidth : fullWidth
         }}>
-            <ScopeProvider atoms={[atoms.jump, atoms.dialogOpen.jump, atoms.elevation]}>
+            <ScopeProvider atoms={[editModeAtom]}>
                 {viewMode === "grid" ? <SingleToolInGridMode {...props} /> : <SingleToolInListMode {...props} />}
                 <SingleToolJumpDialog />
             </ScopeProvider>
