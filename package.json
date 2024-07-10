@@ -28,6 +28,8 @@
         "@mui/icons-material": "^5.15.21",
         "@mui/material": "6.0.0-alpha.13",
         "esbuild": "^0.23.0",
+        "jotai": "^2.9.0",
+        "jotai-scope": "^0.6.0",
         "next": "14.2.4",
         "react": "^18.3.1",
         "react-intl-universal": "^2.11.1"

@@ -11,9 +11,11 @@ import {
     useRef
 } from "react";
 import {
-    NXTMetadata,
-    setting
+    NXTMetadata
 } from "setting/extensions/page";
+import {
+    setting
+} from "setting/extensions/consts";
 export default function ExtensionLoader() {
     const searchParams = useSearchParams(),
         toolID = searchParams.get("tool"),

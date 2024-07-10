@@ -26,7 +26,6 @@
         "@verkfi/tool-audiotools": "workspace:../tool-audiotools",
         "array-chunkify": "^1.0.0",
         "file-saver": "2.0.5",
-        "jotai": "2.8.0",
         "react-audio-visualize": "^1.1.3"
     }
 }

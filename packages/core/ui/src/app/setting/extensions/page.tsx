@@ -4,9 +4,7 @@ import {
     IconButton,
     Theme,
     Typography,
-    useMediaQuery,
-    useTheme
-} from "@mui/material";
+    useMediaQuery} from "@mui/material";
 import {
     Filesystem
 } from "@tybys/browser-asar";
@@ -16,7 +14,6 @@ import {
     FilePondServerConfigProps
 } from "filepond";
 import {
-    Provider,
     useAtom,
     useAtomValue,
     useSetAtom
@@ -41,9 +38,6 @@ import {
 import {
     noIconTool
 } from "tools/info";
-import {
-    settingPage
-} from "../layout";
 import DialogButtons from "./DialogButtons";
 import DialogInputs from "./DialogInputs";
 import RemoveExtensionDialog from "./RemoveExtensionDialog";
@@ -68,6 +62,15 @@ import {
     modifyDialogOpenAtom,
     removeDialogOpenAtom
 } from "./atoms";
+import {
+    ScopeProvider
+} from "jotai-scope";
+import {
+    editModeAtom
+} from "index/atoms";
+import {
+    setting
+} from "./consts";
 const PureDialog = dynamic(() => import("@verkfi/shared/dialog/Pure"));
 export type inputTypes = "modify" | "add";
 export default function ExtensionManager() {
@@ -93,144 +96,113 @@ export default function ExtensionManager() {
         setFiles([]);
         setFileInfo(emptyNXTMetadata);
     }
-    return (
-        <>
-            <Typography variant="h4">
-                {get("extensions.扩展")}
-            </Typography>
-            <Box sx={{
-                mb: 2
-            }}>
-                <Provider>
-                    <ToolsStackWithTools paramTool={converted} notfound={(
-                        <No>
-                            {get("extensions.未找到任何扩展")}
-                        </No>
-                    )} actions={extensionTools?.map(single => <>
-                        <MouseOverPopover text={get("extensions.clear")}>
-                            <IconButton onClick={event => {
-                                const {
-                                    ...metadata
-                                } = single;
-                                startTransition(async () => await clearExtensionData(metadata));
-                            }} aria-label={get("extensions.clear")}>
-                                <RestartAlt />
-                            </IconButton>
-                        </MouseOverPopover>
-                        <MouseOverPopover text={get("extensions.删除扩展")}>
-                            <IconButton onClick={event => {
-                                setFileInfo({
-                                    ...single
-                                });
-                                setModifyDialogOpen(true);
-                            }} aria-label={get("extensions.删除扩展")}>
-                                <Edit />
-                            </IconButton>
-                        </MouseOverPopover>
-                    </>
-                    )} disableClick />
-                </Provider>
-            </Box>
-            <FilePond
-                files={fileArray as unknown as FilePondServerConfigProps["files"]}
-                onupdatefiles={files => {
-                    setFileArray(files);
-                    const reader = new FileReader();
-                    reader.addEventListener("load", event => {
-                        const fs = new Filesystem(new Uint8Array(reader.result as ArrayBuffer)),
-                            dir = fs.readdirSync("/"),
-                            main = JSON.parse(fs.readFileSync("package.json", true));
-                        setFileInfo({
-                            name: main.name,
-                            to: main.to,
-                            desc: main.description,
-                            icon: main.icon,
-                            color: main.color,
-                            main: main.main,
-                            settings: "settings" in main ? (main.settings satisfies setting[]).map((settingItem: setting) => ({
-                                ...settingItem,
-                                value: settingItem.defaultValue
-                            })) : []
-                        });
-                        const readInternal: (path: string) => file | file[] = path => fs.statSync(path).isDirectory() ? flatten(
-                            fs.readdirSync(path).map(pathchild => readInternal(`${path}/${pathchild}`))
-                        ) : {
-                            path,
-                            file: fs.readFileSync(path)
-                        };
-                        setFiles(dir.map(readInternal).flat(1));
-                        if (extensionTools.some(item => item.to === main.to)) {
+    return <>
+        <Typography variant="h4">
+            {get("extensions.扩展")}
+        </Typography>
+        <Box sx={{
+            mb: 2
+        }}>
+            <ScopeProvider atoms={[editModeAtom]}>
+                <ToolsStackWithTools paramTool={converted} notfound={<No>
+                    {get("extensions.未找到任何扩展")}
+                </No>} actions={extensionTools?.map(single => <>
+                    <MouseOverPopover text={get("extensions.clear")}>
+                        <IconButton onClick={event => {
+                            const {
+                                ...metadata
+                            } = single;
+                            startTransition(async () => await clearExtensionData(metadata));
+                        }} aria-label={get("extensions.clear")}>
+                            <RestartAlt />
+                        </IconButton>
+                    </MouseOverPopover>
+                    <MouseOverPopover text={get("extensions.删除扩展")}>
+                        <IconButton onClick={event => {
+                            setFileInfo({
+                                ...single
+                            });
                             setModifyDialogOpen(true);
-                            return setAddDialogOpen(false);
-                        }
+                        }} aria-label={get("extensions.删除扩展")}>
+                            <Edit />
+                        </IconButton>
+                    </MouseOverPopover>
+                </>)} disableClick />
+            </ScopeProvider>
+        </Box>
+        <FilePond
+            files={fileArray as unknown as FilePondServerConfigProps["files"]}
+            onupdatefiles={files => {
+                setFileArray(files);
+                const reader = new FileReader();
+                reader.addEventListener("load", event => {
+                    const fs = new Filesystem(new Uint8Array(reader.result as ArrayBuffer)),
+                        dir = fs.readdirSync("/"),
+                        main = JSON.parse(fs.readFileSync("package.json", true));
+                    setFileInfo({
+                        name: main.name,
+                        to: main.to,
+                        desc: main.description,
+                        icon: main.icon,
+                        color: main.color,
+                        main: main.main,
+                        settings: "settings" in main ? (main.settings satisfies setting[]).map((settingItem: setting) => ({
+                            ...settingItem,
+                            value: settingItem.defaultValue
+                        })) : []
                     });
-                    files.forEach(file => reader.readAsArrayBuffer(file.file));
-                    if (files.length > 0) {
-                        setAddDialogOpen(true);
+                    const readInternal: (path: string) => file | file[] = path => fs.statSync(path).isDirectory() ? flatten(
+                        fs.readdirSync(path).map(pathchild => readInternal(`${path}/${pathchild}`))
+                    ) : {
+                        path,
+                        file: fs.readFileSync(path)
+                    };
+                    setFiles(dir.map(readInternal).flat(1));
+                    if (extensionTools.some(item => item.to === main.to)) {
+                        setModifyDialogOpen(true);
+                        return setAddDialogOpen(false);
                     }
-                }}
-                allowMultiple
-                maxFiles={1}
-                name="files"
-                acceptedFileTypes={[".vxt"]}
-                labelIdle={get("drag.extensionAdd")}
+                });
+                files.forEach(file => reader.readAsArrayBuffer(file.file));
+                if (files.length > 0) {
+                    setAddDialogOpen(true);
+                }
+            }}
+            allowMultiple
+            maxFiles={1}
+            name="files"
+            acceptedFileTypes={[".vxt"]}
+            labelIdle={get("drag.extensionAdd")}
+        />
+        <RemoveExtensionDialog open={removeDialogOpen} reset={reset} fileInfo={fileInfo} files={files} />
+        <PureDialog action={(
+            <DialogButtons
+                type="add"
+                fileInfo={fileInfo}
+                files={files}
+                reset={reset}
             />
-            <RemoveExtensionDialog open={removeDialogOpen} reset={reset} fileInfo={fileInfo} files={files} />
-            <PureDialog action={(
-                <DialogButtons
-                    type="add"
-                    fileInfo={fileInfo}
-                    files={files}
-                    reset={reset}
-                />
-            )} add={{
-                fullScreen: fullScreen
-            }} open={addDialogOpen} onClose={() => reset()} title={get("extensions.添加扩展")}>
-                {packagedDialogInputs("add")}
-            </PureDialog>
-            <PureDialog action={(
-                <DialogButtons
-                    type="modify"
-                    fileInfo={fileInfo}
-                    files={files}
-                    reset={reset}
-                />
-            )} add={{
-                fullScreen: fullScreen
-            }} open={modifyDialogOpen} onClose={event => {
-                setModifyDialogOpen(false);
-            }} title={get("extensions.编辑扩展")}>
-                {packagedDialogInputs("modify")}
-            </PureDialog>
-        </>
-    );
+        )} add={{
+            fullScreen: fullScreen
+        }} open={addDialogOpen} onClose={() => reset()} title={get("extensions.添加扩展")}>
+            {packagedDialogInputs("add")}
+        </PureDialog>
+        <PureDialog action={(
+            <DialogButtons
+                type="modify"
+                fileInfo={fileInfo}
+                files={files}
+                reset={reset}
+            />
+        )} add={{
+            fullScreen: fullScreen
+        }} open={modifyDialogOpen} onClose={event => {
+            setModifyDialogOpen(false);
+        }} title={get("extensions.编辑扩展")}>
+            {packagedDialogInputs("modify")}
+        </PureDialog>
+    </>;
 }
-interface booleanSetting {
-    type: "boolean",
-    page: settingPage;
-    text: string;
-    id: string;
-    value: boolean;
-    defaultValue: boolean;
-}
-interface switchSetting {
-    type: "switch",
-    page: settingPage;
-    switches: string[];
-    text: string;
-    id: string;
-    value: string;
-    defaultValue: string;
-}
-interface inputSetting {
-    type: "input",
-    page: settingPage;
-    text: string;
-    id: string;
-    value: string;
-    defaultValue: string;
-}
-export type setting = booleanSetting | switchSetting | inputSetting;
 export interface NXTMetadata extends noIconTool {
     icon: string;
     main: string;

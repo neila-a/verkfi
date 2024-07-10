@@ -32,12 +32,15 @@ import {
 import {
     listsAtom
 } from "@verkfi/shared/atoms";
+function sortingIsString(sorting: any): sorting is string {
+    return sorting !== globalList && sorting !== homeList;
+}
 export default function SingleToolDeleteFromCategoryButton(props: Pick<globalProps, "tool">) {
     const isImplant = useContext(isImplantContext),
         sortingFor = useAtomValue(sortingForAtom)(isImplant),
         [lists, setLists] = useAtom(listsAtom),
         setTools = useSetAtom(toolsAtom);
-    return sortingFor !== globalList && sortingFor !== homeList && <MouseOverPopover text={get("singleTool.deleteFromCategory")}>
+    return sortingIsString(sortingFor) && <MouseOverPopover text={get("singleTool.deleteFromCategory")}>
         <IconButton onClick={event => {
             startTransition(async () => {
                 const newLists = structuredClone(lists);

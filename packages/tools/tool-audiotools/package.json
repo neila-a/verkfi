@@ -21,7 +21,6 @@
     "dependencies": {
         "@verkfi/shared": "workspace:../../shared",
         "filepond": "^4.31.1",
-        "jotai": "2.8.0",
         "react-filepond": "^7.1.2",
         "react-h5-audio-player": "^3.9.3",
         "react-voice-visualizer": "^2.0.2"

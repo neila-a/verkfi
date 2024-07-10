@@ -2,9 +2,11 @@ import {
     ButtonBase
 } from "@mui/material";
 import {
-    Provider,
     useAtomValue
 } from "jotai";
+import {
+    ScopeProvider
+} from "jotai-scope";
 import {
     viewModeAtom
 } from "@verkfi/shared/atoms";
@@ -17,6 +19,7 @@ import {
 import SingleToolInListMode from "./modes/list";
 import SingleToolInGridMode from "./modes/grid";
 import SingleToolJumpDialog from "./parts/jumpDialog";
+import atoms from "./atoms";
 export default function SingleTool(props: globalProps) {
     const viewMode = useAtomValue(viewModeAtom);
     return <Link href="a" style={{
@@ -25,10 +28,10 @@ export default function SingleTool(props: globalProps) {
         <ButtonBase key={props.tool.to} component="section" sx={{
             width: viewMode === "grid" ? gridWidth : fullWidth
         }}>
-            <Provider>
+            <ScopeProvider atoms={[atoms.jump, atoms.dialogOpen.jump, atoms.elevation]}>
                 {viewMode === "grid" ? <SingleToolInGridMode {...props} /> : <SingleToolInListMode {...props} />}
                 <SingleToolJumpDialog />
-            </Provider>
+            </ScopeProvider>
         </ButtonBase>
     </Link>;
 }

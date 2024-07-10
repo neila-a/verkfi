@@ -81,7 +81,7 @@ export default function Selects(props: {
             <SingleSelect
                 dragButton={editMode && !aprops.isAll && <DragIndicatorIcon />}
                 isSidebar={Boolean(props.isSidebar)}
-                key={aprops.single}
+                key={JSON.stringify(aprops.single)}
                 tool={aprops.single}
                 onClick={event => {
                     const publicSet = draft => {
@@ -147,7 +147,7 @@ export default function Selects(props: {
                     {provided => <Box ref={provided.innerRef} {...provided.droppableProps} sx={{
                         display: props.isSidebar ? "" : "flex"
                     }}>
-                        {([...list.keys()].filter(value => value !== globalList) as string[]).map((value, index) => {
+                        {[...list.keys()].filter(value => value !== globalList).map(a => JSON.stringify(a)).map((value, index) => {
                             return createElement(
                                 editMode ? (props: {
                                     children: ReactNode;

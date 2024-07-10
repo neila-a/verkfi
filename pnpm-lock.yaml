@@ -17,6 +17,12 @@ importers:
       esbuild:
         specifier: ^0.23.0
         version: 0.23.0
+      jotai:
+        specifier: ^2.9.0
+        version: 2.9.0(@types/react@18.3.3)(react@18.3.1)
+      jotai-scope:
+        specifier: ^0.6.0
+        version: 0.6.0(jotai@2.9.0(@types/react@18.3.3)(react@18.3.1))(react@18.3.1)
       next:
         specifier: 14.2.4
         version: 14.2.4(@babel/core@7.24.7)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.77.6)
@@ -168,9 +174,6 @@ importers:
       filepond:
         specifier: ^4.31.1
         version: 4.31.1
-      jotai:
-        specifier: 2.8.0
-        version: 2.8.0(@types/react@18.3.3)(react@18.3.1)
       lp-logger:
         specifier: github:neila-a/lp-logger-no-window
         version: https://codeload.github.com/neila-a/lp-logger-no-window/tar.gz/04f2b376323698503090ef239040e6dd81e1d742
@@ -229,9 +232,6 @@ importers:
       file-to-any:
         specifier: ^1.2.0
         version: 1.2.0
-      jotai:
-        specifier: 2.8.0
-        version: 2.8.0(@types/react@18.3.3)(react@18.3.1)
       lp-logger:
         specifier: github:neila-a/lp-logger-no-window
         version: https://codeload.github.com/neila-a/lp-logger-no-window/tar.gz/04f2b376323698503090ef239040e6dd81e1d742
@@ -251,9 +251,6 @@ importers:
       filepond:
         specifier: ^4.31.1
         version: 4.31.1
-      jotai:
-        specifier: 2.8.0
-        version: 2.8.0(@types/react@18.3.3)(react@18.3.1)
       react-filepond:
         specifier: ^7.1.2
         version: 7.1.2(filepond@4.31.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -359,9 +356,6 @@ importers:
       filepond:
         specifier: ^4.31.1
         version: 4.31.1
-      jotai:
-        specifier: 2.8.0
-        version: 2.8.0(@types/react@18.3.3)(react@18.3.1)
       react-filepond:
         specifier: ^7.1.2
         version: 7.1.2(filepond@4.31.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -457,9 +451,6 @@ importers:
       file-saver:
         specifier: 2.0.5
         version: 2.0.5
-      jotai:
-        specifier: 2.8.0
-        version: 2.8.0(@types/react@18.3.3)(react@18.3.1)
       react-audio-visualize:
         specifier: ^1.1.3
         version: 1.1.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -3196,8 +3187,14 @@ packages:
     peerDependencies:
       react: '>=17.0.0'
 
-  jotai@2.8.0:
-    resolution: {integrity: sha512-yZNMC36FdLOksOr8qga0yLf14miCJlEThlp5DeFJNnqzm2+ZG7wLcJzoOyij5K6U6Xlc5ljQqPDlJRgqW0Y18g==}
+  jotai-scope@0.6.0:
+    resolution: {integrity: sha512-jNf6vi+eCkciGE3Q4d5g1QmGSAmcX+jGcypnDxuVApPxaH1pNw1cjlnaImsVa1bjCe9F5kYwpTVjRWtC+oiRSA==}
+    peerDependencies:
+      jotai: '>=2.5.0'
+      react: '>=17.0.0'
+
+  jotai@2.9.0:
+    resolution: {integrity: sha512-MioTpMvR78IGfJ+W8EwQj3kwTkb+u0reGnTyg3oJZMWK9rK9v8NBSC9Rhrg9jrrFYA6bGZtzJa96zsuAYF6W3w==}
     engines: {node: '>=12.20.0'}
     peerDependencies:
       '@types/react': '>=17.0.0'
@@ -7843,7 +7840,12 @@ snapshots:
       - react-dom
       - redux
 
-  jotai@2.8.0(@types/react@18.3.3)(react@18.3.1):
+  jotai-scope@0.6.0(jotai@2.9.0(@types/react@18.3.3)(react@18.3.1))(react@18.3.1):
+    dependencies:
+      jotai: 2.9.0(@types/react@18.3.3)(react@18.3.1)
+      react: 18.3.1
+
+  jotai@2.9.0(@types/react@18.3.3)(react@18.3.1):
     optionalDependencies:
       '@types/react': 18.3.3
       react: 18.3.1
