@@ -57,9 +57,9 @@ namespace atoms {
                 URL.revokeObjectURL(img.src);
                 canvas.width = img.width / width;
                 canvas.height = img.height / height;
-                for (let y of range(height - 1)) {
+                for (const y of range(height - 1)) {
                     const thisBuffer: Blob[] = [];
-                    for (let x of range(width - 1)) {
+                    for (const x of range(width - 1)) {
                         context!.drawImage(
                             img,
                             x * img.width / width,

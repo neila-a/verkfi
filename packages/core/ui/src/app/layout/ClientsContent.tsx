@@ -47,12 +47,6 @@ import Hex = hex.Hex;
 import {
     emptyNXTMetadata
 } from "tools/extension/empties";
-import {
-    ScopeProvider
-} from "jotai-scope"
-import {
-    editModeAtom
-} from "index/atoms";
 /**
  * 用于防止jotai引起的suspense
  */
@@ -71,7 +65,7 @@ export default function ClientsContent() {
     if (isBrowser()) {
         focusing = window.location.pathname;
     }
-    return <ScopeProvider atoms={[]}>
+    return <Provider>
         <ToolsStackWithTools disableClick focus={focusing} notfound={(
             <No>
                 {get("clients.notfound")}
@@ -162,5 +156,5 @@ export default function ClientsContent() {
             setNavigatingId("");
             setNavigateDialogOpen(false);
         }} title={get("clients.navigate")} open={navigateDialogOpen} />
-    </ScopeProvider>;
+    </Provider>;
 }

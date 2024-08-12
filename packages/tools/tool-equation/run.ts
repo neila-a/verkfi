@@ -18,7 +18,7 @@ function run(maxTimes: number, code: string) {
          * 最后setTimes用的times
          */
         endTimes = 0, right = new Decimal(maxTimes);
-    loop: for (let times of range(maxTimes)) {
+    loop: for (const times of range(maxTimes)) {
         const mid = left.plus(right).div(sumDivMiddle), leftDiff = getDiff(left), rightDiff = getDiff(right);
         switch (true) {
             case leftDiff.comparedTo(0) === 0:

@@ -4,7 +4,8 @@ import {
     IconButton,
     Theme,
     Typography,
-    useMediaQuery} from "@mui/material";
+    useMediaQuery
+} from "@mui/material";
 import {
     Filesystem
 } from "@tybys/browser-asar";
@@ -63,11 +64,8 @@ import {
     removeDialogOpenAtom
 } from "./atoms";
 import {
-    ScopeProvider
-} from "jotai-scope";
-import {
-    editModeAtom
-} from "index/atoms";
+    Provider
+} from "jotai";
 import {
     setting
 } from "./consts";
@@ -103,7 +101,7 @@ export default function ExtensionManager() {
         <Box sx={{
             mb: 2
         }}>
-            <ScopeProvider atoms={[]}>
+            <Provider>
                 <ToolsStackWithTools paramTool={converted} notfound={<No>
                     {get("extensions.未找到任何扩展")}
                 </No>} actions={extensionTools?.map(single => <>
@@ -128,7 +126,7 @@ export default function ExtensionManager() {
                         </IconButton>
                     </MouseOverPopover>
                 </>)} disableClick />
-            </ScopeProvider>
+            </Provider>
         </Box>
         <FilePond
             files={fileArray as unknown as FilePondServerConfigProps["files"]}

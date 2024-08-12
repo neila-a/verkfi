@@ -7,7 +7,6 @@ import {
 import atomWithStorage from "../reader/atomWithStorage";
 import isBrowser from "../isBrowser";
 import {
-    WritableAtom,
     atom
 } from "jotai";
 import extensionsAtom, {

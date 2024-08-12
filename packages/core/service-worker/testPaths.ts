@@ -7,7 +7,7 @@ async function testPaths(
     fall: () => Res,
     ...path: [keyof typeof testPaths, (tested: URLPatternResult) => Res][]
 ) {
-    for (let aPath of path) {
+    for (const aPath of path) {
         if (testPaths[aPath[0]].test(url)) {
             const result = await aPath[1](testPaths[aPath[0]].exec(url) as URLPatternResult);
             if (result) {

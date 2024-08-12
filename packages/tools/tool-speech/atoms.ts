@@ -28,7 +28,9 @@ import {
     emptySymbol
 } from "@verkfi/shared/reader/atomWithStorage";
 import getShortTimeEnergy from "./getShortTimeEnergy";
-import atomWithInitialValue, { valueAtomReturn } from "@verkfi/shared/reader/atomWithInitialValue";
+import atomWithInitialValue, {
+    valueAtomReturn
+} from "@verkfi/shared/reader/atomWithInitialValue";
 namespace atoms {
     /**
      * 只有第一个块里才有文件头

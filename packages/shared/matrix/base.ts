@@ -31,8 +31,8 @@ export default function drawMatrixBase(
     dos.forEach((item, index) => {
         context.fillStyle = item[1];
         const path = new Path2D(), pBlock = item[0].map(item => item.toString());
-        for (let x of range(n)) {
-            for (let y of range(n)) {
+        for (const x of range(n)) {
+            for (const y of range(n)) {
                 if (pBlock.includes([x, y].toString())) {
                     path.rect(size * y, size * x, size, size);
                 }
@@ -43,8 +43,8 @@ export default function drawMatrixBase(
 
     // 渲染边框
     if (!onlyPos) {
-        for (let x of range(n - 1)) {
-            for (let y of range(n - 1)) {
+        for (const x of range(n - 1)) {
+            for (const y of range(n - 1)) {
                 context.rect(size * y, size * x, size, size);
             }
         }
