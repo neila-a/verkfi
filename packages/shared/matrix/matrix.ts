@@ -12,7 +12,7 @@ export default function drawMatrix(
     posX: number, posZ: number, posCache: block,
     palette: Palette, onlyPos: boolean, canvas = "canvascontainer"
 ) {
-    const edge = Number(window.getComputedStyle(document.getElementById(canvas)!.parentElement!.children[0]).width.replace("px", "")),
+    const edge = +window.getComputedStyle(document.getElementById(canvas)!.parentElement!.children[0]).width.replace("px", ""),
         nowPos: block = [posX, posZ],
         cachePosBlock: block[] = [],
         posBlock: block[] = [];

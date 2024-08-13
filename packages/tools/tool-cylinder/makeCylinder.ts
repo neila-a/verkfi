@@ -11,7 +11,7 @@ import range from "@verkfi/shared/range";
  */
 export default class Cylinder extends Array<block> {
     setBlock(x: number, z: number, radiusX: number, radiusZ: number) {
-        const pushOne = (a: number, b: number) => super.push([Number(a.toFixed(0)) - 1, Number(b.toFixed(0)) - 1]);
+        const pushOne = (a: number, b: number) => super.push([+a.toFixed(0) - 1, +b.toFixed(0) - 1]);
         pushOne(radiusX + x, radiusZ + z);
         pushOne(radiusX - x, radiusZ + z);
         pushOne(radiusX + x, radiusZ - z);

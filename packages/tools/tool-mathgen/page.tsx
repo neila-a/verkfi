@@ -85,7 +85,7 @@ function MathGen() {
                         inputMode: "numeric"
                     }
                 }} onChange={event => {
-                    setMax(Number(event.target.value));
+                    setMax(+event.target.value);
                 }} defaultValue={max} />
                 <TextField margin="normal" label={get("下限")} type="number" slotProps={{
                     inputLabel: {
@@ -93,7 +93,7 @@ function MathGen() {
                         inputMode: "numeric"
                     }
                 }} onChange={event => {
-                    setMin(Number(event.target.value));
+                    setMin(+event.target.value);
                 }} defaultValue={min} />
                 <TextField margin="normal" label={get("个数")} type="number" slotProps={{
                     inputLabel: {
@@ -101,7 +101,7 @@ function MathGen() {
                         inputMode: "numeric"
                     }
                 }} onChange={event => {
-                    setItemCount(Number(event.target.value));
+                    setItemCount(+event.target.value);
                 }} defaultValue={itemCount} />
                 <FormControlLabel label={get("mathgen.减数检查")} control={
                     <Checkbox checked={subtractionCheck} onChange={event => {

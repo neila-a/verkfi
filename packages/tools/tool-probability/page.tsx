@@ -38,7 +38,7 @@ export default function Probability() {
             <TextField
                 fullWidth
                 value={times}
-                onChange={event => setTimes(Number(event.target.value))}
+                onChange={event => setTimes(+event.target.value)}
                 label={get("probability.runTimes")}
                 variant="outlined"
                 type="number"

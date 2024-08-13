@@ -33,7 +33,7 @@ export default function SingleImage(props: {
             <img title={type} key={type} src={props.imageURL} id={type} alt={type} style={{
                 // 100用于将百分比转换为整数
                 // eslint-disable-next-line no-magic-numbers
-                transform: `scale(${(Number(props.scale) / 100).toString()})`,
+                transform: `scale(${(+props.scale / 100).toString()})`,
                 filter: filters[type]
             }} />
             <Box component="figcaption">

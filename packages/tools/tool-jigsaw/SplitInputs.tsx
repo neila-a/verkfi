@@ -14,10 +14,10 @@ export default function SplitInputs() {
         set = useSetAtom(atoms.image.size);
     return <>
         <TextField margin="dense" value={width} variant="outlined" onChange={event => {
-            set([Number(event.target.value), height]);
+            set([+event.target.value, height]);
         }} label={get("jigsaw.split.width")} type="number" />
         <TextField margin="dense" value={height} variant="outlined" onChange={event => {
-            set([width, Number(event.target.value)]);
+            set([width, +event.target.value]);
         }} label={get("jigsaw.split.height")} type="number" />
     </>;
 }

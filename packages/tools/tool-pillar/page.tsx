@@ -82,7 +82,7 @@ export default function Pillar() {
                 }}>
                     <TextField
                         value={length}
-                        onChange={event => setLength(Number(event.target.value))}
+                        onChange={event => setLength(+event.target.value)}
                         label={get("pillar.length")}
                         variant="outlined"
                         type="number"
@@ -141,7 +141,7 @@ export default function Pillar() {
                                         const realOld = {
                                             ...old
                                         };
-                                        realOld[name].min = Number(event.target.value);
+                                        realOld[name].min = +event.target.value;
                                         return realOld;
                                     })} slotProps={{
                                         htmlInput: {
@@ -156,8 +156,8 @@ export default function Pillar() {
                                             ...old
                                         };
                                         if (newValue instanceof Array) {
-                                            realOld[name].min = Number(newValue[0]);
-                                            realOld[name].max = Number(newValue[1]);
+                                            realOld[name].min = +newValue[0];
+                                            realOld[name].max = +newValue[1];
                                         }
                                         return realOld;
                                     })} max={length} value={[rule.min, rule.max]} aria-labelledby={sizeLabelId} />
@@ -169,7 +169,7 @@ export default function Pillar() {
                                         const realOld = {
                                             ...old
                                         };
-                                        realOld[name].max = Number(event.target.value);
+                                        realOld[name].max = +event.target.value;
                                         return realOld;
                                     })} slotProps={{
                                         htmlInput: {

@@ -21,7 +21,7 @@ export default async function editDevVersion() {
         {
             stdout
         } = await promisify(exec)("git log --oneline | wc -l"),
-        commits = Number(stdout.replace(/\n/g, "")) + 1;
+        commits = +stdout.replace(/\n/g, "") + 1;
     oldPackage.description = repoInfo.description;
     oldPackage.devVersion = commits.toString();
     console.log("计算devVersion".brightCyan, ` 计算出devVersion为${commits}\n`);

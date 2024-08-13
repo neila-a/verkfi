@@ -7,6 +7,7 @@ export default function* generateDigitsOfPi() {
         i = 2n;
     while (true) {
         let digit = ((i * 27n - 12n) * q + r * 5n) / (t * 5n);
+        // 无法用一元加转换bigint
         yield Number(digit);
         let u = i * 3n;
         u = (u + 1n) * 3n * (u + 2n);

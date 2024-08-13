@@ -58,7 +58,7 @@ function Reversal() {
             }} onChange={event => {
                 setWords(event.target.value);
             }} value={words} />
-            {Object.keys(wordList).map(a => Number(a)).map(id => {
+            {Object.keys(wordList).map(a => +a).map(id => {
                 return (
                     <Chip key={id} label={wordList[id]} onDelete={() => {
                         const draft = structuredClone(wordList);

@@ -29,7 +29,7 @@ export default function Equation() {
         <TextField
             fullWidth
             value={maxTimes}
-            onChange={event => setMaxTimes(Number(event.target.value))}
+            onChange={event => setMaxTimes(+event.target.value)}
             label={get("equation.maxTimes")}
             variant="outlined"
             type="number"

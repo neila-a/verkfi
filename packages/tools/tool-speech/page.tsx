@@ -137,8 +137,8 @@ export default function Speech() {
             </List>
         </PureDialog>
         <InputDialog open={selectTime} onDone={context => {
-            setSpeechTime(Number(context));
-            setAllSpeechTime(Number(context));
+            setSpeechTime(+context);
+            setAllSpeechTime(+context);
             setStatus("recording", mediaRecorder as MediaRecorder);
             return setSelectTime(false);
         }} inputAdd={{

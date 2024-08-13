@@ -27,7 +27,7 @@ function PI() {
         <>
             <FormGroup>
                 <TextField id="digit" label={get("pi.π的小数点后位数")} variant="outlined" value={digits} type="number" onChange={event => {
-                    const digit = Math.round(Number(event.target.value)),
+                    const digit = Math.round(+event.target.value),
                         retinfo = generatePis(digit);
                     setDigits(digit);
                     if (useAlertShow) {

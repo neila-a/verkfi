@@ -70,7 +70,7 @@ function CylinderPage() {
                                 shrink: true,
                                 inputMode: "numeric"
                             }
-                        }} onChange={event => setRadiusX(Number(event.target.value))} />
+                        }} onChange={event => setRadiusX(+event.target.value)} />
                     </Grid>
                 </Grid>
                 <Grid container spacing={1} alignItems="center">
@@ -85,7 +85,7 @@ function CylinderPage() {
                                 shrink: true,
                                 inputMode: "numeric"
                             }
-                        }} onChange={event => setRadiusZ(Number(event.target.value))} />
+                        }} onChange={event => setRadiusZ(+event.target.value)} />
                     </Grid>
                 </Grid>
                 <Grid container spacing={1} alignItems="center">
@@ -100,7 +100,7 @@ function CylinderPage() {
                                 shrink: true,
                                 inputMode: "numeric"
                             }
-                        }} onChange={event => setThickness(Number(event.target.value))} />
+                        }} onChange={event => setThickness(+event.target.value)} />
                     </Grid>
                 </Grid>
                 <Grid container spacing={1} alignItems="center">
@@ -126,7 +126,7 @@ function CylinderPage() {
                                 inputMode: "numeric"
                             }
                         }} onChange={event => {
-                            const value = Number(event.target.value);
+                            const value = +event.target.value;
                             setPosX(value);
                             updatePos(value, posZ);
                         }} />
@@ -136,7 +136,7 @@ function CylinderPage() {
                                 inputMode: "numeric"
                             }
                         }} onChange={event => {
-                            const value = Number(event.target.value);
+                            const value = +event.target.value;
                             setPosZ(value);
                             updatePos(posZ, value);
                         }} />
@@ -147,8 +147,8 @@ function CylinderPage() {
                 cursor: "cell"
             }} onMouseMove={event => {
                 const style = window.getComputedStyle(document.getElementById("canvascontainer") as HTMLCanvasElement),
-                    width = Number(style.width.replace("px", "")),
-                    height = Number(style.height.replace("px", "")),
+                    width = +style.width.replace("px", ""),
+                    height = +style.height.replace("px", ""),
                     edge = Math.min(height, width),
                     x = Math.round(event.nativeEvent.offsetX / (edge / radiusX) * dDivR + 1),
                     z = Math.round(event.nativeEvent.offsetY / (edge / radiusZ) * dDivR + 1);

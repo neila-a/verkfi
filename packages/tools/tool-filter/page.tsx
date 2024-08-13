@@ -42,8 +42,8 @@ export default function Filter() {
         [imageTypes, setImageTypes] = useState<ImageType[]>(ImageTypesGen),
         [scale, setScale] = useState(initialScale),
         sizeId = useId(),
-        handleSliderChange = (event: Event, newValue: number | number[]) => setScale(Number(newValue)),
-        handleInputChange = (event: ChangeEvent<HTMLInputElement>) => setScale(Number(event.target.value));
+        handleSliderChange = (event: Event, newValue: number | number[]) => setScale(+newValue),
+        handleInputChange = (event: ChangeEvent<HTMLInputElement>) => setScale(+event.target.value);
     function handleBlur() {
         if (scale < 0) {
             setScale(0);

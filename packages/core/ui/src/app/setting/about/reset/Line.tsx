@@ -26,7 +26,7 @@ export default function Line() {
                     variant="determinate"
                     // 100用于把小数转换为百分比
                     // eslint-disable-next-line no-magic-numbers
-                    value={Number((cacheUsed / cacheAll * 100).toFixed(fractionDigits))}
+                    value={+(cacheUsed / cacheAll * 100).toFixed(fractionDigits)}
                 />
             </Box>
             <Box sx={{
