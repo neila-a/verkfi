@@ -16,9 +16,11 @@ export const clientsAtom = atomWithRefresh(get => new Promise<clientBase[]>(reso
     channel.port1.onmessage = event => {
         resolve(event.data as clientBase[]);
     };
-    navigator?.serviceWorker?.controller?.postMessage?.({
-        action: "getClients"
-    } as message, [channel.port2]);
+    try {
+        navigator?.serviceWorker?.controller?.postMessage?.({
+            action: "getClients"
+        } as message, [channel.port2]);
+    } catch {}
 })),
     searchTextAtom = atom(""),
     /**

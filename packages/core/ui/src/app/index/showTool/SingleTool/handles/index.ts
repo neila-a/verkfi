@@ -22,7 +22,8 @@ export const
             }
         }
     }),
-    handleClickAtom = createHandler<"disableClick", true, true>()((props, tool, router) => (get, set) => {
+    handleClickAtom = createHandler<"disableClick", true, true>()((props, tool, router) => (get, set, event) => {
+        event.stopPropagation();
         if (!props?.disableClick) {
             if (tool.isGoto) {
                 if (tool.to.startsWith("/tools/extension")) {

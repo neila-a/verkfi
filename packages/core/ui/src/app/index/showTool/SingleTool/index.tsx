@@ -20,9 +20,10 @@ import SingleToolInListMode from "./modes/list";
 import SingleToolInGridMode from "./modes/grid";
 import SingleToolJumpDialog from "./parts/jumpDialog";
 import atoms from "./atoms";
+import getToolHref from "./getToolHref";
 export default function SingleTool(props: globalProps) {
     const viewMode = useAtomValue(viewModeAtom);
-    return <Link href="a" style={{
+    return <Link href={getToolHref(props.tool)} style={{
         textDecoration: "none"
     }}>
         <ButtonBase key={props.tool.to} component="section" sx={{
