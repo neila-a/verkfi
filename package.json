@@ -1,6 +1,6 @@
 {
     "version": "1.7.3",
-    "devVersion": "1047",
+    "devVersion": "1048",
     "dev": true,
     "description": "Platform for Neila's something useless tools.",
     "devDependencies": {
@@ -10,8 +10,8 @@
         "@testing-library/jest-dom": "^6.4.6",
         "@testing-library/react": "^16.0.0",
         "@types/jest": "^29.5.12",
-        "@types/node": "20.14.9",
-        "@types/react": "18.3.3",
+        "@types/node": "22.7.4",
+        "@types/react": "18.3.11",
         "@types/react-dom": "18.3.0",
         "eslint": "^9.6.0",
         "jest": "^29.7.0",
@@ -25,12 +25,12 @@
     },
     "homepage": "https://netlify.verkfi.neila.vip/",
     "dependencies": {
-        "@mui/icons-material": "^5.15.21",
+        "@mui/icons-material": "^6.1.2",
         "@mui/material": "6.0.0-alpha.13",
-        "esbuild": "^0.23.0",
+        "esbuild": "^0.24.0",
         "jotai": "^2.9.0",
-        "jotai-scope": "^0.6.0",
-        "next": "14.2.4",
+        "jotai-scope": "^0.7.2",
+        "next": "14.2.14",
         "react": "^18.3.1",
         "react-intl-universal": "^2.11.1"
     },
