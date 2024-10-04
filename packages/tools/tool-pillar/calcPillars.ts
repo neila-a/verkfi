@@ -5,8 +5,8 @@ import {
 const validateDistanceLength = (distanceLength: number) => distanceLength > 0 && Math.ceil(distanceLength) === distanceLength;
 export default function calcPillars(type: pillarPositions, length: number) {
     const collocations: collocation[] = [];
-    for (const count = 1; count < length; count++) {
-        for (const pillarLength = 1; pillarLength < length; pillarLength++) {
+    for (let count = 1; count < length; count++) {
+        for (let pillarLength = 1; pillarLength < length; pillarLength++) {
             /*
              * 此时distanceLength已知！
              * 除法要求是整数
