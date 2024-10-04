@@ -1,19 +1,28 @@
 "use client";
 import {
-    Close
+    Close,
+    Translate
 } from "@mui/icons-material";
 import {
     Alert,
     Box,
     Button,
     ButtonGroup,
+    Checkbox,
     Chip,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    FormControlLabel,
     TextField,
+    Theme,
     Typography
 } from "@mui/material";
 import CopyButton from "@verkfi/shared/CopyButton";
+import Transition from "@verkfi/shared/dialog/Transition";
 import LpLogger from "lp-logger";
-import dynamic from "next/dynamic";
 import {
     useState
 } from "react";
@@ -21,20 +30,38 @@ import {
     get
 } from "react-intl-universal";
 type wordList = Map<number, string>;
-const InputDialog = dynamic(() => import("@verkfi/shared/dialog/Input")),
-    logger = new LpLogger({
-        name: get("翻转"),
-        level: "log" // 空字符串时，不显示任何信息
-    }),
+const logger = new LpLogger({
+    name: get("翻转"),
+    level: "log" // 空字符串时，不显示任何信息
+}),
     /**
      * 随机所用的系数
      */
-    randomFactor = 1000_0000_0000_0000;
+    randomFactor = 1000_0000_0000_0000,
+    getId = () => Math.random() * randomFactor;
 function Reversal() {
     const [words, setWords] = useState(""),
         [wordList, setWordList] = useState<wordList>(new Map()),
         [output, setOutput] = useState(""),
+        [separator, setSeparator] = useState(""),
+        [cnSegment, setCnSegment] = useState(false),
         [showSplitDialog, setShowSplitDialog] = useState(false);
+    function split() {
+        const draft: wordList = new Map();
+        if (cnSegment) {
+            const segmenter = new Intl.Segmenter("zh-Hans", {
+                granularity: "word"
+            });
+            for (let segmentData of segmenter.segment(words)) {
+                draft.set(segmentData.index, segmentData.segment);
+            }
+        } else {
+            words.split(separator).forEach(word => draft.set(getId(), word));
+        }
+        setWordList(draft);
+        logger.log("已拆分。");
+        setShowSplitDialog(false);
+    }
     return <>
         <Box sx={{
             "> *": {
@@ -108,13 +135,38 @@ function Reversal() {
         <Typography variant="body1">
             {get("结果：")}{output}
         </Typography>
-        <InputDialog open={showSplitDialog} label="" title={get("拆分")} context={get("reversal.请输入拆分的符号，不输入则是逐字拆分")} onDone={context => {
-            const draft: wordList = new Map();
-            words.split(context).forEach(word => draft.set(Math.random() * randomFactor, word));
-            setWordList(draft);
-            logger.log("已拆分。");
-            setShowSplitDialog(false);
-        }} />
+        <Dialog open={showSplitDialog} onClose={event => setShowSplitDialog(false)} TransitionComponent={Transition} keepMounted>
+            <DialogTitle>
+                {get("拆分")}
+            </DialogTitle>
+            <DialogContent>
+                <DialogContentText>
+                    {get("reversal.请输入拆分的符号，不输入则是逐字拆分")}
+                </DialogContentText>
+                <FormControlLabel control={<Checkbox
+                    icon={<Translate sx={{
+                        color: (theme: Theme) => theme.palette.text.primary
+                    }} />}
+                    checked={cnSegment}
+                    onClick={event => {
+                        setCnSegment(old => !old);
+                    }}
+                    checkedIcon={<Translate />}
+                />} label={get("reversal.cn")} />
+                <TextField onKeyDown={event => {
+                    if (event.key === "Enter") {
+                        split();
+                    }
+                }} autoFocus margin="dense" label={get("拆分")} fullWidth onChange={event => {
+                    setSeparator(event.target.value);
+                }} />
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={split}>
+                    {get("确定")}
+                </Button>
+            </DialogActions>
+        </Dialog>
     </>;
 }
 export default Reversal;
