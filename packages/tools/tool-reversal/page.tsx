@@ -98,7 +98,7 @@ function Reversal() {
                 mt: 1
             }}>
                 <Button variant="contained" onClick={() => {
-                    const stageOutput = [...wordList.entries()];
+                    const stageOutput = [...wordList.values()];
                     stageOutput.sort(() => {
                         // 0.5用于随机
                         // eslint-disable-next-line no-magic-numbers
