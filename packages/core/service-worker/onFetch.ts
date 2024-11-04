@@ -61,9 +61,7 @@ export default function onFetch(event: FetchEvent) {
             file = await fileHandle.getFile();
         log("检测到扩展路径为", filePath);
         return new Response(new Blob([file]));
-    }], ["extensionLoader", faller({
-        ignoreSearch: true
-    })], ["rsc", faller({
+    }], [["extensionLoader", "rsc", "installExtension"], faller({
         ignoreSearch: true
     })]);
 }

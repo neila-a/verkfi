@@ -68,7 +68,10 @@ export default function ReadNumber() {
                                 value
                             } = event.target;
                             setString(value);
-                            setNumber(nzh.decode(value));
+                            setNumber(nzh.decode(value, {
+                                // @ts-ignore
+                                outputString: true
+                            }));
                         }} />
                     </Grid>
                 </Grid>

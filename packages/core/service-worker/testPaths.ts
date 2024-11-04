@@ -5,19 +5,23 @@ type Res = Response | Promise<Response>;
 async function testPaths(
     url: string,
     fall: () => Res,
-    ...path: [keyof typeof testPaths, (tested: URLPatternResult) => Res][]
+    ...path: [testPath | Array<testPath>, (tested: URLPatternResult) => Res][]
 ) {
     for (const aPath of path) {
-        if (testPaths[aPath[0]].test(url)) {
-            const result = await aPath[1](testPaths[aPath[0]].exec(url) as URLPatternResult);
-            if (result) {
-                return result;
+        let pathas = Array.isArray(aPath[0]) ? aPath[0] : [aPath[0]];
+        for (const patha of pathas) {
+            if (testPaths[patha].test(url)) {
+                const result = await aPath[1](testPaths[patha].exec(url) as URLPatternResult);
+                if (result) {
+                    return result;
+                }
+                return await fall();
             }
-            return await fall();
         }
     }
     return await fall();
 }
+type testPath = keyof typeof testPaths;
 namespace testPaths {
     export const
         handle = new URLPattern({
@@ -32,6 +36,9 @@ namespace testPaths {
         }),
         rsc = new URLPattern({
             search: "?_rsc=:rsc"
+        }),
+        installExtension = new URLPattern({
+            pathname: "/installExtension"
         });
 }
 export default testPaths;

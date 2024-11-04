@@ -72,23 +72,17 @@ import {
 const PureDialog = dynamic(() => import("@verkfi/shared/dialog/Pure"));
 export type inputTypes = "modify" | "add";
 export default function ExtensionManager() {
-    const [addDialogOpen, setAddDialogOpen] = useState(false),
+    const [addDialogOpen, setAddDialogOpen] = useState<false | inputTypes>(false),
         [fileArray, setFileArray] = useState<FilePondFile[]>([]),
         [fileInfo, setFileInfo] = useAtom(fileInfoAtom),
         [files, setFiles] = useAtom(filesAtom),
         [removeDialogOpen, setRemoveDialogOpen] = useAtom(removeDialogOpenAtom),
-        [modifyDialogOpen, setModifyDialogOpen] = useAtom(modifyDialogOpenAtom),
         clearExtensionData = useSetAtom(extensionDataCleanerAtom),
         fullScreen = useMediaQuery<Theme>(theme => theme.breakpoints.down("sm")),
         extensionTools = useAtomValue(extensionsAtom),
-        converted = useAtomValue(convertedExtensionsAtom),
-        packagedDialogInputs = (type: inputTypes) => <DialogInputs
-            type={type}
-            reset={reset}
-        />;
+        converted = useAtomValue(convertedExtensionsAtom);
     function reset() {
         setAddDialogOpen(false);
-        setModifyDialogOpen(false);
         setRemoveDialogOpen(false);
         setFileArray([]);
         setFiles([]);
@@ -120,7 +114,7 @@ export default function ExtensionManager() {
                             setFileInfo({
                                 ...single
                             });
-                            setModifyDialogOpen(true);
+                            setAddDialogOpen("modify");
                         }} aria-label={get("extensions.删除扩展")}>
                             <Edit />
                         </IconButton>
@@ -157,13 +151,13 @@ export default function ExtensionManager() {
                     };
                     setFiles(dir.map(readInternal).flat(1));
                     if (extensionTools.some(item => item.to === main.to)) {
-                        setModifyDialogOpen(true);
+                        setAddDialogOpen("modify");
                         return setAddDialogOpen(false);
                     }
                 });
                 files.forEach(file => reader.readAsArrayBuffer(file.file));
                 if (files.length > 0) {
-                    setAddDialogOpen(true);
+                    setAddDialogOpen("add");
                 }
             }}
             allowMultiple
@@ -175,29 +169,18 @@ export default function ExtensionManager() {
         <RemoveExtensionDialog open={removeDialogOpen} reset={reset} fileInfo={fileInfo} files={files} />
         <PureDialog action={(
             <DialogButtons
-                type="add"
+                type={addDialogOpen || "add"}
                 fileInfo={fileInfo}
                 files={files}
                 reset={reset}
             />
         )} add={{
             fullScreen: fullScreen
-        }} open={addDialogOpen} onClose={() => reset()} title={get("extensions.添加扩展")}>
-            {packagedDialogInputs("add")}
-        </PureDialog>
-        <PureDialog action={(
-            <DialogButtons
-                type="modify"
-                fileInfo={fileInfo}
-                files={files}
+        }} open={!!addDialogOpen} onClose={() => reset()} title={get(`extensions.${addDialogOpen === "add" ? "添加" : "编辑"}扩展`)}>
+            <DialogInputs
+                type={addDialogOpen || "add"}
                 reset={reset}
             />
-        )} add={{
-            fullScreen: fullScreen
-        }} open={modifyDialogOpen} onClose={event => {
-            setModifyDialogOpen(false);
-        }} title={get("extensions.编辑扩展")}>
-            {packagedDialogInputs("modify")}
         </PureDialog>
     </>;
 }
