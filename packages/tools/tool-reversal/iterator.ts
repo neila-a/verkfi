@@ -29,8 +29,8 @@ function* iterator(top: number, string: string, period = ".", spliter = (current
                 possible.set(suffix, got ? got + 1 : 1);
             });
 
-            const chance: chance = new Map();
-            const sum = possible.values().reduce((a, b) => a + b);
+            const chance: chance = new Map(),
+                sum = (possible.values() as MapIterator<number>).reduce((a, b) => a + b);
             let usedSum = 0;
             possible.entries().forEach((key, value) => {
                 chance.set(key[0], [usedSum, usedSum += (value + 1) / sum]);
