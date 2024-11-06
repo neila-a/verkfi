@@ -1,3 +1,4 @@
+"use client";
 import {
     Filesystem
 } from "@tybys/browser-asar";
