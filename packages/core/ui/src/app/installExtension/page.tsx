@@ -31,7 +31,8 @@ import {
     inputTypes
 } from "setting/extensions/page";
 export default function DirectInstall() {
-    const params = useSearchParams(),
+    const closi = close || (() => null),
+        params = useSearchParams(),
         url = params.get("url"),
         response = fetch(url),
         blob = response.then(a => a.blob()),
@@ -57,23 +58,23 @@ export default function DirectInstall() {
             path,
             file: fs.readFileSync(path)
         },
-        files = dir.map(readInternal).flat(1),
-        extensionTools = useAtomValue(extensionsAtom),
-        dialogType: inputTypes = extensionTools.some(item => item.to === main.to) ? "modify" : "add";
+            files = dir.map(readInternal).flat(1),
+            extensionTools = useAtomValue(extensionsAtom),
+            dialogType: inputTypes = extensionTools.some(item => item.to === main.to) ? "modify" : "add";
     return (
         <PureDialog action={(
             <DialogButtons
                 type={dialogType}
                 fileInfo={fileInfo}
                 files={files}
-                reset={close}
+                reset={closi}
             />
         )} add={{
             fullScreen: true
-        }} open={true} onClose={close} title={get(`extensions.${dialogType === "add" ? "添加" : "编辑"}扩展`)}>
+        }} open={true} onClose={closi} title={get(`extensions.${dialogType === "add" ? "添加" : "编辑"}扩展`)}>
             <DialogInputs
                 type={dialogType}
-                reset={close}
+                reset={closi}
             />
         </PureDialog>
     );

@@ -4,14 +4,16 @@ export interface repoInfo {
     description: string;
 }
 const getRepoInfo = async () => {
+    let fetched = {
+    } as repoInfo;
     try {
-        const fetched = await fetch(`https://api.github.com/repos/${pack.repository.replace("github:", "")}`);
-        return (await fetched.json()) as repoInfo;
+        const response = await fetch(`https://api.github.com/repos/${pack.repository.replace("github:", "")}`);
+        fetched = await response.json();
     } catch {
-        return {
-            name: "Verkfi",
-            description: "failed"
-        } as repoInfo;
     }
+    return {
+        name: fetched?.name || "Verkfi",
+        description: fetched?.description || "failed to get description"
+    } as repoInfo;
 };
 export default getRepoInfo;

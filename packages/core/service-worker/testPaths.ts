@@ -1,4 +1,9 @@
+import {
+    URLPattern
+} from "next/server";
+
 type Res = Response | Promise<Response>;
+type URLPatternResult = Exclude<ReturnType<URLPattern["exec"]>, null>;
 /**
  * 为了和命名空间重合而必须使用命名函数
  */
@@ -12,10 +17,7 @@ async function testPaths(
         for (const patha of pathas) {
             if (testPaths[patha].test(url)) {
                 const result = await aPath[1](testPaths[patha].exec(url) as URLPatternResult);
-                if (result) {
-                    return result;
-                }
-                return await fall();
+                return result || await fall();
             }
         }
     }
@@ -29,7 +31,9 @@ namespace testPaths {
             search: "?handle=:handle"
         }),
         extensionfiles = new URLPattern({
-            pathname: "/extensionfiles/:name/:path+"
+            protocol: "https",
+            hostname: ":name.verkfi",
+            pathname: "/:path+"
         }),
         extensionLoader = new URLPattern({
             pathname: "/tools/extension"

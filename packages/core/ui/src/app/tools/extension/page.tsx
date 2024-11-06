@@ -21,7 +21,7 @@ export default function ExtensionLoader() {
         toolID = searchParams.get("tool"),
         [extensionTools, setExtensions] = useAtom(extensionsAtom),
         tool: NXTMetadata = extensionTools.find(a => a.to === toolID),
-        src = `/extensionfiles/${tool.to}/${tool.main}`,
+        src = `https://${tool.to}.verkfi/${tool.main}`,
         ref = useRef<HTMLIFrameElement>();
     if (isBrowser()) {
         window.addEventListener("message", (event: MessageEvent<{

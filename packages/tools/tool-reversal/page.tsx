@@ -54,13 +54,11 @@ const getId = () => Math.random() * randomFactor,
 function Split() {
     const [words, setWords] = useAtom(wordsAtom),
         [wordList, setWordList] = useState<wordList>(new Map()),
-        output = useMemo(() => {
-            const stageOutput = wordList.values().toArray();
+        output = useMemo(() => wordList.values().toArray().toSorted(
             // 0.5用于随机
             // eslint-disable-next-line no-magic-numbers
-            stageOutput.sort(() => Math.random() - 0.5);
-            return stageOutput.map(wordArray => wordArray[0]).join("");
-        }, [wordList]),
+            () => Math.random() - 0.5
+        ).map(wordArray => wordArray[0]).join(""), [wordList]),
         separator = useAtomValue(separatorAtom),
         [cnSegment, setCnSegment] = useState(false);
     function split() {
@@ -140,7 +138,7 @@ function Iterator() {
         [period, setPeriod] = useState("."),
         spliter = useAtomValue(separatorAtom),
         [top, setTop] = useState(defaultTop),
-        output = iterator(top, words, period, (c, w) => w === spliter).toArray().join();
+        output = iterator(top, words, period, (c, w) => w === spliter).toArray().join("");
     return <>
         <TextField fullWidth label={get("输入框")} onChange={event => {
             setWords(event.target.value);

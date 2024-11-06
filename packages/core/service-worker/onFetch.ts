@@ -46,12 +46,12 @@ export default function onFetch(event: FetchEvent) {
         return new Response("", {
             status: 301,
             statusText: "Redirected by ServiceWorker because this is a handler page",
-            headers: headers
+            headers
         });
     }], ["extensionfiles", async tested => {
         const filePath = tested.pathname.groups.path!.split("/"),
             allHandle = await navigator.storage.getDirectory();
-        let handle = await allHandle.getDirectoryHandle(tested.pathname.groups.name as string);
+        let handle = await allHandle.getDirectoryHandle(tested.hostname.groups.name!);
         await Promise.all(filePath.map(async (dir, index) => {
             if (index !== filePath.length - 1) {
                 handle = await handle.getDirectoryHandle(dir);
@@ -60,7 +60,14 @@ export default function onFetch(event: FetchEvent) {
         const fileHandle = await handle.getFileHandle(filePath[filePath.length - 1]),
             file = await fileHandle.getFile();
         log("检测到扩展路径为", filePath);
-        return new Response(new Blob([file]));
+        const headers = new Headers();
+        headers.set("Access-Control-Allow-Origin", "*");
+        headers.set("Cross-Origin-Resource-Policy", "cross-origin");
+        return new Response(file, {
+            status: 200,
+            statusText: "Context provided by ServiceWorker",
+            headers
+        });
     }], [["extensionLoader", "rsc", "installExtension"], faller({
         ignoreSearch: true
     })]);

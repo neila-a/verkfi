@@ -1,8 +1,7 @@
 {
     "version": "1.7.3",
-    "devVersion": "1052",
+    "devVersion": "1055",
     "dev": true,
-    "description": "Platform for Neila's something useless tools.",
     "devDependencies": {
         "@eslint/compat": "^1.2.2",
         "@eslint/eslintrc": "^3.1.0",
@@ -30,7 +29,7 @@
         "esbuild": "^0.24.0",
         "jotai": "2.8.0",
         "jotai-scope": "^0.7.2",
-        "next": "14.2.14",
+        "next": "^15.0.2",
         "react": "^18.3.1",
         "react-intl-universal": "^2.11.3"
     },
@@ -42,5 +41,6 @@
         "start": "next start ./packages/core/ui",
         "test": "jest"
     },
-    "packageManager": "pnpm@9.5.0+sha256.dbdf5961c32909fb030595a9daa1dae720162e658609a8f92f2fa99835510ca5"
+    "packageManager": "pnpm@9.5.0+sha256.dbdf5961c32909fb030595a9daa1dae720162e658609a8f92f2fa99835510ca5",
+    "description": "Platform for Neila's something useless tools."
 }
