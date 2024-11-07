@@ -58,9 +58,9 @@ export default function DirectInstall() {
             path,
             file: fs.readFileSync(path)
         },
-            files = dir.map(readInternal).flat(1),
-            extensionTools = useAtomValue(extensionsAtom),
-            dialogType: inputTypes = extensionTools.some(item => item.to === main.to) ? "modify" : "add";
+        files = dir.map(readInternal).flat(1),
+        extensionTools = useAtomValue(extensionsAtom),
+        dialogType: inputTypes = extensionTools.some(item => item.to === main.to) ? "modify" : "add";
     return (
         <PureDialog action={(
             <DialogButtons

@@ -103,42 +103,45 @@ namespace atoms {
     const haveTime = atomWithRefresh(() => Date.now());
     export const countdown = createAtom(0),
         audioFile = createAtom<typeof emptySymbol | Blob>(emptySymbol),
-        [status] = atomWithInitialValue((valueAtom: valueAtomReturn<RecordingStateWithResume>) => createAtom(get => get(valueAtom), async (get, set, update: RecordingStateWithResume, recorder: MediaRecorder) => {
-            const
-                bulkUpdate = (action: intervalerIds.intervalUpdateActions) => [intervalerIds.main, intervalerIds.speechTime].map(atom => set(atom, {
-                    action,
-                    get,
-                    set
-                })),
-                baseStop = () => bulkUpdate("stop");
-            function baseStart() {
-                set(haveTime);
-                bulkUpdate("start");
-            }
-            if (recorder instanceof MediaRecorder) {
-                switch (update) {
-                    case "inactive":
-                        recorder.stop();
-                        baseStop();
-                        break;
-                    case "paused":
-                        recorder.pause();
-                        baseStop();
-                        break;
-
-                    case "recording":
-                        recorder.start(secondDivMS);
-                        baseStart();
-                        break;
-                    case "resume":
-                        recorder.resume();
-                        baseStart();
-                        break;
+        [status] = atomWithInitialValue((valueAtom: valueAtomReturn<RecordingStateWithResume>) => createAtom(
+            get => get(valueAtom),
+            async (get, set, update: RecordingStateWithResume, recorder: MediaRecorder) => {
+                const
+                    bulkUpdate = (action: intervalerIds.intervalUpdateActions) => [intervalerIds.main, intervalerIds.speechTime].map(atom => set(atom, {
+                        action,
+                        get,
+                        set
+                    })),
+                    baseStop = () => bulkUpdate("stop");
+                function baseStart() {
+                    set(haveTime);
+                    bulkUpdate("start");
                 }
+                if (recorder instanceof MediaRecorder) {
+                    switch (update) {
+                        case "inactive":
+                            recorder.stop();
+                            baseStop();
+                            break;
+                        case "paused":
+                            recorder.pause();
+                            baseStop();
+                            break;
+
+                        case "recording":
+                            recorder.start(secondDivMS);
+                            baseStart();
+                            break;
+                        case "resume":
+                            recorder.resume();
+                            baseStart();
+                            break;
+                    }
+                }
+                set(valueAtom, update);
+                return update;
             }
-            set(valueAtom, update);
-            return update;
-        }));
+        ));
     namespace intervalerIds {
         export type intervalUpdateActions = "start" | "stop";
         const intervalAtom = (intervaler: (get: Getter, set: Setter) => any) => atomWithReducer(0, (old, update: {

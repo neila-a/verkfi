@@ -1,4 +1,6 @@
-import { URLPattern } from "next/server";
+import {
+    URLPattern
+} from "next/server";
 
 /**
  * 全局属性
