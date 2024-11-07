@@ -31,7 +31,7 @@ import {
     inputTypes
 } from "setting/extensions/page";
 export default function DirectInstall() {
-    const closi = close || (() => null),
+    const closi = globalThis?.close || (() => null),
         params = useSearchParams(),
         url = params.get("url"),
         response = fetch(url),

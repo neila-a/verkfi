@@ -6,6 +6,7 @@ const nextConfig: NextConfig = bundleAnalyzer({
     enabled: process.env.ANALYZE === "true"
 })({
     reactStrictMode: true,
+    output: "export",
     devIndicators: {
         buildActivityPosition: "bottom-right"
     },

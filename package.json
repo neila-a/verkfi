@@ -1,6 +1,6 @@
 {
     "version": "1.7.3",
-    "devVersion": "1056",
+    "devVersion": "1059",
     "dev": true,
     "devDependencies": {
         "@eslint/compat": "^1.2.2",

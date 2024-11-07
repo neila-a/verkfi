@@ -1,9 +1,4 @@
-import {
-    URLPattern
-} from "next/server";
-
 type Res = Response | Promise<Response>;
-type URLPatternResult = Exclude<ReturnType<URLPattern["exec"]>, null>;
 /**
  * 为了和命名空间重合而必须使用命名函数
  */

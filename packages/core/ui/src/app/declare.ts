@@ -1,11 +1,13 @@
-import {
-    URLPattern
+import type {
+    URLPattern as _URLPattern
 } from "next/server";
 
 /**
  * 全局属性
  */
 declare global {
+    class URLPattern extends _URLPattern { }
+    type URLPatternResult = Exclude<ReturnType<URLPattern["exec"]>, null>;
     interface Window {
 
         /**

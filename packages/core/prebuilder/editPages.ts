@@ -17,7 +17,7 @@ export default async function editPages() {
         } = await promisify(exec)("find packages/core/ui/src/app -name '*page.tsx'"),
         pages = stdout
             .toString()
-            .replaceAll("./packages/core/ui/src/app", "")
+            .replaceAll("packages/core/ui/src/app", "")
             .replaceAll("page.tsx", "")
             .split("\n")
             .map(single => {

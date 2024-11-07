@@ -4,7 +4,8 @@
     "description": "A demo",
     "icon": "icon.jpg",
     "scripts": {
-        "build": "rm -f demo.vxt && asar pack ./ demo.vxt"
+        "build": "rm -f demo.vxt && asar pack ./ demo.vxt",
+        "serve": "http-server --cors"
     },
     "color": [
         "114514",
@@ -12,7 +13,8 @@
     ],
     "main": "index.html",
     "dependencies": {
-        "@electron/asar": "^3.2.10"
+        "@electron/asar": "^3.2.10",
+        "http-server": "^14.1.1"
     },
     "settings": [
         {
