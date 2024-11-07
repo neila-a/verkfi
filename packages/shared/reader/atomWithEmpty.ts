@@ -18,12 +18,13 @@ function atomWithEmpty<Value, update extends Value, Result>(
             const got = get(valuer);
             if (got === emptySymbol) {
                 const waiting = read(get, options);
-                return awaiter(waiting, value => {
+                awaiter(waiting, value => {
                     const warn = globalThis.console.warn;
                     globalThis.console.warn = () => null;
                     options.setSelf(...[value] as [value: Exclude<update, typeof emptySymbol>], true);
                     globalThis.console.warn = warn;
                 });
+                return waiting;
             }
             return got as Exclude<Value, typeof emptySymbol>;
         },
