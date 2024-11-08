@@ -17,7 +17,7 @@ import {
     useId,
     useState
 } from "react";
-import toolsInfoAtom from "@verkfi/core-ui/src/app/tools/info";
+import toolsInfoAtom from "@verkfi/core-ui/src/tools/info";
 export function not<value>(a: value[], b: value[]) {
     return a.filter(value => b.indexOf(value) === -1);
 }

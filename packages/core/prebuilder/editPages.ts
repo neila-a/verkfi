@@ -14,10 +14,10 @@ export default async function editPages() {
     const
         {
             stdout
-        } = await promisify(exec)("find packages/core/ui/src/app -name '*page.tsx'"),
+        } = await promisify(exec)("find packages/core/ui/src -name '*page.tsx'"),
         pages = stdout
             .toString()
-            .replaceAll("packages/core/ui/src/app", "")
+            .replaceAll("packages/core/ui/src", "")
             .replaceAll("page.tsx", "")
             .split("\n")
             .map(single => {

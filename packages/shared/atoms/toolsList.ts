@@ -9,14 +9,14 @@ import {
 } from ".";
 import toolsInfoAtom, {
     tool
-} from "@verkfi/core-ui/src/app/tools/info";
+} from "@verkfi/core-ui/src/tools/info";
 import awaiter from "../reader/awaiter";
 import {
     lists
-} from "@verkfi/core-ui/src/app/index/sidebar";
+} from "@verkfi/core-ui/src/index/sidebar";
 import {
     globalList
-} from "@verkfi/core-ui/src/app/index/atoms";
+} from "@verkfi/core-ui/src/index/atoms";
 const toolsListAtom = atom(get => awaiter(
     get(listsAtom), (lists: lists) => awaiter(
         get(convertedExtensionsAtom), converted => awaiter(

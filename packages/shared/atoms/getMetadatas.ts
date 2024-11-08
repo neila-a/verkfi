@@ -1,9 +1,9 @@
 import {
     NXTMetadata as baseNXT
-} from "@verkfi/core-ui/src/app/setting/extensions/page";
+} from "@verkfi/core-ui/src/setting/extensions/page";
 import {
     noIconTool
-} from "@verkfi/core-ui/src/app/tools/info";
+} from "@verkfi/core-ui/src/tools/info";
 interface NXTMetadata extends baseNXT, noIconTool {
 }
 export default async function getMetadatas() {

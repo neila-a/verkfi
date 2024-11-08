@@ -1,9 +1,10 @@
 import {
+    mostUsedSelects,
     viewMode
-} from "@verkfi/core-ui/src/app/index/consts";
+} from "@verkfi/core-ui/src/index/consts";
 import {
     lists
-} from "@verkfi/core-ui/src/app/index/sidebar";
+} from "@verkfi/core-ui/src/index/sidebar";
 import atomWithStorage from "../reader/atomWithStorage";
 import isBrowser from "../isBrowser";
 import {
@@ -15,28 +16,27 @@ import extensionsAtom, {
 import toolsInfoAtom, {
     noIconTool,
     tool
-} from "@verkfi/core-ui/src/app/tools/info";
+} from "@verkfi/core-ui/src/tools/info";
 import {
     NXTMetadata
-} from "@verkfi/core-ui/src/app/setting/extensions/page";
+} from "@verkfi/core-ui/src/setting/extensions/page";
 import {
     setting
-} from "@verkfi/core-ui/src/app/setting/extensions/consts";
+} from "@verkfi/core-ui/src/setting/extensions/consts";
 import awaiter from "../reader/awaiter";
 import {
     globalList,
     listName,
     toolsAtom,
     toolsAtomUpdate
-} from "@verkfi/core-ui/src/app/index/atoms";
+} from "@verkfi/core-ui/src/index/atoms";
 import {
     RESET
 } from "jotai/utils";
 type mostUsedMarks = Record<string, number>;
 const viewModeAtomValue = atomWithStorage<viewMode>("viewmode", "list");
 export type sidebarMode = "menu" | "sidebar";
-export const mostUsedSelects = 3,
-    sidebarModeAtom = atomWithStorage<sidebarMode>("sidebarmode", "menu"),
+export const sidebarModeAtom = atomWithStorage<sidebarMode>("sidebarmode", "menu"),
     showSidebarAtom = atomWithStorage<boolean>("sidebar", false),
     showClientsAtom = atomWithStorage<boolean>("clients", false),
     forkMeOnGitHubAtom = atomWithStorage<boolean>("fork-me-on-github", false),

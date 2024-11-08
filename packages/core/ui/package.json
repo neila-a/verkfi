@@ -28,6 +28,7 @@
         "@emotion/cache": "^11.11.0",
         "@emotion/react": "^11.11.4",
         "@emotion/styled": "^11.11.5",
+        "@fontsource/ubuntu": "^5.1.0",
         "@hello-pangea/dnd": "^16.6.0",
         "@mui/material-nextjs": "^5.15.11",
         "@mui/system": "^5.15.20",

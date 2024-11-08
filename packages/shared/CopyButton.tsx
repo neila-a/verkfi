@@ -11,7 +11,6 @@ import {
     SxProps,
     Theme
 } from "@mui/material";
-import dynamic from "next/dynamic";
 import {
     useState
 } from "react";
@@ -19,7 +18,7 @@ import {
     get
 } from "react-intl-universal";
 import MouseOverPopover from "./Popover";
-const AlertDialog = dynamic(() => import("./dialog/Alert"));
+import AlertDialog from "./dialog/Alert";
 function CopyButton(props: {
     children: string;
     add?: ButtonOwnProps;

@@ -18,9 +18,6 @@ import img4 from "./image/4.svg";
 import img5 from "./image/5.svg";
 import img6 from "./image/6.svg";
 import {
-    StaticImageData
-} from "next/image";
-import {
     rotateAxis,
     rotateStep,
     randomAxis
@@ -38,8 +35,8 @@ export default function Cube(props: {
         stage = useRef<rotateAxis[]>([]),
         cacheStage = useRef<rotateAxis[]>([]),
         cishu = useRef(0),
-        materials = [img1, img2, img3, img4, img5, img6].map((img: StaticImageData) => new MeshPhongMaterial({
-            map: new TextureLoader().load(img.src),
+        materials = [img1, img2, img3, img4, img5, img6].map((img: string) => new MeshPhongMaterial({
+            map: new TextureLoader().load(img),
             color: 16777215
         })),
         cube = new BoxGeometry(cubeSize, cubeSize, cubeSize);

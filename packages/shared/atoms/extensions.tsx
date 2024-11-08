@@ -7,7 +7,7 @@ import atomWithInitialValue, {
 } from "../reader/atomWithInitialValue";
 import {
     NXTMetadata as baseNXT
-} from "@verkfi/core-ui/src/app/setting/extensions/page";
+} from "@verkfi/core-ui/src/setting/extensions/page";
 import getMetadatas from "./getMetadatas";
 import atomWithBroadcast from "../reader/atomWithBroadcast";
 import awaiter from "../reader/awaiter";
@@ -21,7 +21,7 @@ import {
 import {
     noIconTool,
     tool
-} from "@verkfi/core-ui/src/app/tools/info";
+} from "@verkfi/core-ui/src/tools/info";
 import atomWithEmpty from "../reader/atomWithEmpty";
 export interface extensionsDispatch extends NXTMetadata {
     action?: "delete"

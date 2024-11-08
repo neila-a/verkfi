@@ -20,7 +20,6 @@ import InputDialog from "@verkfi/shared/dialog/Input";
 import {
     saveAs
 } from "file-saver";
-import dynamic from "next/dynamic";
 import {
     get
 } from "react-intl-universal";
@@ -30,7 +29,7 @@ import {
 import {
     emptySymbol
 } from "@verkfi/shared/reader/atomWithStorage";
-const PureDialog = dynamic(() => import("@verkfi/shared/dialog/Pure"));
+import PureDialog from "@verkfi/shared/dialog/Pure";
 import {
     SpeechingWatershedWave
 } from "./consts";

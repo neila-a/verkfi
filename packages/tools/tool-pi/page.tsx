@@ -8,7 +8,6 @@ import {
     Typography
 } from "@mui/material";
 import CopyButton from "@verkfi/shared/CopyButton";
-import dynamic from "next/dynamic";
 import {
     useState
 } from "react";
@@ -16,7 +15,7 @@ import {
     get
 } from "react-intl-universal";
 import generatePis from "./generatePis";
-const AlertDialog = dynamic(() => import("@verkfi/shared/dialog/Alert"));
+import AlertDialog from "@verkfi/shared/dialog/Alert";
 function PI() {
     const [digits, setDigits] = useState(1),
         [useAlertShow, setUseAlertShow] = useState(false),

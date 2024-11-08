@@ -24,17 +24,16 @@ import {
 } from "jotai";
 import {
     repoInfo as repoInfoContext
-} from "@verkfi/core-ui/src/app/layout/layoutClient";
+} from "@verkfi/core-ui/src/layout/layoutClient";
 import {
     forkMeOnGitHubAtom as forkMeOnGitHubAtom,
     shareAtom as shareAtom,
     showClientsAtom,
     showSidebarAtom
 } from "./atoms";
-import Link from "next/link";
 import {
-    useRouter
-} from "next/navigation";
+    useNavigate
+} from "react-router-dom";
 import {
     CSSProperties,
     Fragment,
@@ -47,7 +46,10 @@ import {
 import MouseOverPopover from "./Popover";
 import {
     clientsAtom
-} from "@verkfi/core-ui/src/app/layout/atoms";
+} from "@verkfi/core-ui/src/layout/atoms";
+import {
+    Link
+} from "react-router-dom";
 export interface HeadBarOption {
     pageName: string;
     isIndex: boolean;
@@ -64,7 +66,7 @@ export interface HeadBarOption {
 export default function HeadBar(props: HeadBarOption) {
     const repoInfoName = useContext(repoInfoContext).name,
         forkMeOnGithub = useAtomValue(forkMeOnGitHubAtom),
-        router = useRouter(),
+        navigate = useNavigate(),
         clients = useAtomValue(clientsAtom),
         upper = repoInfoName.charAt(0).toUpperCase() + repoInfoName.slice(1),
         share = useAtomValue(shareAtom),
@@ -89,7 +91,7 @@ export default function HeadBar(props: HeadBarOption) {
                         <IconButton size="large" edge="start" color="inherit" aria-label={get("上一页")} sx={{
                             mr: 2
                         }} onClick={event => {
-                            router.back();
+                            navigate(-1);
                         }}>
                             <ArrowBack />
                         </IconButton>
@@ -154,7 +156,7 @@ export default function HeadBar(props: HeadBarOption) {
                     alignItems: "center",
                     ...noDrag
                 }}>
-                    <Link href="/setting/option" style={{
+                    <Link to="/setting/option" style={{
                         color: "inherit"
                     }}>
                         <MouseOverPopover text={get("设置")}>

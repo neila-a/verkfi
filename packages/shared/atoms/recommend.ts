@@ -1,12 +1,14 @@
-import toolsInfoAtom from "@verkfi/core-ui/src/app/tools/info";
+import toolsInfoAtom from "@verkfi/core-ui/src/tools/info";
 import {
     atomWithRefresh
 } from "jotai/utils";
 import awaiter from "../reader/awaiter";
 import {
-    mostUsedAtom,
-    mostUsedSelects
+    mostUsedAtom
 } from ".";
+import {
+    mostUsedSelects
+} from "index/consts";
 import {
     not
 } from "../TransferList";

@@ -11,7 +11,6 @@ import {
     RadioGroup
 } from "@mui/material";
 import LpLogger from "lp-logger";
-import dynamic from "next/dynamic";
 import {
     useId,
     useState
@@ -20,8 +19,8 @@ import {
     get
 } from "react-intl-universal";
 import table from "./table.json";
-const InputDialog = dynamic(() => import("@verkfi/shared/dialog/Input"));
-const AlertDialog = dynamic(() => import("@verkfi/shared/dialog/Alert"));
+import InputDialog from "@verkfi/shared/dialog/Input";
+import AlertDialog from "@verkfi/shared/dialog/Alert";
 const logger = new LpLogger({
     name: "CountLetter",
     level: "log" // 空字符串时，不显示任何信息
