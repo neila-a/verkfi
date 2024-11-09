@@ -11,4 +11,4 @@ const ImageTypesGen = [
     "sepia",
     "shadow"
 ] as const;
-export default [...ImageTypesGen] as ImageType[];
+export default ImageTypesGen.slice(0) as ImageType[];

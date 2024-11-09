@@ -17,18 +17,22 @@ import {
 } from "victory";
 import Editor from "@verkfi/shared/Editor";
 import range from "@verkfi/shared/range";
+/**
+ * 仅作为标识
+ */
+declare const executingReturn: symbol;
 const defaultTimes = 10;
 export default function Probability() {
-    const [datas, setDatas] = useState<Map<any, number>>(new Map()),
+    const [datas, setDatas] = useState<Map<typeof executingReturn, number>>(new Map()),
         [times, setTimes] = useState(defaultTimes),
-        objectData = useMemo(() => [...datas.entries()].map(data => ({
+        objectData = useMemo(() => datas.entries().map(data => ({
             x: data[0],
             y: data[1]
-        })), [datas]);
+        })).toArray(), [datas]);
     return (
         <Editor run={code => {
             const executing = new Function(code),
-                dataArray = [...range(times - 1)].map(() => executing()),
+                dataArray = range(times - 1).map(() => executing() as typeof executingReturn),
                 map = new Map(dataArray.map(data => [data, 0]));
             dataArray.forEach(data => {
                 map.set(data, (map.get(data) as number) + 1);

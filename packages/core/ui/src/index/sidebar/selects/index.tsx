@@ -139,8 +139,8 @@ export default function Selects(props: {
                     return;
                 }
                 if (editMode) {
-                    const listArray = [...list.entries()],
-                        newLists = reorderArray(list, result.source.index, result.destination.index) as typeof listArray;
+                    const listArray = list.entries().toArray(),
+                        newLists = reorderArray(listArray, result.source.index, result.destination.index) as typeof listArray;
                     return startTransition(() => setList(new Map(newLists)));
                 }
             }}>
@@ -148,23 +148,19 @@ export default function Selects(props: {
                     {provided => <Box ref={provided.innerRef} {...provided.droppableProps} sx={{
                         display: props.isSidebar ? "" : "flex"
                     }}>
-                        {[...list.keys()].filter(value => value !== globalList).map(a => JSON.stringify(a)).map((value, index) => {
-                            return createElement(
-                                editMode ? (props: {
-                                    children: ReactNode;
-                                }) => {
-                                    return <Draggable draggableId={value} index={index} key={value}>
-                                        {provided => <Box ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                            {props.children}
-                                        </Box>}
-                                    </Draggable>;
-                                } : Fragment,
-                                {
-                                    key: value
-                                },
-                                <RealSelect single={value} isAll={false} />
-                            );
-                        })}
+                        {list.keys().filter(value => value !== globalList).map(a => JSON.stringify(a)).map((value, index) => createElement(
+                            editMode ? (props: {
+                                children: ReactNode;
+                            }) => <Draggable draggableId={value} index={index} key={value}>
+                                    {provided => <Box ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                        {props.children}
+                                    </Box>}
+                                </Draggable> : Fragment,
+                            {
+                                key: value
+                            },
+                            <RealSelect single={value} isAll={false} />
+                        ))}
                         {provided.placeholder}
                     </Box>
                     }

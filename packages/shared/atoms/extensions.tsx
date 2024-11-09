@@ -69,7 +69,7 @@ export const [extensionsAtom, extensionsAtomValue] = atomWithInitialValue(
                     // atom更新
                     const map = new Map(old.map(one => [one.to, one]));
                     map.set(update.to, update);
-                    set(valueAtom, [...map.values()]);
+                    set(valueAtom, map.values().toArray());
                 }
             },
             valueAtom

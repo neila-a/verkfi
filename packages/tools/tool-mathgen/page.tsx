@@ -41,7 +41,7 @@ function MathGen() {
             "+",
             "-"
         ]),
-        calcMath = () => setMath([...new Set(calcs.map(mode => {
+        calcMath = () => setMath(new Set(calcs.map(mode => {
             const modeS = mode.replace("×", "*").replace("÷", "/");
             function genMathS(): [number, number, number] {
                 const one = genNumber(max, min);
@@ -60,7 +60,7 @@ function MathGen() {
                 }
                 return [one, two, created.evaluate(`${one} ${modeS} ${two}`)];
             }
-            return [...range(itemCount / calcs.length - 1, 1)].map(step => {
+            return range(itemCount / calcs.length - 1, 1).map(step => {
                 let [one, two, out] = genMathS(),
                     math = `${one}${mode}${two}=${out}`;
                 function reGenMath() {
@@ -71,8 +71,8 @@ function MathGen() {
                     reGenMath();
                 }
                 return math;
-            });
-        })).keys()].flat(1));
+            }).toArray();
+        })).keys().toArray().flat(1));
     useEffect(calcMath, [min, max, itemCount, calcs, subtractionCheck, divisionCheck]);
     return (
         <>

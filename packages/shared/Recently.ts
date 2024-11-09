@@ -21,7 +21,7 @@ export default class Recently<T> extends Set<T> {
         this.max = max;
     }
     get() {
-        return [...super.entries()].map(item => item[1]);
+        return super.entries().map(item => item[1]).toArray();
     }
     override add(name: T) {
         super.add(name);

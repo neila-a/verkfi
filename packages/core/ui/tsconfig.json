@@ -7,6 +7,9 @@
             "esnext",
             "WebWorker"
         ],
+        "types": [
+            "vite/client"
+        ],
         "allowJs": true,
         "skipLibCheck": true,
         "strict": false,

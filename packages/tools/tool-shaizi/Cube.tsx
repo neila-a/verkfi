@@ -60,7 +60,7 @@ export default function Cube(props: {
             <camera ref={camera} position={[cameraPosition, cameraPosition, cameraPosition]} />
             <mesh ref={mesh} args={[cube, materials]} onClick={event => {
                 if (stage.current.length === 0) {
-                    const oldStage = [...range(props.cishu - 1)].map(() => randomAxis());
+                    const oldStage = range(props.cishu - 1).map(() => randomAxis()).toArray();
                     cacheStage.current = oldStage;
                     stage.current = oldStage;
                 }

@@ -41,7 +41,7 @@ export default function EditCategoryDialog(props: {
         [dialogListName, setDialogListName] = useAtom(categoryDialogListNameAtom),
         [dialogTools, setDialogTools] = useAtom(categoryDialogToolsAtom),
         [list, setList] = useAtom(listsAtom),
-        edit = (forList: lists) => [...forList.keys()].some(single => single === dialogListName),
+        edit = (forList: lists) => forList.keys().some(single => single === dialogListName),
         createOrEdit = !edit(list) ? get("category.创建分类") : get("category.编辑分类"),
         converted = useAtomValue(convertedExtensionsAtom),
         toolsList = useAtomValue(toolsListAtom),

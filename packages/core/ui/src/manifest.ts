@@ -1,8 +1,4 @@
 import pack from "../../../../package.json";
-import type {
-    VitePWA
-} from "vite-plugin-pwa";
-type ManifestOptions = Exclude<Parameters<typeof VitePWA>[0]["manifest"], false>;
 export default function manifest() {
     const upper = pack.name.charAt(0).toUpperCase() + pack.name.slice(1);
     return {
@@ -90,5 +86,5 @@ export default function manifest() {
                 label: "Home of Verkfi"
             }
         ]
-    } as ManifestOptions;
+    };
 }

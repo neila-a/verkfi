@@ -109,7 +109,7 @@ export default function TransferList(props: {
     function handleToggle(value: string) {
         return () => {
             const currentIndex = checked.indexOf(value);
-            const newChecked = [...checked];
+            const newChecked = checked.slice(0);
             if (currentIndex === -1) {
                 newChecked.push(value);
             } else {

@@ -3,7 +3,6 @@ import {
     devVersion,
     version
 } from "../../../package.json";
-import pages from "@verkfi/core-ui/src/pages.json";
 import onFetch from "./onFetch";
 import onMessage from "./onMessage";
 declare const self: ServiceWorkerGlobalScope;
@@ -13,18 +12,7 @@ export const Cache = `Verkfi-${version}-${dev ? `dev${devVersion}` : "prod"}`,
         ...texts
     );
 log(`版本为${Cache}`);
-self.addEventListener("install", async event => event.waitUntil((async () => {
-    const openedCache = await caches.open(Cache);
-    try {
-        await openedCache.addAll([
-            "/manifest.webmanifest",
-            "/sitemap.xml"
-        ].concat(pages));
-    } catch (error) {
-        console.error(error);
-    }
-    self.skipWaiting();
-})()));
+self.addEventListener("install", async event => event.waitUntil(self.skipWaiting()));
 self.addEventListener("activate", event => event.waitUntil((async () => {
     const keylist = await caches.keys();
     keylist.filter(key => {
