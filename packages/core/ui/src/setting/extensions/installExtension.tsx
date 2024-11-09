@@ -58,7 +58,6 @@ export default function DirectInstall() {
         files = dir.map(readInternal).flat(1),
         extensionTools = useAtomValue(extensionsAtom),
         dialogType: inputTypes = extensionTools.some(item => item.to === main.to) ? "modify" : "add";
-        debugger
     return (
         <PureDialog action={(
             <DialogButtons

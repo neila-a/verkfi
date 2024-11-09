@@ -2,10 +2,11 @@ import {
     defineConfig
 } from "vite";
 import react from "@vitejs/plugin-react";
-
 // https://vite.dev/config/
 export default defineConfig({
-    plugins: [react()],
+    plugins: [
+        react()
+    ],
     root: ".",
     resolve: {
         alias: {
@@ -26,6 +27,6 @@ export default defineConfig({
             setting: "/packages/core/ui/src/setting",
             sitemap: "/packages/core/ui/src/sitemap.ts",
             tools: "/packages/core/ui/src/tools"
-        },
+        }
     }
 });

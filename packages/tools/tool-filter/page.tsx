@@ -38,7 +38,7 @@ const initialScale = 100,
 export default function Filter() {
     const [imageArray, setImageArray] = useState<FilePondFile[]>([]),
         [imageFileName, setImageFileName] = useState("libear-only"),
-        [imageURL, setImageURL] = useBlobState(libearOnly.src),
+        [imageURL, setImageURL] = useBlobState(libearOnly),
         [imageTypes, setImageTypes] = useState<ImageType[]>(ImageTypesGen),
         [scale, setScale] = useState(initialScale),
         sizeId = useId(),

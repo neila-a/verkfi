@@ -38,7 +38,8 @@ import {
     CSSProperties,
     Fragment,
     startTransition,
-    useContext
+    useContext,
+    useEffect
 } from "react";
 import {
     get
@@ -76,6 +77,9 @@ export default function HeadBar(props: HeadBarOption) {
             // @ts-ignore React的CSSProperties中明明有WebkitAppRegion，但是类型中没有
             WebkitAppRegion: "no-drag"
         };
+    useEffect(() => {
+        document.title = props.isIndex ? upper : `${props.pageName} | ${upper}`
+    }, []);
     return !props.only && <>
         <AppBar position="fixed" sx={{
             WebkitAppRegion: "drag",
@@ -135,9 +139,6 @@ export default function HeadBar(props: HeadBarOption) {
                     </MouseOverPopover>
 
                 )}
-                <title>
-                    {props.isIndex ? upper : `${props.pageName} | ${upper}`}
-                </title>
                 {share && <MouseOverPopover text={get("share.t")}>
                     <IconButton onClick={async event => {
                         if ("share" in navigator) {

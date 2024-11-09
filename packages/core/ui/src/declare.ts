@@ -1,13 +1,7 @@
-import type {
-    URLPattern as _URLPattern
-} from "next/server";
-
 /**
  * 全局属性
  */
 declare global {
-    class URLPattern extends _URLPattern { }
-    type URLPatternResult = Exclude<ReturnType<URLPattern["exec"]>, null>;
     interface Window {
 
         /**
@@ -19,6 +13,47 @@ declare global {
             new(): SpeechRecognition;
         };
 
+    }
+
+    class URLPattern {
+        constructor(init?: URLPatternInput, baseURL?: string);
+        test(input?: URLPatternInput, baseURL?: string): boolean;
+        exec(input?: URLPatternInput, baseURL?: string): URLPatternResult | null;
+        readonly protocol: string;
+        readonly username: string;
+        readonly password: string;
+        readonly hostname: string;
+        readonly port: string;
+        readonly pathname: string;
+        readonly search: string;
+        readonly hash: string;
+    }
+    type URLPatternInput = URLPatternInit | string;
+    interface URLPatternInit {
+        baseURL?: string;
+        username?: string;
+        password?: string;
+        protocol?: string;
+        hostname?: string;
+        port?: string;
+        pathname?: string;
+        search?: string;
+        hash?: string;
+    }
+    interface URLPatternResult {
+        inputs: [URLPatternInput];
+        protocol: URLPatternComponentResult;
+        username: URLPatternComponentResult;
+        password: URLPatternComponentResult;
+        hostname: URLPatternComponentResult;
+        port: URLPatternComponentResult;
+        pathname: URLPatternComponentResult;
+        search: URLPatternComponentResult;
+        hash: URLPatternComponentResult;
+    }
+    interface URLPatternComponentResult {
+        input: string;
+        groups: Record<string, string | undefined>;
     }
     /**
      * The BeforeInstallPromptEvent is fired at the Window.onbeforeinstallprompt handler

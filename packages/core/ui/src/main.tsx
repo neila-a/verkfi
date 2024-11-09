@@ -1,7 +1,6 @@
 import {
     createRoot
 } from "react-dom/client";
-import DirectInstall from "installExtension";
 import {
     createBrowserRouter,
     RouterProvider
@@ -11,6 +10,7 @@ import {
 } from "react";
 /* existing imports */
 import Error from "error";
+import DirectInstall from "setting/extensions/installExtension";
 import Layout from "layout/layout";
 import SettingsLayout from "setting/layout";
 import ToolsLayout from "tools/layout";

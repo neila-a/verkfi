@@ -36,6 +36,9 @@ namespace testPaths {
         rsc = new URLPattern({
             search: "?_rsc=:rsc"
         }),
+        manifest = new URLPattern({
+            pathname: "/manifest.webmanifest"
+        }),
         installExtension = new URLPattern({
             pathname: "/installExtension"
         });

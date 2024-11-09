@@ -1,11 +1,9 @@
-import pack from "../package.json";
-import favicon310x310 from "./image/favicon.310x310.png";
-import favicon512x512 from "./image/favicon.512x512.png";
-import maskableIcon from "./image/maskable_icon.png";
-import settingIcon from "./image/settings.png";
-import narrowHomepage from "./image/screenshots/narrow_homepage.png";
-import wideHomepage from "./image/screenshots/wide_homepage.png";
-export default async function manifest() {
+import pack from "../../../../package.json";
+import type {
+    VitePWA
+} from "vite-plugin-pwa";
+type ManifestOptions = Exclude<Parameters<typeof VitePWA>[0]["manifest"], false>;
+export default function manifest() {
     const upper = pack.name.charAt(0).toUpperCase() + pack.name.slice(1);
     return {
         name: upper,
@@ -21,19 +19,19 @@ export default async function manifest() {
         },
         icons: [
             {
-                src: favicon310x310.src,
+                src: "image/favicon.310x310.png",
                 sizes: "310x310",
                 type: "image/png",
                 purpose: "any"
             },
             {
-                src: favicon512x512.src,
+                src: "/image/favicon.512x512.png",
                 sizes: "512x512",
                 type: "image/png",
                 purpose: "any"
             },
             {
-                src: maskableIcon.src,
+                src: "/image/maskable_icon.png",
                 sizes: "731x731",
                 type: "image/png",
                 purpose: "maskable"
@@ -47,7 +45,7 @@ export default async function manifest() {
                 url: "/setting/option",
                 icons: [
                     {
-                        src: settingIcon.src,
+                        src: "/image/settings.png",
                         sizes: "96x96"
                     }
                 ]
@@ -78,19 +76,19 @@ export default async function manifest() {
         },
         screenshots: [
             {
-                src: narrowHomepage.src,
+                src: "/image/screenshots/narrow_homepage.png",
                 sizes: "430x933",
                 type: "image/png",
                 form_factor: "narrow",
                 label: "Home of Verkfi"
             },
             {
-                src: wideHomepage.src,
+                src: "/image/screenshots/wide_homepage.png",
                 sizes: "1505x782",
                 type: "image/png",
                 form_factor: "wide",
                 label: "Home of Verkfi"
             }
         ]
-    };
+    } as ManifestOptions;
 }

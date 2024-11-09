@@ -1,7 +1,6 @@
 import {
     Box,
-    GlobalStyles,
-    Typography
+    GlobalStyles
 } from "@mui/material";
 import "@fontsource/ubuntu/300.css";
 import "@fontsource/ubuntu/400.css";
@@ -14,64 +13,36 @@ import {
 import BaseLayout from "layout/layoutClient";
 import Loading from "loading";
 import {
-    Suspense
+    Suspense,
+    useEffect
 } from "react";
-import pack from "../../package.json";
+import pack from "../../../../../package.json";
 import favicon from "image/favicon.png";
 import social from "image/social.png";
-import getHomePage from "layout/getHomepage";
 import {
     Outlet
 } from "react-router";
-export function generateMetadata() {
-    const url = getHomePage(),
-        upperName = pack.name.charAt(0).toUpperCase() + pack.name.slice(1);
-    return {
-        manifest: "/manifest.webmanifest",
-        metadataBase: url,
-        description: pack.description,
-        applicationName: upperName,
-        other: {
-            "msapplication-tooltip": upperName,
-            "msapplication-navbutton-color": "#1976d2",
-            "msapplication-starturl": "/"
-        },
-        icons: favicon.src,
-        appleWebApp: {
-            title: upperName
-        },
-        title: {
-            default: upperName,
-            template: `%s | ${upperName}`
-        },
-        openGraph: {
-            title: upperName,
-            description: pack.description,
-            url: pack.homepage,
-            siteName: upperName,
-            images: [
-                {
-                    url: social.src,
-                    width: 1280,
-                    height: 640
-                }
-            ],
-            locale: "zh_CN",
-            alternateLocale: [
-                "zh_TW",
-                "en_US"
-            ]
-        },
-        authors: pack.author
-    };
-}
-export function generateViewport() {
-    return {
-        themeColor: "#1976d2",
-        colorScheme: "light dark"
-    };
+function updateMetadata() {
+    const upperName = pack.name.charAt(0).toUpperCase() + pack.name.slice(1);
+    function replaceMeta(a: string, content: string) {
+        const element = document.querySelector(`meta[${a}]`) as HTMLMetaElement;
+        element.content = content;
+    }
+    
+    replaceMeta("name=description", pack.description);
+    replaceMeta("name=author", pack.author.name);
+    
+    replaceMeta("property=og\\:title", upperName);
+    replaceMeta("property=og\\:description", pack.description);
+    replaceMeta("property=og\\:url", pack.homepage);
+    replaceMeta("property=og\\:site_name", upperName);
+    replaceMeta("property=og\\:image", social);
+
+    const link = document.querySelector("link[rel=icon]") as HTMLLinkElement;
+    link.href = favicon;
 }
 export default function Layout() {
+    useEffect(updateMetadata, []);
     return (
         <Box sx={{
             minHeight: "100vh"
