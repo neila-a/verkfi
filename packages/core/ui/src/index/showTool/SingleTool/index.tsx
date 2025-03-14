@@ -31,7 +31,7 @@ export default function SingleTool(props: globalProps) {
         <ButtonBase key={props.tool.to} component="section" sx={{
             width: viewMode === "grid" ? gridWidth : fullWidth
         }}>
-            <ScopeProvider atoms={[atoms.jump, atoms.dialogOpen.jump]}>
+            <ScopeProvider atoms={[atoms.jump, atoms.dialogOpen.jump, atoms.elevation]}>
                 {viewMode === "grid" ? <SingleToolInGridMode {...props} /> : <SingleToolInListMode {...props} />}
                 <SingleToolJumpDialog />
             </ScopeProvider>

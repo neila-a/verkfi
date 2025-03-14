@@ -17,7 +17,6 @@ import {
 import atomWithInitialValue, {
     valueAtomReturn
 } from "@verkfi/shared/reader/atomWithInitialValue";
-import awaiter from "@verkfi/shared/reader/awaiter";
 import atomWithEmpty from "@verkfi/shared/reader/atomWithEmpty";
 export type toolsAtomUpdate = tool[] | typeof RESET | `remove ${string}`;
 export type listName = string | typeof globalList;
@@ -34,34 +33,33 @@ export const
     showRecommendsAtom = atom(false),
     [toolsAtom, toolsAtomValue] = atomWithInitialValue(
         (valueAtom: valueAtomReturn<tool[]>) => atomWithEmpty(
-            get => awaiter(get(toolsListAtom), list => list),
-            (get, set, update: toolsAtomUpdate) => awaiter(
-                get(toolsListAtom), list => {
-                    function publicIfEmpty() {
-                        if (value === emptySymbol) {
-                            if (list) {
-                                return set(valueAtom, list);
-                            }
-                            return set(valueAtom, []);
-                        }
-                    }
-                    const value = get(valueAtom);
-                    if (update === RESET) {
-                        publicIfEmpty();
+            get => get(toolsListAtom),
+            async (get, set, update: toolsAtomUpdate) => {
+                const list = await get(toolsListAtom);
+                function publicIfEmpty() {
+                    if (value === emptySymbol) {
                         if (list) {
-                            set(valueAtom, list);
+                            return set(valueAtom, list);
                         }
-                    } else if (typeof update === "string") {
-                        publicIfEmpty();
-                        const removing = update.replace("remove ", "");
-                        set(valueAtom, (value as tool[]).filter(a => a.to !== removing));
-                    } else {
-                        set(valueAtom, update);
+                        return set(valueAtom, []);
                     }
                 }
-            ),
+                const value = get(valueAtom);
+                if (update === RESET) {
+                    publicIfEmpty();
+                    if (list) {
+                        set(valueAtom, list);
+                    }
+                } else if (typeof update === "string") {
+                    publicIfEmpty();
+                    const removing = update.replace("remove ", "");
+                    set(valueAtom, (value as tool[]).filter(a => a.to !== removing));
+                } else {
+                    set(valueAtom, update);
+                }
+            },
             valueAtom
-        ) as WritableAtom<tool[], [update: toolsAtomUpdate], void | Promise<void>>
+        ) as WritableAtom<Promise<tool[]>, [update: toolsAtomUpdate], void | Promise<void>>
     ),
     [sortingForAtom, sortingForAtomValue] = atomWithInitialValue((valueAtom: valueAtomReturn<sorting>) => atom(get => (isImplant: boolean) => {
         const value = get(valueAtom);
@@ -76,9 +74,7 @@ export const
         set(valueAtom, update);
     })),
     [sortedToolsAtom, sortedToolsAtomValue] = atomWithInitialValue(valueAtom => atomWithEmpty(
-        get => awaiter(
-            get(toolsListAtom), list => list
-        ),
+        get => get(toolsListAtom),
         (get, set, update: tool[]) => {
             set(valueAtom, update);
         },
@@ -86,15 +82,14 @@ export const
     )),
     [searchTextAtom, searchTextAtomValue] = atomWithInitialValue((valueAtom: PrimitiveAtom<string>) => atom(
         get => get(valueAtom),
-        (get, set, search: string, isImplant: boolean) => {
+        async (get, set, search: string, isImplant: boolean) => {
             set(editingAtom, search === "");
             if (get(sortingForAtom)(isImplant) === homeList) {
                 set(sortingForAtom, globalList);
             }
             set(valueAtom, search);
-            awaiter(
-                get(sortedToolsAtom), sortedTools => set(toolsAtom, searchBase(sortedTools, search))
-            );
+            const sortedTools = await get(sortedToolsAtom);
+            set(toolsAtom, searchBase(sortedTools, search));
         }
     ), ""),
     [editingAtom, editingAtomValue] = atomWithInitialValue(valueAtom => atomWithEmpty(

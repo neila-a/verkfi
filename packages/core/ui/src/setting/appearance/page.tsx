@@ -9,7 +9,6 @@ import {
     Button,
     Grid,
     InputLabel,
-    PaletteMode,
     Paper,
     useColorScheme
 } from "@mui/material";

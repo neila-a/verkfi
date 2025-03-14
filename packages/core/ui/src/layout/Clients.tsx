@@ -104,7 +104,9 @@ export default function Clients() {
             <DialogContent dividers sx={{
                 maxHeight: "100%"
             }}>
-                <Suspense fallback={<Loading />}>
+                <Suspense fallback={<Loading>
+                    Client
+                </Loading>}>
                     <ClientsContent />
                 </Suspense>
             </DialogContent>

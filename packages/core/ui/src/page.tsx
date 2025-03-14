@@ -43,11 +43,13 @@ import {
 } from "index/consts";
 import Recommends from "index/recommends";
 import {
+    Suspense,
     useContext
 } from "react";
 import {
     repoInfo as repoInfoContext
 } from "layout/layoutClient";
+import Loading from "loading";
 export default function Index(props: {
     /**
      * 是否为嵌入
@@ -79,67 +81,79 @@ export default function Index(props: {
     }
     return (props.isImplant ? showSidebar : true) && <isImplantContext.Provider value={Boolean(props.isImplant)}>
         <Box>
-            {props.isImplant !== true && <HeadBar isIndex pageName={repoInfo.name} sx={{
-                zIndex: theme => String((theme as ThemeHaveZIndex).zIndex.drawer + 1)
-            }} />}
-            <Sidebar
-                focusingTo={focusingTo}
-            />
-            {sortingFor === homeList || baseSortingFor === homeList ? <Box sx={{
-                p: 3,
-                ml: props.isImplant ? "" : `${drawerWidth}px`
-            }}>
-                <Box sx={{
-                    paddingBottom: 3,
-                    width: "100%",
-                    textAlign: "center"
+            {props.isImplant !== true && <Suspense fallback={<Loading>
+                HeadBar
+            </Loading>}>
+                <HeadBar isIndex pageName={repoInfo.name} sx={{
+                    zIndex: theme => String((theme as ThemeHaveZIndex).zIndex.drawer + 1)
+                }} />
+            </Suspense>}
+            <Suspense fallback={<Loading>
+                Sidebar
+            </Loading>}>
+                <Sidebar
+                    focusingTo={focusingTo}
+                />
+            </Suspense>
+            <Suspense fallback={<Loading>
+                Content
+            </Loading>}>
+                {sortingFor === homeList || baseSortingFor === homeList ? <Box sx={{
+                    p: 3,
+                    ml: props.isImplant ? "" : `${drawerWidth}px`
                 }}>
-                    <MouseOverPopover text={get("index.generateTry")}>
-                        <IconButton aria-label={get("index.generateTry")} onClick={event => {
-                            setShowRecommends(old => !old);
+                    <Box sx={{
+                        paddingBottom: 3,
+                        width: "100%",
+                        textAlign: "center"
+                    }}>
+                        <MouseOverPopover text={get("index.generateTry")}>
+                            <IconButton aria-label={get("index.generateTry")} onClick={event => {
+                                setShowRecommends(old => !old);
+                            }}>
+                                <VerkfiIcon sx={{
+                                    fontSize: "40vw"
+                                }} />
+                            </IconButton>
+                        </MouseOverPopover>
+                    </Box>
+                    <Recommends />
+                    <Box>
+                        <Typography variant="h4">
+                            {get("use.最近使用")}
+                        </Typography>
+                        <Box sx={{
+                            p: 1
                         }}>
-                            <VerkfiIcon sx={{
-                                fontSize: "40vw"
-                            }} />
-                        </IconButton>
-                    </MouseOverPopover>
-                </Box>
-                <Recommends />
-                <Box>
-                    <Typography variant="h4">
-                        {get("use.最近使用")}
-                    </Typography>
-                    <Box sx={{
-                        p: 1
-                    }}>
-                        <ToolsStackWithTools paramTool={recentlyTools.filter(item => item !== undefined)} />
+                            <ToolsStackWithTools paramTool={recentlyTools.filter(item => item !== undefined)} />
+                        </Box>
                     </Box>
-                </Box>
-                <Box>
-                    <Typography variant="h4">
-                        {get("use.最常使用")}
-                    </Typography>
-                    <Box sx={{
-                        p: 1
-                    }}>
-                        <ToolsStackWithTools
-                            paramTool={mostUsed}
-                        />
+                    <Box>
+                        <Typography variant="h4">
+                            {get("use.最常使用")}
+                        </Typography>
+                        <Box sx={{
+                            p: 1
+                        }}>
+                            <ToolsStackWithTools
+                                paramTool={mostUsed}
+                            />
+                        </Box>
                     </Box>
-                </Box>
-            </Box> : props.isImplant ? expand && <Drawer anchor="left" variant="permanent" sx={{
-                flexShrink: 0,
-                [`& .MuiDrawer-paper`]: {
-                    position: "absolute",
-                    left: drawerWidth,
-                    maxWidth: `calc(100vw - ${drawerWidth}px)`,
-                    width: 320,
-                    boxSizing: "border-box"
-                }
-            }}>
-                <Toolbar />
-                <Tools />
-            </Drawer> : <Tools />}
+                </Box> : props.isImplant ? expand && <Drawer anchor="left" variant="permanent" sx={{
+                    flexShrink: 0,
+                    [`& .MuiDrawer-paper`]: {
+                        position: "absolute",
+                        left: drawerWidth,
+                        maxWidth: `calc(100vw - ${drawerWidth}px)`,
+                        width: 320,
+                        boxSizing: "border-box"
+                    }
+                }}>
+                    <Toolbar />
+                    <Tools />
+                </Drawer> : <Tools />}
+            </Suspense>
         </Box>
     </isImplantContext.Provider>;
 }

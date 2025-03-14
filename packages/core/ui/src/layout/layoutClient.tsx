@@ -7,15 +7,13 @@ import {
     ThemeProvider
 } from "@mui/material/styles";
 import {
-    repoInfo as repoInfoType
-} from "@verkfi/shared/getRepoInfo";
-import {
     useAtomValue
 } from "jotai";
 import LpLogger from "lp-logger";
 import {
-    ReactNode,
+    Suspense,
     createContext,
+    lazy,
     useEffect
 } from "react";
 import {
@@ -45,12 +43,16 @@ import {
 import {
     expandAtom
 } from "index/atoms";
-import Index from "page";
-import Menu from "./Menu";
+const Index = lazy(() => import("page"));
+const Menu = lazy(() => import("./Menu"));
 import {
     useSearchParams,
     useLocation
 } from "react-router-dom";
+import {
+    Outlet
+} from "react-router";
+import Loading from "loading";
 export const locales = {
     enUS,
     zhCN,
@@ -60,9 +62,9 @@ export const logger = new LpLogger({
     name: "Verkfi",
     level: "log" // 空字符串时，不显示任何信息
 });
+type repoInfoType = typeof import("../../../../../package.json");
 export const repoInfo = createContext<repoInfoType>(null);
 export default function ModifiedApp(props: {
-    children: ReactNode;
     repoInfo: repoInfoType;
 }) {
     const theme = useAtomValue(themeAtom),
@@ -91,7 +93,11 @@ export default function ModifiedApp(props: {
                 <Clients />
             </Box>
             <Box component="main" ml={showSidebarValue && sidebarModeValue === "sidebar" && ml}>
-                {props.children}
+                <Suspense fallback={<Loading>
+                    Layout
+                </Loading>}>
+                    <Outlet />
+                </Suspense>
             </Box>
         </ThemeProvider>
     </repoInfo.Provider>;

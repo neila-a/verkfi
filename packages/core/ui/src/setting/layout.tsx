@@ -104,7 +104,9 @@ export default function Settings() {
                 p: 3
             }}>
                 <ErrorBoundary>
-                    <Suspense fallback={<Loading />}>
+                    <Suspense fallback={<Loading>
+                        SettingsLayout
+                    </Loading>}>
                         <Outlet />
                     </Suspense>
                 </ErrorBoundary>

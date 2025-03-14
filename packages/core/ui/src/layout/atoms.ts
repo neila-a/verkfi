@@ -17,13 +17,12 @@ export const clientsAtom = atomWithRefresh(get => new Promise<clientBase[]>(reso
         resolve(event.data as clientBase[]);
     };
     try {
-        navigator?.serviceWorker?.controller?.postMessage?.({
+        navigator.serviceWorker.controller.postMessage({
             action: "getClients"
         } as message, [channel.port2]);
-    } catch {}
+    } catch {
+        resolve([]);
+    }
 })),
     searchTextAtom = atom(""),
-    /**
-     * `clientsAtom`一定是`Promise`，不需要使用`awaiter`
-     */
     filteredClientsAtom = atom(get => get(clientsAtom).then(clients => clients.filter(client => client.url.includes(get(searchTextAtom)))));

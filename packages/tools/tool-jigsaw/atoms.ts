@@ -8,7 +8,9 @@ import {
     initialSize,
     jigsaw
 } from "./consts";
-import atomWithStorage from "@verkfi/shared/reader/atomWithStorage";
+import {
+    atomWithStorage
+} from "jotai/utils";
 import range from "@verkfi/shared/range";
 import canvasToBlob from "./canvasToBlob";
 namespace atoms {
@@ -24,7 +26,7 @@ namespace atoms {
     export namespace jigsaws {
         export const all = atomWithStorage<Record<string, jigsaw>>("jigsaws", {
         }),
-            selected = atom(async get => (await get(all))[await get(image.fileKey)]),
+            selected = atom(async get => get(all)[await get(image.fileKey)]),
             movinger = atom(null, async (get, set, jigsaw: jigsaw, rowIndex: number, columnIndex: number) => {
                 const addingJigsaw: jigsaw = {
                     ...jigsaw,

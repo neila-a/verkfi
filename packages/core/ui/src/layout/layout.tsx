@@ -11,27 +11,22 @@ import {
     Provider
 } from "jotai";
 import BaseLayout from "layout/layoutClient";
-import Loading from "loading";
 import {
-    Suspense,
     useEffect
 } from "react";
 import pack from "../../../../../package.json";
 import favicon from "image/favicon.png";
 import social from "image/social.png";
-import {
-    Outlet
-} from "react-router";
 function updateMetadata() {
     const upperName = pack.name.charAt(0).toUpperCase() + pack.name.slice(1);
     function replaceMeta(a: string, content: string) {
         const element = document.querySelector(`meta[${a}]`) as HTMLMetaElement;
         element.content = content;
     }
-    
+
     replaceMeta("name=description", pack.description);
     replaceMeta("name=author", pack.author.name);
-    
+
     replaceMeta("property=og\\:title", upperName);
     replaceMeta("property=og\\:description", pack.description);
     replaceMeta("property=og\\:url", pack.homepage);
@@ -64,11 +59,7 @@ export default function Layout() {
                 }
             }} />
             <Provider>
-                <Suspense fallback={<Loading />}>
-                    <BaseLayout repoInfo={pack}>
-                        <Outlet />
-                    </BaseLayout>
-                </Suspense>
+                <BaseLayout repoInfo={pack} />
             </Provider>
         </Box>
     );

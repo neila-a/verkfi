@@ -10,7 +10,6 @@ import {
 } from "@verkfi/core-ui/src/setting/extensions/page";
 import getMetadatas from "./getMetadatas";
 import atomWithBroadcast from "../reader/atomWithBroadcast";
-import awaiter from "../reader/awaiter";
 import {
     SvgIcon
 } from "@mui/material";
@@ -73,7 +72,7 @@ export const [extensionsAtom, extensionsAtomValue] = atomWithInitialValue(
                 }
             },
             valueAtom
-        ) as unknown as WritableAtom<NXTMetadata[], [update: extensionsDispatch], void>;
+        ) as unknown as WritableAtom<NXTMetadata[] | Promise<NXTMetadata[]>, [update: extensionsDispatch], Promise<void>>;
         return atomWithBroadcast(
             get => get(withedEmpty),
             (get, set, update: extensionsDispatch) => set(withedEmpty, update),
@@ -81,8 +80,9 @@ export const [extensionsAtom, extensionsAtomValue] = atomWithInitialValue(
         );
     }
 );
-export const convertedExtensionsAtom = atom(get => awaiter(
-    get(extensionsAtom), extensionTools => extensionTools.map(single => {
+export const convertedExtensionsAtom = atom(async get => {
+    const extensions = await get(extensionsAtom);
+    return extensions.map(single => {
         // 这里的图片是直接从indexedDB加载来的，不需要且不能使用next/image的优化
         // eslint-disable-next-line @next/next/no-img-element
         const element = () => <img src={`https://${single.to}.verkfi/${single.icon}`} alt={single.name} height={24} width={24} />;
@@ -95,7 +95,7 @@ export const convertedExtensionsAtom = atom(get => awaiter(
             color: single.color,
             isGoto: true
         } as tool;
-    })
-));
+    });
+});
 export default extensionsAtom;
 

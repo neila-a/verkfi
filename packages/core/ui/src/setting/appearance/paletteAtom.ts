@@ -3,46 +3,47 @@ import {
 } from "jotai";
 import defaultInternalPalette from "./defaultInternalPalette";
 import * as colors from "@mui/material/colors";
-import atomWithStorage from "@verkfi/shared/reader/atomWithStorage";
+import {
+    atomWithStorage
+} from "jotai/utils";
 import defaultPalette from "./defaultPalette";
 import {
     createTheme
 } from "@mui/material";
-import awaiter from "@verkfi/shared/reader/awaiter";
 const internalPaletteAtom = atomWithStorage("internalPalette", defaultInternalPalette);
 export const
-    paletteAtom = atom(get => awaiter(
-        get(internalPaletteAtom), internal => ({
+    paletteAtom = atom(get => {
+        const got = get(internalPaletteAtom);
+        return {
             primary: {
-                ...colors[internal.primaryHue],
-                main: internal.primary
+                ...colors[got.primaryHue],
+                main: got.primary
             },
             secondary: {
-                ...colors[internal.secondaryHue],
-                main: internal.secondary
+                ...colors[got.secondaryHue],
+                main: got.secondary
             }
-        } as typeof defaultPalette)
-    )),
-    themeAtom = atom(get => awaiter(
-        get(paletteAtom), palette => {
-            if (typeof createTheme === "function") {
-                return createTheme({
-                    cssVariables: {
-                        cssVarPrefix: "verkfi"
+        } as typeof defaultPalette;
+    }),
+    themeAtom = atom(get => {
+        const palette = get(paletteAtom);
+        if (typeof createTheme === "function") {
+            return createTheme({
+                cssVariables: {
+                    cssVarPrefix: "verkfi"
+                },
+                colorSchemes: {
+                    light: {
+                        palette
                     },
-                    colorSchemes: {
-                        light: {
-                            palette
-                        },
-                        dark: {
-                            palette
-                        }
-                    },
-                    typography: {
-                        fontFamily: "Ubuntu"
+                    dark: {
+                        palette
                     }
-                });
-            }
+                },
+                typography: {
+                    fontFamily: "Ubuntu"
+                }
+            });
         }
-    ));
+    });
 export default internalPaletteAtom;

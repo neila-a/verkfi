@@ -3,91 +3,108 @@ import {
 } from "react-dom/client";
 import {
     createBrowserRouter,
+    RouteObject,
     RouterProvider
 } from "react-router-dom";
 import {
-    StrictMode
+    lazy,
+    StrictMode,
+    Suspense
 } from "react";
 /* existing imports */
 import Error from "error";
-import DirectInstall from "setting/extensions/installExtension";
 import Layout from "layout/layout";
-import SettingsLayout from "setting/layout";
-import ToolsLayout from "tools/layout";
-import About from "setting/about/page";
-import ColorTool from "setting/appearance/page";
-import ExtensionManager from "setting/extensions/page";
-import Options from "setting/option/page";
-import Index from "page";
+import Loading from "loading";
 import getCache from "setting/about/reset/getCache";
-import ExtensionLoader from "tools/extension/page";
-const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <Layout />,
-        errorElement: <Error />,
-        children: [
-            {
-                path: "/home",
-                element: <Index />
-            },
-            {
-                path: "/setting/extensions/install",
-                id: "installExtensions",
-                element: <DirectInstall />,
-                loader: async ({
-                    request
-                }) => {
-                    const
+const settingPages = import.meta.glob("./setting/*/page.tsx"),
+    tools = import.meta.glob("../../../tools/tool-*/page.tsx"),
+    Index = lazy(() => import("page")),
+    DirectInstall = lazy(() => import("setting/extensions/installExtension")),
+    SettingsLayout = lazy(() => import("setting/layout")),
+    ToolsLayout = lazy(() => import("tools/layout")),
+    ExtensionLoader = lazy(() => import("tools/extension/page")),
+    router = createBrowserRouter([
+        {
+            path: "/",
+            Component: Layout,
+            ErrorBoundary: Error,
+            children: [
+                {
+                    index: true,
+                    Component: Index
+                },
+                {
+                    path: "/setting/extensions/install",
+                    id: "installExtensions",
+                    Component: DirectInstall,
+                    async loader({
+                        request
+                    }) {
+                        const
+                            {
+                                searchParams
+                            } = new URL(request.url),
+                            url = searchParams.get("url"),
+                            response = await fetch(url),
+                            blob = await response.blob(),
+                            arrayBuffer = await blob.arrayBuffer();
+                        return arrayBuffer;
+                    }
+                },
+                {
+                    path: "/setting",
+                    Component: SettingsLayout,
+                    children: Object.keys(settingPages).map(pagePath => {
+                        const
+                            {
+                                page
+                            } = /\.\/setting\/(?<page>.*)\/page\.tsx/.exec(pagePath).groups,
+                            Element = lazy(settingPages[page] as Parameters<typeof lazy>[0]);
+                        return {
+                            path: page,
+                            Component: Element,
+                            ...page === "about" ? {
+                                id: "settingsAbout",
+                                loader: () => Promise.all(["usage", "quota"].map(getCache))
+                            } : {
+                            }
+                        } as RouteObject;
+                    })
+                },
+                {
+                    path: "/tools",
+                    Component: ToolsLayout,
+                    children: [
                         {
-                            searchParams
-                        } = new URL(request.url),
-                        url = searchParams.get("url"),
-                        response = await fetch(url),
-                        blob = await response.blob(),
-                        arrayBuffer = await blob.arrayBuffer();
-                    return arrayBuffer;
+                            path: "a",
+                            Component: lazy(() => import("setting/appearance/page"))
+                        },
+                        {
+                            path: "extension",
+                            Component: ExtensionLoader
+                        },
+                        ...Object.keys(tools).map(pagePath => {
+                            const
+                                {
+                                    page
+                                } = /\.\.\/\.\.\/\.\.\/tools\/tool\-(?<page>.*)\/page\.tsx/.exec(pagePath).groups,
+                                Element = lazy(tools[page] as Parameters<typeof lazy>[0]);
+                            return {
+                                path: page,
+                                Component: Element
+                            } as RouteObject;
+                        })
+                    ]
                 }
-            },
-            {
-                path: "/setting",
-                element: <SettingsLayout />,
-                children: [
-                    {
-                        path: "about",
-                        element: <About />,
-                        id: "settingsAbout",
-                        loader: () => Promise.all(["usage", "quota"].map(getCache))
-                    },
-                    {
-                        path: "appearance",
-                        element: <ColorTool />
-                    },
-                    {
-                        path: "extensions",
-                        element: <ExtensionManager />
-                    },
-                    {
-                        path: "/setting/option",
-                        element: <Options />
-                    }
-                ]
-            },
-            {
-                path: "/tools",
-                element: <ToolsLayout />,
-                children: [
-                    {
-                        path: "extension",
-                        element: <ExtensionLoader />
-                    }
-                ]
-            }
-        ]
-    }
-]);
+            ]
+        }
+    ]);
 createRoot(document.getElementById("root")).render(
     <StrictMode>
-        <RouterProvider router={router} />
+        <Suspense fallback={<Loading>
+            Main
+        </Loading>}>
+            <RouterProvider router={router} />
+        </Suspense>
     </StrictMode>
 );

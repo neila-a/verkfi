@@ -8,8 +8,8 @@ import {
 import favicon from "image/favicon.svg";
 export default function Loading(props: {
     children?: ReactNode;
+    hideProgress?: boolean;
 }) {
-    const isLoading = props.children === undefined;
     return (
         <Box sx={{
             display: "flex",
@@ -23,9 +23,10 @@ export default function Loading(props: {
             alignItems: "center"
         }}>
             <img src={favicon} width={160} height={160} alt="VerkfiIcon" />
-            {isLoading ? <LinearProgress color="secondary" sx={{
+            {props?.children}
+            {!props?.hideProgress && <LinearProgress color="secondary" sx={{
                 width: 160
-            }} /> : props.children}
+            }} />}
         </Box>
     );
 }

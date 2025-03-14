@@ -4,7 +4,6 @@ import {
     ButtonGroup,
     Typography
 } from "@mui/material";
-import db from "@verkfi/shared/reader/db";
 import {
     logger
 } from "layout/layoutClient"; // 都是全局日志
@@ -19,7 +18,7 @@ export default function Error() {
     const error = useRouteError() as any;
     console.log(error);
     return (
-        <Loading>
+        <Loading hideProgress>
             <Typography sx={{
                 textAlign: "center"
             }}>
@@ -44,7 +43,7 @@ export default function Error() {
                     {get("error.cache")}
                 </Button>
                 <Button variant="outlined" onClick={async event => {
-                    await db.options.clear();
+                    localStorage.clear();
                     location.reload();
                 }}>
                     {get("error.setting")}

@@ -31,6 +31,7 @@ import {
     useSearchParams
 } from "react-router-dom";
 export default function ToolFinder() {
+    debugger;
     const color = useAtomValue(gradientToolAtom),
         {
             pathname
@@ -50,20 +51,18 @@ export default function ToolFinder() {
             name
         } = filteredToolsInfo.length === 0 ? emptyNXTMetadata : filteredToolsInfo[0],
         tool = toolsInfo.find(si => si.to === toolID);
-    return (
-        <>
-            <HeadBar isIndex={false} pageName={name === "" ? get("未找到工具") : name} only={only} sx={tool !== undefined && {
-                backgroundImage: color && `linear-gradient(45deg, #${tool.color[0]}, #${tool.color[1]})`,
-                backgroundColor: !color && `#${tool.color[0]}`
-            }} />
-            <Box sx={{
-                p: 3
-            }} component="article" id="container">
-                <Suspense fallback={<Loading />}>
-                    <Outlet />
-                </Suspense>
-            </Box>
-            <Box component="section" id="outside" />
-        </>
-    );
+    return <Suspense fallback={<Loading>
+        ToolsLayout
+    </Loading>}>
+        <HeadBar isIndex={false} pageName={name === "" ? get("未找到工具") : name} only={only} sx={tool !== undefined && {
+            backgroundImage: color && `linear-gradient(45deg, #${tool.color[0]}, #${tool.color[1]})`,
+            backgroundColor: !color && `#${tool.color[0]}`
+        }} />
+        <Box sx={{
+            p: 3
+        }} component="article" id="container">
+            <Outlet />
+        </Box>
+        <Box component="section" id="outside" />
+    </Suspense>;
 }

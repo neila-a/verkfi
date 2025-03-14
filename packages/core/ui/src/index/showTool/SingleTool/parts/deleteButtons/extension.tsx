@@ -45,6 +45,6 @@ export default function SingleToolDeleteFromExtensionButton(props: Pick<globalPr
             to: props.tool.to.replace("/tools/extension?tool=", "") as Lowercase<string>,
             settings: [],
             main: ""
-        } as unknown as NXTMetadata} onTrue={() => startTransition(async () => await setTools(`remove ${props.tool.to}`))} />
+        } as unknown as NXTMetadata} onTrue={() => startTransition(() => setTools(`remove ${props.tool.to}`))} />
     </>;
 }

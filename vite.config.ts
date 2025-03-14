@@ -28,5 +28,14 @@ export default defineConfig({
             sitemap: "/packages/core/ui/src/sitemap.ts",
             tools: "/packages/core/ui/src/tools"
         }
+    },
+    worker: {
+        rollupOptions: {
+            output: {
+                entryFileNames() {
+                    return "worker-[hash].js";
+                },
+            }
+        }
     }
 });

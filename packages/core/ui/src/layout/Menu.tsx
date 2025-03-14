@@ -17,8 +17,7 @@ import {
     TextField,
     Theme,
     Typography,
-    useMediaQuery,
-    useTheme
+    useMediaQuery
 } from "@mui/material";
 import MouseOverPopover from "@verkfi/shared/Popover";
 import Transition from "@verkfi/shared/dialog/Transition";
@@ -134,7 +133,7 @@ export default function Menu() {
                                         setSortingFor(homeList);
                                         setSortedTools(gotToolsList);
                                         setEditing(true);
-                                        startTransition(async () => await resetTools());
+                                        startTransition(() => resetTools());
                                     }}>
                                         <ArrowBackIosIcon />
                                     </IconButton>

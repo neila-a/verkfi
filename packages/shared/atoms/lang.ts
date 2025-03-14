@@ -5,8 +5,9 @@ import {
     locales
 } from "@verkfi/core-ui/src/layout/layoutClient";
 import isBrowser from "../isBrowser";
-import atomWithStorage from "../reader/atomWithStorage";
-import awaiter from "../reader/awaiter";
+import {
+    atomWithStorage
+} from "jotai/utils";
 import {
     init
 } from "react-intl-universal";
@@ -35,13 +36,11 @@ function usabler(lang: lang) {
     setLang(lang);
     return lang;
 }
-export const usableLangAtom = atom(get => awaiter(
-    get(langAtom), got => usabler(got)
-));
-export const langIniterAtom = atom(get => awaiter(
-    get(usableLangAtom), lang => init({
-        currentLocale: lang,
+export const usableLangAtom = atom(get => usabler(get(langAtom)));
+
+// use void keyword because init function will return a promise and we don't need to wait for it
+export const langIniterAtom = atom(get => void init({
+        currentLocale: get(usableLangAtom),
         locales
-    })
-));
+    }));
 export default langAtom;

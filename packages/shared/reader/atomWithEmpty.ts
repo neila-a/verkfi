@@ -7,24 +7,21 @@ import {
 import {
     emptySymbol
 } from "./atomWithStorage";
-import awaiter from "./awaiter";
 function atomWithEmpty<Value, update extends Value, Result>(
     read: Read<Value, SetAtom<[value: Exclude<update, typeof emptySymbol>], Result>>,
     write: Write<[value: Exclude<update, typeof emptySymbol>, isEvent?: boolean], Result>,
     valuer: Atom<Value>
 ) {
     return atom(
-        (get, options) => {
+        async (get, options) => {
             const got = get(valuer);
             if (got === emptySymbol) {
-                const waiting = read(get, options);
-                awaiter(waiting, value => {
-                    const warn = globalThis.console.warn;
-                    globalThis.console.warn = () => null;
-                    options.setSelf(...[value] as [value: Exclude<update, typeof emptySymbol>], true);
-                    globalThis.console.warn = warn;
-                });
-                return waiting;
+                const value = read(get, options);
+                const warn = globalThis.console.warn;
+                globalThis.console.warn = () => null;
+                options.setSelf(...[await value] as [value: Exclude<update, typeof emptySymbol>], true);
+                globalThis.console.warn = warn;
+                return value;
             }
             return got as Exclude<Value, typeof emptySymbol>;
         },

@@ -21,9 +21,9 @@ import {
 import {
     locales
 } from "layout/layoutClient";
-const setsAtom = atom(async getAtom => {
+const setsAtom = atom(getAtom => {
     const instance = new ReactIntlUniversal() as typeof import("react-intl-universal"),
-        lang = await getAtom(usableLangAtom);
+        lang = getAtom(usableLangAtom);
     instance.init({
         currentLocale: lang,
         locales
