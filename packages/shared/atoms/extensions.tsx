@@ -83,8 +83,6 @@ export const [extensionsAtom, extensionsAtomValue] = atomWithInitialValue(
 export const convertedExtensionsAtom = atom(async get => {
     const extensions = await get(extensionsAtom);
     return extensions.map(single => {
-        // 这里的图片是直接从indexedDB加载来的，不需要且不能使用next/image的优化
-        // eslint-disable-next-line @next/next/no-img-element
         const element = () => <img src={`https://${single.to}.verkfi/${single.icon}`} alt={single.name} height={24} width={24} />;
         element.muiName = single.to;
         return {

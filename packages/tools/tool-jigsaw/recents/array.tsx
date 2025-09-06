@@ -28,7 +28,6 @@ export default function RecentsArray() {
     </No> : Object.entries(jigsaws).map(jigsaw => {
         const src = URL.createObjectURL(jigsaw[1].file);
         return <ImageListItem key={jigsaw[0]}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={src} alt={jigsaw[1].file.name} onLoad={event => {
                 URL.revokeObjectURL(src);
             }} loading="lazy" />

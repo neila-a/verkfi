@@ -46,7 +46,6 @@ export default function JigsawBlocks() {
                 width: widtha,
                 height: `${heighta} !important`
             }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img alt="" style={{
                     objectFit: "fill",
                     display: right ? "" : "none"

@@ -17,7 +17,6 @@
         "url": "https://neilasite.netlify.app/"
     },
     "devDependencies": {
-        "@next/bundle-analyzer": "^14.2.4",
         "@types/react-transition-group": "^4.4.10",
         "eslint-config-next": "^14.2.4",
         "eslint-plugin-react-hooks": "^4.6.2",

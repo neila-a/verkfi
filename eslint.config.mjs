@@ -30,7 +30,6 @@ const __filename = fileURLToPath(import.meta.url),
                 "**/next.config.js"
             ],
             rules: {
-                "@next/next/no-img-element": "warn",
                 "react-hooks/rules-of-hooks": "off", // .next会大量触发
                 "react-hooks/exhaustive-deps": "warn",
                 "semi": [
