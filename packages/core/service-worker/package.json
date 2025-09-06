@@ -18,7 +18,7 @@
         "url": "https://neilasite.netlify.app/"
     },
     "dependencies": {
-        "@verkfi/core-ui": "workspace:../ui"
+        "@verkfi/core-ui": "link:../ui"
     },
     "homepage": "https://netlify.verkfi.neila.vip/"
 }

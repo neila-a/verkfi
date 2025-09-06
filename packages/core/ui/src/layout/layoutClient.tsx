@@ -34,6 +34,10 @@ import {
 } from "@verkfi/shared/atoms";
 import Clients from "./Clients";
 import {
+    DevTools
+} from "jotai-devtools";
+import "jotai-devtools/styles.css";
+import {
     themeAtom
 } from "setting/appearance/paletteAtom";
 import {
