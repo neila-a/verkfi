@@ -59,7 +59,7 @@ const settingPages = import.meta.glob("./setting/*/page.tsx"),
                             {
                                 page
                             } = /\.\/setting\/(?<page>.*)\/page\.tsx/.exec(pagePath).groups,
-                            Element = lazy(settingPages[page] as Parameters<typeof lazy>[0]);
+                            Element = lazy(settingPages[pagePath] as Parameters<typeof lazy>[0]);
                         return {
                             path: page,
                             Component: Element,
@@ -88,7 +88,7 @@ const settingPages = import.meta.glob("./setting/*/page.tsx"),
                                 {
                                     page
                                 } = /\.\.\/\.\.\/\.\.\/tools\/tool\-(?<page>.*)\/page\.tsx/.exec(pagePath).groups,
-                                Element = lazy(tools[page] as Parameters<typeof lazy>[0]);
+                                Element = lazy(tools[pagePath] as Parameters<typeof lazy>[0]);
                             return {
                                 path: page,
                                 Component: Element

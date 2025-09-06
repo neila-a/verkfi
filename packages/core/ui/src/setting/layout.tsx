@@ -5,14 +5,15 @@ import {
     FormControlLabel,
     MenuItem,
     Select,
-    SelectChangeEvent,
     Switch,
     Tab,
     Tabs,
     TextField,
     Toolbar
 } from "@mui/material";
-import ErrorBoundary from "@verkfi/shared/ErrorBoundary";
+import {
+    ErrorBoundary
+} from "react-error-boundary";
 import HeadBar from "@verkfi/shared/HeadBar";
 import {
     showSidebarAtom as showSidebarAtom,
@@ -43,6 +44,7 @@ import {
     useLocation,
     useNavigate
 } from "react-router";
+import Error from "error";
 export type settingPage = "option" | "about" | "extensions" | "appearance";
 export interface set {
     name: string;
@@ -103,7 +105,7 @@ export default function Settings() {
                 flexGrow: 1,
                 p: 3
             }}>
-                <ErrorBoundary>
+                <ErrorBoundary FallbackComponent={Error}>
                     <Suspense fallback={<Loading>
                         SettingsLayout
                     </Loading>}>

@@ -5,23 +5,22 @@ import {
     Typography
 } from "@mui/material";
 import {
-    use
-} from "react";
-import getCache from "./getCache";
-import {
     get
 } from "react-intl-universal";
-import ErrorBoundary from "@verkfi/shared/ErrorBoundary";
+import {
+    ErrorBoundary
+} from "react-error-boundary";
 import {
     useRouteLoaderData
 } from "react-router";
+import Error from "error";
 const fractionDigits = 5;
 export default function Line() {
     const data = useRouteLoaderData("settingsAbout"),
         cacheUsed = data[0],
         cacheAll = data[1];
     return (
-        <ErrorBoundary>
+        <ErrorBoundary FallbackComponent={Error}>
             <Box sx={{
                 width: "100%",
                 mr: 1

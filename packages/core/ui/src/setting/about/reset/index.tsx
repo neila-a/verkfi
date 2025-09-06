@@ -5,7 +5,9 @@ import {
     Stack,
     Typography
 } from "@mui/material";
-import ErrorBoundary from "@verkfi/shared/ErrorBoundary";
+import {
+    ErrorBoundary
+} from "react-error-boundary";
 import {
     Suspense,
     useState
@@ -18,10 +20,11 @@ import {
 } from "../../logger";
 import Line from "./Line";
 import CheckDialog from "@verkfi/shared/dialog/Check";
+import Error from "error";
 export default function Reset() {
     const [dialogOpen, setDialogOpen] = useState(false);
     return (
-        <ErrorBoundary>
+        <ErrorBoundary FallbackComponent={Error}>
             <Stack direction="column" spacing={1}>
                 <Typography>
                     {get("storage.缓存空间")}

@@ -14,8 +14,10 @@ import {
 import {
     useRouteError
 } from "react-router";
-export default function Error() {
-    const error = useRouteError() as any;
+export default function Error(props: {
+    error?: Error;
+}) {
+    const error = props?.error || useRouteError() as any;
     console.log(error);
     return (
         <Loading hideProgress>
