@@ -93,7 +93,7 @@ function Split() {
             }} onChange={event => {
                 setWords(event.target.value);
             }} value={words} placeholder={get("reversal.以空格分隔，按回车添加。")} />
-            {wordList.keys().toArray().map(id => <Chip key={id} label={wordList[id]} onDelete={() => {
+            {wordList.keys().toArray().map(id => <Chip key={id} label={wordList.get(id)} onDelete={() => {
                 const draft = structuredClone(wordList);
                 Reflect.deleteProperty(draft, id);
                 setWordList(draft);
