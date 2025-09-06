@@ -18,9 +18,11 @@ import Reset from "./reset";
 import {
     Link
 } from "react-router-dom";
+import {
+    devVersion
+} from "virtual:verkfi-env";
 const {
     version,
-    devVersion,
     author
 } = pack;
 export default function About() {

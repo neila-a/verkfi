@@ -2,10 +2,12 @@ import {
     defineConfig
 } from "vite";
 import react from "@vitejs/plugin-react";
+import virtualModules from "./virtualModules";
 // https://vite.dev/config/
 export default defineConfig({
     plugins: [
-        react()
+        react(),
+        virtualModules
     ],
     root: ".",
     resolve: {
@@ -30,6 +32,7 @@ export default defineConfig({
         }
     },
     worker: {
+        plugins: () => virtualModules,
         rollupOptions: {
             output: {
                 entryFileNames() {

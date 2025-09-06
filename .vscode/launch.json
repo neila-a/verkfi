@@ -25,8 +25,8 @@
             "webRoot": "${workspaceFolder}"
         },
         {
-            "cwd": "${workspaceFolder}/packages/core",
-            "name": "Next.js: debug full stack",
+            "cwd": "${workspaceFolder}",
+            "name": "npm run dev",
             "type": "node-terminal",
             "request": "launch",
             "command": "npm run dev",

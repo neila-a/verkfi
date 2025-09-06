@@ -1,8 +1,10 @@
 import {
     dev,
-    devVersion,
     version
 } from "../../../package.json";
+import {
+    devVersion
+} from "virtual:verkfi-env";
 import onFetch from "./onFetch";
 import onMessage from "./onMessage";
 declare const self: ServiceWorkerGlobalScope;

@@ -19,18 +19,13 @@ const __filename = fileURLToPath(import.meta.url),
     indentSpacing = 4,
     tabWidth = 4,
     config = [
-        ...fixupConfigRules(compat.extends("next", "plugin:react-hooks/recommended")),
+        ...fixupConfigRules(compat.extends("plugin:react-hooks/recommended")),
         {
             ignores: [
-                "**/out/*",
-                "**/public/*",
-
-                "**/.next/**/*",
-
-                "**/next.config.js"
+                "**/dist/**/*",
+                "**/out/*"
             ],
             rules: {
-                "react-hooks/rules-of-hooks": "off", // .next会大量触发
                 "react-hooks/exhaustive-deps": "warn",
                 "semi": [
                     "warn",
