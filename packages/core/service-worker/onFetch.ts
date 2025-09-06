@@ -11,11 +11,9 @@ import testPaths from "./testPaths";
  */
 const fakeResonse = undefined as unknown as Response;
 /**
- * 判断顺序：handle -> customRoute -> /tools/extension -> _rsc -> fetch -> cache
+ * 判断顺序：handle -> customRoute -> fetch -> cache
  * handle：自定义，并且要快  
  * customRoute：自定义  
- * /tools/extension：扩展工具加载器  
- * _rsc：拦截_rsc  
  * cache：缓存模式  
  * fetch：网络模式  
  */
