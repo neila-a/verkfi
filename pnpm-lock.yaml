@@ -113,10 +113,10 @@ importers:
         version: 5.1.0
       '@hello-pangea/dnd':
         specifier: ^16.6.0
-        version: 16.6.0(@types/react-dom@18.3.0)(@types/react@19.1.12)(react-dom@18.3.1(react@19.1.1))(react@19.1.1)
+        version: 16.6.0(@types/react-dom@18.3.0)(@types/react@19.1.12)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       '@mui/material-nextjs':
         specifier: ^5.15.11
-        version: 5.15.11(@emotion/cache@11.11.0)(@mui/material@7.3.2(@emotion/react@11.11.4(@types/react@19.1.12)(react@19.1.1))(@emotion/styled@11.11.5(@emotion/react@11.11.4(@types/react@19.1.12)(react@19.1.1))(@types/react@19.1.12)(react@19.1.1))(@types/react@19.1.12)(react-dom@18.3.1(react@19.1.1))(react@19.1.1))(@types/react@19.1.12)(next@15.0.2(@babel/core@7.28.4)(react-dom@18.3.1(react@19.1.1))(react@19.1.1)(sass@1.77.6))(react@19.1.1)
+        version: 5.15.11(@emotion/cache@11.11.0)(@mui/material@7.3.2(@emotion/react@11.11.4(@types/react@19.1.12)(react@19.1.1))(@emotion/styled@11.11.5(@emotion/react@11.11.4(@types/react@19.1.12)(react@19.1.1))(@types/react@19.1.12)(react@19.1.1))(@types/react@19.1.12)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(@types/react@19.1.12)(next@15.0.2(@babel/core@7.28.4)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.77.6))(react@19.1.1)
       '@mui/system':
         specifier: ^5.15.20
         version: 5.15.20(@emotion/react@11.11.4(@types/react@19.1.12)(react@19.1.1))(@emotion/styled@11.11.5(@emotion/react@11.11.4(@types/react@19.1.12)(react@19.1.1))(@types/react@19.1.12)(react@19.1.1))(@types/react@19.1.12)(react@19.1.1)
@@ -182,16 +182,13 @@ importers:
         version: 4.31.1
       mdi-material-ui:
         specifier: ^7.9.1
-        version: 7.9.1(@mui/material@7.3.2(@emotion/react@11.11.4(@types/react@19.1.12)(react@19.1.1))(@emotion/styled@11.11.5(@emotion/react@11.11.4(@types/react@19.1.12)(react@19.1.1))(@types/react@19.1.12)(react@19.1.1))(@types/react@19.1.12)(react-dom@18.3.1(react@19.1.1))(react@19.1.1))(react@19.1.1)
-      react-dom:
-        specifier: ^18.3.1
-        version: 18.3.1(react@19.1.1)
+        version: 7.9.1(@mui/material@7.3.2(@emotion/react@11.11.4(@types/react@19.1.12)(react@19.1.1))(@emotion/styled@11.11.5(@emotion/react@11.11.4(@types/react@19.1.12)(react@19.1.1))(@types/react@19.1.12)(react@19.1.1))(@types/react@19.1.12)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)
       react-filepond:
         specifier: ^7.1.2
-        version: 7.1.2(filepond@4.31.1)(react-dom@18.3.1(react@19.1.1))(react@19.1.1)
+        version: 7.1.2(filepond@4.31.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       react-transition-group:
         specifier: ^4.4.5
-        version: 4.4.5(react-dom@18.3.1(react@19.1.1))(react@19.1.1)
+        version: 4.4.5(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       reorder-array:
         specifier: ^1.0.3
         version: 1.0.3
@@ -213,7 +210,7 @@ importers:
         version: 4.6.2(eslint@9.35.0)
       jotai-devtools:
         specifier: ^0.10.0
-        version: 0.10.0(@types/react@19.1.12)(react-dom@18.3.1(react@19.1.1))(react@19.1.1)(redux@4.2.1)
+        version: 0.10.0(@types/react@19.1.12)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(redux@4.2.1)
 
   packages/shared:
     dependencies:
@@ -3326,11 +3323,6 @@ packages:
     peerDependencies:
       react: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
 
-  react-dom@18.3.1:
-    resolution: {integrity: sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==}
-    peerDependencies:
-      react: ^18.3.1
-
   react-dom@19.1.1:
     resolution: {integrity: sha512-Dlq/5LAZgF0Gaz6yiqZCf6VCcZs1ghAJyrsu84Q/GT0gV+mCxbfmKNoGRKBYMJ8IEdGPqu49YWXD02GCknEDkw==}
     peerDependencies:
@@ -3580,9 +3572,6 @@ packages:
 
   scheduler@0.21.0:
     resolution: {integrity: sha512-1r87x5fz9MXqswA2ERLo0EbOAU74DpIUO090gIasYTqlVoJeMcl+Z1Rg7WHz+qtPujhS/hGIt9kxZOYBV3faRQ==}
-
-  scheduler@0.23.2:
-    resolution: {integrity: sha512-UOShsPwz7NrMUqhR6t0hWjFduvOzbtv7toDH1/hIrfRNIDBnnBWd0CwJTGvTpngVlmwGCdP9/Zl/tVrDqcuYzQ==}
 
   scheduler@0.26.0:
     resolution: {integrity: sha512-NlHwttCI/l5gCPR3D1nNXtWABUmBwvZpEQiD4IXSbIDq8BzLIK/7Ir5gTFSGZDUu37K5cMNp0hFtzO38sC7gWA==}
@@ -4685,18 +4674,18 @@ snapshots:
       '@floating-ui/core': 1.6.4
       '@floating-ui/utils': 0.2.4
 
-  '@floating-ui/react-dom@2.1.1(react-dom@18.3.1(react@19.1.1))(react@19.1.1)':
+  '@floating-ui/react-dom@2.1.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
     dependencies:
       '@floating-ui/dom': 1.6.7
       react: 19.1.1
-      react-dom: 18.3.1(react@19.1.1)
+      react-dom: 19.1.1(react@19.1.1)
 
-  '@floating-ui/react@0.26.19(react-dom@18.3.1(react@19.1.1))(react@19.1.1)':
+  '@floating-ui/react@0.26.19(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
     dependencies:
-      '@floating-ui/react-dom': 2.1.1(react-dom@18.3.1(react@19.1.1))(react@19.1.1)
+      '@floating-ui/react-dom': 2.1.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       '@floating-ui/utils': 0.2.4
       react: 19.1.1
-      react-dom: 18.3.1(react@19.1.1)
+      react-dom: 19.1.1(react@19.1.1)
       tabbable: 6.2.0
 
   '@floating-ui/utils@0.2.4': {}
@@ -4709,15 +4698,15 @@ snapshots:
 
   '@formatjs/intl-utils@2.3.0': {}
 
-  '@hello-pangea/dnd@16.6.0(@types/react-dom@18.3.0)(@types/react@19.1.12)(react-dom@18.3.1(react@19.1.1))(react@19.1.1)':
+  '@hello-pangea/dnd@16.6.0(@types/react-dom@18.3.0)(@types/react@19.1.12)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
     dependencies:
       '@babel/runtime': 7.24.7
       css-box-model: 1.2.1
       memoize-one: 6.0.0
       raf-schd: 4.0.3
       react: 19.1.1
-      react-dom: 18.3.1(react@19.1.1)
-      react-redux: 8.1.3(@types/react-dom@18.3.0)(@types/react@19.1.12)(react-dom@18.3.1(react@19.1.1))(react@19.1.1)(redux@4.2.1)
+      react-dom: 19.1.1(react@19.1.1)
+      react-redux: 8.1.3(@types/react-dom@18.3.0)(@types/react@19.1.12)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(redux@4.2.1)
       redux: 4.2.1
       use-memo-one: 1.1.3(react@19.1.1)
     transitivePeerDependencies:
@@ -4859,23 +4848,23 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
 
-  '@mantine/code-highlight@7.11.1(@mantine/core@7.11.1(@mantine/hooks@7.11.1(react@19.1.1))(@types/react@19.1.12)(react-dom@18.3.1(react@19.1.1))(react@19.1.1))(@mantine/hooks@7.11.1(react@19.1.1))(react-dom@18.3.1(react@19.1.1))(react@19.1.1)':
+  '@mantine/code-highlight@7.11.1(@mantine/core@7.11.1(@mantine/hooks@7.11.1(react@19.1.1))(@types/react@19.1.12)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(@mantine/hooks@7.11.1(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
     dependencies:
-      '@mantine/core': 7.11.1(@mantine/hooks@7.11.1(react@19.1.1))(@types/react@19.1.12)(react-dom@18.3.1(react@19.1.1))(react@19.1.1)
+      '@mantine/core': 7.11.1(@mantine/hooks@7.11.1(react@19.1.1))(@types/react@19.1.12)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       '@mantine/hooks': 7.11.1(react@19.1.1)
       clsx: 2.1.1
       highlight.js: 11.9.0
       react: 19.1.1
-      react-dom: 18.3.1(react@19.1.1)
+      react-dom: 19.1.1(react@19.1.1)
 
-  '@mantine/core@7.11.1(@mantine/hooks@7.11.1(react@19.1.1))(@types/react@19.1.12)(react-dom@18.3.1(react@19.1.1))(react@19.1.1)':
+  '@mantine/core@7.11.1(@mantine/hooks@7.11.1(react@19.1.1))(@types/react@19.1.12)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
     dependencies:
-      '@floating-ui/react': 0.26.19(react-dom@18.3.1(react@19.1.1))(react@19.1.1)
+      '@floating-ui/react': 0.26.19(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       '@mantine/hooks': 7.11.1(react@19.1.1)
       clsx: 2.1.1
       react: 19.1.1
-      react-dom: 18.3.1(react@19.1.1)
-      react-number-format: 5.4.0(react-dom@18.3.1(react@19.1.1))(react@19.1.1)
+      react-dom: 19.1.1(react@19.1.1)
+      react-number-format: 5.4.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       react-remove-scroll: 2.5.10(@types/react@19.1.12)(react@19.1.1)
       react-textarea-autosize: 8.5.3(@types/react@19.1.12)(react@19.1.1)
       type-fest: 4.21.0
@@ -4915,35 +4904,14 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.1.12
 
-  '@mui/material-nextjs@5.15.11(@emotion/cache@11.11.0)(@mui/material@7.3.2(@emotion/react@11.11.4(@types/react@19.1.12)(react@19.1.1))(@emotion/styled@11.11.5(@emotion/react@11.11.4(@types/react@19.1.12)(react@19.1.1))(@types/react@19.1.12)(react@19.1.1))(@types/react@19.1.12)(react-dom@18.3.1(react@19.1.1))(react@19.1.1))(@types/react@19.1.12)(next@15.0.2(@babel/core@7.28.4)(react-dom@18.3.1(react@19.1.1))(react@19.1.1)(sass@1.77.6))(react@19.1.1)':
+  '@mui/material-nextjs@5.15.11(@emotion/cache@11.11.0)(@mui/material@7.3.2(@emotion/react@11.11.4(@types/react@19.1.12)(react@19.1.1))(@emotion/styled@11.11.5(@emotion/react@11.11.4(@types/react@19.1.12)(react@19.1.1))(@types/react@19.1.12)(react@19.1.1))(@types/react@19.1.12)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(@types/react@19.1.12)(next@15.0.2(@babel/core@7.28.4)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.77.6))(react@19.1.1)':
     dependencies:
       '@babel/runtime': 7.24.7
-      '@mui/material': 7.3.2(@emotion/react@11.11.4(@types/react@19.1.12)(react@19.1.1))(@emotion/styled@11.11.5(@emotion/react@11.11.4(@types/react@19.1.12)(react@19.1.1))(@types/react@19.1.12)(react@19.1.1))(@types/react@19.1.12)(react-dom@18.3.1(react@19.1.1))(react@19.1.1)
-      next: 15.0.2(@babel/core@7.28.4)(react-dom@18.3.1(react@19.1.1))(react@19.1.1)(sass@1.77.6)
+      '@mui/material': 7.3.2(@emotion/react@11.11.4(@types/react@19.1.12)(react@19.1.1))(@emotion/styled@11.11.5(@emotion/react@11.11.4(@types/react@19.1.12)(react@19.1.1))(@types/react@19.1.12)(react@19.1.1))(@types/react@19.1.12)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      next: 15.0.2(@babel/core@7.28.4)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.77.6)
       react: 19.1.1
     optionalDependencies:
       '@emotion/cache': 11.11.0
-      '@types/react': 19.1.12
-
-  '@mui/material@7.3.2(@emotion/react@11.11.4(@types/react@19.1.12)(react@19.1.1))(@emotion/styled@11.11.5(@emotion/react@11.11.4(@types/react@19.1.12)(react@19.1.1))(@types/react@19.1.12)(react@19.1.1))(@types/react@19.1.12)(react-dom@18.3.1(react@19.1.1))(react@19.1.1)':
-    dependencies:
-      '@babel/runtime': 7.28.4
-      '@mui/core-downloads-tracker': 7.3.2
-      '@mui/system': 7.3.2(@emotion/react@11.11.4(@types/react@19.1.12)(react@19.1.1))(@emotion/styled@11.11.5(@emotion/react@11.11.4(@types/react@19.1.12)(react@19.1.1))(@types/react@19.1.12)(react@19.1.1))(@types/react@19.1.12)(react@19.1.1)
-      '@mui/types': 7.4.6(@types/react@19.1.12)
-      '@mui/utils': 7.3.2(@types/react@19.1.12)(react@19.1.1)
-      '@popperjs/core': 2.11.8
-      '@types/react-transition-group': 4.4.12(@types/react@19.1.12)
-      clsx: 2.1.1
-      csstype: 3.1.3
-      prop-types: 15.8.1
-      react: 19.1.1
-      react-dom: 18.3.1(react@19.1.1)
-      react-is: 19.1.1
-      react-transition-group: 4.4.5(react-dom@18.3.1(react@19.1.1))(react@19.1.1)
-    optionalDependencies:
-      '@emotion/react': 11.11.4(@types/react@19.1.12)(react@19.1.1)
-      '@emotion/styled': 11.11.5(@emotion/react@11.11.4(@types/react@19.1.12)(react@19.1.1))(@types/react@19.1.12)(react@19.1.1)
       '@types/react': 19.1.12
 
   '@mui/material@7.3.2(@emotion/react@11.11.4(@types/react@19.1.12)(react@19.1.1))(@emotion/styled@11.11.5(@emotion/react@11.11.4(@types/react@19.1.12)(react@19.1.1))(@types/react@19.1.12)(react@19.1.1))(@types/react@19.1.12)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
@@ -6340,6 +6308,16 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  eslint-module-utils@2.8.1(@typescript-eslint/parser@8.42.0(eslint@9.35.0)(typescript@5.9.2))(eslint-import-resolver-node@0.3.9)(eslint@9.35.0):
+    dependencies:
+      debug: 3.2.7
+    optionalDependencies:
+      '@typescript-eslint/parser': 8.42.0(eslint@9.35.0)(typescript@5.9.2)
+      eslint: 9.35.0
+      eslint-import-resolver-node: 0.3.9
+    transitivePeerDependencies:
+      - supports-color
+
   eslint-plugin-import@2.29.1(@typescript-eslint/parser@8.42.0(eslint@9.35.0)(typescript@5.9.2))(eslint@9.35.0):
     dependencies:
       array-includes: 3.1.8
@@ -6350,7 +6328,7 @@ snapshots:
       doctrine: 2.1.0
       eslint: 9.35.0
       eslint-import-resolver-node: 0.3.9
-      eslint-module-utils: 2.8.1(@typescript-eslint/parser@7.2.0(eslint@9.35.0)(typescript@5.6.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1)(eslint@9.35.0)
+      eslint-module-utils: 2.8.1(@typescript-eslint/parser@8.42.0(eslint@9.35.0)(typescript@5.9.2))(eslint-import-resolver-node@0.3.9)(eslint@9.35.0)
       hasown: 2.0.2
       is-core-module: 2.14.0
       is-glob: 4.0.3
@@ -6946,10 +6924,10 @@ snapshots:
 
   javascript-stringify@2.1.0: {}
 
-  jotai-devtools@0.10.0(@types/react@19.1.12)(react-dom@18.3.1(react@19.1.1))(react@19.1.1)(redux@4.2.1):
+  jotai-devtools@0.10.0(@types/react@19.1.12)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(redux@4.2.1):
     dependencies:
-      '@mantine/code-highlight': 7.11.1(@mantine/core@7.11.1(@mantine/hooks@7.11.1(react@19.1.1))(@types/react@19.1.12)(react-dom@18.3.1(react@19.1.1))(react@19.1.1))(@mantine/hooks@7.11.1(react@19.1.1))(react-dom@18.3.1(react@19.1.1))(react@19.1.1)
-      '@mantine/core': 7.11.1(@mantine/hooks@7.11.1(react@19.1.1))(@types/react@19.1.12)(react-dom@18.3.1(react@19.1.1))(react@19.1.1)
+      '@mantine/code-highlight': 7.11.1(@mantine/core@7.11.1(@mantine/hooks@7.11.1(react@19.1.1))(@types/react@19.1.12)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(@mantine/hooks@7.11.1(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      '@mantine/core': 7.11.1(@mantine/hooks@7.11.1(react@19.1.1))(@types/react@19.1.12)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       '@mantine/hooks': 7.11.1(react@19.1.1)
       '@redux-devtools/extension': 3.3.0(redux@4.2.1)
       clsx: 2.1.1
@@ -6959,7 +6937,7 @@ snapshots:
       react-base16-styling: 0.9.1
       react-error-boundary: 4.0.13(react@19.1.1)
       react-json-tree: 0.18.0(@types/react@19.1.12)(react@19.1.1)
-      react-resizable-panels: 2.0.10(react-dom@18.3.1(react@19.1.1))(react@19.1.1)
+      react-resizable-panels: 2.0.10(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
     transitivePeerDependencies:
       - '@types/react'
       - react-dom
@@ -7097,9 +7075,9 @@ snapshots:
       tiny-emitter: 2.1.0
       typed-function: 4.2.1
 
-  mdi-material-ui@7.9.1(@mui/material@7.3.2(@emotion/react@11.11.4(@types/react@19.1.12)(react@19.1.1))(@emotion/styled@11.11.5(@emotion/react@11.11.4(@types/react@19.1.12)(react@19.1.1))(@types/react@19.1.12)(react@19.1.1))(@types/react@19.1.12)(react-dom@18.3.1(react@19.1.1))(react@19.1.1))(react@19.1.1):
+  mdi-material-ui@7.9.1(@mui/material@7.3.2(@emotion/react@11.11.4(@types/react@19.1.12)(react@19.1.1))(@emotion/styled@11.11.5(@emotion/react@11.11.4(@types/react@19.1.12)(react@19.1.1))(@types/react@19.1.12)(react@19.1.1))(@types/react@19.1.12)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1):
     dependencies:
-      '@mui/material': 7.3.2(@emotion/react@11.11.4(@types/react@19.1.12)(react@19.1.1))(@emotion/styled@11.11.5(@emotion/react@11.11.4(@types/react@19.1.12)(react@19.1.1))(@types/react@19.1.12)(react@19.1.1))(@types/react@19.1.12)(react-dom@18.3.1(react@19.1.1))(react@19.1.1)
+      '@mui/material': 7.3.2(@emotion/react@11.11.4(@types/react@19.1.12)(react@19.1.1))(@emotion/styled@11.11.5(@emotion/react@11.11.4(@types/react@19.1.12)(react@19.1.1))(@types/react@19.1.12)(react@19.1.1))(@types/react@19.1.12)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       react: 19.1.1
 
   memoize-one@6.0.0: {}
@@ -7149,7 +7127,7 @@ snapshots:
 
   natural-compare@1.4.0: {}
 
-  next@15.0.2(@babel/core@7.28.4)(react-dom@18.3.1(react@19.1.1))(react@19.1.1)(sass@1.77.6):
+  next@15.0.2(@babel/core@7.28.4)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.77.6):
     dependencies:
       '@next/env': 15.0.2
       '@swc/counter': 0.1.3
@@ -7158,7 +7136,7 @@ snapshots:
       caniuse-lite: 1.0.30001741
       postcss: 8.4.31
       react: 19.1.1
-      react-dom: 18.3.1(react@19.1.1)
+      react-dom: 19.1.1(react@19.1.1)
       styled-jsx: 5.1.6(@babel/core@7.28.4)(react@19.1.1)
     optionalDependencies:
       '@next/swc-darwin-arm64': 15.0.2
@@ -7358,12 +7336,6 @@ snapshots:
       prop-types: 15.8.1
       react: 19.1.1
 
-  react-dom@18.3.1(react@19.1.1):
-    dependencies:
-      loose-envify: 1.4.0
-      react: 19.1.1
-      scheduler: 0.23.2
-
   react-dom@19.1.1(react@19.1.1):
     dependencies:
       react: 19.1.1
@@ -7382,12 +7354,6 @@ snapshots:
       react: 19.1.1
 
   react-fast-compare@3.2.2: {}
-
-  react-filepond@7.1.2(filepond@4.31.1)(react-dom@18.3.1(react@19.1.1))(react@19.1.1):
-    dependencies:
-      filepond: 4.31.1
-      react: 19.1.1
-      react-dom: 18.3.1(react@19.1.1)
 
   react-filepond@7.1.2(filepond@4.31.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
     dependencies:
@@ -7424,11 +7390,11 @@ snapshots:
       react: 19.1.1
       react-base16-styling: 0.9.1
 
-  react-number-format@5.4.0(react-dom@18.3.1(react@19.1.1))(react@19.1.1):
+  react-number-format@5.4.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
     dependencies:
       prop-types: 15.8.1
       react: 19.1.1
-      react-dom: 18.3.1(react@19.1.1)
+      react-dom: 19.1.1(react@19.1.1)
 
   react-reconciler@0.27.0(react@19.1.1):
     dependencies:
@@ -7436,7 +7402,7 @@ snapshots:
       react: 19.1.1
       scheduler: 0.21.0
 
-  react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@19.1.12)(react-dom@18.3.1(react@19.1.1))(react@19.1.1)(redux@4.2.1):
+  react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@19.1.12)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(redux@4.2.1):
     dependencies:
       '@babel/runtime': 7.28.4
       '@types/hoist-non-react-statics': 3.3.5
@@ -7448,7 +7414,7 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.1.12
       '@types/react-dom': 18.3.0
-      react-dom: 18.3.1(react@19.1.1)
+      react-dom: 19.1.1(react@19.1.1)
       redux: 4.2.1
 
   react-refresh@0.17.0: {}
@@ -7472,10 +7438,10 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.1.12
 
-  react-resizable-panels@2.0.10(react-dom@18.3.1(react@19.1.1))(react@19.1.1):
+  react-resizable-panels@2.0.10(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
     dependencies:
       react: 19.1.1
-      react-dom: 18.3.1(react@19.1.1)
+      react-dom: 19.1.1(react@19.1.1)
 
   react-router-dom@7.8.2(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
     dependencies:
@@ -7508,15 +7474,6 @@ snapshots:
       use-latest: 1.2.1(@types/react@19.1.12)(react@19.1.1)
     transitivePeerDependencies:
       - '@types/react'
-
-  react-transition-group@4.4.5(react-dom@18.3.1(react@19.1.1))(react@19.1.1):
-    dependencies:
-      '@babel/runtime': 7.24.7
-      dom-helpers: 5.2.1
-      loose-envify: 1.4.0
-      prop-types: 15.8.1
-      react: 19.1.1
-      react-dom: 18.3.1(react@19.1.1)
 
   react-transition-group@4.4.5(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
     dependencies:
@@ -7650,10 +7607,6 @@ snapshots:
       source-map-js: 1.2.1
 
   scheduler@0.21.0:
-    dependencies:
-      loose-envify: 1.4.0
-
-  scheduler@0.23.2:
     dependencies:
       loose-envify: 1.4.0
 
