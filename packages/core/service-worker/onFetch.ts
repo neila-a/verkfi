@@ -31,7 +31,10 @@ export default function onFetch(event: FetchEvent) {
     const faller = (options: CacheQueryOptions = {
     }) => async () => {
         const cache = await caches.open(Cache),
-            cacheMateched = await cache.match(realReq, options);
+            cacheMateched = await cache.match(realReq, {
+                ...options,
+                ignoreSearch: true
+            });
         if (!cacheMateched) {
             const newreq = await fetch(realReq);
             cache.put(realReq, newreq.clone());
@@ -75,7 +78,5 @@ export default function onFetch(event: FetchEvent) {
             status: 200,
             statusText: "Manifest provided by ServiceWorker"
         });
-    }], [["extensionLoader", "rsc", "installExtension"], faller({
-        ignoreSearch: true
-    })]);
+    }]);
 }

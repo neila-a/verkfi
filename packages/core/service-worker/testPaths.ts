@@ -30,17 +30,8 @@ namespace testPaths {
             hostname: ":name.verkfi",
             pathname: "/:path+"
         }),
-        extensionLoader = new URLPattern({
-            pathname: "/tools/extension"
-        }),
-        rsc = new URLPattern({
-            search: "?_rsc=:rsc"
-        }),
         manifest = new URLPattern({
             pathname: "/manifest.webmanifest"
-        }),
-        installExtension = new URLPattern({
-            pathname: "/installExtension"
         });
 }
 export default testPaths;
