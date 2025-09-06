@@ -3,15 +3,18 @@ import {
 } from "vite";
 import react from "@vitejs/plugin-react";
 import virtualModules from "./virtualModules";
+import esmRUN from "./esm.run";
 // https://vite.dev/config/
 export default defineConfig({
     plugins: [
         react(),
-        virtualModules
+        virtualModules,
+        esmRUN()
     ],
     root: ".",
     resolve: {
         alias: {
+            // top-level files
             declare: "/packages/core/ui/src/declare.ts",
             error: "/packages/core/ui/src/error.tsx",
             "global-error": "/packages/core/ui/src/global-error.tsx",

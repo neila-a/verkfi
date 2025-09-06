@@ -19,15 +19,13 @@
     "devDependencies": {
         "@types/react-transition-group": "^4.4.10",
         "eslint-config-next": "^14.2.4",
-        "eslint-plugin-react-hooks": "^4.6.2",
-        "jotai-devtools": "^0.10.0"
+        "eslint-plugin-react-hooks": "^4.6.2"
     },
     "homepage": "https://netlify.verkfi.neila.vip/",
     "dependencies": {
         "@emotion/cache": "^11.11.0",
         "@emotion/react": "^11.11.4",
         "@emotion/styled": "^11.11.5",
-        "@fontsource/ubuntu": "^5.1.0",
         "@hello-pangea/dnd": "^16.6.0",
         "@mui/material-nextjs": "^5.15.11",
         "@mui/system": "^5.15.20",
