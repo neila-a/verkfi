@@ -235,7 +235,7 @@ export default function Menu() {
                     <Box sx={{
                         display: "flex"
                     }}>
-                        <Link to="/home">
+                        <Link to="/">
                             <MouseOverPopover text={get("主页")}>
                                 <IconButton color="primary" sx={{
                                     p: 1
