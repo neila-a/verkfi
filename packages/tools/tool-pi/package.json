@@ -20,7 +20,6 @@
     "devDependencies": {},
     "homepage": "https://netlify.verkfi.neila.vip/",
     "dependencies": {
-        "@verkfi/shared": "workspace:../../shared",
-        "lp-logger": "github:neila-a/lp-logger-no-window"
+        "@verkfi/shared": "workspace:../../shared"
     }
 }

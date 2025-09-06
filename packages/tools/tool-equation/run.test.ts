@@ -1,4 +1,9 @@
 import run from "./run";
+import {
+    describe,
+    expect,
+    test
+} from "vitest"
 const willResult = 3,
     maxTimes = 1_0000;
 describe("解方程", () => {

@@ -22,7 +22,6 @@
         "@verkfi/core-ui": "link:../core/ui",
         "file-saver": "2.0.5",
         "file-to-any": "^1.2.0",
-        "lp-logger": "github:neila-a/lp-logger-no-window",
         "react-draggable": "^4.4.6"
     },
     "devDependencies": {

@@ -1,4 +1,9 @@
 import range from "./range";
+import {
+    describe,
+    expect,
+    test
+} from "vitest"
 const times = 10,
     initial = 8,
     sumWithInitial = 2;
