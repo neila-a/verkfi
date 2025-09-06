@@ -170,7 +170,7 @@ function Reversal() {
     const [separator, setSeparator] = useAtom(separatorAtom),
         [type, setType] = useState<algorithmType>(algorithmType.split);
     return <>
-        <Tabs value={type} onChange={(event, value) => setType(event.target)}>
+        <Tabs value={type} onChange={(event, value) => setType(value)}>
             sf:
             <Tab label="split" />
             <Tab label="iterator" />
