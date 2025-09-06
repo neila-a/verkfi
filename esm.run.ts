@@ -7,7 +7,6 @@ import {
 } from "node:fs/promises";
 import rootPackage from "./package.json";
 import {
-    HtmlTagDescriptor,
     Plugin
 } from "vite";
 export default function toESMrun() {
@@ -64,7 +63,7 @@ export default function toESMrun() {
         },
         async transformIndexHtml(html) {
             if (process.env.NODE_ENV === 'development') {
-                return html;
+                //return html;
             }
 
             const aliases = await getAliases();
