@@ -1,15 +1,20 @@
+import {
+    type noInstallPWA
+} from "layout/registers/desktopAdder";
+
 /**
  * 全局属性
  */
 declare global {
 
 
+    type installPWA = typeof noInstallPWA | (() => Promise<void>);
     interface Window {
 
         /**
          * 安装至桌面
          */
-        installPWA: () => Promise<void>;
+        installPWA: installPWA;
 
         webkitSpeechRecognition: {
             new(): SpeechRecognition;

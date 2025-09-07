@@ -40,6 +40,7 @@ import {
     Switcher
 } from "./Switcher";
 import PureDialog from "@verkfi/shared/dialog/Pure";
+import { noInstallPWA } from "layout/registers/desktopAdder";
 const ghURL = "https://github.com/neila-a/verkfi/",
     options = [[forkMeOnGitHubAtom, "Fork me on GitHub"], [shareAtom, "share.t"]] satisfies option[];
 export type option = [typeof shareAtom, string];
@@ -114,8 +115,8 @@ export default function Options() {
             }}>
                 <ButtonGroup variant="contained" fullWidth>
                     <Button onClick={event => {
-                        window.installPWA();
-                    }}>
+                        window.installPWA !== noInstallPWA && window.installPWA();
+                    }} disabled={window.installPWA === noInstallPWA}>
                         {get("download.将本应用通过浏览器添加至桌面")}
                     </Button>
                     <Button startIcon={<GitHub />} onClick={event => {
