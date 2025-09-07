@@ -1,3 +1,4 @@
+/// <reference path="../../../../../../virtualModules.d.ts" />
 "use client";
 import {
     GitHub

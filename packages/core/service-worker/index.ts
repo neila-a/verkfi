@@ -1,10 +1,8 @@
+/// <reference path="../../../virtualModules.d.ts" />
 import {
     dev,
     version
 } from "../../../package.json";
-declare module "virtual:verkfi-env" {
-    export const devVersion: string;
-}
 import {
     devVersion
 } from "virtual:verkfi-env";
