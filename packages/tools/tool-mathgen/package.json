@@ -20,7 +20,7 @@
     "homepage": "https://netlify.verkfi.neila.vip/",
     "dependencies": {
         "@verkfi/shared": "workspace:../../shared",
-        "mathjs": "^12.4.3",
+        "mathjs": "^14.7.0",
         "remove-item-from-array": "^1.0.4"
     }
 }

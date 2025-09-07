@@ -20,6 +20,6 @@
     "homepage": "https://netlify.verkfi.neila.vip/",
     "dependencies": {
         "@verkfi/shared": "workspace:../../shared",
-        "decimal.js": "^10.4.3"
+        "decimal.js": "^10.6.0"
     }
 }

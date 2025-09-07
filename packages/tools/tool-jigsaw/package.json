@@ -24,7 +24,7 @@
     "dependencies": {
         "@verkfi/shared": "workspace:../../shared",
         "d3-array": "3.2.4",
-        "filepond": "^4.31.1",
-        "react-filepond": "^7.1.2"
+        "filepond": "^4.32.8",
+        "react-filepond": "^7.1.3"
     }
 }

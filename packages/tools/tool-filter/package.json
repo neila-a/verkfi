@@ -26,8 +26,8 @@
         "@verkfi/shared": "workspace:../../shared",
         "dom-to-image": "^2.6.0",
         "file-saver": "2.0.5",
-        "filepond": "^4.31.1",
-        "react-filepond": "^7.1.2",
+        "filepond": "^4.32.8",
+        "react-filepond": "^7.1.3",
         "remove-item-from-array": "^1.0.4"
     }
 }

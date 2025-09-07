@@ -20,6 +20,6 @@
     "homepage": "https://netlify.verkfi.neila.vip/",
     "dependencies": {
         "@verkfi/shared": "workspace:../../shared",
-        "victory": "^37.0.2"
+        "victory": "^37.3.6"
     }
 }
