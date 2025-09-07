@@ -28,9 +28,6 @@ import {
     shareAtom
 } from "@verkfi/shared/atoms";
 import {
-    useNavigate
-} from "react-router-dom";
-import {
     startTransition,
     useId,
     useState
@@ -49,7 +46,6 @@ export type option = [typeof shareAtom, string];
 export default function Options() {
     const [lang, setLang] = useAtom(langAtom),
         [dialogOpen, setDialogOpen] = useState(false),
-        navigate = useNavigate(),
         langId = useId();
     return (
         <FormGroup>
@@ -108,7 +104,7 @@ export default function Options() {
                     {get("download.下载本应用")}
                 </Button>
                 <Button variant="outlined" startIcon={<HelpIcon />} onClick={event => {
-                    navigate("https://neila.gitbook.io/verkfi/");
+                    location.href = "https://neila.gitbook.io/verkfi/";
                 }}>
                     {get("帮助")}
                 </Button>
@@ -123,7 +119,7 @@ export default function Options() {
                         {get("download.将本应用通过浏览器添加至桌面")}
                     </Button>
                     <Button startIcon={<GitHub />} onClick={event => {
-                        navigate(`${ghURL}releases`);
+                        location.href = `${ghURL}releases`;
                     }}>
                         {get("download.下载单独安装包")}
                     </Button>
