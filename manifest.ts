@@ -85,6 +85,16 @@ export default function manifest() {
                 form_factor: "wide",
                 label: "Home of Verkfi"
             }
+        ],
+        file_handlers: [
+            {
+                action: "/setting/extensions/install",
+                accept: {
+                    "application/x-asar": [
+                        ".vxt"
+                    ]
+                }
+            }
         ]
     };
 }

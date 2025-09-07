@@ -1,2 +1,7 @@
 [build.environment]
-  VERKFI_URL = "https://netlify.verkfi.neila.vip"
+  VERKFI_URL = "https://verkfi.netlify.app"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

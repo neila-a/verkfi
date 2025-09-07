@@ -13,13 +13,7 @@ import {
 import {
     useAtomValue
 } from "jotai";
-import {
-    useRouteLoaderData,
-    useSearchParams
-} from "react-router-dom";
-import {
-    use
-} from "react";
+import { useEffect, useState } from "react";
 import {
     get
 } from "react-intl-universal";
@@ -33,7 +27,7 @@ import {
 } from "setting/extensions/page";
 export default function DirectInstall() {
     const closi = globalThis?.close || (() => null),
-        arrayBuffer = useRouteLoaderData("installExtensions") as ArrayBuffer,
+        [arrayBuffer, setArrayBuffer] = useState(new ArrayBuffer(0)),
         fs = new Filesystem(new Uint8Array(arrayBuffer)),
         dir = fs.readdirSync("/"),
         main = JSON.parse(fs.readFileSync("package.json", true)),
@@ -58,6 +52,12 @@ export default function DirectInstall() {
         files = dir.map(readInternal).flat(1),
         extensionTools = useAtomValue(extensionsAtom),
         dialogType: inputTypes = extensionTools.some(item => item.to === main.to) ? "modify" : "add";
+    useEffect(() => {
+        // @ts-ignore API太新了
+        window.launchQueue.setConsumer(async launchParams => {
+            setArrayBuffer(await launchParams.files[0].getFile());
+        });
+    }, [])
     return (
         <PureDialog action={(
             <DialogButtons
