@@ -143,10 +143,10 @@ function Iterator() {
         <TextField fullWidth label={get("输入框")} onChange={event => {
             setWords(event.target.value);
         }} value={words} />
-        <TextField fullWidth label="period" onChange={event => {
+        <TextField fullWidth label={get("reversal.period")} onChange={event => {
             setPeriod(event.target.value);
         }} value={period} />
-        <TextField label="top" value={top} onChange={event => setTop(+event.target.value)} slotProps={{
+        <TextField label={get("reversal.top")} value={top} onChange={event => setTop(+event.target.value)} slotProps={{
             htmlInput: {
                 step: 1,
                 type: "number"
@@ -171,11 +171,10 @@ function Reversal() {
         [type, setType] = useState<algorithmType>(algorithmType.split);
     return <>
         <Tabs value={type} onChange={(event, value) => setType(value)}>
-            sf:
-            <Tab label="split" />
-            <Tab label="iterator" />
+            <Tab label={get("reversal.split")} />
+            <Tab label={get("reversal.iterator")} />
         </Tabs>
-        <TextField fullWidth label={get("拆分")} onChange={event => {
+        <TextField fullWidth label={get("reversal.spliter")} onChange={event => {
             setSeparator(event.target.value);
         }} value={separator} />
         {type === algorithmType.split ? <Split /> : <Iterator />}
