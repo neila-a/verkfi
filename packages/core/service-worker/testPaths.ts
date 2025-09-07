@@ -29,9 +29,6 @@ namespace testPaths {
             protocol: "https",
             hostname: ":name.verkfi",
             pathname: "/:path+"
-        }),
-        manifest = new URLPattern({
-            pathname: "/manifest.webmanifest"
         });
 }
 export default testPaths;

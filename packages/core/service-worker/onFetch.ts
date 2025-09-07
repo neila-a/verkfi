@@ -1,6 +1,5 @@
 /* eslint-disable no-trailing-spaces */
 // jsdoc的md换行需要两个空格
-import manifest from "manifest";
 import {
     Cache,
     log
@@ -69,12 +68,6 @@ export default function onFetch(event: FetchEvent) {
             status: 200,
             statusText: "Context provided by ServiceWorker",
             headers
-        });
-    }], ["manifest", () => {
-        const string = JSON.stringify(manifest());
-        return new Response(string, {
-            status: 200,
-            statusText: "Manifest provided by ServiceWorker"
         });
     }]);
 }

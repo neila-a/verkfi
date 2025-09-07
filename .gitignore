@@ -111,3 +111,6 @@ dist
 
 # VSCode workspace file
 *.code-workspace
+
+# Local Netlify folder
+.netlify

@@ -1,4 +1,4 @@
-import pack from "../../../../package.json";
+import pack from "./package.json";
 export default function manifest() {
     const upper = pack.name.charAt(0).toUpperCase() + pack.name.slice(1);
     return {
