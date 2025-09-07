@@ -76,10 +76,6 @@ const settingPages = import.meta.glob("./setting/*/page.tsx"),
                     Component: ToolsLayout,
                     children: [
                         {
-                            path: "a",
-                            Component: lazy(() => import("setting/appearance/page"))
-                        },
-                        {
                             path: "extension",
                             Component: ExtensionLoader
                         },
@@ -89,6 +85,7 @@ const settingPages = import.meta.glob("./setting/*/page.tsx"),
                                     page
                                 } = /\.\.\/\.\.\/\.\.\/tools\/tool\-(?<page>.*)\/page\.tsx/.exec(pagePath).groups,
                                 Element = lazy(tools[pagePath] as Parameters<typeof lazy>[0]);
+                            console.log(page, Element);
                             return {
                                 path: page,
                                 Component: Element
