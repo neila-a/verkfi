@@ -88,7 +88,11 @@ export default function ModifiedApp(props: {
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <Box component="aside">
-                {Sidebar}
+                <Suspense fallback={<Loading>
+                    Sidebar
+                </Loading>}>
+                    {Sidebar}
+                </Suspense>
                 <DevTools />
                 <Clients />
             </Box>
