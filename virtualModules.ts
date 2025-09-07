@@ -1,6 +1,9 @@
 import {
     execSync
 } from "node:child_process";
+import {
+    PluginOption
+} from "vite";
 export function verkfiEnv() {
     const virtualModuleId = 'virtual:verkfi-env',
         resolvedVirtualModuleId = '\0' + virtualModuleId,
@@ -20,6 +23,6 @@ export function verkfiEnv() {
                 return `export const devVersion = ${commits};`;
             }
         }
-    }
+    } as PluginOption;
 }
-export default [verkfiEnv()];
+export default () => [verkfiEnv()];
