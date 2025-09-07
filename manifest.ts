@@ -55,6 +55,7 @@ export default function manifest() {
         ],
         id: pack.name,
         display_override: [
+            "tabbed",
             "window-controls-overlay",
             "fullscreen",
             "standalone",

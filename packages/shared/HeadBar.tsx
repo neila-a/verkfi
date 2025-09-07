@@ -39,7 +39,8 @@ import {
     Fragment,
     startTransition,
     useContext,
-    useEffect
+    useEffect,
+    useState
 } from "react";
 import {
     get
@@ -76,9 +77,24 @@ export default function HeadBar(props: HeadBarOption) {
         noDrag: CSSProperties = {
             // @ts-ignore React的CSSProperties中明明有WebkitAppRegion，但是类型中没有
             WebkitAppRegion: "no-drag"
-        };
+        },
+        [marginRight, setMarginRight] = useState<boolean | number>(false);
     useEffect(() => {
-        document.title = props.isIndex ? upper : `${props.pageName} | ${upper}`
+        document.title = props.isIndex ? upper : `${props.pageName} | ${upper}`;
+        if ("windowControlsOverlay" in navigator) {
+            // @ts-ignore 新API
+            navigator.windowControlsOverlay.addEventListener(
+                "geometrychange",
+                event => {
+                    setMarginRight(event.visible);
+                    if (event.visible) {
+                        const rect = event.titlebarAreaRect;
+                        setMarginRight(rect.width);
+                        // Do something with the coordinates of the title bar area.
+                    }
+                },
+            );
+        }
     }, []);
     return !props.only && <>
         <AppBar position="fixed" sx={{
@@ -89,7 +105,9 @@ export default function HeadBar(props: HeadBarOption) {
             opacity: 0.95,
             ...props.sx
         }}>
-            <Toolbar>
+            <Toolbar sx={{
+                marginRight: typeof marginRight === "number" ? marginRight : ""
+            }}>
                 <nav>
                     {!props.isIndex && <MouseOverPopover text={get("上一页")} sx={noDrag}>
                         <IconButton size="large" edge="start" color="inherit" aria-label={get("上一页")} sx={{

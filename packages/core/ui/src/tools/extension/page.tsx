@@ -22,7 +22,7 @@ export default function ExtensionLoader() {
         [extensionTools, setExtensions] = useAtom(extensionsAtom),
         tool: NXTMetadata = extensionTools.find(a => a.to === toolID),
         src = `https://${tool.to}.verkfi/${tool.main}`,
-        ref = useRef<HTMLIFrameElement>();
+        ref = useRef<HTMLIFrameElement>(null);
     if (isBrowser()) {
         window.addEventListener("message", (event: MessageEvent<{
             action: string;
@@ -53,7 +53,7 @@ export default function ExtensionLoader() {
             }
         });
     }
-    return <iframe ref={ref} id="iframe" style={{
+    return <iframe title={tool.name} ref={ref} id="iframe" style={{
         border: "none",
         width: "calc(100vw - 48px)",
         height: "100vh"
