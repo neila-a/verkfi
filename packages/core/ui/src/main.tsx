@@ -85,7 +85,6 @@ const settingPages = import.meta.glob("./setting/*/page.tsx"),
                                     page
                                 } = /\.\.\/\.\.\/\.\.\/tools\/tool\-(?<page>.*)\/page\.tsx/.exec(pagePath).groups,
                                 Element = lazy(tools[pagePath] as Parameters<typeof lazy>[0]);
-                            console.log(page, Element);
                             return {
                                 path: page,
                                 Component: Element

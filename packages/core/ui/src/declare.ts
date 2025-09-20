@@ -156,4 +156,6 @@ export namespace hex {
  * @param string 任意字符串
  * @returns 六位的小写十六进制字符串
  */
-export const hex = <hexString extends string>(string: hex.HexColor<hexString>) => string;
+export const hex = <hexString extends string>(string: hex.HexColor<hexString>) => string,
+    doubleHexTuple = <hexString1 extends string, hexString2 extends string>
+        (string1: hex.HexColor<hexString1>, string2: hex.HexColor<hexString2>) => [string1, string2] as [hex.HexColor<hexString1>, hex.HexColor<hexString2>];

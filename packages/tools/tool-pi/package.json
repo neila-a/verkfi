@@ -20,6 +20,7 @@
     "devDependencies": {},
     "homepage": "https://netlify.verkfi.neila.vip/",
     "dependencies": {
+        "mdi-material-ui": "^7.9.4",
         "@verkfi/shared": "workspace:../../shared"
     }
 }

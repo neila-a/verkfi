@@ -2,6 +2,9 @@ import range from "@verkfi/shared/range";
 import multiIndexof, {
     getRandomLetter
 } from "./multiIndexof";
+import {
+    logger
+} from "./page";
 /**
  * @param top 次数
  */
@@ -35,7 +38,7 @@ function* iterator(top: number, string: string, period = ".", spliter = (current
             possible.entries().forEach((key, value) => {
                 chance.set(key[0], [usedSum, usedSum += (value + 1) / sum]);
             });
-            chance.entries().forEach(console.log);
+            chance.entries().forEach(logger.log);
             caches.set(current, chance);
             currentCache = chance;
         }
@@ -53,7 +56,7 @@ function* iterator(top: number, string: string, period = ".", spliter = (current
                     current += v[0];
                 }
                 yield v[0];
-                console.log(v[0]);
+                logger.log(v[0]);
                 break;
             }
         }

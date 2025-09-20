@@ -16,7 +16,7 @@ import {
 const toolsListAtom = atom(async get => {
     const lists = get(listsAtom),
         converted = await get(convertedExtensionsAtom),
-        realTools = get(toolsInfoAtom);
+        realTools = await get(toolsInfoAtom);
     const concated = realTools.concat(converted), got = lists.get(globalList);
     if (got) {
         return got.map(to => concated.find(tool => tool.to === to) as tool);

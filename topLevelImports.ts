@@ -16,14 +16,13 @@ export default function topLevelImports() {
                 baseUrl
             } = compilerOptions,
                 entries = await readdir(baseUrl),
-                createdAliases: AliasOptions = {};
-            entries.forEach(entry => {
-                let importingEntry = entry;
-                if (importingEntry.includes(".")) {
-                    importingEntry = importingEntry.split(".").slice(0, -1).join(".");
-                }
-                createdAliases[importingEntry] = `/${baseUrl}/${importingEntry}`;
-            });
+                createdAliases: AliasOptions = Object.fromEntries(entries.map(entry => {
+                    let importingEntry = entry;
+                    if (importingEntry.includes(".")) {
+                        importingEntry = importingEntry.split(".").slice(0, -1).join(".");
+                    }
+                    return [importingEntry, `/${baseUrl}/${importingEntry}`];
+                }));
             return {
                 resolve: {
                     alias: createdAliases

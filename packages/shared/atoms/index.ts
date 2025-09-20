@@ -55,7 +55,7 @@ export const sidebarModeAtom = atomWithStorage<sidebarMode>("sidebarmode", "menu
         // 用了Promise.all就不可能避免微任务了
         const recentlyUsed = get(recentlyUsedAtom),
             converted = await get(convertedExtensionsAtom),
-            toolsInfo = get(toolsInfoAtom),
+            toolsInfo = await get(toolsInfoAtom),
             unfilterd = recentlyUsed.map(to => (0
                 || toolsInfo.find(single => single.to === to)
                 || converted.find(single => `/tools/extension?tool=${to}` === single.to)) as tool | 0
@@ -66,7 +66,7 @@ export const sidebarModeAtom = atomWithStorage<sidebarMode>("sidebarmode", "menu
     }),
     mostUsedToolsAtom = atom(async get => {
         const converted = await get(convertedExtensionsAtom),
-            realTools = get(toolsInfoAtom),
+            realTools = await get(toolsInfoAtom),
             mostUsed = get(mostUsedAtom);
         return Object.entries(mostUsed).sort((r, g) => {
             if (r[1] < g[1]) {

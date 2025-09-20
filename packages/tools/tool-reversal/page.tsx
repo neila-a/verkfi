@@ -4,17 +4,11 @@ import {
     Translate
 } from "@mui/icons-material";
 import {
-    Alert,
     Box,
     Button,
     ButtonGroup,
     Checkbox,
     Chip,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    DialogTitle,
     FormControlLabel,
     Tab,
     Tabs,
@@ -23,7 +17,6 @@ import {
     Typography
 } from "@mui/material";
 import CopyButton from "@verkfi/shared/CopyButton";
-import Transition from "@verkfi/shared/dialog/Transition";
 import LpLogger from "lp-logger";
 import {
     useMemo,
@@ -39,16 +32,16 @@ import {
     useAtomValue
 } from "jotai";
 type wordList = Map<number, string>;
+export const logger = new LpLogger({
+    name: get("翻转"),
+    level: "log" // 空字符串时，不显示任何信息
+});
 const getId = () => Math.random() * randomFactor,
     /**
      * 随机所用的系数
      */
     randomFactor = 1000_0000_0000_0000,
     defaultTop = 100,
-    logger = new LpLogger({
-        name: get("翻转"),
-        level: "log" // 空字符串时，不显示任何信息
-    }),
     wordsAtom = atom(""),
     separatorAtom = atom("");
 function Split() {

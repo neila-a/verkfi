@@ -11,9 +11,9 @@ import {
 import {
     not
 } from "../TransferList";
-const recommendAtom = atomWithRefresh(get => {
+const recommendAtom = atomWithRefresh(async get => {
     const mostUsed = get(mostUsedAtom),
-        realTools = get(toolsInfoAtom);
+        realTools = await get(toolsInfoAtom);
     const
         unUsed = not(realTools.map(single => single.to), Object.keys(mostUsed)).sort(() => {
             // 0.5用于随机

@@ -141,9 +141,6 @@ importers:
       filepond:
         specifier: ^4.32.8
         version: 4.32.8
-      mdi-material-ui:
-        specifier: ^7.9.4
-        version: 7.9.4(@mui/material@7.3.2(@emotion/react@11.14.0(@types/react@19.1.12)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.1.12)(react@19.1.1))(@types/react@19.1.12)(react@19.1.1))(@types/react@19.1.12)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)
       react-error-boundary:
         specifier: ^6.0.0
         version: 6.0.0(react@19.1.1)
@@ -336,6 +333,9 @@ importers:
       '@verkfi/shared':
         specifier: workspace:../../shared
         version: link:../../shared
+      mdi-material-ui:
+        specifier: ^7.9.4
+        version: 7.9.4(@mui/material@7.3.2(@emotion/react@11.14.0(@types/react@19.1.12)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.1.12)(react@19.1.1))(@types/react@19.1.12)(react@19.1.1))(@types/react@19.1.12)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)
 
   packages/tools/tool-pillar:
     dependencies:
