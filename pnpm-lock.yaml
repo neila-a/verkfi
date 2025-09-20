@@ -132,51 +132,9 @@ importers:
       '@verkfi/shared':
         specifier: workspace:../../shared
         version: link:../../shared
-      '@verkfi/tool-audiotools':
-        specifier: workspace:../../tools/tool-audiotools
-        version: link:../../tools/tool-audiotools
-      '@verkfi/tool-countletter':
-        specifier: workspace:../../tools/tool-countletter
-        version: link:../../tools/tool-countletter
-      '@verkfi/tool-cubic':
-        specifier: workspace:../../tools/tool-cubic
-        version: link:../../tools/tool-cubic
-      '@verkfi/tool-cylinder':
-        specifier: workspace:../../tools/tool-cylinder
-        version: link:../../tools/tool-cylinder
-      '@verkfi/tool-equation':
-        specifier: workspace:../../tools/tool-equation
-        version: link:../../tools/tool-equation
-      '@verkfi/tool-filter':
-        specifier: workspace:../../tools/tool-filter
-        version: link:../../tools/tool-filter
-      '@verkfi/tool-jigsaw':
-        specifier: workspace:../../tools/tool-jigsaw
-        version: link:../../tools/tool-jigsaw
-      '@verkfi/tool-mathgen':
-        specifier: workspace:../../tools/tool-mathgen
-        version: link:../../tools/tool-mathgen
-      '@verkfi/tool-pi':
-        specifier: workspace:../../tools/tool-pi
-        version: link:../../tools/tool-pi
       '@verkfi/tool-pillar':
         specifier: workspace:../../tools/tool-pillar
         version: link:../../tools/tool-pillar
-      '@verkfi/tool-probability':
-        specifier: workspace:../../tools/tool-probability
-        version: link:../../tools/tool-probability
-      '@verkfi/tool-readnumber':
-        specifier: workspace:../../tools/tool-readnumber
-        version: link:../../tools/tool-readnumber
-      '@verkfi/tool-reversal':
-        specifier: workspace:../../tools/tool-reversal
-        version: link:../../tools/tool-reversal
-      '@verkfi/tool-shaizi':
-        specifier: workspace:../../tools/tool-shaizi
-        version: link:../../tools/tool-shaizi
-      '@verkfi/tool-speech':
-        specifier: workspace:../../tools/tool-speech
-        version: link:../../tools/tool-speech
       array-flatten:
         specifier: ^3.0.0
         version: 3.0.0
