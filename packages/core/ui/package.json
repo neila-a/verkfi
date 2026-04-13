@@ -27,7 +27,7 @@
         "@emotion/cache": "^11.14.0",
         "@emotion/react": "^11.14.0",
         "@emotion/styled": "^11.14.1",
-        "@fontsource/ubuntu": "^5.2.7",
+        "@fontsource/ubuntu": "^5.2.8",
         "@hello-pangea/dnd": "^18.0.1",
         "@mui/system": "^7.3.2",
         "@tybys/browser-asar": "github:toyobayashi/browser-asar",
