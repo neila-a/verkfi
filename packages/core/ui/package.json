@@ -19,7 +19,7 @@
     "devDependencies": {
         "@types/react-transition-group": "^4.4.12",
         "eslint-config-next": "^15.5.2",
-        "eslint-plugin-react-hooks": "^5.2.0",
+        "eslint-plugin-react-hooks": "^7.1.0",
         "jotai-devtools": "^0.12.0"
     },
     "homepage": "https://netlify.verkfi.neila.vip/",
