@@ -22,7 +22,7 @@
         "@verkfi/core-ui": "link:../core/ui",
         "file-saver": "2.0.5",
         "file-to-any": "^1.2.0",
-        "react-draggable": "^4.5.0"
+        "react-draggable": "^4.6.0"
     },
     "devDependencies": {
         "@types/file-saver": "^2.0.7"
