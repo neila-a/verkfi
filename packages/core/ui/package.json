@@ -29,7 +29,7 @@
         "@emotion/styled": "^11.14.1",
         "@fontsource/ubuntu": "^5.2.7",
         "@hello-pangea/dnd": "^18.0.1",
-        "@mui/system": "^7.3.2",
+        "@mui/system": "^9.1.1",
         "@tybys/browser-asar": "github:toyobayashi/browser-asar",
         "@verkfi/core-service-worker": "workspace:../service-worker",
         "@verkfi/shared": "workspace:../../shared",
