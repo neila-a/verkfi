@@ -18,7 +18,7 @@
         "url": "https://neilasite.netlify.app/"
     },
     "devDependencies": {
-        "@types/d3-array": "^3.2.1"
+        "@types/d3-array": "^3.2.2"
     },
     "homepage": "https://netlify.verkfi.neila.vip/",
     "dependencies": {
