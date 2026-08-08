@@ -13,7 +13,7 @@
     ],
     "main": "index.html",
     "dependencies": {
-        "@electron/asar": "^4.0.1",
+        "@electron/asar": "^4.2.0",
         "http-server": "^14.1.1"
     },
     "settings": [
