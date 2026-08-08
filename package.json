@@ -30,7 +30,7 @@
     "dependencies": {
         "@mui/icons-material": "^7.3.2",
         "@mui/material": "^7.3.2",
-        "jotai": "2.13.1",
+        "jotai": "2.20.1",
         "jotai-scope": "^0.9.3",
         "lp-logger": "github:neila-a/lp-logger-no-window",
         "react": "^19.1.1",
